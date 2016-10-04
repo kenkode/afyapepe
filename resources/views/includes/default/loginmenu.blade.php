@@ -1,5 +1,5 @@
 <!--left menu start-->
-          <div class="side-menu left" id="side-menu">
+          <!-- <div class="side-menu left" id="side-menu">
             <ul class="metismenu clearfix" id="menu">
  <li class="active"><a href="{{ url('/') }}"<i class="fa fa-home"></i>  <span>Dashboard</span></a></li>
 
@@ -28,4 +28,4 @@
 
  </ul>
 </div>
-          <!--left menu end-->
+          <!--left menu end--> -->

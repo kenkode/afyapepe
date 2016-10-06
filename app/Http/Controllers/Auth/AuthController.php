@@ -69,4 +69,39 @@ class AuthController extends Controller
             'password' => bcrypt($data['password']),
         ]);
     }
+
+
+    public function redirectPath()
+  {
+      // Logic that determines where to send the user
+      if (\Auth::user()->role == 'Admin') {
+          return '/admin';
+      }
+
+      return '/dashboard';
+  }
+  protected function roles($role)
+    {
+if($role == "Doctor"){
+  //return $get = (new NurseController)->index();
+  //App::make('NurseController')->index();
+  return redirect()->intended('doctor');
+
+}
+if($role == "Admin"){
+  return redirect()->intended('admin.home');
+}
+if($role == "Nurse"){
+  return redirect()->intended('nurse');
+}
+if($role == "test"){
+  return view("welcome");
+}
+if($role == "user"){
+  return view("welcome");
+}
+else{
+  return view("login");
+}
+}
 }

@@ -1,4 +1,4 @@
-@extends('layouts.landing')
+@extends('layouts.welcome')
 @section('content')
 <div class="content-page  equal-height">
               <div class="content">

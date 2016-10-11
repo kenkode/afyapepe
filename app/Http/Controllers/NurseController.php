@@ -54,7 +54,12 @@ class NurseController extends Controller
      */
     public function show($id)
     {
-        //
+      $patient = DB::table('patients')
+        ->Join('constituencies', 'patients.constituency_id', '=', 'constituencies.id')
+        ->select('patients.*', 'constituencies.name')
+        ->where('patients.id',$id)
+        ->first();
+        return view('nurse.show')->with('patient',$patient);
     }
 
     /**
@@ -65,7 +70,12 @@ class NurseController extends Controller
      */
     public function edit($id)
     {
-        //
+      $patient = DB::table('patients')
+      ->Join('constituencies', 'patients.constituency_id', '=', 'constituencies.id')
+      ->select('patients.*', 'constituencies.name')
+       ->where('patients.id','=', $id)->first();
+     
+     return view('nurse.edit',compact('patient'));
     }
 
     /**

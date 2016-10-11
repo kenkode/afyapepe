@@ -74,7 +74,7 @@ class NurseController extends Controller
       ->Join('constituencies', 'patients.constituency_id', '=', 'constituencies.id')
       ->select('patients.*', 'constituencies.name')
        ->where('patients.id','=', $id)->first();
-     
+
      return view('nurse.edit',compact('patient'));
     }
 
@@ -90,6 +90,10 @@ class NurseController extends Controller
         //
     }
 
+    public function update2(Request $request, $id)
+    {
+        //
+    }
     /**
      * Remove the specified resource from storage.
      *

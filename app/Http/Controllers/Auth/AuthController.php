@@ -50,6 +50,7 @@ class AuthController extends Controller
     {
         return Validator::make($data, [
             'name' => 'required|max:255',
+            'role' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|min:6|confirmed',
         ]);
@@ -65,6 +66,7 @@ class AuthController extends Controller
     {
         return User::create([
             'name' => $data['name'],
+            'role' => $data['role'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
@@ -74,34 +76,32 @@ class AuthController extends Controller
     public function redirectPath()
   {
       // Logic that determines where to send the user
-      if (\Auth::user()->role == 'Admin') {
+      $role=\Auth::user()->role;
+      if ($role == 'Admin') {
           return '/admin';
       }
-
-      return '/dashboard';
+      if($role == "Doctor"){
+        return '/doctor';
+      }
+      if($role == "Nurse"){
+        return '/nurse';
+      }
+      if($role == "Manufacturer"){
+        return '/manufacturer';
+      }
+      if($role == "Pharmacy"){
+        return '/pharmacy';
+      }
+      if($role == "Test"){
+        return '/test';
+      }
+      if($role == "Patient"){
+        return '/patient';
+      }
+      else
+      {
+      return '/login';
+      }
   }
-  protected function roles($role)
-    {
-if($role == "Doctor"){
-  //return $get = (new NurseController)->index();
-  //App::make('NurseController')->index();
-  return redirect()->intended('doctor');
 
-}
-if($role == "Admin"){
-  return redirect()->intended('admin.home');
-}
-if($role == "Nurse"){
-  return redirect()->intended('nurse');
-}
-if($role == "test"){
-  return view("welcome");
-}
-if($role == "user"){
-  return view("welcome");
-}
-else{
-  return view("login");
-}
-}
 }

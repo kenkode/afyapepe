@@ -7,7 +7,7 @@
      <div id="wrapper">
 
 <!--top bar-->
-  @include('includes.nurse_inc.topbar')
+  @include('includes.default.topbar')
 <!--end top bar-->
 
 <!--left menu start-->
@@ -43,7 +43,7 @@
             </div>
         </div>
   <!--page-->
-              @include('includes.admin_inc.footer')
+              @include('includes.nurse_inc.footer')
   <!--page-->
     </body>
 </html>

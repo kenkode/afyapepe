@@ -36,6 +36,7 @@
 			<th>Name</th>
 
 			<th>Email</th>
+			<th>Department</th>
 
 			<th>Roles</th>
 @role('Admin')
@@ -52,7 +53,7 @@
 		<td>{{ $user->name }}</td>
 
 		<td>{{ $user->email }}</td>
-
+    <td>{{ $user->role }}</td>
 		<td>
 
 			@if(!empty($user->roles))

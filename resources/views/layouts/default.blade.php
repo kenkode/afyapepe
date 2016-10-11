@@ -7,7 +7,7 @@
      <div id="wrapper">
 
 <!--top bar-->
-  @include('includes.admin_inc.topbar')
+  @include('includes.default.topbar')
 <!--end top bar-->
 
 <!--left menu start-->

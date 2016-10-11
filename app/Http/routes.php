@@ -22,9 +22,6 @@ Route::get('/home', 'HomeController@index');
 Route::resource('users','UserController');
 
 // Route::resource('test','TestController@index');
-Route::get('test',['as'=>'test.index','uses'=>'TestController@index','middleware' => ['role:Admin|Nurse']]);
-
-Route::get('admin',['as'=>'admin.index','uses'=>'AdminController@index','middleware' => ['role:Admin']]);
 
 
 
@@ -45,7 +42,27 @@ Route::get('roles/{id}/edit',['as'=>'roles.edit','uses'=>'RoleController@edit','
   Route::get('itemCRUD2/{id}/edit',['as'=>'itemCRUD2.edit','uses'=>'ItemCRUD2Controller@edit','middleware' => ['permission:item-edit']]);
   Route::patch('itemCRUD2/{id}',['as'=>'itemCRUD2.update','uses'=>'ItemCRUD2Controller@update','middleware' => ['permission:item-edit']]);
   Route::delete('itemCRUD2/{id}',['as'=>'itemCRUD2.destroy','uses'=>'ItemCRUD2Controller@destroy','middleware' => ['permission:item-delete']]);
+});
 
-
-
+Route::group(['middleware' => ['auth','role:Admin']], function() {
+Route::resource('admin','AdminController');
+});
+// Nurse routes;
+Route::group(['middleware' => ['auth','role:Admin|Nurse']], function() {
+	Route::resource('nurse','NurseController');
+});
+Route::group(['middleware' => ['auth','role:Admin|Doctor']], function() {
+	Route::resource('doctor','DoctorController');
+});
+Route::group(['middleware' => ['auth','role:Admin|Manufacturer']], function() {
+	Route::resource('manufacturer','ManufacturerController');
+});
+Route::group(['middleware' => ['auth','role:Admin|Pharmacy']], function() {
+	Route::resource('pharmacy','PharmacyController');
+});
+Route::group(['middleware' => ['auth','role:Admin|Test']], function() {
+Route::resource('test','TestController');
+});
+Route::group(['middleware' => ['auth','role:Admin|Patient']], function() {
+	Route::resource('patient','PatientController');
 });

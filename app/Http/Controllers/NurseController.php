@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use DB;
 use App\Http\Requests;
 class NurseController extends Controller
 {
@@ -18,7 +18,11 @@ class NurseController extends Controller
      }
     public function index()
     {
-      return view('nurse.home');
+      $patients = DB::table('patients')
+        ->Join('constituencies', 'patients.constituency_id', '=', 'constituencies.id')
+        ->select('patients.*', 'constituencies.name')
+        ->get();
+      return view('nurse.home')->with('patients',$patients);
     }
 
     /**

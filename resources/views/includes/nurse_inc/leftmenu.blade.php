@@ -1,20 +1,18 @@
 <!--left menu start-->
           <div class="side-menu left" id="side-menu">
             <ul class="metismenu clearfix" id="menu">
- <li class="active"><a href="{{ url('/') }}"<i class="fa fa-home"></i>  <span>NURSE-Dashboard</span></a></li>
+       <li   <?php $data = DB::table("patients")->count();
+                ?>
+                    <li>
+                      <a href="#"><i class="glyphicon glyphicon-dashboard "></i> <span>Dashboard</span>
+                      <a href="{{ URL::to('#')}}"><i class="glyphicon glyphicon-stats"></i> <span>Statistics</span>
+                      <a href="{{ URL::to('#')}}"><i class="fa fa-users"></i> <span>Total Patients</span>       <span class="badge"><?php echo $data; ?></span>
+                      <a href="{{ URL::to('nurses.show')}}"><i class="fa fa-users"></i> <span>New Patients</span>    <span class="badge"><?php echo $data; ?></span>
+                     <a href="{{ URL::to('#')}}"><i class="fa fa-users"></i> <span>Waiting List</span>   <span class="badge">0</span>
+                    <a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a>
+                    </li>
 
- <li><a href="{{ url('/home') }}"><i class="fa fa-edit"></i> <span>HOME</span><span class="fa arrow"></span></a></li>
- <li><a href="{{ route('users.index') }}"><i class="fa fa-edit"></i> <span>USER</span><span class="fa arrow"></span></a></li>
- <li><a href="{{ route('roles.index') }}"><i class="fa fa-edit"></i> <span>ROLES</span><span class="fa arrow"></span></a></li>
-<li><a href="{{ route('itemCRUD2.index') }}"><i class="fa fa-edit"></i> <span>ITEM</span><span class="fa arrow"></span></a></li>
-<li><a href="{{ route('test.index') }}"><i class="fa fa-edit"></i> <span>TEST</span><span class="fa arrow"></span></a></li>
-<li><a href="{{ url('/home') }}"><i class="fa fa-edit"></i> <span>NURSE</span><span class="fa arrow"></span></a></li>
-<li><a href="{{ url('/home') }}"><i class="fa fa-edit"></i> <span>DOCTOR</span><span class="fa arrow"></span></a></li>
-<li><a href="{{ url('/home') }}"><i class="fa fa-edit"></i> <span>PHARM</span><span class="fa arrow"></span></a></li>
-<li><a href="{{ url('/home') }}"><i class="fa fa-edit"></i> <span>MANUFACTURER</span><span class="fa arrow"></span></a></li>
-<li><a href="{{ url('/home') }}"><i class="fa fa-edit"></i> <span>PATIENT</span><span class="fa arrow"></span></a></li>
-
-
+            </div>
 
 
 

@@ -1,5 +1,5 @@
 
-@extends('layouts.nurse')
+@extends('layouts.patient')
 
 @section('content')
 <div class="content-page  equal-height">

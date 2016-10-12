@@ -1,7 +1,7 @@
 <!--left menu start-->
           <div class="side-menu left" id="side-menu">
             <ul class="metismenu clearfix" id="menu">
- <li class="active"><a href="{{ url('/') }}"<i class="fa fa-home"></i>  <span>Dashboard</span></a></li>
+ <li class="active"><a href="{{ url('/') }}"<i class="fa fa-home"></i>  <span>TEST-Dashboard</span></a></li>
 
 <li><a href="{{ route('admin.index') }}"><i class="fa fa-edit"></i> <span>ADMINS</span><span class="fa arrow"></span></a></li>
 <li><a href="{{ url('/home') }}"><i class="fa fa-edit"></i> <span>DOCTOR</span><span class="fa arrow"></span></a></li>

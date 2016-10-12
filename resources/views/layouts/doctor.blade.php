@@ -7,11 +7,11 @@
      <div id="wrapper">
 
 <!--top bar-->
-  @include('includes.doc_inc.topbar')
+  @include('includes.default.topbar')
 <!--end top bar-->
 
 <!--left menu start-->
-  @include('includes.admin_inc.leftmenu')
+  @include('includes.doc_inc.leftmenu')
 <!--left menu end-->
  <!--page-->
   @yield('content')
@@ -45,7 +45,7 @@
             </div>
         </div>
   <!--page-->
-              @include('includes.admin_inc.footer')
+              @include('includes.doc_inc.footer')
   <!--page-->
     </body>
 </html>

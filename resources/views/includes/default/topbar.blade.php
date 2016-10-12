@@ -34,43 +34,23 @@
                         </ul>
                       </li>
                      @endif
-
-                    <!-- <li class="dropdown profile-link hidden-xs">
-                        <div class="clearfix">
-
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                             <span class="caret"></span>
-                        </a>
-
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="{{ url('/admin/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout1</a></li>
-                        </ul>
-                    </li>
-                     </ul>
-
-                  <!-- Right Side Of Navbar -->
-
-                  <!-- <ul class="nav navbar-nav navbar-right">
-
-                      Authentication Links -->
-                     </ul>
+                      </ul>
                     </div>
- </li> -->
 
-                </ul>
+
+
                 @if(Session::has('success'))
-                                      <div class="alert alert-success" role="alert">
-                                      <strong>Success:</strong> {{Session::get('success')}}
+        <div class="alert alert-success" role="alert">
+        <strong>Success:</strong> {{Session::get('success')}}
 
-                                      </div>
-                                    @endif
-                                    @if($errors->has())
-                                  @foreach ($errors->all() as $error)
-                                  <div class="alert alert-danger" role="alert">
-                                  <div>{{ $error }}</div>
-                                </div>
-                                 @endforeach
-                               @endif
+        </div>
+      @endif
+      @if($errors->has())
+    @foreach ($errors->all() as $error)
+    <div class="alert alert-danger" role="alert">
+    <div>{{ $error }}</div>
+  </div>
+   @endforeach
+ @endif
             </div>
             <!--end top bar-->

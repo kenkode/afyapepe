@@ -110,4 +110,17 @@ class DoctorController extends Controller
     {
         //
     }
+    public function redirectPath()
+  {
+    $uid=\Auth::user()->id;
+    $exists = DB::table('doctors')->where('user_id', $uid)->first();
+
+if(!$exists)
+ {
+          return '/admin.create';
+      }else{
+        return '/admin';
+      }
+}
+
 }

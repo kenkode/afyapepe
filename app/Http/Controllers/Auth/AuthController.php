@@ -78,7 +78,7 @@ class AuthController extends Controller
       // Logic that determines where to send the user
       $role=\Auth::user()->role;
       if ($role == 'Admin') {
-          return '/admin';
+          return 'admin.create';
       }
       if($role == "Doctor"){
         return '/doctor';

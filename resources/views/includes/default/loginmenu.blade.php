@@ -4,7 +4,7 @@
  <li class="active"><a href="{{ url('/') }}"<i class="fa fa-home"></i>  <span>Dashboard</span></a></li>
 
 <li><a href="{{ route('admin.index') }}"><i class="fa fa-edit"></i> <span>ADMINS</span><span class="fa arrow"></span></a></li>
-<li><a href="{{ url('/home') }}"><i class="fa fa-edit"></i> <span>DOCTOR</span><span class="fa arrow"></span></a></li>
+<li><a href="{{ url('/doctor') }}"><i class="fa fa-edit"></i> <span>DOCTOR</span><span class="fa arrow"></span></a></li>
 <li><a href="{{ url('/home') }}"><i class="fa fa-edit"></i> <span>NURSE</span><span class="fa arrow"></span></a></li>
 <li><a href="{{ route('test.index') }}"><i class="fa fa-edit"></i> <span>TEST</span><span class="fa arrow"></span></a></li>
 <li><a href="{{ url('/home') }}"><i class="fa fa-edit"></i> <span>PHARM</span><span class="fa arrow"></span></a></li>

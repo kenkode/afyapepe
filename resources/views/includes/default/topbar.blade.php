@@ -25,14 +25,23 @@
                         <li><a href="{{ url('/login') }}">Login</a></li>
                         <li><a href="{{ url('/register') }}">Register</a></li>
                      @else
-                     <li class="dropdown">
-                       <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                         {{ Auth::user()->name }} <span class="caret"></span>
-                        </a>
-                        
-                         <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
 
-                      </li>
+
+
+                         <li class="dropdown profile-link hidden-xs">
+                        <div class="clearfix">
+                          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                              <img src="images/user.png" alt="" class="pull-left">
+                              <span>{{ Auth::user()->name }} <br></span>
+                          </a>
+                          <ul class="dropdown-menu">
+                              <li><a href="{{ route('doctor.create') }}">Profile</a></li>
+                              <li><a href="#">Settings</a></li>
+                              <li><a href="{{ url('/logout') }}">Logout</a></li>
+                          </ul>
+                      </div>
+
+                  </li>
                      @endif
                       </ul>
                     </div>

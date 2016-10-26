@@ -24,8 +24,8 @@
  {!! Form::open(array('route' => 'doctor.store','method'=>'POST')) !!}
  <div class="col-xs-12 col-sm-12 col-md-12">
  <div class="form-group">
- <strong>user ID:</strong>
- {!! Form::text('user_id', Auth::user()->id, array('class' => 'form-control')) !!}
+ <!-- <strong>user ID:</strong> -->
+ {!! Form::hidden('user_id', Auth::user()->id, array('class' => 'form-control')) !!}
  </div>
    </div>
  <div class="col-xs-12 col-sm-12 col-md-12">

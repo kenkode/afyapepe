@@ -132,7 +132,16 @@ class UserController extends Controller
 
     }
 
+    public function docdetails($id)
 
+    {
+
+      $users = DB::table('doctors')->get();
+
+
+        return view('doctor.doctor',compact(data));
+
+    }
     /**
 
      * Update the specified resource in storage.
@@ -220,5 +229,6 @@ class UserController extends Controller
                         ->with('success','User deleted successfully');
 
     }
+  
 
 }

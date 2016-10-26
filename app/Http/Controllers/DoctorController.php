@@ -3,9 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use DB;
 use App\Http\Requests;
 use App\Doctor;
+use Carbon\Carbon;
+use Auth;
+
+use App\Patient;
 
 class DoctorController extends Controller
 {
@@ -25,8 +29,20 @@ class DoctorController extends Controller
       * @return \Illuminate\Http\Response
       */
      public function index()
+
      {
-         return view('doctor.home');
+      $today = Carbon::today();
+
+       $patients = DB::table('patients')
+         ->Join('constituencies', 'patients.constituency_id', '=', 'constituencies.id')
+         ->select('patients.*', 'constituencies.name')
+         ->where('patients.updated_at','>=',$today)
+         ->get();
+      $tdpatients = DB::table('patients')
+         ->Join('constituencies', 'patients.constituency_id', '=', 'constituencies.id')
+         ->select('patients.*', 'constituencies.name')
+         ->get();
+       return view('doctor.home')->with('tdpatients',$tdpatients)->with('patients',$patients);;
      }
 
     /**
@@ -74,9 +90,22 @@ class DoctorController extends Controller
      */
     public function show($id)
     {
-        //
-    }
 
+    }
+//     public function showPatient($id)
+//     {
+//
+// $pid = Patient::find($id);
+//       $patientsdata = DB::table('patients')
+//
+//         ->select('patients.*')
+//         ->where('patients.id',$pid)
+//         ->get();
+//
+//
+//     return view('doctor.show')->with('patientsdata',$patientsdata);
+//
+//    }
     /**
      * Show the form for editing the specified resource.
      *
@@ -110,4 +139,15 @@ class DoctorController extends Controller
     {
         //
     }
+    function DocDetails(){
+
+      $uid = Auth::user()->id;
+      $DocDetails = DB::table('doctors')->where('user_id', '=', Auth::user()->id)->get();
+
+    return $DocDetails;
+
+}
+
+
+
 }

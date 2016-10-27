@@ -50,6 +50,8 @@ Route::resource('admin','AdminController');
 // Nurse routes;
 Route::group(['middleware' => ['auth','role:Admin|Nurse']], function() {
 	Route::resource('nurse','NurseController');
+	Route::get('newpatient', 'NurseController@newPatient');
+	Route::get('waitingList', 'NurseController@wList');
 });
 Route::group(['middleware' => ['auth','role:Admin|Doctor']], function() {
 	Route::resource('doctor','DoctorController');
@@ -60,6 +62,7 @@ Route::group(['middleware' => ['auth','role:Admin|Manufacturer']], function() {
 });
 Route::group(['middleware' => ['auth','role:Admin|Pharmacy']], function() {
 	Route::resource('pharmacy','PharmacyController');
+	Route::get('totalsales', 'PharmacyController@totalsales');
 });
 Route::group(['middleware' => ['auth','role:Admin|Test']], function() {
 Route::resource('test','TestController');

@@ -1,4 +1,5 @@
-@extends('layouts.pharmacy')
+
+@extends('layouts.nurse')
 @section('content')
   <div class="content-page  equal-height">
       <span class="label label-info">Today's Patients</span>
@@ -9,7 +10,7 @@
 
                     <div class="row">
                                       <div class="col-sm-12 ">
-
+                                      <h1>New Patients</h1>
 
                                           <div class="panel-box">
 
@@ -20,27 +21,26 @@
                                                           <th>No</th>
                                                           <th>FirstName</th>
                                                           <th>Surname</th>
-                                                          
-                                                          <th>Age</th>
                                                           <th>Gender</th>
-                                                          <th>Phone</th>
-                                                          <th>Prescribing Doctor</th>
+                                                          <th>Age</th>
+                                                          
+                                                          <th>Date</th>
                                                     </tr>
                                                   </thead>
-                                       <tbody>
+
+                                                  <tbody>
                                                     <?php $i =1; ?>
                                                  @foreach($patients as $patient)
                                                       <tr>
-                                                          <td><a href="{{route('pharmacy.show',$patient->id)}}">{{$i}}</a></td>
-                                                          <td><a href="{{route('pharmacy.show',$patient->id)}}">{{$patient->firstname}}</a></td>
-                                                          <td><a href="{{route('pharmacy.show',$patient->id)}}">{{$patient->lastname}}</a></td>
-                                                          
-                                                          <td>{{$patient->age}}</td>
+                                                          <td><a href="{{route('nurse.show',$patient->id)}}">{{$i}}</a></td>
+                                                          <td><a href="{{route('nurse.show',$patient->id)}}">{{$patient->firstname}}</a></td>
+                                                          <td><a href="{{route('nurse.show',$patient->id)}}">{{$patient->lastname}}</a></td>
                                                           <td><?php $gender=$patient->gender;?>
-                                                            @if($gender==1){{"Male"}}@else{{"Female"}}@endif
+                                                            @if($gender==1){{"Male"}}@else{{"Female"}}@endif</a>
                                                           </td>
-                                                          <td>{{$patient->mobileno}}</td>
-                                                          <td>{{$patient->name}}</td>
+                                                          <td>{{$patient->age}}</td>
+                                                          
+                                                          <td>{{$patient->created_at}}</td>
 
 
 

@@ -2,7 +2,7 @@
             <!--top bar-->
             <div class="topbar">
 
-                
+
                 <ul class="nav navbar-nav  top-right-nav hidden-xs">
                     <li>
                         <span id="para2"></span>

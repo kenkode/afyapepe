@@ -25,8 +25,29 @@
         <script src="js/app.js"></script>
 
         <!--page js-->
-        <script>
+        <script type="text/javascript">
+        $(document).ready(function(){
+        $('.multi-field-wrapper').each(function() {
+            var $wrapper = $('.multi-fields', this);
 
+            $(".add-field", $(this)).click(function(e) {
+                $('.multi-field:first-child', $wrapper).clone(true).appendTo($wrapper).find('input').val('').focus();
+
+
+            });
+            $('.multi-field .remove-field', $wrapper).click(function() {
+                if ($('.multi-field', $wrapper).length > 1)
+                    $(this).parent('.multi-field').remove();
+            });
+        });
+        });
+        </script>
+        <script type="text/javascript">
+          function show() { document.getElementById('area').style.display = 'block'; }
+          function hide() { document.getElementById('area').style.display = 'none'; }
+        </script>
+        <script>
+  
             $("#sparkline8").sparkline([5, 6, 7, 2, 0, 4, 2, 4, 5, 7, 2, 4, 12, 14, 4, 2, 14, 12, 7], {
                 type: 'bar',
                 barWidth: 4,

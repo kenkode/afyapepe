@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests;
 use Illuminate\Http\Request;
+use DB;
 
+use App\Patient;
 class TestController extends Controller
 {
     /**
@@ -26,4 +28,17 @@ class TestController extends Controller
     {
         return view('test.home');
     }
+
+
+    function TestList(){
+   $tests = DB::table('tests')
+   ->get();
+  return $tests;
+  }
+  public function TestListdetails(){
+    $testsd = DB::table('test_details')
+    ->get();
+   return $testsd;
+}
+
 }

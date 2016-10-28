@@ -28,11 +28,7 @@ Gear to
           $complain = $pdetails->chief_complaint;
           $nursenote = $pdetails->nurse_note;
           $observations = $pdetails->observations;
-
-
-
-
-    }
+  }
     ?>
     </div>
 </div>
@@ -131,11 +127,9 @@ Gear to
                        <td>{!! Form::textarea('facility', null, array('placeholder' => 'facility','class' => 'form-control')) !!}  </td>
                      </div>
                      </div>
-                      <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                        <td/><button type="submit" class="btn btn-primary">Submit</button>  </td>
-                      </div>
+
                     </tr>
-                     	{!! Form::close() !!}
+
                   </tbody>
                </table>
             </div>
@@ -180,24 +174,145 @@ Gear to
 
           </div>
       </div>
-      <div id="tab-3" class="tab-pane">
-          <div class="panel-body">
-              <strong>Tests</strong>
 
-            <p>  that I neglect my talents. I should be incapable of d
-              rawing a single stroke at the present moment; and yet.</p>
-          </div>
-      </div>
+
+            <div id="tab-3" class="tab-pane">
+                <div class="panel-body">
+                  <div class="table-responsive">
+                                 <table class="table table-striped">
+                                    <thead>
+                                       <tr>
+                                          <h4><strong>Tests</strong></h4>
+
+                                       </tr>
+                                    </thead>
+                                    <tbody>
+
+
+                    <?php
+                  $tst= (new \App\Http\Controllers\TestController);
+                  $tests = $tst->TestList();
+                  foreach($tests as $test){
+
+                }
+                  ?>
+              <tr><td>Select Tsest</td>
+                <td>  <select name="test">
+                    @foreach($tests as $test)
+                     <option value="{{ $test->id }}">{{ $test->name }}</option>
+                    @endforeach
+                </select>
+              </td>
+               <td>  </td>
+            </tr>
+
+
+
+            <?php
+            $tstd= (new \App\Http\Controllers\TestController);
+            $testsd = $tstd->TestListdetails();
+            foreach($testsd as $testd){
+
+            }
+            ?>
+            <tr><td> Test Details</td>
+            <td>  <select name="test">
+            @foreach($testsd as $testd)
+             <option value="{{ $testd->tests_id }}">{{ $testd->test_name }}</option>
+            @endforeach
+            </select>
+            </td>
+            <td>  </td>
+            </tr>
+                <div class="col-xs-12 col-sm-12 col-md-12 text-center">
+              <tr>  <td><button type="submit" class="btn btn-primary">Submit</button>  </td>
+                <td>  </td><td>  </td>
+                      </tr>
+              </div>
+                {!! Form::close() !!}
+
+
+                <tr>
+                <td><strong>Test Result</strong></td>
+                </tr>
+                <tr>
+                   <td><strong>Test:</strong></td>
+                   <td><?php echo $facilty;?></td>
+                   <td><strong>Result:</strong></td>
+                   <td><?php echo $facilty;?></td>
+                    </tr>
+
+
+
+              </tbody>
+           </table>
+              </div>
+            </div>
+</div>
+
+
+
+
       <div id="tab-4" class="tab-pane">
           <div class="panel-body">
-              <strong>Prescription</strong>
 
-            <p>  that I neglect my talents. I should be incapable of d
-              rawing a single stroke at the present moment; and yet.</p>
+              {!! Form::open(array('route' => 'doctor.store','method'=>'POST')) !!}
+              <?php
+              $tstd= (new \App\Http\Controllers\TestController);
+              $testsd = $tstd->TestListdetails();
+              foreach($testsd as $testd){
+
+              }
+              ?>
+              <table class="table table-striped">
+                 <thead>
+                    <tr>
+                       <h4><strong>Prescription</strong></h4>
+
+                    </tr>
+                 </thead>
+                 <tbody>
+              <tr><td> Drug</td>
+              <td>  <select name="test">
+              @foreach($testsd as $testd)
+               <option value="{{ $testd->tests_id }}">{{ $testd->test_name }}</option>
+              @endforeach
+              </select>
+              </td>
+              <td>  </td>
+              <td>  </td>
+              </tr>
+
+              <tr><td> Dosage</td>
+              <td>  <select name="test">
+              @foreach($testsd as $testd)
+               <option value="{{ $testd->tests_id }}">{{ $testd->test_name }}</option>
+              @endforeach
+              </select>
+              </td>
+              <td>  </td>
+              </tr>
+
+
+              <tr>
+              <div class="col-xs-12 col-sm-12 col-md-12">
+              <div class="form-group">
+              <td> <strong>Doctor's Notes:</strong></td>
+              <td>{!! Form::textarea('facility', null, array('placeholder' => 'facility','class' => 'form-control')) !!}  </td>
+              </div>
+              </div>
+              <div class="col-xs-12 col-sm-12 col-md-12 text-center">
+              <td/><button type="submit" class="btn btn-primary">Submit</button>  </td>
+              </div>
+              </tr>
+</tbody>
+              {!! Form::close() !!}
+
+          </div>
           </div>
       </div>
   </div>
-
+<div
 
   </div>
     </div>

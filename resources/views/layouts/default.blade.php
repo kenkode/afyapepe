@@ -1,11 +1,9 @@
 
 <html>
 <head>
-    @include('includes.admin_inc.head')
+    @include('includes.default.head')
 </head>
-    <body class="fixed-left">
-     <div id="wrapper">
-
+    
 <!--top bar-->
   @include('includes.default.topbar')
 <!--end top bar-->

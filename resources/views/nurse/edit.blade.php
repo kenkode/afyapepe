@@ -35,11 +35,59 @@
     <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Next of Kin Phone" name="phone" value="{{$patient->phone_kin}}" required>
     </div>
    <button type="submit" class="btn btn-primary">Save</button>
-     {!! Form::close() !!}
-         </div>
+             </div>
+    <div class="col-sm-6">
+    <h2>Vaccines Details</h2>
+    <div class="row multi-field-wrapper ">
+    <div class="multi-fields">
+
+
+                <div class="form-group col-sm-6  multi-field">
+                <div class="form-group">
+
+                 <label class="control-label" for="validateSelect">Diseases</label>
+                  <select  name="diseases" class="form-control" data-parsley-required="true">
+                   <?php  $diseases = DB::table('diseases')->get();?>
+                  @foreach($diseases as $disease)
+                   <option value="{{$disease->id}}">{{$disease->name}}</option>
+                 @endforeach
+                </select>
+                </div>
+
+                <div class="form-group">
+                  <label class="control-label" for="name">Vaccine Name</label>
+                  <input type="text" name="vaccinename" class="form-control" data-parsley-required="true">
+                </div>
+              <div class="form-group">
+            <label class="control-label" for="name">Vaccinated ?</label>
+        No<INPUT TYPE=RADIO NAME="yes" VALUE="NO" onclick="hide();"/>
+        Yes<INPUT TYPE=RADIO NAME="yes" VALUE="YES" onclick="show();"/>
+     </div>
+     <div class="form-group">
+   <label class="control-label" for="name">Vaccinated Date</label>
+        <input type="Date" id="area"  name="dates" />
+
+    </div>
+
+
+      <!-- <button type="button" class="remove-field">Remove</button> -->
+        <a href="javascript:void(0);" class="remove-field" title="Remove field"><i class="glyphicon glyphicon-minus-sign fa-4x" aria-hidden="true"></i></a>
+
+
+        <!-- <button type="button" class="add-field">Add field</button> -->
+      <a href="javascript:void(0);" class="add-field" title="Addfield"><i class="glyphicon glyphicon-plus-sign fa-4x" aria-hidden="true"></i></a>
+
+               </div>  <!-- /.form-group -->
+              </div>
+              </div>
+    </div>
+    </div>
+    <div class="row">
+
     <div class="col-sm-6">
     <h2>Patient Details</h2>
-    {!!Form::model($patient,['route'=>['patient.update',$patient->id],'method'=>'PUT']) !!}
+
+
     <div class="form-group">
     <label for="exampleInputEmail1">Weight</label>
     <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Weight" name="weight" value="{{$patient->current_weight}}" required>
@@ -62,6 +110,9 @@
     <label for="exampleInputEmail1">Diastolic BP</label>
     <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Diastolic BP" name="diastolic" value="{{$patient->diastolic_bp}}" required>
     </div>
+    </div>
+    <div class="col-sm-6">
+    <h2>Patient Observations</h2>
     <div class="form-group">
     <label for="exampleInputEmail1">Allergies</label>
     <select class="form-control" name="allergies">
@@ -95,13 +146,15 @@
     <select class="form-control" name="doctor" >
     <?php $doctors = DB::table('users')->Where('role', '=','Doctor')->get();?>
                   @foreach($doctors as $doctor)
-                   <option value="{{$doctor->name}}">{{$doctor->name}}</option>
+                   <option value="{{$doctor->id}}">{{$doctor->name}}</option>
                  @endforeach
                 </select>
     </div>
 
     <button type="submit" class="btn btn-primary">Save</button>
      {!! Form::close() !!}
+    </div>
+
     </div>
 
           </div><!--content-->

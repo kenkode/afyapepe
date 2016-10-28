@@ -1,14 +1,18 @@
 @extends('layouts.nurse')
 @section('content')
   <div class="content-page  equal-height">
+      <span class="label label-info">Today's Patients</span>
       <div class="content">
           <div class="container">
 
-              <div class="row">
+
+
+                    <div class="row">
                                       <div class="col-sm-12 ">
-
-
+                                       <h1>Total Patients</h1>
+                                       
                                           <div class="panel-box">
+
                                                         <div class="table-responsive">
                                                      <table class="table table-small-font table-bordered table-striped">
                                                   <thead>
@@ -18,7 +22,7 @@
                                                           <th>Surname</th>
                                                           <th>Gender</th>
                                                           <th>Age</th>
-                                                          <th>Constituency of Residence</th>
+                                                          
                                                           <th>Date</th>
                                                     </tr>
                                                   </thead>
@@ -34,7 +38,7 @@
                                                             @if($gender==1){{"Male"}}@else{{"Female"}}@endif</a>
                                                           </td>
                                                           <td>{{$patient->age}}</td>
-                                                          <td>{{$patient->name}}</td>
+                                                          
                                                           <td>{{$patient->created_at}}</td>
 
 

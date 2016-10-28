@@ -23,31 +23,15 @@
                                                           
                                                           <th>Age</th>
                                                           <th>Gender</th>
-                                                          <th>Phone</th>
-                                                          <th>Prescribing Doctor</th>
+                                                          <th>Description</th>
+                                                          <th>Dosage</th>
+                                                          <th>Quantity</th>
+                                                          <th>Price</th>
+                                                          <th>Amount</th>
                                                     </tr>
                                                   </thead>
                                        <tbody>
-                                                    <?php $i =1; ?>
-                                                 @foreach($patients as $patient)
-                                                      <tr>
-                                                          <td><a href="{{route('pharmacy.show',$patient->id)}}">{{$i}}</a></td>
-                                                          <td><a href="{{route('pharmacy.show',$patient->id)}}">{{$patient->firstname}}</a></td>
-                                                          <td><a href="{{route('pharmacy.show',$patient->id)}}">{{$patient->lastname}}</a></td>
-                                                          
-                                                          <td>{{$patient->age}}</td>
-                                                          <td><?php $gender=$patient->gender;?>
-                                                            @if($gender==1){{"Male"}}@else{{"Female"}}@endif
-                                                          </td>
-                                                          <td>{{$patient->mobileno}}</td>
-                                                          <td>{{$patient->name}}</td>
-
-
-
-                                                      </tr>
-                                                      <?php $i++; ?>
-
-                                                   @endforeach
+                                              
 
                                                    </tbody>
                                                  </table>

@@ -55,6 +55,9 @@ Route::group(['middleware' => ['auth','role:Admin|Nurse']], function() {
 });
 Route::group(['middleware' => ['auth','role:Admin|Doctor']], function() {
 	Route::resource('doctor','DoctorController');
+	Route::get('newpatients', 'DoctorController@newPatients');
+	Route::get('patientsseen', 'DoctorController@seen');
+	Route::get('allpatients', 'DoctorController@all');
 	Route::get('patient/{id}', 'PatientController@showpatient');
 });
 Route::group(['middleware' => ['auth','role:Admin|Manufacturer']], function() {

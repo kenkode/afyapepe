@@ -1,11 +1,10 @@
-
 @extends('layouts.doctor')
 @section('content')
 <div class="content-page  equal-height">
  <div class="content">
   <div class="container">
     <div class="row">
-Gear to
+
 <div class="col-xs-12 col-sm-12 col-md-12">
 
     <div class="form-group">
@@ -138,6 +137,26 @@ Gear to
 
      </div>
       </div>
+      <?php
+      $trg= (new \App\Http\Controllers\TriageController);
+      $triageDetails = $trg->triageDetails();
+              foreach ($triageDetails as $triage) {
+
+                $tweight= $triage->current_weight;
+                $theight= $triage->current_height;
+                $ttemperature= $triage->temperature;
+                $tsystolic= $triage->systolic_bp;
+                $tdiastolic= $triage->diastolic_bp;
+                $tcomplaint= $triage->chief_compliant;
+                $tobservation= $triage->observation;
+                $tphysician= $triage->consulting_physician;
+                $tprescription= $triage->prescription;
+                $tdate= $triage->updated_at;
+                $tfacility= $triage->updated_at;
+}
+?>
+
+
       <div id="tab-2" class="tab-pane">
           <div class="panel-body">
             <div class="table-responsive">
@@ -150,30 +169,42 @@ Gear to
                                 </thead>
                                 <tbody>
                                    <tr>
-                                      <td>Date</td>
-                                      <td><?php echo $Name;?>&nbsp<?php echo $lname;?></td>
-                                      <td><strong>Chief complain:</strong></td>
-                                      <td><?php echo $age;?></td>
+                                      <td>Date of visit</td>
+                                      <td><?php echo $tdate;?></td>
+                                      <td><strong>Systolic BP:</strong></td>
+                                      <td><?php echo $tsystolic;?></td>
+                                      <td><strong>Diastolic BP:</strong></td>
+                                      <td><?php echo $tdiastolic;?></td>
                                    </tr>
                                    <tr>
-                                      <td><strong>Doctor Note:</strong></td>
-                                      <td><?php echo $nid;?></td>
-                                      <td><strong>Prescription:</strong></td>
-                                      <td><?php echo $appdate;?></td>
+                                      <td><strong>Temperature:</strong></td>
+                                      <td><?php echo $ttemperature;?></td>
+                                      <td><strong>Weight:</strong></td>
+                                      <td><?php echo $tweight;?></td>
+                                      <td><strong>Height:</strong></td>
+                                      <td><?php echo $theight;?></td>
                                    </tr>
                                    <tr>
-
-                                      <td><strong>DOctor:</strong></td>
-                                      <td><?php echo $facilty;?></td>
-                                      <td><strong>Hospital:</strong></td>
-                                      <td><?php echo $facilty;?></td>
+                                     <td><strong>Chief complain:</strong></td>
+                                      <td><?php echo $tcomplaint;?></td>
+                                      <td><strong>Observations:</strong></td>
+                                      <td><?php echo $tobservation;?></td>
                                        </tr>
+                                       <tr>
+                                         <td><strong>Consulting physician:</strong></td>
+                                          <td><?php echo $tphysician?></td>
+                                          <td><strong>Facility:</strong></td>
+                                          <td><?php echo $tfacility;?></td>
+                                          <td><strong>Prescription:</strong></td>
+                                          <td><?php echo $tprescription;?></td>
+                                           </tr>
                                 </tbody>
                              </table>
                           </div>
 
           </div>
       </div>
+
 
 
             <div id="tab-3" class="tab-pane">
@@ -267,7 +298,7 @@ Gear to
               <table class="table table-striped">
                  <thead>
                     <tr>
-                       <h4><strong>Prescription</strong></h4>
+                       <h4>History</h4>
 
                     </tr>
                  </thead>
@@ -319,7 +350,7 @@ Gear to
      </div>
 
 
-  </div>
+  </div><!--row-->
 </div><!--container-->
 </div><!--content -->
 </div><!--content page-->

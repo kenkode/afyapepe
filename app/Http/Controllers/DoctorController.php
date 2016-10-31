@@ -45,6 +45,38 @@ class DoctorController extends Controller
        return view('doctor.home')->with('tdpatients',$tdpatients)->with('patients',$patients);;
      }
 
+     public function newPatients()
+
+     {
+      $today = Carbon::today();
+
+       $patients = DB::table('patients')
+         ->Join('constituencies', 'patients.constituency_id', '=', 'constituencies.id')
+         ->select('patients.*', 'constituencies.name')
+         ->where('patients.updated_at','>=',$today)
+         ->get();
+
+       return view('doctor.newPatients')->with('patients',$patients);
+     }
+
+
+     public function all()
+{
+      $tdpatients = DB::table('patients')
+         ->Join('constituencies', 'patients.constituency_id', '=', 'constituencies.id')
+         ->select('patients.*', 'constituencies.name')
+         ->get();
+       return view('doctor.allpatients')->with('tdpatients',$tdpatients);
+     }
+
+          public function seen()
+     {
+           $tdpatients = DB::table('patients')
+              ->Join('constituencies', 'patients.constituency_id', '=', 'constituencies.id')
+              ->select('patients.*', 'constituencies.name')
+              ->get();
+            return view('doctor.seenpatients')->with('tdpatients',$tdpatients);
+          }
     /**
      * Show the form for creating a new resource.
      *

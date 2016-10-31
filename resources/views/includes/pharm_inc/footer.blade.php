@@ -2,52 +2,39 @@
             <span>Copyright &copy; 2016. Prioritymobile.co.ke.by MOKETCH</span>
         </div>
         <!-- Plugins  -->
-        <script src="js/jquery.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/jquery.slimscroll.js"></script>
-        <script src="js/metisMenu.js"></script>
-        <script src="js/moment.js"></script>
-        <script src="js/jquery.sparkline.min.js"></script>
-        <script src="js/jquery.flot.js"></script>
-        <script src="js/jquery.flot.time.js"></script>
-        <script src="js/jquery.flot.tooltip.min.js"></script>
-        <script src="js/jquery.flot.resize.js"></script>
-        <script src="js/jquery.flot.pie.js"></script>
-        <script src="js/jquery.flot.selection.js"></script>
-        <script src="js/jquery.flot.stack.js"></script>
-        <script src="js/jquery.flot.crosshair.js"></script>
-        <script src="js/raphael-2.1.0.min.js"></script>
-        <script src="js/morris.js"></script>
-        <script src="js/Chart.min.js"></script>
-        <script src="js/core.js"></script>
-        <script src="js/mediaquery.js"></script>
-        <script src="js/equalize.js"></script>
-        <script src="js/app.js"></script>
+  <script type="text/javascript" src="{{ asset('js/jquery.min.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('js/bootstrap.min.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('js/jquery.slimscroll.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('js/metisMenu.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('js/moment.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('js/jquery.sparkline.min.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('js/jquery.flot.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('js/jquery.flot.time.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('js/jquery.flot.tooltip.min.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('js/jquery.flot.resize.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('js/jquery.flot.pie.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('js/jquery.flot.selection.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('js/jquery.flot.stack.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('js/jquery.flot.crosshair.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('js/raphael-2.1.0.min.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('js/morris.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('js/Chart.min.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('js/core.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('js/mediaquery.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('js/equalize.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('') }}"></script>
+  <script type="text/javascript" src="{{ asset('') }}"></script>
+  <script type="text/javascript" src="{{ asset('') }}"></script>
+  <script type="text/javascript" src="{{ asset('') }}"></script>
+  <script type="text/javascript" src="{{ asset('') }}"></script>
+  <script type="text/javascript" src="{{ asset('') }}"></script>
+
+
 
         <!--page js-->
-        <script type="text/javascript">
-        $(document).ready(function(){
-        $('.multi-field-wrapper').each(function() {
-            var $wrapper = $('.multi-fields', this);
-
-            $(".add-field", $(this)).click(function(e) {
-                $('.multi-field:first-child', $wrapper).clone(true).appendTo($wrapper).find('input').val('').focus();
-
-
-            });
-            $('.multi-field .remove-field', $wrapper).click(function() {
-                if ($('.multi-field', $wrapper).length > 1)
-                    $(this).parent('.multi-field').remove();
-            });
-        });
-        });
-        </script>
-        <script type="text/javascript">
-          function show() { document.getElementById('area').style.display = 'block'; }
-          function hide() { document.getElementById('area').style.display = 'none'; }
-        </script>
         <script>
-  
+
             $("#sparkline8").sparkline([5, 6, 7, 2, 0, 4, 2, 4, 5, 7, 2, 4, 12, 14, 4, 2, 14, 12, 7], {
                 type: 'bar',
                 barWidth: 4,

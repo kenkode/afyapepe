@@ -12,3 +12,5 @@
 <link href="{{ asset('css/morris-0.4.3.min.css') }}" media="all" rel="stylesheet" type="text/css" />
  <link href="{{ asset('css/style.css') }}" media="all" rel="stylesheet" type="text/css" />
   <script type="text/javascript" src="{{ asset('js/modernizr.js') }}"></script>
+
+<link href="{{ asset('css/multi-select.css') }}" media="all" rel="stylesheet" type="text/css" />

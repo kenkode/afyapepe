@@ -30,8 +30,17 @@
   <script type="text/javascript" src="{{ asset('') }}"></script>
   <script type="text/javascript" src="{{ asset('') }}"></script>
 
-      
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+  <!-- Bootstrap JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript" src="{{ asset('js/jquery.multi-select.js') }}"></script>
+  <script type="text/javascript">
+  // run pre selected options
+  $('#pre-selected-options').multiSelect();
+    $('#pre-selected-options1').multiSelect();
+  </script>
         <!--page js-->
         <script>
 

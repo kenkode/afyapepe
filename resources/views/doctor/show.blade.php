@@ -4,6 +4,74 @@
  <div class="content">
   <div class="container">
     <div class="row">
+      @if (count($errors) > 0)
+     <div class="alert alert-danger">
+      <strong>Whoops!</strong> There were some problems with your input.<br><br>
+     <ul>
+      @foreach ($errors->all() as $error)
+     <li>{{ $error }}</li>
+      @endforeach
+     </ul>
+     </div>
+     @endif
+      <?php
+    $doc = (new \App\Http\Controllers\DoctorController);
+    $Docdatas = $doc->DocDetails();
+    foreach($Docdatas as $Docdata){
+
+
+      $Did = $Docdata->doc_id;
+    	$Name = $Docdata->name;
+    	$Address = $Docdata->address;
+    	$RegNo = $Docdata->regno;
+    	$RegDate = $Docdata->regdate;
+    	$Speciality = $Docdata->speciality;
+    	$Sub_Speciality = $Docdata->subspeciality;
+      $Facility = $Docdata->facility;
+
+    }
+
+
+    if ( empty ($Name ) ) {
+    // return view('doctor.create');
+
+    return redirect('doctor.create');
+
+
+    // return redirect()->action('DoctorController@create');
+
+    }
+    ?>
+
+    <div class="pull-right">
+     <div class="page-title clearfix">
+                              <h3><?php echo $Facility;?></h3>
+
+                          </div><!--end page title-->
+
+       <div class="widget-box clearfix">
+    <h4><?php echo $Name;?></h4>
+    <h4>Address:
+    <?php echo $Address; ?></h4>
+    <h4>Registration Number:
+    <?php echo $RegNo; ?></h4>
+
+    <h4>Registration Date:
+    <?php echo $RegDate; ?></h4>
+
+    <h4>Speciality:
+    <?php echo $Speciality; ?></h4>
+
+    <h4>Sub Speciality:
+    <?php echo $Sub_Speciality; ?></h4>
+    </div>
+    </div>
+
+    	<br>	<br>	<br>
+
+    </div>
+
+    <div class="row">
 
 <div class="col-xs-12 col-sm-12 col-md-12">
 
@@ -12,10 +80,12 @@
 
 <?php
         foreach ($patientdetails as $pdetails) {
+          $pid = $pdetails->patient_id;
           $Name = $pdetails->firstname;
-          $lname = $pdetails->lastname;
+          $lname = $pdetails->secondName;
           $age = $pdetails->age;
           $nid = $pdetails->national_id;
+          $appid = $pdetails->AppID;
           $appdate = $pdetails->Appointment_Date;
           $facilty = $pdetails->FacilityName;
           $weight = $pdetails->current_weight;
@@ -24,9 +94,9 @@
           $systolic = $pdetails->systolic_bp;
           $diastolic = $pdetails->diastolic_bp;
           $allergies = $pdetails->allergies;
-          $complain = $pdetails->chief_complaint;
-          $nursenote = $pdetails->nurse_note;
-          $observations = $pdetails->observations;
+          $complain = $pdetails->chief_compliant;
+
+          $observations = $pdetails->observation;
   }
     ?>
     </div>
@@ -45,7 +115,7 @@
       <div id="tab-1" class="tab-pane active">
           <div class="panel-body">
 
-
+<!--Home tabs-->
 <div class="table-responsive">
                <table class="table table-striped">
                   <thead>
@@ -56,6 +126,8 @@
                   </thead>
                   <tbody>
                      <tr>
+                       <td><strong>Patient Id:</strong></td>
+                       <td><?php echo $pid;?></td>
                         <td>Name</td>
                         <td><?php echo $Name;?>&nbsp<?php echo $lname;?></td>
                         <td><strong>Age:</strong></td>
@@ -105,29 +177,15 @@
                         <td></td>
                         <td></td>
                      </tr>
-                     <tr>
-                        <td><strong>Nurses Notes:</strong></td>
-                        <td><?php echo $nursenote;?></td>
-                        <td></td>
-                        <td></td>
-                     </tr>
+
                      <tr>
                         <td><strong>Observation's:</strong></td>
                         <td><?php echo $observations;?></td>
                         <td></td>
                         <td></td>
                      </tr>
-                           <tr><td></td></tr>
-                        {!! Form::open(array('route' => 'doctor.store','method'=>'POST')) !!}
-                   <tr>
-                     <div class="col-xs-12 col-sm-12 col-md-12">
-                     <div class="form-group">
-                    <td> <strong>Doctor's Notes:</strong></td>
-                       <td>{!! Form::textarea('facility', null, array('placeholder' => 'facility','class' => 'form-control')) !!}  </td>
-                     </div>
-                     </div>
 
-                    </tr>
+
 
                   </tbody>
                </table>
@@ -137,9 +195,10 @@
 
      </div>
       </div>
+      <!--History tabs-->
+      <!--Patient controller @showpatient-->
       <?php
-      $trg= (new \App\Http\Controllers\TriageController);
-      $triageDetails = $trg->triageDetails();
+
               foreach ($triageDetails as $triage) {
 
                 $tweight= $triage->current_weight;
@@ -160,65 +219,73 @@
       <div id="tab-2" class="tab-pane">
           <div class="panel-body">
             <div class="table-responsive">
-                             <table class="table table-striped">
-                                <thead>
-                                   <tr>
-                                      <h4>History</h4>
+         <table class="table table-small-font table-bordered table-striped">
+       <thead>
+           <tr>
+             <th></th>
+               <th>Date of visit</th>
+               <th>CHief Complain</th>
+               <th>observations</th>
+               <th>Prescription</th>
 
-                                   </tr>
-                                </thead>
-                                <tbody>
-                                   <tr>
-                                      <td>Date of visit</td>
-                                      <td><?php echo $tdate;?></td>
-                                      <td><strong>Systolic BP:</strong></td>
-                                      <td><?php echo $tsystolic;?></td>
-                                      <td><strong>Diastolic BP:</strong></td>
-                                      <td><?php echo $tdiastolic;?></td>
-                                   </tr>
-                                   <tr>
-                                      <td><strong>Temperature:</strong></td>
-                                      <td><?php echo $ttemperature;?></td>
-                                      <td><strong>Weight:</strong></td>
-                                      <td><?php echo $tweight;?></td>
-                                      <td><strong>Height:</strong></td>
-                                      <td><?php echo $theight;?></td>
-                                   </tr>
-                                   <tr>
-                                     <td><strong>Chief complain:</strong></td>
-                                      <td><?php echo $tcomplaint;?></td>
-                                      <td><strong>Observations:</strong></td>
-                                      <td><?php echo $tobservation;?></td>
-                                       </tr>
-                                       <tr>
-                                         <td><strong>Consulting physician:</strong></td>
-                                          <td><?php echo $tphysician?></td>
-                                          <td><strong>Facility:</strong></td>
-                                          <td><?php echo $tfacility;?></td>
-                                          <td><strong>Prescription:</strong></td>
-                                          <td><?php echo $tprescription;?></td>
-                                           </tr>
-                                </tbody>
-                             </table>
-                          </div>
+         </tr>
+       </thead>
 
-          </div>
-      </div>
+       <tbody>
+         <?php $i =1; ?>
+      @foreach($triageDetails as $triageDetails)
+           <tr>
+               <td>{{ +$i }}</td>
+               <td>{{$triageDetails->updated_at}}</td>
+               <td>{{$triageDetails->chief_compliant}}</td>
+               <td>{{$triageDetails->observation}}</td>
+               <td>{{$triageDetails->prescription}}</td>
 
 
 
+           </tr>
+           <?php $i++; ?>
+
+        @endforeach
+
+        </tbody>
+      </table>
+  </div>
+    </div>
+  </div>
+
+
+<!--Test tabs-->
             <div id="tab-3" class="tab-pane">
                 <div class="panel-body">
                   <div class="table-responsive">
-                                 <table class="table table-striped">
-                                    <thead>
-                                       <tr>
-                                          <h4><strong>Tests</strong></h4>
+  {{ Form::open(array('route' => array('test.store'),'method'=>'POST')) }}
 
-                                       </tr>
-                                    </thead>
-                                    <tbody>
 
+
+   <table class="table table-striped">
+      <thead>
+         <tr>
+            <h4><strong>Tests</strong></h4>
+ </tr>
+      </thead>
+      <tbody>
+
+
+<div class="col-xs-12 col-sm-12 col-md-12">
+<div class="form-group">
+<tr>
+  <td>{{ Form::hidden('patient_id',$pdetails->patient_id, array('class' => 'form-control')) }}
+</td>
+
+  <td>{{ Form::hidden('test_status',1, array('class' => 'form-control')) }}
+</td>
+<td>{{ Form::text('appointment_id',$appid, array('class' => 'form-control')) }}
+</td>
+  <td>{{ Form::hidden('doc_id',$Docdata->doc_id, array('class' => 'form-control')) }}
+  </td></tr>
+  </div>
+    </div>
 
                     <?php
                   $tst= (new \App\Http\Controllers\TestController);
@@ -227,8 +294,10 @@
 
                 }
                   ?>
+                  <div class="col-xs-12 col-sm-12 col-md-12">
+                  <div class="form-group">
               <tr><td>Select Tsest</td>
-                <td>  <select name="test">
+                <td>  <select name="test" id='pre-selected-options1' multiple='multiple'>
                     @foreach($tests as $test)
                      <option value="{{ $test->id }}">{{ $test->name }}</option>
                     @endforeach
@@ -236,7 +305,8 @@
               </td>
                <td>  </td>
             </tr>
-
+</div>
+</div>
 
 
             <?php
@@ -247,7 +317,7 @@
             }
             ?>
             <tr><td> Test Details</td>
-            <td>  <select name="test">
+            <td>  <select name="test_reccommended[]" id='pre-selected-options' multiple='multiple'>
             @foreach($testsd as $testd)
              <option value="{{ $testd->tests_id }}">{{ $testd->test_name }}</option>
             @endforeach
@@ -260,22 +330,9 @@
                 <td>  </td><td>  </td>
                       </tr>
               </div>
-                {!! Form::close() !!}
+                {{ Form::close() }}
 
-
-                <tr>
-                <td><strong>Test Result</strong></td>
-                </tr>
-                <tr>
-                   <td><strong>Test:</strong></td>
-                   <td><?php echo $facilty;?></td>
-                   <td><strong>Result:</strong></td>
-                   <td><?php echo $facilty;?></td>
-                    </tr>
-
-
-
-              </tbody>
+             </tbody>
            </table>
               </div>
             </div>
@@ -283,7 +340,7 @@
 
 
 
-
+<!--Prescription tabs-->
       <div id="tab-4" class="tab-pane">
           <div class="panel-body">
 
@@ -303,6 +360,19 @@
                     </tr>
                  </thead>
                  <tbody>
+
+   <tr>
+   <td><strong>Test Result</strong></td>
+   <td><strong>Test Result</strong></td>
+   <td><strong>Test Result</strong></td>
+   </tr>
+   <tr>
+      <td><strong>Test:</strong></td>
+      <td><?php echo $facilty;?></td>
+      <td><strong>Result:</strong></td>
+      <td><?php echo $facilty;?></td>
+       </tr>
+
               <tr><td> Drug</td>
               <td>  <select name="test">
               @foreach($testsd as $testd)

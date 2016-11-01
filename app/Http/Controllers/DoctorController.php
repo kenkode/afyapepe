@@ -33,16 +33,14 @@ class DoctorController extends Controller
      {
       $today = Carbon::today();
 
-       $patients = DB::table('patients')
-         ->Join('constituencies', 'patients.constituency_id', '=', 'constituencies.id')
-         ->select('patients.*', 'constituencies.name')
-         ->where('patients.updated_at','>=',$today)
+       $patients = DB::table('afya_users')
+         ->Join('patients', 'afya_users.id', '=', 'patients.afya_user_id')
+         ->Join('appointments', 'patients.id', '=', 'appointments.PatientID')
+         ->select('afya_users.*','patients.*', 'appointments.Appointment_Date', 'appointments.facility_ID')
+         ->where('appointments.Appointment_Date','>=',$today)
          ->get();
-      $tdpatients = DB::table('patients')
-         ->Join('constituencies', 'patients.constituency_id', '=', 'constituencies.id')
-         ->select('patients.*', 'constituencies.name')
-         ->get();
-       return view('doctor.home')->with('tdpatients',$tdpatients)->with('patients',$patients);;
+
+       return view('doctor.newPatients')->with('patients',$patients);
      }
 
      public function newPatients()
@@ -50,10 +48,11 @@ class DoctorController extends Controller
      {
       $today = Carbon::today();
 
-       $patients = DB::table('patients')
-         ->Join('constituencies', 'patients.constituency_id', '=', 'constituencies.id')
-         ->select('patients.*', 'constituencies.name')
-         ->where('patients.updated_at','>=',$today)
+       $patients = DB::table('afya_users')
+         ->Join('patients', 'afya_users.id', '=', 'patients.afya_user_id')
+         ->Join('appointments', 'patients.id', '=', 'appointments.PatientID')
+         ->select('afya_users.*','patients.*', 'appointments.Appointment_Date', 'appointments.facility_ID')
+         ->where('appointments.Appointment_Date','>=',$today)
          ->get();
 
        return view('doctor.newPatients')->with('patients',$patients);
@@ -61,22 +60,28 @@ class DoctorController extends Controller
 
 
      public function all()
-{
-      $tdpatients = DB::table('patients')
-         ->Join('constituencies', 'patients.constituency_id', '=', 'constituencies.id')
-         ->select('patients.*', 'constituencies.name')
-         ->get();
-       return view('doctor.allpatients')->with('tdpatients',$tdpatients);
-     }
+  {
+    $today = Carbon::today();
+      $allpatients = DB::table('afya_users')
+        ->Join('patients', 'afya_users.id', '=', 'patients.afya_user_id')
+        ->select('afya_users.*','patients.*')
+        ->get();
+
+            return view('doctor.allpatients')->with('allpatients',$allpatients);
+          }
 
           public function seen()
      {
-           $tdpatients = DB::table('patients')
-              ->Join('constituencies', 'patients.constituency_id', '=', 'constituencies.id')
-              ->select('patients.*', 'constituencies.name')
-              ->get();
-            return view('doctor.seenpatients')->with('tdpatients',$tdpatients);
-          }
+       $today = Carbon::today();
+
+        $seenpatients = DB::table('patients')
+          ->Join('afya_users', 'patients.afya_user_id', '=', 'afya_users.id')
+          ->Join('patient_test', 'patients.id', '=', 'patient_test.patient_id')
+          ->select('afya_users.*','patients.*', 'patient_test.test_status')
+          ->where('patient_test.test_status','=','1')
+          ->get();
+
+        return view('doctor.seenpatients')->with('seenpatients',$seenpatients);}
     /**
      * Show the form for creating a new resource.
      *
@@ -124,20 +129,7 @@ class DoctorController extends Controller
     {
 
     }
-//     public function showPatient($id)
-//     {
-//
-// $pid = Patient::find($id);
-//       $patientsdata = DB::table('patients')
-//
-//         ->select('patients.*')
-//         ->where('patients.id',$pid)
-//         ->get();
-//
-//
-//     return view('doctor.show')->with('patientsdata',$patientsdata);
-//
-//    }
+
     /**
      * Show the form for editing the specified resource.
      *

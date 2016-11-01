@@ -43,10 +43,16 @@ class PatientController extends Controller
      $patientdetails = DB::table('patients')
         ->Join('appointments', 'patients.id', '=', 'appointments.PatientId')
         ->Join('facilities', 'appointments.Facility_ID', '=', 'facilities.FacilityCode')
-        ->select('patients.*', 'appointments.Facility_ID','appointments.Appointment_Date','facilities.FacilityName')
+        ->Join('afya_users', 'patients.afya_user_id', '=', 'afya_users.id')
+        ->Join('triage_details', 'patients.id', '=', 'triage_details.patient_id')
+        ->select('patients.*', 'afya_users.*','triage_details.*','appointments.AppID','appointments.Facility_ID','appointments.Appointment_Date','facilities.FacilityName')
        ->where('patients.id',$id)
        ->get();
-        return view('doctor.show', ['patientdetails' => $patientdetails]);
+
+       $triageDetails = DB::table('triage_details')
+       ->where('patient_id',$id)
+      ->get();
+      return view('doctor.show')->with('triageDetails',$triageDetails)->with('patientdetails',$patientdetails);;
 
 
      }

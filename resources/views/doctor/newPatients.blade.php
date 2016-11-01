@@ -28,9 +28,8 @@
                             <th>Age</th>
                             <th>National ID</th>
                             <th>Mobile No</th>
-                            <th>Constituency of Residence</th>
-                            <th>Date of Visit</th>
-                            <th>Time of Visit</th>
+                            <!-- <th>Constituency of Residence</th> -->
+
                       </tr>
                     </thead>
 
@@ -40,16 +39,14 @@
                         <tr>
                             <td><a href="{{route('patient.show',$patient->id)}}">{{$i}}</a></td>
                             <td><a href="{{route('patient.show',$patient->id)}}">{{$patient->firstname}}</a></td>
-                            <td><a href="{{route('patient.show',$patient->id)}}">{{$patient->lastname}}</a></td>
+                            <td><a href="{{route('patient.show',$patient->id)}}">{{$patient->secondName}}</a></td>
                             <td><?php $gender=$patient->gender;?>
                               @if($gender==1){{"Male"}}@else{{"Female"}}@endif</a>
                             </td>
                             <td>{{$patient->age}}</td>
                             <td>{{$patient->national_id}}</td>
-                            <td>{{$patient->mobileno}}</td>
-                            <td>{{$patient->name}}</td>
-                            <td>{{$patient->created_at}}</td>
-                            <td>{{$patient->updated_at}}</td>
+                            <td>{{$patient->msisdn}}</td>
+
 
 
 

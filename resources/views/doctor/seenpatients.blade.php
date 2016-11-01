@@ -15,58 +15,55 @@
                 <a class="btn btn-success" href="{{ route('doctor.create') }}"> Create Your Profile</a>
 
               </div>
-  
+        <div class="col-sm-12 ">
+            <div class="panel-box">
+              <div class="table-responsive">
+                <table class="table table-small-font table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>FirstName</th>
+                            <th>Surname</th>
+                            <th>Gender</th>
+                            <th>Age</th>
+                            <th>National ID</th>
+                            <th>Mobile No</th>
+                            <!-- <th>Constituency of Residence</th> -->
+
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      <?php $i =1; ?>
+                   @foreach($seenpatients as $patient)
+                        <tr>
+                            <td><a href="{{route('patient.show',$patient->id)}}">{{$i}}</a></td>
+                            <td><a href="{{route('patient.show',$patient->id)}}">{{$patient->firstname}}</a></td>
+                            <td><a href="{{route('patient.show',$patient->id)}}">{{$patient->secondName}}</a></td>
+                            <td><?php $gender=$patient->gender;?>
+                              @if($gender==1){{"Male"}}@else{{"Female"}}@endif</a>
+                            </td>
+                            <td>{{$patient->age}}</td>
+                            <td>{{$patient->national_id}}</td>
+                            <td>{{$patient->msisdn}}</td>
+
+
+
+
+                        </tr>
+                        <?php $i++; ?>
+
+                     @endforeach
+
+                     </tbody>
+                   </table>
+                 </div>
+
+                </div>
+                </div>
               </div><!--row-->
-              <div class="col-sm-12 ">
-                  <div class="panel-box">
-                    <div class="table-responsive">
-                      <table class="table table-small-font table-bordered table-striped">
-                          <thead>
-                              <tr>
-                                  <th>No</th>
-                                  <th>FirstName</th>
-                                  <th>Surname</th>
-                                  <th>Gender</th>
-                                  <th>Age</th>
-                                  <th>National ID</th>
-                                  <th>Mobile No</th>
-                                  <th>Constituency of Residence</th>
-                                  <th>Date of Visit</th>
-                                  <th>Time of Visit</th>
-                            </tr>
-                          </thead>
-
-                          <tbody>
-                            <?php $i =1; ?>
-                         @foreach($tdpatients as $tdpatient)
-                              <tr>
-                                  <td><a href="{{route('nurse.show',$tdpatient->id)}}">{{$i}}</a></td>
-                                  <td><a href="{{route('nurse.show',$tdpatient->id)}}">{{$tdpatient->firstname}}</a></td>
-                                  <td><a href="{{route('nurse.show',$tdpatient->id)}}">{{$tdpatient->lastname}}</a></td>
-                                  <td><?php $gender=$tdpatient->gender;?>
-                                    @if($gender==1){{"Male"}}@else{{"Female"}}@endif</a>
-                                  </td>
-                                  <td>{{$tdpatient->age}}</td>
-                                  <td>{{$tdpatient->national_id}}</td>
-                                  <td>{{$tdpatient->mobileno}}</td>
-                                  <td>{{$tdpatient->name}}</td>
-                                  <td>{{$tdpatient->created_at}}</td>
-                                  <td>{{$tdpatient->updated_at}}</td>
 
 
-
-                              </tr>
-                              <?php $i++; ?>
-
-                           @endforeach
-
-                           </tbody>
-                         </table>
-                       </div>
-
-                      </div>
-                      </div>
-                    </div><!--row-->
          </div><!--container-->
       </div><!--content-->
       </div><!--content page-->

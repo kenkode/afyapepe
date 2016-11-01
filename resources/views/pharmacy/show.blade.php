@@ -43,12 +43,7 @@
                                            </div>
                                            <div class="form-group">
                                             <label for="exampleInputPassword1">Drugs</label>
-                                           <select class="form-control" name="drugs">
-                                           <?php  $druglists = DB::table('druglists')->get();?>
-                                                         @foreach($druglists as $druglist)
-                                                          <option value="{{$druglist->id}}">{{$druglist->drugname}}</option>
-                                                        @endforeach
-                                                       </select>
+                                           <input class="typeahead form-control"  type="text">
                                            </div>
                                            <div class="form-group">
                                             <label for="exampleInputPassword1">DosageForm</label>

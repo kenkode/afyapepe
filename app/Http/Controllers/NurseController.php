@@ -36,7 +36,7 @@ class NurseController extends Controller
     public function create()
     {
         return view('nurse.create');
-        
+
     }
 
     public function wList(){

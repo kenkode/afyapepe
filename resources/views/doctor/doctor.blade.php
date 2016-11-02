@@ -1,12 +1,11 @@
-  <div class="row">
-
+<div class="row">
   <?php
 $doc = (new \App\Http\Controllers\DoctorController);
 $Docdatas = $doc->DocDetails();
 foreach($Docdatas as $Docdata){
 
 
-
+  $Did = $Docdata->doc_id;
 	$Name = $Docdata->name;
 	$Address = $Docdata->address;
 	$RegNo = $Docdata->regno;
@@ -19,19 +18,20 @@ foreach($Docdatas as $Docdata){
 
 
 if ( empty ($Name ) ) {
-return view('doctor.create');
+// return view('doctor.create');
+
+return redirect('doctor.create');
+
+
 // return redirect()->action('DoctorController@create');
-
-
 
 }
 ?>
+
 <div class="pull-right">
-           <div class="page-title clearfix">
+ <div class="page-title clearfix">
                           <h3><?php echo $Facility;?></h3>
-                          <a href="#"><i class="fa fa-plus"></i> Add Widget</a>
-                          <a href="#"><i class="fa fa-share"></i> Share</a>
-                          <a href="#"><i class="fa fa-envelope"></i> Email</a>
+
                       </div><!--end page title-->
 
    <div class="widget-box clearfix">

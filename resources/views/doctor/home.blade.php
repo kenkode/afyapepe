@@ -5,7 +5,7 @@
   <div class="content-page  equal-height">
       <div class="content">
           <div class="container">
-            @role('Doctor')
+  @role('Doctor')
 
 @include('doctor/doctor')
   @endrole

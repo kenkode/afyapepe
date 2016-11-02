@@ -55,7 +55,11 @@ Route::group(['middleware' => ['auth','role:Admin|Nurse']], function() {
 });
 Route::group(['middleware' => ['auth','role:Admin|Doctor']], function() {
 	Route::resource('doctor','DoctorController');
-	Route::get('patient/{id}', 'PatientController@showpatient');
+  Route::get('newpatients', 'DoctorController@newPatients');
+	Route::get('patientsseen', 'DoctorController@seen');
+	Route::get('allpatients', 'DoctorController@all');
+
+ Route::get('patient/{id}', 'PatientController@showpatient');
 });
 Route::group(['middleware' => ['auth','role:Admin|Manufacturer']], function() {
 	Route::resource('manufacturer','ManufacturerController');
@@ -64,8 +68,8 @@ Route::group(['middleware' => ['auth','role:Admin|Pharmacy']], function() {
 	Route::resource('pharmacy','PharmacyController');
 	Route::get('totalsales', 'PharmacyController@totalsales');
 });
-Route::group(['middleware' => ['auth','role:Admin|Test']], function() {
-Route::resource('test','TestController');
+Route::group(['middleware' => ['auth','role:Admin|Test|Doctor']], function() {
+Route::resource('test','PatientTestController');
 });
 Route::group(['middleware' => ['auth','role:Admin|Patient']], function() {
 	Route::resource('patient','PatientController');

@@ -4,17 +4,11 @@
  <li class="active"><a href="{{ url('/') }}"<i class="fa fa-home"></i>  <span>DOCTOR-Dashboard</span></a></li>
 
  <li><a href="{{ url('/home') }}"><i class="fa fa-edit"></i> <span>HOME</span><span class="fa arrow"></span></a></li>
- <li><a href="{{ route('users.index') }}"><i class="fa fa-edit"></i> <span>USER</span><span class="fa arrow"></span></a></li>
- <li><a href="{{ route('roles.index') }}"><i class="fa fa-edit"></i> <span>ROLES</span><span class="fa arrow"></span></a></li>
-<li><a href="{{ route('itemCRUD2.index') }}"><i class="fa fa-edit"></i> <span>ITEM</span><span class="fa arrow"></span></a></li>
-<li><a href="{{ route('test.index') }}"><i class="fa fa-edit"></i> <span>TEST</span><span class="fa arrow"></span></a></li>
-<li><a href="{{ url('/nurse') }}"><i class="fa fa-edit"></i> <span>NURSE</span><span class="fa arrow"></span></a></li>
-<li><a href="{{ url('/doctor') }}"><i class="fa fa-edit"></i> <span>DOCTOR</span><span class="fa arrow"></span></a></li>
-<li><a href="{{ url('/home') }}"><i class="fa fa-edit"></i> <span>PHARM</span><span class="fa arrow"></span></a></li>
-<li><a href="{{ url('/home') }}"><i class="fa fa-edit"></i> <span>MANUFACTURER</span><span class="fa arrow"></span></a></li>
-<li><a href="{{ url('/home') }}"><i class="fa fa-edit"></i> <span>PATIENT</span><span class="fa arrow"></span></a></li>
 
-
+<li><a href="{{ url('newpatients') }}"><i class="fa fa-edit"></i> <span>Today's Patient</span><span class="fa arrow"></span></a></li>
+<li><a href="{{ url('patientsseen') }}"><i class="fa fa-edit"></i> <span>Patients Waiting For Prescription</span><span class="fa arrow"></span></a></li>
+<li><a href="{{ url('allpatients') }}"><i class="fa fa-edit"></i> <span>All Patients</span><span class="fa arrow"></span></a></li>
+<li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout<span class="fa arrow"></span></a></li>
 
 
 

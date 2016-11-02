@@ -6,6 +6,7 @@ use App\Http\Requests;
 use Illuminate\Http\Request;
 use DB;
 
+use App\Patient;
 class TestController extends Controller
 {
     /**
@@ -61,7 +62,7 @@ class TestController extends Controller
          */
         public function show($id)
         {
-          
+
         }
 
         /**
@@ -98,4 +99,19 @@ class TestController extends Controller
         {
             //
         }
-    }
+
+
+
+
+    function TestList(){
+   $tests = DB::table('tests')
+   ->get();
+  return $tests;
+  }
+  public function TestListdetails(){
+    $testsd = DB::table('test_details')
+    ->get();
+   return $testsd;
+}
+
+}

@@ -15,6 +15,7 @@
 
                                             <h5>Patient Details</h5>
                                              {!! Form::open(array('route' => 'pharmacy.store')) !!}
+                                             <input type="hidden" name="id" value="{{$patient->id}}">
                                              <div class="form-group">
                                             <label for="exampleInputEmail1">Name</label>
                                             <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Next Kin Name" name="name" value="{{$patient->firstname}} {{$patient->lastname}}" readonly="">
@@ -39,11 +40,17 @@
                                             <div class="form-group">
                                             <h5><label for="exampleInputPassword1">Doctor's Prescription</label></h5>
                                             <br>
-                                            <textarea rows="4" cols="58" readonly>{{$patient->prescription}}</textarea>
+                                            <textarea rows="4" cols="58"  name="docprescription"readonly>{{$patient->prescription}}</textarea>
                                            </div>
                                            <div class="form-group">
                                             <label for="exampleInputPassword1">Drugs</label>
-                                           <input class="typeahead form-control"  type="text">
+                                            <select class="form-control" name="druglist">
+                                            <?php  $druglists = DB::table('druglists')->get();?>
+                                                          @foreach($druglists as $druglist)
+                                                           <option value="{{$druglist->id}}">{{$druglist->drugname}}</option>
+                                                         @endforeach
+                                                        </select>
+
                                            </div>
                                            <div class="form-group">
                                             <label for="exampleInputPassword1">DosageForm</label>

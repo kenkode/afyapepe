@@ -10,7 +10,7 @@
                     <div class="row">
                                       <div class="col-sm-12 ">
                                        <h1>Total Patients</h1>
-                                       
+
                                           <div class="panel-box">
 
                                                         <div class="table-responsive">
@@ -22,7 +22,7 @@
                                                           <th>Surname</th>
                                                           <th>Gender</th>
                                                           <th>Age</th>
-                                                          
+
                                                           <th>Date</th>
                                                     </tr>
                                                   </thead>
@@ -33,13 +33,13 @@
                                                       <tr>
                                                           <td><a href="{{route('nurse.show',$patient->id)}}">{{$i}}</a></td>
                                                           <td><a href="{{route('nurse.show',$patient->id)}}">{{$patient->firstname}}</a></td>
-                                                          <td><a href="{{route('nurse.show',$patient->id)}}">{{$patient->lastname}}</a></td>
+                                                          <td><a href="{{route('nurse.show',$patient->id)}}">{{$patient->secondName}}</a></td>
                                                           <td><?php $gender=$patient->gender;?>
                                                             @if($gender==1){{"Male"}}@else{{"Female"}}@endif</a>
                                                           </td>
                                                           <td>{{$patient->age}}</td>
-                                                          
-                                                          <td>{{$patient->created_at}}</td>
+
+                                                          <td>{{$patient->dateCreated}}</td>
 
 
 

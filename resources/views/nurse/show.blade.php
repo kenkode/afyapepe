@@ -52,17 +52,17 @@
                                                   </thead>
 
                                                   <tbody>
-                                                <?php $i =1; ?>
-                                                 @foreach($vaccines as $vaccine)
+                                               <?php $i =1; ?>
+                                                 @foreach($vaccines as $vac)
                                                       <tr>
                                                           <td>{{$i}}</td>
-                                                          <td>{{$vaccine->name}}</td>
-                                                          <td>{{$vaccine->vaccine_name}}</td>
+                                                          <td>{{$vac->name}}</td>
+                                                          <td>{{$vac->vaccine_name}}</td>
 
-                                                          <td><?php $yes=$vaccine->Yes;
+                                                          <td><?php $yes=$vac->Yes;
                                                             if($yes=="YES"){ echo '<p><i class="glyphicon glyphicon-ok-circle" aria-hidden="true"></i></p>';}else{ echo '<p><i class="glyphicon glyphicon-remove-circle" aria-hidden="true"></i></p>';} ?>
                                                             </td>
-                                                          <td>{{$vaccine->yesdate}}</td>
+                                                          <td>{{$vac->yesdate}}</td>
 
                                                       </tr>
                                                       <?php $i++; ?>
@@ -82,6 +82,7 @@
       <div class="row">
       <div class="col-sm-12">
       <h5>Patient Details</h5>
+      <div class="table-responsive">
       <table class="table table-small-font table-bordered table-striped">
       <thead>
        <tr>
@@ -116,7 +117,7 @@
          <td>{{$detail->consulting_physician}}</td>
          <td>{{$detail->Doctor_note}}</td>
          <td>{{$detail->prescription}}</td>
-           <td>{{$vaccine->updated_at}}</td>
+           <td>{{$detail->updated_at}}</td>
 
        </tr>
        <?php $i++; ?>
@@ -128,7 +129,7 @@
       </table>
 
 
-
+</div>
 
 
          </div>

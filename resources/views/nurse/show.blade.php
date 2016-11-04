@@ -13,59 +13,25 @@
    <h3>Gender: <b><?php $gender=$patient->gender;?>
                                                             @if($gender==1){{"Male"}}@else{{"Female"}}@endif</b></h3>
               <hr>
-    <div class="col-sm-3">
-    <h5>Patient Details</h5>
 
-    <div class="form-group">
-
-
-      <div class="form-group">
-    <label for="exampleInputEmail1">Weight</label>
-    <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Weight" name="weight"  readonly="">
-    </div>
-    <div class="form-group">
-    <label for="exampleInputEmail1">Height</label>
-    <input type="name" class="form-control" placeholder="Height" name="current_height"
-     readonly="">
-    </div>
-   <div class="form-group">
-    <label for="exampleInputPassword1">Temperature</label>
-    <input type="name" class="form-control" id="exampleInputPassword1" placeholder="Temperature" name="temperature"  readonly="">
-   </div>
-
-    <div class="form-group">
-    <label for="exampleInputPassword1">Systolic BP</label>
-    <input type="name" class="form-control" id="exampleInputPassword1" placeholder="Systolic BP" name="systolic"  readonly="">
-    </div>
-    <div class="form-group">
-    <label for="exampleInputEmail1">Diastolic BP</label>
-    <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Diastolic BP" name="diastolic"  readonly="">
-    </div>
-
-
-
-
-       </div>
-
+</div>
           </div>
-    <div class="col-sm-3">
+    <div class="row">
+    <div class="col-sm-6">
     <h5>Next of Kin Details</h5>
      <div class="form-group">
     <label for="exampleInputEmail1">Name</label>
-    <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Next Kin Name" name="name"  readonly="">
+    <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Next Kin Name" name="kin_name" value="{{$kin->kin_name}}"  readonly="">
     </div>
-    <div class="form-group">
-    <label for="exampleInputEmail1">ID Number</label>
-    <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Next Kin ID Number" name="idno"  readonly="">
-    </div>
+
     <div class="form-group">
      <label for="exampleInputPassword1">Relationship</label>
-     <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Next Kin Name" name="name"  readonly="">
+     <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Next Kin Name" name="relation" value="{{$kin->relation}}"  readonly="">
     </div>
 
      <div class="form-group">
     <label for="exampleInputPassword1">Phone</label>
-    <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Next of Kin Phone" name="phone"  readonly="">
+    <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Next of Kin Phone" name="phone"  value="{{$kin->phone_of_kin}}"  readonly="">
     </div>
 
              </div>
@@ -113,7 +79,62 @@
 
 
       </div><!--content page-->
+      <div class="row">
+      <div class="col-sm-12">
+      <h5>Patient Details</h5>
+      <table class="table table-small-font table-bordered table-striped">
+      <thead>
+       <tr>
+           <th>No</th>
+           <th>Weight</th>
+           <th>Height</th>
+           <th>Temperature</th>
+           <th>Systolic_bp</th>
+           <th>Diastolic_bp</th>
+           <th>Chief_compliant</th>
+           <th>Observation</th>
+           <th>Consulting_physician</th>
+           <th>Doctor_note</th>
+           <th>Prescription</th>
+           <th>Date</th>
+
+      </tr>
+      </thead>
+
+      <tbody>
+      <?php $i =1; ?>
+      @foreach($details as $detail)
+       <tr>
+           <td>{{$i}}</td>
+           <td>{{$detail->current_weight}}</td>
+           <td>{{$detail->current_height}}</td>
+           <td>{{$detail->temperature}}</td>
+          <td>{{$detail->systolic_bp}}</td>
+         <td>{{$detail->diastolic_bp}}</td>
+         <td>{{$detail->chief_compliant}}</td>
+         <td>{{$detail->observation}}</td>
+         <td>{{$detail->consulting_physician}}</td>
+         <td>{{$detail->Doctor_note}}</td>
+         <td>{{$detail->prescription}}</td>
+           <td>{{$vaccine->updated_at}}</td>
+
+       </tr>
+       <?php $i++; ?>
+
+      @endforeach
+
+
+      </tbody>
+      </table>
+
+
+
+
+
+         </div>
+
       <a href="{{ route('nurse.edit', $patient->id) }}" class="btn btn-primary btn-lg">Update Details</a>
+</div>
 </div>
 </div>
 @endsection

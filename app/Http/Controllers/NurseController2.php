@@ -83,13 +83,20 @@ class NurseController extends Controller
         ->where('afya_users.id',$id)
         ->first();
 
-      $vaccines =DB::table('vaccination')
-        ->Join('diseases','vaccination.diseaseId','=','diseases.id')
-        ->Join('patients','vaccination.userId','=','patients.id')
-        ->select('vaccination.*', 'diseases.name')
-        ->where('vaccination.userId',$id)
+        $kin=DB::table('kin_details')
+        ->where('kin_details.afya_user_id',$id)
+        ->first();
+        $details=DB::table('triage_details')
+        ->where('triage_details.patient_id',$id)
         ->get();
-        return view('nurse.show')->with('patient',$patient)->with('vaccines',$vaccines);
+
+        $vaccines =DB::table('vaccination')
+          ->Join('diseases','vaccination.diseaseId','=','diseases.id')
+          ->Join('patients','vaccination.userId','=','patients.id')
+          ->select('vaccination.*', 'diseases.name')
+          ->where('vaccination.userId',$id)
+          ->get();
+          return view('nurse.show')->with('patient',$patient)->with('vaccines',$vaccines)->with('kin',$kin)->with('details',$details);
     }
 
     /**

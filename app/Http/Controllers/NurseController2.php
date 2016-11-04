@@ -20,11 +20,10 @@ class NurseController extends Controller
      }
     public function index()
     {
-      $patients = DB::table('patients')
-        ->Join('constituencies', 'patients.constituency_id', '=', 'constituencies.id')
-        ->select('patients.*', 'constituencies.name')
+      $patients = DB::table('afya_users')
+        ->Join('patients', 'afya_users.id', '=', 'patients.afya_user_id')
+        ->select('afya_users.*', 'patients.allergies')
         ->get();
-
       return view('nurse.home')->with('patients',$patients);
     }
 
@@ -50,9 +49,10 @@ class NurseController extends Controller
     }
 
     public function newPatient(){
-    $patients = DB::table('patients')
-        ->Join('constituencies', 'patients.constituency_id', '=', 'constituencies.id')
-        ->select('patients.*', 'constituencies.name')
+      $patients = DB::table('afya_users')
+        ->Join('patients', 'afya_users.id', '=', 'patients.afya_user_id')
+        ->select('afya_users.*', 'patients.allergies')
+        ->where('afya_users.status',1)
         ->get();
         return view('nurse.newpatient')->with('patients',$patients);
     }

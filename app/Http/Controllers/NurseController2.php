@@ -77,11 +77,12 @@ class NurseController extends Controller
      */
     public function show($id)
     {
-      $patient = DB::table('patients')
-        ->Join('constituencies', 'patients.constituency_id', '=', 'constituencies.id')
-        ->select('patients.*', 'constituencies.name')
-        ->where('patients.id',$id)
+      $patient= DB::table('afya_users')
+        ->Join('patients', 'afya_users.id', '=', 'patients.afya_user_id')
+        ->select('afya_users.*', 'patients.allergies')
+        ->where('afya_users.id',$id)
         ->first();
+
       $vaccines =DB::table('vaccination')
         ->Join('diseases','vaccination.diseaseId','=','diseases.id')
         ->Join('patients','vaccination.userId','=','patients.id')
@@ -99,10 +100,11 @@ class NurseController extends Controller
      */
     public function edit($id)
     {
-      $patient = DB::table('patients')
-      ->Join('constituencies', 'patients.constituency_id', '=', 'constituencies.id')
-      ->select('patients.*', 'constituencies.name')
-       ->where('patients.id','=', $id)->first();
+      $patient= DB::table('afya_users')
+        ->Join('patients', 'afya_users.id', '=', 'patients.afya_user_id')
+        ->select('afya_users.*', 'patients.allergies')
+        ->where('afya_users.id',$id)
+        ->first();
 
 
      return view('nurse.edit',compact('patient'));

@@ -39,9 +39,10 @@ class NurseController extends Controller
     }
 
     public function wList(){
-    $patients = DB::table('patients')
-        ->Join('constituencies', 'patients.constituency_id', '=', 'constituencies.id')
-        ->select('patients.*', 'constituencies.name')
+      $patients = DB::table('afya_users')
+        ->Join('patients', 'afya_users.id', '=', 'patients.afya_user_id')
+        ->select('afya_users.*', 'patients.allergies')
+        ->where('afya_users.status',2)
         ->get();
 
      return view('nurse.waitingList')->with('patients',$patients);

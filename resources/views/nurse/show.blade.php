@@ -96,12 +96,10 @@
            <th>Temperature</th>
            <th>Systolic_bp</th>
            <th>Diastolic_bp</th>
-           <th>Chief_compliant</th>
            <th>Observation</th>
            <th>Consulting_physician</th>
-
            <th>Date</th>
-            <th></th>
+            <th>View</th>
 
       </tr>
       </thead>
@@ -118,9 +116,8 @@
          <td>{{$detail->diastolic_bp}}</td>
          <td>{{$detail->chief_compliant}}</td>
          <td>{{$detail->observation}}</td>
-
            <td>{{$detail->updated_at}}</td>
-          <td>View More</td>
+          <td>More</td>
 
        </tr>
        <?php $i++; ?>
@@ -135,10 +132,11 @@
 </div>
 
 
-         </div>
-         <br>
 
-      <a href="{{ route('nurse.edit', $patient->id) }}" class="btn btn-primary btn-lg">Update Details</a>
+         </div>
+
+
+      <a href="{{ route('details', $patient->id) }}" class="btn btn-primary btn-lg">Update Details</a>
 </div>
 </div>
 </div>

@@ -12,7 +12,7 @@
               <hr>
     <div class="col-sm-6">
     <h2>Next of Kin</h2>
-    {!!Form::model($patient,['route'=>['nurse.update',$patient->id],'method'=>'PUT']) !!}
+   {!! Form::open(array('route' => 'nextkin','method'=>'POST')) !!}
     <div class="form-group">
     <label for="exampleInputEmail1">Name</label>
     <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Next Kin Name" name="name"  required>
@@ -24,9 +24,9 @@
     <div class="form-group">
      <label for="exampleInputPassword1">Relationship</label>
     <select class="form-control" name="relationship">
-    <?php  $kins = DB::table('kins')->get();?>
-                  @foreach($kins as $kin)
-                   <option value="{{$kin->name}}">{{$kin->name}}</option>
+    <?php  $kin = DB::table('kins')->get();?>
+                  @foreach($kin as $kn)
+                   <option value="{{$kn->id}}">{{$kn->name}}</option>
                  @endforeach
                 </select>
     </div>
@@ -35,7 +35,9 @@
     <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Next of Kin Phone" name="phone"  required>
     </div>
    <button type="submit" class="btn btn-primary">Save</button>
+      {!! Form::close() !!}
              </div>
+
     <div class="col-sm-6">
     <h2>Vaccines Details</h2>
     <div class="row multi-field-wrapper ">

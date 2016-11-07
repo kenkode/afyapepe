@@ -110,6 +110,46 @@ class NurseController extends Controller
 
     }
 
+    public function details($id){
+
+        return view('nurse.details')->with('id',$id);
+
+    }
+
+    public function createdetails(Request $request)
+    {
+        $id=$request->id;
+        $weight=$request->weight;
+        $heightS=$request->current_height;
+        $temperature=$request->temperature;
+        $systolic=$request->systolic;
+        $diastolic=$request->diastolic;
+        $allergies=$request->allergies;
+        $chiefcompliant=$request->chiefcompliant;
+        $observation=$request->observation;
+        $nurse=$request->nurse;
+        $doctor=$request->doctor;
+
+    DB::table('triage_details')->insert(
+    ['patient_id' => $id, 
+    'facility_id' => 10001,
+    'current_weight'=> $weight,
+    'current_height'=>$heightS,
+    'temperature'=>$temperature,
+    'systolic_bp'=>$systolic,
+    'diastolic_bp'=>$diastolic,
+    'chief_compliant'=>$chiefcompliant,
+    'observation'=>$observation,
+    'consulting_physician'=>$nurse,
+    'Doctor_note'=>'',
+    'prescription'=>'',
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
+    
+);
+
+        return Redirect::route('nurse.show', [$id]);
+    }
+
    
     /**
      * Store a newly created resource in storage.

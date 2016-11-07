@@ -57,14 +57,69 @@ class NurseController extends Controller
         ->get();
         return view('nurse.newpatient')->with('patients',$patients);
     }
+    public function createnextkin($id){
 
-    public function createnextkin(){
-      return view ('nurse.createkin');
-    }
-    public function nextkin (){
-      return "Yeah";
+        
+
+      return view ('nurse.createkin')->with('id',$id);
     }
 
+    public function nextkin (Request $request){
+
+     $phone=$request->phone;
+     $name=$request->name;
+     $relationship=$request->relationship;
+     $id=$request->id;
+      
+    DB::table('kin_details')->insert(
+    ['kin_name' => $name, 
+    'relation' => $relationship,
+    'phone_of_kin'=> $phone,
+    'afya_user_id'=>$id,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
+);
+     return Redirect::route('nurse.show', [$id]);
+
+    }
+
+    public function vaccinescreate($id){
+        return view('nurse.vaccine')->with('id',$id);
+    }
+
+    public function vaccine(Request $request){
+    $id=$request->id;
+    $diseases=$request->diseases;
+    $vaccinename=$request->vaccinename;
+    $type=$request->type;
+    $date=$request->date;
+     
+
+   DB::table('vaccination')->insert(
+    ['userId' => $id, 
+    'diseaseId' => $diseases,
+    'vaccine_name'=> $vaccinename,
+    'Yes'=>$type,
+    'Created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'yesdate' => \Carbon\Carbon::now()->toDateTimeString()]
+);
+
+
+
+    return Redirect::route('nurse.show', [$id]);
+
+    }
+
+    public function details($id){
+
+        return view('nurse.details')->with('id',$id);
+
+    }
+
+    public function createdetails()
+    {}
+
+   
     /**
      * Store a newly created resource in storage.
      *
@@ -91,6 +146,8 @@ class NurseController extends Controller
         ->first();
 
         $kin=DB::table('kin_details')
+        ->Join('kin','kin_details.relation','=','kin.id')
+        ->select('kin_details.*', 'kin.relation')
         ->where('kin_details.afya_user_id',$id)
         ->first();
         $details=DB::table('triage_details')
@@ -99,7 +156,6 @@ class NurseController extends Controller
 
         $vaccines =DB::table('vaccination')
           ->Join('diseases','vaccination.diseaseId','=','diseases.id')
-          ->Join('patients','vaccination.userId','=','patients.id')
           ->select('vaccination.*', 'diseases.name')
           ->where('vaccination.userId',$id)
           ->get();
@@ -119,6 +175,7 @@ class NurseController extends Controller
         ->select('afya_users.*', 'patients.allergies')
         ->where('afya_users.id',$id)
         ->first();
+      
 
 
      return view('nurse.edit',compact('patient'));
@@ -192,10 +249,7 @@ DB::table('patients')->where('id', $id)
 
     }
 
-    public function vaccine($id)
-    {
-        return view('nurse.vaccine');
-    }
+    
     /**
      * Remove the specified resource from storage.
      *

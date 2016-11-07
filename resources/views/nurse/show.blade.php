@@ -95,9 +95,9 @@
            <th>Chief_compliant</th>
            <th>Observation</th>
            <th>Consulting_physician</th>
-           <th>Doctor_note</th>
-           <th>Prescription</th>
+
            <th>Date</th>
+            <th></th>
 
       </tr>
       </thead>
@@ -114,10 +114,9 @@
          <td>{{$detail->diastolic_bp}}</td>
          <td>{{$detail->chief_compliant}}</td>
          <td>{{$detail->observation}}</td>
-         <td>{{$detail->consulting_physician}}</td>
-         <td>{{$detail->Doctor_note}}</td>
-         <td>{{$detail->prescription}}</td>
+
            <td>{{$detail->updated_at}}</td>
+          <th>View More</th>
 
        </tr>
        <?php $i++; ?>

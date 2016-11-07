@@ -58,6 +58,13 @@ class NurseController extends Controller
         return view('nurse.newpatient')->with('patients',$patients);
     }
 
+    public function createnextkin(){
+      return view ('nurse.createkin');
+    }
+    public function nextkin (){
+      return "Yeah";
+    }
+
     /**
      * Store a newly created resource in storage.
      *

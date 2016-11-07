@@ -57,7 +57,33 @@ class NurseController extends Controller
         ->get();
         return view('nurse.newpatient')->with('patients',$patients);
     }
+    public function createnextkin($id){
 
+        
+
+      return view ('nurse.createkin')->with('id',$id);
+    }
+
+    public function nextkin (Request $request){
+
+     $phone=$request->phone;
+     $name=$request->name;
+     $relationship=$request->relationship;
+     $id=$request->id;
+      
+    DB::table('kin_details')->insert(
+    ['kin_name' => $name, 
+    'relation' => $relationship,
+    'phone_of_kin'=> $phone,
+    'afya_user_id'=>$id,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
+);
+     return Redirect::route('nurse.show', [$id]);
+
+    }
+
+   
     /**
      * Store a newly created resource in storage.
      *
@@ -84,6 +110,8 @@ class NurseController extends Controller
         ->first();
 
         $kin=DB::table('kin_details')
+        ->Join('kin','kin_details.relation','=','kin.id')
+        ->select('kin_details.*', 'kin.relation')
         ->where('kin_details.afya_user_id',$id)
         ->first();
         $details=DB::table('triage_details')
@@ -112,6 +140,7 @@ class NurseController extends Controller
         ->select('afya_users.*', 'patients.allergies')
         ->where('afya_users.id',$id)
         ->first();
+      
 
 
      return view('nurse.edit',compact('patient'));

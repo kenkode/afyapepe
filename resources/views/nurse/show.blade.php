@@ -17,25 +17,25 @@
 </div>
           </div>
     <div class="row">
-    <div class="col-sm-6">
+    <div class="col-sm-4 col-md-offset-1">
     <h5>Next of Kin Details</h5>
      <div class="form-group">
     <label for="exampleInputEmail1">Name</label>
-    <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Next Kin Name" name="kin_name" value="{{$kin->kin_name}}"  readonly="">
+    <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Next Kin Name" name="kin_name"  value="{{$kin->kin_name}}"  readonly="">
     </div>
 
     <div class="form-group">
      <label for="exampleInputPassword1">Relationship</label>
-     <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Next Kin Name" name="relation" value="{{$kin->relation}}"  readonly="">
+     <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Next Kin Name" name="relation"  value="{{$kin->relation}}"  readonly="">
     </div>
 
      <div class="form-group">
     <label for="exampleInputPassword1">Phone</label>
-    <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Next of Kin Phone" name="phone"  value="{{$kin->phone_of_kin}}"  readonly="">
+    <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Next of Kin Phone" name="phone" value="{{$kin->phone_of_kin}}"    readonly="">
     </div>
-
+   <a href="{{ route('createkin', $patient->id) }}" class="btn btn-primary btn-lg">Update Details</a>
              </div>
-     <div class="col-sm-6">
+     <div class="col-sm-7">
           <h5>Vaccination Details</h5>
 
                                                      <table class="table table-small-font table-bordered table-striped">
@@ -60,9 +60,10 @@
                                                           <td>{{$vac->vaccine_name}}</td>
 
                                                           <td><?php $yes=$vac->Yes;
-                                                            if($yes=="YES"){ echo '<p><i class="glyphicon glyphicon-ok-circle" aria-hidden="true"></i></p>';}else{ echo '<p><i class="glyphicon glyphicon-remove-circle" aria-hidden="true"></i></p>';} ?>
+                                                            if($yes=="yes"){ echo '<p><i class="glyphicon glyphicon-ok-circle" aria-hidden="true"></i></p>';}else{ echo '<p><i class="glyphicon glyphicon-remove-circle" aria-hidden="true"></i></p>';} ?>
                                                             </td>
-                                                          <td>{{$vac->yesdate}}</td>
+                                                          <td><?php if($yes!=="yes"){echo"0000:00:00";}
+                                                          else{ echo $vac=$vac->yesdate;} ?></td>
 
                                                       </tr>
                                                       <?php $i++; ?>
@@ -73,12 +74,15 @@
                                                    </tbody>
                                                  </table>
 
+
+    <a href="{{ route('vaccinescreate', $patient->id) }}" class="btn btn-primary btn-lg">Update Details</a>
           </div>
     <!--content-->
 
 
 
       </div><!--content page-->
+      <br><br>
       <div class="row">
       <div class="col-sm-12">
       <h5>Patient Details</h5>
@@ -116,7 +120,7 @@
          <td>{{$detail->observation}}</td>
 
            <td>{{$detail->updated_at}}</td>
-          <th>View More</th>
+          <td>View More</td>
 
        </tr>
        <?php $i++; ?>
@@ -132,6 +136,7 @@
 
 
          </div>
+         <br>
 
       <a href="{{ route('nurse.edit', $patient->id) }}" class="btn btn-primary btn-lg">Update Details</a>
 </div>

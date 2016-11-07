@@ -83,6 +83,33 @@ class NurseController extends Controller
 
     }
 
+    public function vaccinescreate($id){
+        return view('nurse.vaccine')->with('id',$id);
+    }
+
+    public function vaccine(Request $request){
+    $id=$request->id;
+    $diseases=$request->diseases;
+    $vaccinename=$request->vaccinename;
+    $type=$request->type;
+    $date=$request->date;
+     
+
+   DB::table('vaccination')->insert(
+    ['userId' => $id, 
+    'diseaseId' => $diseases,
+    'vaccine_name'=> $vaccinename,
+    'Yes'=>$type,
+    'Created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'yesdate' => \Carbon\Carbon::now()->toDateTimeString()]
+);
+
+
+
+    return Redirect::route('nurse.show', [$id]);
+
+    }
+
    
     /**
      * Store a newly created resource in storage.
@@ -120,7 +147,6 @@ class NurseController extends Controller
 
         $vaccines =DB::table('vaccination')
           ->Join('diseases','vaccination.diseaseId','=','diseases.id')
-          ->Join('patients','vaccination.userId','=','patients.id')
           ->select('vaccination.*', 'diseases.name')
           ->where('vaccination.userId',$id)
           ->get();
@@ -214,10 +240,7 @@ DB::table('patients')->where('id', $id)
 
     }
 
-    public function vaccine($id)
-    {
-        return view('nurse.vaccine');
-    }
+    
     /**
      * Remove the specified resource from storage.
      *

@@ -38,6 +38,7 @@
     <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Diastolic BP" name="diastolic"  required>
     </div>
     </div>
+    </div>
     <div class="col-sm-6">
     <h2>Patient Observations</h2>
     <div class="form-group">

@@ -71,33 +71,7 @@
 </div>
     <!--Home tabs-->
 <div class="row">
-<div class="col-xs-12 col-sm-12 col-md-12">
-<div class="form-group">
 
-<!--Patient controller @showpatient-->
-<?php
-        foreach ($patientdetails as $pdetails) {
-          $pid = $pdetails->patient_id;
-          $Name = $pdetails->firstname;
-          $lname = $pdetails->secondName;
-          $age = $pdetails->age;
-          $nid = $pdetails->national_id;
-          $appid = $pdetails->AppID;
-          $appdate = $pdetails->Appointment_Date;
-          $facilty = $pdetails->FacilityName;
-          $weight = $pdetails->current_weight;
-          $height = $pdetails->current_height;
-          $temperature = $pdetails->temperature;
-          $systolic = $pdetails->systolic_bp;
-          $diastolic = $pdetails->diastolic_bp;
-          $allergies = $pdetails->allergies;
-          $complain = $pdetails->chief_compliant;
-
-          $observations = $pdetails->observation;
-  }
-    ?>
-    </div>
-</div>
 
 <div class="col-sm-12">
   <div class="panel-box">
@@ -108,8 +82,6 @@
       <li class=""><a data-toggle="tab" href="#tab-2" aria-expanded="false">HISTORY</a></li>
       <li class=""><a data-toggle="tab" href="#tab-3" aria-expanded="false">TESTS</a></li>
      <li class=""><a data-toggle="tab" href="#tab-4" aria-expanded="false">PRESCRIPTION</a></li>
-
-    <!-- <li class=""><a href="{{route('testdone',$appid)}}" >PRESCRIPTION12</a></li> -->
 
   </ul>
   <div class="tab-content">
@@ -125,10 +97,32 @@
 
                      </tr>
                   </thead>
+                  <!--Patient controller @showpatient-->
+                  <?php
+                          foreach ($patientdetails as $pdetails) {
+                            $patientid = $pdetails->pat_id;
+                            $Name = $pdetails->firstname;
+                            $lname = $pdetails->secondName;
+                            $age = $pdetails->age;
+                            $nid = $pdetails->national_id;
+
+                            $appdate = $pdetails->created_at;
+                            $facilty = $pdetails->FacilityName;
+                            $weight = $pdetails->current_weight;
+                            $height = $pdetails->current_height;
+                            $temperature = $pdetails->temperature;
+                            $systolic = $pdetails->systolic_bp;
+                            $diastolic = $pdetails->diastolic_bp;
+                            $allergies = $pdetails->allergies;
+                            $complain = $pdetails->chief_compliant;
+
+                            $observations = $pdetails->observation;
+                    }
+                      ?>
                   <tbody>
                      <tr>
                        <td><strong>Patient Id:</strong></td>
-                       <td><?php echo $pid;?></td>
+                       <td><?php echo $patientid;?></td>
                         <td>Name</td>
                         <td><?php echo $Name;?>&nbsp<?php echo $lname;?></td>
                         <td><strong>Age:</strong></td>
@@ -244,7 +238,6 @@
             <div id="tab-3" class="tab-pane">
                 <div class="panel-body">
                   <div class="table-responsive">
-  {{ Form::open(array('route' => array('test.store'),'method'=>'POST')) }}
 
 
 
@@ -260,14 +253,14 @@
 <div class="col-xs-12 col-sm-12 col-md-12">
 <div class="form-group">
 <tr>
-  <td>{{ Form::hidden('patient_id',$pdetails->patient_id, array('class' => 'form-control')) }}
+  <td>{{ Form::text('patient_id',$pdetails->pat_id, array('class' => 'form-control')) }}
 </td>
 
-  <td>{{ Form::hidden('test_status',1, array('class' => 'form-control')) }}
+  <td>{{ Form::text('test_status',1, array('class' => 'form-control')) }}
 </td>
-<td>{{ Form::hidden('appointment_id',$appid, array('class' => 'form-control')) }}
+<td>{{ Form::text('appointment_id',$pdetails->app_id, array('class' => 'form-control')) }}
 </td>
-  <td>{{ Form::hidden('doc_id',$Docdata->doc_id, array('class' => 'form-control')) }}
+  <td>{{ Form::text('doc_id',$Docdata->doc_id, array('class' => 'form-control')) }}
   </td></tr>
   </div>
     </div>
@@ -320,7 +313,7 @@
              </tbody>
            </table>
               </div>
-
+<!--Test result tabs PatientController@testdone-->
               <div class="table-responsive">
            <table class="table table-small-font table-bordered table-striped">
          <thead>
@@ -346,11 +339,11 @@
              <tr>
                  <td>{{ +$i }}</td>
 
-                 <td>{{$tstdn->tests_reccommended}}</td>
+                 <td>{{$tstdn->test_reccommended}}</td>
                  <td>{{$tstdn->done}}</td>
                  <td>{{$tstdn->results}}</td>
                  <td>{{$tstdn->facility_id}}</td>
-                 <td>{{$tstdn->note}}</td>
+                 <td>{{$tstdn->appointment_id}}</td>
                  <td>{{$tstdn->note}}</td>
                  <td>{{$tstdn->created_at}}</td>
         </tr>
@@ -385,7 +378,7 @@
 
         @foreach($tstdone as $tstdn)
       <tr>
-                
+
 
                  <td>{{ Form::text('appointment_id', $tstdn->appointment_id, array('class' => 'form-control')) }}</td>
                  <td>{{ Form::text('patient_id',$tstdn->patient_id, array('class' => 'form-control')) }}</td>

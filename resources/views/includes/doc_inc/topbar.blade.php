@@ -24,7 +24,7 @@
                               <span>{{ Auth::user()->name }}<br><em>{{ Auth::user()->role }}</em></span><span class="caret"></span>
                           </a>
                           <ul class="dropdown-menu">
-                              <li><a href="#">Account</a></li>
+                              <li><a href="{{ route('doctor.create') }}">Account</a></li>
                               <li><a href="#">Settings</a></li>
                               <li><a href="{{ url('/logout') }}">Logout</a></li>
                           </ul>

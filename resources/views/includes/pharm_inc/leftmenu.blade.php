@@ -1,10 +1,11 @@
 <!--left menu start-->
           <div class="side-menu left" id="side-menu">
             <ul class="metismenu clearfix" id="menu">
+          <?php use Carbon\Carbon;?>
        <li   <?php
-      $today= date('Y-m-d H:i:s');
+        $today = Carbon::today();
        $data= DB::table('triage_details')
-                 ->where('triage_details.updated_at',$today)->count();
+                   ->where('triage_details.updated_at','>=',$today)->count();
      ?>
 
                     <li>

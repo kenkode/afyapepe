@@ -29,8 +29,9 @@ class PharmacyController extends Controller
         $today = Carbon::today();
       $patients = DB::table('afya_users')
         ->Join('triage_details', 'afya_users.id', '=', 'triage_details.patient_id')
-        ->select('afya_users.*', 'triage_details.*')
-        ->where('triage_details.updated_at',$today)
+        ->Join('doctors', 'triage_details.consulting_physician', '=', 'doctors.doc_id')
+        ->select('afya_users.*', 'triage_details.*','doctors.name')
+        ->where('triage_details.updated_at','>=',$today)
         ->get();
 
         return view('pharmacy.home')->with('patients',$patients);

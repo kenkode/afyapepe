@@ -41,8 +41,8 @@
                                                             @if($gender==1){{"Male"}}@else{{"Female"}}@endif
                                                           </td>
                                                           <td>{{$patient->msisdn}}</td>
-                                                          <td>{{$patient->consulting_physician}}</td>
-                                                          <td>{{$patient->consulting_physician}}</td>
+                                                          <td>{{$patient->name}}</td>
+                                                          <td>{{$patient->updated_at}}</td>
 
 
 

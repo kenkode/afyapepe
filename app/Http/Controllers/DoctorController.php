@@ -35,9 +35,9 @@ class DoctorController extends Controller
 
        $patients = DB::table('afya_users')
          ->Join('patients', 'afya_users.id', '=', 'patients.afya_user_id')
-         ->Join('appointments', 'patients.id', '=', 'appointments.PatientID')
-         ->select('afya_users.*','patients.*', 'appointments.Appointment_Date', 'appointments.facility_ID')
-         ->where('appointments.Appointment_Date','>=',$today)
+         ->Join('appointments', 'patients.id', '=', 'appointments.patient_id')
+         ->select('afya_users.*','patients.*','appointments.id', 'appointments.created_at', 'appointments.facility_id')
+         ->where('appointments.created_at','>=',$today)
          ->get();
 
        return view('doctor.newPatients')->with('patients',$patients);
@@ -50,9 +50,9 @@ class DoctorController extends Controller
 
        $patients = DB::table('afya_users')
          ->Join('patients', 'afya_users.id', '=', 'patients.afya_user_id')
-         ->Join('appointments', 'patients.id', '=', 'appointments.PatientID')
-         ->select('afya_users.*','patients.*', 'appointments.Appointment_Date', 'appointments.facility_ID')
-         ->where('appointments.Appointment_Date','>=',$today)
+         ->Join('appointments', 'patients.id', '=', 'appointments.patient_id')
+         ->select('afya_users.*','patients.*','appointments.id', 'appointments.created_at', 'appointments.facility_id')
+         ->where('appointments.created_at','>=',$today)
          ->get();
 
        return view('doctor.newPatients')->with('patients',$patients);
@@ -114,7 +114,7 @@ class DoctorController extends Controller
      Doctor::create($request->all());
 
 
-            return redirect()->route('doctor.index')
+return redirect()->route('doctor.index')
     ->with('success','User created successfully');
 
         }
@@ -167,8 +167,7 @@ class DoctorController extends Controller
 
       $uid = Auth::user()->id;
       $DocDetails = DB::table('doctors')->where('user_id', '=', Auth::user()->id)->get();
-
-    return $DocDetails;
+     return $DocDetails;
 
 }
 

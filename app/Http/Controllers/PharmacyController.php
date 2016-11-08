@@ -94,10 +94,10 @@ $patients=DB::table('patients')
      */
     public function show($id)
     {
-      $patient = DB::table('patients')
-        ->Join('constituencies', 'patients.constituency_id', '=', 'constituencies.id')
-        ->select('patients.*', 'constituencies.name')
-        ->where('patients.id',$id)
+      $patient = DB::table('afya_users')
+        ->Join('triage_details', 'afya_users.id', '=', 'triage_details.patient_id')
+        ->select('afya_users.*', 'triage_details.*')
+        ->where('triage_details.id',$id)
         ->first();
       return view ('pharmacy.show')->with('patient',$patient);
     }

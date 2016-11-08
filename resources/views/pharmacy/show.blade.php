@@ -8,40 +8,28 @@
 
 
                     <div class="row">
-                                      <div class="col-sm-6 ">
-                                       <?php $gender=$patient->gender;?>
 
-                                          <div class="panel-box">
-
-                                            <h5>Patient Details</h5>
                                              {!! Form::open(array('route' => 'pharmacy.store')) !!}
-                                             <input type="hidden" name="id" value="{{$patient->id}}">
-                                             <div class="form-group">
-                                            <label for="exampleInputEmail1">Name</label>
-                                            <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Next Kin Name" name="name" value="{{$patient->firstname}} {{$patient->lastname}}" readonly="">
-                                            </div>
-                                            <div class="form-group">
-                                            <label for="exampleInputEmail1">Age</label>
-                                            <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Next Kin ID Number" name="idno" value="{{$patient->age}}" readonly="">
-                                            </div>
-                                            <div class="form-group">
-                                             <label for="exampleInputPassword1">Gender</label>
-                                             <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Next Kin Name" name="name" value="@if($gender==1){{"Male"}}@else{{"Female"}}@endif" readonly="">
-                                            </div>
 
-                                             <div class="form-group">
-                                            <label for="exampleInputPassword1">Allergies</label>
-                                            <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Allegies" name="phone" value="{{$patient->allergies}}" readonly="">
-                                            </div>
-                                            </div>
-                                            </div>
                                             <div class="col-sm-6 ">
+                                              <h2>Doctor</h2>
+
                                              <div class="panel-box">
+                                               <div class="form-group">
+                                               <h5><label for="exampleInputPassword1">Doctor's Note</label></h5>
+                                               <br>
+                                               <textarea rows="4" cols="58"  name="docprescription"readonly>{{$patient->Doctor_note}}</textarea>
+                                              </div>
                                             <div class="form-group">
                                             <h5><label for="exampleInputPassword1">Doctor's Prescription</label></h5>
                                             <br>
                                             <textarea rows="4" cols="58"  name="docprescription"readonly>{{$patient->prescription}}</textarea>
                                            </div>
+                                         </div>
+                                       </div>
+                                       <div class="col-sm-6 ">
+                                        <h2>Pharmacy</h2>
+                                        <div class="panel-box">
                                            <div class="form-group">
                                             <label for="exampleInputPassword1">Drugs</label>
                                             <select class="form-control" name="druglist">
@@ -79,7 +67,10 @@
                                            {{Form::submit('Assign Drug',array('class' =>'btn btn-success btn-lg btn-block','style'=>'margin-top:20px;'))}}
                                         {!! Form::close() !!}
                                                      </div>
+                                                   </div>
+                                                 </div>
                                                      </div>
+
                                                      </div>
 
 

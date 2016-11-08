@@ -96,8 +96,8 @@
            <th>Temperature</th>
            <th>Systolic_bp</th>
            <th>Diastolic_bp</th>
+           <th>Chief Compliant</th>
            <th>Observation</th>
-           <th>Consulting_physician</th>
            <th>Date</th>
             <th>View</th>
 
@@ -136,7 +136,7 @@
          </div>
 
 
-      <a href="{{ route('details', $patient->id) }}" class="btn btn-primary btn-lg">Update Details</a>
+      <a href="{{ route('details', $patient->id) }}" class="btn btn-primary btn-lg">Add Details</a>
 </div>
 </div>
 </div>

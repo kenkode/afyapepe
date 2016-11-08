@@ -40,21 +40,28 @@ class PatientController extends Controller
      public function showpatient($id)
 
      {
-     $patientdetails = DB::table('patients')
-        ->Join('appointments', 'patients.id', '=', 'appointments.PatientId')
-        ->Join('facilities', 'appointments.Facility_ID', '=', 'facilities.FacilityCode')
-        ->Join('afya_users', 'patients.afya_user_id', '=', 'afya_users.id')
-        ->Join('triage_details', 'patients.id', '=', 'triage_details.patient_id')
-        ->select('patients.*', 'afya_users.*','triage_details.*','appointments.AppID','appointments.Facility_ID','appointments.Appointment_Date','facilities.FacilityName')
-       ->where('patients.id',$id)
-       ->get();
+       $patientdetails = DB::table('appointments')
+         ->Join('facilities', 'appointments.Facility_ID', '=', 'facilities.FacilityCode')
+          ->Join('patients', 'appointments.PatientId', '=', 'patients.id')
+          ->Join('afya_users', 'patients.afya_user_id', '=', 'afya_users.id')
+          ->Join('triage_details', 'patients.id', '=', 'triage_details.patient_id')
+          ->select('afya_users.*','triage_details.*','patients.*','appointments.AppID','appointments.Facility_ID','appointments.Appointment_Date','facilities.FacilityName')
+          ->where('appointments.AppID',$id)
+          ->get();
 
-       $triageDetails = DB::table('triage_details')
-       ->where('patient_id',$id)
+      //  $triageDetails = DB::table('triage_details')
+      // ->where('patient_id',$id)
+      // ->get();
+
+      $tstdone = DB::table('patient_test')
+      ->Join('patient_test_details','patient_test.id', '=', 'patient_test_details.patient_test_id')
+      ->Join('appointments','patient_test.id', '=', 'appointments.PatientID')
+      ->select('patient_test_details.*','appointments.AppID','patient_test.patient_id','patient_test.appointment_id')
+      ->where('patient_test.appointment_id', '=',$id)
       ->get();
-      return view('doctor.show')->with('triageDetails',$triageDetails)->with('patientdetails',$patientdetails);;
 
+      return view('doctor.show')->with('tstdone',$tstdone)->with('patientdetails',$patientdetails);;
+}
 
-     }
 
 }

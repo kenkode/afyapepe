@@ -13,3 +13,5 @@
  <link href="{{ asset('css/style.css') }}" media="all" rel="stylesheet" type="text/css" />
   <script type="text/javascript" src="{{ asset('js/modernizr.js') }}"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>

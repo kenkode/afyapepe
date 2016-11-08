@@ -39,9 +39,10 @@ class NurseController extends Controller
     }
 
     public function wList(){
-    $patients = DB::table('patients')
-        ->Join('constituencies', 'patients.constituency_id', '=', 'constituencies.id')
-        ->select('patients.*', 'constituencies.name')
+      $patients = DB::table('afya_users')
+        ->Join('patients', 'afya_users.id', '=', 'patients.afya_user_id')
+        ->select('afya_users.*', 'patients.allergies')
+        ->where('afya_users.status',2)
         ->get();
 
      return view('nurse.waitingList')->with('patients',$patients);
@@ -56,6 +57,99 @@ class NurseController extends Controller
         ->get();
         return view('nurse.newpatient')->with('patients',$patients);
     }
+    public function createnextkin($id){
+
+
+
+      return view ('nurse.createkin')->with('id',$id);
+    }
+
+    public function nextkin (Request $request){
+
+     $phone=$request->phone;
+     $name=$request->name;
+     $relationship=$request->relationship;
+     $id=$request->id;
+
+    DB::table('kin_details')->insert(
+    ['kin_name' => $name,
+    'relation' => $relationship,
+    'phone_of_kin'=> $phone,
+    'afya_user_id'=>$id,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
+);
+     return Redirect::route('nurse.show', [$id]);
+
+    }
+
+    public function vaccinescreate($id){
+        return view('nurse.vaccine')->with('id',$id);
+    }
+
+    public function vaccine(Request $request){
+    $id=$request->id;
+    $diseases=$request->diseases;
+    $vaccinename=$request->vaccinename;
+    $type=$request->type;
+    $date=$request->date;
+
+
+   DB::table('vaccination')->insert(
+    ['userId' => $id,
+    'diseaseId' => $diseases,
+    'vaccine_name'=> $vaccinename,
+    'Yes'=>$type,
+    'Created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'yesdate' => \Carbon\Carbon::now()->toDateTimeString()]
+);
+
+
+
+    return Redirect::route('nurse.show', [$id]);
+
+    }
+
+    public function details($id){
+
+        return view('nurse.details')->with('id',$id);
+
+    }
+
+    public function createdetails(Request $request)
+    {
+        $id=$request->id;
+        $weight=$request->weight;
+        $heightS=$request->current_height;
+        $temperature=$request->temperature;
+        $systolic=$request->systolic;
+        $diastolic=$request->diastolic;
+        $allergies=$request->allergies;
+        $chiefcompliant=$request->chiefcompliant;
+        $observation=$request->observation;
+        $nurse=$request->nurse;
+        $doctor=$request->doctor;
+
+    DB::table('triage_details')->insert(
+    ['patient_id' => $id,
+    'facility_id' => 10001,
+    'current_weight'=> $weight,
+    'current_height'=>$heightS,
+    'temperature'=>$temperature,
+    'systolic_bp'=>$systolic,
+    'diastolic_bp'=>$diastolic,
+    'chief_compliant'=>$chiefcompliant,
+    'observation'=>$observation,
+    'consulting_physician'=>$doctor,
+    'Doctor_note'=>'',
+    'prescription'=>'',
+    'updated_at' => \Carbon\Carbon::now()]
+
+);
+
+        return Redirect::route('nurse.show', [$id]);
+    }
+
 
     /**
      * Store a newly created resource in storage.
@@ -76,18 +170,27 @@ class NurseController extends Controller
      */
     public function show($id)
     {
-      $patient = DB::table('patients')
-        ->Join('constituencies', 'patients.constituency_id', '=', 'constituencies.id')
-        ->select('patients.*', 'constituencies.name')
-        ->where('patients.id',$id)
+      $patient= DB::table('afya_users')
+        ->Join('patients', 'afya_users.id', '=', 'patients.afya_user_id')
+        ->select('afya_users.*', 'patients.allergies')
+        ->where('afya_users.id',$id)
         ->first();
-      $vaccines =DB::table('vaccination')
-        ->Join('diseases','vaccination.diseaseId','=','diseases.id')
-        ->Join('patients','vaccination.userId','=','patients.id')
-        ->select('vaccination.*', 'diseases.name')
-        ->where('vaccination.userId',$id)
+
+        $kin=DB::table('kin_details')
+        ->Join('kin','kin_details.relation','=','kin.id')
+        ->select('kin_details.*', 'kin.relation')
+        ->where('kin_details.afya_user_id',$id)
+        ->first();
+        $details=DB::table('triage_details')
+        ->where('triage_details.patient_id',$id)
         ->get();
-        return view('nurse.show')->with('patient',$patient)->with('vaccines',$vaccines);
+
+        $vaccines =DB::table('vaccination')
+          ->Join('diseases','vaccination.diseaseId','=','diseases.id')
+          ->select('vaccination.*', 'diseases.name')
+          ->where('vaccination.userId',$id)
+          ->get();
+          return view('nurse.show')->with('patient',$patient)->with('vaccines',$vaccines)->with('kin',$kin)->with('details',$details);
     }
 
     /**
@@ -98,10 +201,12 @@ class NurseController extends Controller
      */
     public function edit($id)
     {
-      $patient = DB::table('patients')
-      ->Join('constituencies', 'patients.constituency_id', '=', 'constituencies.id')
-      ->select('patients.*', 'constituencies.name')
-       ->where('patients.id','=', $id)->first();
+      $patient= DB::table('afya_users')
+        ->Join('patients', 'afya_users.id', '=', 'patients.afya_user_id')
+        ->select('afya_users.*', 'patients.allergies')
+        ->where('afya_users.id',$id)
+        ->first();
+
 
 
      return view('nurse.edit',compact('patient'));
@@ -175,10 +280,7 @@ DB::table('patients')->where('id', $id)
 
     }
 
-    public function vaccine($id)
-    {
-        return view('nurse.vaccine');
-    }
+
     /**
      * Remove the specified resource from storage.
      *

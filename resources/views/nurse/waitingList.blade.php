@@ -29,7 +29,7 @@ $current = Carbon::now();
                                                           <th>Gender</th>
                                                           <th>Age</th>
                                                           <th>Time waited to see the Doctor</th>
-                                                          
+
                                                     </tr>
                                                   </thead>
 
@@ -37,15 +37,15 @@ $current = Carbon::now();
                                                     <?php $i =1; ?>
                                                  @foreach($patients as $patient)
                                                       <tr>
-                                                          <td><a href="{{route('nurse.show',$patient->id)}}">{{$i}}</a></td>
-                                                          <td><a href="{{route('nurse.show',$patient->id)}}">{{$patient->firstname}}</a></td>
-                                                          <td><a href="{{route('nurse.show',$patient->id)}}">{{$patient->lastname}}</a></td>
+                                                          <td>{{$i}}</td>
+                                                          <td>{{$patient->firstname}}</a></td>
+                                                          <td>{{$patient->secondName}}</a></td>
                                                           <td><?php $gender=$patient->gender;?>
                                                             @if($gender==1){{"Male"}}@else{{"Female"}}@endif</a>
                                                           </td>
                                                           <td>{{$patient->age}}</td>
-                                                          
-                                                          <td><?php $startTime = Carbon::parse($patient->created_at);
+
+                                                          <td><?php $startTime = Carbon::parse($patient->dateCreated);
                                                              $finishTime = Carbon::parse($current);
 
                                                              $totalDuration = $finishTime->diffForHumans($startTime,true);

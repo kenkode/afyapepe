@@ -51,10 +51,10 @@ class PatientTestController extends Controller
 
       PatientTest::create($request->all());
 
+          $id = $request->input('patient_id');
+// return Redirect::route('showPatient',array('id' = $request->patient_id));
 
-    return redirect()->route('doctor.index')
-     ->with('success','User created successfully');
-
+return redirect()->route('showPatient', ['id' => $id]);
          }
 
     /**

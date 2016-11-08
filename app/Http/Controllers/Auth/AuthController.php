@@ -81,7 +81,8 @@ class AuthController extends Controller
           return '/admin';
       }
       if($role == "Doctor"){
-        return '/doctor';
+return '/doctor/create';
+
       }
       if($role == "Nurse"){
         return '/nurse';

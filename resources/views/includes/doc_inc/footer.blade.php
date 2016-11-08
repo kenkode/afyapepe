@@ -38,8 +38,11 @@
     <script type="text/javascript" src="{{ asset('js/jquery.multi-select.js') }}"></script>
   <script type="text/javascript">
   // run pre selected options
+
   $('#pre-selected-options').multiSelect();
-    $('#pre-selected-options1').multiSelect();
+  $('#pre-selected-options1').multiSelect()
+
+
   </script>
         <!--page js-->
         <script>

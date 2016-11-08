@@ -100,7 +100,11 @@ class TestController extends Controller
             //
         }
 
-
+        function drugList(){
+       $drugs = DB::table('drugslist')
+       ->get();
+      return $drugs;
+      }
 
 
     function TestList(){

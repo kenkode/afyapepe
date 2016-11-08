@@ -68,16 +68,13 @@
     </div>
 
     	<br>	<br>	<br>
-
-    </div>
-
-    <div class="row">
-
+</div>
+    <!--Home tabs-->
+<div class="row">
 <div class="col-xs-12 col-sm-12 col-md-12">
+<div class="form-group">
 
-    <div class="form-group">
-
-
+<!--Patient controller @showpatient-->
 <?php
         foreach ($patientdetails as $pdetails) {
           $pid = $pdetails->patient_id;
@@ -101,6 +98,7 @@
     ?>
     </div>
 </div>
+
 <div class="col-sm-12">
   <div class="panel-box">
 
@@ -109,13 +107,16 @@
       <li class="active"><a data-toggle="tab" href="#tab-1" aria-expanded="true"> HOME</a></li>
       <li class=""><a data-toggle="tab" href="#tab-2" aria-expanded="false">HISTORY</a></li>
       <li class=""><a data-toggle="tab" href="#tab-3" aria-expanded="false">TESTS</a></li>
-      <li class=""><a data-toggle="tab" href="#tab-4" aria-expanded="false">PRESCRIPTION</a></li>
+     <li class=""><a data-toggle="tab" href="#tab-4" aria-expanded="false">PRESCRIPTION</a></li>
+
+    <!-- <li class=""><a href="{{route('testdone',$appid)}}" >PRESCRIPTION12</a></li> -->
+
   </ul>
   <div class="tab-content">
       <div id="tab-1" class="tab-pane active">
           <div class="panel-body">
 
-<!--Home tabs-->
+
 <div class="table-responsive">
                <table class="table table-striped">
                   <thead>
@@ -197,23 +198,7 @@
       </div>
       <!--History tabs-->
       <!--Patient controller @showpatient-->
-      <?php
 
-              foreach ($triageDetails as $triage) {
-
-                $tweight= $triage->current_weight;
-                $theight= $triage->current_height;
-                $ttemperature= $triage->temperature;
-                $tsystolic= $triage->systolic_bp;
-                $tdiastolic= $triage->diastolic_bp;
-                $tcomplaint= $triage->chief_compliant;
-                $tobservation= $triage->observation;
-                $tphysician= $triage->consulting_physician;
-                $tprescription= $triage->prescription;
-                $tdate= $triage->updated_at;
-                $tfacility= $triage->updated_at;
-}
-?>
 
 
       <div id="tab-2" class="tab-pane">
@@ -233,7 +218,7 @@
 
        <tbody>
          <?php $i =1; ?>
-      @foreach($triageDetails as $triageDetails)
+      @foreach($patientdetails as $triageDetails)
            <tr>
                <td>{{ +$i }}</td>
                <td>{{$triageDetails->updated_at}}</td>
@@ -280,7 +265,7 @@
 
   <td>{{ Form::hidden('test_status',1, array('class' => 'form-control')) }}
 </td>
-<td>{{ Form::text('appointment_id',$appid, array('class' => 'form-control')) }}
+<td>{{ Form::hidden('appointment_id',$appid, array('class' => 'form-control')) }}
 </td>
   <td>{{ Form::hidden('doc_id',$Docdata->doc_id, array('class' => 'form-control')) }}
   </td></tr>
@@ -303,7 +288,7 @@
                     @endforeach
                 </select>
               </td>
-               <td>  </td>
+               <td> </td>
             </tr>
 </div>
 </div>
@@ -335,6 +320,47 @@
              </tbody>
            </table>
               </div>
+
+              <div class="table-responsive">
+           <table class="table table-small-font table-bordered table-striped">
+         <thead>
+             <tr>
+               <th></th>
+                 <th>Test Recommended</th>
+                 <th>Done</th>
+                 <th>Result</th>
+                 <th>Faciity</th>
+                 <th>Apointment Id</th>
+                 <th>Note</th>
+                 <th>Date Test Done</th>
+
+           </tr>
+         </thead>
+
+         <tbody>
+           <?php $i =1; ?>
+
+        @foreach($tstdone as $tstdn)
+
+
+             <tr>
+                 <td>{{ +$i }}</td>
+
+                 <td>{{$tstdn->tests_reccommended}}</td>
+                 <td>{{$tstdn->done}}</td>
+                 <td>{{$tstdn->results}}</td>
+                 <td>{{$tstdn->facility_id}}</td>
+                 <td>{{$tstdn->note}}</td>
+                 <td>{{$tstdn->note}}</td>
+                 <td>{{$tstdn->created_at}}</td>
+        </tr>
+             <?php $i++; ?>
+
+          @endforeach
+
+          </tbody>
+        </table>
+        </div>
             </div>
 </div>
 
@@ -342,78 +368,108 @@
 
 <!--Prescription tabs-->
       <div id="tab-4" class="tab-pane">
-          <div class="panel-body">
 
-              {!! Form::open(array('route' => 'doctor.store','method'=>'POST')) !!}
-              <?php
-              $tstd= (new \App\Http\Controllers\TestController);
-              $testsd = $tstd->TestListdetails();
-              foreach($testsd as $testd){
+        {{ Form::open(array('route' => array('prescription.store'),'method'=>'POST')) }}
 
-              }
-              ?>
-              <table class="table table-striped">
-                 <thead>
-                    <tr>
-                       <h4>History</h4>
+        <div class="panel-body">
+              <div class="table-responsive">
+           <table class="table table-small-font table-bordered table-striped">
+         <thead>
+             <tr>
+               <th></th>
+            </tr>
+         </thead>
 
-                    </tr>
-                 </thead>
-                 <tbody>
+         <tbody>
+           <?php $i =1; ?>
 
-   <tr>
-   <td><strong>Test Result</strong></td>
-   <td><strong>Test Result</strong></td>
-   <td><strong>Test Result</strong></td>
-   </tr>
-   <tr>
-      <td><strong>Test:</strong></td>
-      <td><?php echo $facilty;?></td>
-      <td><strong>Result:</strong></td>
-      <td><?php echo $facilty;?></td>
-       </tr>
+        @foreach($tstdone as $tstdn)
+      <tr>
+                
 
-              <tr><td> Drug</td>
-              <td>  <select name="test">
-              @foreach($testsd as $testd)
-               <option value="{{ $testd->tests_id }}">{{ $testd->test_name }}</option>
-              @endforeach
-              </select>
-              </td>
-              <td>  </td>
-              <td>  </td>
-              </tr>
+                 <td>{{ Form::text('appointment_id', $tstdn->appointment_id, array('class' => 'form-control')) }}</td>
+                 <td>{{ Form::text('patient_id',$tstdn->patient_id, array('class' => 'form-control')) }}</td>
+                 <td>{{ Form::text('filled_status', 1, array('placeholder' => 'FullName','class' => 'form-control')) }}</td>
+                 <td>{{ Form::text('doc_id',$Did, array('class' => 'form-control')) }}</td>
 
-              <tr><td> Dosage</td>
-              <td>  <select name="test">
-              @foreach($testsd as $testd)
-               <option value="{{ $testd->tests_id }}">{{ $testd->test_name }}</option>
-              @endforeach
-              </select>
-              </td>
-              <td>  </td>
-              </tr>
+        </tr>
+             <?php $i++; ?>
+
+          @endforeach
+          <?php
+          $drgs= (new \App\Http\Controllers\TestController);
+          $drugs = $drgs->drugList();
+          foreach($drugs as $druglist){
+
+          }
+          ?>
+          <tr>
+            <td> Drug List</td>
+          <td><select name="drug_id[]" id="druglist" multiple='multiple'class="form-control m-b" >
+        @foreach($drugs as $druglist)
+           <option value="{{$druglist->id }}">{{ $druglist->drugname  }}</option>
+          @endforeach
+          </select>
+          </td>
+      </tr>
 
 
-              <tr>
-              <div class="col-xs-12 col-sm-12 col-md-12">
-              <div class="form-group">
-              <td> <strong>Doctor's Notes:</strong></td>
-              <td>{!! Form::textarea('facility', null, array('placeholder' => 'facility','class' => 'form-control')) !!}  </td>
-              </div>
-              </div>
-              <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-              <td/><button type="submit" class="btn btn-primary">Submit</button>  </td>
-              </div>
-              </tr>
-</tbody>
-              {!! Form::close() !!}
 
+      <tr><td>
+      <div class="form-group{{ $errors->has('role') ? ' has-error' : '' }}">
+          <label for="role" class="col-md-4 control-label">Dosage</label></td>
+        <td>  <div class="col-md-6"><select class="form-control m-b" name="dosage" id="example-getting-started" >
+                <option value='Full'>FULL</option>
+                <option value='Half'>HALF</option>
+                <option value='Quater'>QUATER</option>
+
+                </select>
+              @if ($errors->has('role'))
+                  <span class="help-block">
+                      <strong>{{ $errors->first('role') }}</strong>
+                  </span>
+              @endif
           </div>
+      </div>  </td>
+      </tr>
+      <tr><td>
+      <div class="form-group{{ $errors->has('role') ? ' has-error' : '' }}">
+          <label for="role" class="col-md-4 control-label">Doseform</label></td>
+        <td>  <div class="col-md-6"><select class="form-control m-b" name="doseform" id="doseform" >
+                <option value='Cream'>CREAM</option>
+                <option value='Dental'>DENTAL</option>
+                <option value='Infusion'>INFUSION</option>
+                <option value='Injection'>INJECTION</option>
+                <option value='Tablets'>TABLETS</option>
+
+                </select>
+              @if ($errors->has('role'))
+                  <span class="help-block">
+                      <strong>{{ $errors->first('role') }}</strong>
+                  </span>
+              @endif
+          </div>
+      </div>  </td>
+      </tr>
+      <div class="col-xs-12 col-sm-12 col-md-12 text-center">
+      <tr><td>
+
+      </td> <td>
+
+       <button type="submit" class="btn btn-primary">Submit</button>
+      </td>
+      </tr>
+      </div>
+          </tbody>
+        </table>
+        </div>
+      </div>
+
+      </div>
           </div>
       </div>
   </div>
-<div
+
 
   </div>
     </div>

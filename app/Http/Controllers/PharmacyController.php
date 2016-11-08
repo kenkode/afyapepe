@@ -45,13 +45,41 @@ class PharmacyController extends Controller
      */
     public function store(Request $request)
     {
-      $dosage=$request->reasons;
-      return $dosage;
+      $id=$request->id;
+      $descr=$request->docprescription;
+      $quality=1;
+      $drugs=$request->druglist;
+      $dosage=$request->dosageamount;
+      $price=300;
+      $amount=$quality*$price;
+
+      DB::table('totalsales')->insert(
+    ['userId' => $id,
+     'dosage'=>$dosage,
+     'drugs_id'=>$drugs,
+     'quantity'=> $quality,
+     'price'=>$price,
+     'amount'=> $amount
+   ]
+);
+$patients=DB::table('patients')
+->Join('totalsales', 'patients.id', '=', 'totalsales.userId')
+->Join('druglists','totalsales.drugs_id','=','druglists.id')
+->select('patients.*','totalsales.quantity','totalsales.price','totalsales.amount','totalsales.dosage',
+'druglists.drugname')
+->get();
+  return view('pharmacy.totalsales')->with('patients',$patients);
     }
 
     public function totalsales()
     {
-        return view('pharmacy.totalsales');
+      $patients=DB::table('patients')
+      ->Join('totalsales', 'patients.id', '=', 'totalsales.userId')
+      ->Join('druglists','totalsales.drugs_id','=','druglists.id')
+      ->select('patients.*','totalsales.quantity','totalsales.price','totalsales.amount','totalsales.dosage',
+      'druglists.drugname')
+      ->get();
+        return view('pharmacy.totalsales')->with('patients',$patients);
     }
 
     /**

@@ -20,10 +20,9 @@
                                                           <th>No</th>
                                                           <th>FirstName</th>
                                                           <th>Surname</th>
-                                                          
                                                           <th>Age</th>
                                                           <th>Gender</th>
-                                                          <th>Description</th>
+                                                          <th>Drug</th>
                                                           <th>Dosage</th>
                                                           <th>Quantity</th>
                                                           <th>Price</th>
@@ -31,7 +30,30 @@
                                                     </tr>
                                                   </thead>
                                        <tbody>
-                                              
+                                         <?php $i =1; ?>
+                                      @foreach($patients as $patient)
+                                           <tr>
+                                               <td>{{$i}}</a></td>
+                                               <td>{{$patient->firstname}}</td>
+                                               <td>{{$patient->lastname}}</td>
+                                               <td>{{$patient->age}}</td>
+                                               <td><?php $gender=$patient->gender;?>
+                                                 @if($gender==1){{"Male"}}@else{{"Female"}}@endif
+                                               </td>
+                                               <td>{{$patient->drugname}}</td>
+                                               <td>{{$patient->dosage}}</td>
+                                               <td>{{$patient->quantity}}</td>
+                                               <td>{{$patient->price}}</td>
+                                               <td>{{$patient->amount}}</td>
+
+
+
+                                           </tr>
+                                           <?php $i++; ?>
+
+                                        @endforeach
+
+
 
                                                    </tbody>
                                                  </table>

@@ -20,11 +20,12 @@
                                                           <th>No</th>
                                                           <th>FirstName</th>
                                                           <th>Surname</th>
-                                                          
+
                                                           <th>Age</th>
                                                           <th>Gender</th>
                                                           <th>Phone</th>
                                                           <th>Prescribing Doctor</th>
+                                                          <th>Date</th>
                                                     </tr>
                                                   </thead>
                                        <tbody>
@@ -33,14 +34,15 @@
                                                       <tr>
                                                           <td><a href="{{route('pharmacy.show',$patient->id)}}">{{$i}}</a></td>
                                                           <td><a href="{{route('pharmacy.show',$patient->id)}}">{{$patient->firstname}}</a></td>
-                                                          <td><a href="{{route('pharmacy.show',$patient->id)}}">{{$patient->lastname}}</a></td>
-                                                          
+                                                          <td><a href="{{route('pharmacy.show',$patient->id)}}">{{$patient->secondName}}</a></td>
+
                                                           <td>{{$patient->age}}</td>
                                                           <td><?php $gender=$patient->gender;?>
                                                             @if($gender==1){{"Male"}}@else{{"Female"}}@endif
                                                           </td>
-                                                          <td>{{$patient->mobileno}}</td>
-                                                          <td>{{$patient->name}}</td>
+                                                          <td>{{$patient->msisdn}}</td>
+                                                          <td>{{$patient->consulting_physician}}</td>
+                                                          <td>{{$patient->consulting_physician}}</td>
 
 
 

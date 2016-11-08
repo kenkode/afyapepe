@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use DB;
+use Carbon\Carbon;
 class PharmacyController extends Controller
 {
     /**
@@ -25,10 +26,12 @@ class PharmacyController extends Controller
      */
     public function index()
     {
-      $patients=DB::table('patients')
-      ->Join('users', 'patients.consulting_physician', '=', 'users.id')
-      ->select('patients.*', 'users.name')
-      ->get();
+        $today = Carbon::today();
+      $patients = DB::table('afya_users')
+        ->Join('triage_details', 'afya_users.id', '=', 'triage_details.patient_id')
+        ->select('afya_users.*', 'triage_details.*')
+        ->where('triage_details.updated_at',$today)
+        ->get();
 
         return view('pharmacy.home')->with('patients',$patients);
     }

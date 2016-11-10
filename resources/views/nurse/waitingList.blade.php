@@ -20,26 +20,26 @@ $current = Carbon::now();
                                           <div class="panel-box">
 
                                                         <div class="table-responsive">
-                                                     <table class="table table-small-font table-bordered table-striped">
+                                               <table class="table table-striped">
                                                   <thead>
                                                       <tr>
-                                                          <th>No</th>
-                                                          <th>FirstName</th>
-                                                          <th>Surname</th>
-                                                          <th>Gender</th>
-                                                          <th>Age</th>
-                                                          <th>Time waited to see the Doctor</th>
+                                                          <th><i class="fa fa-list fa-2x"></i> No</th>
+                                                          <th><i class="fa fa-user fa-2x"></i> Name</th>
+                                                          <th><i class="fa fa-genderless fa-2x"></i> Gender</th>
+                                                          <th><i class="fa fa-font fa-2x"></i> Age</th>
 
+                                                          <th><i class="fa fa-clock-o fa-2x"></i> Time waited to see the doctor</th>
                                                     </tr>
                                                   </thead>
+
 
                                                   <tbody>
                                                     <?php $i =1; ?>
                                                  @foreach($patients as $patient)
                                                       <tr>
                                                           <td>{{$i}}</td>
-                                                          <td>{{$patient->firstname}}</a></td>
-                                                          <td>{{$patient->secondName}}</a></td>
+                                                          <td>{{$patient->firstname}} {{$patient->secondName}}</a></td>
+                                                          
                                                           <td><?php $gender=$patient->gender;?>
                                                             @if($gender==1){{"Male"}}@else{{"Female"}}@endif</a>
                                                           </td>

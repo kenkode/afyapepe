@@ -12,12 +12,14 @@
                               <h3>Basic Settings</h3>
                           </header>
                           <ul class="list-group">
-                              <li class="list-group-item">Lorem ipsum dolor sit amet</li>
-                              <li class="list-group-item">Praesent tempus eleifend risus</li>
-                              <li class="list-group-item">Praesent tempus eleifend risus</li>
-                              <li class="list-group-item">Porta ac consectetur ac</li>
-                              <li class="list-group-item">Vestibulum at eros</li>
-                              <li class="list-group-item">Vestibulum at eros</li>
+                              <li class="list-group-item">Kins</li>
+                              <li class="list-group-item">Facilities</li>
+                              <li class="list-group-item">County</li>
+                              <li class="list-group-item">Constituencies</li>
+                              <li class="list-group-item">Manufacturers</li>
+                              <li class="list-group-item">Druglist</li>
+
+                              
                           </ul>
                       </section>
                   </div>
@@ -28,13 +30,13 @@
                           </header>
                           <div class="list-group">
                               <a class="list-group-item " href="#">
-                                  Lorem ipsum dolor sit amet
+                                  Allergies
                               </a>
-                              <a class="list-group-item active" href="javascript:;">Praesent tempus eleifend risus</a>
-                              <a class="list-group-item" href="javascript:;">Praesent tempus eleifend risus</a>
-                              <a class="list-group-item" href="javascript:;">Porta ac consectetur ac</a>
-                              <a class="list-group-item" href="javascript:;">Vestibulum at eros</a>
-                              <a class="list-group-item" href="javascript:;">Vestibulum at eros</a>
+                              <a class="list-group-item " href="javascript:;">Illnesses</a>
+                              <a class="list-group-item" href="javascript:;">Diseases</a>
+                              <a class="list-group-item" href="javascript:;">Chronic illnesses</a>
+                              <a class="list-group-item" href="javascript:;">Vaccines</a>
+                              <a class="list-group-item" href="javascript:;">diagnosis</a>
                           </div>
                       </section>
                   </div>

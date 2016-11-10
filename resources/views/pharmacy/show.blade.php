@@ -61,6 +61,14 @@
                                           </select>
                                            </div>
                                            <div class="form-group">
+                                          <label for="exampleInputEmail1">Quantity</label>
+                                         <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Quantity" name="quantity"  required>
+                                          </div>
+                                           <div class="form-group">
+                                          <label for="exampleInputEmail1">Price</label>
+                                         <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Price" name="price"  required>
+                                          </div>
+                                           <div class="form-group">
                                            <label for="exampleInputPassword1">Reasons for the dosage amount</label>
                                            <textarea rows="4" cols="58"   name="reasons"></textarea>
                                           </div>

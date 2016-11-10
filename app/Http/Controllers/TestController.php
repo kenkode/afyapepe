@@ -101,7 +101,7 @@ class TestController extends Controller
         }
 
         function drugList(){
-       $drugs = DB::table('drugslist')
+       $drugs = DB::table('druglists')
        ->get();
       return $drugs;
       }

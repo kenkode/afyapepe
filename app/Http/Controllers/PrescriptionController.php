@@ -40,7 +40,9 @@ class PrescriptionController extends Controller
     public function store(Request $request){
       Prescription::create($request->all());
       Prescription_detail::create($request->all());
-   return view('doctor.newPatients')->with('patients',$patients);
+      return redirect()->route('newpatients');
+    // return view('doctor.newPatients');
+   }
 //     $prescriptions = prescription::create([
 //       Input::get('appointment_id'),
 //       Input::get('doc_id'),
@@ -55,7 +57,7 @@ class PrescriptionController extends Controller
 //   Input::get('dosage')
 // ]);
 
-    }
+
 
     /**
      * Display the specified resource.

@@ -8,24 +8,24 @@
 
 
                     <div class="row">
-                                      <div class="col-sm-12 ">
+                                      <div class="col-lg-12">
 
 
                                           <div class="panel-box">
 
                                                         <div class="table-responsive">
-                                               <table class="table table-striped">
+                                               <table class="table table-striped table-advance table-hover">
                                                   <thead>
                                                       <tr>
-                                                          <th>No</th>
-                                                          <th>FirstName</th>
-                                                          <th>Surname</th>
+                                                          <th><i class="fa fa-list fa-2x"></i> No</th>
+                                                          <th><i class="fa fa-user  fa-2x"></i> Full Name</th>
+                                                          
 
-                                                          <th>Age</th>
-                                                          <th>Gender</th>
-                                                          <th>Phone</th>
-                                                          <th>Prescribing Doctor</th>
-                                                          <th>Date</th>
+                                                          <th><i class="fa fa-font  fa-2x"></i> Age</th>
+                                                          <th><i class="fa fa-genderless  fa-2x"></i> Gender</th>
+                                                          <th><i class="fa fa-mobile fa-2x"></i> Phone</th>
+                                                          <th><i class="fa fa-user-md fa-2x"></i> Prescribing Doctor</th>
+                                                          <th><i class="fa fa-calendar fa-2x"></i> Date</th>
                                                     </tr>
                                                   </thead>
                                        <tbody>
@@ -33,8 +33,8 @@
                                                  @foreach($patients as $patient)
                                                       <tr>
                                                           <td><a href="{{route('pharmacy.show',$patient->id)}}">{{$i}}</a></td>
-                                                          <td><a href="{{route('pharmacy.show',$patient->id)}}">{{$patient->firstname}}</a></td>
-                                                          <td><a href="{{route('pharmacy.show',$patient->id)}}">{{$patient->secondName}}</a></td>
+                                                          <td><a href="{{route('pharmacy.show',$patient->id)}}">{{$patient->firstname}} {{$patient->secondName}}</a></td>
+                                                          
 
                                                           <td>{{$patient->age}}</td>
                                                           <td><?php $gender=$patient->gender;?>

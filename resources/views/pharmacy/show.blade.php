@@ -13,6 +13,7 @@
 
                                             <div class="col-sm-6 ">
                                               <h2>Doctor</h2>
+                                            <input type="hidden" name="id" value="{{$patient->  patient_id}}">
 
                                              <div class="panel-box">
                                                <div class="form-group">
@@ -40,15 +41,7 @@
                                                         </select>
 
                                            </div>
-                                           <div class="form-group">
-                                            <label for="exampleInputPassword1">DosageForm</label>
-                                           <select class="form-control" name="dosageform">
-                                           <?php  $druglists = DB::table('druglists')->get();?>
-                                                         @foreach($druglists as $druglist)
-                                                          <option value="{{$druglist->DosageForm}}">{{$druglist->DosageForm}}</option>
-                                                        @endforeach
-                                                       </select>
-                                           </div>
+                                          
                                            <div class="form-group">
                                             <label for="exampleInputPassword1">DosageAmount</label>
                                           <select class="form-control" name="dosageamount">

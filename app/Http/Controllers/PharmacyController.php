@@ -49,40 +49,47 @@ class PharmacyController extends Controller
      */
     public function store(Request $request)
     {
+      $today = Carbon::today();
       $id=$request->id;
-      $descr=$request->docprescription;
-      $quality=1;
+      $notes=$request->reasons;
+      $quality=$request->quantity;
       $drugs=$request->druglist;
       $dosage=$request->dosageamount;
-      $price=300;
-      $amount=$quality*$price;
+      $price=$request->price;
+      
 
-      DB::table('totalsales')->insert(
-    ['userId' => $id,
-     'dosage'=>$dosage,
-     'drugs_id'=>$drugs,
+      DB::table('prescription_filled_status')->insert(
+    ['presc_id' => $id,
+     'drug_id'=>$drugs,
+     'available'=>1,
+     'dosage'=>'full',
+     'dose_given'=>$dosage,
      'quantity'=> $quality,
      'price'=>$price,
-     'amount'=> $amount
+     'notes'=>$notes,
+     'outlet_id'=>19310,
+     'date'=>Carbon::now(),
+     'updatedOn'=>Carbon::now()
    ]
 );
-$patients=DB::table('patients')
-->Join('totalsales', 'patients.id', '=', 'totalsales.userId')
-->Join('druglists','totalsales.drugs_id','=','druglists.id')
-->select('patients.*','totalsales.quantity','totalsales.price','totalsales.amount','totalsales.dosage',
-'druglists.drugname')
+$patients=DB::table('afya_users')
+->Join('prescription_filled_status', 'afya_users.id', '=', 'prescription_filled_status.presc_id')
+->Join('druglists','prescription_filled_status.drug_id','=','druglists.id')
+->select('afya_users.*','prescription_filled_status.*','druglists.*')
+->where('prescription_filled_status.date','>=',$today)
 ->get();
   return view('pharmacy.totalsales')->with('patients',$patients);
     }
 
     public function totalsales()
     {
-      $patients=DB::table('patients')
-      ->Join('totalsales', 'patients.id', '=', 'totalsales.userId')
-      ->Join('druglists','totalsales.drugs_id','=','druglists.id')
-      ->select('patients.*','totalsales.quantity','totalsales.price','totalsales.amount','totalsales.dosage',
-      'druglists.drugname')
-      ->get();
+        $today = Carbon::today();
+      $patients=DB::table('afya_users')
+->Join('prescription_filled_status', 'afya_users.id', '=', 'prescription_filled_status.presc_id')
+->Join('druglists','prescription_filled_status.drug_id','=','druglists.id')
+->select('afya_users.*','prescription_filled_status.*','druglists.*')
+->where('prescription_filled_status.date','>=',$today)
+->get();
         return view('pharmacy.totalsales')->with('patients',$patients);
     }
 

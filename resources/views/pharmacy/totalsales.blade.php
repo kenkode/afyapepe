@@ -35,7 +35,7 @@
                                            <tr>
                                                <td>{{$i}}</a></td>
                                                <td>{{$patient->firstname}}</td>
-                                               <td>{{$patient->lastname}}</td>
+                                               <td>{{$patient->secondName}}</td>
                                                <td>{{$patient->age}}</td>
                                                <td><?php $gender=$patient->gender;?>
                                                  @if($gender==1){{"Male"}}@else{{"Female"}}@endif
@@ -44,7 +44,7 @@
                                                <td>{{$patient->dosage}}</td>
                                                <td>{{$patient->quantity}}</td>
                                                <td>{{$patient->price}}</td>
-                                               <td>{{$patient->amount}}</td>
+                                               <td><?php $price=$patient->price; $quantity=$patient->quantity; echo $amount=$price*$quantity;?></td>
 
 
 

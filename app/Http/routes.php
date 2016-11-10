@@ -14,8 +14,8 @@ Route::get('/', function () {
 return view('welcome');
 });
 
-Route::get('meek', function () {
-return view('test');
+Route::get('steve', function () {
+return view('steve');
 });
 
 Route::auth();
@@ -49,6 +49,9 @@ Route::get('roles/{id}/edit',['as'=>'roles.edit','uses'=>'RoleController@edit','
 
 Route::group(['middleware' => ['auth','role:Admin']], function() {
 Route::resource('admin','AdminController');
+Route::get('config', function () {
+return view('admin.config');
+});
 });
 // Nurse routes;
 Route::group(['middleware' => ['auth','role:Admin|Nurse']], function() {

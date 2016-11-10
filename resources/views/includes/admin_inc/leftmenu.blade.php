@@ -13,7 +13,7 @@
 <li><a href="{{ url('/pharmacy') }}"><i class="fa fa-user-md"></i> <span>PHARM</span></a></li>
 <li><a href="{{ url('/manufacturer') }}"><i class="fa fa-industry"></i> <span>MANUFACTURER</span></a></li>
 <li><a href="{{ url('/patient') }}"><i class="fa fa-users"></i> <span>PATIENT</span></a></li>
-<li><a href="{{ url('/patient') }}"><i class="fa fa-cog"></i> <span>Master Configuration</span></a></li>
+<li><a href="{{ url('config') }}"><i class="fa fa-cog"></i> <span>Master Configuration</span></a></li>
 
 
 

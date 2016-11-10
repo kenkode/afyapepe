@@ -13,8 +13,8 @@
 
                                           <div class="panel-box">
 
-                                                        <div class="table-responsive">
-                                                     <table class="table table-small-font table-bordered table-striped">
+                                                      <div class="table-responsive">
+                                               <table class="table table-striped">
                                                   <thead>
                                                       <tr>
                                                           <th>No</th>
@@ -24,9 +24,12 @@
                                                           <th>Gender</th>
                                                           <th>Drug</th>
                                                           <th>Dosage</th>
+                                                          <th>Dosage Given</th>
+                                                          <th>Reasons</th>
                                                           <th>Quantity</th>
                                                           <th>Price</th>
                                                           <th>Amount</th>
+                                                          <th>Date</th>
                                                     </tr>
                                                   </thead>
                                        <tbody>
@@ -42,9 +45,12 @@
                                                </td>
                                                <td>{{$patient->drugname}}</td>
                                                <td>{{$patient->dosage}}</td>
+                                               <td>{{$patient->dose_given}}</td>
+                                               <td>{{$patient->notes}}</td>
                                                <td>{{$patient->quantity}}</td>
                                                <td>{{$patient->price}}</td>
                                                <td><?php $price=$patient->price; $quantity=$patient->quantity; echo $amount=$price*$quantity;?></td>
+                                               <td>{{$patient->date}}</td>
 
 
 

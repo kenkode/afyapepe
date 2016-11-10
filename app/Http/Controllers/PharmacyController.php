@@ -56,6 +56,7 @@ class PharmacyController extends Controller
       $drugs=$request->druglist;
       $dosage=$request->dosageamount;
       $price=$request->price;
+      $amount=$price*$quality;
       
 
       DB::table('prescription_filled_status')->insert(
@@ -66,19 +67,15 @@ class PharmacyController extends Controller
      'dose_given'=>$dosage,
      'quantity'=> $quality,
      'price'=>$price,
+     'amount'=>$amount,
      'notes'=>$notes,
      'outlet_id'=>19310,
      'date'=>Carbon::now(),
      'updatedOn'=>Carbon::now()
    ]
 );
-$patients=DB::table('afya_users')
-->Join('prescription_filled_status', 'afya_users.id', '=', 'prescription_filled_status.presc_id')
-->Join('druglists','prescription_filled_status.drug_id','=','druglists.id')
-->select('afya_users.*','prescription_filled_status.*','druglists.*')
-->where('prescription_filled_status.date','>=',$today)
-->get();
-  return view('pharmacy.totalsales')->with('patients',$patients);
+
+  return redirect('totalsales');
     }
 
     public function totalsales()

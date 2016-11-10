@@ -14,7 +14,7 @@
                                           <div class="panel-box">
 
                                                         <div class="table-responsive">
-                                                     <table class="table table-small-font table-bordered table-striped">
+                                               <table class="table table-striped">
                                                   <thead>
                                                       <tr>
                                                           <th>No</th>

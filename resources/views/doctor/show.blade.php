@@ -237,6 +237,27 @@
 <!--Test tabs-->
             <div id="tab-3" class="tab-pane">
                 <div class="panel-body">
+
+                <!--Tests tart tabs-->
+                <?php
+              foreach($tstdone as $tstdn)  {
+
+                $stats = $tstdn->id;
+        }
+
+
+              if ( empty ($stats) ) {
+
+              echo $tstdn->id;
+            }else {?>
+            <style type="text/css">#test{
+            display:none;
+            }</style>
+            <?php
+            }
+              ?>
+
+                <div id="test">
                   <div class="table-responsive">
 
 
@@ -312,6 +333,7 @@
 
              </tbody>
            </table>
+              </div>
               </div>
 <!--Test result tabs PatientController@testdone-->
               <div class="table-responsive">

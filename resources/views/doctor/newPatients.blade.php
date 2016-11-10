@@ -12,7 +12,7 @@
               <div class="row">
 
                 <div class="pull-right">
-                <a class="btn btn-success" href="{{ route('doctor.create') }}"> Create Your Profile</a>
+                <!-- <a class="btn btn-success" href="{{ route('doctor.create') }}"> Create Your Profile</a> -->
 
               </div>
         <div class="col-sm-12 ">

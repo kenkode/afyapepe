@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\County;
 use App\Http\Controllers\Controller;
 use Session;
+use DB;
 class CountyController extends Controller
 {
     /**
@@ -17,7 +18,7 @@ class CountyController extends Controller
      */
     public function index()
     {
-        $counties=County::get();
+        $counties=DB::table('county')->get();
         return view('county.index')->with('counties',$counties);
     }
 

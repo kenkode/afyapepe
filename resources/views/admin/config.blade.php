@@ -12,14 +12,13 @@
                               <h3>Basic Settings</h3>
                           </header>
                           <ul class="list-group">
-                              <li class="list-group-item"><a href="{{ url('kins') }}">Kins</a></li>
-                              <li class="list-group-item"><a href="{{ url('facility') }}">Facilities</a></li>
-                              <li class="list-group-item">County</li>
-                              <li class="list-group-item">Constituencies</li>
-                              <li class="list-group-item">Manufacturers</li>
-                              <li class="list-group-item">Druglist</li>
-
+                              <li class="list-group-item"><a href="{{ url('kins') }}">KINS</a></li>
+                              <li class="list-group-item"><a href="{{ url('facility') }}">FACILITIES</a></li>
+                              <li class="list-group-item"><a href="{{ url('county') }}">COUNTY</a></li>
+                              <li class="list-group-item"><a href="{{ url('constituency') }}">CONSTITUENCIES</a></li>
                               
+
+
                           </ul>
                       </section>
                   </div>
@@ -40,9 +39,9 @@
                           </div>
                       </section>
                   </div>
-                  
 
-    
+
+
 
 </div>
                    </div><!--container-->

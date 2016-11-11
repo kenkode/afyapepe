@@ -51,6 +51,8 @@ Route::group(['middleware' => ['auth','role:Admin']], function() {
 Route::resource('admin','AdminController');
 Route::resource('kins','KinController');
 Route::resource('facility','FacilityController');
+Route::resource('county','CountyController');
+Route::resource('constituency','ConstituencyController');
 Route::get('config', function () {
 return view('admin.config');
 });

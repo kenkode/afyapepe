@@ -55,6 +55,7 @@ Route::resource('county','CountyController');
 Route::resource('constituency','ConstituencyController');
 Route::resource('allergy','AllergyController');
 Route::resource('illness','IllnessController');
+Route::resource('diseases','DiseasesController');
 Route::get('config', function () {
 return view('admin.config');
 });

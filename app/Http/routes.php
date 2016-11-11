@@ -81,15 +81,17 @@ Route::group(['middleware' => ['auth','role:Admin|Nurse']], function() {
   Route::group(['middleware' => ['auth','role:Admin|Doctor']], function() {
 	Route::resource('doctor','DoctorController');
 	Route::get('doctorProfile', [ 'as' => 'doctorProfile', 'uses' => 'DoctorController@DocDetails']);
-Route::get('newpatients', [ 'as' => 'newpatients', 'uses' => 'DoctorController@newPatients']);
-  // Route::get('newpatients', 'DoctorController@newPatients');
+  Route::get('newpatients', [ 'as' => 'newpatients', 'uses' => 'DoctorController@newPatients']);
+
 	Route::get('patientsseen', 'DoctorController@seen');
 	Route::get('allpatients', 'DoctorController@all');
 	Route::resource('prescription', 'PrescriptionController@store');
 
-  Route::Post('show', [ 'as' => 'patienttest', 'uses' => 'PatientTestController@store']);
+   Route::Post('show', [ 'as' => 'patienttest', 'uses' => 'PatientTestController@store']);
    Route::get('testdone/{id}', [ 'as' => 'testdone', 'uses' => 'PatientController@testdone']);
    Route::get('show/{id}',['as'=>'showPatient', 'uses'=>'PatientController@showpatient']);
+
+  Route::get('visit/{id}', [ 'as' => 'visit', 'uses' => 'PatientController@pvisit']);
   });
 
 Route::group(['middleware' => ['auth','role:Admin|Manufacturer']], function() {

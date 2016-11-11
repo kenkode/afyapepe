@@ -239,7 +239,7 @@
                <td>{{$triageDetails->chief_compliant}}</td>
                <td>{{$triageDetails->observation}}</td>
                <td>{{$triageDetails->observation}}</td>
-               <td><a href="{{route('showPatient',$appoid)}}" class="btn btn-default btn-xs">View</a></td>
+               <td><a href="{{route('visit',$appoid)}}" class="btn btn-default btn-xs">View</a></td>
 
 
            </tr>

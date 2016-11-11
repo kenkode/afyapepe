@@ -34,8 +34,8 @@
                               <li class="list-group-item"><a href="{{ url('illness') }}">ILLNESSES</a></li>
                               <li class="list-group-item"><a href="{{ url('diseases') }}">DISEASES</a></li>
                               <li class="list-group-item"><a href="{{ url('chronic') }}">CHRONIC ILLNESSES</a></li>
-                              <li class="list-group-item"><a href="{{ url('vaccine') }}">VACCINES</a></li>
-                              <li class="list-group-item"><a href="{{ url('diagnosis') }}">DIAGNOSIS</a></li>
+
+                              
                           </div>
                       </section>
                   </div>

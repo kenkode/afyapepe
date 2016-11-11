@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
+use App\Manufacturer;
+use App\DruglistController;
+use DB;
 
 
 class ManufacturerController extends Controller
@@ -28,4 +31,23 @@ class ManufacturerController extends Controller
     {
         return view('manufacturer.home');
     }
+
+    public function show()
+    {
+
+      $id1 = Auth::user()->name;
+      $id2 = DB::table('manufacturers')
+            ->where('manufacturer', '=', $id1)
+            ->pluck('manufacturer');
+
+      $manuf = DB::table('druglists')
+              ->Join('manufacturers', 'manufacturers.id', '=', 'druglists.Manufacturer' )
+              ->select('druglists.*','manufacturers.manufacturer')
+              ->where('manufacturers.id', '=', '2')
+              ->get();
+
+              return view('manufacturer.show')->with('manuf',$manuf);
+    }
+
+
 }

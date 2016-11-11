@@ -96,6 +96,7 @@ Route::group(['middleware' => ['auth','role:Admin|Nurse']], function() {
 
 Route::group(['middleware' => ['auth','role:Admin|Manufacturer']], function() {
 Route::resource('manufacturer','ManufacturerController');
+Route::get('druglist', 'ManufacturerController@show');
 });
 Route::group(['middleware' => ['auth','role:Admin|Pharmacy']], function() {
 Route::resource('pharmacy','PharmacyController');

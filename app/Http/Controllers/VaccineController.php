@@ -17,7 +17,9 @@ class VaccineController extends Controller
      */
     public function index()
     {
-
+      $diseases=DB::table('diseases')
+            ->get();
+        return view('diseases.index')->with('diseases',$diseases);
     }
 
     /**

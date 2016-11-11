@@ -14,7 +14,9 @@
     <h2>Vaccines Details</h2>
     <div class="row multi-field-wrapper ">
     <div class="multi-fields">
-    {!! Form::open(array('route' => 'vaccine','method'=>'POST')) !!}
+      <form class="form-horizontal" role="form" method="POST" action="/vaccine" novalidate>
+     <input type="hidden" name="_token" value="{{ csrf_token() }}">
+    
 
                 <div class="form-group col-sm-6  multi-field">
                 <input type="hidden" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{$id}}" name="id"  required>
@@ -40,9 +42,9 @@
 <input type="radio" value="yes" id="type" name="type" class="youtube" />
 <label>Yes</label>
 <input type="date" value="0000-00-00" id="embedcode" placeholder="Vaccinated Date" name="date" type="text"/>
-        
+
      </div>
- 
+
 
       <!-- <button type="button" class="remove-field">Remove</button> -->
         <a href="javascript:void(0);" class="remove-field" title="Remove field"><i class="glyphicon glyphicon-minus-sign fa-4x" aria-hidden="true"></i></a>
@@ -59,7 +61,7 @@
               </div>
     </div>
     </div>
-    
+
 
           </div><!--content-->
       </div><!--content page-->

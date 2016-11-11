@@ -21,17 +21,17 @@
     <h5>Next of Kin Details</h5>
      <div class="form-group">
     <label for="exampleInputEmail1">Name</label>
-    <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Next Kin Name" name="kin_name"  value="{{$kin->kin_name}}"  readonly="">
+    <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Next Kin Name" name="kin_name"  value=""  readonly="">
     </div>
 
     <div class="form-group">
      <label for="exampleInputPassword1">Relationship</label>
-     <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Next Kin Name" name="relation"  value="{{$kin->relation}}"  readonly="">
+     <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Next Kin Name" name="relation"  value=""  readonly="">
     </div>
 
      <div class="form-group">
     <label for="exampleInputPassword1">Phone</label>
-    <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Next of Kin Phone" name="phone" value="{{$kin->phone_of_kin}}"    readonly="">
+    <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Next of Kin Phone" name="phone" value=""    readonly="">
     </div>
    <a href="{{ route('createkin', $patient->id) }}" class="btn btn-primary btn-lg">Update Details</a>
              </div>

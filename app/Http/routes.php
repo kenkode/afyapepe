@@ -49,6 +49,7 @@ Route::get('roles/{id}/edit',['as'=>'roles.edit','uses'=>'RoleController@edit','
 
 Route::group(['middleware' => ['auth','role:Admin']], function() {
 Route::resource('admin','AdminController');
+Route::resource('kins','KinController');
 Route::get('config', function () {
 return view('admin.config');
 });

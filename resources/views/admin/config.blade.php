@@ -12,7 +12,7 @@
                               <h3>Basic Settings</h3>
                           </header>
                           <ul class="list-group">
-                              <li class="list-group-item">Kins</li>
+                              <li class="list-group-item"><a href="{{ url('kins') }}">Kins</a></li>
                               <li class="list-group-item">Facilities</li>
                               <li class="list-group-item">County</li>
                               <li class="list-group-item">Constituencies</li>

@@ -11,8 +11,8 @@
 <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout<span class="fa arrow"></span></a></li>
 
 
-
-
- </ul>
+</ul>
 </div>
+
+
           <!--left menu end-->

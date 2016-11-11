@@ -1,14 +1,15 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
-use DB;
+
 use App\Http\Requests;
-use App\Patienttest;
+use DB;
+use Carbon\Carbon;
 
-use Auth;
 
-class PatientTestController extends Controller
+class AllergyController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +18,9 @@ class PatientTestController extends Controller
      */
     public function index()
     {
-        //
+      $allergies=DB::table('allergies')
+            ->get();
+        return view('allergy.index')->with('allergies',$allergies);
     }
 
     /**
@@ -27,7 +30,7 @@ class PatientTestController extends Controller
      */
     public function create()
     {
-        //
+        return view('allergy.create');
     }
 
     /**
@@ -36,26 +39,26 @@ class PatientTestController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-     public function store(Request $request)
-
-         {
-           $this->validate($request, [
-           'patient_id' => 'required',
-           'doc_id' => 'required',
-           'test_status' => 'required',
-           'appointment_id' => 'required',
-           'test_reccommended' => 'required',
+    public function store(Request $request)
+    {
+        $allergy=$request->allergy;
+        DB::table('allergies')->insert(
+      ['name' => $allergy,
+      'created_at'=>Carbon::now(),
+      'updated_at'=>Carbon::now()
 
 
-           ]);
-                $id = $request->input('appointment_id');
-      PatientTest::create($request->all());
+    ]
+  );
 
 
-// return Redirect::route('showPatient',array('id' = $request->patient_id));
 
- return redirect()->route('showPatient', ['id' => $id]);
-         }
+
+
+
+
+       return redirect()->route('allergy.index');
+    }
 
     /**
      * Display the specified resource.

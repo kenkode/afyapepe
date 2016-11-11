@@ -49,40 +49,44 @@ class PharmacyController extends Controller
      */
     public function store(Request $request)
     {
+      $today = Carbon::today();
       $id=$request->id;
-      $descr=$request->docprescription;
-      $quality=1;
+      $notes=$request->reasons;
+      $quality=$request->quantity;
       $drugs=$request->druglist;
       $dosage=$request->dosageamount;
-      $price=300;
-      $amount=$quality*$price;
+      $price=$request->price;
+      $amount=$price*$quality;
+      
 
-      DB::table('totalsales')->insert(
-    ['userId' => $id,
-     'dosage'=>$dosage,
-     'drugs_id'=>$drugs,
+      DB::table('prescription_filled_status')->insert(
+    ['presc_id' => $id,
+     'drug_id'=>$drugs,
+     'available'=>1,
+     'dosage'=>'full',
+     'dose_given'=>$dosage,
      'quantity'=> $quality,
      'price'=>$price,
-     'amount'=> $amount
+     'amount'=>$amount,
+     'notes'=>$notes,
+     'outlet_id'=>19310,
+     'date'=>Carbon::now(),
+     'updatedOn'=>Carbon::now()
    ]
 );
-$patients=DB::table('patients')
-->Join('totalsales', 'patients.id', '=', 'totalsales.userId')
-->Join('druglists','totalsales.drugs_id','=','druglists.id')
-->select('patients.*','totalsales.quantity','totalsales.price','totalsales.amount','totalsales.dosage',
-'druglists.drugname')
-->get();
-  return view('pharmacy.totalsales')->with('patients',$patients);
+
+  return redirect('totalsales');
     }
 
     public function totalsales()
     {
-      $patients=DB::table('patients')
-      ->Join('totalsales', 'patients.id', '=', 'totalsales.userId')
-      ->Join('druglists','totalsales.drugs_id','=','druglists.id')
-      ->select('patients.*','totalsales.quantity','totalsales.price','totalsales.amount','totalsales.dosage',
-      'druglists.drugname')
-      ->get();
+        $today = Carbon::today();
+      $patients=DB::table('afya_users')
+->Join('prescription_filled_status', 'afya_users.id', '=', 'prescription_filled_status.presc_id')
+->Join('druglists','prescription_filled_status.drug_id','=','druglists.id')
+->select('afya_users.*','prescription_filled_status.*','druglists.*')
+->where('prescription_filled_status.date','>=',$today)
+->get();
         return view('pharmacy.totalsales')->with('patients',$patients);
     }
 
@@ -94,10 +98,10 @@ $patients=DB::table('patients')
      */
     public function show($id)
     {
-      $patient = DB::table('patients')
-        ->Join('constituencies', 'patients.constituency_id', '=', 'constituencies.id')
-        ->select('patients.*', 'constituencies.name')
-        ->where('patients.id',$id)
+      $patient = DB::table('afya_users')
+        ->Join('triage_details', 'afya_users.id', '=', 'triage_details.patient_id')
+        ->select('afya_users.*', 'triage_details.*')
+        ->where('triage_details.id',$id)
         ->first();
       return view ('pharmacy.show')->with('patient',$patient);
     }

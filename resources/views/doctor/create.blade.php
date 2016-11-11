@@ -21,50 +21,50 @@
  </ul>
  </div>
  @endif
- {!! Form::open(array('route' => 'doctor.store','method'=>'POST')) !!}
+ {{ Form::open(array('route' => 'doctor.store','method'=>'POST')) }}
  <div class="col-xs-12 col-sm-12 col-md-12">
  <div class="form-group">
  <!-- <strong>user ID:</strong> -->
- {!! Form::text('user_id', Auth::user()->id, array('class' => 'form-control')) !!}
+ {{  Form::text('user_id', Auth::user()->id, array('class' => 'form-control')) }}
  </div>
    </div>
  <div class="col-xs-12 col-sm-12 col-md-12">
  <div class="form-group">
  <strong>Name:</strong>
- {!! Form::text('name', null, array('placeholder' => 'FullName','class' => 'form-control')) !!}
+{{  Form::text('name', null, array('placeholder' => 'FullName','class' => 'form-control')) }}
  </div>
    </div>
    <div class="col-xs-12 col-sm-12 col-md-12">
    <div class="form-group">
  <strong>Date Registered:</strong>
- {!! Form::text('regdate', null, array('placeholder' => '22/10/2039','class' => 'form-control')) !!}
+{{  Form::text('regdate', null, array('placeholder' => '22/10/2039','class' => 'form-control')) }}
  </div>
  </div>
 
  <div class="col-xs-12 col-sm-12 col-md-12">
  <div class="form-group">
 <strong>Registration NO:</strong>
-{!! Form::text('regno', null, array('placeholder' => 'NB02','class' => 'form-control')) !!}
+{{ Form::text('regno', null, array('placeholder' => 'NB02','class' => 'form-control')) }}
 </div>
 </div>
   <h4>Contact Info</h4>
 <div class="col-xs-12 col-sm-12 col-md-12">
 <div class="form-group">
 <strong>Address:</strong>
-{!! Form::text('address', null, array('placeholder' => 'address','class' => 'form-control')) !!}
+{{ Form::text('address', null, array('placeholder' => 'address','class' => 'form-control')) }}
 </div>
   </div>
   <div class="col-xs-12 col-sm-12 col-md-12">
   <div class="form-group">
 <strong>Phone No:</strong>
-{!! Form::text('phone', null, array('placeholder' => 'phone','class' => 'form-control')) !!}
+{{ Form::text('phone', null, array('placeholder' => 'phone','class' => 'form-control')) }}
 </div>
 </div>
 
 <div class="col-xs-12 col-sm-12 col-md-12">
 <div class="form-group">
 <strong>Residence:</strong>
-{!! Form::text('residence', null, array('placeholder' => 'residence','class' => 'form-control')) !!}
+{{ Form::text('residence', null, array('placeholder' => 'residence','class' => 'form-control')) }}
 </div>
 </div>
 
@@ -72,27 +72,27 @@
 <div class="col-xs-12 col-sm-12 col-md-12">
 <div class="form-group">
 <strong>Speciality:</strong>
-{!! Form::text('speciality', null, array('placeholder' => 'speciality','class' => 'form-control')) !!}
+{{ Form::text('speciality', null, array('placeholder' => 'speciality','class' => 'form-control')) }}
 </div>
 </div>
 <div class="col-xs-12 col-sm-12 col-md-12">
 <div class="form-group">
 <strong>Sub-Speciality:</strong>
-{!! Form::text('subspeciality', null, array('placeholder' => 'Sub-Speciality','class' => 'form-control')) !!}
+{{ Form::text('subspeciality', null, array('placeholder' => 'Sub-Speciality','class' => 'form-control')) }}
 </div>
 </div>
 
 <div class="col-xs-12 col-sm-12 col-md-12">
 <div class="form-group">
 <strong>Facility:</strong>
-{!! Form::text('facility', null, array('placeholder' => 'facility','class' => 'form-control')) !!}
+{{ Form::text('facility', null, array('placeholder' => 'facility','class' => 'form-control')) }}
 </div>
 </div>
  <div class="col-xs-12 col-sm-12 col-md-12 text-center">
  <button type="submit" class="btn btn-primary">Submit</button>
  </div>
  </div>
- 	{!! Form::close() !!}
+ 	{{ Form::close() }}
     </div>
 </div>
 </div><!--container-->

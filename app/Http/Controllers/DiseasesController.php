@@ -1,14 +1,15 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
-use DB;
+
 use App\Http\Requests;
-use App\Patienttest;
+use DB;
+use Carbon\Carbon;
 
-use Auth;
 
-class PatientTestController extends Controller
+class DiseasesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +18,9 @@ class PatientTestController extends Controller
      */
     public function index()
     {
-        //
+      $diseases=DB::table('diseases')
+            ->get();
+        return view('diseases.index')->with('diseases',$diseases);
     }
 
     /**
@@ -36,26 +39,10 @@ class PatientTestController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-     public function store(Request $request)
-
-         {
-           $this->validate($request, [
-           'patient_id' => 'required',
-           'doc_id' => 'required',
-           'test_status' => 'required',
-           'appointment_id' => 'required',
-           'test_reccommended' => 'required',
-
-
-           ]);
-                $id = $request->input('appointment_id');
-      PatientTest::create($request->all());
-
-
-// return Redirect::route('showPatient',array('id' = $request->patient_id));
-
- return redirect()->route('showPatient', ['id' => $id]);
-         }
+    public function store(Request $request)
+    {
+        //
+    }
 
     /**
      * Display the specified resource.

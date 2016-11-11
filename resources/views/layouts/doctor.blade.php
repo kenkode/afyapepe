@@ -7,7 +7,7 @@
      <div id="wrapper">
 
 <!--top bar-->
-  @include('includes.default.topbar')
+  @include('includes.doc_inc.topbar')
 <!--end top bar-->
 
 <!--left menu start-->

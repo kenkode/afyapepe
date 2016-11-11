@@ -5,34 +5,64 @@
 <div class="content-page  equal-height">
           <div class="content">
               <div class="container">
-  <div class="row">
-  <div class="col-sm-8">
-  <div class="panel-box typo-box">
-  <p class="text-info">
-   There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.
- </p>
-  <p class="text-success">
-   There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.
- </p>
- </div>
+  <div class="widget-row">
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <div class="widget-box clearfix">
+                                        <div class="pull-left">
+                                            <h4>Users</h4>
+                                            <h2>17,50</h2>
+                                        </div>
+                                        <div class="text-right">
+                                            <span id="sparkline8"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-8">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="widget-box clearfix">
+                                                <div>
+                                                    <h4>Total Patients</h4>
+                                                    <h2>580 <i class="fa fa-plus pull-right"></i></h2>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="widget-box clearfix">
+                                                <div>
+                                                    <h4>Today's Patients</h4>
+                                                    <h2>$970 <i class="fa fa-shopping-cart pull-right"></i></h2>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="widget-box clearfix">
+                                                <div>
+                                                    <h4>Today's Sales</h4>
+                                                    <h2>256 <i class="fa fa-tasks pull-right"></i></h2>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="widget-box clearfix">
+                                                <div>
+                                                    <h4>Monthly Sales</h4>
+                                                    <h2>$9.7k <i class="fa fa-usd pull-right"></i></h2>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!--end widget-->
+
+
+  
  </div>
 
-    <div class="col-sm-6">
-        <div class="panel-box">
-            <h4>TEAM WORK</h4>
-            <div class="embed-responsive embed-responsive-16by9">
-        <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/w9j3-ghRjBs" frameborder="0" allowfullscreen></iframe>
-           </div>
-       </div>
-   </div>
-<div class="col-sm-6">
-    <div class="panel-box">
-        <h4>WHY AFYAPEPE ??</h4>
-        <div class="embed-responsive embed-responsive-16by9">
-    <iframe class="embed-responsive-item" src="http://player.vimeo.com/video/8408210" width="800" height="450"></iframe>
-</div>
-    </div>
-</div>
+    
+
 </div>
                    </div><!--container-->
                 </div><!--content -->

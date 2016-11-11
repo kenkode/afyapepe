@@ -41,12 +41,12 @@ class PatientController extends Controller
 
      {
        $patientdetails = DB::table('appointments')
-         ->Join('facilities', 'appointments.Facility_ID', '=', 'facilities.FacilityCode')
-          ->Join('patients', 'appointments.PatientId', '=', 'patients.id')
+         ->Join('facilities', 'appointments.facility_id', '=', 'facilities.FacilityCode')
+          ->Join('patients', 'appointments.patient_id', '=', 'patients.id')
           ->Join('afya_users', 'patients.afya_user_id', '=', 'afya_users.id')
           ->Join('triage_details', 'patients.id', '=', 'triage_details.patient_id')
-          ->select('afya_users.*','triage_details.*','patients.*','appointments.AppID','appointments.Facility_ID','appointments.Appointment_Date','facilities.FacilityName')
-          ->where('appointments.AppID',$id)
+          ->select('afya_users.*','triage_details.*','patients.*','patients.id as pat_id','appointments.id as app_id','appointments.facility_id','appointments.created_at','facilities.FacilityName')
+          ->where('appointments.id',$id)
           ->get();
 
       //  $triageDetails = DB::table('triage_details')
@@ -54,11 +54,18 @@ class PatientController extends Controller
       // ->get();
 
       $tstdone = DB::table('patient_test')
-      ->Join('patient_test_details','patient_test.id', '=', 'patient_test_details.patient_test_id')
-      ->Join('appointments','patient_test.id', '=', 'appointments.PatientID')
-      ->select('patient_test_details.*','appointments.AppID','patient_test.patient_id','patient_test.appointment_id')
+      ->Join('patient_test_details','patient_test.patient_id', '=', 'patient_test_details.patient_id')
+      ->select('patient_test_details.*','patient_test.test_reccommended','patient_test.appointment_id')
       ->where('patient_test.appointment_id', '=',$id)
       ->get();
+
+
+      // $tstdone = DB::table('patient_test')
+      // ->Join('patient_test_details','patient_test.id', '=', 'patient_test_details.patient_test_id')
+      // ->Join('appointments','patient_test.id', '=', 'appointments.patient_id')
+      // ->select('patient_test_details.*','appointments.id','patient_test.patient_id','patient_test.appointment_id')
+      // ->where('patient_test.appointment_id', '=',$id)
+      // ->get();
 
       return view('doctor.show')->with('tstdone',$tstdone)->with('patientdetails',$patientdetails);;
 }

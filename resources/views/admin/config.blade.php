@@ -13,7 +13,7 @@
                           </header>
                           <ul class="list-group">
                               <li class="list-group-item"><a href="{{ url('kins') }}">Kins</a></li>
-                              <li class="list-group-item">Facilities</li>
+                              <li class="list-group-item"><a href="{{ url('facility') }}">Facilities</a></li>
                               <li class="list-group-item">County</li>
                               <li class="list-group-item">Constituencies</li>
                               <li class="list-group-item">Manufacturers</li>

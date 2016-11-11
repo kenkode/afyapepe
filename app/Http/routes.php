@@ -14,8 +14,8 @@ Route::get('/', function () {
 return view('welcome');
 });
 
-Route::get('meek', function () {
-return view('test');
+Route::get('steve', function () {
+return view('steve');
 });
 
 Route::auth();
@@ -49,6 +49,19 @@ Route::get('roles/{id}/edit',['as'=>'roles.edit','uses'=>'RoleController@edit','
 
 Route::group(['middleware' => ['auth','role:Admin']], function() {
 Route::resource('admin','AdminController');
+Route::resource('kins','KinController');
+Route::resource('facility','FacilityController');
+Route::resource('county','CountyController');
+Route::resource('constituency','ConstituencyController');
+Route::resource('allergy','AllergyController');
+Route::resource('illness','IllnessController');
+Route::resource('diseases','DiseasesController');
+Route::resource('chronic','ChronicController');
+Route::resource('vaccine','VaccineController');
+
+Route::get('config', function () {
+return view('admin.config');
+});
 });
 // Nurse routes;
 Route::group(['middleware' => ['auth','role:Admin|Nurse']], function() {
@@ -58,10 +71,10 @@ Route::group(['middleware' => ['auth','role:Admin|Nurse']], function() {
 
 	Route::get('nurse.createkin/{id}',['as'=>'createkin','uses'=>'NurseController@createnextkin']);
 	Route::get('nurse.vaccine/{id}',['as'=>'vaccinescreate','uses'=>'NurseController@vaccinescreate']);
-    Route::get('nurse.details/{id}',['as'=>'details','uses'=>'NurseController@details']);
-	Route::post('nurse/edit',['as'=>'nextkin','uses'=>'NurseController@nextkin']);
-	Route::post('nurse/edit',['as'=>'vaccine','uses'=>'NurseController@vaccine']);
-    Route::post('nurse/edit',['as'=>'createdetail','uses'=>'NurseController@createdetails']);
+  Route::get('nurse.details/{id}',['as'=>'details','uses'=>'NurseController@details']);
+	Route::post('nextkin','NurseController@nextkin');
+	Route::post('vaccine','NurseController@vaccine');
+  Route::post('nurse.show',['as'=>'createdetail','uses'=>'NurseController@createdetails']);
 });
 
 // Doctor routes;

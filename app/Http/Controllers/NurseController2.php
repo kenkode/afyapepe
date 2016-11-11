@@ -140,10 +140,10 @@ class NurseController extends Controller
     'diastolic_bp'=>$diastolic,
     'chief_compliant'=>$chiefcompliant,
     'observation'=>$observation,
-    'consulting_physician'=>$doctor,
+    'consulting_physician'=>$nurse,
     'Doctor_note'=>'',
     'prescription'=>'',
-    'updated_at' => \Carbon\Carbon::now()]
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
 
 );
 

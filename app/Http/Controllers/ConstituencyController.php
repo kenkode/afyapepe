@@ -18,7 +18,11 @@ class ConstituencyController extends Controller
      */
     public function index()
     {
-        $consts=Constituency::get();
+
+        $consts=DB::table('constituency')
+        ->Join('county', 'constituency.cont_id', '=', 'county.id')
+        ->select('constituency.*', 'county.county')
+        ->get();
         return view('constituency.index')->with('consts',$consts);
     }
 

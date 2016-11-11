@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Kin;
 use Session;
+use DB;
 
 class KinController extends Controller
 {
@@ -17,8 +18,8 @@ class KinController extends Controller
      */
     public function index()
     {
-      $kins=Kin::get();
-      return view('kin.index')->with('kins',$kins);
+      $kins= DB::table('kin')->get();
+      return view('kins.index')->with('kins',$kins);
 
     }
 
@@ -29,7 +30,7 @@ class KinController extends Controller
      */
     public function create()
     {
-        return view('kin.create');
+        return view('kins.create');
     }
 
     /**
@@ -40,21 +41,19 @@ class KinController extends Controller
      */
     public function store(Request $request)
     {
-      $this->validate($request,array(
-          'name'=>'required|max:255',
-
-  ));
-      $kin= new Kin();
-      $kin->name=$request->name;
-      $kin->save();
+      
+    $name=$request->kin;
+      DB::table('kin')->insert(
+    ['relation' => $name]
+);
 
 
 
 
-      Session::flash('success','The kin was successfully added!!');
+     
 
 
-     return redirect()->route('kin.index');
+     return redirect()->route('kins.index');
     }
 
     /**

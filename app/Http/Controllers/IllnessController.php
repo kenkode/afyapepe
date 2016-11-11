@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Illness;
-
+use DB;
+use Carbon\Carbon;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,12 +16,11 @@ class IllnessController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-     public function __construct(){
-     	$this->middleware('admin');
-     }
+
     public function index()
     {
-      $illnesses=Illness::get();
+      $illnesses=DB::table('illnesses')
+            ->get();
       return view('illness.index')->with('illnesses',$illnesses);
 
     }
@@ -43,18 +43,16 @@ class IllnessController extends Controller
      */
     public function store(Request $request)
     {
-      $this->validate($request,array(
-          'name'=>'required|max:255',
 
-  ));
-      $illness= new Illness();
-      $illness->name=$request->name;
-      $illness->save();
-
+      $illness=$request->illness;
+      DB::table('illnesses')->insert(
+      ['name' => $illness,
+      'created_at'=>Carbon::now(),
+      'updated_at'=>Carbon::now()
 
 
-
-      Session::flash('success','The illness was successfully added!!');
+      ]
+      );
 
 
      return redirect()->route('illness.index');

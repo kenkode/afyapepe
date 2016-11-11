@@ -38,6 +38,7 @@ class DoctorController extends Controller
          ->Join('appointments', 'patients.id', '=', 'appointments.patient_id')
          ->select('afya_users.*','patients.*','appointments.id', 'appointments.created_at', 'appointments.facility_id')
          ->where('appointments.created_at','>=',$today)
+
          ->get();
 
        return view('doctor.newPatients')->with('patients',$patients);
@@ -52,7 +53,11 @@ class DoctorController extends Controller
          ->Join('patients', 'afya_users.id', '=', 'patients.afya_user_id')
          ->Join('appointments', 'patients.id', '=', 'appointments.patient_id')
          ->select('afya_users.*','patients.*','appointments.id', 'appointments.created_at', 'appointments.facility_id')
-         ->where('appointments.created_at','>=',$today)
+        //  ->where('appointments.created_at','>=',$today)
+         ->where([
+                       ['appointments.created_at','>=',$today],
+                       ['appointments.status', '=', 1],
+                      ])
          ->get();
 
        return view('doctor.newPatients')->with('patients',$patients);

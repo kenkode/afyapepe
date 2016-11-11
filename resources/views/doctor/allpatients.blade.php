@@ -9,16 +9,13 @@
 
 @include('doctor/doctor')
   @endrole
-              <div class="row">
+    <div class="row">
 
-                <div class="pull-right">
-                <a class="btn btn-success" href="{{ route('doctor.create') }}"> Create Your Profile</a>
 
-              </div>
         <div class="col-sm-12 ">
             <div class="panel-box">
               <div class="table-responsive">
-                <table class="table table-small-font table-bordered table-striped">
+                <table id="basic-datatables" class="table table-bordered" cellspacing="0" width="100%">
                     <thead>
                         <tr>
                             <th>No</th>
@@ -37,9 +34,10 @@
                       <?php $i =1; ?>
                    @foreach($allpatients as $apatient)
                         <tr>
-                            <td><a href="{{route('patient.show',$apatient->id)}}">{{$i}}</a></td>
-                            <td><a href="{{route('patient.show',$apatient->id)}}">{{$apatient->firstname}}</a></td>
-                            <td><a href="{{route('patient.show',$apatient->id)}}">{{$apatient->secondName}}</a></td>
+
+                            <td><a href="{{route('showPatient',$apatient->id)}}">{{$i}}</a></td>
+                            <td><a href="{{route('showPatient',$apatient->id)}}">{{$apatient->firstname}}</a></td>
+                            <td><a href="{{route('showPatient',$apatient->id)}}">{{$apatient->secondName}}</a></td>
                             <td><?php $gender=$apatient->gender;?>
                               @if($gender==1){{"Male"}}@else{{"Female"}}@endif</a>
                             </td>

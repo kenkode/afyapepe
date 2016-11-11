@@ -23,6 +23,12 @@
   <script type="text/javascript" src="{{ asset('js/mediaquery.js') }}"></script>
   <script type="text/javascript" src="{{ asset('js/equalize.js') }}"></script>
   <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
+  <!-- DATATABLES-->
+  <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('js/dataTables.colVis.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('js/dataTables.bootstrap.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('js/demo-datatable.js') }}"></script>
+
   <script type="text/javascript" src="{{ asset('') }}"></script>
   <script type="text/javascript" src="{{ asset('') }}"></script>
   <script type="text/javascript" src="{{ asset('') }}"></script>
@@ -38,7 +44,7 @@
 
   $('#pre-selected-options').multiSelect();
   $('#pre-selected-options1').multiSelect();
-  
+
 
 
 

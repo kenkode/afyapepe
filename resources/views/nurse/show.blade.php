@@ -19,22 +19,49 @@
     <div class="row">
     <div class="col-sm-4 col-md-offset-1">
     <h5>Next of Kin Details</h5>
-     <div class="form-group">
-    <label for="exampleInputEmail1">Name</label>
-    <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Next Kin Name" name="kin_name"  value="{{$kin->kin_name}}"  readonly="">
-    </div>
+    <?php $id=$kin->kin_name;?>
+  @if ($id!=="")
+  <div class="form-group">
+ <label for="exampleInputEmail1">Name</label>
+ <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Next Kin Name" name="kin_name"  value="
+ {{ $yes=$kin->kin_name}}
 
-    <div class="form-group">
-     <label for="exampleInputPassword1">Relationship</label>
-     <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Next Kin Name" name="relation"  value="{{$kin->relation}}"  readonly="">
-    </div>
+  "  readonly="">
+ </div>
 
-     <div class="form-group">
-    <label for="exampleInputPassword1">Phone</label>
-    <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Next of Kin Phone" name="phone" value="{{$kin->phone_of_kin}}"    readonly="">
-    </div>
-   <a href="{{ route('createkin', $patient->id) }}" class="btn btn-primary btn-lg">Update Details</a>
-             </div>
+ <div class="form-group">
+  <label for="exampleInputPassword1">Relationship</label>
+  <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Next Kin Name" name="relation"  value="{{$relation=$kin->relation}}
+     "  readonly="">
+ </div>
+  <div class="form-group">
+ <label for="exampleInputPassword1">Phone</label>
+ <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Next of Kin Phone" name="phone" value="{{$phone=$kin->phone_of_kin}}"  readonly="">
+ </div>
+<a href="{{ route('createkin', $patient->id) }}" class="btn btn-primary btn-lg">Update Details</a>
+          </div>
+
+          @else
+          <div class="form-group">
+          <label for="exampleInputEmail1">Name</label>
+          <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Next Kin Name" name="kin_name"  readonly="">
+          </div>
+
+          <div class="form-group">
+          <label for="exampleInputPassword1">Relationship</label>
+          <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Next Kin Name" name="relation"
+            readonly="">
+          </div>
+
+          <div class="form-group">
+          <label for="exampleInputPassword1">Phone</label>
+          <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Next of Kin Phone" name="phone"
+          readonly="">
+          </div>
+          <a href="{{ route('createkin', $patient->id) }}" class="btn btn-primary btn-lg">Update Details</a>
+                  </div>
+          @endif
+
      <div class="col-sm-7">
           <h5>Vaccination Details</h5>
 

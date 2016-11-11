@@ -58,21 +58,18 @@ class NurseController extends Controller
         return view('nurse.newpatient')->with('patients',$patients);
     }
     public function createnextkin($id){
-
-        
-
       return view ('nurse.createkin')->with('id',$id);
     }
 
-    public function nextkin (Request $request){
-
+    public function nextkin(Request $request)
+    {
      $phone=$request->phone;
      $name=$request->name;
      $relationship=$request->relationship;
      $id=$request->id;
-      
+
     DB::table('kin_details')->insert(
-    ['kin_name' => $name, 
+    ['kin_name' => $name,
     'relation' => $relationship,
     'phone_of_kin'=> $phone,
     'afya_user_id'=>$id,
@@ -84,19 +81,20 @@ class NurseController extends Controller
     }
 
     public function vaccinescreate($id){
-        return view('nurse.vaccine')->with('id',$id);
+    return view('nurse.vaccine')->with('id',$id);
     }
 
-    public function vaccine(Request $request){
+    public function vaccine(Request $request)
+    {
     $id=$request->id;
     $diseases=$request->diseases;
     $vaccinename=$request->vaccinename;
     $type=$request->type;
     $date=$request->date;
-     
+
 
    DB::table('vaccination')->insert(
-    ['userId' => $id, 
+    ['userId' => $id,
     'diseaseId' => $diseases,
     'vaccine_name'=> $vaccinename,
     'Yes'=>$type,
@@ -131,7 +129,7 @@ class NurseController extends Controller
         $doctor=$request->doctor;
 
     DB::table('triage_details')->insert(
-    ['patient_id' => $id, 
+    ['patient_id' => $id,
     'facility_id' => 10001,
     'current_weight'=> $weight,
     'current_height'=>$heightS,
@@ -144,13 +142,13 @@ class NurseController extends Controller
     'Doctor_note'=>'',
     'prescription'=>'',
     'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
-    
+
 );
 
         return Redirect::route('nurse.show', [$id]);
     }
 
-   
+
     /**
      * Store a newly created resource in storage.
      *
@@ -206,7 +204,7 @@ class NurseController extends Controller
         ->select('afya_users.*', 'patients.allergies')
         ->where('afya_users.id',$id)
         ->first();
-      
+
 
 
      return view('nurse.edit',compact('patient'));
@@ -280,7 +278,7 @@ DB::table('patients')->where('id', $id)
 
     }
 
-    
+
     /**
      * Remove the specified resource from storage.
      *

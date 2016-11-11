@@ -14,6 +14,34 @@
      </ul>
      </div>
      @endif
+     <!--Patient controller @showpatient-->
+     <?php
+             foreach ($patientdetails as $pdetails) {
+               $patientid = $pdetails->pat_id;
+               $pname = $pdetails->firstname;
+               $lname = $pdetails->secondName;
+               $age = $pdetails->dob;
+               $nid = $pdetails->national_id;
+               $appoid = $pdetails->app_id;
+               $appdate = $pdetails->created_at;
+               $facilty = $pdetails->FacilityName;
+               $weight = $pdetails->current_weight;
+               $height = $pdetails->current_height;
+               $temperature = $pdetails->temperature;
+               $systolic = $pdetails->systolic_bp;
+               $diastolic = $pdetails->diastolic_bp;
+               $allergies = $pdetails->allergies;
+               $complain = $pdetails->chief_compliant;
+               $observations = $pdetails->observation;
+               $gender = $pdetails->gender;
+               if ($gender=1) {
+                 $gender='Male';
+               }else{
+                 $gender='Female';
+               }
+       }
+         ?>
+
       <?php
     $doc = (new \App\Http\Controllers\DoctorController);
     $Docdatas = $doc->DocDetails();
@@ -21,7 +49,7 @@
 
 
       $Did = $Docdata->doc_id;
-    	$Name = $Docdata->name;
+    	$Dname = $Docdata->name;
     	$Address = $Docdata->address;
     	$RegNo = $Docdata->regno;
     	$RegDate = $Docdata->regdate;
@@ -32,7 +60,7 @@
     }
 
 
-    if ( empty ($Name ) ) {
+    if ( empty ($Dname ) ) {
     // return view('doctor.create');
 
     return redirect('doctor.create');
@@ -45,12 +73,11 @@
 
     <div class="pull-right">
      <div class="page-title clearfix">
-                              <h3><?php echo $Facility;?></h3>
-
-                          </div><!--end page title-->
+  <h4><?php echo $facilty;?></h4>
+         </div><!--end page title-->
 
        <div class="widget-box clearfix">
-    <h4><?php echo $Name;?></h4>
+    <h4><?php echo $Dname;?></h4>
     <h4>Address:
     <?php echo $Address; ?></h4>
     <h4>Registration Number:
@@ -67,6 +94,21 @@
     </div>
     </div>
 
+
+        <div class="pull-left">
+         <div class="page-title clearfix">
+            <h3>Patient</h3>
+             </div><!--end page title-->
+
+           <div clRegistration Datess="widget-box clearfix">
+        <h4>NAME:<?php echo $pname;?>&nbsp<?php echo $lname;?></h4>
+        <h4>Gender:<?php echo $gender; ?></h4>
+        <h4>Date of Birth:<?php echo $age; ?></h4>
+        <h4>National ID:<?php echo $nid; ?></h4>
+
+
+        </div>
+        </div>
     	<br>	<br>	<br>
 </div>
     <!--Home tabs-->
@@ -97,34 +139,11 @@
 
                      </tr>
                   </thead>
-                  <!--Patient controller @showpatient-->
-                  <?php
-                          foreach ($patientdetails as $pdetails) {
-                            $patientid = $pdetails->pat_id;
-                            $Name = $pdetails->firstname;
-                            $lname = $pdetails->secondName;
-                            $age = $pdetails->age;
-                            $nid = $pdetails->national_id;
 
-                            $appdate = $pdetails->created_at;
-                            $facilty = $pdetails->FacilityName;
-                            $weight = $pdetails->current_weight;
-                            $height = $pdetails->current_height;
-                            $temperature = $pdetails->temperature;
-                            $systolic = $pdetails->systolic_bp;
-                            $diastolic = $pdetails->diastolic_bp;
-                            $allergies = $pdetails->allergies;
-                            $complain = $pdetails->chief_compliant;
-
-                            $observations = $pdetails->observation;
-                    }
-                      ?>
                   <tbody>
                      <tr>
-                       <td><strong>Patient Id:</strong></td>
-                       <td><?php echo $patientid;?></td>
                         <td>Name</td>
-                        <td><?php echo $Name;?>&nbsp<?php echo $lname;?></td>
+                        <td><?php echo $pname;?>&nbsp<?php echo $lname;?></td>
                         <td><strong>Age:</strong></td>
                         <td><?php echo $age;?></td>
                      </tr>
@@ -198,15 +217,16 @@
       <div id="tab-2" class="tab-pane">
           <div class="panel-body">
             <div class="table-responsive">
-         <table class="table table-small-font table-bordered table-striped">
+              <table id="basic-datatables" class="table table-bordered" cellspacing="0" width="100%">
+
        <thead>
            <tr>
              <th></th>
                <th>Date of visit</th>
-               <th>CHief Complain</th>
+               <th>Chief Complain</th>
                <th>observations</th>
                <th>Prescription</th>
-
+               <th>Prescription</th>
          </tr>
        </thead>
 
@@ -218,8 +238,8 @@
                <td>{{$triageDetails->updated_at}}</td>
                <td>{{$triageDetails->chief_compliant}}</td>
                <td>{{$triageDetails->observation}}</td>
-               <td>{{$triageDetails->prescription}}</td>
-
+               <td>{{$triageDetails->observation}}</td>
+               <td><a href="{{route('showPatient',$appoid)}}" class="btn btn-default btn-xs">View</a></td>
 
 
            </tr>
@@ -236,20 +256,20 @@
 
 <!--Test tabs-->
             <div id="tab-3" class="tab-pane">
-                <div class="panel-body">
+              <div class="panel-body">
 
                 <!--Tests tart tabs-->
                 <?php
               foreach($tstdone as $tstdn)  {
-
-                $stats = $tstdn->id;
+                 $stats = $tstdn->id;
         }
-
-
-              if ( empty ($stats) ) {
-
-              echo $tstdn->id;
-            }else {?>
+            if ( empty ($stats) ) {?>
+              <style type="text/css">#testdat{
+              display:none;
+              }</style>
+              <?php
+              }
+               else {?>
             <style type="text/css">#test{
             display:none;
             }</style>
@@ -257,36 +277,16 @@
             }
               ?>
 
-                <div id="test">
-                  <div class="table-responsive">
-
-
-
-   <table class="table table-striped">
-      <thead>
-         <tr>
+    <div id="test">
+      <div class="table-responsive">
+       <table id="basic-datatables" class="table table-bordered" cellspacing="0" width="100%">
+            <thead>
+              <tr>
             <h4><strong>Tests</strong></h4>
- </tr>
-      </thead>
+               </tr>
+           </thead>
       <tbody>
-
-
-<div class="col-xs-12 col-sm-12 col-md-12">
-<div class="form-group">
-<tr>
-  <td>{{ Form::text('patient_id',$pdetails->pat_id, array('class' => 'form-control')) }}
-</td>
-
-  <td>{{ Form::text('test_status',1, array('class' => 'form-control')) }}
-</td>
-<td>{{ Form::text('appointment_id',$pdetails->app_id, array('class' => 'form-control')) }}
-</td>
-  <td>{{ Form::text('doc_id',$Docdata->doc_id, array('class' => 'form-control')) }}
-  </td></tr>
-  </div>
-    </div>
-
-                    <?php
+    <?php
                   $tst= (new \App\Http\Controllers\TestController);
                   $tests = $tst->TestList();
                   foreach($tests as $test){
@@ -295,7 +295,7 @@
                   ?>
                   <div class="col-xs-12 col-sm-12 col-md-12">
                   <div class="form-group">
-              <tr><td>Select Tsest</td>
+              <tr><td>Select Test</td>
                 <td>  <select name="test" id='pre-selected-options1' multiple='multiple'>
                     @foreach($tests as $test)
                      <option value="{{ $test->id }}">{{ $test->name }}</option>
@@ -324,10 +324,29 @@
             </td>
             <td>  </td>
             </tr>
+            <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+            <tr>
+
+              <td>{{ Form::hidden('patient_id',$pdetails->pat_id, array('class' => 'form-control')) }}
+            </td>
+
+              <td>{{ Form::hidden('test_status',1, array('class' => 'form-control')) }}
+            </td>
+            </tr>
+            <tr>
+            <td>{{ Form::hidden('appointment_id',$pdetails->app_id, array('class' => 'form-control')) }}
+            </td>
+
+              <td>{{ Form::hidden('doc_id',$Docdata->doc_id, array('class' => 'form-control')) }}
+              </td></tr>
+              </div>
+                </div>
                 <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-              <tr>  <td><button type="submit" class="btn btn-primary">Submit</button>  </td>
-                <td>  </td><td>  </td>
-                      </tr>
+              <tr> <td>  </td>
+                <td><button type="submit" class="btn btn-primary">Submit</button>  </td>
+
+              </tr>
               </div>
                 {{ Form::close() }}
 
@@ -336,17 +355,19 @@
               </div>
               </div>
 <!--Test result tabs PatientController@testdone-->
+              <div id="testdat">
               <div class="table-responsive">
-           <table class="table table-small-font table-bordered table-striped">
-         <thead>
+          <table id="basic-datatables" class="table table-bordered" cellspacing="0" width="100%">
+            <thead>
              <tr>
                <th></th>
+
                  <th>Test Recommended</th>
                  <th>Done</th>
                  <th>Result</th>
                  <th>Faciity</th>
                  <th>Apointment Id</th>
-                 <th>Note</th>
+                  <th>Note</th>
                  <th>Date Test Done</th>
 
            </tr>
@@ -356,12 +377,9 @@
            <?php $i =1; ?>
 
         @foreach($tstdone as $tstdn)
-
-
-             <tr>
-                 <td>{{ +$i }}</td>
-
-                 <td>{{$tstdn->test_reccommended}}</td>
+                <tr>
+                   <td>{{ +$i }}</td>
+                <td>{{$tstdn->test_reccommended}}</td>
                  <td>{{$tstdn->done}}</td>
                  <td>{{$tstdn->results}}</td>
                  <td>{{$tstdn->facility_id}}</td>
@@ -376,7 +394,8 @@
           </tbody>
         </table>
         </div>
-            </div>
+      </div>
+  </div>
 </div>
 
 
@@ -390,27 +409,16 @@
               <div class="table-responsive">
            <table class="table table-small-font table-bordered table-striped">
          <thead>
-             <tr>
-               <th></th>
-            </tr>
+          <tr>
+          <td>
+             </td>
+          </tr>
          </thead>
 
          <tbody>
-           <?php $i =1; ?>
-
-        @foreach($tstdone as $tstdn)
-      <tr>
 
 
-                 <td>{{ Form::text('appointment_id', $tstdn->appointment_id, array('class' => 'form-control')) }}</td>
-                 <td>{{ Form::text('patient_id',$tstdn->patient_id, array('class' => 'form-control')) }}</td>
-                 <td>{{ Form::text('filled_status', 1, array('placeholder' => 'FullName','class' => 'form-control')) }}</td>
-                 <td>{{ Form::text('doc_id',$Did, array('class' => 'form-control')) }}</td>
 
-        </tr>
-             <?php $i++; ?>
-
-          @endforeach
           <?php
           $drgs= (new \App\Http\Controllers\TestController);
           $drugs = $drgs->drugList();
@@ -428,7 +436,11 @@
           </td>
       </tr>
 
-
+      <tr>
+    <td>
+    </td>
+    <td>{{ Form::hidden('filled_status', 1, array('placeholder' => 'FullName','class' => 'form-control')) }}</td>
+    </tr>
 
       <tr><td>
       <div class="form-group{{ $errors->has('role') ? ' has-error' : '' }}">
@@ -446,6 +458,11 @@
               @endif
           </div>
       </div>  </td>
+      </tr>
+      <tr>
+        <td>
+         </td>
+        <td>{{ Form::hidden('doc_id',$Did, array('class' => 'form-control')) }}</td>
       </tr>
       <tr><td>
       <div class="form-group{{ $errors->has('role') ? ' has-error' : '' }}">
@@ -465,6 +482,31 @@
               @endif
           </div>
       </div>  </td>
+      </tr>
+
+
+<tr>
+  <td>
+    </td>
+ <td>{{ Form::hidden('triage_id',$pdetails->triage_id, array('class' => 'form-control')) }}</td>
+</tr>
+<tr>
+ <td>
+  </td>
+ <td>{{ Form::hidden('appointment_id',$pdetails->app_id, array('class' => 'form-control')) }}</td>
+</tr>
+
+<tr>      <div class="col-xs-12 col-sm-12 col-md-12">
+          <div class="form-group">
+          <td><strong>Doctor note:</strong></td>
+        <td>  {{ Form::textarea('doc_note', null, array('placeholder' => 'facility','class' => 'form-control')) }}
+          </td></div>
+          </div>
+
+      </tr>
+      <tr><td>
+         </td>
+       <td>{{ Form::hidden('patient_id',$pdetails->pat_id, array('class' => 'form-control')) }}</td>
       </tr>
       <div class="col-xs-12 col-sm-12 col-md-12 text-center">
       <tr><td>

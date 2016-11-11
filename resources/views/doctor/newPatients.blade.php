@@ -17,9 +17,10 @@
               </div>
         <div class="col-sm-12 ">
             <div class="panel-box">
-              <div class="table-responsive">
-                <table class="table table-small-font table-bordered table-striped">
-                    <thead>
+              
+                <div class="table-responsive">
+                           <table id="basic-datatables" class="table table-bordered" cellspacing="0" width="100%">
+                        <thead>
                         <tr>
                             <th>No</th>
                             <th>FirstName</th>
@@ -28,7 +29,7 @@
                             <th>Age</th>
                             <th>National ID</th>
                             <th>Mobile No</th>
-                            <th>Mobile No</th>
+                            <th>Appointment No</th>
                             <!-- <th>Constituency of Residence</th> -->
 
                       </tr>

@@ -16,7 +16,7 @@
                               <li class="list-group-item"><a href="{{ url('facility') }}">FACILITIES</a></li>
                               <li class="list-group-item"><a href="{{ url('county') }}">COUNTY</a></li>
                               <li class="list-group-item"><a href="{{ url('constituency') }}">CONSTITUENCIES</a></li>
-                              
+
 
 
                           </ul>
@@ -28,14 +28,14 @@
                               <h3>Medical Settings</h3>
                           </header>
                           <div class="list-group">
-                              <a class="list-group-item " href="#">
-                                  Allergies
+                              <li class="list-group-item"><a href="{{ url('allergy') }}">
+                                 ALLERGIES
                               </a>
-                              <a class="list-group-item " href="javascript:;">Illnesses</a>
-                              <a class="list-group-item" href="javascript:;">Diseases</a>
-                              <a class="list-group-item" href="javascript:;">Chronic illnesses</a>
-                              <a class="list-group-item" href="javascript:;">Vaccines</a>
-                              <a class="list-group-item" href="javascript:;">diagnosis</a>
+                              <li class="list-group-item"><a href="{{ url('illnesses') }}">ILLNESSES</a></li>
+                              <li class="list-group-item"><a href="{{ url('diseases') }}">DISEASES</a></li>
+                              <li class="list-group-item"><a href="{{ url('chronic') }}">CHRONIC ILLNESSES</a></li>
+                              <li class="list-group-item"><a href="{{ url('vaccine') }}">VACCINES</a></li>
+                              <li class="list-group-item"><a href="{{ url('diagnosis') }}">DIAGNOSIS</a></li>
                           </div>
                       </section>
                   </div>

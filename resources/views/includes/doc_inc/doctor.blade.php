@@ -1,12 +1,12 @@
-@extends('layouts.doc_template')
+@extends('layouts.doctor')
 
 @section('content')
 
-<div class="span5 well">	
+<div class="span5 well">
 
 <?php  
-$doc = (new \App\Services\DocService);	
-$Docdata = $doc->DocDetails(); 
+$doc = (new \App\Services\DocService);
+$Docdata = $doc->DocDetails();
 foreach($Docdata as $Docdata){
 	$Name = $Docdata->Name;
 	$Address = $Docdata->Address;
@@ -14,8 +14,8 @@ foreach($Docdata as $Docdata){
 	$RegDate = $Docdata->RegDate;
 	$Speciality = $Docdata->Speciality;
 	$Sub_Speciality = $Docdata->Sub_Speciality;
-}	
-?>	
+}
+?>
 <h2><?php echo $Name;?></h2>
 <h2>Address:
 <?php echo $Address; ?></h2>

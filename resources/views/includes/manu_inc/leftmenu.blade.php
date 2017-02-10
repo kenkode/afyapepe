@@ -1,22 +1,38 @@
 <!--left menu start-->
-          <div class="side-menu left" id="side-menu">
-            <ul class="metismenu clearfix" id="menu">
-       <li   <?php $data = DB::table("patients")->count();
-                ?>
-                    <li>
-                      <a href="#"><i class="glyphicon glyphicon-dashboard "></i> <span>Dashboard</span>
-                      <a href="{{ URL::to('#')}}"><i class="glyphicon glyphicon-stats"></i> <span>Statistics</span>
-                      <a href="{{ URL::to('druglist')}}"><i class="fa fa-medkit"></i> <span>Druglist </span>  <span class="badge">0</span>
-                      <a href="{{ URL::to('nurses.show')}}"><i class="fa fa-shopping-cart"></i> <span>Today Sales</span>    <span class="badge">0</span>
+<nav class="navbar-default navbar-static-side" role="navigation">
+    <div class="sidebar-collapse">
+        <ul class="nav metismenu" id="side-menu">
+            <li class="nav-header">
+                <div class="dropdown profile-element">
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                        <span class="clear">
+                            <span class="block m-t-xs">
+                                <strong class="font-bold">{{ Auth::user()->name }}</strong>
+                            </span> <span class="text-muted text-xs block">Example menu <b class="caret"></b></span>
+                        </span>
+                    </a>
+                    <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                        <li><a href="{{ url('/logout') }}">Logout</a></li>
+                    </ul>
+                </div>
+                <div class="logo-element">
+                    Afya+
+                </div>
 
-                    <a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a>
-                    </li>
 
-            </div>
+            <li><a href="{{ url('/admin') }}"><i class="fa fa-home"></i> <span>HOME</span></a></li>
+            <li><a href="{{ route('users.index') }}"><i class="fa fa-users"></i> <span>USER</span></a></li>
+            <li><a href="{{ route('roles.index') }}"><i class="fa fa-info"></i> <span>ROLES</span></a></li>
 
+           <li><a href="{{ route('test.index') }}"><i class="fa fa-stethoscope"></i> <span>TEST</span></a></li>
+           <li><a href="{{ url('/nurse') }}"><i class="fa fa-user-md"></i> <span>NURSE</span></a></li>
+           <li><a href="{{ url('/doctor') }}"><i class="fa fa-user-md"></i> <span>DOCTOR</span></a></li>
+           <li><a href="{{ url('/pharmacy') }}"><i class="fa fa-user-md"></i> <span>PHARM</span></a></li>
+           <li><a href="{{ url('/manufacturer') }}"><i class="fa fa-industry"></i> <span>MANUFACTURER</span></a></li>
+           <li><a href="{{ url('/patient') }}"><i class="fa fa-users"></i> <span>PATIENT</span></a></li>
+           <li><a href="{{ url('config') }}"><i class="fa fa-cog"></i> <span>Master Configuration</span></a></li>
 
+        </ul>
 
-
- </ul>
-</div>
-          <!--left menu end-->
+    </div>
+</nav>

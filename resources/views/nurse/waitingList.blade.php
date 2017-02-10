@@ -13,15 +13,37 @@ $current = Carbon::now();
 
  ?>
 
-                    <div class="row">
-                                      <div class="col-sm-12 ">
-                                       <h1>Waiting Patients</h1>
+ <div class="wrapper wrapper-content animated fadeInRight">
+           <div class="row">
+               <div class="col-lg-12">
+               <div class="ibox float-e-margins">
+                   <div class="ibox-title">
+                       <h5>Waiting list</h5>
+                       <div class="ibox-tools">
 
-                                          <div class="panel-box">
+                           <a class="collapse-link">
+                               <i class="fa fa-chevron-up"></i>
+                           </a>
+                           <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                               <i class="fa fa-wrench"></i>
+                           </a>
+                           <ul class="dropdown-menu dropdown-user">
 
-                                                        <div class="table-responsive">
-                                               <table class="table table-striped">
-                                                  <thead>
+                               <li><a href="#">Config option 1</a>
+                               </li>
+                               <li><a href="#">Config option 2</a>
+                               </li>
+                           </ul>
+                           <a class="close-link">
+                               <i class="fa fa-times"></i>
+                           </a>
+                       </div>
+                   </div>
+                   <div class="ibox-content">
+
+                       <div class="table-responsive">
+                   <table class="table table-striped table-bordered table-hover dataTables-example" >
+                   <thead>
                                                       <tr>
                                                           <th><i class="fa fa-list fa-2x"></i> No</th>
                                                           <th><i class="fa fa-user fa-2x"></i> Name</th>
@@ -39,7 +61,7 @@ $current = Carbon::now();
                                                       <tr>
                                                           <td>{{$i}}</td>
                                                           <td>{{$patient->firstname}} {{$patient->secondName}}</a></td>
-                                                          
+
                                                           <td><?php $gender=$patient->gender;?>
                                                             @if($gender==1){{"Male"}}@else{{"Female"}}@endif</a>
                                                           </td>
@@ -63,12 +85,17 @@ $current = Carbon::now();
 
                                                    </tbody>
                                                  </table>
-                                               </div>
+                                                     </div>
 
+                                                 </div>
+                                             </div>
+                                         </div>
+                                         </div>
+                                     </div>
+                                     @include('includes.admin_inc.footer')
 
-         </div>
-
-          </div><!--content-->
+           </div>
+        </div><!--content-->
       </div><!--content page-->
 
 @endsection

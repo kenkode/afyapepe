@@ -1,4 +1,5 @@
-@extends('layouts.app')
+@extends('layouts.admin')
+@section('title', 'create user')
 @section('content')
 <div class="content-page  equal-height">
 					<div class="content">

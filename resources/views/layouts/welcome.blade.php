@@ -1,27 +1,45 @@
-
+<!DOCTYPE html>
 <html>
 <head>
-    @include('includes.default.head')
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>afyapepe - @yield('title') </title>
+
+
+    <link rel="stylesheet" href="{!! asset('css/bootstrap.min.css') !!}" />
+    <link rel="stylesheet" href="{!! asset('font-awesome/css/font-awesome.css') !!}" />
+    <link rel="stylesheet" href="{!! asset('css/animate.css') !!}" />
+    <link rel="stylesheet" href="{!! asset('css/style.css') !!}" />
+
+
 </head>
+<body class="gray-bg">
 
 
-<!--top bar-->
-  @include('includes.default.topbar')
-<!--end top bar-->
-  <body class="fixed-left">
-<!--left menu start-->
+            <!-- Main view  -->
+            @yield('content')
 
-<!--left menu end-->
- <!--page-->
-  @yield('content')
-<!--page-->
+            <!-- Footer -->
+          
 
 
+    <!-- Mainly scripts -->
 
-  <!--page-->
-
-  <!--page-->
-    </body>
+<script src="{!! asset('js/jquery-3.1.1.min.js') !!}" type="text/javascript"></script>
+<script src="{!! asset('js/bootstrap.min.js') !!}" type="text/javascript"></script>
 
 
+
+    <!-- iCheck -->
+    <script src="{!! asset('js/plugins/iCheck/icheck.min.js') !!}" type="text/javascript"></script>
+
+    <script>
+        $(document).ready(function(){
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
+            });
+        });
+    </script>
+</body>
 </html>

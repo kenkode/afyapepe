@@ -1,6 +1,6 @@
 
 @extends('layouts.doctor')
-
+@section('title', 'vist')
 @section('content')
   <div class="content-page  equal-height">
       <div class="content">

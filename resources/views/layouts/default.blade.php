@@ -3,7 +3,7 @@
 <head>
     @include('includes.default.head')
 </head>
-    
+
 <!--top bar-->
   @include('includes.default.topbar')
 <!--end top bar-->

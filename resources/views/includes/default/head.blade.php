@@ -1,14 +1,20 @@
 
-   <!--- Basic Page Needs
-   ================================================== -->
-		<title>Afya_Pepe</title>
-			<meta charset="UTF-8">
-			<meta name="viewport" content="width=device-width, initial-scale=1.0"><meta http-equiv="X-UA-Compatible" content="IE=edge" />
-			<!-- CSS
-	================================================== -->
-	   <link href="{{ asset('css/bootstrap.min.css') }}" media="all" rel="stylesheet" type="text/css" />
-   <link href="{{ asset('fontawesome/css/font-awesome.min.css') }}" media="all" rel="stylesheet" type="text/css" />
-  <link href="{{ asset('css/metisMenu.css') }}" media="all" rel="stylesheet" type="text/css" />
-<link href="{{ asset('css/morris-0.4.3.min.css') }}" media="all" rel="stylesheet" type="text/css" />
- <link href="{{ asset('css/style.css') }}" media="all" rel="stylesheet" type="text/css" />
-  <script type="text/javascript" src="{{ asset('js/modernizr.js') }}"></script>
+<div class="row border-bottom">
+    <nav class="navbar navbar-static-top white-bg" role="navigation" style="margin-bottom: 0">
+        <div class="navbar-header">
+            <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+            <form role="search" class="navbar-form-custom" method="post" action="/">
+                <div class="form-group">
+                    <input type="text" placeholder="Search for something..." class="form-control" name="top-search" id="top-search" />
+                </div>
+            </form>
+        </div>
+        <ul class="nav navbar-top-links navbar-right">
+            <li>
+                <a href="#">
+                    <i class="fa fa-sign-out"></i> Log out
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>

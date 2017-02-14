@@ -1,5 +1,6 @@
 
 @extends('layouts.nurse')
+@section('title', 'Waiting patients')
 @section('content')
   <div class="content-page  equal-height">
       <span class="label label-info">Today's Patients</span>
@@ -45,12 +46,11 @@ $current = Carbon::now();
                    <table class="table table-striped table-bordered table-hover dataTables-example" >
                    <thead>
                                                       <tr>
-                                                          <th><i class="fa fa-list fa-2x"></i> No</th>
-                                                          <th><i class="fa fa-user fa-2x"></i> Name</th>
-                                                          <th><i class="fa fa-genderless fa-2x"></i> Gender</th>
-                                                          <th><i class="fa fa-font fa-2x"></i> Age</th>
-
-                                                          <th><i class="fa fa-clock-o fa-2x"></i> Time waited to see the doctor</th>
+                                                          <th> No</th>
+                                                          <th> Name</th>
+                                                          <th>Gender</th>
+                                                          <th> Age</th>
+                                                        <th>Time waited to see the doctor</th>
                                                     </tr>
                                                   </thead>
 
@@ -84,6 +84,15 @@ $current = Carbon::now();
                                                    @endforeach
 
                                                    </tbody>
+                                                   <tfoot>
+                                                     <tr>
+                                                         <th> No</th>
+                                                         <th> Name</th>
+                                                         <th>Gender</th>
+                                                         <th> Age</th>
+                                                       <th>Time waited to see the doctor</th>
+                                                   </tr>
+                                                   </tfoot>
                                                  </table>
                                                      </div>
 
@@ -92,9 +101,9 @@ $current = Carbon::now();
                                          </div>
                                          </div>
                                      </div>
-                                     @include('includes.admin_inc.footer')
 
            </div>
+          @include('includes.default.footer')
         </div><!--content-->
       </div><!--content page-->
 

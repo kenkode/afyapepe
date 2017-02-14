@@ -1,24 +1,32 @@
-@extends('layouts.nurse')
+@extends('layouts.app')
 @section('content')
-  <div class="content-page  equal-height">
+  <div class="row">
+    <div class="col-lg-6 col-md-offset-2">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Vaccines Details</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
 
-      <div class="content">
-          <div class="container">
+                            <a class="close-link">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    </div>
+<div class="ibox-content">
 
 
-              <div class="row">
-
-
-
-    <div class="col-sm-6 col-md-offset-3">
-    <h2>Vaccines Details</h2>
-    <div class="row multi-field-wrapper ">
     <div class="multi-fields">
-      <form class="form-horizontal" role="form" method="POST" action="/vaccine" novalidate>
+      <form class="form" role="form" method="POST" action="/vaccine" novalidate>
      <input type="hidden" name="_token" value="{{ csrf_token() }}">
-    
 
-                <div class="form-group col-sm-6  multi-field">
+
+                <div class="form-group">
                 <input type="hidden" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{$id}}" name="id"  required>
                 <div class="form-group">
 
@@ -38,12 +46,12 @@
               <div class="form-group">
             <label class="control-label" for="name">Vaccinated ?</label>
             <input type="radio" value="no" id="type" name="type" checked='checked' autocomplete="off" />
-<label>No</label>
-<input type="radio" value="yes" id="type" name="type" class="youtube" />
-<label>Yes</label>
-<input type="date" value="0000-00-00" id="embedcode" placeholder="Vaccinated Date" name="date" type="text"/>
+              <label>No</label>
+                    <input type="radio" value="yes" id="type" name="type" class="youtube" />
+                  <label>Yes</label>
+                   <input type="date" value="0000-00-00" id="embedcode" placeholder="Vaccinated Date" name="date" type="text"/>
 
-     </div>
+              </div>
 
 
       <!-- <button type="button" class="remove-field">Remove</button> -->
@@ -61,10 +69,6 @@
               </div>
     </div>
     </div>
-
-
-          </div><!--content-->
-      </div><!--content page-->
-</div>
+ </div>
 </div>
 @endsection

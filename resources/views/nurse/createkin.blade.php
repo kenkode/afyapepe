@@ -1,15 +1,26 @@
 
-@extends('layouts.nurse')
+@extends('layouts.app')
 @section('content')
-  <div class="content-page  equal-height">
-
-      <div class="content">
-          <div class="container">
-
 
       <div class="row">
-    <div class="col-sm-6 col-md-offset-2">
-     <h2>Next of Kin</h2>
+        <div class="col-lg-6 col-md-offset-2">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Next of Kin</h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                    <i class="fa fa-wrench"></i>
+                                </a>
+
+                                <a class="close-link">
+                                    <i class="fa fa-times"></i>
+                                </a>
+                            </div>
+                        </div>
+    <div class="ibox-content">
 
      <form class="form-horizontal" role="form" method="POST" action="/nextkin" novalidate>
     <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -44,5 +55,5 @@
 
 </div>
 </div>
-</div>
+
 @endsection

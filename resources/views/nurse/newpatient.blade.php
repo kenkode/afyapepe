@@ -1,8 +1,9 @@
 
 @extends('layouts.nurse')
+@section('title', 'New patients')
 @section('content')
   <div class="content-page  equal-height">
-      <span class="label label-info">Today's Patients</span>
+      <span class="label label-info">New Patients</span>
       <div class="content">
           <div class="container">
 
@@ -13,7 +14,7 @@
                           <div class="col-lg-12">
                           <div class="ibox float-e-margins">
                               <div class="ibox-title">
-                                  <h5>New Patients</h5>
+
                                   <div class="ibox-tools">
 
                                           <i class="fa fa-chevron-up"></i>
@@ -39,12 +40,11 @@
                               <table class="table table-striped table-bordered table-hover dataTables-example" >
                               <thead>
                                                       <tr>
-                                                          <th><i class="fa fa-list fa-2x"></i> No</th>
-                                                          <th><i class="fa fa-user fa-2x"></i> Name</th>
-                                                          <th><i class="fa fa-genderless fa-2x"></i> Gender</th>
-                                                          <th><i class="fa fa-font fa-2x"></i> Age</th>
-
-                                                          <th><i class="fa fa-calendar fa-2x"></i> Date</th>
+                                                          <th>No</th>
+                                                          <th>Name</th>
+                                                          <th>Gender</th>
+                                                          <th>Age</th>
+                                                          <th>Date</th>
                                                     </tr>
                                                   </thead>
 
@@ -71,7 +71,17 @@
                                                    @endforeach
 
                                                    </tbody>
+                                                   <tfoot>
+                                                     <tr>
+                                                         <th>No</th>
+                                                         <th>Name</th>
+                                                         <th>Gender</th>
+                                                         <th>Age</th>
+                                                         <th>Date</th>
+                                                   </tr>
+                                                  </tfoot>
                                                  </table>
+
                                                      </div>
 
                                                  </div>
@@ -79,10 +89,10 @@
                                          </div>
                                          </div>
                                      </div>
-                                     @include('includes.admin_inc.footer')
+
 
          </div>
-
+@include('includes.default.footer')
           </div><!--content-->
       </div><!--content page-->
 

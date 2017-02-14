@@ -110,6 +110,7 @@ class NurseController extends Controller
 
     public function details($id){
 
+
         return view('nurse.details')->with('id',$id);
 
     }

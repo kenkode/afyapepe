@@ -84,7 +84,7 @@
            </div>
            </div>
        </div>
-       @include('includes.admin_inc.footer')
+       @include('includes.default.footer')
 
          </div><!--container-->
       </div><!--content-->

@@ -1,11 +1,17 @@
 <!DOCTYPE html>
 <html>
+
 <head>
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
     <title>Afyapepe- @yield('title') </title>
 
 
+    <link rel="stylesheet" href="{!! asset('css/plugins/toastr/toastr.min.css') !!}" />
+    <link rel="stylesheet" href="{!! asset('js/plugins/gritter/jquery.gritter.css') !!}" />
     <link rel="stylesheet" href="{!! asset('css/vendor.css') !!}" />
     <link rel="stylesheet" href="{!! asset('css/app.css') !!}" />
 
@@ -16,43 +22,62 @@
     <link rel="stylesheet" href="{!! asset('css/style.css') !!}" />
 
 </head>
+
 <body>
-
-  <!-- Wrapper-->
     <div id="wrapper">
+      @include('includes.doc_inc.leftmenu')
 
-        <!-- Navigation -->
-        @include('includes.doc_inc.leftmenu')
+        <div id="page-wrapper" class="gray-bg dashbard-1">
 
-        <!-- Page wraper -->
-        <div id="page-wrapper" class="gray-bg">
-
-            <!-- Page wrapper -->
-            @include('includes.doc_inc.head')
-
-            <!-- Main view  -->
-            @yield('content')
-
+    @include('includes.doc_inc.headbar')
+    <!-- Main view  -->
+    @yield('content')
 
         </div>
-        <!-- End page wrapper-->
 
     </div>
-    <!-- End wrapper-->
 
-<script src="{!! asset('js/app.js') !!}" type="text/javascript"></script>
-<!-- Mainly scripts -->
-<script src="{{ asset('js/jquery-3.1.1.min.js') }}" type="text/javascript"></script>
-<script src="{{ asset('js/bootstrap.min.js') }}" type="text/javascript"></script>
-<script src="{{ asset('js/plugins/metisMenu/jquery.metisMenu.js') }}" type="text/javascript"></script>
-<script src="{{ asset('js/plugins/slimscroll/jquery.slimscroll.min.js') }}" type="text/javascript"></script>
-<script src="{{ asset('js/plugins/dataTables/datatables.min.js') }}" type="text/javascript"></script>
-
+    <!-- Mainly scripts -->
+    <script src="{{ asset('js/app.js') }}" type="text/javascript"></script>
+    <!-- Mainly scripts -->
+    <script src="{{ asset('js/jquery-3.1.1.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/plugins/metisMenu/jquery.metisMenu.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/plugins/slimscroll/jquery.slimscroll.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/plugins/dataTables/datatables.min.js') }}" type="text/javascript"></script>
 
     <!-- Custom and plugin javascript -->
-    <script src="{{ asset('js/inspinia.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('js/plugins/pace/pace.min.js') }}" type="text/javascript"></script>
 
+    <script src="{{ asset('js/plugins/pace/pace.min.js') }}" type="text/javascript"></script>
+  <!-- Flot -->
+    <script src="{{ asset('js/plugins/flot/jquery.flot.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/plugins/flot/jquery.flot.tooltip.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/plugins/flot/jquery.flot.spline.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/plugins/flot/jquery.flot.resize.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/plugins/flot/jquery.flot.pie.js') }}" type="text/javascript"></script>
+
+
+    <!-- Peity -->
+    <script src="{{ asset('js/plugins/peity/jquery.peity.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/demo/peity-demo.js') }}" type="text/javascript"></script>
+
+
+    <!-- jQuery UI -->
+    <script src="{{ asset('js/plugins/jquery-ui/jquery-ui.min.js') }}" type="text/javascript"></script>
+    <!-- GITTER -->
+    <script src="{{ asset('js/plugins/gritter/jquery.gritter.min.js') }}" type="text/javascript"></script>
+    <!-- Sparkline -->
+    <script src="{{ asset('js/plugins/sparkline/jquery.sparkline.min.js') }}" type="text/javascript"></script>
+   <!-- Sparkline demo data  -->
+    <script src="{{ asset('js/demo/sparkline-demo.js') }}" type="text/javascript"></script>
+
+
+    <!-- ChartJS-->
+    <script src="{{ asset('js/plugins/chartJs/Chart.min.js') }}" type="text/javascript"></script>
+
+
+    <!-- Toastr -->
+    <script src="{{ asset('js/plugins/toastr/toastr.min.js') }}" type="text/javascript"></script>
 
     <!-- Page-Level Scripts -->
     <script>
@@ -84,7 +109,5 @@
         });
 
     </script>
-
-
 </body>
 </html>

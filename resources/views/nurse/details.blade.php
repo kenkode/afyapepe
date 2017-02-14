@@ -1,21 +1,18 @@
-@extends('layouts.nurse')
+@extends('layouts.app')
+
 @section('content')
-  <div class="content-page  equal-height">
+<div class="col-lg-6">
+    <div class="ibox float-e-margins">
+      <div class="ibox-title">
+          <h5>Patient Details</h5>
 
-      <div class="content">
-          <div class="container">
-
-
-
-    <div class="row">
-
-    <div class="col-sm-6">
-    <h2>Patient Details</h2>
+      </div>
+      <div class="ibox-content">
 
  {!! Form::open(array('route' => 'createdetail','method'=>'POST')) !!}
     <div class="form-group">
     <input type="hidden" class="form-control" id="exampleInputEmail1S" aria-describedby="emailHelp" value="{{$id}}" name="id"  required>
-                <div class="form-group">
+    <div class="form-group">
     <label for="exampleInputEmail1">Weight</label>
     <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Weight" name="weight"  required>
     </div>
@@ -39,8 +36,21 @@
     </div>
     </div>
     </div>
-    <div class="col-sm-6">
-    <h2>Patient Observations</h2>
+  </div>
+</div>
+
+
+
+
+
+
+<div class="col-lg-6">
+    <div class="ibox float-e-margins">
+      <div class="ibox-title">
+          <h5>Patient Observations</h5>
+      </div>
+      <div class="ibox-content">
+
     <div class="form-group">
     <label for="exampleInputEmail1">Allergies</label>
     <select class="form-control" name="allergies">
@@ -82,11 +92,8 @@
     <button type="submit" class="btn btn-primary">Save</button>
      {!! Form::close() !!}
     </div>
-
+</div>
     </div>
+  @include('includes.default.footer')
 
-          </div><!--content-->
-      </div><!--content page-->
-</div>
-</div>
 @endsection

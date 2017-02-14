@@ -1,167 +1,437 @@
-
 @extends('layouts.patient')
-
+@section('title', 'patients')
 @section('content')
-<div class="content-page  equal-height">
-          <div class="content">
-              <div class="container">
-  <div class="row">
+<div class="row  border-bottom white-bg dashboard-header">
+    <div class="col-md-3">
+        <h2>Welcome Amelia</h2>
+        <small>You have 42 messages and 6 notifications.</small>
+        <ul class="list-group clear-list m-t">
+            <li class="list-group-item fist-item">
+                <span class="pull-right">
+                    09:00 pm
+                </span>
+                <span class="label label-success">1</span> Please contact me
+            </li>
+            <li class="list-group-item">
+                <span class="pull-right">
+                    10:16 am
+                </span>
+                <span class="label label-info">2</span> Sign a contract
+            </li>
+            <li class="list-group-item">
+                <span class="pull-right">
+                    08:22 pm
+                </span>
+                <span class="label label-primary">3</span> Open new shop
+            </li>
+            <li class="list-group-item">
+                <span class="pull-right">
+                    11:06 pm
+                </span>
+                <span class="label label-default">4</span> Call back to Sylvia
+            </li>
+            <li class="list-group-item">
+                <span class="pull-right">
+                    12:00 am
+                </span>
+                <span class="label label-primary">5</span> Write a letter to Sandra
+            </li>
+        </ul>
+    </div>
+    <div class="col-md-6">
+        <div class="flot-chart dashboard-chart">
+            <div class="flot-chart-content" id="flot-dashboard-chart"></div>
+        </div>
+        <div class="row text-left">
+            <div class="col-xs-4">
+                <div class=" m-l-md">
+                <span class="h4 font-bold m-t block">$ 406,100</span>
+                <small class="text-muted m-b block">Sales marketing report</small>
+                </div>
+            </div>
+            <div class="col-xs-4">
+                <span class="h4 font-bold m-t block">$ 150,401</span>
+                <small class="text-muted m-b block">Annual sales revenue</small>
+            </div>
+            <div class="col-xs-4">
+                <span class="h4 font-bold m-t block">$ 16,822</span>
+                <small class="text-muted m-b block">Half-year revenue margin</small>
+            </div>
 
- <div class="col-sm-6">
-                 <div class="panel-box">
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="statistic-box">
+        <h4>
+            Project Beta progress
+        </h4>
+        <p>
+            You have two project with not compleated task.
+        </p>
+            <div class="row text-center">
+                <div class="col-lg-6">
+                    <canvas id="doughnutChart2" width="80" height="80" style="margin: 18px auto 0"></canvas>
+                    <h5 >Kolter</h5>
+                </div>
+                <div class="col-lg-6">
+                    <canvas id="doughnutChart" width="80" height="80" style="margin: 18px auto 0"></canvas>
+                    <h5 >Maxtor</h5>
+                </div>
+            </div>
+            <div class="m-t">
+                <small>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</small>
+            </div>
+       </div>
+    </div>
+</div>
 
-                   <div class="tabs-container">
-                 <ul class="nav nav-tabs">
-                     <li class="active"><a data-toggle="tab" href="#tab-1" aria-expanded="true"> BASIC DATA</a></li>
-                     <li class=""><a data-toggle="tab" href="#tab-2" aria-expanded="false">NEXT OF KIN</a></li>
-                 </ul>
-                 <div class="tab-content">
-                     <div id="tab-1" class="tab-pane active">
-                         <div class="panel-body">
 
-                             <h4>Name:Moketch</h4>
-                             <h4>Address:Moketch</h4>
-                             <h4>Registration Number:Moketch</h4>
 
-                             <h4>Registration Date:Moketch</h4>
 
-                             <h4>Speciality:Moketch</h4>
 
-                             <h4>Sub Speciality:Moketch</h4>
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="wrapper wrapper-content">
+                <div class="row">
+                <div class="col-lg-4">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>New data for the report</h5> <span class="label label-primary">IN+</span>
+                            <div class="ibox-tools">
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                    <i class="fa fa-wrench"></i>
+                                </a>
+                                <ul class="dropdown-menu dropdown-user">
+                                    <li><a href="#">Config option 1</a>
+                                    </li>
+                                    <li><a href="#">Config option 2</a>
+                                    </li>
+                                </ul>
+                                <a class="close-link">
+                                    <i class="fa fa-times"></i>
+                                </a>
                             </div>
-                     </div>
-                     <div id="tab-2" class="tab-pane">
-                         <div class="panel-body">
-                             <strong>Donec quam felis</strong>
+                        </div>
+                        <div class="ibox-content">
+                            <div>
 
-                             <p>Thousand unknown plants are noticed by me: when I hear the buzz of the little world among the stalks, and grow familiar with the countless indescribable forms of the insects
-                                 and flies, then I feel the presence of the Almighty, who formed us in his own image, and the breath </p>
+                                <div class="pull-right text-right">
 
-                             <p>I am alone, and feel the charm of existence in this spot, which was created for the bliss of souls like mine. I am so happy, my dear friend, so absorbed in the exquisite
-                                 sense of mere tranquil existence, that I neglect my talents. I should be incapable of drawing a single stroke at the present moment; and yet.</p>
-                         </div>
-                     </div>
-                 </div>
+                                    <span class="bar_dashboard">5,3,9,6,5,9,7,3,5,2,4,7,3,2,7,9,6,4,5,7,3,2,1,0,9,5,6,8,3,2,1</span>
+                                    <br/>
+                                    <small class="font-bold">$ 20 054.43</small>
+                                </div>
+                                <h4>NYS report new data!
+                                    <br/>
+                                    <small class="m-r"><a href="graph_flot.html"> Check the stock price! </a> </small>
+                                </h4>
+                                </div>
+                            </div>
+                        </div>
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Read below comments</h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                    <i class="fa fa-wrench"></i>
+                                </a>
+                                <ul class="dropdown-menu dropdown-user">
+                                    <li><a href="#">Config option 1</a>
+                                    </li>
+                                    <li><a href="#">Config option 2</a>
+                                    </li>
+                                </ul>
+                                <a class="close-link">
+                                    <i class="fa fa-times"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="ibox-content no-padding">
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <p><a class="text-info" href="#">@Alan Marry</a> I belive that. Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                                    <small class="block text-muted"><i class="fa fa-clock-o"></i> 1 minuts ago</small>
+                                </li>
+                                <li class="list-group-item">
+                                    <p><a class="text-info" href="#">@Stock Man</a> Check this stock chart. This price is crazy! </p>
+                                    <div class="text-center m">
+                                        <span id="sparkline8"></span>
+                                    </div>
+                                    <small class="block text-muted"><i class="fa fa-clock-o"></i> 2 hours ago</small>
+                                </li>
+                                <li class="list-group-item">
+                                    <p><a class="text-info" href="#">@Kevin Smith</a> Lorem ipsum unknown printer took a galley </p>
+                                    <small class="block text-muted"><i class="fa fa-clock-o"></i> 2 minuts ago</small>
+                                </li>
+                                <li class="list-group-item ">
+                                    <p><a class="text-info" href="#">@Jonathan Febrick</a> The standard chunk of Lorem Ipsum</p>
+                                    <small class="block text-muted"><i class="fa fa-clock-o"></i> 1 hour ago</small>
+                                </li>
+                                <li class="list-group-item">
+                                    <p><a class="text-info" href="#">@Alan Marry</a> I belive that. Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                                    <small class="block text-muted"><i class="fa fa-clock-o"></i> 1 minuts ago</small>
+                                </li>
+                                <li class="list-group-item">
+                                    <p><a class="text-info" href="#">@Kevin Smith</a> Lorem ipsum unknown printer took a galley </p>
+                                    <small class="block text-muted"><i class="fa fa-clock-o"></i> 2 minuts ago</small>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                    <div class="col-lg-4">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <h5>Your daily feed</h5>
+                                <div class="ibox-tools">
+                                    <span class="label label-warning-light pull-right">10 Messages</span>
+                                   </div>
+                            </div>
+                            <div class="ibox-content">
 
+                                <div>
+                                    <div class="feed-activity-list">
 
-             </div>
-                 </div>
-                   </div>
-             <div class="col-sm-6">
-             <div class="widget-box ">
-              <div class="page-title ">
-                  <h3>ADDRESS</h3>
+                                        <div class="feed-element">
+                                            <a href="profile.html" class="pull-left">
+                                                <img alt="image" class="img-circle" src="img/profile.jpg">
+                                            </a>
+                                            <div class="media-body ">
+                                                <small class="pull-right">5m ago</small>
+                                                <strong>Monica Smith</strong> posted a new blog. <br>
+                                                <small class="text-muted">Today 5:60 pm - 12.06.2014</small>
 
-                </div><!--end page title-->
-                <h4>Moketch</h4>
-                <h4>Address:
-              Moketch</h4>
-                <h4>Registration Number:
-              Moketch</h4>
+                                            </div>
+                                        </div>
 
-                <h4>Registration Date:
-              Moketch</h4>
+                                        <div class="feed-element">
+                                            <a href="profile.html" class="pull-left">
+                                                <img alt="image" class="img-circle" src="img/a2.jpg">
+                                            </a>
+                                            <div class="media-body ">
+                                                <small class="pull-right">2h ago</small>
+                                                <strong>Mark Johnson</strong> posted message on <strong>Monica Smith</strong> site. <br>
+                                                <small class="text-muted">Today 2:10 pm - 12.06.2014</small>
+                                            </div>
+                                        </div>
+                                        <div class="feed-element">
+                                            <a href="profile.html" class="pull-left">
+                                                <img alt="image" class="img-circle" src="img/a3.jpg">
+                                            </a>
+                                            <div class="media-body ">
+                                                <small class="pull-right">2h ago</small>
+                                                <strong>Janet Rosowski</strong> add 1 photo on <strong>Monica Smith</strong>. <br>
+                                                <small class="text-muted">2 days ago at 8:30am</small>
+                                            </div>
+                                        </div>
+                                        <div class="feed-element">
+                                            <a href="profile.html" class="pull-left">
+                                                <img alt="image" class="img-circle" src="img/a4.jpg">
+                                            </a>
+                                            <div class="media-body ">
+                                                <small class="pull-right text-navy">5h ago</small>
+                                                <strong>Chris Johnatan Overtunk</strong> started following <strong>Monica Smith</strong>. <br>
+                                                <small class="text-muted">Yesterday 1:21 pm - 11.06.2014</small>
+                                                <div class="actions">
+                                                    <a class="btn btn-xs btn-white"><i class="fa fa-thumbs-up"></i> Like </a>
+                                                    <a class="btn btn-xs btn-white"><i class="fa fa-heart"></i> Love</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="feed-element">
+                                            <a href="profile.html" class="pull-left">
+                                                <img alt="image" class="img-circle" src="img/a5.jpg">
+                                            </a>
+                                            <div class="media-body ">
+                                                <small class="pull-right">2h ago</small>
+                                                <strong>Kim Smith</strong> posted message on <strong>Monica Smith</strong> site. <br>
+                                                <small class="text-muted">Yesterday 5:20 pm - 12.06.2014</small>
+                                                <div class="well">
+                                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
+                                                    Over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
+                                                </div>
+                                                <div class="pull-right">
+                                                    <a class="btn btn-xs btn-white"><i class="fa fa-thumbs-up"></i> Like </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="feed-element">
+                                            <a href="profile.html" class="pull-left">
+                                                <img alt="image" class="img-circle" src="img/profile.jpg">
+                                            </a>
+                                            <div class="media-body ">
+                                                <small class="pull-right">23h ago</small>
+                                                <strong>Monica Smith</strong> love <strong>Kim Smith</strong>. <br>
+                                                <small class="text-muted">2 days ago at 2:30 am - 11.06.2014</small>
+                                            </div>
+                                        </div>
+                                        <div class="feed-element">
+                                            <a href="profile.html" class="pull-left">
+                                                <img alt="image" class="img-circle" src="img/a7.jpg">
+                                            </a>
+                                            <div class="media-body ">
+                                                <small class="pull-right">46h ago</small>
+                                                <strong>Mike Loreipsum</strong> started following <strong>Monica Smith</strong>. <br>
+                                                <small class="text-muted">3 days ago at 7:58 pm - 10.06.2014</small>
+                                            </div>
+                                        </div>
+                                    </div>
 
-                <h4>Speciality:
-              Moketch</h4>
+                                    <button class="btn btn-primary btn-block m-t"><i class="fa fa-arrow-down"></i> Show More</button>
 
-                <h4>Sub Speciality:
-              Moketch</h4>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                <div class="col-lg-4">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Alpha project</h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                    <i class="fa fa-wrench"></i>
+                                </a>
+                                <ul class="dropdown-menu dropdown-user">
+                                    <li><a href="#">Config option 1</a>
+                                    </li>
+                                    <li><a href="#">Config option 2</a>
+                                    </li>
+                                </ul>
+                                <a class="close-link">
+                                    <i class="fa fa-times"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="ibox-content ibox-heading">
+                            <h3>You have meeting today!</h3>
+                            <small><i class="fa fa-map-marker"></i> Meeting is on 6:00am. Check your schedule to see detail.</small>
+                        </div>
+                        <div class="ibox-content inspinia-timeline">
+
+                            <div class="timeline-item">
+                                <div class="row">
+                                    <div class="col-xs-3 date">
+                                        <i class="fa fa-briefcase"></i>
+                                        6:00 am
+                                        <br/>
+                                        <small class="text-navy">2 hour ago</small>
+                                    </div>
+                                    <div class="col-xs-7 content no-top-border">
+                                        <p class="m-b-xs"><strong>Meeting</strong></p>
+
+                                        <p>Conference on the sales results for the previous year. Monica please examine sales trends in marketing and products. Below please find the current status of the
+                                            sale.</p>
+
+                                        <p><span data-diameter="40" class="updating-chart">5,3,9,6,5,9,7,3,5,2,5,3,9,6,5,9,4,7,3,2,9,8,7,4,5,1,2,9,5,4,7,2,7,7,3,5,2</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="row">
+                                    <div class="col-xs-3 date">
+                                        <i class="fa fa-file-text"></i>
+                                        7:00 am
+                                        <br/>
+                                        <small class="text-navy">3 hour ago</small>
+                                    </div>
+                                    <div class="col-xs-7 content">
+                                        <p class="m-b-xs"><strong>Send documents to Mike</strong></p>
+                                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="row">
+                                    <div class="col-xs-3 date">
+                                        <i class="fa fa-coffee"></i>
+                                        8:00 am
+                                        <br/>
+                                    </div>
+                                    <div class="col-xs-7 content">
+                                        <p class="m-b-xs"><strong>Coffee Break</strong></p>
+                                        <p>
+                                            Go to shop and find some products.
+                                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="row">
+                                    <div class="col-xs-3 date">
+                                        <i class="fa fa-phone"></i>
+                                        11:00 am
+                                        <br/>
+                                        <small class="text-navy">21 hour ago</small>
+                                    </div>
+                                    <div class="col-xs-7 content">
+                                        <p class="m-b-xs"><strong>Phone with Jeronimo</strong></p>
+                                        <p>
+                                            Lorem Ipsum has been the industry's standard dummy text ever since.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="row">
+                                    <div class="col-xs-3 date">
+                                        <i class="fa fa-user-md"></i>
+                                        09:00 pm
+                                        <br/>
+                                        <small>21 hour ago</small>
+                                    </div>
+                                    <div class="col-xs-7 content">
+                                        <p class="m-b-xs"><strong>Go to the doctor dr Smith</strong></p>
+                                        <p>
+                                            Find some issue and go to doctor.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="row">
+                                    <div class="col-xs-3 date">
+                                        <i class="fa fa-comments"></i>
+                                        12:50 pm
+                                        <br/>
+                                        <small class="text-navy">48 hour ago</small>
+                                    </div>
+                                    <div class="col-xs-7 content">
+                                        <p class="m-b-xs"><strong>Chat with Monica and Sandra</strong></p>
+                                        <p>
+                                            Web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
 
-
- </div>
+                </div>
+        </div>
+        <div class="footer">
+            <div class="pull-right">
+                10GB of <strong>250GB</strong> Free.
+            </div>
+            <div>
+                <strong>Copyright</strong> Example Company &copy; 2014-2017
+            </div>
+        </div>
+    </div>
 </div>
-  <div class="row">
-<div class="col-sm-12">
-            <div class="panel-box">
-               <div class="table-responsive">
-                          <table id="basic-datatables" class="table table-bordered" cellspacing="0" width="100%">
-
-
-                                      <thead>
-                                          <tr>
-                                              <th>Name</th>
-                                              <th>Phone</th>
-                                              <th>Street Address</th>
-                                              <th>% Share</th>
-
-                                              <th>Action</th>
-                                          </tr>
-                                      </thead>
-                                      <tbody>
-                                          <tr>
-                                              <td>Abraham</td>
-                                              <td>076 9477 4896</td>
-                                              <td>294-318 Duis Ave</td>
-                                              <td><div class="sparkline8"><canvas width="17" height="17" style="display: inline-block; width: 17px; height: 17px; vertical-align: top;"></canvas></div> </td>
-
-                                              <td><a href="#" class="btn btn-default btn-xs">View</a></td>
-                                          </tr>
-                                          <tr>
-                                              <td>Phelan</td>
-                                              <td>0500 034548</td>
-                                              <td>680-1097 Mi Rd.</td>
-                                              <td><div class="sparkline10"><canvas width="17" height="17" style="display: inline-block; width: 17px; height: 17px; vertical-align: top;"></canvas></div></td>
-
-                                              <td><a href="#" class="btn btn-default btn-xs">View</a></td>
-                                          </tr>
-                                          <tr>
-                                              <td>Raya</td>
-                                              <td>(01315) 27698</td>
-                                              <td>Ap #289-8161 In Avenue</td>
-                                              <td><div class="sparkline11"><canvas width="17" height="17" style="display: inline-block; width: 17px; height: 17px; vertical-align: top;"></canvas></div></td>
-
-                                              <td><a href="#" class="btn btn-default btn-xs">View</a></td>
-                                          </tr>
-                                          <tr>
-                                              <td>Azalia</td>
-                                              <td>0500 854198</td>
-                                              <td>226-4861 Augue. St.</td>
-                                              <td><div class="sparkline12"><canvas width="17" height="17" style="display: inline-block; width: 17px; height: 17px; vertical-align: top;"></canvas></div></td>
-
-                                              <td><a href="#" class="btn btn-default btn-xs">View</a></td>
-                                          </tr>
-                                          <tr>
-                                              <td>Garth</td>
-                                              <td>(01662) 59083</td>
-                                              <td>3219 Elit Avenue</td>
-                                              <td><div class="sparkline13"><canvas width="17" height="17" style="display: inline-block; width: 17px; height: 17px; vertical-align: top;"></canvas></div></td>
-
-                                              <td><a href="#" class="btn btn-default btn-xs">View</a></td>
-                                          </tr>
-                                          <tr>
-                                              <td>Garth</td>
-                                              <td>(01662) 59083</td>
-                                              <td>3219 Elit Avenue</td>
-                                              <td><div class="sparkline13"><canvas width="17" height="17" style="display: inline-block; width: 17px; height: 17px; vertical-align: top;"></canvas></div></td>
-
-                                              <td><a href="#" class="btn btn-default btn-xs">View</a></td>
-                                          </tr>
-                                          <tr>
-                                              <td>Garth</td>
-                                              <td>(01662) 59083</td>
-                                              <td>3219 Elit Avenue</td>
-                                              <td><div class="sparkline13"><canvas width="17" height="17" style="display: inline-block; width: 17px; height: 17px; vertical-align: top;"></canvas></div></td>
-
-                                              <td><a href="#" class="btn btn-default btn-xs">View</a></td>
-                                          </tr>
-                                          <tr>
-                                              <td>Garth</td>
-                                              <td>(01662) 59083</td>
-                                              <td>3219 Elit Avenue</td>
-                                              <td><div class="sparkline13"><canvas width="17" height="17" style="display: inline-block; width: 17px; height: 17px; vertical-align: top;"></canvas></div></td>
-
-                                              <td><a href="#" class="btn btn-default btn-xs">View</a></td>
-                                          </tr>
-                                      </tbody>
-                                  </table>
-                              </div>
-                          </div>
-                      </div>
-                    </div><!--row-->
-                  
-                   </div><!--container-->
-                </div><!--content -->
-            </div><!--content page-->
 @endsection

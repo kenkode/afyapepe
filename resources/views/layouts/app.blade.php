@@ -1,129 +1,147 @@
-<html lang="en">
+<!DOCTYPE html>
+<html>
 
 <head>
 
     <meta charset="utf-8">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Afyapepe- @yield('title') </title>
 
-    <title>Laravel</title>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ asset('css/plugins/toastr/toastr.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('js/plugins/gritter/jquery.gritter.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/vendor.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}" />
 
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('font-awesome/css/font-awesome.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/plugins/dataTables/datatables.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/animate.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
+      <script type="text/javascript" src="{{ asset('js/modernizr.js') }}"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 </head>
 
-<body id="app-layout">
+<body>
+    <div id="wrapper">
+      @include('includes.nurse_inc.leftmenu')
 
-    <nav class="navbar navbar-default navbar-static-top">
+        <div id="page-wrapper" class="gray-bg dashbard-1">
 
-        <div class="container">
-
-            <div class="navbar-header">
-
-                <!-- Collapsed Hamburger -->
-
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
-
-                    <span class="sr-only">Toggle Navigation</span>
-
-                    <span class="icon-bar"></span>
-
-                    <span class="icon-bar"></span>
-
-                    <span class="icon-bar"></span>
-
-                </button>
-
-                <!-- Branding Image -->
-
-                <a class="navbar-brand" href="{{ url('/') }}">
-
-                    Laravel
-
-                </a>
-
-            </div>
-
-            <div class="collapse navbar-collapse" id="app-navbar-collapse">
-
-                <!-- Left Side Of Navbar -->
-
-                <ul class="nav navbar-nav">
-
-                    <li><a href="{{ url('/home') }}">Home</a></li>
-
-                    <li><a href="{{ route('users.index') }}">Users</a></li>
-
-                    <li><a href="{{ route('roles.index') }}">Roles</a></li>
-
-                    <li><a href="{{ route('itemCRUD2.index') }}">Items</a></li>
-                    <li><a href="{{ route('roles.index') }}">Admin</a></li>
-                    <li><a href="{{ route('test.index') }}">Test</a></li>
-                    <li><a href="{{ route('roles.index') }}">Roles</a></li>
-                    <li><a href="{{ route('roles.index') }}">Roles</a></li>
-                    <li><a href="{{ route('roles.index') }}">Roles</a></li>
-                    <li><a href="{{ route('roles.index') }}">Roles</a></li>
-
-                </ul>
-
-                <!-- Right Side Of Navbar -->
-
-                <ul class="nav navbar-nav navbar-right">
-
-                    <!-- Authentication Links -->
-
-                    @if (Auth::guest())
-
-                        <li><a href="{{ url('/login') }}">Login</a></li>
-
-                        <li><a href="{{ url('/register') }}">Register</a></li>
-
-                    @else
-
-                        <li class="dropdown">
-
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-
-                                {{ Auth::user()->name }} <span class="caret"></span>
-
-                            </a>
-
-                            <ul class="dropdown-menu" role="menu">
-
-                                <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
-
-                            </ul>
-
-                        </li>
-
-                    @endif
-
-                </ul>
-
-            </div>
+    @include('includes.nurse_inc.headbar')
+    <!-- Main view  -->
+    @yield('content')
 
         </div>
 
-    </nav>
-
-    <div class="container">
-
-        @yield('content')
-
     </div>
 
-    <!-- JavaScripts -->
+    <!-- Mainly scripts -->
+    <script src="{{ asset('js/app.js') }}" type="text/javascript"></script>
+    <!-- Mainly scripts -->
+    <script src="{{ asset('js/jquery-3.1.1.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/plugins/metisMenu/jquery.metisMenu.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/plugins/slimscroll/jquery.slimscroll.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/plugins/dataTables/datatables.min.js') }}" type="text/javascript"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js" integrity="sha384-I6F5OKECLVtK/BL+8iSLDEHowSAfUo76ZL9+kGAgTRdiByINKJaqTPH/QVNS1VDb" crossorigin="anonymous"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+  <!-- Flot -->
+    <script src="{{ asset('js/plugins/flot/jquery.flot.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/plugins/flot/jquery.flot.tooltip.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/plugins/flot/jquery.flot.spline.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/plugins/flot/jquery.flot.resize.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/plugins/flot/jquery.flot.pie.js') }}" type="text/javascript"></script>
+
+
+    <!-- Peity -->
+    <script src="{{ asset('js/plugins/peity/jquery.peity.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/demo/peity-demo.js') }}" type="text/javascript"></script>
+
+
+    <!-- jQuery UI -->
+    <script src="{{ asset('js/plugins/jquery-ui/jquery-ui.min.js') }}" type="text/javascript"></script>
+    <!-- GITTER -->
+    <script src="{{ asset('js/plugins/gritter/jquery.gritter.min.js') }}" type="text/javascript"></script>
+    <!-- Sparkline -->
+    <script src="{{ asset('js/plugins/sparkline/jquery.sparkline.min.js') }}" type="text/javascript"></script>
+   <!-- Sparkline demo data  -->
+    <script src="{{ asset('js/demo/sparkline-demo.js') }}" type="text/javascript"></script>
+
+
+    <!-- ChartJS-->
+    <script src="{{ asset('js/plugins/chartJs/Chart.min.js') }}" type="text/javascript"></script>
+
+
+    <!-- Toastr -->
+    <script src="{{ asset('js/plugins/toastr/toastr.min.js') }}" type="text/javascript"></script>
+
+
+    <!-- Custom and plugin javascript -->
+<script src="{{ asset('js/plugins/pace/pace.min.js') }}" type="text/javascript"></script>
+      <!-- <script src="{{ asset('js/inspinia.js') }}" type="text/javascript"></script> -->
+
+    <!-- Page-Level Scripts -->
+    <script>
+        $(document).ready(function(){
+            $('.dataTables-example').DataTable({
+                pageLength: 25,
+                responsive: true,
+                dom: '<"html5buttons"B>lTfgitp',
+                buttons: [
+                    { extend: 'copy'},
+                    {extend: 'csv'},
+                    {extend: 'excel', title: 'ExampleFile'},
+                    {extend: 'pdf', title: 'ExampleFile'},
+
+                    {extend: 'print',
+                     customize: function (win){
+                            $(win.document.body).addClass('white-bg');
+                            $(win.document.body).css('font-size', '10px');
+
+                            $(win.document.body).find('table')
+                                    .addClass('compact')
+                                    .css('font-size', 'inherit');
+                    }
+                    }
+                ]
+
+            });
+
+        });
+
+    </script>
+    <script type="text/javascript">
+           $(document).ready(function(){
+           $('.multi-field-wrapper').each(function() {
+               var $wrapper = $('.multi-fields', this);
+
+               $(".add-field", $(this)).click(function(e) {
+                   $('.multi-field:first-child', $wrapper).clone(true).appendTo($wrapper).find('input').val('').focus();
+
+
+               });
+               $('.multi-field .remove-field', $wrapper).click(function() {
+                   if ($('.multi-field', $wrapper).length > 1)
+                       $(this).parent('.multi-field').remove();
+               });
+           });
+           });
+           </script>
+<script type="text/javascript">
+       $(document).ready(function(){
+             $("#embedcode").hide();
+             $("input[name='type']").change(function () {
+                  if($(this).val() == "yes")
+                       $("#embedcode").show();
+                  else
+                       $("#embedcode").hide();
+             });
+       });
+   </script>
+
 
 </body>
-
 </html>

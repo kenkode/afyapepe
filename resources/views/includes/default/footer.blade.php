@@ -1,8 +1,8 @@
 <div class="footer">
     <div class="pull-right">
-        Example text
+        Afyapepe <strong>Health</strong> Platform.
     </div>
     <div>
-        <strong>Copyright</strong> Example Company &copy; 2014-2017
+        <strong>Copyright</strong> afyapepe.co.ke &copy; 2016-2017
     </div>
 </div>

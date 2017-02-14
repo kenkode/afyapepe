@@ -1,12 +1,7 @@
 @extends('layouts.nurse')
+
 @section('content')
-  <div class="content-page  equal-height">
-
-      <div class="content">
-          <div class="container">
-
-
-              <div class="row">
+  <div class="row">
 
 <h2><span class="break"> Full Name: </span><b>{{$patient->firstname}}  {{$patient->secondName}}</b></h2>
               <hr>
@@ -159,8 +154,4 @@
 
     </div>
 
-          </div><!--content-->
-      </div><!--content page-->
-</div>
-</div>
 @endsection

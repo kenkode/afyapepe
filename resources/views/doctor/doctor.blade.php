@@ -12,7 +12,7 @@ foreach($Docdatas as $Docdata){
 	$RegDate = $Docdata->regdate;
 	$Speciality = $Docdata->speciality;
 	$Sub_Speciality = $Docdata->subspeciality;
-  $Facility = $Docdata->facility;
+  $Facility = "Afyapepe";
 
 }
 

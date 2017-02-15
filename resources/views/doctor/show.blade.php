@@ -1,9 +1,109 @@
-@extends('layouts.doctor')
+@extends('layouts.doctor2')
 @section('content')
-<div class="content-page  equal-height">
- <div class="content">
-  <div class="container">
+
+
+      <?php
+    $doc = (new \App\Http\Controllers\DoctorController);
+    $Docdatas = $doc->DocDetails();
+    foreach($Docdatas as $Docdata){
+
+
+      $Did = $Docdata->doc_id;
+    	$Name = $Docdata->name;
+    	$Address = $Docdata->address;
+    	$RegNo = $Docdata->regno;
+    	$RegDate = $Docdata->regdate;
+    	$Speciality = $Docdata->speciality;
+    	$Sub_Speciality = $Docdata->subspeciality;
+      $Facility = "Afyapepe";
+
+    }
+
+
+    if ( empty ($Name ) ) {
+    // return view('doctor.create');
+
+    return redirect('doctor.create');
+
+
+    // return redirect()->action('DoctorController@create');
+
+    }
+    ?>
+    <!--Patient controller @showpatient-->
+    <?php
+            foreach ($patientdetails as $pdetails) {
+              $patientid = $pdetails->pat_id;
+              $pname = $pdetails->firstname;
+              $lname = $pdetails->secondName;
+              $age = $pdetails->dob;
+              $nid = $pdetails->national_id;
+              $appoid = $pdetails->app_id;
+              $appdate = $pdetails->created_at;
+              $facilty = $pdetails->FacilityName;
+              $weight = $pdetails->current_weight;
+              $height = $pdetails->current_height;
+              $temperature = $pdetails->temperature;
+              $systolic = $pdetails->systolic_bp;
+              $diastolic = $pdetails->diastolic_bp;
+              $allergies = $pdetails->allergies;
+              $complain = $pdetails->chief_compliant;
+              $observations = $pdetails->observation;
+              $gender = $pdetails->gender;
+              if ($gender=1) {
+                $gender='Male';
+              }else{
+                $gender='Female';
+              }
+      }
+        ?>
+
+    <div class="wrapper wrapper-content animated fadeInRight">
+                <div class="row">
+                  <div class="col-lg-6">
+                      <div class="ibox float-e-margins">
+                          <div class="ibox-title">
+                              <h5>Patient Basic Info</h5>
+
+                          </div>
+                          <div class="ibox-content">
+                            <h4>NAME:<?php echo $pname;?>&nbsp<?php echo $lname;?></h4>
+                            <h4>Gender:<?php echo $gender; ?></h4>
+                            <h4>Date of Birth:<?php echo $age; ?></h4>
+                            <h4>National ID:<?php echo $nid; ?></h4>
+                          </div>
+                      </div>
+                  </div>
+
+
+                <div class="col-lg-6">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Doctor</h5>
+
+                        </div>
+                        <div class="ibox-content">
+                          <h4><?php echo $Name;?></h4>
+                          <h4>Address:
+                          <?php echo $Address; ?></h4>
+                          <h4>Registration Number:
+                          <?php echo $RegNo; ?></h4>
+
+                          <h4>Registration Date:
+                          <?php echo $RegDate; ?></h4>
+
+                          <h4>Speciality:
+                          <?php echo $Speciality; ?></h4>
+
+                          <h4>Sub Speciality:
+                          <?php echo $Sub_Speciality; ?></h4>
+                        </div>
+                    </div>
+                </div>
+        </div>
+
     <div class="row">
+
       @if (count($errors) > 0)
      <div class="alert alert-danger">
       <strong>Whoops!</strong> There were some problems with your input.<br><br>
@@ -14,109 +114,13 @@
      </ul>
      </div>
      @endif
-     <!--Patient controller @showpatient-->
-     <?php
-             foreach ($patientdetails as $pdetails) {
-               $patientid = $pdetails->pat_id;
-               $pname = $pdetails->firstname;
-               $lname = $pdetails->secondName;
-               $age = $pdetails->dob;
-               $nid = $pdetails->national_id;
-               $appoid = $pdetails->app_id;
-               $appdate = $pdetails->created_at;
-               $facilty = $pdetails->FacilityName;
-               $weight = $pdetails->current_weight;
-               $height = $pdetails->current_height;
-               $temperature = $pdetails->temperature;
-               $systolic = $pdetails->systolic_bp;
-               $diastolic = $pdetails->diastolic_bp;
-               $allergies = $pdetails->allergies;
-               $complain = $pdetails->chief_compliant;
-               $observations = $pdetails->observation;
-               $gender = $pdetails->gender;
-               if ($gender=1) {
-                 $gender='Male';
-               }else{
-                 $gender='Female';
-               }
-       }
-         ?>
-
-      <?php
-    $doc = (new \App\Http\Controllers\DoctorController);
-    $Docdatas = $doc->DocDetails();
-    foreach($Docdatas as $Docdata){
 
 
-      $Did = $Docdata->doc_id;
-    	$Dname = $Docdata->name;
-    	$Address = $Docdata->address;
-    	$RegNo = $Docdata->regno;
-    	$RegDate = $Docdata->regdate;
-    	$Speciality = $Docdata->speciality;
-    	$Sub_Speciality = $Docdata->subspeciality;
-      $Facility = $Docdata->facility;
-
-    }
-
-
-    if ( empty ($Dname ) ) {
-    // return view('doctor.create');
-
-    return redirect('doctor.create');
-
-
-    // return redirect()->action('DoctorController@create');
-
-    }
-    ?>
-
-    <div class="pull-right">
-     <div class="page-title clearfix">
-  <h4><?php echo $facilty;?></h4>
-         </div><!--end page title-->
-
-       <div class="widget-box clearfix">
-    <h4><?php echo $Dname;?></h4>
-    <h4>Address:
-    <?php echo $Address; ?></h4>
-    <h4>Registration Number:
-    <?php echo $RegNo; ?></h4>
-
-    <h4>Registration Date:
-    <?php echo $RegDate; ?></h4>
-
-    <h4>Speciality:
-    <?php echo $Speciality; ?></h4>
-
-    <h4>Sub Speciality:
-    <?php echo $Sub_Speciality; ?></h4>
-    </div>
-    </div>
-
-
-        <div class="pull-left">
-         <div class="page-title clearfix">
-            <h3>Patient</h3>
-             </div><!--end page title-->
-
-           <div clRegistration Datess="widget-box clearfix">
-        <h4>NAME:<?php echo $pname;?>&nbsp<?php echo $lname;?></h4>
-        <h4>Gender:<?php echo $gender; ?></h4>
-        <h4>Date of Birth:<?php echo $age; ?></h4>
-        <h4>National ID:<?php echo $nid; ?></h4>
-
-
-        </div>
-        </div>
-    	<br>	<br>	<br>
 </div>
     <!--Home tabs-->
-<div class="row">
-
-
-<div class="col-sm-12">
-  <div class="panel-box">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
 
     <div class="tabs-container">
   <ul class="nav nav-tabs">
@@ -534,7 +538,5 @@
 
 
   </div><!--row-->
-</div><!--container-->
-</div><!--content -->
-</div><!--content page-->
+
 @endsection

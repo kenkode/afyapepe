@@ -20,7 +20,7 @@
             @yield('content')
 
             <!-- Footer -->
-          
+
 
 
     <!-- Mainly scripts -->

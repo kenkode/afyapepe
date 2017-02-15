@@ -47,7 +47,7 @@
     <script src="{{ asset('js/plugins/dataTables/datatables.min.js') }}" type="text/javascript"></script>
 
     <!-- Custom and plugin javascript -->
-
+    <script src="{{ asset('js/inspinia.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/plugins/pace/pace.min.js') }}" type="text/javascript"></script>
   <!-- Flot -->
     <script src="{{ asset('js/plugins/flot/jquery.flot.js') }}" type="text/javascript"></script>

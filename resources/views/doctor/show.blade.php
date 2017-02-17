@@ -6,27 +6,15 @@
     $doc = (new \App\Http\Controllers\DoctorController);
     $Docdatas = $doc->DocDetails();
     foreach($Docdatas as $Docdata){
-
-
       $Did = $Docdata->doc_id;
     	$Name = $Docdata->name;
-    	$Address = $Docdata->address;
-    	$RegNo = $Docdata->regno;
-    	$RegDate = $Docdata->regdate;
-    	$Speciality = $Docdata->speciality;
-    	$Sub_Speciality = $Docdata->subspeciality;
-      $Facility = "Afyapepe";
-
     }
 
 
     if ( empty ($Name ) ) {
     // return view('doctor.create');
-
-    return redirect('doctor.create');
-
-
-    // return redirect()->action('DoctorController@create');
+  return redirect('doctor.create');
+  // return redirect()->action('DoctorController@create');
 
     }
     ?>
@@ -50,56 +38,66 @@
               $complain = $pdetails->chief_compliant;
               $observations = $pdetails->observation;
               $gender = $pdetails->gender;
+              $phone = $pdetails->msisdn;
+              $status= $pdetails->status;
               if ($gender=1) {
                 $gender='Male';
               }else{
                 $gender='Female';
+              }
+
+              if ($status=1) {
+                $status='queueing';
+              }elseif($status=2) {
+                $status='Active';
+              }elseif($status=3) {
+                $status='Discharged';
+              }elseif($status=4) {
+                $status='Admitted';
+              }else{
+                $status='Referred';
               }
       }
         ?>
 
     <div class="wrapper wrapper-content animated fadeInRight">
                 <div class="row">
-                  <div class="col-lg-6">
+                  <div class="col-lg-12">
                       <div class="ibox float-e-margins">
                           <div class="ibox-title">
-                              <h5>Patient Basic Info</h5>
+                              <h5>{{$facilty}}</h5>
+                              <div class="ibox-tools">
 
+                                  @role('Doctor')  <a class="collapse-link">
+                                    {{$Name}}
+                                  </a>  @endrole
+                                  <a class="collapse-link">
+                                      <i class="fa fa-chevron-up"></i>
+                                  </a>
+                                  <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                      <i class="fa fa-wrench"></i>
+                                  </a>
+
+                                  <a class="close-link">
+                                      <i class="fa fa-times"></i>
+                                  </a>
+                              </div>
                           </div>
                           <div class="ibox-content">
-                            <h4>NAME:<?php echo $pname;?>&nbsp<?php echo $lname;?></h4>
-                            <h4>Gender:<?php echo $gender; ?></h4>
-                            <h4>Date of Birth:<?php echo $age; ?></h4>
-                            <h4>National ID:<?php echo $nid; ?></h4>
+                          <div class="row show-grid">
+                              <div class="col-xs-6 col-sm-4">  <h4>NAME:<?php echo $pname;?>&nbsp<?php echo $lname;?></h4></div>
+
+                              <!-- Optional: clear the XS cols if their content doesn't match in height -->
+                              <div class="clearfix visible-xs"></div>
+                              <div class="col-xs-6 col-sm-4"><h4>Phone:<?php echo $phone; ?></h4></div>
+                              <div class="col-xs-6 col-sm-4">status&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-primary btn-xs"><?php echo $status; ?>
+                              </button></div>
+
                           </div>
+                        </div>
                       </div>
                   </div>
 
-
-                <div class="col-lg-6">
-                    <div class="ibox float-e-margins">
-                        <div class="ibox-title">
-                            <h5>Doctor</h5>
-
-                        </div>
-                        <div class="ibox-content">
-                          <h4><?php echo $Name;?></h4>
-                          <h4>Address:
-                          <?php echo $Address; ?></h4>
-                          <h4>Registration Number:
-                          <?php echo $RegNo; ?></h4>
-
-                          <h4>Registration Date:
-                          <?php echo $RegDate; ?></h4>
-
-                          <h4>Speciality:
-                          <?php echo $Speciality; ?></h4>
-
-                          <h4>Sub Speciality:
-                          <?php echo $Sub_Speciality; ?></h4>
-                        </div>
-                    </div>
-                </div>
         </div>
 
     <div class="row">
@@ -118,6 +116,7 @@
 
 </div>
     <!--Home tabs-->
+    <div class="row">
     <div class="col-lg-12">
         <div class="ibox float-e-margins">
             <div class="ibox-title">
@@ -536,7 +535,7 @@
     </div>
      </div>
 
+</div>
 
-  </div><!--row-->
 
 @endsection

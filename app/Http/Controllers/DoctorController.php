@@ -31,14 +31,17 @@ class DoctorController extends Controller
      public function index()
 
      {
-      $today = Carbon::today();
+       $today = Carbon::today();
 
        $patients = DB::table('afya_users')
          ->Join('patients', 'afya_users.id', '=', 'patients.afya_user_id')
          ->Join('appointments', 'patients.id', '=', 'appointments.patient_id')
-         ->select('afya_users.*','patients.*','appointments.id', 'appointments.created_at', 'appointments.facility_id')
-         ->where('appointments.created_at','>=',$today)
-
+         ->select('afya_users.*','patients.*','appointments.id as appid', 'appointments.created_at', 'appointments.facility_id')
+         ->where([
+                   ['appointments.created_at','>=',$today],
+                   ['appointments.status', '=',0],
+                   ['appointments.doc_id', '=',Auth::user()->id],
+                  ])
          ->get();
 
        return view('doctor.newPatients')->with('patients',$patients);
@@ -57,6 +60,7 @@ class DoctorController extends Controller
          ->where([
                        ['appointments.created_at','>=',$today],
                        ['appointments.status', '=', 1],
+                       ['appointments.doc_id', '=',Auth::user()->id],
                       ])
          ->get();
 
@@ -69,7 +73,12 @@ class DoctorController extends Controller
     $today = Carbon::today();
       $allpatients = DB::table('afya_users')
         ->Join('patients', 'afya_users.id', '=', 'patients.afya_user_id')
+        ->Join('appointments', 'patients.id', '=', 'appointments.patient_id')
         ->select('afya_users.*','patients.*')
+        ->where([
+
+                      ['appointments.status', '!=', 0],
+                     ])
         ->get();
 
             return view('doctor.allpatients')->with('allpatients',$allpatients);

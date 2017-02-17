@@ -5,21 +5,32 @@
   <div class="content-page  equal-height">
       <div class="content">
           <div class="container">
-  @role('Doctor')
+            <?php
+            $doc = (new \App\Http\Controllers\DoctorController);
+            $Docdatas = $doc->DocDetails();
+            foreach($Docdatas as $Docdata){
+            $Did = $Docdata->doc_id;
+            $Name = $Docdata->name;
+          }
 
-@include('doctor/doctor')
-  @endrole
+            if ( empty ($Name ) ) {
+            // return view('doctor.create');
 
-
+            return redirect('doctor.create');
+            }
+            ?>
 
   <div class="wrapper wrapper-content animated fadeInRight">
             <div class="row">
-                <div class="col-lg-12">
+                <div class="col-lg-11">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>Users Management</h5>
+                        <h5>Patients List</h5>
                         <div class="ibox-tools">
-                      @role('Admin')	<a class="btn btn-success" href="{{ route('users.create') }}"> Create New User</a>@endrole
+                          @role('Doctor')
+                           <a class="collapse-link">
+                            {{$Name}}
+                          </a>  @endrole
                             <a class="collapse-link">
                                 <i class="fa fa-chevron-up"></i>
                             </a>

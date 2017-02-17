@@ -72,9 +72,9 @@
                    @foreach($allpatients as $apatient)
                         <tr>
 
-                            <td><a href="{{route('showPatient',$apatient->id)}}">{{$i}}</a></td>
-                            <td><a href="{{route('showPatient',$apatient->id)}}">{{$apatient->firstname}}</a></td>
-                            <td><a href="{{route('showPatient',$apatient->id)}}">{{$apatient->secondName}}</a></td>
+                            <td><a href="{{route('showPatient',$apatient->appid)}}">{{$i}}</a></td>
+                            <td><a href="{{route('showPatient',$apatient->appid)}}">{{$apatient->firstname}}</a></td>
+                            <td><a href="{{route('showPatient',$apatient->appid)}}">{{$apatient->secondName}}</a></td>
                             <td><?php $gender=$apatient->gender;?>
                               @if($gender==1){{"Male"}}@else{{"Female"}}@endif</a>
                             </td>

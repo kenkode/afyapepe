@@ -39,7 +39,7 @@ class DoctorController extends Controller
          ->select('afya_users.*','patients.*','appointments.id as appid', 'appointments.created_at', 'appointments.facility_id')
          ->where([
                    ['appointments.created_at','>=',$today],
-                   ['appointments.status', '=',0],
+                   ['appointments.status', '!=',0],
                    ['appointments.doc_id', '=',Auth::user()->id],
                   ])
          ->get();
@@ -55,7 +55,7 @@ class DoctorController extends Controller
        $patients = DB::table('afya_users')
          ->Join('patients', 'afya_users.id', '=', 'patients.afya_user_id')
          ->Join('appointments', 'patients.id', '=', 'appointments.patient_id')
-         ->select('afya_users.*','patients.*','appointments.id', 'appointments.created_at', 'appointments.facility_id')
+         ->select('afya_users.*','patients.*','appointments.id as appid', 'appointments.created_at', 'appointments.facility_id')
         //  ->where('appointments.created_at','>=',$today)
          ->where([
                        ['appointments.created_at','>=',$today],
@@ -74,7 +74,7 @@ class DoctorController extends Controller
       $allpatients = DB::table('afya_users')
         ->Join('patients', 'afya_users.id', '=', 'patients.afya_user_id')
         ->Join('appointments', 'patients.id', '=', 'appointments.patient_id')
-        ->select('afya_users.*','patients.*')
+        ->select('afya_users.*','patients.*','appointments.id as appid' )
         ->where([
 
                       ['appointments.status', '!=', 0],

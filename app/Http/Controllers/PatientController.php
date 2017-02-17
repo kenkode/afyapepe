@@ -52,7 +52,6 @@ class PatientController extends Controller
           ->get();
 
 
-
       $tstdone = DB::table('patient_test')
       ->Join('patient_test_details','patient_test.patient_id', '=', 'patient_test_details.patient_id')
       ->select('patient_test_details.*','patient_test.test_reccommended','patient_test.appointment_id')

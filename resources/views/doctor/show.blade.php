@@ -6,15 +6,27 @@
     $doc = (new \App\Http\Controllers\DoctorController);
     $Docdatas = $doc->DocDetails();
     foreach($Docdatas as $Docdata){
+
+
       $Did = $Docdata->doc_id;
     	$Name = $Docdata->name;
+    	$Address = $Docdata->address;
+    	$RegNo = $Docdata->regno;
+    	$RegDate = $Docdata->regdate;
+    	$Speciality = $Docdata->speciality;
+    	$Sub_Speciality = $Docdata->subspeciality;
+      $Facility = "Afyapepe";
+
     }
 
 
     if ( empty ($Name ) ) {
     // return view('doctor.create');
-  return redirect('doctor.create');
-  // return redirect()->action('DoctorController@create');
+
+    return redirect('doctor.create');
+
+
+    // return redirect()->action('DoctorController@create');
 
     }
     ?>
@@ -45,7 +57,6 @@
               }else{
                 $gender='Female';
               }
-
               if ($status=1) {
                 $status='queueing';
               }elseif($status=2) {
@@ -62,27 +73,26 @@
 
     <div class="wrapper wrapper-content animated fadeInRight">
                 <div class="row">
-                  <div class="col-lg-12">
+                  <div class="col-lg-11">
                       <div class="ibox float-e-margins">
-                          <div class="ibox-title">
-                              <h5>{{$facilty}}</h5>
-                              <div class="ibox-tools">
+                        <div class="ibox-title">
+                            <h5>{{$facilty}}</h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link">
+                                  {{$Name}}
+                                </a>
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                    <i class="fa fa-wrench"></i>
+                                </a>
 
-                                  @role('Doctor')  <a class="collapse-link">
-                                    {{$Name}}
-                                  </a>  @endrole
-                                  <a class="collapse-link">
-                                      <i class="fa fa-chevron-up"></i>
-                                  </a>
-                                  <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                      <i class="fa fa-wrench"></i>
-                                  </a>
+                                <a class="close-link">
+                                    <i class="fa fa-times"></i>
+                                </a>
+                            </div>
 
-                                  <a class="close-link">
-                                      <i class="fa fa-times"></i>
-                                  </a>
-                              </div>
-                          </div>
                           <div class="ibox-content">
                           <div class="row show-grid">
                               <div class="col-xs-6 col-sm-4">  <h4>NAME:<?php echo $pname;?>&nbsp<?php echo $lname;?></h4></div>
@@ -97,6 +107,8 @@
                         </div>
                       </div>
                   </div>
+
+
 
         </div>
 
@@ -116,10 +128,9 @@
 
 </div>
     <!--Home tabs-->
-    <div class="row">
-    <div class="col-lg-12">
+    <div class="col-lg-11">
         <div class="ibox float-e-margins">
-            <div class="ibox-title">
+
 
     <div class="tabs-container">
   <ul class="nav nav-tabs">
@@ -131,16 +142,39 @@
   </ul>
   <div class="tab-content">
       <div id="tab-1" class="tab-pane active">
-          <div class="panel-body">
+        <div class="panel-body">
+        <div class="col-lg-11">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Basic Data</h5>
+                <div class="ibox-tools">
+                  @role('Doctor')
+                   <a class="collapse-link">
+                    {{$Name}}
+                  </a>  @endrole
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-wrench"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
 
+                        <li><a href="#">Config option 1</a>
+                        </li>
+                        <li><a href="#">Config option 2</a>
+                        </li>
+                    </ul>
+                    <a class="close-link">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
+               <div class="table-responsive">
+            <table class="table table-striped table-bordered table-hover dataTables-example" >
+            <thead>
 
-<div class="table-responsive">
-               <table class="table table-striped">
-                  <thead>
-                     <tr>
-                        <h4>Basic Details</h4>
-
-                     </tr>
                   </thead>
 
                   <tbody>
@@ -207,11 +241,11 @@
                   </tbody>
                </table>
             </div>
-
-
-
-     </div>
+         </div>
+        </div>
       </div>
+     </div>
+</div>
       <!--History tabs-->
       <!--Patient controller @showpatient-->
 
@@ -535,7 +569,7 @@
     </div>
      </div>
 
-</div>
 
+  </div><!--row-->
 
 @endsection

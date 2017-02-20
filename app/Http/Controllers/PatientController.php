@@ -30,6 +30,28 @@ class PatientController extends Controller
     {
         return view('patient.home');
     }
+    public function patientAllergies(){
+
+      return view('patient.patientallery');
+    }
+
+    public function Prescription(){
+      return view('patient.prescription');
+
+    }
+    public function Test(){
+      return view('patient.test');
+
+    }
+    public function Admission(){
+      return view('patient.admision');
+    }
+    public function patientAppointment(){
+      return view('patient.appointment');
+    }
+    public function patientCalendar(){
+      return view('patient.calendar');
+    }
 
     /**
      * Display the specified resource.

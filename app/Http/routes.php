@@ -107,4 +107,10 @@ Route::resource('test','PatientTestController');
 });
 Route::group(['middleware' => ['auth','role:Admin|Patient']], function() {
 	Route::resource('patient','PatientController');
+	Route::get('PatientAllergies','PatientController@patientAllergies');
+	Route::get('prescription','PatientController@Prescription');
+	Route::get('test','PatientController@Test');
+	Route::get('admission','PatientController@Admission');
+	Route::get('patientappointment','PatientController@patientAppointment');
+	Route::get('patientcalendar','PatientController@patientCalendar');
 });

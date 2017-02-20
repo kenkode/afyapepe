@@ -161,6 +161,13 @@ class NurseController extends Controller
     {
         //
     }
+    public function Calendar(){
+    return view('nurse.calendar');
+    }
+    public function Appointment()
+    {
+      return view('nurse.appointment');
+    }
 
     /**
      * Display the specified resource.

@@ -22,7 +22,7 @@
     <link rel="stylesheet" href="{{asset('css/style.css') }}" />
 
     <link rel="stylesheet" href="{{asset('css/plugins/iCheck/custom.css') }}" />
-     <link rel="stylesheet" href="{{asset('css/plugins/steps/jquery.steps.css') }}" />
+
 
 
      <link href="{{ asset('css/multi-select.css') }}" media="all" rel="stylesheet" type="text/css" />

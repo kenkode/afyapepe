@@ -2,9 +2,6 @@
 @extends('layouts.doctor')
 
 @section('content')
-  <div class="content-page  equal-height">
-      <div class="content">
-          <div class="container">
             <?php
             $doc = (new \App\Http\Controllers\DoctorController);
             $Docdatas = $doc->DocDetails();
@@ -97,8 +94,5 @@
        </div>
        @include('includes.default.footer')
 
-         </div><!--container-->
-      </div><!--content-->
-      </div><!--content page-->
 
 @endsection

@@ -38,6 +38,14 @@ class NurseController extends Controller
 
     }
 
+    public function Calendar(){
+    return view('nurse.calendar');
+    }
+    public function Appointment()
+    {
+      return view('nurse.appointment');
+    }
+
     public function wList(){
       $patients = DB::table('afya_users')
         ->Join('patients', 'afya_users.id', '=', 'patients.afya_user_id')

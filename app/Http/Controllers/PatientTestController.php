@@ -49,10 +49,21 @@ class PatientTestController extends Controller
 
            ]);
                 $id = $request->input('appointment_id');
-      PatientTest::create($request->all());
+                $testRecmd = $request->test_reccommended;
 
+      foreach($testRecmd as $key) {
+          $PatientTest = Patienttest ::create([
+                 'test_reccommended' => $key,
+                 'committee_id' => $request->get('committee_id'),
 
-// return Redirect::route('showPatient',array('id' = $request->patient_id));
+                 'patient_id' => $request->get('patient_id'),
+                 'doc_id' => $request->get('doc_id'),
+                 'test_status' => $request->get('test_status'),
+                 'appointment_id' => $request->get('appointment_id'),
+                 'conditional_diagnosis' => $request->get('conditional_diagnosis'),
+               ]);
+        }
+
 
  return redirect()->route('showPatient', ['id' => $id]);
          }

@@ -85,7 +85,9 @@ Route::group(['middleware' => ['auth','role:Admin|Nurse']], function() {
 	Route::resource('prescription', 'PrescriptionController@store');
 
    Route::Post('show', [ 'as' => 'patienttest', 'uses' => 'PatientTestController@store']);
+
    Route::get('testdone/{id}', [ 'as' => 'testdone', 'uses' => 'PatientController@testdone']);
+	 Route::get('showhistory/{id}',['as'=>'showhistory', 'uses'=>'PatientController@showhistory']);
    Route::get('show/{id}',['as'=>'showPatient', 'uses'=>'PatientController@showpatient']);
 
   Route::get('visit/{id}', [ 'as' => 'visit', 'uses' => 'PatientController@pvisit']);

@@ -69,7 +69,7 @@ class PatientController extends Controller
           ->Join('patients', 'appointments.patient_id', '=', 'patients.id')
           ->Join('afya_users', 'patients.afya_user_id', '=', 'afya_users.id')
           ->Join('triage_details', 'patients.id', '=', 'triage_details.patient_id')
-          ->select('afya_users.*','triage_details.*','triage_details.id as triage_id','patients.*','patients.id as pat_id','appointments.id as app_id','appointments.facility_id','appointments.created_at','facilities.FacilityName')
+          ->select('afya_users.*','triage_details.*','triage_details.id as triage_id','patients.*','patients.id as pat_id','appointments.id as app_id','appointments.status as appstatus','appointments.facility_id','appointments.created_at','facilities.FacilityName')
           ->where('appointments.id',$id)
           ->get();
 
@@ -83,6 +83,37 @@ class PatientController extends Controller
   return view('doctor.show')->with('tstdone',$tstdone)->with('patientdetails',$patientdetails);
 }
 
+public function showhistory($id)
+
+{
+
+
+  $patientdetails = DB::table('appointments')
+     ->Join('facilities', 'appointments.facility_id', '=', 'facilities.FacilityCode')
+     ->Join('patients', 'appointments.patient_id', '=', 'patients.id')
+     ->Join('afya_users', 'patients.afya_user_id', '=', 'afya_users.id')
+     ->Join('triage_details', 'patients.id', '=', 'triage_details.patient_id')
+     ->select('afya_users.*','triage_details.*','triage_details.id as triage_id','patients.*','patients.id as pat_id','appointments.id as app_id','appointments.status as appstatus','appointments.facility_id','appointments.created_at','facilities.FacilityName')
+     ->where('appointments.id',$id)
+     ->get();
+
+
+ $tstdone = DB::table('patient_test')
+ ->Join('patient_test_details','patient_test.patient_id', '=', 'patient_test_details.patient_id')
+ ->select('patient_test_details.*','patient_test.test_reccommended','patient_test.appointment_id')
+ // ->where('patient_test.appointment_id', '=',$id)
+ ->get();
+
+ $prescription = DB::table('prescriptions')
+ ->Join('prescription_details','prescriptions.id', '=', 'prescription_details.presc_id')
+ ->Join('druglists','prescription_details.drug_id', '=', 'druglists.id')
+ ->Join('facilities','prescription_details.facility_id', '=', 'facilities.FacilityCode')
+ ->select('prescriptions.*','prescription_details.*','druglists.drugname','facilities.FacilityName')
+ // ->where('prescriptions.appointment_id', '=',$id)
+ ->get();
+
+return view('doctor.showhistory')->with('tstdone',$tstdone)->with('patientdetails',$patientdetails)->with('prescription',$prescription);
+}
 public function pvisit($id)
 {
   $patientvisit = DB::table('afya_users')
@@ -96,7 +127,23 @@ public function pvisit($id)
   ,'kin.relation')
   ->where('appointments.id', '=',$id)
   ->get();
-return view('doctor.visit')->with('patientvisit',$patientvisit);;
+
+  $tstdone = DB::table('patient_test')
+  ->Join('patient_test_details','patient_test.patient_id', '=', 'patient_test_details.patient_id')
+  ->select('patient_test_details.*','patient_test.test_reccommended','patient_test.appointment_id')
+  ->where('patient_test.appointment_id', '=',$id)
+  ->get();
+
+  $prescription = DB::table('prescriptions')
+  ->Join('prescription_details','prescriptions.id', '=', 'prescription_details.presc_id')
+  ->Join('druglists','prescription_details.drug_id', '=', 'druglists.id')
+  ->Join('facilities','prescription_details.facility_id', '=', 'facilities.FacilityCode')
+  ->select('prescriptions.*','prescription_details.*','druglists.drugname','facilities.FacilityName')
+  ->where('prescriptions.appointment_id', '=',$id)
+  ->get();
+return view('doctor.visit')->with('patientvisit',$patientvisit)
+                           ->with('tstdone',$tstdone)
+                           ->with('prescription',$prescription);
 }
 
 

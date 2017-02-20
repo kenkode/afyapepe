@@ -32,7 +32,7 @@
                           <li><a href="{{ url('allpatients') }}"><i class="fa fa-money"></i><span>Your Fees</span><span class="fa arrow"></span></a></li>
                           <li><a href="{{ URL::to('waitingList')}}">  <i class="glyphicon glyphicon-stats "></i> <span>Statictics</span><span class="fa arrow"></span></a></li>
                           <li><a href="{{ URL::to('waitingList')}}">  <i class="glyphicon glyphicon-calendar "></i> <span>Calendar</span><span class="fa arrow"></span></a></li>
-                        <li> <a href="{{ URL::to('waitingList')}}">  <i class="glyphicon glyphicon-inbox "></i> <span>Email</span><span class="fa arrow"></span></a></li>
+                        <li> <a href="{{ URL::to('waitingList')}}">  <i class="fa fa-envelope "></i> <span>Email</span><span class="fa arrow"></span></a></li>
                         <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout<span class="fa arrow"></span></a></li>
 
 

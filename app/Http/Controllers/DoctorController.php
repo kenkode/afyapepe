@@ -106,6 +106,11 @@ class DoctorController extends Controller
       return view('doctor.create');
     }
 
+     public function yourFees()
+     {
+
+       return view('doctor.yourfees');
+     }
     /**
      * Store a newly created resource in storage.
      *

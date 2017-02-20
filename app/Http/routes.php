@@ -75,7 +75,7 @@ Route::group(['middleware' => ['auth','role:Admin|Nurse']], function() {
 	Route::resource('doctor','DoctorController');
 	Route::get('doctorProfile', [ 'as' => 'doctorProfile', 'uses' => 'DoctorController@DocDetails']);
   Route::get('newpatients', [ 'as' => 'newpatients', 'uses' => 'DoctorController@newPatients']);
-
+  Route::get('yourfees','DoctorController@yourFees');
 	Route::get('patientsseen', 'DoctorController@seen');
 	Route::get('allpatients', 'DoctorController@all');
 	Route::resource('prescription', 'PrescriptionController@store');

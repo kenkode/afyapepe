@@ -3802,5 +3802,60 @@
         ],
         "description": "Symfony DomCrawler Component",
         "homepage": "https://symfony.com"
+    },
+    {
+        "name": "leyo/africastalkinglaravelgateway",
+        "version": "1.0.5",
+        "version_normalized": "1.0.5.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/le-yo/Africastalking-PHP-Gateway-class-laravel-5.git",
+            "reference": "11799772250448d5e4a4394d06ca3f04b5101992"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/le-yo/Africastalking-PHP-Gateway-class-laravel-5/zipball/11799772250448d5e4a4394d06ca3f04b5101992",
+            "reference": "11799772250448d5e4a4394d06ca3f04b5101992",
+            "shasum": ""
+        },
+        "require": {
+            "illuminate/support": "~5.1",
+            "php": ">=5.3.0"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "4.*",
+            "scrutinizer/ocular": "~1.1"
+        },
+        "time": "2015-11-30 06:44:07",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.0-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "leyo\\africastalkinglaravelgateway\\": "src"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Leo",
+                "email": "leo@devs.mobi",
+                "homepage": "http://le-yo.com",
+                "role": "Developer"
+            }
+        ],
+        "description": "Africastalking Laravel 5 Gateway",
+        "homepage": "https://github.com/leyo/africastalkinglaravelgateway",
+        "keywords": [
+            "Africastalking",
+            "league"
+        ]
     }
 ]

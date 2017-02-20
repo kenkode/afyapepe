@@ -40,11 +40,14 @@
                      ?>
                          <li>
 
-                           <a href="{{ URL::to('#')}}"><i class="glyphicon glyphicon-stats"></i> <span>Statistics</span>
-                           <a href="{{ URL::to('nurse')}}"><i class="fa fa-users"></i> <span>Total Patients</span>       <span class="badge"><?php echo $data; ?></span>
-                          <a href="{{ URL::to('newpatient') }}"><i class="fa fa-pie-chart"></i> <span>New Patients</span>    <span class="badge"><?php echo $newpatient; ?></span>
-                          <a href="{{ URL::to('waitingList')}}">
-                          <i class="glyphicon glyphicon-dashboard "></i> <span>Waiting List</span>   <span class="badge"><?php echo $wList;?></span>
+
+                             <a href="{{ URL::to('#')}}"><i class="fa fa-users"></i> <span>All Patients</span>       <span class="badge"><?php echo $data; ?></span>
+
+                          <a href="{{ URL::to('newpatient') }}"><i class="fa fa-pie-chart"></i> <span>New Patients</span>       <span class="badge"><?php echo $newpatient; ?></span>
+                          <a href="{{ URL::to('waitingList')}}">  <i class="glyphicon glyphicon-dashboard "></i> <span>Waiting List</span>       <span class="badge"><?php echo $wList;?></span>
+                           <a href="{{ URL::to('waitingList')}}">  <i class="glyphicon glyphicon-stats "></i> <span>Statictics</span>
+                           <a href="{{ URL::to('waitingList')}}">  <i class="glyphicon glyphicon-calendar "></i> <span>Calendar</span>
+                          <a href="{{ URL::to('waitingList')}}">  <i class="fa fa-envelope "></i> <span>Email</span>
 
                          </li>
 

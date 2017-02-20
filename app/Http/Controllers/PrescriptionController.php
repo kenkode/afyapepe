@@ -45,13 +45,14 @@ class PrescriptionController extends Controller
   //  }
    protected function store(Request $request)
    {
-      $id=DB::table('prescriptions')->insertGetId([
+      $Prescription=Prescription::create([
            'appointment_id' => $request['appointment_id'],
            'doc_id' => $request['doc_id'],
            'patient_id' => $request['patient_id'],
            'filled_status' => $request['filled_status'],
+      ]);
+      $id=$Prescription->id;
 
-       ]);
 
     Prescription_detail::create([
 
@@ -63,6 +64,8 @@ class PrescriptionController extends Controller
        $triageid =$request['triage_id'];
        $presc =$request['drug_id'];
        $docnote=$request['doc_note'];
+
+
        DB::table('triage_details')
                  ->where('id',$triageid)
                  ->update(['Doctor_note'=>$docnote],['prescription'=>$presc]);
@@ -71,7 +74,7 @@ class PrescriptionController extends Controller
         $appid =$request['appointment_id'];
        DB::table('appointments')
                  ->where('id',$appid)
-                 ->update(['status'=>2]);
+                 ->update(['status'=>3]);
 
 
 

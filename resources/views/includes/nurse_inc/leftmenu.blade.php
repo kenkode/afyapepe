@@ -44,11 +44,13 @@
                              <a href="{{ URL::to('#')}}"><i class="fa fa-users"></i> <span>All Patients</span>       <span class="badge"><?php echo $data; ?></span>
 
                           <a href="{{ URL::to('newpatient') }}"><i class="fa fa-pie-chart"></i> <span>New Patients</span>       <span class="badge"><?php echo $newpatient; ?></span>
-                          <a href="{{ URL::to('waitingList')}}">  <i class="glyphicon glyphicon-dashboard "></i> <span>Waiting List</span>       <span class="badge"><?php echo $wList;?></span>
+                          <a href="{{ URL::to('waitingList')}}">  <i class="glyphicon glyphicon-dashboard "></i> <span>Waiting List</span><span class="badge"><?php echo $wList;?></span>
+                            <a href="{{ URL::to('nurseappointment')}}">  <i class="fa fa-clock-o"></i> <span>Appointment</span>
                            <a href="{{ URL::to('waitingList')}}">  <i class="glyphicon glyphicon-stats "></i> <span>Statictics</span>
-                           <a href="{{ URL::to('waitingList')}}">  <i class="glyphicon glyphicon-calendar "></i> <span>Calendar</span>
-                          <a href="{{ URL::to('waitingList')}}">  <i class="fa fa-envelope "></i> <span>Email</span>
+                           <a href="{{ URL::to('calendarnurse')}}">  <i class="glyphicon glyphicon-calendar "></i> <span>Calendar</span>
 
+                          <a href="{{ URL::to('waitingList')}}">  <i class="fa fa-envelope "></i> <span>Email</span>
+                          <a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i><span>Logout</span>
                          </li>
 
 

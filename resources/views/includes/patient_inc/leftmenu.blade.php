@@ -21,32 +21,30 @@
                 </div>
             </li>
             <li class="active">
-            <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboards</span> <span class="fa arrow"></span></a>
+            <a href="patient"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboards</span> <span class="fa arrow"></span></a>
 
             </li>
 
+            <li><a href="{{ URL::to('PatientAllergies')}}"><i class="fa fa-plus-square" aria-hidden="true"></i>
+ <span>Allergies</span></a></li>
+            <li><a href="{{ URL::to('prescription')}}"><i class="fa fa-medkit" aria-hidden="true"></i><span>Prescription</span></a></li>
+            <li><a href="{{ URL::to('test')}}"><i class="fa fa-stethoscope" aria-hidden="true"></i>
+<span>Tests</span></a></li>
+            <li><a href="{{ URL::to('admission')}}"><i class="fa fa-hospital-o" aria-hidden="true"></i>
+<span>Hospital Admission</span></a></li>
+<li><a href="{{ URL::to('#')}}">  <i class="fa fa-money "></i> <span>Health Expenditure</span></a></li>
+<li><a href="{{ URL::to('patientappointment')}}">  <i class="fa fa-clock-o"></i> <span>Appointment</span></a></li>
+
+<li><a href="{{ URL::to('patientcalendar')}}">  <i class="glyphicon glyphicon-calendar "></i> <span>Calendar</span></a></li>
+
+
+<li><a href="{{ URL::to('#')}}">  <i class="fa fa-envelope "></i> <span>Email</span></a></li>
+  <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i><span>Logout</span></li>
 
 
 
-               <?php $data = DB::table("patients")->count();
-                       $wList=DB::table('afya_users')
-                         ->Join('patients', 'afya_users.id', '=', 'patients.afya_user_id')
-                         ->select('afya_users.*', 'patients.allergies')
-                         ->where('afya_users.status',2)->count();
-                       $newpatient= DB::table('afya_users')
-                         ->Join('patients', 'afya_users.id', '=', 'patients.afya_user_id')
-                         ->select('afya_users.*', 'patients.allergies')
-                         ->where('afya_users.status',1)->count();
-                     ?>
-                         <li>
 
-                           <a href="{{ URL::to('#')}}"><i class="glyphicon glyphicon-stats"></i> <span>Statistics</span>
-                           <a href="{{ URL::to('nurse')}}"><i class="fa fa-users"></i> <span>Total Patients</span>       <span class="badge"><?php echo $data; ?></span>
-                          <a href="{{ URL::to('newpatient') }}"><i class="fa fa-pie-chart"></i> <span>New Patients</span>    <span class="badge"><?php echo $newpatient; ?></span>
-                          <a href="{{ URL::to('waitingList')}}">
-                          <i class="glyphicon glyphicon-dashboard "></i> <span>Waiting List</span>   <span class="badge"><?php echo $wList;?></span>
 
-                         </li>
 
 
 

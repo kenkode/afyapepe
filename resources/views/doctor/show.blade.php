@@ -51,25 +51,26 @@
               $observations = $pdetails->observation;
               $gender = $pdetails->gender;
               $phone = $pdetails->msisdn;
-              $status= $pdetails->status;
+              $stat= $pdetails->appstatus;
               if ($gender=1) {
                 $gender='Male';
               }else{
                 $gender='Female';
               }
-              if ($status=1) {
-                $status='queueing';
-              }elseif($status=2) {
-                $status='Active';
-              }elseif($status=3) {
-                $status='Discharged';
-              }elseif($status=4) {
-                $status='Admitted';
+
+              if ($stat=="1") {
+                $stat='queueing';
+              }elseif($stat=="2") {
+                $stat='Active';
+              }elseif($stat=="3") {
+                $stat='Discharged';
+              }elseif($stat=='4') {
+              $stat='Admitted';
               }else{
-                $status='Referred';
+                $stat='Referred';
               }
       }
-        ?>
+      ?>
 
     <div class="wrapper wrapper-content animated fadeInRight">
                 <div class="row">
@@ -100,7 +101,7 @@
                               <!-- Optional: clear the XS cols if their content doesn't match in height -->
                               <div class="clearfix visible-xs"></div>
                               <div class="col-xs-6 col-sm-4"><h4>Phone:<?php echo $phone; ?></h4></div>
-                              <div class="col-xs-6 col-sm-4">status&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-primary btn-xs"><?php echo $status; ?>
+                              <div class="col-xs-6 col-sm-4">status&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-primary btn-xs"><?php echo $stat; ?>
                               </button></div>
 
                           </div>
@@ -323,6 +324,7 @@
                </tr>
            </thead>
       <tbody>
+          {{ Form::open(array('route' => array('patienttest'),'method'=>'POST')) }}
     <?php
                   $tst= (new \App\Http\Controllers\TestController);
                   $tests = $tst->TestList();
@@ -330,6 +332,16 @@
 
                 }
                   ?>
+
+                  <tr>
+                    <td>Conditional Diagnosis</td>
+                  <td><select name="conditional_diagnosis[]" id="druglist" multiple='multiple'class="form-control m-b" >
+                @foreach($tests as $druglist)
+                   <option value="{{$druglist->id }}">{{ $druglist->name }}</option>
+                  @endforeach
+                  </select>
+                  </td>
+              </tr>
                   <div class="col-xs-12 col-sm-12 col-md-12">
                   <div class="form-group">
               <tr><td>Select Test</td>
@@ -499,7 +511,7 @@
       <tr>
         <td>
          </td>
-        <td>{{ Form::hidden('doc_id',$Did, array('class' => 'form-control')) }}</td>
+        <td>{{ Form::text('doc_id',$Did, array('class' => 'form-control')) }}</td>
       </tr>
       <tr><td>
       <div class="form-group{{ $errors->has('role') ? ' has-error' : '' }}">
@@ -536,7 +548,7 @@
 <tr>      <div class="col-xs-12 col-sm-12 col-md-12">
           <div class="form-group">
           <td><strong>Doctor note:</strong></td>
-        <td>  {{ Form::textarea('doc_note', null, array('placeholder' => 'facility','class' => 'form-control')) }}
+        <td>  {{ Form::textarea('doc_note', null, array('placeholder' => 'note..','class' => 'form-control')) }}
           </td></div>
           </div>
 

@@ -6,7 +6,7 @@
 <div class="wrapper wrapper-content animated fadeInRight">
 
   <div class="row">
-    <div class="col-lg-6">
+    <div class="col-lg-4 col-lg-offset-1">
       <div class="ibox float-e-margins">
             <form class="form-horizontal">
 
@@ -67,7 +67,7 @@
               <input type="number" class="form-control" id="exampleInputPassword1" placeholder="" name="phone"
               >
               </div>
-              </div>
+
               <div class="form-group">
               <label for="exampleInputPassword1">Email:</label>
               <input type="email" class="form-control" id="exampleInputPassword1" placeholder="" name="phone"
@@ -78,10 +78,10 @@
               <input type="number" class="form-control" id="exampleInputPassword1" placeholder="" name="phone"
               readonly="">
               </div>
-
+         </div>
             </div>
 
-    <div class="col-lg-6">
+    <div class="col-lg-4 col-lg-offset-1">
         <div class="ibox float-e-margins">
               <form class="form-horizontal">
 

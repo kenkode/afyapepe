@@ -1,6 +1,8 @@
 @extends('layouts.patient')
 @section('title', 'Patient')
 @section('content')
+
+
 <div class="wrapper wrapper-content animated fadeInRight">
 
   <div class="row">
@@ -37,28 +39,39 @@
               </div>
               <div class="form-group">
               <label for="exampleInputPassword1">Gender:</label>
-              <input type="number" class="form-control" id="exampleInputPassword1" placeholder="" name="phone"
-              readonly="">
+              <input type="text" class="form-control" id="exampleInputPassword1" placeholder="" name="phone"
+              >
               </div>
               <div class="form-group">
               <label for="exampleInputPassword1">Height: (last reading)</label>
-              <input type="number" class="form-control" id="exampleInputPassword1" placeholder="" name="phone"
-              readonly="">
+              <input type="text" class="form-control" id="exampleInputPassword1" placeholder="" name="phone"
+              >
               </div>
               <div class="form-group">
               <label for="exampleInputPassword1">Weight: (last reading)</label>
-              <input type="number" class="form-control" id="exampleInputPassword1" placeholder="" name="phone"
-              readonly="">
+              <input type="text" class="form-control" id="exampleInputPassword1" placeholder="" name="phone"
+              >
               </div>
               <div class="form-group">
               <label for="exampleInputPassword1">Phone Number:</label>
               <input type="number" class="form-control" id="exampleInputPassword1" placeholder="" name="phone"
-              readonly="">
+              >
+              </div>
+              <div class="form-group">
+              <label for="exampleInputPassword1">Postal Code :</label>
+              <input type="number" class="form-control" id="exampleInputPassword1" placeholder="" name="phone"
+              >
+                </div>
+              <div class="form-group">
+              <label for="exampleInputPassword1">Physical Address :</label>
+              <input type="number" class="form-control" id="exampleInputPassword1" placeholder="" name="phone"
+              >
+              </div>
               </div>
               <div class="form-group">
               <label for="exampleInputPassword1">Email:</label>
-              <input type="number" class="form-control" id="exampleInputPassword1" placeholder="" name="phone"
-              readonly="">
+              <input type="email" class="form-control" id="exampleInputPassword1" placeholder="" name="phone"
+              />
               </div>
               <div class="form-group">
               <label for="exampleInputPassword1">Personal Physician:</label>
@@ -66,8 +79,8 @@
               readonly="">
               </div>
 
-                      </div>
-    </div>
+            </div>
+
     <div class="col-lg-6">
         <div class="ibox float-e-margins">
               <form class="form-horizontal">

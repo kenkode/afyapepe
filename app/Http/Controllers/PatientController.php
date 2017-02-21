@@ -35,17 +35,9 @@ class PatientController extends Controller
       return view('patient.patientallery');
     }
 
-    public function Prescription(){
-      return view('patient.prescription');
-
-    }
-    public function Test(){
-      return view('patient.test');
-
-    }
-    public function Admission(){
-      return view('patient.admision');
-    }
+  public function Expenditure(){
+    return view('patient.expenditure');
+  }
     public function patientAppointment(){
       return view('patient.appointment');
     }

@@ -30,6 +30,7 @@
 
 <body>
     <div id="wrapper">
+      
       @include('includes.patient_inc.leftmenu')
 
         <div id="page-wrapper" class="gray-bg dashbard-1">

@@ -3,9 +3,9 @@
 	ob_start ();
 	date_default_timezone_set ( 'Africa/Nairobi' );
 	error_reporting ( E_ALL );
-	require_once 'ussd/classes/Processor.php';
-	require_once 'ussd/classes/conn.php';
-	require_once 'ussd/classes/AfricasTalkingGateway.php';
+	require_once '../classes/Processor.php';
+	require_once '../classes/conn.php';
+	require_once '../classes/AfricasTalkingGateway.php';
 	//require_once('config.php');
 
 	$db = new Database ();
@@ -384,7 +384,7 @@
 
 	$input = $menu[2];
 	$temp = substr($input,0,1);
-	$temp_int = substr($input,1);//this is facility or hospital code.
+	$temp_int = substr($input,1);//this is facility or hospital code.It has 1 preprended to show its a hospital
 	$message = $temp_int;
 
 	Processor::addRecord($db,$msisdn,$sessionId,$message);

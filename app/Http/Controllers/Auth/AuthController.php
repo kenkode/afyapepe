@@ -70,7 +70,7 @@ class AuthController extends Controller
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
-        
+
     }
 
 
@@ -101,6 +101,9 @@ class AuthController extends Controller
       }
       if($role == "Patient"){
         return '/patient';
+      }
+      if($role == "Registrar"){
+        return '/registrar';
       }
       else
       {

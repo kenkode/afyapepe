@@ -1,5 +1,5 @@
 @extends('layouts.registrar')
-@section('title', 'All patients')
+@section('title', 'Registrar Dashboard')
 @section('content')
   <div class="content-page  equal-height">
 
@@ -42,8 +42,14 @@
                                                       <tr>
                                                           <th>No</th>
                                                           <th>Name</th>
-                                                          <th>Gender</th>
                                                           <th>Age</th>
+                                                          <th>Gender</th>
+
+                                                <th>Date of Birth</th>
+                                                  <th>Place of Birth</th>
+                                                  <th>Constituency of Residence</th>
+                                                  <th>County of Residence</th>
+
                                                           <th>Date</th>
                                                     </tr>
                                                   </thead>

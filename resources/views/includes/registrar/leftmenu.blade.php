@@ -43,7 +43,7 @@
 
                           <li><a href="{{ URL::to('#')}}"><i class="fa fa-users"></i> <span>All Patients</span>       <span class="badge"><?php echo $data; ?></span>
 
-                           <li><a href="{{ URL::to('newpatient') }}"><i class="fa fa-pie-chart"></i> <span>New Patients</span>       <span class="badge"><?php echo $newpatient; ?></span>
+                           <li><a href="{{ URL::to('#') }}"><i class="fa fa-users"></i> <span>New Patients</span>       <span class="badge"><?php echo $newpatient; ?></span>
 
 
 

@@ -26,7 +26,10 @@
     <link rel="stylesheet" href="{!! asset('css/plugins/iCheck/custom.css') !!}" />
      <link rel="stylesheet" href="{!! asset('css/plugins/steps/jquery.steps.css') !!}" />
       <script type="text/javascript" src="{{ asset('js/modernizr.js') }}"></script>
+
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+
 </head>
 
 <body>
@@ -136,6 +139,7 @@
         });
 
     </script>
+
     <script type="text/javascript">
            $(document).ready(function(){
            $('.multi-field-wrapper').each(function() {
@@ -164,6 +168,7 @@
              });
        });
    </script>
+
    <script>
 
        $(document).ready(function() {
@@ -269,6 +274,7 @@
        });
 
    </script>
+
 
 
 </body>

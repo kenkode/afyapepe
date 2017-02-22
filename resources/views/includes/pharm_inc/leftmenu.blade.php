@@ -45,6 +45,12 @@
                           <a href="{{ URL::to('newpatient') }}"><i class="fa fa-pie-chart"></i> <span>New Patients</span>    <span class="badge"><?php echo $newpatient; ?></span>
                           <a href="{{ URL::to('waitingList')}}">
                           <i class="glyphicon glyphicon-dashboard "></i> <span>Waiting List</span>   <span class="badge"><?php echo $wList;?></span>
+                        <a href="{{ URL::to('patientcalendar')}}">  <i class="glyphicon glyphicon-calendar "></i> <span>Calendar</span></a>
+
+
+                      <a href="{{ URL::to('#')}}">  <i class="fa fa-envelope "></i> <span>Email</span></a>
+                          <a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i><span>Logout</span>
+
 
                          </li>
 

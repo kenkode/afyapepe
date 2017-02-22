@@ -44,7 +44,7 @@ class DoctorController extends Controller
                   ])
          ->get();
 
-       return view('doctor.newPatients')->with('patients',$patients);
+       return view('doctor.todayspatients')->with('patients',$patients);
      }
 
      public function newPatients()
@@ -106,22 +106,6 @@ class DoctorController extends Controller
       return view('doctor.create');
     }
 
-     public function yourFees()
-     {
-
-       return view('doctor.yourfees');
-     }
-     public function yourCalendar()
-     {
-
-       return view('doctor.calendar');
-     }
-
-     public function Appointment()
-     {
-
-       return view ('doctor.appointment');
-     }
     /**
      * Store a newly created resource in storage.
      *

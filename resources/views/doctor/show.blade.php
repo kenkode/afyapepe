@@ -15,7 +15,7 @@
     	$RegDate = $Docdata->regdate;
     	$Speciality = $Docdata->speciality;
     	$Sub_Speciality = $Docdata->subspeciality;
-      $Facility = "Afyapepe";
+
 
     }
 
@@ -139,6 +139,7 @@
       <li class=""><a data-toggle="tab" href="#tab-2" aria-expanded="false">HISTORY</a></li>
       <li class=""><a data-toggle="tab" href="#tab-3" aria-expanded="false">TESTS</a></li>
      <li class=""><a data-toggle="tab" href="#tab-4" aria-expanded="false">PRESCRIPTION</a></li>
+      <li class=""><a data-toggle="tab" href="#tab-5" aria-expanded="false">END VISIT</a></li>
 
   </ul>
   <div class="tab-content">
@@ -296,6 +297,7 @@
             <div id="tab-3" class="tab-pane">
               <div class="panel-body">
 
+
                 <!--Tests tart tabs-->
                 <?php
               foreach($tstdone as $tstdn)  {
@@ -406,6 +408,8 @@
 <!--Test result tabs PatientController@testdone-->
               <div id="testdat">
               <div class="table-responsive">
+                <button id="hide">X</button>
+               <button id="show">Add Another Test</button>
           <table id="basic-datatables" class="table table-bordered" cellspacing="0" width="100%">
             <thead>
              <tr>
@@ -563,6 +567,7 @@
       </td> <td>
 
        <button type="submit" class="btn btn-primary">Submit</button>
+       {{ Form::close() }}
       </td>
       </tr>
       </div>
@@ -570,18 +575,113 @@
         </table>
         </div>
       </div>
+   </div>
+      <div id="tab-5" class="tab-pane">
+        <div class="panel-body">
+                <div class="col-lg-6">
+                            <div class="tabs-container">
+                                <ul class="nav nav-tabs">
+                                    <li class="active"><a data-toggle="tab" href="#tab-51">Admit/Discharge</a></li>
+                                    <li class=""><a data-toggle="tab" href="#tab-52">Transfer</a></li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div id="tab-51" class="tab-pane active">
+                                        <div class="panel-body">
+                                            <strong>Admit/Discharge</strong>
+{{ Form::open(array('route' => array('patientnotes'),'method'=>'POST')) }}
+<div class="form-group">
+    <label for="role" class="col-md-4 control-label">Action</label>
+  <div class="col-md-6"><select class="form-control m-b" name="appointment_status" id="action" required >
+          <option value=''>Select ...</option>
+          <option value='4'>Admit</option>
+          <option value='3'>Discharge</option>
+      </select>
 
-      </div>
+    </div>
+</div>
+<div class="col-xs-12 col-sm-12 col-md-12">
+          <div class="form-group">
+          <strong>Doctor note:</strong>
+       {{ Form::textarea('note', null, array('placeholder' => 'note..','class' => 'form-control')) }}
+        {{ Form::text('appointment_id',$pdetails->app_id, array('class' => 'form-control')) }}
+        {{ Form::text('patient_id',$pdetails->pat_id, array('class' => 'form-control')) }}
           </div>
-      </div>
+          </div>
+
+<button type="submit" class="btn btn-primary">Submit</button>
+
+{{ Form::close() }}
+    </div>
   </div>
+          <div id="tab-52" class="tab-pane">
+               <div class="panel-body">
+
+                           <?php
+                           $drgs= (new \App\Http\Controllers\TestController);
+                           $drugs = $drgs->drugList();
+                           foreach($drugs as $druglist){
+
+                           }
+                           ?>
+  <strong>Transfer</strong>
+{{ Form::open(array('route' => array('patientnotes'),'method'=>'POST')) }}
+<div class="form-group">
+  <label for="role" class="col-md-4 control-label">Facility </label>
+<div class="col-md-6">
+  <select name="drug_id[]" id="druglist" multiple='multiple'class="form-control m-b" >
+  @foreach($drugs as $druglist)
+   <option value="{{$druglist->id }}">{{ $druglist->drugname  }}</option>
+  @endforeach
+  </select>
+
+  </div>
+</div>
+<div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="form-group">
+        <strong>Doctor note:</strong>
+     {{ Form::textarea('note', null, array('placeholder' => 'note..','class' => 'form-control')) }}
+      {{ Form::text('appointment_id',$pdetails->app_id, array('class' => 'form-control')) }}
+      {{ Form::text('patient_id',$pdetails->pat_id, array('class' => 'form-control')) }}
+      {{ Form::text('facilty_from',$pdetails->facility_id, array('class' => 'form-control')) }}
+        </div>
+        </div>
+
+<button type="submit" class="btn btn-primary">Submit</button>
+
+{{ Form::close() }}
+  </div>
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+                        </div>
+
+
+        </div>
+
+
+    </div>
+  </div><!--end of tab-->
+  </div>
+  </div>
+
 
 
   </div>
     </div>
-     </div>
+
 
 
   </div><!--row-->
+
+
+
+
+
+
+
+
 
 @endsection

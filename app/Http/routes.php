@@ -121,3 +121,9 @@ Route::group(['middleware' => ['auth','role:Admin|Registrar']], function() {
 	Route::resource('registrar','RegistrarController');
 
 });
+Route::group(['middleware' => ['auth','role:Admin|Test']], function() {
+	Route::resource('test','TestController');
+	Route::get('testsales','TestController@testSales');
+	Route::get('testanalytics','TestController@testAnalytics');
+
+});

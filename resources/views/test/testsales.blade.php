@@ -41,13 +41,12 @@
 														<thead>
 																										<tr>
 																												<th>No</th>
-																												<th>Patient Name</th>
+
 																												<th>Test Name</th>
-																												<th>Age</th>
-																												<th>Gender</th>
-																												<th>Allergies<th>
-																													<th>Doctor</th>																							
-																												<th>Date</th>
+																												<th>Unit Cost</th>
+																												<th>Quantity</th>
+																												<th>Total<th>
+																													
 																									</tr>
 																								</thead>
 

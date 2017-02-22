@@ -28,25 +28,15 @@
 
 
 
-               <?php $data = DB::table("patients")->count();
-                       $wList=DB::table('afya_users')
-                         ->Join('patients', 'afya_users.id', '=', 'patients.afya_user_id')
-                         ->select('afya_users.*', 'patients.allergies')
-                         ->where('afya_users.status',2)->count();
-                       $newpatient= DB::table('afya_users')
-                         ->Join('patients', 'afya_users.id', '=', 'patients.afya_user_id')
-                         ->select('afya_users.*', 'patients.allergies')
-                         ->where('afya_users.status',1)->count();
-                     ?>
-                         <li>
 
-                           <a href="{{ URL::to('#')}}"><i class="glyphicon glyphicon-stats"></i> <span>Statistics</span>
-                           <a href="{{ URL::to('nurse')}}"><i class="fa fa-users"></i> <span>Total Patients</span>       <span class="badge"><?php echo $data; ?></span>
-                          <a href="{{ URL::to('newpatient') }}"><i class="fa fa-pie-chart"></i> <span>New Patients</span>    <span class="badge"><?php echo $newpatient; ?></span>
-                          <a href="{{ URL::to('waitingList')}}">
-                          <i class="glyphicon glyphicon-dashboard "></i> <span>Waiting List</span>   <span class="badge"><?php echo $wList;?></span>
 
-                         </li>
+                         <li>   <a href="{{ URL::to('test')}}"><i class="glyphicon glyphicon-tasks"></i> <span>Today's Tests</span></a>   </li>
+                         <li>   <a href="{{ URL::to('testsales')}}"><i class="fa fa-money"></i> <span>Sales</span></span></a></li>
+                         <li>  <a href="{{ URL::to('testanalytics') }}"><i class="glyphicon glyphicon-stats"></i> <span>Analytics</span></a>   </li>
+                         <li>  <a href="{{ URL::to('#')}}"><i class="fa fa-envelope "></i> <span>Email</span> </a>  </li>
+                         <li>  <a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i><span>Logout</span> </a>  </li>
+
+
 
 
 

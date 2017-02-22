@@ -100,6 +100,8 @@ Route::get('druglist', 'ManufacturerController@show');
 Route::group(['middleware' => ['auth','role:Admin|Pharmacy']], function() {
 Route::resource('pharmacy','PharmacyController');
 Route::get('totalsales', 'PharmacyController@totalsales');
+Route::get('available', 'PharmacyController@Available');
+Route::get('analytics', 'PharmacyController@Analytics');
 });
 
 

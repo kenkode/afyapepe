@@ -42,17 +42,19 @@
                                                     <tr>
                                                         <th>No</th>
                                                         <th>Drug Name</th>
-                                                          <th>Manufacturer</th>
+                                                        <th>Manufacturer</th>
+                                                        <th>Dose Form</th>
+                                                        <th>Dosage</th>
+                                                        <th>QTY</th>
                                                         <th>Unit Cost</th>
-                                                        <th>Quanity</th>
                                                         <th>Total</th>
-                                                        <th>Date</th>
+                                                      
                                                   </tr>
                                                 </thead>
 
                                                 <tbody>
 
-                                                
+
 
                                                  </tbody>
 

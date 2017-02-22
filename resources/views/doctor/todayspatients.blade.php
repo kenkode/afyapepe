@@ -2,9 +2,6 @@
 @extends('layouts.doctor')
 
 @section('content')
-  <div class="content-page  equal-height">
-      <div class="content">
-          <div class="container">
             <?php
             $doc = (new \App\Http\Controllers\DoctorController);
             $Docdatas = $doc->DocDetails();
@@ -50,8 +47,7 @@
                         </div>
                     </div>
                     <div class="ibox-content">
-
-                        <div class="table-responsive">
+                       <div class="table-responsive">
                     <table class="table table-striped table-bordered table-hover dataTables-example" >
                     <thead>
                         <tr>
@@ -69,7 +65,7 @@
 
                     <tbody>
                       <?php $i =1; ?>
-                   @foreach($allpatients as $apatient)
+                   @foreach($patients as $apatient)
                         <tr>
 
                             <td><a href="{{route('showhistory',$apatient->appid)}}">{{$i}}</a></td>
@@ -98,8 +94,5 @@
        </div>
        @include('includes.default.footer')
 
-         </div><!--container-->
-      </div><!--content-->
-      </div><!--content page-->
 
 @endsection

@@ -61,8 +61,6 @@ Route::group(['middleware' => ['auth','role:Admin|Nurse']], function() {
 	Route::resource('nurse','NurseController');
 	Route::get('newpatient', 'NurseController@newPatient');
 	Route::get('waitingList', 'NurseController@wList');
-	Route::get('calendarnurse','NurseController@Calendar');
-	Route::get('nurseappointment','NurseController@Appointment');
 
 	Route::get('nurse.createkin/{id}',['as'=>'createkin','uses'=>'NurseController@createnextkin']);
 	Route::get('nurse.vaccine/{id}',['as'=>'vaccinescreate','uses'=>'NurseController@vaccinescreate']);
@@ -77,20 +75,17 @@ Route::group(['middleware' => ['auth','role:Admin|Nurse']], function() {
 	Route::resource('doctor','DoctorController');
 	Route::get('doctorProfile', [ 'as' => 'doctorProfile', 'uses' => 'DoctorController@DocDetails']);
   Route::get('newpatients', [ 'as' => 'newpatients', 'uses' => 'DoctorController@newPatients']);
-  Route::get('yourfees','DoctorController@yourFees');
-	Route::get('calendar','DoctorController@yourCalendar');
-	Route::get('appointment','DoctorController@Appointment');
+
 	Route::get('patientsseen', 'DoctorController@seen');
 	Route::get('allpatients', 'DoctorController@all');
 	Route::resource('prescription', 'PrescriptionController@store');
 
    Route::Post('show', [ 'as' => 'patienttest', 'uses' => 'PatientTestController@store']);
-
    Route::get('testdone/{id}', [ 'as' => 'testdone', 'uses' => 'PatientController@testdone']);
 	 Route::get('showhistory/{id}',['as'=>'showhistory', 'uses'=>'PatientController@showhistory']);
    Route::get('show/{id}',['as'=>'showPatient', 'uses'=>'PatientController@showpatient']);
-
-  Route::get('visit/{id}', [ 'as' => 'visit', 'uses' => 'PatientController@pvisit']);
+   Route::get('visit/{id}', [ 'as' => 'visit', 'uses' => 'PatientController@pvisit']);
+	 Route::Post('showpatient', [ 'as' => 'patientnotes', 'uses' => 'PatientController@PatientNotes']);
   });
 
 Route::group(['middleware' => ['auth','role:Admin|Manufacturer']], function() {

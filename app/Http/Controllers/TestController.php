@@ -26,13 +26,18 @@ class TestController extends Controller
      */
     public function index()
     {
-        $patients=DB::table('patients')
-        ->Join('users', 'patients.consulting_physician', '=', 'users.id')
-        ->select('patients.*', 'users.name')
-        ->get();
-        return view('test.home')->with('patients',$patients);
+
+        return view('test.home');
     }
 
+    public function testSales(){
+        return view('test.testsales');
+
+    }
+public function testAnalytics(){
+  return view('test.testanalytics');
+
+}
         /**
          * Show the form for creating a new resource.
          *

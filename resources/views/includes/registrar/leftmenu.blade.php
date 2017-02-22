@@ -20,7 +20,7 @@
                     Afya+
                 </div>
             </li>
-            <li>
+            <li class="active">
             <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboards</span> <span class="fa arrow"></span></a>
 
             </li>
@@ -40,23 +40,16 @@
                      ?>
                          <li>
 
-                           <a href="{{ URL::to('pharmacy')}}"><i class="glyphicon glyphicon-tasks"></i> <span>Today's Prescription</span></a></li>
-                           <li> <a href="{{ URL::to('totalsales')}}"><i class="fa fa-money"></i> <span>Sales</span></a></li>
-                         <li><a href="{{ URL::to('#') }}"><i class="fa fa-money"></i> <span>Inventory</span> </a>
-                           <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                               <li><a href="{{ URL::to('available') }}"><span>Available Inventory</span> </a></li>
-                               <li><a href="{{ URL::to('#') }}"><span>Update Inventory </span>  </a></li>
+
+                          <li><a href="{{ URL::to('#')}}"><i class="fa fa-users"></i> <span>All Patients</span>       <span class="badge"><?php echo $data; ?></span>
+
+                           <li><a href="{{ URL::to('#') }}"><i class="fa fa-users"></i> <span>New Patients</span>       <span class="badge"><?php echo $newpatient; ?></span>
 
 
-                           </ul>
 
-
+                          <a href="{{ URL::to('waitingList')}}">  <i class="fa fa-envelope "></i> <span>Email</span>
+                          <a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i><span>Logout</span>
                          </li>
-                           <li><a href="{{ URL::to('analytics')}}">  <i class="glyphicon glyphicon-stats"></i> <span>Analytics</span></a></li>
-                         <li>  <a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i><span>Logout</span> </a> </li>
-
-
-
 
 
 

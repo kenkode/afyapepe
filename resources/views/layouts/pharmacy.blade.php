@@ -25,11 +25,11 @@
 
 <body>
     <div id="wrapper">
-      @include('includes.pharmacy_inc.leftmenu')
+      @include('includes.pharm_inc.leftmenu')
 
         <div id="page-wrapper" class="gray-bg dashbard-1">
 
-    @include('includes.pharmacy_inc.headbar')
+    @include('includes.pharm_inc.headbar')
     <!-- Main view  -->
     @yield('content')
 

@@ -57,7 +57,7 @@ class PharmacyController extends Controller
       $dosage=$request->dosageamount;
       $price=$request->price;
       $amount=$price*$quality;
-      
+
 
       DB::table('prescription_filled_status')->insert(
     ['presc_id' => $id,
@@ -115,6 +115,16 @@ class PharmacyController extends Controller
     public function edit($id)
     {
 
+    }
+
+
+    public function Available(){
+ return view('pharmacy.available');
+    }
+
+
+    public function Analytics(){
+      return view('pharmacy.analytics');
     }
 
     /**

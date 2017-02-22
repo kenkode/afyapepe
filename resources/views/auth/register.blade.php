@@ -37,6 +37,7 @@
                         <option value='Test'>Test Center</option>
                         <option value='Manufacturer'>Manufacturer</option>
                         <option value='Patient'>Patient</option>
+                          <option value='Registrar'>Registrar</option>
                         </select>
                       @if ($errors->has('role'))
                           <span class="help-block">

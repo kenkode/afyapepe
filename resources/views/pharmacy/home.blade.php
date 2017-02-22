@@ -1,64 +1,90 @@
 @extends('layouts.pharmacy')
+@section('title', 'Pharmacy')
 @section('content')
-  <div class="content-page  equal-height">
-      <span class="label label-info">Today's Patients</span>
-      <div class="content">
-          <div class="container">
+<div class="content-page  equal-height">
+
+    <div class="content">
+        <div class="container">
 
 
 
+          <div class="wrapper wrapper-content animated fadeInRight">
                     <div class="row">
-                                      <div class="col-lg-12">
+                        <div class="col-lg-11">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+
+                                <div class="ibox-tools">
+
+                                    <a class="collapse-link">
+                                        <i class="fa fa-chevron-up"></i>
+                                    </a>
+                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                        <i class="fa fa-wrench"></i>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-user">
+
+                                        <li><a href="#">Config option 1</a>
+                                        </li>
+                                        <li><a href="#">Config option 2</a>
+                                        </li>
+                                    </ul>
+                                    <a class="close-link">
+                                        <i class="fa fa-times"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="ibox-content">
+
+                                <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover dataTables-example" >
+                            <thead>
+                                                    <tr>
+                                                        <th>No</th>
+                                                        <th>Patient Name</th>
+                                                          <th>Age</th>
+                                                        <th>Gender</th>
+                                                        <th>Allergies</th>
+                                                        <th>Prescribing Doctor</th>
+                                                        <th>Date of Prescription</th>
+                                                  </tr>
+                                                </thead>
+
+                                                <tbody>
+                                                  <?php $i =1; ?>
+                                               @foreach($patients as $patient)
+                                                    <tr>
+                                                        <td><a href="{{route('nurse.show',$patient->id)}}">{{$i}}</a></td>
+                                                        <td><a href="{{route('nurse.show',$patient->id)}}">{{$patient->firstname}} {{$patient->secondName}}</a></td>
+
+                                                        <td><?php $gender=$patient->gender;?>
+                                                          @if($gender==1){{"Male"}}@else{{"Female"}}@endif</a>
+                                                        </td>
+                                                        <td>{{$patient->age}}</td>
+
+                                                        <td>{{$patient->dateCreated}}</td>
 
 
-                                          <div class="panel-box">
 
-                                                        <div class="table-responsive">
-                                               <table class="table table-striped table-advance table-hover">
-                                                  <thead>
-                                                      <tr>
-                                                          <th><i class="fa fa-list fa-2x"></i> No</th>
-                                                          <th><i class="fa fa-user  fa-2x"></i> Full Name</th>
-                                                          
-
-                                                          <th><i class="fa fa-font  fa-2x"></i> Age</th>
-                                                          <th><i class="fa fa-genderless  fa-2x"></i> Gender</th>
-                                                          <th><i class="fa fa-mobile fa-2x"></i> Phone</th>
-                                                          <th><i class="fa fa-user-md fa-2x"></i> Prescribing Doctor</th>
-                                                          <th><i class="fa fa-calendar fa-2x"></i> Date</th>
                                                     </tr>
-                                                  </thead>
-                                       <tbody>
-                                                    <?php $i =1; ?>
-                                                 @foreach($patients as $patient)
-                                                      <tr>
-                                                          <td><a href="{{route('pharmacy.show',$patient->id)}}">{{$i}}</a></td>
-                                                          <td><a href="{{route('pharmacy.show',$patient->id)}}">{{$patient->firstname}} {{$patient->secondName}}</a></td>
-                                                          
+                                                    <?php $i++; ?>
 
-                                                          <td>{{$patient->age}}</td>
-                                                          <td><?php $gender=$patient->gender;?>
-                                                            @if($gender==1){{"Male"}}@else{{"Female"}}@endif
-                                                          </td>
-                                                          <td>{{$patient->msisdn}}</td>
-                                                          <td>{{$patient->name}}</td>
-                                                          <td>{{$patient->updated_at}}</td>
+                                                 @endforeach
 
+                                                 </tbody>
 
+                                               </table>
+                                                   </div>
 
-                                                      </tr>
-                                                      <?php $i++; ?>
-
-                                                   @endforeach
-
-                                                   </tbody>
-                                                 </table>
                                                </div>
+                                           </div>
+                                       </div>
+                                       </div>
+                                       @include('includes.default.footer')
+                                   </div>
 
 
-         </div>
 
-          </div><!--content-->
-      </div><!--content page-->
+                       </div>
 
 @endsection

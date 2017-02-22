@@ -10,32 +10,35 @@
     <title>Afyapepe- @yield('title') </title>
 
 
-    <link rel="stylesheet" href="{!! asset('css/plugins/toastr/toastr.min.css') !!}" />
-    <link rel="stylesheet" href="{!! asset('js/plugins/gritter/jquery.gritter.css') !!}" />
-    <link rel="stylesheet" href="{!! asset('css/vendor.css') !!}" />
-    <link rel="stylesheet" href="{!! asset('css/app.css') !!}" />
+    <link rel="stylesheet" href="{{ asset('css/plugins/toastr/toastr.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('js/plugins/gritter/jquery.gritter.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/vendor.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}" />
 
-    <link rel="stylesheet" href="{!! asset('css/bootstrap.min.css') !!}" />
-    <link rel="stylesheet" href="{!! asset('font-awesome/css/font-awesome.css') !!}" />
-    <link rel="stylesheet" href="{!! asset('css/plugins/dataTables/datatables.min.css') !!}" />
-    <link rel="stylesheet" href="{!! asset('css/animate.css') !!}" />
-    <link rel="stylesheet" href="{!! asset('css/style.css') !!}" />
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('font-awesome/css/font-awesome.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/plugins/dataTables/datatables.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/animate.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
     <link rel="stylesheet" href="{!!asset('css/plugins/fullcalendar/fullcalendar.css')!!}" />
     <link rel="stylesheet" media="print" href="{!!asset('css/plugins/fullcalendar/fullcalendar.print.css')!!}" />
 
     <link rel="stylesheet" href="{!! asset('css/plugins/iCheck/custom.css') !!}" />
      <link rel="stylesheet" href="{!! asset('css/plugins/steps/jquery.steps.css') !!}" />
+      <script type="text/javascript" src="{{ asset('js/modernizr.js') }}"></script>
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
 
 </head>
 
 <body>
     <div id="wrapper">
-      
-      @include('includes.patient_inc.leftmenu')
+      @include('includes.registrar.leftmenu')
 
         <div id="page-wrapper" class="gray-bg dashbard-1">
 
-    @include('includes.patient_inc.headbar')
+    @include('includes.registrar.headbar')
     <!-- Main view  -->
     @yield('content')
 
@@ -43,6 +46,7 @@
 
     </div>
 
+    <!-- Mainly scripts -->
     <script src="{{ asset('js/app.js') }}" type="text/javascript"></script>
     <!-- Mainly scripts -->
     <script src="{{ asset('js/jquery-3.1.1.min.js') }}" type="text/javascript"></script>
@@ -135,6 +139,7 @@
         });
 
     </script>
+
     <script type="text/javascript">
            $(document).ready(function(){
            $('.multi-field-wrapper').each(function() {
@@ -163,6 +168,7 @@
              });
        });
    </script>
+
    <script>
 
        $(document).ready(function() {
@@ -268,6 +274,7 @@
        });
 
    </script>
+
 
 
 </body>

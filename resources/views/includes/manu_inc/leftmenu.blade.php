@@ -20,33 +20,48 @@
                     Afya+
                 </div>
             </li>
-            <li class="active">
+            <li >
             <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboards</span> <span class="fa arrow"></span></a>
 
             </li>
 
 
+                        <li><a href="{{ URL::to('#') }}"><i class="fa fa-money"></i> <span>Today's Sales</span> </a>
+                           <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                               <li><a href="{{ URL::to('available') }}"><span>By Drug </span> </a></li>
+                               <li><a href="{{ URL::to('#') }}"><span>By Prescribing Doctor </span>  </a></li>
+                                 <li><a href="{{ URL::to('#') }}"><span>By Region </span>  </a></li>
+
+                           </ul>
 
 
-               <?php $data = DB::table("patients")->count();
-                       $wList=DB::table('afya_users')
-                         ->Join('patients', 'afya_users.id', '=', 'patients.afya_user_id')
-                         ->select('afya_users.*', 'patients.allergies')
-                         ->where('afya_users.status',2)->count();
-                       $newpatient= DB::table('afya_users')
-                         ->Join('patients', 'afya_users.id', '=', 'patients.afya_user_id')
-                         ->select('afya_users.*', 'patients.allergies')
-                         ->where('afya_users.status',1)->count();
-                     ?>
-                         <li>
+                         </li>  
 
-                           <a href="{{ URL::to('#')}}"><i class="glyphicon glyphicon-stats"></i> <span>Statistics</span>
-                           <a href="{{ URL::to('nurse')}}"><i class="fa fa-users"></i> <span>Total Patients</span>       <span class="badge"><?php echo $data; ?></span>
-                          <a href="{{ URL::to('newpatient') }}"><i class="fa fa-pie-chart"></i> <span>New Patients</span>    <span class="badge"><?php echo $newpatient; ?></span>
-                          <a href="{{ URL::to('waitingList')}}">
-                          <i class="glyphicon glyphicon-dashboard "></i> <span>Waiting List</span>   <span class="badge"><?php echo $wList;?></span>
+                     
 
-                         </li>
+               
+
+                        
+              <li>
+                          <a href="{{ URL::to('#') }}"><i class="fa fa-pie-chart"></i><span>  Drug Substitutions   </span>
+                           </a>
+                           <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                               <li><a href="{{ URL::to('available') }}"><span>Away From The Company </span> </a></li>
+                               <li><a href="{{ URL::to('#') }}"><span>To the Company </span>  </a></li>
+                                
+
+                           </ul></li>
+                             
+                             <li> <a href="{{ URL::to('waitingList')}}">
+                              <i class="glyphicon glyphicon-dashboard "></i> <span>Stock Level</span>   
+
+                            </a></li>
+                             <li> <a href="{{ URL::to('#')}}">
+                              <i class="glyphicon glyphicon-dashboard "></i> <span>Competition Analysis</span>   
+
+                            </a></li>
+                            <li> <a href="{{ URL::to('#')}}">  <i class="fa fa-envelope "></i> <span>Email</span></a></li>
+                        <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
 
 
 
@@ -54,4 +69,4 @@
         </ul>
 
     </div>
-</nav>
+  </nav>

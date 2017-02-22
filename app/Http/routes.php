@@ -96,12 +96,23 @@ Route::group(['middleware' => ['auth','role:Admin|Nurse']], function() {
 Route::group(['middleware' => ['auth','role:Admin|Manufacturer']], function() {
 Route::resource('manufacturer','ManufacturerController');
 Route::get('druglist', 'ManufacturerController@show');
+Route::get('manudrug', 'ManufacturerController@manuDrug');
+Route::get('manudoctor', 'ManufacturerController@manuDoctor');
+Route::get('region', 'ManufacturerController@Region');
+Route::get('awaycompany', 'ManufacturerController@awayCompany');
+Route::get('tocompany', 'ManufacturerController@toCompany');
+Route::get('manustock', 'ManufacturerController@manuStock');
+Route::get('competition', 'ManufacturerController@Competition');
+
+
 });
 Route::group(['middleware' => ['auth','role:Admin|Pharmacy']], function() {
 Route::resource('pharmacy','PharmacyController');
 Route::get('totalsales', 'PharmacyController@totalsales');
 Route::get('available', 'PharmacyController@Available');
 Route::get('analytics', 'PharmacyController@Analytics');
+
+
 });
 
 

@@ -28,9 +28,9 @@
 
                         <li><a href="{{ URL::to('#') }}"><i class="fa fa-money"></i> <span>Today's Sales</span> </a>
                            <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                               <li><a href="{{ URL::to('available') }}"><span>By Drug </span> </a></li>
-                               <li><a href="{{ URL::to('#') }}"><span>By Prescribing Doctor </span>  </a></li>
-                                 <li><a href="{{ URL::to('#') }}"><span>By Region </span>  </a></li>
+                               <li><a href="{{ URL::to('manudrug') }}"><span>By Drug </span> </a></li>
+                               <li><a href="{{ URL::to('manudoctor') }}"><span>By Prescribing Doctor </span>  </a></li>
+                                 <li><a href="{{ URL::to('region') }}"><span>By Region </span>  </a></li>
 
                            </ul>
 
@@ -46,17 +46,17 @@
                           <a href="{{ URL::to('#') }}"><i class="fa fa-pie-chart"></i><span>  Drug Substitutions   </span>
                            </a>
                            <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                               <li><a href="{{ URL::to('available') }}"><span>Away From The Company </span> </a></li>
-                               <li><a href="{{ URL::to('#') }}"><span>To the Company </span>  </a></li>
+                               <li><a href="{{ URL::to('awaycompany') }}"><span>Away From The Company </span> </a></li>
+                               <li><a href="{{ URL::to('tocompany') }}"><span>To the Company </span>  </a></li>
                                 
 
                            </ul></li>
                              
-                             <li> <a href="{{ URL::to('waitingList')}}">
+                             <li> <a href="{{ URL::to('manustock')}}">
                               <i class="glyphicon glyphicon-dashboard "></i> <span>Stock Level</span>   
 
                             </a></li>
-                             <li> <a href="{{ URL::to('#')}}">
+                             <li> <a href="{{ URL::to('competition')}}">
                               <i class="glyphicon glyphicon-dashboard "></i> <span>Competition Analysis</span>   
 
                             </a></li>

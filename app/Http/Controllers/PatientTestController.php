@@ -5,7 +5,7 @@ use Illuminate\Http\Request;
 use DB;
 use App\Http\Requests;
 use App\Patienttest;
-
+use Illuminate\Support\Facades\Input;
 use Auth;
 
 class PatientTestController extends Controller
@@ -44,28 +44,41 @@ class PatientTestController extends Controller
            'doc_id' => 'required',
            'test_status' => 'required',
            'appointment_id' => 'required',
-           'test_reccommended' => 'required',
+         ]);
+
+      $id = $request->input('appointment_id');
+      $testRecmd = $request->input('test');
+
+if( is_array( $testRecmd) ) {
 
 
-           ]);
-                $id = $request->input('appointment_id');
-                $testRecmd = $request->test_reccommended;
+             foreach ($request->input('test') as $key => $value) {
 
-      foreach($testRecmd as $key) {
-          $PatientTest = Patienttest ::create([
-                 'test_reccommended' => $key,
-                 'committee_id' => $request->get('committee_id'),
-
+               $PatientTest = Patienttest ::create([
+                 'test_reccommended' => $value,
+                 'conditional_diagnosis' => $request->get('conditional'),
+                 'doc_note' => $request->get('doc_note'),
                  'patient_id' => $request->get('patient_id'),
                  'doc_id' => $request->get('doc_id'),
                  'test_status' => $request->get('test_status'),
                  'appointment_id' => $request->get('appointment_id'),
-                 'conditional_diagnosis' => $request->get('conditional_diagnosis'),
+
                ]);
         }
+      }
+      if(empty($result)) {
+          
 
-
- return redirect()->route('showPatient', ['id' => $id]);
+            }esle{
+              DB::table('patientNotes')->insert([
+                  'patient_id'  => $request->get('patient_id'),
+                  'appointment_id'  => $request->get('appointment_id'),
+                  'appointment_status' => $request->get(''),
+                  'note'  => $request->get('doc_note'),
+                  'purpose'  = 'TEST';
+              ]);
+            }
+  return redirect()->route('showPatient', ['id' => $id]);
          }
 
     /**

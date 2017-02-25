@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+
 class Patienttest extends Model
 {
   /**
@@ -13,7 +14,7 @@ class Patienttest extends Model
     */
    protected $table = 'patient_test';
 
-   public $fillable = ['patient_id','appointment_id','doc_id','test_status','test_reccommended','conditional_diagnosis'];
+   public $fillable = ['patient_id','appointment_id','doc_id','test_status','test_reccommended','conditional_diagnosis','doc_note'];
    protected $casts = [
 
     ];

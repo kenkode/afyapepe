@@ -188,8 +188,8 @@
                                   </div>
                                   <div class="ibox-content">
                                      <div class="table-responsive">
-                                  <table class="table table-striped table-bordered table-hover dataTables-example" >
-                                  <thead>
+                                       <table class="table table-striped table-bordered table-hover dataTables-conditional" >
+                                         <thead>
                                     <tr>
                                       <th></th>
 

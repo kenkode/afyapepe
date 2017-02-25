@@ -113,7 +113,9 @@ public function testAnalytics(){
 
 
     function TestList(){
-   $tests = DB::table('tests')
+   $tests = DB::table('test_details')
+   ->Join('tests', 'test_details.test_id', '=', 'tests.id')
+   ->select('test_details.*','tests.name')
    ->get();
   return $tests;
   }

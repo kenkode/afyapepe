@@ -216,6 +216,7 @@
                         <td><?php echo $diastolic;?></td>
                         <td><strong>Allergies:</strong></td>
                         <td><?php echo $allergies;?></td>
+                        
                      </tr>
 
 

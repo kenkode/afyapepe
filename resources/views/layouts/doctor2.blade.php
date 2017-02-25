@@ -22,10 +22,10 @@
     <link rel="stylesheet" href="{{asset('css/style.css') }}" />
 
     <link rel="stylesheet" href="{{asset('css/plugins/iCheck/custom.css') }}" />
+   <link href="{{ asset('css/multi-select.css') }}" media="all" rel="stylesheet" type="text/css" />
 
 
-
-     <link href="{{ asset('css/multi-select.css') }}" media="all" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="{{asset('select/select2.min.css') }}" />
 
 
 </head>
@@ -92,9 +92,52 @@
         <!-- Jquery Validate -->
 
   <script src="{{ asset('js/plugins/validate/jquery.validate.min.js') }}" type="text/javascript"></script>
+  <script src="{{ asset('select/select2.min.js') }}" type="text/javascript"></script>
 
 
     <!-- Page-Level Scripts -->
+
+    <script type="text/javascript">
+    $(".js-example-basic-multiple").select2();
+     placeholder: "Selectastate",
+     allowClear: true
+    </script>
+
+    <script type="text/javascript">
+    $(".js-example-placeholder-single").select2({
+  placeholder: "Selec-test-category->test",
+  allowClear: true
+});
+</script>
+    <script>
+        $(document).ready(function(){
+            $('.dataTables-conditional').DataTable({
+                pageLength: 5,
+                responsive: true,
+                dom: '<"html5buttons"B>lTfgitp',
+                buttons: [
+                    { extend: 'copy'},
+                    {extend: 'csv'},
+                    {extend: 'excel', title: 'ExampleFile'},
+                    {extend: 'pdf', title: 'ExampleFile'},
+
+                    {extend: 'print',
+                     customize: function (win){
+                            $(win.document.body).addClass('white-bg');
+                            $(win.document.body).css('font-size', '10px');
+
+                            $(win.document.body).find('table')
+                                    .addClass('compact')
+                                    .css('font-size', 'inherit');
+                    }
+                    }
+                ]
+
+            });
+
+        });
+
+    </script>
     <script>
         $(document).ready(function(){
             $('.dataTables-example').DataTable({
@@ -124,6 +167,7 @@
         });
 
     </script>
+
     <script>
         $(document).ready(function(){
             $('.dataTables-example1').DataTable({
@@ -170,5 +214,6 @@ $(document).ready(function(){
     });
 });
 </script>
+
 </body>
 </html>

@@ -80,7 +80,7 @@
                                            </div>
                                        </div>
                                        </div>
-                                       @include('includes.default.footer')
+                                       
                                    </div>
 
 

@@ -27,7 +27,7 @@ class PharmacyController extends Controller
     public function index()
     {
         $today = Carbon::today();
-      $patients = DB::table('afya_users')
+        $patients = DB::table('afya_users')
         ->Join('triage_details', 'afya_users.id', '=', 'triage_details.patient_id')
         ->Join('doctors', 'triage_details.consulting_physician', '=', 'doctors.doc_id')
         ->select('afya_users.*', 'triage_details.*','doctors.name')

@@ -48,7 +48,7 @@
                                                         <th>QTY</th>
                                                         <th>Unit Cost</th>
                                                         <th>Total</th>
-                                                      
+
                                                   </tr>
                                                 </thead>
 
@@ -65,7 +65,7 @@
                                            </div>
                                        </div>
                                        </div>
-                                       @include('includes.default.footer')
+                                      
                                    </div>
 
 

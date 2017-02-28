@@ -263,8 +263,9 @@ return redirect('doctor.create');
   {{ Form::open(array('route' => array('patienttest'),'method'=>'POST')) }}
     <div class="hr-line-dashed"></div>
 
+
         <div class="form-group"><label>Conditional Diagnosis</label>
-          <select class="js-example-placeholder-single " id="testsj" name="conditional" class= "form-control">
+          <select class="js-example-placeholder-single chosen-select" id="testsj" name="conditional" class= "form-control">
            @foreach($tests as $test)
              <option value="{{$test->tests_id}}">{{$test->name}} {{$test->test_name}} </option>
           @endforeach
@@ -346,44 +347,48 @@ return redirect('doctor.create');
                         <div id="tab-4" class="tab-pane">
 
                                     {{ Form::open(array('route' => array('prescription.store'),'method'=>'POST')) }}
-                                  <?php
-                                                $tst= (new \App\Http\Controllers\TestController);
-                                                $tests = $tst->TestList();
-                                                foreach($tests as $test){
+                    <?php  $dizeases= (new \App\Http\Controllers\TestController);
+                          $disease = $dizeases->Diseases();
+                          foreach($disease as $dis){
+                      }?>
+                      <?php  $routem= (new \App\Http\Controllers\TestController);
+                            $routems = $routem->RouteM();
+                        ?>
+                      <?php $Strength= (new \App\Http\Controllers\TestController);
+                            $Strengths = $Strength->Strength();
+                        ?>
+                      <?php $frequency= (new \App\Http\Controllers\TestController);
+                            $frequent = $frequency->Frequency();
+                        ?>
 
-                                              }
-                                                ?>
-                                                <?php
-                                                $drgs= (new \App\Http\Controllers\TestController);
-                                                $drugs = $drgs->drugList();
-                                                foreach($drugs as $druglist){
-
-                                                }
-                                                ?>
+                          <?php
+                          $drgs= (new \App\Http\Controllers\TestController);
+                          $drugs = $drgs->drugList();
+                          ?>
                           <div class="ibox float-e-margins">
                             <div class="ibox-content">
 
                               <div class="hr-line-dashed"></div>
 
                                   <div class="form-group"><label>Confirmed Diagnosis</label>
-                                    <select class="js-example-placeholder-single " id="testsj" name="conditional" class= "form-control">
-                                     @foreach($drugs as $druglist)
-                                       <option value="{{$druglist->id }}">{{ $druglist->drugname  }} </option>
+                                    <select class="js-example-placeholder-single "  name="diagnosis" class= "form-control">
+                                     @foreach($disease as $diseaselist)
+                                       <option value="{{$diseaselist->code }}">{{$diseaselist->code }}---{{ $diseaselist->short_desc  }} </option>
                                     @endforeach
                                   </select>
                                 </div>
                             <div class="hr-line-dashed"></div>
 
                               <div class="form-group"><label>Prescription</label>
-                                        <select class="js-example-placeholder-single" id="testsj" name="test[]" multiple="multiple" class= "form-control">
+                                        <select class="js-example-placeholder-single"  name="prescription"  class= "form-control">
                                           @foreach($drugs as $druglist)
                                             <option value="{{$druglist->id }}">{{ $druglist->drugname  }}----{{ $druglist->DosageForm  }} </option>
                                          @endforeach
                                       </select>
                                  </div>
                                  <div class="form-group">
-                                     <label for="dosage" class="col-md-4 control-label">Dosage</label></td>
-                                   <div class="col-md-6"><select class="form-control m-b" name="dosage" id="example-getting-started" >
+                                  <label for="dosage" class="col-md-2 control-label">Dosage</label></td>
+                                   <div class="col-md-4"><select class="form-control m-b" name="dosage" id="example-getting-started" >
                                            <option value='Full'>FULL</option>
                                            <option value='Half'>HALF</option>
                                            <option value='Quater'>QUATER</option>
@@ -391,6 +396,36 @@ return redirect('doctor.create');
                                            </select>
                                      </div>
                                  </div>
+                                 <div class="form-group">
+                                  <label for="dosage" class="col-md-2 control-label">Strength</label></td>
+                                   <div class="col-md-4"><select class="js-example-placeholder-single" id="testsj" name="strength">
+                                       @foreach($Strengths as $Strengthz)
+                                         <option value="{{$Strengthz->id }}">{{ $Strengthz->strength  }} </option>
+                                      @endforeach
+                                   </select>
+                                     </div>
+                                 </div>
+                                 <div class="form-group">
+                                  <label for="dosage" class="col-md-2 control-label">Route</label></td>
+                                   <div class="col-md-4">  <select class="js-example-placeholder-single" name="routes">
+                                       @foreach($routems as $routemz)
+                                         <option value="{{$routemz->id }}">{{ $routemz->abbreviation }}----{{ $routemz->name  }} </option>
+                                      @endforeach
+                                   </select>
+                                     </div>
+                                 </div>
+                                 <div class="form-group">
+                                  <label for="dosage" class="col-md-2 control-label">Frequency</label></td>
+                                   <div class="col-md-4">  <select class="js-example-placeholder-single"  name="frequency">
+                                       @foreach($frequent as $freq)
+                                         <option value="{{$freq->id }}">{{ $freq->abbreviation }}----{{ $freq->name  }} </option>
+                                      @endforeach
+                                   </select>
+                                     </div>
+                                 </div>
+
+
+
                                  <div class="hr-line-dashed"></div>
                                  {{ Form::hidden('triage_id',$pdetails->triage_id, array('class' => 'form-control')) }}
                                  {{ Form::hidden('filled_status', 1, array('class' => 'form-control')) }}
@@ -399,13 +434,13 @@ return redirect('doctor.create');
                                 {{ Form::hidden('appointment_id',$pdetails->app_id, array('class' => 'form-control')) }}
                                 {{ Form::hidden('doc_id',$Docdata->doc_id, array('class' => 'form-control')) }}
 
-
-                                         <div class="form-group text-center">
-                                          <strong>Doctor note:</strong></td>
-                                          {{ Form::textarea('doc_note', null, array('placeholder' => 'note..','class' => 'form-control col-lg-8')) }}
-                                        </div><br />
-
-                                        <div class="hr-line-dashed"></div>
+                                <!-- <div class="form-group">
+                                 <label for="dosage" class="col-md-2 control-label">Doctor note</label></td>
+                                  <div class="col-md-4">
+                                      {{ Form::textarea('doc_note', null, array('placeholder' => 'note..','class' => 'form-control col-lg-8')) }}
+                                    </div>
+                                </div> -->
+                            <div class="hr-line-dashed"></div>
                                         <div class="form-group  text-center">
                                         <button type="submit" class="btn btn-primary">Submit</button>  </td>
                                          </div>
@@ -414,47 +449,6 @@ return redirect('doctor.create');
                                        </div>
                                     </div>
 
-                                    <!--Test result tabs PatientController@testdone-->
-                                                  <div id="testdat">
-                                                  <div class="table-responsive">
-                                         <table class="table table-striped table-bordered table-hover dataTables-conditional" >
-                                                     <thead>
-                                                 <tr>
-                                                   <th></th>
-
-                                                     <th>Test Recommended</th>
-                                                     <th>Done</th>
-                                                     <th>Result</th>
-                                                     <th>Faciity</th>
-                                                     <th>Apointment Id</th>
-                                                      <th>Note</th>
-                                                     <th>Date Test Done</th>
-
-                                               </tr>
-                                             </thead>
-
-                                             <tbody>
-                                               <?php $i =1; ?>
-
-                                            @foreach($tstdone as $tstdn)
-                                                    <tr>
-                                                       <td>{{ +$i }}</td>
-                                                    <td>{{$tstdn->test_reccommended}}</td>
-                                                     <td>{{$tstdn->done}}</td>
-                                                     <td>{{$tstdn->results}}</td>
-                                                     <td>{{$tstdn->facility_id}}</td>
-                                                     <td>{{$tstdn->appointment_id}}</td>
-                                                     <td>{{$tstdn->note}}</td>
-                                                     <td>{{$tstdn->created_at}}</td>
-                                            </tr>
-                                                 <?php $i++; ?>
-
-                                              @endforeach
-
-                                              </tbody>
-                                            </table>
-                                            </div>
-                                          </div>
                         </div><!--4 tabs-->
 
                         <!--tabs5-->
@@ -468,95 +462,108 @@ return redirect('doctor.create');
                                        'County','Constituency','Ward')
                                        ->get();
                                   ?>
-                          <div class="ibox float-e-margins">
-                            <div class="ibox-content">
 
+
+ <div class="col-lg-8">
+            <div class="tabs-container">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#tab-51"> Admit/Discharge</a></li>
+                    <li class=""><a data-toggle="tab" href="#tab-52">Refer</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div id="tab-51" class="tab-pane active">
+                        <div class="panel-body">
+                          {{ Form::open(array('route' => array('patientnotes'),'method'=>'POST')) }}
+                          <div class="form-group">
+                          <label for="role" class="col-md-4 control-label">Action</label>
+                          <div class="col-md-6"><select class="form-control m-b" name="appointment_status" id="action" required >
+                          <option value=''>Select ...</option>
+                          <option value='4'>Admit</option>
+                          <option value='3'>Discharge</option>
+                         </select>
+                          </div>
+                          </div>
+                            <div class="form-group" id="data_1">
+                                <label class="font-normal">Next Appointment Date</label>
+                                <div class="input-group date">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                    <input type="text" class="form-control" name="next_appointment" value="">
+                                </div>
+                            </div>
+                      {{ Form::hidden('patient_id',$pdetails->pat_id, array('class' => 'form-control')) }}
+                      {{ Form::hidden('test_status',1, array('class' => 'form-control')) }}
+                      {{ Form::hidden('appointment_id',$pdetails->app_id, array('class' => 'form-control')) }}
+                      {{ Form::hidden('doc_id',$Docdata->doc_id, array('class' => 'form-control')) }}
+
+
+                               <div class="form-group">
+                                 <br />
+                                 <label for="role" class="col-md-4 control-label">Doctor note</label>
+
+                                {{ Form::textarea('doc_note', null, array('placeholder' => 'note..','class' => 'form-control col-lg-8')) }}
+                              </div>
+
+
+                    <div class="form-group  text-center">
+                    <button type="submit" class="btn btn-primary">Submit</button>  </td>
+                     </div>
+                       {{ Form::close() }}
+                        </div>
+                    </div>
+                    <div id="tab-52" class="tab-pane">
+                        <div class="panel-body">
+                          {{ Form::open(array('route' => array('patientnotes'),'method'=>'POST')) }}
+
+
+                            <div class="form-group">
+                            <label for="role" class="col-md-2 control-label">Facility</label>
+                            <div class="col-md-8"><select class="js-example-placeholder-single " name="facility" id="js-example-placeholder-single">
+                              @foreach($facilities as $fac)
+                            <option value="{{$fac->FacilityCode}}">{{$fac->FacilityName}}  {{$fac->Type}} </option>
+                            @endforeach
+                            </select>
+                            </div>
+                            </div>
                               <div class="hr-line-dashed"></div>
 
-{{ Form::open(array('route' => array('patientnotes'),'method'=>'POST')) }}
-<div class="form-group">
-<label for="role" class="col-md-4 control-label">Action</label>
-<div class="col-md-6"><select class="form-control m-b" name="appointment_status" id="action" required >
-<option value=''>Select ...</option>
-<option value='4'>Admit</option>
-<option value='3'>Discharge</option>
-</select>
+
+{{ Form::hidden('facility_from',$pdetails->FacilityName, array('class' => 'form-control')) }}
+{{ Form::hidden('appointment_status',5, array('class' => 'form-control')) }}
+{{ Form::hidden('patient_id',$pdetails->pat_id, array('class' => 'form-control')) }}
+
+{{ Form::hidden('appointment_id',$pdetails->app_id, array('class' => 'form-control')) }}
+{{ Form::hidden('doc_id',$Docdata->doc_id, array('class' => 'form-control')) }}
+
+
+<div class="form-group text-center">
+  <label for="role" class="col-md-4 control-label">Doctro Note</label>
+{{ Form::textarea('doc_note', null, array('placeholder' => 'note..','class' => 'form-control col-lg-8')) }}
+</div><br />
+
+
+<div class="form-group  text-center">
+<button type="submit" class="btn btn-primary">Submit</button>  </td>
 </div>
-</div>
-
-<div class="form-group">
-<label for="role" class="col-md-4 control-label">Facility</label>
-<div class="col-md-6"><select class="js-example-placeholder-single form-control m-b" name="conditional" id="js-example-placeholder-single">
-  @foreach($facilities as $fac)
-<option value="{{$fac->FacilityCode}}">{{$fac->FacilityName}}  {{$fac->Type}} </option>
-@endforeach
-</select>
-</div>
-</div>
-  <div class="hr-line-dashed"></div>
-
-                                 <div class="hr-line-dashed"></div>
-                                {{ Form::hidden('patient_id',$pdetails->pat_id, array('class' => 'form-control')) }}
-                                {{ Form::hidden('test_status',1, array('class' => 'form-control')) }}
-                                {{ Form::hidden('appointment_id',$pdetails->app_id, array('class' => 'form-control')) }}
-                                {{ Form::hidden('doc_id',$Docdata->doc_id, array('class' => 'form-control')) }}
+{{ Form::close() }}
+                        </div>
+                    </div>
+                </div>
 
 
-                                         <div class="form-group text-center">
-                                          <strong>Doctor note:</strong></td>
-                                          {{ Form::textarea('doc_note', null, array('placeholder' => 'note..','class' => 'form-control col-lg-8')) }}
-                                        </div><br />
+            </div>
+        </div>
 
-                                        <div class="hr-line-dashed"></div>
-                                        <div class="form-group  text-center">
-                                        <button type="submit" class="btn btn-primary">Submit</button>  </td>
-                                         </div>
-                                           {{ Form::close() }}
+
+
+
+
+
+
+
 
                                        </div>
                                     </div>
 
-                                    <!--Test result tabs PatientController@testdone-->
-                                                  <div id="testdat">
-                                                  <div class="table-responsive">
-                                         <table class="table table-striped table-bordered table-hover dataTables-conditional" >
-                                                     <thead>
-                                                 <tr>
-                                                   <th></th>
-
-                                                     <th>Test Recommended</th>
-                                                     <th>Done</th>
-                                                     <th>Result</th>
-                                                     <th>Faciity</th>
-                                                     <th>Apointment Id</th>
-                                                      <th>Note</th>
-                                                     <th>Date Test Done</th>
-
-                                               </tr>
-                                             </thead>
-
-                                             <tbody>
-                                               <?php $i =1; ?>
-
-                                            @foreach($tstdone as $tstdn)
-                                                    <tr>
-                                                       <td>{{ +$i }}</td>
-                                                    <td>{{$tstdn->test_reccommended}}</td>
-                                                     <td>{{$tstdn->done}}</td>
-                                                     <td>{{$tstdn->results}}</td>
-                                                     <td>{{$tstdn->facility_id}}</td>
-                                                     <td>{{$tstdn->appointment_id}}</td>
-                                                     <td>{{$tstdn->note}}</td>
-                                                     <td>{{$tstdn->created_at}}</td>
-                                            </tr>
-                                                 <?php $i++; ?>
-
-                                              @endforeach
-
-                                              </tbody>
-                                            </table>
-                                            </div>
-                                          </div>
                         </div><!--5 tabs-->
 
 

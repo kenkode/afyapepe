@@ -48,7 +48,7 @@ class PatientTestController extends Controller
 
       $id = $request->input('appointment_id');
       $testRecmd = $request->input('test');
-
+     $doc_note => $request->get('doc_note'),
 if( is_array( $testRecmd) ) {
 
 
@@ -57,7 +57,7 @@ if( is_array( $testRecmd) ) {
                $PatientTest = Patienttest ::create([
                  'test_reccommended' => $value,
                  'conditional_diagnosis' => $request->get('conditional'),
-                 'doc_note' => $request->get('doc_note'),
+
                  'patient_id' => $request->get('patient_id'),
                  'doc_id' => $request->get('doc_id'),
                  'test_status' => $request->get('test_status'),
@@ -66,14 +66,13 @@ if( is_array( $testRecmd) ) {
                ]);
         }
       }
-      if(empty($result)) {
-          
+      if(empty($doc_note)) {
+
 
             }esle{
               DB::table('patientNotes')->insert([
                   'patient_id'  => $request->get('patient_id'),
                   'appointment_id'  => $request->get('appointment_id'),
-                  'appointment_status' => $request->get(''),
                   'note'  => $request->get('doc_note'),
                   'purpose'  = 'TEST';
               ]);

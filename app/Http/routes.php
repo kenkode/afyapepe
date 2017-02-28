@@ -101,6 +101,8 @@ Route::get('competition', 'ManufacturerController@Competition');
 
 
 });
+
+//Pharmacy Routes
 Route::group(['middleware' => ['auth','role:Admin|Pharmacy']], function() {
 Route::resource('pharmacy','PharmacyController');
 Route::get('totalsales', 'PharmacyController@totalsales');

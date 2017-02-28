@@ -21,12 +21,9 @@
                 </div>
             </li>
             <li>
-            <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboards</span> <span class="fa arrow"></span></a>
+            <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboards</span> </a>
 
             </li>
-
-
-
 
                <?php $data = DB::table("patients")->count();
                        $wList=DB::table('afya_users')

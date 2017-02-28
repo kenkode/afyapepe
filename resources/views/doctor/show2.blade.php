@@ -492,7 +492,7 @@
       <tr>
     <td>
     </td>
-    <td>{{ Form::hidden('filled_status', 1, array('placeholder' => 'FullName','class' => 'form-control')) }}</td>
+    <td>{{ Form::hidden('filled_status', 1, array('class' => 'form-control')) }}</td>
     </tr>
 
       <tr><td>

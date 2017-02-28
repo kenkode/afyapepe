@@ -119,6 +119,26 @@ public function testAnalytics(){
    ->get();
   return $tests;
   }
+function Diseases(){
+ $diseases = DB::table('diseases')
+ ->get();
+return $diseases;
+}
+function Strength(){
+ $Strength = DB::table('strength')
+ ->get();
+return $Strength;
+}
+function RouteM(){
+ $routem = DB::table('Route')
+ ->get();
+return $routem;
+}
+function Frequency(){
+ $frequency = DB::table('frequency')
+ ->get();
+return $frequency;
+}
   public function TestListdetails(){
     $testsd = DB::table('test_details')
     ->get();

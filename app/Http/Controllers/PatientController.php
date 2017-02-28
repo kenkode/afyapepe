@@ -147,12 +147,33 @@ public function PatientNotes(Request $request)
       'patient_id'  => $request->get('patient_id'),
       'appointment_id'  => $request->get('appointment_id'),
       'appointment_status' => $request->get('appointment_status'),
-      'note'  => $request->get('note'),
+      'note'  => $request->get('docnote'),
   ]);
 
 $appid =$request['appointment_id'];
 $appstatus =$request['appointment_status'];
-       DB::table('appointments')
+ DB::table('appointments')
+                 ->where('id',$appid)
+                 ->update(['status'=>$appstatus,
+                  'next_appointment'=>$next_appointment
+               ]);
+ return redirect()->route('showPatient', ['id' => $appid]);
+}
+public function transfer(Request $request)
+
+{
+
+  DB::table('transfer')->insert([
+      'patient_id'  => $request->get('patient_id'),
+      'appointment_id' => $request->get('appointment_id'),
+      'facility_to'  => $request->get('facility'),
+      'facility_from'  => $request->get('facility_from'),
+      'note'  => $request->get('doc_note'),
+  ]);
+
+$appid =$request['appointment_id'];
+$appstatus =$request['appointment_status'];
+ DB::table('appointments')
                  ->where('id',$appid)
                  ->update(['status'=>$appstatus]);
  return redirect()->route('showPatient', ['id' => $appid]);

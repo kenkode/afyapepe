@@ -26,6 +26,8 @@
 
 
   <link rel="stylesheet" href="{{asset('select/select2.min.css') }}" />
+  <link rel="stylesheet" href="{{asset('css/plugins/datapicker/datepicker3.css') }}" />
+  <link rel="stylesheet" href="{{asset('css/plugins/daterangepicker/daterangepicker-bs3.css') }}" />
 
 
 </head>
@@ -94,18 +96,20 @@
   <script src="{{ asset('js/plugins/validate/jquery.validate.min.js') }}" type="text/javascript"></script>
   <script src="{{ asset('select/select2.min.js') }}" type="text/javascript"></script>
 
+  <!-- Data picker -->
+  <script src="{{ asset('js/plugins/datapicker/bootstrap-datepicker.js') }}" type="text/javascript"></script>
 
     <!-- Page-Level Scripts -->
 
     <script type="text/javascript">
     $(".js-example-basic-multiple").select2();
-     placeholder: "Selectastate",
+     placeholder: "Select astate",
      allowClear: true
     </script>
 
     <script type="text/javascript">
     $(".js-example-placeholder-single").select2({
-  placeholder: "Selec-test-category->test",
+  placeholder: "Select a state",
   allowClear: true
 });
 </script>
@@ -213,6 +217,14 @@ $(document).ready(function(){
         $("#test").show();
     });
 });
+
+$('#data_1 .input-group.date').datepicker({
+            todayBtn: "linked",
+            keyboardNavigation: false,
+            forceParse: false,
+            calendarWeeks: true,
+            autoclose: true
+        });
 </script>
 
 </body>

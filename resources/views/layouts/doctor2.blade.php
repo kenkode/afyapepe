@@ -160,6 +160,15 @@ $('#pre-selected-options').multiSelect();
 $('#pre-selected-options1').multiSelect();
 
 </script>
-
+<script>
+$(document).ready(function(){
+    $("#hide").click(function(){
+        $("#test").hide();
+    });
+    $("#show").click(function(){
+        $("#test").show();
+    });
+});
+</script>
 </body>
 </html>

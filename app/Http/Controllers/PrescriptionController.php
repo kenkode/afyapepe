@@ -71,10 +71,6 @@ class PrescriptionController extends Controller
                  ->update(['Doctor_note'=>$docnote],['prescription'=>$presc]);
 
 
-        $appid =$request['appointment_id'];
-       DB::table('appointments')
-                 ->where('id',$appid)
-                 ->update(['status'=>3]);
 
 
 

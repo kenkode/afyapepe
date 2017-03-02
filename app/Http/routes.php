@@ -86,7 +86,11 @@ Route::group(['middleware' => ['auth','role:Admin|Nurse']], function() {
    Route::get('show/{id}',['as'=>'showPatient', 'uses'=>'PatientController@showpatient']);
    Route::get('visit/{id}', [ 'as' => 'visit', 'uses' => 'PatientController@pvisit']);
 	 Route::Post('showpatient', [ 'as' => 'patientnotes', 'uses' => 'PatientController@PatientNotes']);
-  });
+	 Route::get('/tags/find', 'TagController@find');
+   Route::get('/disis/find', 'DiseasesController@find');
+
+
+	});
 
 Route::group(['middleware' => ['auth','role:Admin|Manufacturer']], function() {
 Route::resource('manufacturer','ManufacturerController');
@@ -101,8 +105,6 @@ Route::get('competition', 'ManufacturerController@Competition');
 
 
 });
-
-//Pharmacy Routes
 Route::group(['middleware' => ['auth','role:Admin|Pharmacy']], function() {
 Route::resource('pharmacy','PharmacyController');
 Route::get('totalsales', 'PharmacyController@totalsales');

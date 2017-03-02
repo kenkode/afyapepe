@@ -120,10 +120,12 @@ public function testAnalytics(){
   return $tests;
   }
 function Diseases(){
- $diseases = DB::table('diseases')
- ->get();
+ $diseases = DB::table('diseases') ->get();
 return $diseases;
 }
+// DB::table('users')->orderBy('id')->chunk(100, function($users)
+// $categories = \DB::table('categories')->orderBy('name')->take(10)->get();
+
 function Strength(){
  $Strength = DB::table('strength')
  ->get();

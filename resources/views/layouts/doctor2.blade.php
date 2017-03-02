@@ -29,7 +29,8 @@
   <link rel="stylesheet" href="{{asset('css/plugins/datapicker/datepicker3.css') }}" />
   <link rel="stylesheet" href="{{asset('css/plugins/daterangepicker/daterangepicker-bs3.css') }}" />
 
-
+  <link rel="stylesheet" href="{{asset('bootstrap/css/bootstrap.min.css') }}" />
+  <link rel="stylesheet" href="{{asset('select/select2.min.css') }}" />
 </head>
 
 <body>
@@ -53,6 +54,7 @@
     <script src="{{ asset('js/bootstrap.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/plugins/metisMenu/jquery.metisMenu.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/plugins/slimscroll/jquery.slimscroll.min.js') }}" type="text/javascript"></script>
+
     <script src="{{ asset('js/plugins/dataTables/datatables.min.js') }}" type="text/javascript"></script>
 
     <!-- Custom and plugin javascript -->
@@ -94,12 +96,15 @@
         <!-- Jquery Validate -->
 
   <script src="{{ asset('js/plugins/validate/jquery.validate.min.js') }}" type="text/javascript"></script>
-  <script src="{{ asset('select/select2.min.js') }}" type="text/javascript"></script>
+  <!-- <script src="{{ asset('select/select2.min.js') }}" type="text/javascript"></script> -->
 
   <!-- Data picker -->
   <script src="{{ asset('js/plugins/datapicker/bootstrap-datepicker.js') }}" type="text/javascript"></script>
 
-    <!-- Page-Level Scripts -->
+
+  <script src="{{ asset('js/jquery-3.1.1.min.js') }}" type="text/javascript"></script>
+  <script src="{{ asset('bootstrap/js/bootstrap.min.js') }}" type="text/javascript"></script>
+   <script src="{{ asset('select/select2.min.js') }}" type="text/javascript"></script>
 
     <script type="text/javascript">
     $(".js-example-basic-multiple").select2();
@@ -201,22 +206,9 @@
         });
 
     </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="{{ asset('js/jquery.multi-select.js') }}"></script>
-<script type="text/javascript">
-$('#pre-selected-options').multiSelect();
-$('#pre-selected-options1').multiSelect();
 
-</script>
 <script>
-$(document).ready(function(){
-    $("#hide").click(function(){
-        $("#test").hide();
-    });
-    $("#show").click(function(){
-        $("#test").show();
-    });
-});
+
 
 $('#data_1 .input-group.date').datepicker({
             todayBtn: "linked",
@@ -225,6 +217,33 @@ $('#data_1 .input-group.date').datepicker({
             calendarWeeks: true,
             autoclose: true
         });
+
+        $(document).ready(function(){
+            $("button").click(function(){
+                $("#testR").toggle();
+            });
+        });
+</script>
+<script>
+$('#d_list2').select2({
+    placeholder: "Choose tags...",
+    minimumInputLength: 2,
+    ajax: {
+        url: '/disis/find',
+        dataType: 'json',
+        data: function (params) {
+            return {
+                q: $.trim(params.term)
+            };
+        },
+        processResults: function (data) {
+            return {
+                results: data
+            };
+        },
+        cache: true
+    }
+});
 </script>
 
 </body>

@@ -1,12 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
 use DB;
 use Carbon\Carbon;
+use App\Disease;
 
 
 class DiseasesController extends Controller
@@ -22,6 +21,26 @@ class DiseasesController extends Controller
             ->get();
         return view('diseases.index')->with('diseases',$diseases);
     }
+
+
+    public function find(Request $request)
+ {
+     $term = trim($request->q);
+
+     if (empty($term)) {
+         return \Response::json([]);
+     }
+
+     $disis = Disease::search($term)->limit(20)->get();
+
+     $formatted_tags = [];
+
+     foreach ($disis as $dizs) {
+         $formatted_tags[] = ['id' => $dizs->code, 'text' => $dizs->short_desc];
+     }
+
+     return \Response::json($formatted_tags);
+ }
 
     /**
      * Show the form for creating a new resource.

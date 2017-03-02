@@ -158,6 +158,7 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         Zizaco\Entrust\EntrustServiceProvider::class,
+        Sofa\Eloquence\ServiceProvider::class,
 
 
     ],

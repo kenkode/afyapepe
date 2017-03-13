@@ -3,13 +3,61 @@
 @section('content')
 <div class="wrapper wrapper-content animated fadeInRight">
    <div class="row">
-    <h3 class="marg"> Patient Details <b class="marg"> Name: {{$patient->firstname}}  {{$patient->secondName}}</b>
-     <b class="marg">Age: {{$patient->age}} </b> <b class="marg">Gender: <?php $gender=$patient->gender;?>@if($gender==1){{"Male"}}@else{{"Female"}}@endif</b></h3>
+    <h3 class="marg"> Patient Details <b class="marg"> Nameb>
+     <b class="marg">Age:  </b> <b class="marg">Gender: <?php $gender=$patient->gender;?>@if($gender==1){{"Male"}}@else{{"Female"}}@endif</b></h3>
       <hr>
   </div>
 
   <div class="row">
-    <div class="col-lg-12">
+    <div class="col-lg-6">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Patient Details</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                     <a class="close-link">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
+              <div class="form-group">
+             <label for="exampleInputEmail1">Name</label>
+             <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Next Kin Name" name="kin_name"  value="{{$patient->firstname}}  {{$patient->secondName}}" readonly=""  >
+             </div>
+
+
+              <div class="form-group">
+             <label for="exampleInputPassword1">Age</label>
+             <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Next of Kin Phone" name="phone" value="{{$patient->age}}" readonly  >
+             </div>
+             <div class="form-group">
+            <label for="exampleInputPassword1">Gender</label>
+             <?php $gender=$patient->gender;?>
+            <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Next of Kin Phone" name="phone"
+             value="@if($gender==1){{"Male"}}@else{{"Female"}}@endif " readonly  >
+            </div>
+            <div class="form-group">
+           <label for="exampleInputPassword1">Phone</label>
+           <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Next of Kin Phone" name="phone" value="{{$patient->msisdn}}" readonly  >
+           </div>
+            <div class="form-group">
+          <?php
+          $ids=$patient->cont_id;
+           $county=DB::table('county')->where('id','=',$ids)->first(); ?>
+          <label for="exampleInputPassword1">County</label>
+          <input type="name" class="form-control" id="exampleInputPassword1" placeholder="Next of Kin Phone" name="phone" value="{{$county->county}}" readonly  >
+          </div>
+          <div class="form-group">
+         <label for="exampleInputPassword1">Constituency</label>
+         <input type="name" class="form-control" id="exampleInputPassword1" placeholder="Next of Kin Phone" name="phone" value="{{$patient->Constituency}}" readonly  >
+         </div>
+            </div>
+          </div>
+        </div>
+    <div class="col-lg-6">
         <div class="ibox float-e-margins">
             <div class="ibox-title">
                 <h5>Next of Kin Details</h5>

@@ -61,6 +61,8 @@ Route::group(['middleware' => ['auth','role:Admin|Nurse']], function() {
 	Route::resource('nurse','NurseController');
 	Route::get('newpatient', 'NurseController@newPatient');
 	Route::get('waitingList', 'NurseController@wList');
+	Route::get('nurseappointment','NurseController@Appointment');
+	Route::get('calendarnurse','NurseController@Calendar');
 
 	Route::get('nurse.createkin/{id}',['as'=>'createkin','uses'=>'NurseController@createnextkin']);
 	Route::get('nurse.vaccine/{id}',['as'=>'vaccinescreate','uses'=>'NurseController@vaccinescreate']);

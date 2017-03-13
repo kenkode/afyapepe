@@ -23,54 +23,57 @@
                 </div>
             </div>
             <div class="ibox-content">
-                <form class="form-horizontal">
-
-
-                    <?php $id=$kin->kin_name;?>
-                  @if ($id!=="")
+                  @if(is_null($kin))
+                  <form class="form-horizontal" role="form" method="POST" action="/nextkin" novalidate>
+                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                 <input type="hidden" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{$patient->id}}" name="id"  required>
                   <div class="form-group">
                  <label for="exampleInputEmail1">Name</label>
                  <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Next Kin Name" name="kin_name"  value="
-                 {{ $yes=$kin->kin_name}}
-
-                  "  readonly="">
+                  "  >
                  </div>
 
                  <div class="form-group">
                   <label for="exampleInputPassword1">Relationship</label>
-                  <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Next Kin Name" name="relation"  value="{{$relation=$kin->relation}}
-                     "  readonly="">
+                 <select class="form-control" name="relationship">
+                 <?php  $kin = DB::table('kin')->get();?>
+                               @foreach($kin as $kn)
+                                <option value="{{$kn->id}}">{{$kn->relation}}</option>
+                              @endforeach
+                             </select>
                  </div>
                   <div class="form-group">
                  <label for="exampleInputPassword1">Phone</label>
-                 <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Next of Kin Phone" name="phone" value="{{$phone=$kin->phone_of_kin}}"  readonly="">
+                 <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Next of Kin Phone" name="phone" value=""  >
                  </div>
-                <a href="{{ route('createkin', $patient->id) }}" class="btn btn-primary btn-sm">Update Details</a>
-                </form>
+                 <button type="submit" class="btn btn-primary btn-sm">Create Details</button>
+                    {!! Form::close() !!}
                 @else
+                  <form class="form-horizontal">
                 <div class="form-group">
                 <label for="exampleInputEmail1">Name</label>
-                <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Next Kin Name" name="kin_name"  readonly="">
+                <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Next Kin Name" name="kin_name" value="{{$kin->kin_name}}" readonly="">
                 </div>
 
                 <div class="form-group">
                 <label for="exampleInputPassword1">Relationship</label>
                 <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Next Kin Name" name="relation"
-                  readonly="">
+                value="{{$kin->relation}}"  readonly="">
                 </div>
 
                 <div class="form-group">
                 <label for="exampleInputPassword1">Phone</label>
                 <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Next of Kin Phone" name="phone"
-                readonly="">
+                value="{{$kin->phone_of_kin}}"readonly="">
                 </div>
-
+  <a href="{{ route('createkin', $patient->id) }}" class="btn btn-primary btn-sm">Update Details</a>
                         </div>
-                        <a href="{{ route('createkin', $patient->id) }}" class="btn btn-primary btn-sm">Update Details</a>
+
+        {!! Form::close() !!}
                 @endif
             </div>
         </div>
-</div>
+
 
             <div class="col-lg-7">
                 <div class="ibox float-e-margins">

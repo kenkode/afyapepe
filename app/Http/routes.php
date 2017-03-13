@@ -68,6 +68,7 @@ Route::group(['middleware' => ['auth','role:Admin|Nurse']], function() {
 	Route::get('nurse.vaccine/{id}',['as'=>'vaccinescreate','uses'=>'NurseController@vaccinescreate']);
   Route::get('nurse.details/{id}',['as'=>'details','uses'=>'NurseController@details']);
 	Route::post('nextkin','NurseController@nextkin');
+	Route::post('updatekin','NurseController@Updatekin');
 	Route::post('vaccine','NurseController@vaccine');
   Route::post('nurse.show',['as'=>'createdetail','uses'=>'NurseController@createdetails']);
 });

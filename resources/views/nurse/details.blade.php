@@ -18,7 +18,7 @@
     </div>
     <div class="form-group">
     <label for="exampleInputEmail1">Height</label>
-    <input type="name" class="form-control" placeholder="Height" name="current_height"
+    <input type="name" class="form-control" placeholder="Height in Metres" name="current_height"
      required>
     </div>
    <div class="form-group">

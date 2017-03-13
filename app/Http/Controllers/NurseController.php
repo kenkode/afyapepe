@@ -190,6 +190,7 @@ class NurseController extends Controller
         ->first();
         $details=DB::table('triage_details')
         ->where('triage_details.patient_id',$id)
+        ->orderBy('id','desc')
         ->get();
 
         $vaccines =DB::table('vaccination')

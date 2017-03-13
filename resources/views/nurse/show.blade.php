@@ -3,7 +3,7 @@
 @section('content')
 <div class="wrapper wrapper-content animated fadeInRight">
    <div class="row">
-    <h3 class="marg"> Patient Name: <b class="marg">{{$patient->firstname}}  {{$patient->secondName}}</b>
+    <h3 class="marg"> Patient Details <b class="marg"> Name: {{$patient->firstname}}  {{$patient->secondName}}</b>
      <b class="marg">Age: {{$patient->age}} </b> <b class="marg">Gender: <?php $gender=$patient->gender;?>@if($gender==1){{"Male"}}@else{{"Female"}}@endif</b></h3>
       <hr>
   </div>
@@ -45,7 +45,7 @@
                  <label for="exampleInputPassword1">Phone</label>
                  <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Next of Kin Phone" name="phone" value="{{$phone=$kin->phone_of_kin}}"  readonly="">
                  </div>
-                <a href="{{ route('createkin', $patient->id) }}" class="btn btn-primary btn-lg">Update Details</a>
+                <a href="{{ route('createkin', $patient->id) }}" class="btn btn-primary btn-sm">Update Details</a>
                 </form>
                 @else
                 <div class="form-group">
@@ -64,8 +64,9 @@
                 <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Next of Kin Phone" name="phone"
                 readonly="">
                 </div>
-                <a href="{{ route('createkin', $patient->id) }}" class="btn btn-primary btn-sm">Update Details</a>
+
                         </div>
+                        <a href="{{ route('createkin', $patient->id) }}" class="btn btn-primary btn-sm">Update Details</a>
                 @endif
             </div>
         </div>
@@ -125,7 +126,7 @@
                                                              </table>
 
 
-                <a href="{{ route('vaccinescreate', $patient->id) }}" class="btn btn-primary btn-sm">Update Details</a>
+
 
                     </div>
                 </div>
@@ -136,7 +137,7 @@
          <div class="col-lg-12">
                         <div class="ibox float-e-margins">
                             <div class="ibox-title">
-                              <h5>Patient Details</h5>
+                              <h5>Patient History</h5>
                                 <div class="ibox-tools">
                                     <a class="collapse-link">
                                         <i class="fa fa-chevron-up"></i>
@@ -155,14 +156,16 @@
       <thead>
        <tr>
            <th>No</th>
+            <th>Date</th>
            <th>Weight</th>
            <th>Height</th>
+           <th>BMI</th>
            <th>Temperature</th>
            <th>Systolic_bp</th>
            <th>Diastolic_bp</th>
            <th>Chief Compliant</th>
-           <th>Observation</th>
-           <th>Date</th>
+
+
             <th>View</th>
 
       </tr>
@@ -173,14 +176,18 @@
       @foreach($details as $detail)
        <tr>
            <td>{{$i}}</td>
+            <td>{{$detail->updated_at}}</td>
            <td>{{$detail->current_weight}}</td>
            <td>{{$detail->current_height}}</td>
+            <td><?php $height=$detail->current_height; $weight=$detail->current_weight;
+               $bmi =$weight/($height*$height);
+               echo number_format($bmi, 2);
+            ?></td>
            <td>{{$detail->temperature}}</td>
           <td>{{$detail->systolic_bp}}</td>
          <td>{{$detail->diastolic_bp}}</td>
          <td>{{$detail->chief_compliant}}</td>
-         <td>{{$detail->observation}}</td>
-           <td>{{$detail->updated_at}}</td>
+
           <td>More</td>
 
        </tr>

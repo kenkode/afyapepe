@@ -106,6 +106,15 @@ class DoctorController extends Controller
       return view('doctor.create');
     }
 
+    public function Appointment()
+    {
+          return view('doctor.appointment');
+    }
+
+    public function Calendar(){
+      return view('doctor.calendar');
+    }
+
     /**
      * Store a newly created resource in storage.
      *

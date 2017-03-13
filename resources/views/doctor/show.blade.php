@@ -66,8 +66,8 @@ return redirect('doctor.create');
         }
 }
 ?>
-<div class="wrapper wrapper-content animated fadeInRight">
-  <div class="row">
+
+
     <div class="ibox-title">
         <h5>{{$facilty}}</h5>
         <div class="ibox-tools">
@@ -80,18 +80,19 @@ return redirect('doctor.create');
           Phone:<?php echo $phone; ?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           status&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-primary btn-xs"><?php echo $stat; ?>
         </h5></div>
+
 <!--tabs-->
         <div class="col-lg-12">
             <div class="tabs-container">
-              <div class="col-lg-12 tbg">
-                <ul class="nav nav-tabs">
+              <!-- <div class="col-lg-12 tbg"> -->
+                <ul class="nav nav-tabs tbg">
                     <li class="active btn"><a data-toggle="tab" href="#tab-1">Home</button></a></li>
                     <li class="btn"><a data-toggle="tab" href="#tab-2">History</a></li>
                     <li class="btn"><a data-toggle="tab" href="#tab-3">Tests</a></li>
                     <li class="btn"><a data-toggle="tab" href="#tab-4">Prescriptions</a></li>
                     <li class="btn"><a data-toggle="tab" href="#tab-5">End Visit</a></li>
                 </ul>
-              </div>
+              <!-- </div> -->
                 <div class="tab-content">
                       <div id="tab-1" class="tab-pane active">
                         <div class="panel-body">
@@ -228,8 +229,8 @@ return redirect('doctor.create');
 <div id="tab-3" class="tab-pane">
 <div class="ibox float-e-margins">
 <div class="ibox-content">
-{{ Form::open(array('route' => array('patienttest'),'method'=>'POST')) }}
-
+<!-- {{ Form::open(array('route' => array('patienttest'),'method'=>'POST')) }} -->
+{{ Form::open(array('id' => 'ptest')) }}
 
 <div class="col-md-8">
 <div class="form-group ">
@@ -244,15 +245,9 @@ return redirect('doctor.create');
 
 
 {{ Form::hidden('patient_id',$pdetails->pat_id, array('class' => 'form-control')) }}
-{{ Form::hidden('test_status',1, array('class' => 'form-control')) }}
+
 {{ Form::hidden('appointment_id',$pdetails->app_id, array('class' => 'form-control')) }}
 {{ Form::hidden('doc_id',$Docdata->doc_id, array('class' => 'form-control')) }}
-
-
-<div class="form-group">
-  <label for="tag_list"><br />Doctor Note:</label>
-{{ Form::textarea('doc_note', null, array('placeholder' => 'note..','class' => 'form-control')) }}
-</div>
 
 <div class="form-group  text-center">
 <button type="submit" class="btn btn-primary">Submit</button>  </td>
@@ -261,7 +256,7 @@ return redirect('doctor.create');
 </div>
 </div>
 
-<button>Test Results</button>
+
 <!--Test result tabs PatientController@testdone-->
 <div id="testR">
 <div class="table-responsive">
@@ -303,9 +298,220 @@ return redirect('doctor.create');
 </table>
 </div>
 </div>
+
 </div><!--3tabs-->
 
+<!--tabs4-->
+                    <div id="tab-4" class="tab-pane">
 
+                                {{ Form::open(array('route' => array('prescription.store'),'method'=>'POST')) }}
+                <?php  $dizeases= (new \App\Http\Controllers\TestController);
+                      $disease = $dizeases->Diseases();
+                      foreach($disease as $dis){
+                  }?>
+                  <?php  $routem= (new \App\Http\Controllers\TestController);
+                        $routems = $routem->RouteM();
+                    ?>
+                  <?php $Strength= (new \App\Http\Controllers\TestController);
+                        $Strengths = $Strength->Strength();
+                    ?>
+                  <?php $frequency= (new \App\Http\Controllers\TestController);
+                        $frequent = $frequency->Frequency();
+                    ?>
+
+                      <?php
+                      $drgs= (new \App\Http\Controllers\TestController);
+                      $drugs = $drgs->drugList();
+                      ?>
+                      <div class="ibox float-e-margins">
+                        <div class="ibox-content">
+
+                          <div class="hr-line-dashed"></div>
+
+                              <div class="form-group"><label>Confirmed Diagnosis</label>
+                                <select class="js-example-placeholder-single "  name="diagnosis" class= "form-control">
+                                 @foreach($disease as $diseaselist)
+                                   <option value="{{$diseaselist->code }}">{{$diseaselist->code }}---{{ $diseaselist->short_desc  }} </option>
+                                @endforeach
+                              </select>
+                            </div>
+                        <div class="hr-line-dashed"></div>
+
+                          <div class="form-group"><label>Prescription</label>
+                                    <select class="js-example-placeholder-single"  name="prescription"  class= "form-control">
+                                      @foreach($drugs as $druglist)
+                                        <option value="{{$druglist->id }}">{{ $druglist->drugname  }}----{{ $druglist->DosageForm  }} </option>
+                                     @endforeach
+                                  </select>
+                             </div>
+                             <div class="form-group">
+                              <label for="dosage" class="col-md-2 control-label">Dosage</label></td>
+                               <div class="col-md-4"><select class="form-control m-b" name="dosage" id="example-getting-started" >
+                                       <option value='Full'>FULL</option>
+                                       <option value='Half'>HALF</option>
+                                       <option value='Quater'>QUATER</option>
+
+                                       </select>
+                                 </div>
+                             </div>
+                             <div class="form-group">
+                              <label for="dosage" class="col-md-2 control-label">Strength</label></td>
+                               <div class="col-md-4"><select class="js-example-placeholder-single" id="testsj" name="strength">
+                                   @foreach($Strengths as $Strengthz)
+                                     <option value="{{$Strengthz->id }}">{{ $Strengthz->strength  }} </option>
+                                  @endforeach
+                               </select>
+                                 </div>
+                             </div>
+                             <div class="form-group">
+                              <label for="dosage" class="col-md-2 control-label">Route</label></td>
+                               <div class="col-md-4">  <select class="js-example-placeholder-single" name="routes">
+                                   @foreach($routems as $routemz)
+                                     <option value="{{$routemz->id }}">{{ $routemz->abbreviation }}----{{ $routemz->name  }} </option>
+                                  @endforeach
+                               </select>
+                                 </div>
+                             </div>
+                             <div class="form-group">
+                              <label for="dosage" class="col-md-2 control-label">Frequency</label></td>
+                               <div class="col-md-4">  <select class="js-example-placeholder-single"  name="frequency">
+                                   @foreach($frequent as $freq)
+                                     <option value="{{$freq->id }}">{{ $freq->abbreviation }}----{{ $freq->name  }} </option>
+                                  @endforeach
+                               </select>
+                                 </div>
+                             </div>
+
+
+
+                             <div class="hr-line-dashed"></div>
+                             {{ Form::hidden('triage_id',$pdetails->triage_id, array('class' => 'form-control')) }}
+                             {{ Form::hidden('filled_status', 1, array('class' => 'form-control')) }}
+                            {{ Form::hidden('patient_id',$pdetails->pat_id, array('class' => 'form-control')) }}
+                            {{ Form::hidden('test_status',1, array('class' => 'form-control')) }}
+                            {{ Form::hidden('appointment_id',$pdetails->app_id, array('class' => 'form-control')) }}
+                            {{ Form::hidden('doc_id',$Docdata->doc_id, array('class' => 'form-control')) }}
+
+                            <!-- <div class="form-group">
+                             <label for="dosage" class="col-md-2 control-label">Doctor note</label></td>
+                              <div class="col-md-4">
+                                  {{ Form::textarea('doc_note', null, array('placeholder' => 'note..','class' => 'form-control col-lg-8')) }}
+                                </div>
+                            </div> -->
+                        <div class="hr-line-dashed"></div>
+                                    <div class="form-group  text-center">
+                                    <button type="submit" class="btn btn-primary">Submit</button>  </td>
+                                     </div>
+                                       {{ Form::close() }}
+
+                                   </div>
+                                </div>
+
+                    </div><!--4 tabs-->
+
+                    <!--tabs5-->
+                    <div id="tab-5" class="tab-pane">
+
+                                {{ Form::open(array('route' => array('patienttest'),'method'=>'POST')) }}
+                                <?php
+                                   use App\Facility;
+                                   $facilities = DB::table('facilities')
+                                   ->select('FacilityCode','FacilityName','KEPHLevel','Type','Beds',
+                                   'County','Constituency','Ward')
+                                   ->get();
+                              ?>
+
+
+                    <div class="col-lg-8">
+                    <div class="tabs-container">
+                    <ul class="nav nav-tabs tbg">
+                    <li class="active"><a data-toggle="tab" href="#tab-51"> Admit/Discharge</a></li>
+                    <li class=""><a data-toggle="tab" href="#tab-52">Refer</a></li>
+                    </ul>
+                    <div class="tab-content">
+                    <div id="tab-51" class="tab-pane active">
+                    <div class="panel-body">
+                      {{ Form::open(array('route' => array('patientnotes'),'method'=>'POST')) }}
+                      <div class="form-group">
+                      <label for="role" class="col-md-4 control-label">Action</label>
+                      <div class="col-md-6"><select class="form-control m-b" name="appointment_status" id="action" required >
+                      <option value=''>Select ...</option>
+                      <option value='4'>Admit</option>
+                      <option value='3'>Discharge</option>
+                     </select>
+                      </div>
+                      </div>
+                        <div class="form-group" id="data_1">
+                            <label class="font-normal">Next Appointment Date</label>
+                            <div class="input-group date">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                <input type="text" class="form-control" name="next_appointment" value="">
+                            </div>
+                        </div>
+                    {{ Form::hidden('patient_id',$pdetails->pat_id, array('class' => 'form-control')) }}
+                    {{ Form::hidden('test_status',1, array('class' => 'form-control')) }}
+                    {{ Form::hidden('appointment_id',$pdetails->app_id, array('class' => 'form-control')) }}
+                    {{ Form::hidden('doc_id',$Docdata->doc_id, array('class' => 'form-control')) }}
+
+
+                           <div class="form-group">
+                             <br />
+                             <label for="role" class="col-md-4 control-label">Doctor note</label>
+
+                            {{ Form::textarea('doc_note', null, array('placeholder' => 'note..','class' => 'form-control col-lg-8')) }}
+                          </div>
+
+
+                    <div class="form-group  text-center">
+                    <button type="submit" class="btn btn-primary">Submit</button>  </td>
+                    </div>
+                    {{ Form::close() }}
+                    </div>
+                    </div>
+                    <div id="tab-52" class="tab-pane">
+                    <div class="panel-body">
+                      {{ Form::open(array('route' => array('patientnotes'),'method'=>'POST')) }}
+
+
+                        <div class="form-group">
+                        <label for="role" class="col-md-2 control-label">Facility</label>
+                        <div class="col-md-8"><select class="js-example-placeholder-single " name="facility" id="js-example-placeholder-single">
+                          @foreach($facilities as $fac)
+                        <option value="{{$fac->FacilityCode}}">{{$fac->FacilityName}}  {{$fac->Type}} </option>
+                        @endforeach
+                        </select>
+                        </div>
+                        </div>
+                          <div class="hr-line-dashed"></div>
+
+
+                    {{ Form::hidden('facility_from',$pdetails->FacilityName, array('class' => 'form-control')) }}
+                    {{ Form::hidden('appointment_status',5, array('class' => 'form-control')) }}
+                    {{ Form::hidden('patient_id',$pdetails->pat_id, array('class' => 'form-control')) }}
+
+                    {{ Form::hidden('appointment_id',$pdetails->app_id, array('class' => 'form-control')) }}
+                    {{ Form::hidden('doc_id',$Docdata->doc_id, array('class' => 'form-control')) }}
+
+
+                    <div class="form-group text-center">
+                    <label for="role" class="col-md-4 control-label">Doctro Note</label>
+                    {{ Form::textarea('doc_note', null, array('placeholder' => 'note..','class' => 'form-control col-lg-8')) }}
+                    </div><br />
+
+
+                    <div class="form-group  text-center">
+                    <button type="submit" class="btn btn-primary">Submit</button>  </td>
+                    </div>
+                    {{ Form::close() }}
+                    </div>
+                    </div>
+                    </div>
+
+                     </div>
+                    </div>
+                </div>
+        </div>
+</div><!--5 tabs-->
 
 
 
@@ -329,17 +535,7 @@ return redirect('doctor.create');
           </div><!--tabs-container-->
         </div><!--col12-->
         <!--tabs-->
-        <div class="col-md-4">
-        <div class="form-group ">
-            <label for="d_list2">Conditional Diagnosis:</label>
-            <select id="d_list2" name="conditional" class="form-control " ></select>
-        </div>
-        <div class="form-group">
-            <label for="tag_list">Select Test:</label>
-            <select id="tag_list" name="test" class="form-control" ></select>
-        </div>
-      </div>
-            </div>
+
         </div><!--row-->
   </div><!--wrapper-->
 

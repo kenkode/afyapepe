@@ -6,11 +6,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="_token" content="{!! csrf_token() !!}"/>
 
     <title>Afyapepe- @yield('title') </title>
 
     <link rel="stylesheet" href="{{asset('bootstrap/css/bootstrap.min.css') }}" />
-    <link rel="stylesheet" href="{{asset('select/select2.min.css') }}" />
+    <link rel="stylesheet" href="{{asset('select/select2.css') }}" />
 
     <!-- <link rel="stylesheet" href="{{asset('css/bootstrap.min.css') }}" /> -->
     <link rel="stylesheet" href="{{asset('font-awesome/css/font-awesome.css') }}" />
@@ -44,7 +45,11 @@
    <script src="{{ asset('select/select2.min.js') }}" type="text/javascript"></script>
    <!-- Custom and plugin javascript -->
   <script src="{{ asset('js/plugins/pace/pace.min.js') }}" type="text/javascript"></script>
-
+  <script type="text/javascript">
+  $.ajaxSetup({
+     headers: { 'X-CSRF-Token' : $('meta[name=_token]').attr('content') }
+  });
+  </script>
    <script>
        $('#tag_list').select2({
            placeholder: "Choose tags...",
@@ -115,5 +120,31 @@
        });
 
    </script>
+   <script>
+
+$("document").ready(function(){
+ $("#ptest").submit(function(e){
+ e.preventDefault();
+ var conditional = $("input[name=conditional]").val();
+ var test = $("select[name=test]").val();
+ var patient_id = $("input[name=patient_id]").val();
+ var appointment_id = $("input[name=appointment_id]").val();
+ var doc_id = $("input[name=doc_id]").val();
+
+ var dataString = 'customer='+customer+'&details='+details;
+ $.ajax({
+ type: "POST",
+ url : "patienttest",
+ data : dataString,
+ dataType : "json",
+ success : function(data){
+
+}
+
+},"json");
+
+});
+ });//end of document ready function
+ </script>
 </body>
 </html>

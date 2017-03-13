@@ -95,8 +95,7 @@ return redirect('doctor.create');
                         <li class=""><a data-toggle="tab" href="#tab-5">End Visit</a></li>
                     </ul>
                     <div class="tab-content">
-
-                        <div id="tab-1" class="tab-pane active">
+                          <div id="tab-1" class="tab-pane active">
                             <div class="panel-body">
                               <div class="col-lg-12">
                               <div class="ibox float-e-margins">

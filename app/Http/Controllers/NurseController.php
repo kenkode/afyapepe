@@ -195,6 +195,7 @@ class NurseController extends Controller
     {
       $patient= DB::table('afya_users')
         ->Join('patients', 'afya_users.id', '=', 'patients.afya_user_id')
+        
         ->select('afya_users.*', 'patients.allergies')
         ->where('afya_users.id',$id)
         ->first();

@@ -162,7 +162,7 @@
                                      <td>{{$detail->diastolic_bp}}</td>
                                      <td>{{$detail->chief_compliant}}</td>
 
-                                      <td>More</td>
+                                      <td><a href="{{url('nurse.patientshow',$detail->id)}}">More</a></td>
 
                                    </tr>
                                    <?php $i++; ?>

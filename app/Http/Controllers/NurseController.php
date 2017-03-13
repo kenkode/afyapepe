@@ -216,7 +216,9 @@ class NurseController extends Controller
           ->get();
           return view('nurse.show')->with('patient',$patient)->with(['vaccines'=>$vaccines,'kin'=>$kin,'details'=>$details]);
     }
-
+public function patientShow($id){
+  return view('nurse.patientshow');
+}
     /**
      * Show the form for editing the specified resource.
      *

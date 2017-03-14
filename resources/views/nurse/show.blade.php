@@ -39,12 +39,25 @@
             </div>
             <div class="form-group">
            <label for="exampleInputPassword1">Phone</label>
-           <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Next of Kin Phone" name="phone" value="{{$patient->msisdn}}"/>
+           <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Next of Kin Phone" name="phone" value="{{$patient->msisdn}}" readonly=""/>
            </div>
+           <div class="form-group">
+          <label for="exampleInputPassword1">Constituency</label>
+          <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Next of Kin Phone" name="phone" value="<?php
+          if ($patient->constituency != "") {$county=DB::Table('constituency')->where('const_id',$patient->constituency)->first();
+          echo $county->Constituency;}
+          else{ echo "";} ?>" readonly=""/>
+          </div>
+          <div class="form-group">
+         <label for="exampleInputPassword1">County</label>
+         <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Next of Kin Phone" name="phone" value="<?php
+         if ($patient->constituency != "") {$county=DB::Table('county')->where('id',$county->cont_id)->first();
+         echo $county->county;}
+         else{ echo "";} ?>" readonly=""/>
+         </div>
 
 
-         <button type="submit" class="btn btn-primary btn-sm">Update Details</button>
-            {!! Form::close() !!}
+
             </div>
           </div>
         </div>

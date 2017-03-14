@@ -17,8 +17,10 @@ class RegistrarController extends Controller
      */
     public function index()
     {
-        $today = Carbon::today();
-        $users=DB::table('afya_users')   
+
+        $users=DB::table('afya_users')->
+        leftjoin('constituency','afya_users.constituency','=','constituency.const_id')->
+        select('afya_users.*','constituency.Constituency','constituency.cont_id')
         ->get();
         return view('registrar.index')->with('users',$users);
     }

@@ -65,8 +65,12 @@
                                                       @if($gender==1){{"Male"}}@else{{"Female"}}@endif</td>
                                                     <td>{{$user->dob or ''}}</td>
                                                     <td>{{$user->pob or ''}}</td>
-                                                    <td>{{$user->constituency or ''}}</td>
-                                                    <td>{{$user->constituency or ''}}</td>
+                                                    <td>{{$user->Constituency or ''}}</td>
+                                                    <td><?php
+                                                    if ($user->cont_id != "") {$county=DB::Table('county')->where('id',$user->cont_id)->first();
+                                                    echo $county->county;}
+                                                    else{ echo "";} ?>
+                                                  </td>
                                                     <td>{{$user->msisdn}}</td>
                                                    <td>{{$user->created_at}}</td>
                                                   </tr>

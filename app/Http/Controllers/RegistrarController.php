@@ -10,6 +10,10 @@ use Carbon\Carbon;
 
 class RegistrarController extends Controller
 {
+  public function __construct()
+  {
+      $this->middleware('auth');
+  }
     /**
      * Display a listing of the resource.
      *
@@ -17,10 +21,13 @@ class RegistrarController extends Controller
      */
     public function index()
     {
-
+        $today = Carbon::today();
         $users=DB::table('afya_users')->
+        join('afyamessages','afya_users.msisdn','=','afyamessages.msisdn')->
         leftjoin('constituency','afya_users.constituency','=','constituency.const_id')->
         select('afya_users.*','constituency.Constituency','constituency.cont_id')
+        ->where('afyamessages.dateCreated','>=',$today)
+        ->orderBy('afyamessages.dateCreated', 'desc')
         ->get();
         return view('registrar.index')->with('users',$users);
     }

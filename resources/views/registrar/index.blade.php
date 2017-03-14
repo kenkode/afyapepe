@@ -44,13 +44,16 @@
                                                           <th>Name</th>
                                                           <th>Age</th>
                                                           <th>Gender</th>
+                                                          <th>Phone</th>
+                                                          <th>Date</th>
+                                                          <th>Time</th>
 
                                                 <th>Date of Birth</th>
                                                   <th>Place of Birth</th>
                                                   <th>Constituency of Residence</th>
                                                   <th>County of Residence</th>
-                                                  <th>Phone</th>
-                                                          <th>Date</th>
+
+
                                                     </tr>
                                                   </thead>
 
@@ -63,6 +66,9 @@
                                                     <td><a href="{{URL('registrar.show',$user->id)}}">{{$user->age}}</a></td>
                                                     <td><?php $gender=$user->gender;?>
                                                       @if($gender==1){{"Male"}}@else{{"Female"}}@endif</td>
+                                                      <td>{{$user->msisdn}}</td>
+                                                     <td><?php $dt=$user->created_at; echo date("d-m-Y ", strtotime( $dt));?> </td>
+                                                    <td><?php $dy=$user->created_at; echo date("g-i-a ", strtotime( $dy));?></td>
                                                     <td>{{$user->dob or ''}}</td>
                                                     <td>{{$user->pob or ''}}</td>
                                                     <td>{{$user->Constituency or ''}}</td>
@@ -71,8 +77,7 @@
                                                     echo $county->county;}
                                                     else{ echo "";} ?>
                                                   </td>
-                                                    <td>{{$user->msisdn}}</td>
-                                                   <td>{{$user->created_at}}</td>
+
                                                   </tr>
                                                     <?php $i++; ?>
 

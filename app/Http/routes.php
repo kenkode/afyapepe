@@ -70,6 +70,7 @@ Route::group(['middleware' => ['auth','role:Admin|Nurse']], function() {
 	Route::post('nextkin','NurseController@nextkin');
 	Route::post('updatekin','NurseController@Updatekin');
 	Route::post('vaccine','NurseController@vaccine');
+	Route::post('updateuser','NurseController@updateUser');
   Route::post('nurse.show',['as'=>'createdetail','uses'=>'NurseController@createdetails']);
 });
 

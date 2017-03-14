@@ -2,13 +2,7 @@
 @section('title', 'Patient Details')
 @section('content')
 <div class="wrapper wrapper-content animated fadeInRight">
-   <div class="row">
-    <h3 class="marg"> Patient Details <b class="marg"> Nameb>
-     <b class="marg">Age:  </b> <b class="marg">Gender: <?php $gender=$patient->gender;?>@if($gender==1){{"Male"}}@else{{"Female"}}@endif</b></h3>
-      <hr>
-  </div>
-
-  <div class="row">
+     <div class="row">
     <div class="col-lg-6">
         <div class="ibox float-e-margins">
             <div class="ibox-title">
@@ -23,6 +17,9 @@
                 </div>
             </div>
             <div class="ibox-content">
+              <form class="form-horizontal" role="form" method="POST" action="/updateuser" novalidate>
+             <input type="hidden" name="_token" value="{{ csrf_token() }}">
+             <input type="hidden" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{$patient->id}}" name="id"  required>
               <div class="form-group">
              <label for="exampleInputEmail1">Name</label>
              <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Next Kin Name" name="kin_name"  value="{{$patient->firstname}}  {{$patient->secondName}}" readonly=""  >
@@ -41,19 +38,21 @@
             </div>
             <div class="form-group">
            <label for="exampleInputPassword1">Phone</label>
-           <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Next of Kin Phone" name="phone" value="{{$patient->msisdn}}" readonly  >
+           <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Next of Kin Phone" name="phone" value="{{$patient->msisdn}}"/>
            </div>
             <div class="form-group">
           <?php
           $ids=$patient->cont_id;
            $county=DB::table('county')->where('id','=',$ids)->first(); ?>
           <label for="exampleInputPassword1">County</label>
-          <input type="name" class="form-control" id="exampleInputPassword1" placeholder="Next of Kin Phone" name="phone" value="{{$county->county}}" readonly  >
+          <input type="name" class="form-control" id="exampleInputPassword1" placeholder="Next of Kin Phone" name="phone" value="{{$county->county}}" readonly=""/>
           </div>
           <div class="form-group">
          <label for="exampleInputPassword1">Constituency</label>
-         <input type="name" class="form-control" id="exampleInputPassword1" placeholder="Next of Kin Phone" name="phone" value="{{$patient->Constituency}}" readonly  >
+         <input type="name" class="form-control" id="exampleInputPassword1" placeholder="Next of Kin Phone" name="Constituency" value="{{$patient->Constituency}}"/>
          </div>
+         <button type="submit" class="btn btn-primary btn-sm">Update Details</button>
+            {!! Form::close() !!}
             </div>
           </div>
         </div>
@@ -241,7 +240,7 @@
          <td>{{$detail->diastolic_bp}}</td>
          <td>{{$detail->chief_compliant}}</td>
 
-          <td>More</td>
+          <td><i class="fa fa-search fa-lg" data-toggle="modal" data-target="#exampleModal"></i></td>
 
        </tr>
        <?php $i++; ?>

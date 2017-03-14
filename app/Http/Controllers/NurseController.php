@@ -185,6 +185,16 @@ class NurseController extends Controller
         //
     }
 
+    public function updateUser(Request $request)
+     {
+       $id=$request->id;
+       $phone=$request->phone;
+       $constituency=$request->Constituency;
+       DB::table('patients')->where('id', $id)
+                   ->update(['constituency_id' => $constituency,
+                             ]);
+       return Redirect::route('nurse.show', [$id]);
+     }
     /**
      * Display the specified resource.
      *

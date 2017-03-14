@@ -16,6 +16,7 @@
                     </a>
                 </div>
             </div>
+
             <div class="ibox-content">
               <form class="form-horizontal" role="form" method="POST" action="/updateuser" novalidate>
              <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -40,17 +41,8 @@
            <label for="exampleInputPassword1">Phone</label>
            <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Next of Kin Phone" name="phone" value="{{$patient->msisdn}}"/>
            </div>
-            <div class="form-group">
-          <?php
-          $ids=$patient->cont_id;
-           $county=DB::table('county')->where('id','=',$ids)->first(); ?>
-          <label for="exampleInputPassword1">County</label>
-          <input type="name" class="form-control" id="exampleInputPassword1" placeholder="Next of Kin Phone" name="phone" value="{{$county->county}}" readonly=""/>
-          </div>
-          <div class="form-group">
-         <label for="exampleInputPassword1">Constituency</label>
-         <input type="name" class="form-control" id="exampleInputPassword1" placeholder="Next of Kin Phone" name="Constituency" value="{{$patient->Constituency}}"/>
-         </div>
+
+          
          <button type="submit" class="btn btn-primary btn-sm">Update Details</button>
             {!! Form::close() !!}
             </div>

@@ -67,7 +67,7 @@
                                                     <td>{{$user->pob or ''}}</td>
                                                     <td>{{$user->constituency or ''}}</td>
                                                     <td>{{$user->constituency or ''}}</td>
-                                                   <td>{{$user->dateCreated}}</td>
+                                                   <td>{{$user->created_at}}</td>
                                                   </tr>
                                                     <?php $i++; ?>
 

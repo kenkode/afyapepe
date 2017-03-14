@@ -134,6 +134,8 @@ Route::group(['middleware' => ['auth','role:Admin|Patient']], function() {
 });
 Route::group(['middleware' => ['auth','role:Admin|Registrar']], function() {
 	Route::resource('registrar','RegistrarController');
+	Route::get('registrar.show/{id}','RegistrarController@showUser');
+	Route::post('updateusers','RegistrarController@updateUsers');
 
 });
 Route::group(['middleware' => ['auth','role:Admin|Test']], function() {

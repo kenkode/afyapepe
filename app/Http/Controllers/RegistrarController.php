@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use DB;
+use Carbon\Carbon;
 
 class RegistrarController extends Controller
 {
@@ -15,7 +17,32 @@ class RegistrarController extends Controller
      */
     public function index()
     {
-        return view('registrar.index');
+        $today = Carbon::today();
+        $users=DB::table('afyamessages')->
+        where('afyamessages.dateCreated','<=',$today)->
+        join('afya_users','afyamessages.msisdn','=','afya_users.msisdn')
+        ->select ('afya_users.*')
+        ->get();
+        return view('registrar.index')->with('users',$users);
+    }
+    public function   showUser($id){
+
+      $user=DB::table('afya_users')->where('id',$id)->first();
+      return view('registrar.show')->with('user',$user);
+    }
+
+    public function updateUsers(Request $request){
+      $id=$request->id;
+      $db=$request->date;
+      $pob=$request->place;
+      $constituency=$request->constituency;
+
+
+      DB::table('afya_users')->where('id',$id)->update(['dateofbirth' => $db,
+     'pob' => $pob,'constituency' =>$constituency]);
+
+   return redirect()->action('RegistrarController@index');
+
     }
 
     /**

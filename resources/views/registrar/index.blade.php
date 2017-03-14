@@ -55,8 +55,23 @@
                                                   </thead>
 
                                                   <tbody>
+                                                    <?php $i=1; ?>
+                                                    @foreach($users as $user)
+                                                  <tr>
+                                                    <td><a href="{{URL('registrar.show',$user->id)}}">{{$i}}</a></td>
+                                                    <td><a href="{{URL('registrar.show',$user->id)}}">{{$user->firstname}} {{$user->secondName}}</a></td>
+                                                    <td><a href="{{URL('registrar.show',$user->id)}}">{{$user->age}}</a></td>
+                                                    <td><?php $gender=$user->gender;?>
+                                                      @if($gender==1){{"Male"}}@else{{"Female"}}@endif</td>
+                                                    <td>{{$user->dob or ''}}</td>
+                                                    <td>{{$user->pob or ''}}</td>
+                                                    <td>{{$user->constituency or ''}}</td>
+                                                    <td>{{$user->constituency or ''}}</td>
+                                                   <td>{{$user->dateCreated}}</td>
+                                                  </tr>
+                                                    <?php $i++; ?>
 
-
+                                                 @endforeach
                                                    </tbody>
 
                                                  </table>

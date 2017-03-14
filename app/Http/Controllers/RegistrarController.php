@@ -37,9 +37,13 @@ class RegistrarController extends Controller
       $pob=$request->place;
       $constituency=$request->constituency;
 
-
-      DB::table('afya_users')->where('id',$id)->update(['dateofbirth' => $db,
-     'pob' => $pob,'constituency' =>$constituency]);
+      DB::table('afya_users')->where('id',$id)->
+      update([
+        'dob' => $db,
+     'pob' => $pob,
+     'constituency' =>$constituency,
+     'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+     'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
 
    return redirect()->action('RegistrarController@index');
 

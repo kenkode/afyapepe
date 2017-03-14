@@ -42,7 +42,7 @@
            <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Next of Kin Phone" name="phone" value="{{$patient->msisdn}}"/>
            </div>
 
-          
+
          <button type="submit" class="btn btn-primary btn-sm">Update Details</button>
             {!! Form::close() !!}
             </div>
@@ -232,7 +232,7 @@
          <td>{{$detail->diastolic_bp}}</td>
          <td>{{$detail->chief_compliant}}</td>
 
-          <td><i class="fa fa-search fa-lg" data-toggle="modal" data-target="#exampleModal"></i></td>
+          <td><a href="{{ URL('details', $detail->id) }}" class="fa fa-search fa-lg"></i></a></td>
 
        </tr>
        <?php $i++; ?>

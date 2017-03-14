@@ -18,10 +18,7 @@ class RegistrarController extends Controller
     public function index()
     {
         $today = Carbon::today();
-        $users=DB::table('afyamessages')->
-        where('afyamessages.dateCreated','<=',$today)->
-        join('afya_users','afyamessages.msisdn','=','afya_users.msisdn')
-        ->select ('afya_users.*')
+        $users=DB::table('afya_users')   
         ->get();
         return view('registrar.index')->with('users',$users);
     }

@@ -49,7 +49,7 @@
                                                   <th>Place of Birth</th>
                                                   <th>Constituency of Residence</th>
                                                   <th>County of Residence</th>
-
+                                                  <th>Phone</th>
                                                           <th>Date</th>
                                                     </tr>
                                                   </thead>
@@ -67,6 +67,7 @@
                                                     <td>{{$user->pob or ''}}</td>
                                                     <td>{{$user->constituency or ''}}</td>
                                                     <td>{{$user->constituency or ''}}</td>
+                                                    <td>{{$user->msisdn}}</td>
                                                    <td>{{$user->created_at}}</td>
                                                   </tr>
                                                     <?php $i++; ?>

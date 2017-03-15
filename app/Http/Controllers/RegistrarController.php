@@ -26,8 +26,9 @@ class RegistrarController extends Controller
         join('afyamessages','afya_users.msisdn','=','afyamessages.msisdn')->
         leftjoin('constituency','afya_users.constituency','=','constituency.const_id')->
         select('afya_users.*','constituency.Constituency','constituency.cont_id')
+        ->where('afyamessages.facilityCode',19310)
         ->where('afyamessages.dateCreated','>=',$today)
-        ->orderBy('afyamessages.dateCreated', 'desc')
+        ->distinct()
         ->get();
         return view('registrar.index')->with('users',$users);
     }
@@ -55,6 +56,74 @@ class RegistrarController extends Controller
 
     }
 
+    public function registrarNextkin(Request $request){
+      $phone=$request->phone;
+      $name=$request->kin_name;
+      $relationship=$request->relationship;
+      $id=$request->id;
+
+     DB::table('kin_details')->insert(
+     ['kin_name' => $name,
+     'relation' => $relationship,
+     'phone_of_kin'=> $phone,
+     'afya_user_id'=>$id,
+     'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+     'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
+ );
+     return redirect()->action('RegistrarController@showUser',[$id]);
+    }
+
+    public function updateKin($id){
+
+    return view('registrar.update')->with('id',$id);
+    }
+    public function registrarUpdatekin(Request $request){
+      $phone=$request->phone;
+      $name=$request->kin_name;
+      $relationship=$request->relationship;
+      $id=$request->id;
+      $userid=$request->userid;
+     DB::table('kin_details')->where('id',$id)->update(
+     ['kin_name' => $name,
+     'relation' => $relationship,
+     'phone_of_kin'=> $phone,
+     'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+     'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
+  );
+    return redirect()->action('RegistrarController@showUser',[$userid]);
+
+    }
+
+    public function consultationFee($id){
+
+      return view('registrar.consultationfee',[$id])->with('id',$id);
+    }
+
+    public function consultationFees(Request $request){
+      $id=$request->id;
+      $descr=$request->descr;
+      $type=$request->type;
+      $mode=$request->mode;
+      $amount=$request->amount;
+      DB::table('fees')->insert(
+      ['patient_id' => $id,
+      'type'=>$type,
+      'descr' => $descr,
+      'action'=> $mode,
+      'amount'=> $amount,
+      'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+      'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
+  );
+   return redirect()->action('RegistrarController@Fees');
+    }
+ public function Fees(){
+   $fees=DB::table('fees')->
+   join('afya_users','fees.patient_id','=','afya_users.id')->where('type','=','yes')
+   ->select('fees.*','afya_users.firstname','afya_users.secondName')->
+   orderby('fees.created_at','desc')->get();
+
+   return view('registrar.fees')->with('fees',$fees);
+ }
     /**
      * Show the form for creating a new resource.
      *

@@ -61,7 +61,7 @@
                                                           </td>
                                                           <td>{{$patient->age}}</td>
 
-                                                          <td>{{$patient->dateCreated}}</td>
+                                                          <td>{{$patient->created_at}}</td>
 
 
 

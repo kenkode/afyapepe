@@ -55,7 +55,7 @@
            placeholder: "Choose tags...",
            minimumInputLength: 2,
            ajax: {
-               url: '/tags/find',
+               url: '/tags/test',
                dataType: 'json',
                data: function (params) {
                    return {
@@ -71,7 +71,7 @@
            }
        });
 
-       $('#d_list2').select2({
+       $('.d_list2').select2({
            placeholder: "Choose tags...",
            minimumInputLength: 2,
            ajax: {
@@ -91,6 +91,50 @@
            }
        });
    </script>
+
+    <script>
+          $('.presc1').select2({
+              placeholder: "Choose tags...",
+              minimumInputLength: 2,
+              ajax: {
+                  url: '/tags/drugs',
+                  dataType: 'json',
+                  data: function (params) {
+                      return {
+                          q: $.trim(params.term)
+                      };
+                  },
+                  processResults: function (data) {
+                      return {
+                          results: data
+                      };
+                  },
+                  cache: true
+              }
+          });
+      </script>
+
+      <script>
+            $('.facility1').select2({
+                placeholder: "Choose tags...",
+                minimumInputLength: 2,
+                ajax: {
+                    url: '/tags/fac',
+                    dataType: 'json',
+                    data: function (params) {
+                        return {
+                            q: $.trim(params.term)
+                        };
+                    },
+                    processResults: function (data) {
+                        return {
+                            results: data
+                        };
+                    },
+                    cache: true
+                }
+            });
+        </script>
    <script>
        $(document).ready(function(){
            $('.dataTables-conditional').DataTable({

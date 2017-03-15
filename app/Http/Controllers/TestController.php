@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use DB;
-
 use App\Patient;
+use App\Druglist;
 class TestController extends Controller
 {
     /**
@@ -105,24 +105,7 @@ public function testAnalytics(){
             //
         }
 
-        function drugList(){
-       $drugs = DB::table('druglists')
-       ->get();
-      return $drugs;
-      }
 
-
-    function TestList(){
-   $tests = DB::table('test_details')
-   ->Join('tests', 'test_details.test_id', '=', 'tests.id')
-   ->select('test_details.*','tests.name')
-   ->get();
-  return $tests;
-  }
-function Diseases(){
- $diseases = DB::table('diseases') ->get();
-return $diseases;
-}
 // DB::table('users')->orderBy('id')->chunk(100, function($users)
 // $categories = \DB::table('categories')->orderBy('name')->take(10)->get();
 
@@ -146,5 +129,19 @@ return $frequency;
     ->get();
    return $testsd;
 }
+
+public function fdrugs(Request $request)
+ {
+     $term = trim($request->q);
+  if (empty($term)) {
+       return \Response::json([]);
+     }
+   $drugs = Druglist::search($term)->limit(20)->get();
+     $formatted_drugs = [];
+      foreach ($drugs as $drug) {
+         $formatted_drugs[] = ['id' => $drug->id, 'text' => $drug->drugname];
+     }
+ return \Response::json($formatted_drugs);
+ }
 
 }

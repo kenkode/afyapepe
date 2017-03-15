@@ -248,4 +248,207 @@ foreach($drugs as $druglist){
 </div><!--container-->
 </div><!--content -->
 </div><!--content page-->
+
+
+<!--tabs5-->
+<div id="tab-5" class="tab-pane">
+
+            {{ Form::open(array('route' => array('patienttest'),'method'=>'POST')) }}
+            <?php
+               use App\Facility;
+               $facilities = DB::table('facilities')
+               ->select('FacilityCode','FacilityName','KEPHLevel','Type','Beds',
+               'County','Constituency','Ward')
+               ->get();
+          ?>
+
+
+<div class="col-lg-12">
+<div class="tabs-container">
+<ulol class="nav nav-tabs tbg">
+<li class="active"><a data-toggle="tab" href="#tab-52"> Admit/Discharge</a></li>
+<li class=""><a data-toggle="tab" href="#tab-52">Refer</a></li>
+</ul>
+<div class="tab-content">
+<div id="tab-51" class="tab-pane active">
+<div class="panel-body">
+  {{ Form::open(array('route' => array('patientnotes'),'method'=>'POST')) }}
+  <div class="form-group">
+  <label for="role" class="col-md-4 control-label">Action</label>
+  <div class="col-md-6"><select class="form-control m-b" name="appointment_status" id="action" required >
+  <option value=''>Select ...</option>
+  <option value='4'>Admit</option>
+  <option value='3'>Discharge</option>
+ </select>
+  </div>
+  </div>
+    <div class="form-group" id="data_1">
+        <label class="font-normal">Next Appointment Date</label>
+        <div class="input-group date">
+            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+            <input type="text" class="form-control" name="next_appointment" value="">
+        </div>
+    </div>
+{{ Form::hidden('patient_id',$pdetails->pat_id, array('class' => 'form-control')) }}
+{{ Form::hidden('test_status',1, array('class' => 'form-control')) }}
+{{ Form::hidden('appointment_id',$pdetails->app_id, array('class' => 'form-control')) }}
+{{ Form::hidden('doc_id',$Docdata->doc_id, array('class' => 'form-control')) }}
+
+
+       <div class="form-group">
+         <br />
+         <label for="role" class="col-md-4 control-label">Doctor note</label>
+
+        {{ Form::textarea('doc_note', null, array('placeholder' => 'note..','class' => 'form-control col-lg-8')) }}
+      </div>
+
+
+<div class="form-group  text-center">
+<button type="submit" class="btn btn-primary">Submit</button>  </td>
+</div>
+{{ Form::close() }}
+</div>
+</div>
+<div id="tab-52" class="tab-pane">
+<div class="panel-body">
+  {{ Form::open(array('route' => array('patientnotes'),'method'=>'POST')) }}
+
+
+    <div class="form-group">
+    <label for="role" class="col-md-2 control-label">Facility</label>
+    <div class="col-md-8"><select class="js-example-placeholder-single " name="facility" id="js-example-placeholder-single">
+      @foreach($facilities as $fac)
+    <option value="{{$fac->FacilityCode}}">{{$fac->FacilityName}}  {{$fac->Type}} </option>
+    @endforeach
+    </select>
+    </div>
+    </div>
+      <div class="hr-line-dashed"></div>
+
+
+{{ Form::hidden('facility_from',$pdetails->FacilityName, array('class' => 'form-control')) }}
+{{ Form::hidden('appointment_status',5, array('class' => 'form-control')) }}
+{{ Form::hidden('patient_id',$pdetails->pat_id, array('class' => 'form-control')) }}
+
+{{ Form::hidden('appointment_id',$pdetails->app_id, array('class' => 'form-control')) }}
+{{ Form::hidden('doc_id',$Docdata->doc_id, array('class' => 'form-control')) }}
+
+
+<div class="form-group text-center">
+<label for="role" class="col-md-4 control-label">Doctro Note</label>
+{{ Form::textarea('doc_note', null, array('placeholder' => 'note..','class' => 'form-control col-lg-8')) }}
+</div><br />
+
+
+<div class="form-group  text-center">
+<button type="submit" class="btn btn-primary">Submit</button>  </td>
+</div>
+{{ Form::close() }}
+</div>
+</div>
+</div>
+
+ </div>
+</div>
+</div>    <!--tabs5-->
+    <div id="tab-5" class="tab-pane">
+
+                {{ Form::open(array('route' => array('patienttest'),'method'=>'POST')) }}
+                <?php
+                   use App\Facility;
+                   $facilities = DB::table('facilities')
+                   ->select('FacilityCode','FacilityName','KEPHLevel','Type','Beds',
+                   'County','Constituency','Ward')
+                   ->get();
+              ?>
+
+
+    <div class="col-lg-12">
+    <div class="tabs-container">
+    <ulol class="nav nav-tabs tbg">
+    <li class="active"><a data-toggle="tab" href="#tab-52"> Admit/Discharge</a></li>
+    <li class=""><a data-toggle="tab" href="#tab-52">Refer</a></li>
+    </ul>
+    <div class="tab-content">
+    <div id="tab-51" class="tab-pane active">
+    <div class="panel-body">
+      {{ Form::open(array('route' => array('patientnotes'),'method'=>'POST')) }}
+      <div class="form-group">
+      <label for="role" class="col-md-4 control-label">Action</label>
+      <div class="col-md-6"><select class="form-control m-b" name="appointment_status" id="action" required >
+      <option value=''>Select ...</option>
+      <option value='4'>Admit</option>
+      <option value='3'>Discharge</option>
+     </select>
+      </div>
+      </div>
+        <div class="form-group" id="data_1">
+            <label class="font-normal">Next Appointment Date</label>
+            <div class="input-group date">
+                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                <input type="text" class="form-control" name="next_appointment" value="">
+            </div>
+        </div>
+    {{ Form::hidden('patient_id',$pdetails->pat_id, array('class' => 'form-control')) }}
+    {{ Form::hidden('test_status',1, array('class' => 'form-control')) }}
+    {{ Form::hidden('appointment_id',$pdetails->app_id, array('class' => 'form-control')) }}
+    {{ Form::hidden('doc_id',$Docdata->doc_id, array('class' => 'form-control')) }}
+
+
+           <div class="form-group">
+             <br />
+             <label for="role" class="col-md-4 control-label">Doctor note</label>
+
+            {{ Form::textarea('doc_note', null, array('placeholder' => 'note..','class' => 'form-control col-lg-8')) }}
+          </div>
+
+
+    <div class="form-group  text-center">
+    <button type="submit" class="btn btn-primary">Submit</button>  </td>
+    </div>
+    {{ Form::close() }}
+    </div>
+    </div>
+    <div id="tab-52" class="tab-pane">
+    <div class="panel-body">
+      {{ Form::open(array('route' => array('patientnotes'),'method'=>'POST')) }}
+
+
+        <div class="form-group">
+        <label for="role" class="col-md-2 control-label">Facility</label>
+        <div class="col-md-8"><select class="js-example-placeholder-single " name="facility" id="js-example-placeholder-single">
+          @foreach($facilities as $fac)
+        <option value="{{$fac->FacilityCode}}">{{$fac->FacilityName}}  {{$fac->Type}} </option>
+        @endforeach
+        </select>
+        </div>
+        </div>
+          <div class="hr-line-dashed"></div>
+
+
+    {{ Form::hidden('facility_from',$pdetails->FacilityName, array('class' => 'form-control')) }}
+    {{ Form::hidden('appointment_status',5, array('class' => 'form-control')) }}
+    {{ Form::hidden('patient_id',$pdetails->pat_id, array('class' => 'form-control')) }}
+
+    {{ Form::hidden('appointment_id',$pdetails->app_id, array('class' => 'form-control')) }}
+    {{ Form::hidden('doc_id',$Docdata->doc_id, array('class' => 'form-control')) }}
+
+
+    <div class="form-group text-center">
+    <label for="role" class="col-md-4 control-label">Doctro Note</label>
+    {{ Form::textarea('doc_note', null, array('placeholder' => 'note..','class' => 'form-control col-lg-8')) }}
+    </div><br />
+
+
+    <div class="form-group  text-center">
+    <button type="submit" class="btn btn-primary">Submit</button>  </td>
+    </div>
+    {{ Form::close() }}
+    </div>
+    </div>
+    </div>
+
+     </div>
+    </div>
+</div>
 @endsection

@@ -1,9 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
 use App\Facility;
 use Session;
@@ -80,13 +78,6 @@ class FacilityController extends Controller
       return view('facility.edit')->with('facility',$facility);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
       $this->validate($request,array(
@@ -102,14 +93,21 @@ Session::flash('success','The facility was successfully updated!!');
 return redirect()->route('facility.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+    public function ffacility(Request $request)
+     {
+         $term = trim($request->q);
+             if (empty($term)) {
+              return \Response::json([]);
+         }
+
+         $facility = Facility::search($term)->limit(20)->get();
+          $formatted_facility = [];
+     foreach ($facility as $fac) {
+             $formatted_facility[] = ['id' => $fac->id, 'text' => $fac->FacilityName];
+         }
+
+         return \Response::json($formatted_facility);
+     }
+
+
 }

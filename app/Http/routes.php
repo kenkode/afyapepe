@@ -93,7 +93,10 @@ Route::group(['middleware' => ['auth','role:Admin|Nurse']], function() {
    Route::get('visit/{id}', [ 'as' => 'visit', 'uses' => 'PatientController@pvisit']);
 	 Route::Post('showpatient', [ 'as' => 'patientnotes', 'uses' => 'PatientController@PatientNotes']);
 	 Route::get('/tags/find', 'TagController@find');
+	 Route::get('/tags/test', 'TagController@ftest');
+	 Route::get('/tags/drugs', 'TestController@fdrugs');
    Route::get('/disis/find', 'DiseasesController@find');
+	 Route::get('/tags/fac', 'FacilityController@ffacility');
 
 
 	});

@@ -140,6 +140,9 @@ Route::group(['middleware' => ['auth','role:Admin|Registrar']], function() {
 	Route::post('registrarnextkin','RegistrarController@registrarNextkin');
 	Route::get('update/{id}','RegistrarController@updateKin');
 	Route::post('registrarupdatekin','RegistrarController@registrarUpdatekin');
+	Route::get('consultationfee/{id}','RegistrarController@consultationFee');
+	Route::post('consultationfee','RegistrarController@consultationFees');
+	Route::get('fees','RegistrarController@Fees');
 
 });
 Route::group(['middleware' => ['auth','role:Admin|Test']], function() {

@@ -94,6 +94,35 @@ class RegistrarController extends Controller
 
     }
 
+    public function consultationFee($id){
+
+      return view('registrar.consultationfee',[$id])->with('id',$id);
+    }
+
+    public function consultationFees(Request $request){
+      $id=$request->id;
+      $descr=$request->descr;
+      $type=$request->type;
+      $mode=$request->mode;
+      $amount=$request->amount;
+      DB::table('fees')->insert(
+      ['patient_id' => $id,
+      'type'=>$type,
+      'descr' => $descr,
+      'action'=> $mode,
+      'amount'=> $amount,
+      'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+      'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
+  );
+   return redirect()->action('RegistrarController@Fees');
+    }
+ public function Fees(){
+   $fees=DB::table('fees')->
+   join('afya_users','fees.patient_id','=','afya_users.id')->where('type','=','yes')
+   ->select('fees.*','afya_users.firstname','afya_users.secondName')->get();
+
+   return view('registrar.fees')->with('fees',$fees);
+ }
     /**
      * Show the form for creating a new resource.
      *

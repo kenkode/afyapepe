@@ -52,6 +52,7 @@
                                                   <th>Place of Birth</th>
                                                   <th>Constituency of Residence</th>
                                                   <th>County of Residence</th>
+                                                  <th>Consultation</th>
 
 
                                                     </tr>
@@ -77,7 +78,7 @@
                                                     echo $county->county;}
                                                     else{ echo "";} ?>
                                                   </td>
-
+                                                    <td><a href="{{ URL('consultationfee', $user->id) }}" class="fa fa-primary fa-sm"></i>Add</a></td>
                                                   </tr>
                                                     <?php $i++; ?>
 

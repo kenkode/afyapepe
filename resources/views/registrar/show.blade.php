@@ -129,7 +129,7 @@
               <div class="form-group">
               <label for="exampleInputPassword1">Relationship</label>
               <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Next Kin Name" name="relation"
-              value="{{$patient->relation}}"  readonly="">
+              value="<?php $county=DB::Table('kin')->where('id',$patient->relation)->first();?>{{$county->relation}}"  readonly="">
               </div>
 
               <div class="form-group">
@@ -139,11 +139,14 @@
               </div>
 
                       </div>
-
+        <a href="{{ URL('update', $patient->id) }}" class="btn btn-primary btn-sm">Update Details</a>
       {!! Form::close() !!}
               @endif
-              </div>
+
 </div>
+</div>
+</div>
+<div class="col-lg-6">
 </div>
 </div>
 

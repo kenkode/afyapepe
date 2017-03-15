@@ -73,6 +73,27 @@ class RegistrarController extends Controller
      return redirect()->action('RegistrarController@showUser',[$id]);
     }
 
+    public function updateKin($id){
+
+    return view('registrar.update')->with('id',$id);
+    }
+    public function registrarUpdatekin(Request $request){
+      $phone=$request->phone;
+      $name=$request->kin_name;
+      $relationship=$request->relationship;
+      $id=$request->id;
+      $userid=$request->userid;
+     DB::table('kin_details')->where('id',$id)->update(
+     ['kin_name' => $name,
+     'relation' => $relationship,
+     'phone_of_kin'=> $phone,
+     'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+     'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
+  );
+    return redirect()->action('RegistrarController@showUser',[$userid]);
+
+    }
+
     /**
      * Show the form for creating a new resource.
      *

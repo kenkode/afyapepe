@@ -138,6 +138,8 @@ Route::group(['middleware' => ['auth','role:Admin|Registrar']], function() {
 	Route::get('registrar.show/{id}','RegistrarController@showUser');
 	Route::post('updateusers','RegistrarController@updateUsers');
 	Route::post('registrarnextkin','RegistrarController@registrarNextkin');
+	Route::get('update/{id}','RegistrarController@updateKin');
+	Route::post('registrarupdatekin','RegistrarController@registrarUpdatekin');
 
 });
 Route::group(['middleware' => ['auth','role:Admin|Test']], function() {

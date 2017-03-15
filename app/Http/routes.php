@@ -61,12 +61,16 @@ Route::group(['middleware' => ['auth','role:Admin|Nurse']], function() {
 	Route::resource('nurse','NurseController');
 	Route::get('newpatient', 'NurseController@newPatient');
 	Route::get('waitingList', 'NurseController@wList');
-
+	Route::get('nurseappointment','NurseController@Appointment');
+	Route::get('calendarnurse','NurseController@Calendar');
+  Route::get('nurse.patientshow/{id}','NurseController@patientShow');
 	Route::get('nurse.createkin/{id}',['as'=>'createkin','uses'=>'NurseController@createnextkin']);
 	Route::get('nurse.vaccine/{id}',['as'=>'vaccinescreate','uses'=>'NurseController@vaccinescreate']);
   Route::get('nurse.details/{id}',['as'=>'details','uses'=>'NurseController@details']);
 	Route::post('nextkin','NurseController@nextkin');
+	Route::post('updatekin','NurseController@Updatekin');
 	Route::post('vaccine','NurseController@vaccine');
+	Route::post('updateuser','NurseController@updateUser');
   Route::post('nurse.show',['as'=>'createdetail','uses'=>'NurseController@createdetails']);
 });
 
@@ -75,7 +79,8 @@ Route::group(['middleware' => ['auth','role:Admin|Nurse']], function() {
 	Route::resource('doctor','DoctorController');
 	Route::get('doctorProfile', [ 'as' => 'doctorProfile', 'uses' => 'DoctorController@DocDetails']);
   Route::get('newpatients', [ 'as' => 'newpatients', 'uses' => 'DoctorController@newPatients']);
-
+  Route::get('appointment','DoctorController@Appointment');
+	Route::get('calendar','DoctorController@Calendar');
 	Route::get('patientsseen', 'DoctorController@seen');
 	Route::get('allpatients', 'DoctorController@all');
 	Route::resource('prescription', 'PrescriptionController@store');
@@ -129,6 +134,8 @@ Route::group(['middleware' => ['auth','role:Admin|Patient']], function() {
 });
 Route::group(['middleware' => ['auth','role:Admin|Registrar']], function() {
 	Route::resource('registrar','RegistrarController');
+	Route::get('registrar.show/{id}','RegistrarController@showUser');
+	Route::post('updateusers','RegistrarController@updateUsers');
 
 });
 Route::group(['middleware' => ['auth','role:Admin|Test']], function() {

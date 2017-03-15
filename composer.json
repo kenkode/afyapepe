@@ -11,7 +11,8 @@
         "zizaco/entrust": "5.2.x-dev",
         "doctrine/dbal": "^2.5",
         "sofa/eloquence": "~5.2",
-        "leyo/africastalkinglaravelgateway": "^1.0"
+        "leyo/africastalkinglaravelgateway": "^1.0",
+        "nesbot/carbon": "^1.22"
 
     },
     "require-dev": {

@@ -5,9 +5,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use DB;
+use Carbon\Carbon;
 
 class RegistrarController extends Controller
 {
+  public function __construct()
+  {
+      $this->middleware('auth');
+  }
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +21,38 @@ class RegistrarController extends Controller
      */
     public function index()
     {
-        return view('registrar.index');
+        $today = Carbon::today();
+        $users=DB::table('afya_users')->
+        join('afyamessages','afya_users.msisdn','=','afyamessages.msisdn')->
+        leftjoin('constituency','afya_users.constituency','=','constituency.const_id')->
+        select('afya_users.*','constituency.Constituency','constituency.cont_id')
+        ->where('afyamessages.dateCreated','>=',$today)
+        ->orderBy('afyamessages.dateCreated', 'desc')
+        ->get();
+        return view('registrar.index')->with('users',$users);
+    }
+    public function   showUser($id){
+
+      $user=DB::table('afya_users')->where('id',$id)->first();
+      return view('registrar.show')->with('user',$user);
+    }
+
+    public function updateUsers(Request $request){
+      $id=$request->id;
+      $db=$request->date;
+      $pob=$request->place;
+      $constituency=$request->constituency;
+
+      DB::table('afya_users')->where('id',$id)->
+      update([
+        'dob' => $db,
+     'pob' => $pob,
+     'constituency' =>$constituency,
+     'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+     'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
+
+   return redirect()->action('RegistrarController@index');
+
     }
 
     /**

@@ -72,7 +72,7 @@ class NurseController extends Controller
     public function nextkin(Request $request)
     {
      $phone=$request->phone;
-     $name=$request->name;
+     $name=$request->kin_name;
      $relationship=$request->relationship;
      $id=$request->id;
 
@@ -87,6 +87,22 @@ class NurseController extends Controller
      return Redirect::route('nurse.show', [$id]);
 
     }
+  public function Updatekin(Request $request){
+    $phone=$request->phone;
+    $name=$request->kin_name;
+    $relationship=$request->relationship;
+    $id=$request->id;
+   DB::table('kin_details')->where('afya_user_id',$id)->update(
+   ['kin_name' => $name,
+   'relation' => $relationship,
+   'phone_of_kin'=> $phone,
+   'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+   'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
+);
+    return Redirect::route('nurse.show', [$id]);
+
+
+  }
 
     public function vaccinescreate($id){
     return view('nurse.vaccine')->with('id',$id);
@@ -169,6 +185,16 @@ class NurseController extends Controller
         //
     }
 
+    public function updateUser(Request $request)
+     {
+       $id=$request->id;
+       $phone=$request->phone;
+       $constituency=$request->Constituency;
+       DB::table('patients')->where('id', $id)
+                   ->update(['constituency_id' => $constituency,
+                             ]);
+       return Redirect::route('nurse.show', [$id]);
+     }
     /**
      * Display the specified resource.
      *
@@ -178,8 +204,6 @@ class NurseController extends Controller
     public function show($id)
     {
       $patient= DB::table('afya_users')
-        ->Join('patients', 'afya_users.id', '=', 'patients.afya_user_id')
-        ->select('afya_users.*', 'patients.allergies')
         ->where('afya_users.id',$id)
         ->first();
 
@@ -190,6 +214,7 @@ class NurseController extends Controller
         ->first();
         $details=DB::table('triage_details')
         ->where('triage_details.patient_id',$id)
+        ->orderBy('id','desc')
         ->get();
 
         $vaccines =DB::table('vaccination')
@@ -197,9 +222,11 @@ class NurseController extends Controller
           ->select('vaccination.*', 'diseases.name')
           ->where('vaccination.userId',$id)
           ->get();
-          return view('nurse.show')->with('patient',$patient)->with('vaccines',$vaccines)->with('kin',$kin)->with('details',$details);
+          return view('nurse.show')->with('patient',$patient)->with(['vaccines'=>$vaccines,'kin'=>$kin,'details'=>$details]);
     }
-
+public function patientShow($id){
+  return view('nurse.patientshow');
+}
     /**
      * Show the form for editing the specified resource.
      *

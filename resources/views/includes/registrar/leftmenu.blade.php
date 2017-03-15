@@ -41,12 +41,9 @@
                          <li>
 
 
-                          <li><a href="{{ URL::to('#')}}"><i class="fa fa-users"></i> <span>All Patients</span>       <span class="badge"><?php echo $data; ?></span>
+                          <li><a href="{{ URL::to('#')}}"><i class="fa fa-users"></i> <span>All Patients</span>
 
-                           <li><a href="{{ URL::to('#') }}"><i class="fa fa-users"></i> <span>New Patients</span>       <span class="badge"><?php echo $newpatient; ?></span>
-
-
-
+                           <li><a href="{{ URL::to('#') }}"><i class="fa fa-users"></i> <span>New Patients</span>      
                           <a href="{{ URL::to('waitingList')}}">  <i class="fa fa-envelope "></i> <span>Email</span>
                           <a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i><span>Logout</span>
                          </li>

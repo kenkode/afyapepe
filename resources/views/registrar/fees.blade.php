@@ -12,11 +12,7 @@
                     <div class="ibox-title">
                         <h5>Consultation Fee </h5>
                         <div class="ibox-tools">
-                          @role('Patient')
-                           <a class="collapse-link">
-
-                          </a>  @endrole
-                            <a class="collapse-link">
+                                                      <a class="collapse-link">
                                 <i class="fa fa-chevron-up"></i>
                             </a>
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -62,8 +58,9 @@
             <td>{{$fee->descr}}</td>
             <td>{{$fee->amount}}</td>
           </tr>
+          <?php $i++ ?>
             @endforeach
-            <?php $i++ ?>
+
                      </tbody>
                    </table>
                        </div>

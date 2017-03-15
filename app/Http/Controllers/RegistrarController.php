@@ -119,7 +119,8 @@ class RegistrarController extends Controller
  public function Fees(){
    $fees=DB::table('fees')->
    join('afya_users','fees.patient_id','=','afya_users.id')->where('type','=','yes')
-   ->select('fees.*','afya_users.firstname','afya_users.secondName')->get();
+   ->select('fees.*','afya_users.firstname','afya_users.secondName')->
+   orderby('fees.created_at','desc')->get();
 
    return view('registrar.fees')->with('fees',$fees);
  }

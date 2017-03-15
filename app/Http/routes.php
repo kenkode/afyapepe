@@ -71,6 +71,7 @@ Route::group(['middleware' => ['auth','role:Admin|Nurse']], function() {
 	Route::post('updatekin','NurseController@Updatekin');
 	Route::post('vaccine','NurseController@vaccine');
 	Route::post('updateuser','NurseController@updateUser');
+
   Route::post('nurse.show',['as'=>'createdetail','uses'=>'NurseController@createdetails']);
 });
 
@@ -136,6 +137,7 @@ Route::group(['middleware' => ['auth','role:Admin|Registrar']], function() {
 	Route::resource('registrar','RegistrarController');
 	Route::get('registrar.show/{id}','RegistrarController@showUser');
 	Route::post('updateusers','RegistrarController@updateUsers');
+	Route::post('registrarnextkin','RegistrarController@registrarNextkin');
 
 });
 Route::group(['middleware' => ['auth','role:Admin|Test']], function() {

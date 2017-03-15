@@ -28,6 +28,7 @@ class RegistrarController extends Controller
         select('afya_users.*','constituency.Constituency','constituency.cont_id')
         ->where('afyamessages.dateCreated','>=',$today)
         ->orderBy('afyamessages.dateCreated', 'desc')
+        ->distinct()
         ->get();
         return view('registrar.index')->with('users',$users);
     }
@@ -53,6 +54,23 @@ class RegistrarController extends Controller
 
    return redirect()->action('RegistrarController@index');
 
+    }
+
+    public function registrarNextkin(Request $request){
+      $phone=$request->phone;
+      $name=$request->kin_name;
+      $relationship=$request->relationship;
+      $id=$request->id;
+
+     DB::table('kin_details')->insert(
+     ['kin_name' => $name,
+     'relation' => $relationship,
+     'phone_of_kin'=> $phone,
+     'afya_user_id'=>$id,
+     'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+     'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
+ );
+     return redirect()->action('RegistrarController@showUser',[$id]);
     }
 
     /**

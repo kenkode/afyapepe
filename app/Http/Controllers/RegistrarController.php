@@ -26,8 +26,8 @@ class RegistrarController extends Controller
         join('afyamessages','afya_users.msisdn','=','afyamessages.msisdn')->
         leftjoin('constituency','afya_users.constituency','=','constituency.const_id')->
         select('afya_users.*','constituency.Constituency','constituency.cont_id')
+        ->where('afyamessages.facilityCode',19310)
         ->where('afyamessages.dateCreated','>=',$today)
-        ->orderBy('afyamessages.dateCreated', 'desc')
         ->distinct()
         ->get();
         return view('registrar.index')->with('users',$users);

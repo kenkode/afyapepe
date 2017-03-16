@@ -117,8 +117,8 @@
   </div>
 </div>
 </div>
- <div class="row">
-   <div class="col-sm-8">
+
+   <div class="col-sm-12">
      <div class="ibox-content">
        <form class="form-horizontal" role="form" method="POST" action="/updateusers" novalidate>
       <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -154,10 +154,9 @@
     <button type="submit" class="btn btn-primary btn-sm">Update Details</button>
       {!! Form::close() !!}
 
-</div>
-</div>
-</div>
 
+</div>
+</div>
 
 @include('includes.default.footer')
 </div><!--content-->

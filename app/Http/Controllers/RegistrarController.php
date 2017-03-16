@@ -43,6 +43,7 @@ class RegistrarController extends Controller
       $idno=$request->idno;
       $db=$request->date;
       $pob=$request->place;
+      $email=$request->email;
       $constituency=$request->constituency;
 
       DB::table('afya_users')->where('id',$id)->

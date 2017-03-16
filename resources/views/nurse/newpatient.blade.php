@@ -3,7 +3,7 @@
 @section('title', 'New patients')
 @section('content')
   <div class="content-page  equal-height">
-      <span class="label label-info">New Patients</span>
+      <span class="label label-info"></span>
       <div class="content">
           <div class="container">
 

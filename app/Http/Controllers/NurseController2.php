@@ -38,7 +38,7 @@ class NurseController extends Controller
     public function wList(){
       $patients = DB::table('afya_users')
         ->Join('patients', 'afya_users.id', '=', 'patients.afya_user_id')
-        ->select('afya_users.*', 'patients.allergies')
+        ->select('afya_users.*')
         ->where('afya_users.status',2)
         ->get();
 
@@ -49,7 +49,7 @@ class NurseController extends Controller
     public function newPatient(){
       $patients = DB::table('afya_users')
         ->Join('patients', 'afya_users.id', '=', 'patients.afya_user_id')
-        ->select('afya_users.*', 'patients.allergies')
+        ->select('afya_users.*')
         ->where('afya_users.status',1)
         ->get();
         return view('nurse.newpatient')->with('patients',$patients);
@@ -176,7 +176,7 @@ class NurseController extends Controller
     {
       $patient= DB::table('afya_users')
         ->Join('patients', 'afya_users.id', '=', 'patients.afya_user_id')
-        ->select('afya_users.*', 'patients.allergies')
+        ->select('afya_users.*')
         ->where('afya_users.id',$id)
         ->first();
 

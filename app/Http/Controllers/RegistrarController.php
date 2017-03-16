@@ -128,6 +128,13 @@ class RegistrarController extends Controller
  'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
  'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
 
+ DB::table('patients')->insert(
+ ['afya_user_id' => $id,
+ 'status'=>1,
+ 'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+ 'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
+);
+
    return redirect()->action('RegistrarController@index');
     }
  public function Fees(){

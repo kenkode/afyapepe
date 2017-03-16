@@ -20,10 +20,7 @@ class NurseController extends Controller
      }
     public function index()
     {
-      $patients = DB::table('afya_users')
-        ->Join('patients', 'afya_users.id', '=', 'patients.afya_user_id')
-        ->select('afya_users.*', 'patients.allergies')
-        ->get();
+      $patients=DB::table('afya_users')->get();
       return view('nurse.home')->with('patients',$patients);
     }
 

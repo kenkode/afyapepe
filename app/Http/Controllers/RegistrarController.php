@@ -40,6 +40,7 @@ class RegistrarController extends Controller
 
     public function updateUsers(Request $request){
       $id=$request->id;
+      $idno=$request->idno;
       $db=$request->date;
       $pob=$request->place;
       $constituency=$request->constituency;
@@ -48,6 +49,8 @@ class RegistrarController extends Controller
       update([
         'dob' => $db,
      'pob' => $pob,
+     'nationalId'=>$idno,
+     'email'=>$email,
      'constituency' =>$constituency,
      'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
      'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);

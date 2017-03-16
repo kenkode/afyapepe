@@ -156,7 +156,7 @@
 </div>
 </div>
 
-@include('includes.default.footer')
+
 
 
 

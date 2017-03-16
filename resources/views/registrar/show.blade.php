@@ -63,7 +63,8 @@
 
   <div class="form-group">
  <label for="exampleInputPassword1">Constituency</label>
- <select class="form-control" name="constituency">
+ <select class="js-example-placeholder-single " name="constituency" id="js-example-placeholder-single">
+
  <?php  $kin = DB::table('constituency')->get();?>
                @foreach($kin as $kn)
                 <option value="{{$kn->const_id}}">{{$kn->Constituency}}</option>

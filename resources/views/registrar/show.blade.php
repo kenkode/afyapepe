@@ -125,7 +125,7 @@
       <input type="hidden" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{$user->id}}" name="id"  required>
       <div class="form-group">
      <label for="exampleInputEmail1">Idno</label>
-     <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  name="idno" />
+     <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  name="idno" />
      </div>
      <div class="form-group">
     <label for="exampleInputEmail1">Email</label>

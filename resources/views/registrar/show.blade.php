@@ -135,13 +135,10 @@
       <label for="exampleInputEmail1">Date of Birth</label>
       <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  name="date" />
       </div>
-
-
        <div class="form-group">
       <label for="exampleInputPassword1">Place of Birth</label>
       <input type="text"  class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  name="place"/>
       </div>
-
      <div class="form-group">
     <label for="exampleInputPassword1">Constituency</label>
     <select class="form-control" name="constituency">

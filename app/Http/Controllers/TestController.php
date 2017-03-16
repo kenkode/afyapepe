@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use DB;
 use App\Patient;
 use App\Druglist;
+use App\Test;
+use App\TestDetails;
 class TestController extends Controller
 {
     /**
@@ -143,5 +145,6 @@ public function fdrugs(Request $request)
      }
  return \Response::json($formatted_drugs);
  }
+
 
 }

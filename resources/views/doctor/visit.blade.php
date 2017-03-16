@@ -1,5 +1,5 @@
 
-@extends('layouts.doctor2')
+@extends('layouts.show')
 @section('title', 'vist')
 @section('content')
 <div class="row  border-bottom white-bg dashboard-header">

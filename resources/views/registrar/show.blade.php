@@ -18,13 +18,10 @@
                 </div>
             </div>
             <div class="ibox-content">
-
               <div class="form-group">
              <label for="exampleInputEmail1">Name</label>
              <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Next Kin Name" name="kin_name"  value="{{$user->firstname}}  {{$user->secondName}}" readonly=""  >
              </div>
-
-
               <div class="form-group">
              <label for="exampleInputPassword1">Age</label>
              <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Next of Kin Phone" name="phone" value="{{$user->age}}" readonly  >
@@ -40,12 +37,9 @@
            <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Next of Kin Phone" name="phone" value="{{$user->msisdn}}" readonly=""/>
            </div>
 
-
-
-            </div>
           </div>
         </div>
-
+</div>
         <?php $patient=DB::Table('kin_details')->where('afya_user_id',$user->id)->first();?>
 
  <div class="col-lg-6">
@@ -117,9 +111,10 @@
  </div>
 
 
-</div>
+
 </div>
      <div class="row">
+       @if(is_null($user->nhif))
    <div class="col-sm-6">
      <div class="ibox-content">
        <form class="form-horizontal" role="form" method="POST" action="/updateusers" novalidate>
@@ -156,7 +151,46 @@
     </div>
     <button type="submit" class="btn btn-primary btn-sm">Update Details</button>
       {!! Form::close() !!}
+      @else
+      <div class="col-sm-6">
+        <div class="ibox-content">
+          <form class="form-horizontal" role="form" method="POST" action="/updateusers" novalidate>
+         <input type="hidden" name="_token" value="{{ csrf_token() }}">
+         <input type="hidden" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{$user->id}}" name="id"  required>
+         <div class="form-group">
+        <label for="exampleInputEmail1">Id Number</label>
+        <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  value="{{$user->nationalId}}"  name="idno" readonly="" />
+        </div>
+        <div class="form-group">
+       <label for="exampleInputEmail1">NHIF</label>
+       <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  value="{{$user->nhif}}" readonly=""/>
+       </div>
+        <div class="form-group">
+       <label for="exampleInputEmail1">Email</label>
+       <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  value="{{$user->email}}" readonly=""/>
+       </div>
+          <div class="form-group">
+         <label for="exampleInputEmail1">Date of Birth</label>
+         <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  value="{{$user->dob}}" readonly="" />
+         </div>
+          <div class="form-group">
+         <label for="exampleInputPassword1">Place of Birth</label>
+         <input type="text"  class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  value="{{$user->pob}}" readonly=""/>
+         </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">County</label>
+          <input type="text"  class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<?php $const=DB::table('constituency')->where('const_id',$user->constituency)->first();
+          $county=DB::Table('county')->where('id',$const->cont_id)->first();?>{{$county->county}}"  name="place" readonly=""/>
 
+       </div>
+       <div class="form-group">
+         <label for="exampleInputPassword1">Constituency</label>
+         <input type="text"  class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<?php $countys=DB::Table('constituency')->where('const_id',$user->constituency)->first();?>{{$countys->Constituency}}" readonly=""/>
+
+      </div>
+       <button type="submit" class="btn btn-primary btn-sm">Update Details</button>
+         {!! Form::close() !!}
+@endif
 
 </div>
 </div>

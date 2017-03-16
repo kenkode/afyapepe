@@ -59,7 +59,7 @@ class RegistrarController extends Controller
      'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
      'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
 
-   return redirect()->action('RegistrarController@index');
+  return redirect()->action('RegistrarController@showUser',[$id]);
 
     }
 

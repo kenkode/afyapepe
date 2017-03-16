@@ -52,7 +52,7 @@
                                                   <th>Place of Birth</th>
                                                   <th>Constituency of Residence</th>
                                                   <th>County of Residence</th>
-                                                  <th>Consultation</th>
+                                                
 
 
                                                     </tr>
@@ -67,7 +67,7 @@
                                                     <td><a href="{{URL('registrar.show',$user->id)}}">{{$user->age}}</a></td>
                                                     <td><?php $gender=$user->gender;?>
                                                       @if($gender==1){{"Male"}}@else{{"Female"}}@endif</td>
-                                                    
+
                                                      <td><?php $dt=$user->created_at; echo date("d-m-Y ", strtotime( $dt));?> </td>
                                                     <td><?php $dy=$user->created_at; echo date("g-i-a ", strtotime( $dy));?></td>
                                                     <td>{{$user->dob or ''}}</td>
@@ -78,7 +78,7 @@
                                                     echo $county->county;}
                                                     else{ echo "";} ?>
                                                   </td>
-                                                    <td><a href="{{ URL('consultationfee', $user->id) }}" class="fa fa-primary fa-sm"></i>Add</a></td>
+
                                                   </tr>
                                                     <?php $i++; ?>
 

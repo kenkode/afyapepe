@@ -113,20 +113,26 @@
                @endif
 
  </div>
+ </div>
+ </div>
 
-  </div>
+
 </div>
 </div>
-
-   <div class="col-sm-12">
+     <div class="row">
+   <div class="col-sm-6">
      <div class="ibox-content">
        <form class="form-horizontal" role="form" method="POST" action="/updateusers" novalidate>
       <input type="hidden" name="_token" value="{{ csrf_token() }}">
       <input type="hidden" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{$user->id}}" name="id"  required>
       <div class="form-group">
-     <label for="exampleInputEmail1">Idno</label>
+     <label for="exampleInputEmail1">Id Number</label>
      <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  name="idno" />
      </div>
+     <div class="form-group">
+    <label for="exampleInputEmail1">NHIF</label>
+    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  name="nhif" />
+    </div>
      <div class="form-group">
     <label for="exampleInputEmail1">Email</label>
     <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  name="email" />
@@ -154,10 +160,42 @@
 
 </div>
 </div>
+<div class="col-sm-6">
+  <div class="ibox float-e-margins">
+    <div class="ibox-title">
+        <h5>Consultation description</h5>
+
+    </div>
+    <div class="ibox-content">
+    <form class="form-horizontal" role="form" method="POST" action="/consultationfee" novalidate>
+
+<input type="hidden" name="_token" value="{{ csrf_token() }}">
+  <input type="hidden" class="form-control" id="exampleInputEmail1S" aria-describedby="emailHelp" value="{{$user->id}}" name="id"  required>
+
+    <div class="form-group">
+<label class="control-label" for="name">Consultation Fee ?</label>
+<input type="radio" value="no" id="type" name="type" checked='checked' autocomplete="off" />
+  <label>No</label>
+        <input type="radio" value="yes" id="type" name="type" class="youtube" />
+      <label>Yes</label>
+      <div id="embedcode">
+    Payment Mode: <select name="mode"><option value="">Select</option><option value="Cash">Cash</option><option value="Mpesa">Mpesa</option><option value="Insurance">Insurance</option></select>
+     Amount: <input type="number"  placeholder="Amount" name="amount" >
+    </div>
+  </div>
+
+  <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+    {!! Form::close() !!}
+    </div>
+  </div>
 </div>
+</div>
+</div>
+<br>
 
 
-
-
+@include('includes.default.footer')
+          </div><!--content-->
+      </div><!--content page-->
 
 @endsection

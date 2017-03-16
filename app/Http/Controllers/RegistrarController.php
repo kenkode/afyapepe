@@ -27,7 +27,8 @@ class RegistrarController extends Controller
         leftjoin('constituency','afya_users.constituency','=','constituency.const_id')->
         select('afya_users.*','constituency.Constituency','constituency.cont_id')
         ->where('afyamessages.facilityCode',19310)
-        ->where('afyamessages.dateCreated','>=',$today)
+        ->where('afyamessages.created_at','>=',$today)
+        ->where('afyamessages.status','=',NULL)
         ->distinct()
         ->get();
         return view('registrar.index')->with('users',$users);
@@ -45,11 +46,13 @@ class RegistrarController extends Controller
       $pob=$request->place;
       $email=$request->email;
       $constituency=$request->constituency;
+      $nhif=$request->nhif;
 
       DB::table('afya_users')->where('id',$id)->
       update([
         'dob' => $db,
      'pob' => $pob,
+     'nhif'=>$nhif,
      'nationalId'=>$idno,
      'email'=>$email,
      'constituency' =>$constituency,
@@ -118,7 +121,14 @@ class RegistrarController extends Controller
       'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
       'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
   );
-   return redirect()->action('RegistrarController@Fees');
+  $phone=DB::Table('afya_users')->where('id',$id)->select('msisdn')->first();
+  DB::table('afyamessages')->where('msisdn',$phone->msisdn)->
+  update([
+ 'status' => 1,
+ 'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+ 'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
+
+   return redirect()->action('RegistrarController@index');
     }
  public function Fees(){
    $fees=DB::table('fees')->

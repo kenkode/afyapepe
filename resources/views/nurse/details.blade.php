@@ -53,13 +53,13 @@
       <div class="ibox-content">
 
     <div class="form-group">
-    <label for="exampleInputEmail1">Allergies</label>
-    <select class="form-control" name="allergies">
+    <label for="exampleInputEmail1">Allergies</label><br>
+
     <?php  $allergies = DB::table('allergies')->get();?>
                   @foreach($allergies as $allergy)
-                   <option value="{{$allergy->id}}">{{$allergy->name}}</option>
+                  <input type="checkbox" name="{{$allergy->id}}"> {{$allergy->name}}
                  @endforeach
-                </select>
+
     </div>
     <div class="form-group">
     <label for="exampleInputPassword1">Chief-Compliant</label>

@@ -26,7 +26,7 @@
                          <li><a href="{{ URL::to('#') }}"><i class="fa fa-money"></i> <span>Patients</span> </a>
                            <ul class="dropdown-menu animated fadeInRight m-t-xs">
 
-                             <li><a href="{{ url('newpatients') }}"><span>Today's Patient</span></a></li>
+                             <li><a href="{{ url('doctor') }}"><span>Today's Patient</span></a></li>
                              <li><a href="{{ url('allpatients') }}"><span>Admitted Patients</span></a></li>
                              <li><a href="{{ url('allpatients') }}"><span>Appointment</span></a></li>
 

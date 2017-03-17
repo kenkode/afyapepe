@@ -177,6 +177,17 @@
       {!! Form::close() !!}
       @else
       <div class="col-sm-6">
+        <div class="ibox-title">
+            <h5>Patient Contact Details</h5>
+            <div class="ibox-tools">
+                <a class="collapse-link">
+                    <i class="fa fa-chevron-up"></i>
+                </a>
+                 <a class="close-link">
+                    <i class="fa fa-times"></i>
+                </a>
+            </div>
+        </div>
         <div class="ibox-content">
           <form class="form-horizontal" role="form" method="POST" action="/updateusers" novalidate>
          <input type="hidden" name="_token" value="{{ csrf_token() }}">

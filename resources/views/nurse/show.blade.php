@@ -245,7 +245,7 @@
          <td>{{$detail->diastolic_bp}}</td>
          <td>{{$detail->chief_compliant}}</td>
 
-          <td><a href="{{ URL('details', $detail->id) }}" class="fa fa-search fa-lg"></i></a></td>
+          <td><a href="#" class="fa fa-search fa-lg"></i></a></td>
 
        </tr>
        <?php $i++; ?>

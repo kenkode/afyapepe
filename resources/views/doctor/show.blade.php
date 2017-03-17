@@ -32,7 +32,7 @@ return redirect('doctor.create');
         $pname = $pdetails->firstname;
         $lname = $pdetails->secondName;
         $age = $pdetails->dob;
-        $nid = $pdetails->national_id;
+        $nid = $pdetails->nationalId;
         $appoid = $pdetails->app_id;
         $appdate = $pdetails->created_at;
         $facilty = $pdetails->FacilityName;
@@ -41,7 +41,7 @@ return redirect('doctor.create');
         $temperature = $pdetails->temperature;
         $systolic = $pdetails->systolic_bp;
         $diastolic = $pdetails->diastolic_bp;
-        $allergies = $pdetails->allergies;
+
         $complain = $pdetails->chief_compliant;
         $observations = $pdetails->observation;
         $gender = $pdetails->gender;
@@ -66,7 +66,6 @@ return redirect('doctor.create');
         }
 }
 ?>
-
 
     <div class="ibox-title">
         <h5>{{$facilty}}</h5>
@@ -160,9 +159,7 @@ return redirect('doctor.create');
                                       <div class="col-md-4">
                                       <h5><strong>Diastolic BP</strong><?php echo $diastolic;?></h5>
                                       </div>
-                                      <div class="col-md-4">
-                                       <h5><strong>Allergies:</strong><?php echo $allergies;?></h5>
-                                      </div>
+
                                     </div>
                               </div>
 
@@ -467,7 +464,7 @@ return redirect('doctor.create');
                             <div class="panel-body">
                                     {{ Form::open(array('route' => array('patientnotes'),'method'=>'POST')) }}
                                     <div class="form-group col-md-8 col-md-offset-1">
-                                        <label for="presc">Facility:</label> 
+                                        <label for="presc">Facility:</label>
                                         <select id="facility" name="facility" class="form-control facility1" ></select>
                                     </div>
 

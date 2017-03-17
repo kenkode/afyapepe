@@ -37,7 +37,7 @@
               $pname = $pdetails->firstname;
               $lname = $pdetails->secondName;
               $age = $pdetails->dob;
-              $nid = $pdetails->national_id;
+              $nid = $pdetails->nationalId;
               $appoid = $pdetails->app_id;
               $appdate = $pdetails->created_at;
               $facilty = $pdetails->FacilityName;
@@ -46,7 +46,7 @@
               $temperature = $pdetails->temperature;
               $systolic = $pdetails->systolic_bp;
               $diastolic = $pdetails->diastolic_bp;
-              $allergies = $pdetails->allergies;
+
               $complain = $pdetails->chief_compliant;
               $observations = $pdetails->observation;
               $gender = $pdetails->gender;
@@ -117,7 +117,7 @@
 
 
     <div class="tabs-container">
-  <ul class="nav nav-tabs tbg">
+  <ul class="nav nav-tabs">
       <li class="active"><a data-toggle="tab" href="#tab-1" aria-expanded="true"> HOME</a></li>
       <li class=""><a data-toggle="tab" href="#tab-2" aria-expanded="false">HISTORY</a></li>
       <li class=""><a data-toggle="tab" href="#tab-3" aria-expanded="false">TESTS</a></li>
@@ -197,8 +197,7 @@
                      <tr>
                         <td><strong>Diastolic BP:</strong></td>
                         <td><?php echo $diastolic;?></td>
-                        <td><strong>Allergies:</strong></td>
-                        <td><?php echo $allergies;?></td>
+
 
                      </tr>
 

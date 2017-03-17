@@ -34,17 +34,7 @@
     <label for="exampleInputEmail1">Diastolic BP</label>
     <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Diastolic BP" name="diastolic"  required>
     </div>
-    <div class="form-group">
-  <label class="control-label" for="name">Consultation Fee ?</label>
-  <input type="radio" value="no" id="type" name="type" checked='checked' autocomplete="off" />
-    <label>No</label>
-          <input type="radio" value="yes" id="type" name="type" class="youtube" />
-        <label>Yes</label>
-        <div id="embedcode">
-      Payment Mode: <select name="mode"><option value="">Select</option><option value="Cash">Cash</option><option value="Mpesa">Mpesa</option><option value="Insurance">Insurance</option></select>
-       Amount: <input type="number"  placeholder="Amount" name="amount" >
-      </div>
-    </div>
+
     </div>
     </div>
   </div>

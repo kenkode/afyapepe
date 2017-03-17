@@ -7,7 +7,7 @@
     <div class="col-lg-6">
         <div class="ibox float-e-margins">
             <div class="ibox-title">
-                <h5>Patient Details</h5>
+                <h5>Patient Information</h5>
                 <div class="ibox-tools">
                     <a class="collapse-link">
                         <i class="fa fa-chevron-up"></i>
@@ -33,9 +33,21 @@
              value="@if($gender==1){{"Male"}}@else{{"Female"}}@endif " readonly  >
             </div>
             <div class="form-group">
-           <label for="exampleInputPassword1">Phone</label>
-           <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Next of Kin Phone" name="phone" value="{{$user->msisdn}}" readonly=""/>
+           <label for="exampleInputPassword1">Date of Birth</label>
+           <input type="text" class="form-control" id="exampleInputPassword1" placeholder="date of birth" name="phone" value="{{$user->dob}}" readonly=""/>
            </div>
+           <div class="form-group">
+          <label for="exampleInputPassword1">Place of Birth</label>
+          <input type="text" class="form-control" id="exampleInputPassword1" placeholder="place of birth" name="phone" value="{{$user->pob}}" readonly=""/>
+          </div>
+          <div class="form-group">
+         <label for="exampleInputPassword1">Id Number</label>
+         <input type="number" class="form-control" id="exampleInputPassword1" placeholder="id number" name="phone" value="{{$user->nationalId}}" readonly=""/>
+         </div>
+         <div class="form-group">
+        <label for="exampleInputPassword1">NHIF</label>
+        <input type="number" class="form-control" id="exampleInputPassword1" placeholder="nhif" name="phone" value="{{$user->nhif}}" readonly=""/>
+        </div>
 
           </div>
         </div>
@@ -115,7 +127,19 @@
 </div>
      <div class="row">
        @if(is_null($user->nhif))
+
    <div class="col-sm-6">
+     <div class="ibox-title">
+         <h5>Patient Contact Details</h5>
+         <div class="ibox-tools">
+             <a class="collapse-link">
+                 <i class="fa fa-chevron-up"></i>
+             </a>
+              <a class="close-link">
+                 <i class="fa fa-times"></i>
+             </a>
+         </div>
+     </div>
      <div class="ibox-content">
        <form class="form-horizontal" role="form" method="POST" action="/updateusers" novalidate>
       <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -157,25 +181,16 @@
           <form class="form-horizontal" role="form" method="POST" action="/updateusers" novalidate>
          <input type="hidden" name="_token" value="{{ csrf_token() }}">
          <input type="hidden" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{$user->id}}" name="id"  required>
-         <div class="form-group">
-        <label for="exampleInputEmail1">Id Number</label>
-        <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  value="{{$user->nationalId}}"  name="idno" readonly="" />
-        </div>
-        <div class="form-group">
-       <label for="exampleInputEmail1">NHIF</label>
-       <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  value="{{$user->nhif}}" readonly=""/>
-       </div>
-        <div class="form-group">
-       <label for="exampleInputEmail1">Email</label>
-       <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  value="{{$user->email}}" readonly=""/>
-       </div>
+
+
+
           <div class="form-group">
-         <label for="exampleInputEmail1">Date of Birth</label>
-         <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  value="{{$user->dob}}" readonly="" />
+         <label for="exampleInputEmail1">Phone Number</label>
+         <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  value="{{$user->msisdn}}" readonly="" />
          </div>
           <div class="form-group">
-         <label for="exampleInputPassword1">Place of Birth</label>
-         <input type="text"  class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  value="{{$user->pob}}" readonly=""/>
+         <label for="exampleInputPassword1">Email Address</label>
+         <input type="text"  class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  value="{{$user->email}}" readonly=""/>
          </div>
         <div class="form-group">
           <label for="exampleInputPassword1">County</label>

@@ -52,7 +52,7 @@
                                                   <th>Place of Birth</th>
                                                   <th>Constituency of Residence</th>
                                                   <th>County of Residence</th>
-                                                
+
 
 
                                                     </tr>

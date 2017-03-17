@@ -150,7 +150,7 @@ class NurseController extends Controller
 
 );
 DB::table('appointments')->insert(
-['patient_id' => $id,
+['afya_user_id' => $id,
 'status'=>1,
 'facility_id'=>19310,
 'doc_id'=>$doctor,

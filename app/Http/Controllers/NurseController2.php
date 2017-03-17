@@ -147,6 +147,16 @@ class NurseController extends Controller
     'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
 
 );
+DB::table('appointments')->insert(
+['patient_id' => $id,
+'status'=>1,
+'facility_id'=>19310,
+'doc_id'=>$doctor,
+'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
+
+);
+
 
         return Redirect::route('nurse.show', [$id]);
     }

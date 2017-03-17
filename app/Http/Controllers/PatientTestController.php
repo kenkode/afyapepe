@@ -30,64 +30,37 @@ class PatientTestController extends Controller
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-//      public function store(Request $request)
-//
-//          {
-//            $this->validate($request, [
-//            'patient_id' => 'required',
-//            'doc_id' => 'required',
-//            'test_status' => 'required',
-//            'appointment_id' => 'required',
-//          ]);
-//
-//       $id = $request->input('appointment_id');
-//       $testRecmd = $request->input('test');
-//      $doc_note => $request->get('doc_note'),
-// if( is_array( $testRecmd) ) {
-//
-//
-//              foreach ($request->input('test') as $key => $value) {
-//
-//                $PatientTest = Patienttest ::create([
-//                  'test_reccommended' => $value,
-//                  'conditional_diagnosis' => $request->get('conditional'),
-//
-//                  'patient_id' => $request->get('patient_id'),
-//                  'doc_id' => $request->get('doc_id'),
-//                  'test_status' => $request->get('test_status'),
-//                  'appointment_id' => $request->get('appointment_id'),
-//
-//                ]);
-//         }
-//       }
-//       if(empty($doc_note)) {
-//
-//
-//             }esle{
-//               DB::table('patientNotes')->insert([
-//                   'patient_id'  => $request->get('patient_id'),
-//                   'appointment_id'  => $request->get('appointment_id'),
-//                   'note'  => $request->get('doc_note'),
-//                   'purpose'  = 'TEST';
-//               ]);
-//             }
-//   return redirect()->route('showPatient', ['id' => $id]);
-//          }
+
 public function store(Request $request)
 {
-  $task = new Task;
-   $task->customer = Input::get('customer');
-   $task->details = Input::get('details');
-   $task->date = $start_day;
-   $task->status = '0';
-   $task->save();
-}
+
+            $this->validate($request, [
+          'patient_id' => 'required',
+          'doc_id' => 'required',
+          'conditional' => 'required',
+          'appointment_id' => 'required',
+          ]);
+       $id = $request->input('appointment_id');
+                     $PatientTest = Patienttest ::create([
+                        'test_reccommended' => $request->get('test'),
+                        'conditional_diagnosis' => $request->get('conditional'),
+                        'patient_id' => $request->get('patient_id'),
+                        'doc_id' => $request->get('doc_id'),
+                        'appointment_id' => $request->get('appointment_id'),
+                                  ]);
+                         $ptid = $PatientTest->id;
+
+   $patienttd = DB::table('patient_test_details')->insertGetId(
+             [
+               'patient_test_id' => $ptid,
+               'tests_reccommended' => $request->get('test'),
+               'appointment_id'=> $request->get('appointment_id')
+
+             ]
+           );
+      return redirect()->route('showPatient', ['id' => $id]);
+      }
+
 
     /**
      * Display the specified resource.

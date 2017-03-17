@@ -16,7 +16,7 @@
     <!-- <link rel="stylesheet" href="{{asset('css/bootstrap.min.css') }}" /> -->
     <link rel="stylesheet" href="{{asset('font-awesome/css/font-awesome.css') }}" />
     <link rel="stylesheet" href="{{asset('css/plugins/dataTables/datatables.min.css') }}" />
-
+  <link rel="stylesheet" href="{{asset('css/plugins/datapicker/datepicker3.css') }}" />
     <link rel="stylesheet" href="{{asset('css/animate.css') }}" />
     <link rel="stylesheet" href="{{asset('css/style.css') }}" />
 </head>
@@ -43,19 +43,40 @@
 <!-- Custom and plugin javascript -->
     <script src="{{ asset('js/plugins/dataTables/datatables.min.js') }}" type="text/javascript"></script>
    <script src="{{ asset('select/select2.min.js') }}" type="text/javascript"></script>
+   <!-- Data picker -->
+   <script src="{{ asset('js/plugins/datapicker/bootstrap-datepicker.js') }}" type="text/javascript"></script>
+
    <!-- Custom and plugin javascript -->
   <script src="{{ asset('js/plugins/pace/pace.min.js') }}" type="text/javascript"></script>
+
+  <script>
+
+
+  $('#data_1 .input-group.date').datepicker({
+              todayBtn: "linked",
+              keyboardNavigation: false,
+              forceParse: false,
+              calendarWeeks: true,
+              autoclose: true
+          });
+
+          $(document).ready(function(){
+              $("button").click(function(){
+                  $("#testR").toggle();
+              });
+          });
+  </script>
   <script type="text/javascript">
   $.ajaxSetup({
      headers: { 'X-CSRF-Token' : $('meta[name=_token]').attr('content') }
   });
   </script>
    <script>
-       $('#tag_list').select2({
+       $('.tag_list1').select2({
            placeholder: "Choose tags...",
            minimumInputLength: 2,
            ajax: {
-               url: '/tags/test',
+               url: '/tags/tst',
                dataType: 'json',
                data: function (params) {
                    return {

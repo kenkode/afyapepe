@@ -1,4 +1,4 @@
-@extends('layouts.doctor2')
+@extends('layouts.show')
 @section('content')
 
 
@@ -108,33 +108,16 @@
                         </div>
                       </div>
                   </div>
+             </div>
+         </div>
 
 
-
-        </div>
-
-    <div class="row">
-
-      @if (count($errors) > 0)
-     <div class="alert alert-danger">
-      <strong>Whoops!</strong> There were some problems with your input.<br><br>
-     <ul>
-      @foreach ($errors->all() as $error)
-     <li>{{ $error }}</li>
-      @endforeach
-     </ul>
-     </div>
-     @endif
-
-
-</div>
     <!--Home tabs-->
     <div class="col-lg-12">
-        <div class="ibox float-e-margins">
 
 
     <div class="tabs-container">
-  <ul class="nav nav-tabs">
+  <ul class="nav nav-tabs tbg">
       <li class="active"><a data-toggle="tab" href="#tab-1" aria-expanded="true"> HOME</a></li>
       <li class=""><a data-toggle="tab" href="#tab-2" aria-expanded="false">HISTORY</a></li>
       <li class=""><a data-toggle="tab" href="#tab-3" aria-expanded="false">TESTS</a></li>
@@ -216,7 +199,7 @@
                         <td><?php echo $diastolic;?></td>
                         <td><strong>Allergies:</strong></td>
                         <td><?php echo $allergies;?></td>
-                        
+
                      </tr>
 
 
@@ -235,9 +218,9 @@
 
 
       <div id="tab-2" class="tab-pane">
-
+<div class="panel-body">
     <div class="col-lg-12">
-    <div class="ibox float-e-margins">
+
         <div class="ibox-title">
             <h5>All Visits</h5>
             <div class="ibox-tools">
@@ -262,7 +245,7 @@
         </div>
         <div class="ibox-content">
            <div class="table-responsive">
-        <table class="table table-striped table-bordered table-hover dataTables-example" >
+        <table class="table table-striped table-bordered table-hover dataTables-conditional" >
         <thead>
           <tr>
             <th></th>
@@ -294,17 +277,16 @@
   </table>
 </div>
   </div>
-    </div>
+
       </div>
   </div>
+    </div>
 
 
 <!--Test result tabs PatientController@testdone-->
             <div id="tab-3" class="tab-pane">
               <div class="panel-body">
-
-
-        <div class="col-lg-12">
+  <div class="col-lg-12">
         <div class="ibox float-e-margins">
             <div class="ibox-title">
                 <h5>All Test Done</h5>
@@ -330,7 +312,8 @@
             </div>
             <div class="ibox-content">
                <div class="table-responsive">
-            <table class="table table-striped table-bordered table-hover dataTables-example" >
+                   <table class="table table-striped table-bordered table-hover dataTables-conditional" >
+
             <thead>
               <tr>
                 <th></th>
@@ -352,7 +335,7 @@
          @foreach($tstdone as $tstdn)
                  <tr>
                     <td>{{ +$i }}</td>
-                 <td>{{$tstdn->test_reccommended}}</td>
+                 <td>{{$tstdn->tests_reccommended}}</td>
                   <td>{{$tstdn->done}}</td>
                   <td>{{$tstdn->results}}</td>
                   <td>{{$tstdn->facility_id}}</td>
@@ -377,8 +360,9 @@
 
 <!--Prescription tabs-->
       <div id="tab-4" class="tab-pane">
-        <div class="col-lg-12">
-        <div class="ibox float-e-margins">
+        <div class="panel-body">
+         <div class="col-lg-12">
+          <div class="ibox float-e-margins">
             <div class="ibox-title">
                 <h5>Prescription List</h5>
                 <div class="ibox-tools">
@@ -403,16 +387,14 @@
             </div>
             <div class="ibox-content">
                <div class="table-responsive">
-            <table class="table table-striped table-bordered table-hover dataTables-example" >
+              <table class="table table-striped table-bordered table-hover dataTables-conditional" >
             <thead>
            <tr>
              <th></th>
 
                <th>Drug Name</th>
                <th>Facility Name</th>
-               <th>Available</th>
-               <th>Dosage Form</th>
-               <th>Dose given</th>
+                <th>Dose given</th>
                <th>Date given</th>
          </tr>
        </thead>
@@ -423,10 +405,8 @@
       @foreach($prescription as $presc)
               <tr>
                  <td>{{ +$i }}</td>
-              <td>{{$presc->drugname}}</td>
+               <td>{{$presc->drugname}}</td>
                <td>{{$presc->FacilityName}}</td>
-               <td>{{$presc->availability}}</td>
-               <td>{{$presc->doseform}}</td>
                <td>{{$presc->dosage}}</td>
                <td>{{$presc->created_at}}</td>
 
@@ -437,22 +417,18 @@
 
         </tbody>
       </table>
-    </div>
-      </div>
+          </div>
+         </div>
         </div>
-          </div>
-
-  </div><!--Prescription tabs-->
-    </div>
       </div>
-          </div>
+</div>
+  </div><!--Prescription tabs-->
+    </div><!-- tab-content -->
+  </div><!--tabs container-->
 
 
-  </div>
-    </div>
-     </div>
+  </div><!--col-md 12-->
+</div><!--wrapper-->
 
-
-  </div><!--row-->
 
 @endsection

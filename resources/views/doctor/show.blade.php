@@ -85,12 +85,15 @@ return redirect('doctor.create');
         <div class="col-lg-12">
             <div class="tabs-container">
               <!-- <div class="col-lg-12 tbg"> -->
-                <ul class="nav nav-tabs tbg">
-                    <li class="active btn"><a data-toggle="tab" href="#tab-1">Home</button></a></li>
-                    <li class="btn"><a data-toggle="tab" href="#tab-2">History</a></li>
-                    <li class="btn"><a data-toggle="tab" href="#tab-3">Tests</a></li>
-                    <li class="btn"><a data-toggle="tab" href="#tab-4">Prescriptions</a></li>
-                    <li class="btn"><a data-toggle="tab" href="#tab-5">End Visit</a></li>
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#tab-1">Home</button></a></li>
+                    <li class=""><a data-toggle="tab" href="#tab-2">History</a></li>
+                    <li class=""><a data-toggle="tab" href="#tab-3">Tests</a></li>
+                    <li class=""><a data-toggle="tab" href="#tab-4">Prescriptions</a></li>
+                    <li class=""><a data-toggle="tab" href="#tab-5">Admit</a></li>
+                    <li class=""><a data-toggle="tab" href="#tab-6">Discharge</a></li>
+                    <li class=""><a data-toggle="tab" href="#tab-7">Transfer</a></li>
+                    <li class=""><a data-toggle="tab" href="#tab-8">End Visit</a></li>
                 </ul>
               <!-- </div> -->
                 <div class="tab-content">
@@ -229,8 +232,8 @@ return redirect('doctor.create');
 <div id="tab-3" class="tab-pane">
 <div class="ibox float-e-margins">
 <div class="ibox-content">
-<!-- {{ Form::open(array('route' => array('patienttest'),'method'=>'POST')) }} -->
-{{ Form::open(array('id' => 'ptest')) }}
+{{ Form::open(array('route' => array('patienttest'),'method'=>'POST')) }}
+<!-- {{ Form::open(array('id' => 'ptest')) }} -->
 
 <div class="col-md-8">
 <div class="form-group ">
@@ -239,7 +242,7 @@ return redirect('doctor.create');
 </div>
 <div class="form-group">
     <label for="tag_list">Select Test:</label>
-    <select id="tag_list" name="test" class="form-control" ></select>
+    <select id="tag_list" name="test" class="form-control tag_list1" ></select>
 </div>
 </div>
 
@@ -282,11 +285,11 @@ return redirect('doctor.create');
 @foreach($tstdone as $tstdn)
   <tr>
      <td>{{ +$i }}</td>
-  <td>{{$tstdn->test_reccommended}}</td>
+  <td>{{$tstdn->tests_reccommended}}</td>
    <td>{{$tstdn->done}}</td>
    <td>{{$tstdn->results}}</td>
    <td>{{$tstdn->facility_id}}</td>
-   <td>{{$tstdn->appointment_id}}</td>
+   <td>{{$tstdn->facility_id}}</td>
    <td>{{$tstdn->note}}</td>
    <td>{{$tstdn->created_at}}</td>
 </tr>
@@ -304,7 +307,7 @@ return redirect('doctor.create');
 <!--tabs4-->
                     <div id="tab-4" class="tab-pane">
 
-                                {{ Form::open(array('route' => array('prescription.store'),'method'=>'POST')) }}
+        {{ Form::open(array('route' => array('prescription.store'),'method'=>'POST')) }}
 
                   <?php  $routem= (new \App\Http\Controllers\TestController);
                         $routems = $routem->RouteM();
@@ -364,7 +367,7 @@ return redirect('doctor.create');
                                   @endforeach
                                </select>
                             </div>
-
+                             {{ Form::hidden('facility',$pdetails->FacilityCode, array('class' => 'form-control')) }}
                              {{ Form::hidden('triage_id',$pdetails->triage_id, array('class' => 'form-control')) }}
                              {{ Form::hidden('filled_status', 1, array('class' => 'form-control')) }}
                             {{ Form::hidden('patient_id',$pdetails->pat_id, array('class' => 'form-control')) }}
@@ -389,30 +392,15 @@ return redirect('doctor.create');
                                 </div>
                                </div><!--4 tabs-->
 
-                    <!--tabs5-->
+                    <!--tabs5 Admit-->
                     <div id="tab-5" class="tab-pane">
-
-                      <div class="tabs-container">
-                        <!-- <div class="col-lg-12 tbg"> -->
-                          <ul class="nav nav-tabs tbg">
-                              <li class="active btn"><a data-toggle="tab" href="#tab-51">Admit/Discharge</button></a></li>
-                              <li class="btn"><a data-toggle="tab" href="#tab-52">Transfer</a></li>
-
-                          </ul>
-                        <!-- </div> -->
-                          <div class="tab-content">
-                                <div id="tab-51" class="tab-pane active">
-                                  <div class="panel-body">
+                            <div class="panel-body">
                                     {{ Form::open(array('route' => array('patientnotes'),'method'=>'POST')) }}
-                                    <div class="form-group col-md-8 col-md-offset-1">
-                                    <label for="role" class="col-md-4 control-label">Action</label>
-                                    <select class="form-control m-b" name="appointment_status" id="action" required >
-                                    <option value=''>Select ...</option>
-                                    <option value='4'>Admit</option>
-                                    <option value='3'>Discharge</option>
-                                   </select>
-                                    </div>
 
+                                    <div class="form-group col-md-8 col-md-offset-1">
+                                        <label for="presc">Facility:</label>
+                                        <select id="facility" name="facility" class="form-control facility1" ></select>
+                                    </div>
                                       <div class="form-group col-md-8 col-md-offset-1" id="data_1">
                                           <label class="font-normal">Next Appointment Date</label>
                                           <div class="input-group date">
@@ -420,6 +408,7 @@ return redirect('doctor.create');
                                               <input type="text" class="form-control" name="next_appointment" value="">
                                           </div>
                                       </div>
+                                  {{ Form::hidden('appointment_status',4, array('class' => 'form-control')) }}
                                   {{ Form::hidden('patient_id',$pdetails->pat_id, array('class' => 'form-control')) }}
                                   {{ Form::hidden('test_status',1, array('class' => 'form-control')) }}
                                   {{ Form::hidden('appointment_id',$pdetails->app_id, array('class' => 'form-control')) }}
@@ -436,49 +425,73 @@ return redirect('doctor.create');
                     <button type="submit" class="btn btn-primary">Submit</button>  </td>
                     </div>
                   {{ Form::close() }}
-                  </div><!--panel body-->
-               </div><!--tab1-->
+                        </div><!--panel body-->
+                    </div><!--5 tabs Admit-->
 
-                                <div id="tab-52" class="tab-pane ">
-                                  <div class="panel-body">
+                    <!--tabs6 Discharge-->
+                    <div id="tab-6" class="tab-pane">
+                            <div class="panel-body">
                                     {{ Form::open(array('route' => array('patientnotes'),'method'=>'POST')) }}
 
-                                      <div class="form-group">
-                                          <label for="presc">Facility:</label>
-                                          <select id="facility" name="prescription" class="form-control facility1" ></select>
-                                      </div>
-                                      </div>
-                                        <div class="hr-line-dashed"></div>
 
-
-                                  {{ Form::hidden('facility_from',$pdetails->FacilityName, array('class' => 'form-control')) }}
-                                  {{ Form::hidden('appointment_status',5, array('class' => 'form-control')) }}
+                                      <div class="form-group col-md-8 col-md-offset-1" id="data_1">
+                                          <label class="font-normal">Next Appointment Date</label>
+                                          <div class="input-group date">
+                                              <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                              <input type="text" class="form-control" name="next_appointment" value="">
+                                          </div>
+                                      </div>
+                                  {{ Form::hidden('appointment_status',3, array('class' => 'form-control')) }}
                                   {{ Form::hidden('patient_id',$pdetails->pat_id, array('class' => 'form-control')) }}
-
+                                  {{ Form::hidden('test_status',1, array('class' => 'form-control')) }}
                                   {{ Form::hidden('appointment_id',$pdetails->app_id, array('class' => 'form-control')) }}
                                   {{ Form::hidden('doc_id',$Docdata->doc_id, array('class' => 'form-control')) }}
 
 
-                                  <div class="form-group ">
-                                  <label for="role">Doctro Note</label>
-                                  {{ Form::textarea('doc_note', null, array('placeholder' => 'note..','class' => 'form-control col-lg-8')) }}
-                                  </div><br />
+                      <div class="form-group col-md-8 col-md-offset-1">
+                       <label for="role" class="control-label">Doctor note</label>
+                        {{ Form::textarea('doc_note', null, array('placeholder' => 'note..','class' => 'form-control col-lg-8')) }}
+                    </div>
 
 
-                                  <div class="form-group  text-center">
-                                  <button type="submit" class="btn btn-primary">Submit</button>  </td>
-                                  </div>
-                                  {{ Form::close() }}
-                                  </div><!--panel body-->
-                               </div><!--tab2-->
+                    <div class="form-group  col-md-8 col-md-offset-1">
+                    <button type="submit" class="btn btn-primary">Submit</button>  </td>
+                    </div>
+                  {{ Form::close() }}
 
 
-                          </div><!--tab content-->
-                          </div><!--tabs-container-->
+                          </div><!--panel body-->
+                    </div><!--6tabs Discharged-->
+                    <!--tabs7 Transfer-->
+                    <div id="tab-7" class="tab-pane">
+                            <div class="panel-body">
+                                    {{ Form::open(array('route' => array('patientnotes'),'method'=>'POST')) }}
+                                    <div class="form-group col-md-8 col-md-offset-1">
+                                        <label for="presc">Facility:</label> 
+                                        <select id="facility" name="facility" class="form-control facility1" ></select>
+                                    </div>
 
-               </div><!--5 tabs-->
+
+                                   {{ Form::hidden('appointment_status',5, array('class' => 'form-control')) }}
+                                  {{ Form::hidden('patient_id',$pdetails->pat_id, array('class' => 'form-control')) }}
+                                  {{ Form::hidden('test_status',1, array('class' => 'form-control')) }}
+                                  {{ Form::hidden('appointment_id',$pdetails->app_id, array('class' => 'form-control')) }}
+                                  {{ Form::hidden('doc_id',$Docdata->doc_id, array('class' => 'form-control')) }}
 
 
+                      <div class="form-group col-md-8 col-md-offset-1">
+                       <label for="role" class="control-label">Doctor note</label>
+                        {{ Form::textarea('doc_note', null, array('placeholder' => 'note..','class' => 'form-control col-lg-8')) }}
+                    </div>
+
+
+                    <div class="form-group  col-md-8 col-md-offset-1">
+                    <button type="submit" class="btn btn-primary">Submit</button>  </td>
+                    </div>
+                  {{ Form::close() }}
+
+                          </div><!--panel body-->
+                    </div><!--7tabs-->
 
 
 

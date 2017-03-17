@@ -81,6 +81,12 @@
 
     </div>
     <div class="form-group">
+    <label for="exampleInputPassword1">Pregnant?</label>
+    <input type="radio" value="No"  name="pregnant"> No <input type="radio" value="Yes"  name="pregnant"> Yes
+
+
+    </div>
+    <div class="form-group">
     <label for="exampleInputEmail1">Consulting Physician</label>
     <select class="form-control" name="doctor" >
     <?php $doctors = DB::table('users')->Where('role', '=','Doctor')->get();?>

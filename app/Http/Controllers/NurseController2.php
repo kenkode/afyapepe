@@ -120,6 +120,7 @@ class NurseController extends Controller
     public function createdetails(Request $request)
     {
         $id=$request->id;
+        $pregnant=$request->pregnant;
         $weight=$request->weight;
         $heightS=$request->current_height;
         $temperature=$request->temperature;
@@ -144,6 +145,7 @@ class NurseController extends Controller
     'consulting_physician'=>$nurse,
     'Doctor_note'=>'',
     'prescription'=>'',
+    'pregnant'=>$pregnant,
     'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
 
 );

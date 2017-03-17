@@ -54,7 +54,7 @@ class NurseController extends Controller
         ->select('afya_users.*')
         ->where('afya_users.status',1)
         ->where('patients.created_at','>=',$today)
-        ->orderBy('patients.created_at','desc')
+
         ->get();
         return view('nurse.newpatient')->with('patients',$patients);
     }
@@ -191,6 +191,7 @@ class NurseController extends Controller
         ->first();
         $details=DB::table('triage_details')
         ->where('triage_details.patient_id',$id)
+        ->orderby('updated_at','desc')
         ->get();
 
         $vaccines =DB::table('vaccination')

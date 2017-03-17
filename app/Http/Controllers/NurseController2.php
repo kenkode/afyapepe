@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use Redirect;
-use Carbon;
+
+use Carbon\Carbon;
 use App\Http\Requests;
 class NurseController extends Controller
 {
@@ -47,10 +48,13 @@ class NurseController extends Controller
     }
 
     public function newPatient(){
+        $today = Carbon::today();
       $patients = DB::table('afya_users')
         ->Join('patients', 'afya_users.id', '=', 'patients.afya_user_id')
         ->select('afya_users.*')
         ->where('afya_users.status',1)
+        ->where('patients.created_at','>=',$today)
+        ->orderBy('patients.created_at','desc')
         ->get();
         return view('nurse.newpatient')->with('patients',$patients);
     }

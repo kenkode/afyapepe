@@ -36,7 +36,7 @@ class NurseController extends Controller
 
      DB::table('afya_users')->where('id', $id)
                  ->update([
-                                  'blood' =>  $blood,
+                                  'blood_type' =>  $blood,
                                   'constituency' => $constituency,
                                   'msisdn'=>$phone,
                                   'created_at' => \Carbon\Carbon::now()->toDateTimeString(),

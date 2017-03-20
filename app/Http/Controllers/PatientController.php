@@ -59,7 +59,7 @@ class PatientController extends Controller
 
        $patientdetails = DB::table('appointments')
 
-          ->Join('patients', 'appointments.patient_id', '=', 'patients.id')
+          ->Join('patients', 'appointments.afya_user_id', '=', 'patients.afya_user_id')
           ->Join('afya_users', 'patients.afya_user_id', '=', 'afya_users.id')
           ->Join('triage_details', 'patients.id', '=', 'triage_details.patient_id')
           ->Join('facilities', 'triage_details.facility_id', '=', 'facilities.FacilityCode')

@@ -66,7 +66,7 @@ return redirect('doctor.create');
         }
 }
 ?>
-
+ 
     <div class="ibox-title">
         <h5>{{$facilty}}</h5>
         <div class="ibox-tools">

@@ -35,6 +35,11 @@ class NurseController extends Controller
 
     }
 
+    public function nurseUpdate($id){
+
+      return view('nurse.nurseupdate');
+    }
+
     public function Calendar(){
     return view('nurse.calendar');
     }

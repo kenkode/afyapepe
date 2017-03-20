@@ -35,7 +35,7 @@
                          ->Join('patients', 'afya_users.id', '=', 'patients.afya_user_id')
                          ->select('afya_users.*', 'patients.allergies')
                          ->where('afya_users.status',2)->count();
-                       $newpatient = DB::table('afya_users')
+                       $newpatient =  DB::table('afya_users')
                          ->Join('patients', 'afya_users.id', '=', 'patients.afya_user_id')
                          ->select('afya_users.*')
                          ->where('afya_users.status',1)

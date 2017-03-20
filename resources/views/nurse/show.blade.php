@@ -32,6 +32,10 @@
              <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Next of Kin Phone" name="phone" value="{{$patient->age}}" readonly  >
              </div>
              <div class="form-group">
+            <label for="exampleInputPassword1">Blood Group</label>
+            <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Next of Kin Phone" name="phone" value="{{$patient->blood or ''}}" readonly  >
+            </div>
+             <div class="form-group">
             <label for="exampleInputPassword1">Gender</label>
              <?php $gender=$patient->gender;?>
             <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Next of Kin Phone" name="phone"
@@ -56,6 +60,7 @@
          else{ echo "";} ?>" readonly=""/>
          </div>
 
+  <a href="{{ url('nurseupdate', $patient->id) }}" class="btn btn-primary btn-sm">Update Details</a>
 
 
             </div>

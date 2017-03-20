@@ -24,7 +24,29 @@ class NurseController extends Controller
       $patients=DB::table('afya_users')->get();
       return view('nurse.home')->with('patients',$patients);
     }
+    public function nurseUpdate($id){
 
+      return view('nurse.nurseupdate')->with('id',$id);
+    }
+   public function nurseUpdates(Request  $request){
+     $id=$request->id;
+     $blood=$request->blood;
+     $constituency=$request->constituency;
+     $phone=$request->phone;
+
+     DB::table('afya_users')->where('id', $id)
+                 ->update([
+                                  'blood' =>  $blood,
+                                  'constituency' => $constituency,
+                                  'msisdn'=>$phone,
+                                  'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+                                  'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
+                                ]);
+
+
+return Redirect::route('nurse.show', [$id]);
+
+   }
     /**
      * Show the form for creating a new resource.
      *

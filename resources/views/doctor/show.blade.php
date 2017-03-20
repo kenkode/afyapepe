@@ -192,7 +192,7 @@ return redirect('doctor.create');
                 <th>Chief Complain</th>
                 <th>observations</th>
                 <th>Prescription</th>
-                <th>Prescription</th>
+                <th>view more</th>
             </tr>
             </thead>
             <tbody>

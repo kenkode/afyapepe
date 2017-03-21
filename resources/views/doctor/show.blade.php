@@ -65,220 +65,7 @@ return redirect('doctor.create');
           $stat='Referred';
         }
 }
-
-
-$date1=date_create("1907-08-22");
-$date2=date_create( date("Y-m-d"));
-$diff=date_diff($date2,$date1);
-
-
-// show difference in days between now and end dates
-
 ?>
-
-<div class="row">
-
-  <div class="col-lg-6">
-      <div class="ibox float-e-margins">
-          <div class="ibox-content">
-              <div>
-        <span class="pull-right text-right">
-       <strong><?php echo $pname;?>&nbsp;<?php echo $lname;?></strong>
-       <small>Age<?php echo $diff->format("%y years");?></small>
-
-        </span>
-                  <h3 class="font-bold no-margins">
-                    Patient's Triage Details
-                  </h3>
-
-              </div>
-
-              <div class="m-t-sm">
-
-                  <div class="row">
-                      <div class="col-md-3">
-                          <div>
-                            <label for="name">Weight</label>
-                            <input type="text" class="form-control" value="<?php echo $weight;?>" readonly="readonly">
-                           </div>
-                          <div>
-                            <label for="name">Height</label>
-                            <input type="text" class="form-control" value="<?php echo $height;?>" readonly="readonly">
-                       </div>
-                       <div>
-                         <label for="name">Temperature</label>
-                         <input type="text" class="form-control" value="<?php echo $temperature;?>" readonly="readonly">
-                    </div>
-                      </div>
-
-
-                      <div class="col-md-3">
-                          <div>
-                            <label for="name">Weight</label>
-                            <input type="text" class="form-control" value="<?php echo $systolic;?>" readonly="readonly">
-                           </div>
-                          <div>
-                            <label for="name">Height</label>
-                            <input type="text" class="form-control" value="<?php echo $diastolic;?>" readonly="readonly">
-                       </div>
-
-                      </div>
-                      <div class="col-md-4">
-                          <ul class="stat-list m-t-lg">
-                              <li>
-                                  <h2 class="no-margins">Complain</h2>
-                                  <small><p><?php echo $complain;?></p></small>
-                                  <div class="progress progress-mini">
-                                      <div class="progress-bar" style="width: 48%;"></div>
-                                  </div>
-                              </li>
-                              <li>
-                                  <h2 class="no-margins ">Observation</h2>
-                                  <small><p><?php echo $observations;?></p></small>
-                                  <div class="progress progress-mini">
-                                      <div class="progress-bar" style="width: 60%;"></div>
-                                  </div>
-                              </li>
-                          </ul>
-                      </div>
-
-                  </div>
-
-              </div>
-
-              <div class="m-t-md">
-                  <small class="pull-right">
-                      <i class="fa fa-clock-o"> </i>
-                      Update on 16.07.2015
-                  </small>
-                  <small>
-                      <strong>Analysis of sales:</strong> The value has been changed over time, and last month reached a level over $50,000.
-                  </small>
-              </div>
-
-          </div>
-      </div>
-  </div>
-
-
-
-
-
-
-<div class="col-lg-6">
-<div class="ibox float-e-margins">
-<div class="ibox-title">
-  <h5>Patient Details</h5>
-  <div class="ibox-tools">
-      <a class="collapse-link">
-          <i class="fa fa-chevron-up"></i>
-      </a>
-       <a class="close-link">
-          <i class="fa fa-times"></i>
-      </a>
-  </div>
-</div>
-<div class="ibox-content">
-      <form class="form-horizontal" role="form" method="POST" action="/nextkin" novalidate>
-   <input type="hidden" name="_token" value="{{ csrf_token() }}">
-   <input type="hidden" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<?php echo $pname;?>&nbsp<?php echo $lname;?>" name="id"  required>
-
-    <div class="form-group">
-   <label for="name">Name</label>
-   <input type="text" class="form-control" id="name" name="name" value="<?php echo $pname;?>&nbsp;<?php echo $lname;?>" readonly="readonly">
-   </div>
-</div>
-</div>
-</div>
-
-</div>
-<div class="row">
-  <div class="col-lg-8">
-  <div class="ibox float-e-margins">
-  <div class="ibox-title">
-    <h5>Patient History</h5>
-    <div class="ibox-tools">
-        <a class="collapse-link">
-            <i class="fa fa-chevron-up"></i>
-        </a>
-         <a class="close-link">
-            <i class="fa fa-times"></i>
-        </a>
-    </div>
-  </div>
-  <div class="ibox-content">
-    <div class="table-responsive">
-    <table class="table table-striped table-bordered table-hover dataTables-conditional" >
-    <thead>
-    <tr>
-      <th></th>
-        <th>Date of visit</th>
-        <th>Chief Complain</th>
-        <th>observations</th>
-        <th>Prescription</th>
-        <th>view more</th>
-    </tr>
-    </thead>
-    <tbody>
-      <?php $i =1; ?>
-   @foreach($patientdetails as $triageDetails)
-        <tr>
-            <td>{{ +$i }}</td>
-            <td>{{$triageDetails->updated_at}}</td>
-            <td>{{$triageDetails->chief_compliant}}</td>
-            <td>{{$triageDetails->observation}}</td>
-            <td>{{$triageDetails->observation}}</td>
-            <td><a href="{{route('visit',$appoid)}}" class="btn btn-default btn-xs"><i class="fa fa-search-plus"></i></a></td>
-         </tr>
-        <?php $i++; ?>
-          @endforeach
-   </tbody>
-    <tfoot>
-      <tr>
-        <th></th>
-          <th>Date of visit</th>
-          <th>Chief Complain</th>
-          <th>observations</th>
-          <th>Prescription</th>
-          <th>Prescription</th>
-      </tr>
-    </tfoot>
-    </table>
-  </div>
-
-
-
-  </div>
-  </div>
-  </div>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     <div class="ibox-title">
         <h5>{{$facilty}}</h5>
@@ -545,12 +332,11 @@ $diff=date_diff($date2,$date1);
                               <select id="presc" name="prescription" class="form-control presc1" ></select>
                           </div>
                             <div class="form-group">
-                              <label for="dosage" class="col-md-2 control-label">Dosage Form</label></td>
+                              <label for="dosage" class="col-md-2 control-label">Dosage</label></td>
                                <select class="form-control m-b" name="dosage" id="example-getting-started" >
-                                <?php $druglists=DB::table('druglists')->distinct()->get(['DosageForm']); ?>
-                                @foreach($druglists as $druglist)
-                                       <option value='{{$druglist->DosageForm}}'>{{$druglist->DosageForm}}</option>
-                                @endforeach
+                                       <option value='Full'>FULL</option>
+                                       <option value='Half'>HALF</option>
+                                       <option value='Quater'>QUATER</option>
                               </select>
                             </div>
 
@@ -561,7 +347,6 @@ $diff=date_diff($date2,$date1);
                                      <option value="{{$Strengthz->id }}">{{ $Strengthz->strength  }} </option>
                                   @endforeach
                                </select>
-                          <input type="radio" name="dosage" value="ml">ml<input type="radio" name="dosage" value="mg">mg
                             </div>
 
                              <div class="form-group">

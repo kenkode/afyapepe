@@ -12,7 +12,7 @@
 
     <link rel="stylesheet" href="{{asset('bootstrap/css/bootstrap.min.css') }}" />
     <link rel="stylesheet" href="{{asset('select/select2.css') }}" />
-
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     <!-- <link rel="stylesheet" href="{{asset('css/bootstrap.min.css') }}" /> -->
     <link rel="stylesheet" href="{{asset('font-awesome/css/font-awesome.css') }}" />
     <link rel="stylesheet" href="{{asset('css/plugins/dataTables/datatables.min.css') }}" />
@@ -34,6 +34,10 @@
         </div>
 
     </div>
+    <meta name="_token" content="{!! csrf_token() !!}" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="{{asset('js/docajax.js')}}"></script>
     <!-- Mainly scripts -->
     <script src="{{ asset('js/jquery-3.1.1.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('bootstrap/js/bootstrap.min.js') }}" type="text/javascript"></script>

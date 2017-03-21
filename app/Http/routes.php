@@ -100,6 +100,14 @@ Route::group(['middleware' => ['auth','role:Admin|Nurse']], function() {
 	 Route::get('/tags/fac', 'FacilityController@ffacility');
 
 
+
+
+Route::get('testresult/{id}','ShowController@index');
+
+
+
+
+
 	});
 
 Route::group(['middleware' => ['auth','role:Admin|Manufacturer']], function() {

@@ -24,7 +24,7 @@ class DiseasesController extends Controller
 
 
     public function find(Request $request)
- {
+     {
      $term = trim($request->q);
 
      if (empty($term)) {
@@ -36,7 +36,7 @@ class DiseasesController extends Controller
      $formatted_tags = [];
 
      foreach ($disis as $dizs) {
-         $formatted_tags[] = ['id' => $dizs->code, 'text' => $dizs->short_desc];
+         $formatted_tags[] = ['id' => $dizs->code, 'text' => $dizs->name];
      }
 
      return \Response::json($formatted_tags);

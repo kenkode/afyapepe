@@ -165,6 +165,11 @@ $diff=date_diff($date2,$date1);
 
 
 
+
+
+
+
+
 <div class="col-lg-6">
 <div class="ibox float-e-margins">
 <div class="ibox-title">
@@ -545,12 +550,11 @@ $diff=date_diff($date2,$date1);
                               <select id="presc" name="prescription" class="form-control presc1" ></select>
                           </div>
                             <div class="form-group">
-                              <label for="dosage" class="col-md-2 control-label">Dosage Form</label></td>
+                              <label for="dosage" class="col-md-2 control-label">Dosage</label></td>
                                <select class="form-control m-b" name="dosage" id="example-getting-started" >
-                                <?php $druglists=DB::table('druglists')->distinct()->get(['DosageForm']); ?>
-                                @foreach($druglists as $druglist)
-                                       <option value='{{$druglist->DosageForm}}'>{{$druglist->DosageForm}}</option>
-                                @endforeach
+                                       <option value='Full'>FULL</option>
+                                       <option value='Half'>HALF</option>
+                                       <option value='Quater'>QUATER</option>
                               </select>
                             </div>
 

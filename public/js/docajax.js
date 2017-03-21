@@ -49,7 +49,7 @@ $("#btn-save").click(function (e) {
         dataType: 'json',
         success: function (data) {
             console.log(data);
-            var product = '<tr id="product' + data.id + '"><td>' + data.id + '</td><td>' + data.name + '</td><td>' + data.details + '</td>';
+            var product = '<tr id="product' + data.id + '"><td>' + data.id + '</td><td>' + data.patient_id + '</td><td>' + data.appointment_id + '</td>';
             product += '<td><button class="btn btn-warning btn-detail open_modal" value="' + data.id + '">Edit</button>';
             product += ' <button class="btn btn-danger btn-delete delete-product" value="' + data.id + '">Delete</button></td></tr>';
             if (state == "add"){ //if user added a new record

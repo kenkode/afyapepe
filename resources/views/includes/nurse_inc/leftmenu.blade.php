@@ -29,25 +29,20 @@
 
 
                <?php
-               $today = date('d-m-y');
+               $today = date('Y-m-d');
                $data = $patients=DB::table('afya_users')->count();
                        $wList=DB::table('afya_users')
                          ->Join('patients', 'afya_users.id', '=', 'patients.afya_user_id')
                          ->select('afya_users.*', 'patients.allergies')
                          ->where('afya_users.status',2)->count();
-                       $newpatient =  DB::table('afya_users')
-                         ->Join('patients', 'afya_users.id', '=', 'patients.afya_user_id')
-                         ->select('afya_users.*')
-                         ->where('afya_users.status',1)
-                         ->where('patients.created_at','>=',$today)
-                        ->count();
+                       $newpatient =  DB::table('patients')->where('created_at','>=',$today)->count();
                      ?>
                          <li>
 
-
+  <a href="{{ URL::to('newpatient') }}"><i class="fa fa-users"></i> <span>Today Patients</span>       <span class="badge"><?php echo $newpatient; ?></span>
                              <a href="{{ URL::to('nurse')}}"><i class="fa fa-users"></i> <span>All Patients</span>       <span class="badge"><?php echo $data; ?></span>
 
-                          <a href="{{ URL::to('newpatient') }}"><i class="fa fa-pie-chart"></i> <span>Today Patients</span>       <span class="badge"><?php echo $newpatient; ?></span>
+
                           <a href="{{ URL::to('waitingList')}}">  <i class="glyphicon glyphicon-dashboard "></i> <span>Waiting List</span><span class="badge"><?php echo $wList;?></span>
                             <a href="{{ URL::to('nurseappointment')}}">  <i class="fa fa-clock-o"></i> <span>Appointment</span>
 

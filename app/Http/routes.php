@@ -103,8 +103,7 @@ Route::group(['middleware' => ['auth','role:Admin|Nurse']], function() {
 
 
 Route::get('testresult/{id}','ShowController@index');
-
-
+Route::post('testresult','ShowController@store');
 
 
 

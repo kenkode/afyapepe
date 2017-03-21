@@ -10,11 +10,11 @@ class Disease extends Model
 
   use Eloquence;
   protected $table = 'diseases';
-  protected $searchableColumns = ['short_desc'];
+  protected $searchableColumns = ['name'];
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = ['code','short_desc','long_desc'];
+    protected $fillable = ['code','name','long_desc'];
 }

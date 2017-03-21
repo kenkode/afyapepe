@@ -61,6 +61,8 @@ class ShowController extends Controller
     public function store(Request $request)
 
         {
+          $product = App\Product::create($request->input());
+              return response()->json($product);
 
         }
 

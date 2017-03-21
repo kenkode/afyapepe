@@ -28,7 +28,7 @@ return redirect('doctor.create');
 
 <?php
       foreach ($patientdetails as $pdetails) {
-        $patientid = $pdetails->pat_id;
+        // $patientid = $pdetails->pat_id;
         $pname = $pdetails->firstname;
         $lname = $pdetails->secondName;
         $age = $pdetails->dob;
@@ -66,86 +66,6 @@ return redirect('doctor.create');
         }
 }
 ?>
-<div class="wrapper wrapper-content animated fadeInRight">
-            <div class="row">
-<div class="col-lg-6">
-    <div class="ibox float-e-margins">
-        <div class="ibox-title">
-            <h5>Patient Details</h5>
-            <div class="ibox-tools">
-                <a class="collapse-link">
-                    <i class="fa fa-chevron-up"></i>
-                </a>
-                 <a class="close-link">
-                    <i class="fa fa-times"></i>
-                </a>
-            </div>
-        </div>
-        <div class="ibox-content">
-                <form class="form-horizontal" role="form" method="POST" action="/nextkin" novalidate>
-             <input type="hidden" name="_token" value="{{ csrf_token() }}">
-             <input type="hidden" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<?php echo $pname;?>&nbsp<?php echo $lname;?>" name="id"  required>
-
-              <div class="form-group">
-             <label for="name">Name</label>
-             <input type="text" class="form-control col-md-3" id="name" name="name" value="<?php echo $pname;?>&nbsp;<?php echo $lname;?>" readonly="readonly">
-             </div>
-          </div>
-   </div>
-  </div>
-  <div class="col-lg-6">
-      <div class="ibox float-e-margins">
-          <div class="ibox-title">
-              <h5>Patient Details</h5>
-              <div class="ibox-tools">
-                  <a class="collapse-link">
-                      <i class="fa fa-chevron-up"></i>
-                  </a>
-                   <a class="close-link">
-                      <i class="fa fa-times"></i>
-                  </a>
-              </div>
-          </div>
-          <div class="ibox-content">
-                  <form class="form-horizontal" role="form" method="POST" action="/nextkin" novalidate>
-               <input type="hidden" name="_token" value="{{ csrf_token() }}">
-               <input type="hidden" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<?php echo $pname;?>&nbsp<?php echo $lname;?>" name="id"  required>
-
-                <div class="form-group">
-               <label for="name">Name</label>
-               <input type="text" class="form-control" id="name" name="name" value="<?php echo $pname;?>&nbsp;<?php echo $lname;?>" readonly="readonly">
-               </div>
-            </div>
-     </div>
-    </div>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     <div class="ibox-title">
         <h5>{{$facilty}}</h5>
@@ -272,7 +192,7 @@ return redirect('doctor.create');
                 <th>Chief Complain</th>
                 <th>observations</th>
                 <th>Prescription</th>
-                <th>Prescription</th>
+                <th>view more</th>
             </tr>
             </thead>
             <tbody>
@@ -312,11 +232,13 @@ return redirect('doctor.create');
 {{ Form::open(array('route' => array('patienttest'),'method'=>'POST')) }}
 <!-- {{ Form::open(array('id' => 'ptest')) }} -->
 
-<div class="col-md-8">
+<div class="col-md-4">
+
 <div class="form-group ">
     <label for="d_list2">Conditional Diagnosis:</label>
-    <select id="d_list2" name="conditional" class="form-control d_list2"></select>
+    <select id="d_list2" name="conditional" class="d_list2 form-control"></select>
 </div>
+
 <div class="form-group">
     <label for="tag_list">Select Test:</label>
     <select id="tag_list" name="test" class="form-control tag_list1" ></select>
@@ -324,7 +246,7 @@ return redirect('doctor.create');
 </div>
 
 
-{{ Form::hidden('patient_id',$pdetails->pat_id, array('class' => 'form-control')) }}
+
 
 {{ Form::hidden('appointment_id',$pdetails->app_id, array('class' => 'form-control')) }}
 {{ Form::hidden('doc_id',$Docdata->doc_id, array('class' => 'form-control')) }}
@@ -447,7 +369,7 @@ return redirect('doctor.create');
                              {{ Form::hidden('facility',$pdetails->FacilityCode, array('class' => 'form-control')) }}
                              {{ Form::hidden('triage_id',$pdetails->triage_id, array('class' => 'form-control')) }}
                              {{ Form::hidden('filled_status', 1, array('class' => 'form-control')) }}
-                            {{ Form::hidden('patient_id',$pdetails->pat_id, array('class' => 'form-control')) }}
+
                             {{ Form::hidden('test_status',1, array('class' => 'form-control')) }}
                             {{ Form::hidden('appointment_id',$pdetails->app_id, array('class' => 'form-control')) }}
                             {{ Form::hidden('doc_id',$Docdata->doc_id, array('class' => 'form-control')) }}
@@ -486,7 +408,7 @@ return redirect('doctor.create');
                                           </div>
                                       </div>
                                   {{ Form::hidden('appointment_status',4, array('class' => 'form-control')) }}
-                                  {{ Form::hidden('patient_id',$pdetails->pat_id, array('class' => 'form-control')) }}
+
                                   {{ Form::hidden('test_status',1, array('class' => 'form-control')) }}
                                   {{ Form::hidden('appointment_id',$pdetails->app_id, array('class' => 'form-control')) }}
                                   {{ Form::hidden('doc_id',$Docdata->doc_id, array('class' => 'form-control')) }}
@@ -519,7 +441,7 @@ return redirect('doctor.create');
                                           </div>
                                       </div>
                                   {{ Form::hidden('appointment_status',3, array('class' => 'form-control')) }}
-                                  {{ Form::hidden('patient_id',$pdetails->pat_id, array('class' => 'form-control')) }}
+
                                   {{ Form::hidden('test_status',1, array('class' => 'form-control')) }}
                                   {{ Form::hidden('appointment_id',$pdetails->app_id, array('class' => 'form-control')) }}
                                   {{ Form::hidden('doc_id',$Docdata->doc_id, array('class' => 'form-control')) }}
@@ -550,7 +472,7 @@ return redirect('doctor.create');
 
 
                                    {{ Form::hidden('appointment_status',5, array('class' => 'form-control')) }}
-                                  {{ Form::hidden('patient_id',$pdetails->pat_id, array('class' => 'form-control')) }}
+
                                   {{ Form::hidden('test_status',1, array('class' => 'form-control')) }}
                                   {{ Form::hidden('appointment_id',$pdetails->app_id, array('class' => 'form-control')) }}
                                   {{ Form::hidden('doc_id',$Docdata->doc_id, array('class' => 'form-control')) }}

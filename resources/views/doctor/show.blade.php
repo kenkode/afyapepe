@@ -28,7 +28,7 @@ return redirect('doctor.create');
 
 <?php
       foreach ($patientdetails as $pdetails) {
-        $patientid = $pdetails->pat_id;
+        // $patientid = $pdetails->pat_id;
         $pname = $pdetails->firstname;
         $lname = $pdetails->secondName;
         $age = $pdetails->dob;
@@ -66,7 +66,7 @@ return redirect('doctor.create');
         }
 }
 ?>
- 
+
     <div class="ibox-title">
         <h5>{{$facilty}}</h5>
         <div class="ibox-tools">
@@ -244,7 +244,7 @@ return redirect('doctor.create');
 </div>
 
 
-{{ Form::hidden('patient_id',$pdetails->pat_id, array('class' => 'form-control')) }}
+
 
 {{ Form::hidden('appointment_id',$pdetails->app_id, array('class' => 'form-control')) }}
 {{ Form::hidden('doc_id',$Docdata->doc_id, array('class' => 'form-control')) }}
@@ -367,7 +367,7 @@ return redirect('doctor.create');
                              {{ Form::hidden('facility',$pdetails->FacilityCode, array('class' => 'form-control')) }}
                              {{ Form::hidden('triage_id',$pdetails->triage_id, array('class' => 'form-control')) }}
                              {{ Form::hidden('filled_status', 1, array('class' => 'form-control')) }}
-                            {{ Form::hidden('patient_id',$pdetails->pat_id, array('class' => 'form-control')) }}
+
                             {{ Form::hidden('test_status',1, array('class' => 'form-control')) }}
                             {{ Form::hidden('appointment_id',$pdetails->app_id, array('class' => 'form-control')) }}
                             {{ Form::hidden('doc_id',$Docdata->doc_id, array('class' => 'form-control')) }}
@@ -406,7 +406,7 @@ return redirect('doctor.create');
                                           </div>
                                       </div>
                                   {{ Form::hidden('appointment_status',4, array('class' => 'form-control')) }}
-                                  {{ Form::hidden('patient_id',$pdetails->pat_id, array('class' => 'form-control')) }}
+
                                   {{ Form::hidden('test_status',1, array('class' => 'form-control')) }}
                                   {{ Form::hidden('appointment_id',$pdetails->app_id, array('class' => 'form-control')) }}
                                   {{ Form::hidden('doc_id',$Docdata->doc_id, array('class' => 'form-control')) }}
@@ -439,7 +439,7 @@ return redirect('doctor.create');
                                           </div>
                                       </div>
                                   {{ Form::hidden('appointment_status',3, array('class' => 'form-control')) }}
-                                  {{ Form::hidden('patient_id',$pdetails->pat_id, array('class' => 'form-control')) }}
+
                                   {{ Form::hidden('test_status',1, array('class' => 'form-control')) }}
                                   {{ Form::hidden('appointment_id',$pdetails->app_id, array('class' => 'form-control')) }}
                                   {{ Form::hidden('doc_id',$Docdata->doc_id, array('class' => 'form-control')) }}
@@ -470,7 +470,7 @@ return redirect('doctor.create');
 
 
                                    {{ Form::hidden('appointment_status',5, array('class' => 'form-control')) }}
-                                  {{ Form::hidden('patient_id',$pdetails->pat_id, array('class' => 'form-control')) }}
+                                  
                                   {{ Form::hidden('test_status',1, array('class' => 'form-control')) }}
                                   {{ Form::hidden('appointment_id',$pdetails->app_id, array('class' => 'form-control')) }}
                                   {{ Form::hidden('doc_id',$Docdata->doc_id, array('class' => 'form-control')) }}

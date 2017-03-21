@@ -332,7 +332,7 @@ return redirect('doctor.create');
                             <div class="form-group">
                               <label for="dosage" class="col-md-2 control-label">Dosage Form</label></td>
                                <select class="form-control m-b" name="dosage" id="example-getting-started" >
-                                <?php $druglists=DB::table('druglist')->distinct()->get(); ?>
+                                <?php $druglists=DB::table('druglists')->distinct()->get(); ?>
                                 @foreach($druglists as $druglist)
                                        <option value='{{$druglist->id }}'>{{$druglist->DosageForm}}</option>
                                 @endforeach

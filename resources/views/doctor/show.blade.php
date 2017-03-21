@@ -330,11 +330,12 @@ return redirect('doctor.create');
                               <select id="presc" name="prescription" class="form-control presc1" ></select>
                           </div>
                             <div class="form-group">
-                              <label for="dosage" class="col-md-2 control-label">Dosage</label></td>
+                              <label for="dosage" class="col-md-2 control-label">Dosage Form</label></td>
                                <select class="form-control m-b" name="dosage" id="example-getting-started" >
-                                       <option value='Full'>FULL</option>
-                                       <option value='Half'>HALF</option>
-                                       <option value='Quater'>QUATER</option>
+                                <?php $druglists=DB::table('druglist')->distinct()->get(); ?>
+                                @foreach($druglists as $druglist)
+                                       <option value='{{$druglist->id }}'>{{$druglist->DosageForm}}</option>
+                                @endforeach
                               </select>
                             </div>
 
@@ -470,7 +471,7 @@ return redirect('doctor.create');
 
 
                                    {{ Form::hidden('appointment_status',5, array('class' => 'form-control')) }}
-                                  
+
                                   {{ Form::hidden('test_status',1, array('class' => 'form-control')) }}
                                   {{ Form::hidden('appointment_id',$pdetails->app_id, array('class' => 'form-control')) }}
                                   {{ Form::hidden('doc_id',$Docdata->doc_id, array('class' => 'form-control')) }}

@@ -158,7 +158,7 @@ class NurseController extends Controller
         $doctor=$request->doctor;
 
     DB::table('triage_details')->insert(
-    ['patient_id' => $id,
+    ['afya_user_id' => $id,
     'facility_id' => 10001,
     'current_weight'=> $weight,
     'current_height'=>$heightS,
@@ -192,7 +192,9 @@ class NurseController extends Controller
     public function updateUser(Request $request)
      {
        $id=$request->id;
+       $name=$request->kin_name;
        $phone=$request->phone;
+       $relationship=$request->relationship;
        $constituency=$request->Constituency;
        DB::table('patients')->where('id', $id)
                    ->update(['constituency_id' => $constituency,
@@ -217,7 +219,7 @@ class NurseController extends Controller
         ->where('kin_details.afya_user_id',$id)
         ->first();
         $details=DB::table('triage_details')
-        ->where('triage_details.patient_id',$id)
+        ->where('triage_details.afya_user_id',$id)
         ->orderBy('id','desc')
         ->get();
 

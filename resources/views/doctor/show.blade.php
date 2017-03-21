@@ -346,6 +346,7 @@ return redirect('doctor.create');
                                      <option value="{{$Strengthz->id }}">{{ $Strengthz->strength  }} </option>
                                   @endforeach
                                </select>
+                          <input type="radio" name="dosage" value="ml">ml<input type="radio" name="dosage" value="mg">mg
                             </div>
 
                              <div class="form-group">

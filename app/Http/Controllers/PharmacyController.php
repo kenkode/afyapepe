@@ -7,6 +7,8 @@ use App\Http\Requests;
 use Illuminate\Http\Request;
 use DB;
 use Carbon\Carbon;
+use Auth;
+
 class PharmacyController extends Controller
 {
     /**
@@ -27,14 +29,30 @@ class PharmacyController extends Controller
     public function index()
     {
         $today = Carbon::today();
-        $patients = DB::table('afya_users')
-        ->Join('triage_details', 'afya_users.id', '=', 'triage_details.patient_id')
-        ->Join('doctors', 'triage_details.consulting_physician', '=', 'doctors.doc_id')
-        ->select('afya_users.*', 'triage_details.*','doctors.name')
-        ->where('triage_details.updated_at','>=',$today)
-        ->get();
+        /*$patients = DB::table('afya_users')
+                  ->Join('triage_details', 'afya_users.id', '=', 'triage_details.patient_id')
+                  ->Join('doctors', 'triage_details.consulting_physician', '=', 'doctors.doc_id')
+                  ->select('afya_users.*', 'triage_details.*','doctors.name')
+                  ->where('triage_details.updated_at','>=',$today)
+                  ->get(); */
 
-        return view('pharmacy.home')->with('patients',$patients);
+
+        $facility = Auth::user()->facility_code;
+        $results = DB::table('afya_users')
+                ->join('afyamessages', 'afya_users.msisdn', '=', 'afyamessages.msisdn')
+                ->join('patients', 'patients.afya_user_id', '=', 'afya_users.id')
+                ->join('prescriptions', 'prescriptions.patient_id', '=', 'patients.id')
+                ->join('doctors', 'doctors.doc_id', '=', 'prescriptions.doc_id')
+                ->select('afya_users.*','prescriptions.created_at AS presc_date','patients.allergies','doctors.name')
+                ->where([
+                  ['afyamessages.facilityCode', '=', $facility],
+                ])
+                ->whereRaw('DATE(afyamessages.dateCreated) = CURDATE()')
+                ->whereIn('prescriptions.filled_status', [0, 2])
+                ->get();
+
+        return view('pharmacy.home')->with('results',$results);
+
     }
     public function create()
     {

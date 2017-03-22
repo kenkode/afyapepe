@@ -10,7 +10,10 @@
         "laravelcollective/html": "5.2.*",
         "zizaco/entrust": "5.2.x-dev",
         "doctrine/dbal": "^2.5",
-        "leyo/africastalkinglaravelgateway": "^1.0"
+        "sofa/eloquence": "~5.2",
+        "leyo/africastalkinglaravelgateway": "^1.0",
+        "nesbot/carbon": "^1.22"
+
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

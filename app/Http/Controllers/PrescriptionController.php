@@ -55,24 +55,17 @@ class PrescriptionController extends Controller
 
 
     Prescription_detail::create([
-
            'presc_id' => $id,
-           'drug_id' => $request['drug_id'],
-           'doseform' => $request['doseform'],
-           'dosage' => $request['dosage'],
+           'drug_id' => $request['prescription'],
+           'diagnosis' => $request['diagnosis'],
+           'doseform' => $request['dosage'],
+           'strength' => $request['strength'],
+           'routes' => $request['routes'],
+           'frequency' => $request['frequency'],
+           'appointment_id' => $request['appointment_id'],
+
+
        ]);
-       $triageid =$request['triage_id'];
-       $presc =$request['drug_id'];
-       $docnote=$request['doc_note'];
-
-
-       DB::table('triage_details')
-                 ->where('id',$triageid)
-                 ->update(['Doctor_note'=>$docnote],['prescription'=>$presc]);
-
-
-
-
 
 
    return redirect()->route('newpatients');

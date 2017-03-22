@@ -91,7 +91,7 @@
     <script src="{{ asset('js/plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
 
     <!-- Custom and plugin javascript -->
-    <script src="{{ asset('js/inspinia.js') }}"></script>
+  <!--  <script src="{{ asset('js/inspinia.js') }}"></script>-->
     <script src="{{ asset('js/plugins/pace/pace.min.js') }}"></script>
 
     <!-- jQuery UI  -->
@@ -102,12 +102,33 @@
 
     <!-- Full Calendar -->
     <script src="{{ asset('js/plugins/fullcalendar/fullcalendar.min.js') }}"></script>
+    <script src="{{ asset('js/plugins/datapicker/bootstrap-datepicker.js') }}" type="text/javascript"></script>
+
+    <!-- Custom and plugin javascript -->
+
 
 
 
     <!-- Custom and plugin javascript -->
 <script src="{{ asset('js/plugins/pace/pace.min.js') }}" type="text/javascript"></script>
-      <script src="{{ asset('js/inspinia.js') }}" type="text/javascript"></script>
+    <!--  <script src="{{ asset('js/inspinia.js') }}" type="text/javascript"></script>-->
+    <script>
+
+
+    $('#data_1 .input-group.date').datepicker({
+                todayBtn: "linked",
+                keyboardNavigation: false,
+                forceParse: false,
+                calendarWeeks: true,
+                autoclose: true
+            });
+
+            $(document).ready(function(){
+                $("button").click(function(){
+                    $("#testR").toggle();
+                });
+            });
+    </script>
 
     <!-- Page-Level Scripts -->
     <script>

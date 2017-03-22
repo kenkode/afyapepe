@@ -5,7 +5,7 @@ use Illuminate\Http\Request;
 use DB;
 use App\Http\Requests;
 use App\Patienttest;
-
+use Illuminate\Support\Facades\Input;
 use Auth;
 
 class PatientTestController extends Controller
@@ -30,43 +30,36 @@ class PatientTestController extends Controller
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-     public function store(Request $request)
 
-         {
-           $this->validate($request, [
-           'patient_id' => 'required',
-           'doc_id' => 'required',
-           'test_status' => 'required',
-           'appointment_id' => 'required',
-           'test_reccommended' => 'required',
+public function store(Request $request)
+{
 
+            $this->validate($request, [
 
-           ]);
-                $id = $request->input('appointment_id');
-                $testRecmd = $request->test_reccommended;
+          'doc_id' => 'required',
+          'conditional' => 'required',
+          'appointment_id' => 'required',
+          ]);
+       $id = $request->input('appointment_id');
+                     $PatientTest = Patienttest ::create([
+                        'test_reccommended' => $request->get('test'),
+                        'doc_id' => $request->get('doc_id'),
+                        'appointment_id' => $request->get('appointment_id'),
+                                  ]);
+    $ptid = $PatientTest->id;
 
-      foreach($testRecmd as $key) {
-          $PatientTest = Patienttest ::create([
-                 'test_reccommended' => $key,
-                 'committee_id' => $request->get('committee_id'),
+   $patienttd = DB::table('patient_test_details')->insertGetId(
+             [
+               'conditional_diagnosis' => $request->get('conditional'),
+               'patient_test_id' => $ptid,
+               'tests_reccommended' => $request->get('test'),
+               'appointment_id'=> $request->get('appointment_id')
 
-                 'patient_id' => $request->get('patient_id'),
-                 'doc_id' => $request->get('doc_id'),
-                 'test_status' => $request->get('test_status'),
-                 'appointment_id' => $request->get('appointment_id'),
-                 'conditional_diagnosis' => $request->get('conditional_diagnosis'),
-               ]);
-        }
+             ]
+           );
+      return redirect()->route('showPatient', ['id' => $id]);
+      }
 
-
- return redirect()->route('showPatient', ['id' => $id]);
-         }
 
     /**
      * Display the specified resource.

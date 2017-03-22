@@ -18,7 +18,7 @@
     </div>
     <div class="form-group">
     <label for="exampleInputEmail1">Height</label>
-    <input type="name" class="form-control" placeholder="Height" name="current_height"
+    <input type="name" class="form-control" placeholder="Height in Metres" name="current_height"
      required>
     </div>
    <div class="form-group">
@@ -34,17 +34,7 @@
     <label for="exampleInputEmail1">Diastolic BP</label>
     <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Diastolic BP" name="diastolic"  required>
     </div>
-    <div class="form-group">
-  <label class="control-label" for="name">Consultation Fee ?</label>
-  <input type="radio" value="no" id="type" name="type" checked='checked' autocomplete="off" />
-    <label>No</label>
-          <input type="radio" value="yes" id="type" name="type" class="youtube" />
-        <label>Yes</label>
-        <div id="embedcode">
-      Payment Mode: <select name="mode"><option value="">Select</option><option value="Cash">Cash</option><option value="Mpesa">Mpesa</option><option value="Insurance">Insurance</option></select>
-       Amount: <input type="number"  placeholder="Amount" name="amount" >
-      </div>
-    </div>
+
     </div>
     </div>
   </div>
@@ -63,13 +53,13 @@
       <div class="ibox-content">
 
     <div class="form-group">
-    <label for="exampleInputEmail1">Allergies</label>
-    <select class="form-control" name="allergies">
+    <label for="exampleInputEmail1">Allergies</label><br>
+
     <?php  $allergies = DB::table('allergies')->get();?>
                   @foreach($allergies as $allergy)
-                   <option value="{{$allergy->id}}">{{$allergy->name}}</option>
+                  <input type="checkbox" name="{{$allergy->id}}"> {{$allergy->name}}
                  @endforeach
-                </select>
+
     </div>
     <div class="form-group">
     <label for="exampleInputPassword1">Chief-Compliant</label>
@@ -90,6 +80,17 @@
     </textarea>
 
     </div>
+    <?php $db=DB::table('afya_users')->where('id',$id)->first(); $gender=$db->gender; ?>
+    @if($gender==1)
+
+    @else
+    <div class="form-group">
+    <label for="exampleInputPassword1">Pregnant?</label>
+    <input type="radio" value="No"  name="pregnant"> No <input type="radio" value="Yes"  name="pregnant"> Yes
+    </div>
+   @endif
+
+
     <div class="form-group">
     <label for="exampleInputEmail1">Consulting Physician</label>
     <select class="form-control" name="doctor" >

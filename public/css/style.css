@@ -2898,9 +2898,13 @@ a.forum-item-title:hover {
   }
 }
 /* Tabs */
+.tabs-container {
+
+  border: 0px solid #1ab394;
+}
 .tabs-container .panel-body {
   background: #fff;
-  border: 1px solid #e7eaec;
+  border: 0px solid #e7eaec;
   border-radius: 2px;
   padding: 20px;
   position: relative;
@@ -2915,6 +2919,16 @@ a.forum-item-title:hover {
 .tabs-container .nav-tabs > li {
   float: left;
   margin-bottom: -1px;
+
+}
+ .tbg{
+
+   background-color: #1ab394;
+ }
+
+.tabs-container .nav-tabs a {
+  font-size: 12px;
+  /*color: #fff;*/
 }
 .tabs-container .tab-pane .panel-body {
   border-top: none;
@@ -2966,6 +2980,7 @@ a.forum-item-title:hover {
 .tabs-container .tab-content > .active,
 .tabs-container .pill-content > .active {
   display: block;
+
 }
 .tabs-container .tabs-below > .nav-tabs {
   border-top: 1px solid #e7eaec;

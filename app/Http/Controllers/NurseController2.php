@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use Redirect;
-use Carbon;
+
+use Carbon\Carbon;
 use App\Http\Requests;
 class NurseController extends Controller
 {
@@ -20,13 +21,37 @@ class NurseController extends Controller
      }
     public function index()
     {
-      $patients = DB::table('afya_users')
-        ->Join('patients', 'afya_users.id', '=', 'patients.afya_user_id')
-        ->select('afya_users.*', 'patients.allergies')
-        ->get();
+      $patients=DB::table('afya_users')->get();
       return view('nurse.home')->with('patients',$patients);
     }
+    public function nurseUpdate($id){
 
+      return view('nurse.nurseupdate')->with('id',$id);
+    }
+     public function showDependents($id)
+    {
+        return view('nurse.showdependent')->with('id',$id);
+    }
+
+   public function nurseUpdates(Request  $request){
+     $id=$request->id;
+     $blood=$request->blood;
+     $constituency=$request->constituency;
+     $phone=$request->phone;
+
+     DB::table('afya_users')->where('id', $id)
+                 ->update([
+                                  'blood_type' =>  $blood,
+                                  'constituency' => $constituency,
+                                  'msisdn'=>$phone,
+                                  'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+                                  'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
+                                ]);
+
+
+return Redirect::route('nurse.show', [$id]);
+
+   }
     /**
      * Show the form for creating a new resource.
      *
@@ -41,7 +66,7 @@ class NurseController extends Controller
     public function wList(){
       $patients = DB::table('afya_users')
         ->Join('patients', 'afya_users.id', '=', 'patients.afya_user_id')
-        ->select('afya_users.*', 'patients.allergies')
+        ->select('afya_users.*')
         ->where('afya_users.status',2)
         ->get();
 
@@ -50,10 +75,13 @@ class NurseController extends Controller
     }
 
     public function newPatient(){
+        $today = Carbon::today();
       $patients = DB::table('afya_users')
         ->Join('patients', 'afya_users.id', '=', 'patients.afya_user_id')
-        ->select('afya_users.*', 'patients.allergies')
+        ->select('afya_users.*')
         ->where('afya_users.status',1)
+        ->where('patients.created_at','>=',$today)
+
         ->get();
         return view('nurse.newpatient')->with('patients',$patients);
     }
@@ -119,6 +147,7 @@ class NurseController extends Controller
     public function createdetails(Request $request)
     {
         $id=$request->id;
+        $pregnant=$request->pregnant;
         $weight=$request->weight;
         $heightS=$request->current_height;
         $temperature=$request->temperature;
@@ -143,9 +172,20 @@ class NurseController extends Controller
     'consulting_physician'=>$nurse,
     'Doctor_note'=>'',
     'prescription'=>'',
+    'pregnant'=>$pregnant,
     'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
 
 );
+DB::table('appointments')->insert(
+['afya_user_id' => $id,
+'status'=>1,
+'facility_id'=>19310,
+'doc_id'=>$doctor,
+'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
+
+);
+
 
         return Redirect::route('nurse.show', [$id]);
     }
@@ -179,7 +219,7 @@ class NurseController extends Controller
     {
       $patient= DB::table('afya_users')
         ->Join('patients', 'afya_users.id', '=', 'patients.afya_user_id')
-        ->select('afya_users.*', 'patients.allergies')
+        ->select('afya_users.*')
         ->where('afya_users.id',$id)
         ->first();
 
@@ -189,7 +229,8 @@ class NurseController extends Controller
         ->where('kin_details.afya_user_id',$id)
         ->first();
         $details=DB::table('triage_details')
-        ->where('triage_details.patient_id',$id)
+        ->where('triage_details.afya_user_id',$id)
+        ->orderby('updated_at','desc')
         ->get();
 
         $vaccines =DB::table('vaccination')

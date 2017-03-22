@@ -27,10 +27,9 @@
                     <div class="ibox-title">
                         <h5>Patients List</h5>
                         <div class="ibox-tools">
-                          @role('Doctor')
-                           <a class="collapse-link">
+                          <a class="collapse-link">
                             {{$Name}}
-                          </a>  @endrole
+                          </a>
                             <a class="collapse-link">
                                 <i class="fa fa-chevron-up"></i>
                             </a>

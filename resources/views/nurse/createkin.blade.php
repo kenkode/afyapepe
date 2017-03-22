@@ -22,13 +22,13 @@
                         </div>
     <div class="ibox-content">
 
-     <form class="form-horizontal" role="form" method="POST" action="/nextkin" novalidate>
+     <form class="form-horizontal" role="form" method="POST" action="/updatekin" novalidate>
     <input type="hidden" name="_token" value="{{ csrf_token() }}">
     <input type="hidden" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{$id}}" name="id"  required>
 
     <div class="form-group">
     <label for="exampleInputEmail1">Name</label>
-    <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Next Kin Name" name="name"  required>
+    <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Next Kin Name" name="kin_name"  required>
     </div>
 
     <div class="form-group">
@@ -44,7 +44,7 @@
     <label for="exampleInputPassword1">Phone</label>
     <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Next of Kin Phone" name="phone"  required>
     </div>
-   <button type="submit" class="btn btn-primary">Save</button>
+   <button type="submit" class="btn btn-primary btn-sm">Update Details</button>
       {!! Form::close() !!}
 
 </div>

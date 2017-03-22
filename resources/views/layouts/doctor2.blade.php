@@ -22,12 +22,15 @@
     <link rel="stylesheet" href="{{asset('css/style.css') }}" />
 
     <link rel="stylesheet" href="{{asset('css/plugins/iCheck/custom.css') }}" />
+   <link href="{{ asset('css/multi-select.css') }}" media="all" rel="stylesheet" type="text/css" />
 
 
+  <link rel="stylesheet" href="{{asset('select/select2.min.css') }}" />
+  <link rel="stylesheet" href="{{asset('css/plugins/datapicker/datepicker3.css') }}" />
+  <link rel="stylesheet" href="{{asset('css/plugins/daterangepicker/daterangepicker-bs3.css') }}" />
 
-     <link href="{{ asset('css/multi-select.css') }}" media="all" rel="stylesheet" type="text/css" />
-
-
+  <link rel="stylesheet" href="{{asset('bootstrap/css/bootstrap.min.css') }}" />
+  <link rel="stylesheet" href="{{asset('select/select2.min.css') }}" />
 </head>
 
 <body>
@@ -51,6 +54,7 @@
     <script src="{{ asset('js/bootstrap.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/plugins/metisMenu/jquery.metisMenu.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/plugins/slimscroll/jquery.slimscroll.min.js') }}" type="text/javascript"></script>
+
     <script src="{{ asset('js/plugins/dataTables/datatables.min.js') }}" type="text/javascript"></script>
 
     <!-- Custom and plugin javascript -->
@@ -92,9 +96,57 @@
         <!-- Jquery Validate -->
 
   <script src="{{ asset('js/plugins/validate/jquery.validate.min.js') }}" type="text/javascript"></script>
+  <!-- <script src="{{ asset('select/select2.min.js') }}" type="text/javascript"></script> -->
+
+  <!-- Data picker -->
+  <script src="{{ asset('js/plugins/datapicker/bootstrap-datepicker.js') }}" type="text/javascript"></script>
 
 
-    <!-- Page-Level Scripts -->
+  <script src="{{ asset('js/jquery-3.1.1.min.js') }}" type="text/javascript"></script>
+  <script src="{{ asset('bootstrap/js/bootstrap.min.js') }}" type="text/javascript"></script>
+   <script src="{{ asset('select/select2.min.js') }}" type="text/javascript"></script>
+
+    <script type="text/javascript">
+    $(".js-example-basic-multiple").select2();
+     placeholder: "Select astate",
+     allowClear: true
+    </script>
+
+    <script type="text/javascript">
+    $(".js-example-placeholder-single").select2({
+  placeholder: "Select a state",
+  allowClear: true
+});
+</script>
+    <script>
+        $(document).ready(function(){
+            $('.dataTables-conditional').DataTable({
+                pageLength: 5,
+                responsive: true,
+                dom: '<"html5buttons"B>lTfgitp',
+                buttons: [
+                    { extend: 'copy'},
+                    {extend: 'csv'},
+                    {extend: 'excel', title: 'ExampleFile'},
+                    {extend: 'pdf', title: 'ExampleFile'},
+
+                    {extend: 'print',
+                     customize: function (win){
+                            $(win.document.body).addClass('white-bg');
+                            $(win.document.body).css('font-size', '10px');
+
+                            $(win.document.body).find('table')
+                                    .addClass('compact')
+                                    .css('font-size', 'inherit');
+                    }
+                    }
+                ]
+
+            });
+
+        });
+
+    </script>
     <script>
         $(document).ready(function(){
             $('.dataTables-example').DataTable({
@@ -124,6 +176,7 @@
         });
 
     </script>
+
     <script>
         $(document).ready(function(){
             $('.dataTables-example1').DataTable({
@@ -153,22 +206,45 @@
         });
 
     </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="{{ asset('js/jquery.multi-select.js') }}"></script>
-<script type="text/javascript">
-$('#pre-selected-options').multiSelect();
-$('#pre-selected-options1').multiSelect();
 
+<script>
+
+
+$('#data_1 .input-group.date').datepicker({
+            todayBtn: "linked",
+            keyboardNavigation: false,
+            forceParse: false,
+            calendarWeeks: true,
+            autoclose: true
+        });
+
+        $(document).ready(function(){
+            $("button").click(function(){
+                $("#testR").toggle();
+            });
+        });
 </script>
 <script>
-$(document).ready(function(){
-    $("#hide").click(function(){
-        $("#test").hide();
-    });
-    $("#show").click(function(){
-        $("#test").show();
-    });
+$('#d_list2').select2({
+    placeholder: "Choose tags...",
+    minimumInputLength: 2,
+    ajax: {
+        url: '/disis/find',
+        dataType: 'json',
+        data: function (params) {
+            return {
+                q: $.trim(params.term)
+            };
+        },
+        processResults: function (data) {
+            return {
+                results: data
+            };
+        },
+        cache: true
+    }
 });
 </script>
+
 </body>
 </html>

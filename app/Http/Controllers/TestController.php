@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use DB;
-
 use App\Patient;
+use App\Druglist;
+use App\Test;
+use App\TestDetails;
 class TestController extends Controller
 {
     /**
@@ -105,22 +107,44 @@ public function testAnalytics(){
             //
         }
 
-        function drugList(){
-       $drugs = DB::table('druglists')
-       ->get();
-      return $drugs;
-      }
 
+// DB::table('users')->orderBy('id')->chunk(100, function($users)
+// $categories = \DB::table('categories')->orderBy('name')->take(10)->get();
 
-    function TestList(){
-   $tests = DB::table('tests')
-   ->get();
-  return $tests;
-  }
+function Strength(){
+ $Strength = DB::table('strength')
+ ->get();
+return $Strength;
+}
+function RouteM(){
+ $routem = DB::table('Route')
+ ->get();
+return $routem;
+}
+function Frequency(){
+ $frequency = DB::table('frequency')
+ ->get();
+return $frequency;
+}
   public function TestListdetails(){
     $testsd = DB::table('test_details')
     ->get();
    return $testsd;
 }
+
+public function fdrugs(Request $request)
+ {
+     $term = trim($request->q);
+  if (empty($term)) {
+       return \Response::json([]);
+     }
+   $drugs = Druglist::search($term)->limit(20)->get();
+     $formatted_drugs = [];
+      foreach ($drugs as $drug) {
+         $formatted_drugs[] = ['id' => $drug->id, 'text' => $drug->drugname];
+     }
+ return \Response::json($formatted_drugs);
+ }
+
 
 }

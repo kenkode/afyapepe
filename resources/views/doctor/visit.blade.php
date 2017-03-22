@@ -1,5 +1,5 @@
 
-@extends('layouts.doctor2')
+@extends('layouts.show')
 @section('title', 'vist')
 @section('content')
 <div class="row  border-bottom white-bg dashboard-header">
@@ -27,7 +27,7 @@
                         </li>
                         <li class="list-group-item">
                             <span class="pull-right">
-                                {{$pdetails->national_id}}
+                                {{$pdetails->nationalId}}
                             </span>
                           National ID
                         </li>
@@ -188,8 +188,8 @@
                                   </div>
                                   <div class="ibox-content">
                                      <div class="table-responsive">
-                                  <table class="table table-striped table-bordered table-hover dataTables-example" >
-                                  <thead>
+                                       <table class="table table-striped table-bordered table-hover dataTables-conditional" >
+                                         <thead>
                                     <tr>
                                       <th></th>
 

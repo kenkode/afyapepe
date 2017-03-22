@@ -1,681 +1,492 @@
-@extends('layouts.doctor2')
+@extends('layouts.show')
 @section('content')
+<?php
+$doc = (new \App\Http\Controllers\DoctorController);
+$Docdatas = $doc->DocDetails();
+foreach($Docdatas as $Docdata){
 
 
-      <?php
-    $doc = (new \App\Http\Controllers\DoctorController);
-    $Docdatas = $doc->DocDetails();
-    foreach($Docdatas as $Docdata){
+$Did = $Docdata->doc_id;
+$Name = $Docdata->name;
+$Address = $Docdata->address;
+$RegNo = $Docdata->regno;
+$RegDate = $Docdata->regdate;
+$Speciality = $Docdata->speciality;
+$Sub_Speciality = $Docdata->subspeciality;
 
 
-      $Did = $Docdata->doc_id;
-    	$Name = $Docdata->name;
-    	$Address = $Docdata->address;
-    	$RegNo = $Docdata->regno;
-    	$RegDate = $Docdata->regdate;
-    	$Speciality = $Docdata->speciality;
-    	$Sub_Speciality = $Docdata->subspeciality;
+}
 
 
-    }
+if ( empty ($Name ) ) {
+// return view('doctor.create');
 
+return redirect('doctor.create');
 
-    if ( empty ($Name ) ) {
-    // return view('doctor.create');
+}
+?>
 
-    return redirect('doctor.create');
+<?php
+      foreach ($patientdetails as $pdetails) {
+        // $patientid = $pdetails->pat_id;
+        $pname = $pdetails->firstname;
+        $lname = $pdetails->secondName;
+        $age = $pdetails->dob;
+        $nid = $pdetails->nationalId;
+        $appoid = $pdetails->app_id;
+        $appdate = $pdetails->created_at;
+        $facilty = $pdetails->FacilityName;
+        $weight = $pdetails->current_weight;
+        $height = $pdetails->current_height;
+        $temperature = $pdetails->temperature;
+        $systolic = $pdetails->systolic_bp;
+        $diastolic = $pdetails->diastolic_bp;
 
+        $complain = $pdetails->chief_compliant;
+        $observations = $pdetails->observation;
+        $gender = $pdetails->gender;
+        $phone = $pdetails->msisdn;
+        $stat= $pdetails->appstatus;
+        if ($gender=1) {
+          $gender='Male';
+        }else{
+          $gender='Female';
+        }
 
-    // return redirect()->action('DoctorController@create');
+        if ($stat=="1") {
+          $stat='queueing';
+        }elseif($stat=="2") {
+          $stat='Active';
+        }elseif($stat=="3") {
+          $stat='Discharged';
+        }elseif($stat=='4') {
+        $stat='Admitted';
+        }else{
+          $stat='Referred';
+        }
+}
+?>
 
-    }
-    ?>
-    <!--Patient controller @showpatient-->
-    <?php
-            foreach ($patientdetails as $pdetails) {
-              $patientid = $pdetails->pat_id;
-              $pname = $pdetails->firstname;
-              $lname = $pdetails->secondName;
-              $age = $pdetails->dob;
-              $nid = $pdetails->national_id;
-              $appoid = $pdetails->app_id;
-              $appdate = $pdetails->created_at;
-              $facilty = $pdetails->FacilityName;
-              $weight = $pdetails->current_weight;
-              $height = $pdetails->current_height;
-              $temperature = $pdetails->temperature;
-              $systolic = $pdetails->systolic_bp;
-              $diastolic = $pdetails->diastolic_bp;
-              $allergies = $pdetails->allergies;
-              $complain = $pdetails->chief_compliant;
-              $observations = $pdetails->observation;
-              $gender = $pdetails->gender;
-              $phone = $pdetails->msisdn;
-              $stat= $pdetails->appstatus;
-              if ($gender=1) {
-                $gender='Male';
-              }else{
-                $gender='Female';
-              }
+    <div class="ibox-title">
+        <h5>{{$facilty}}</h5>
+        <div class="ibox-tools">
+          <a class="collapse-link">{{$Name}}  </a>
+        </div>
+      </div>
+      <div class="panel-body">
 
-              if ($stat=="1") {
-                $stat='queueing';
-              }elseif($stat=="2") {
-                $stat='Active';
-              }elseif($stat=="3") {
-                $stat='Discharged';
-              }elseif($stat=='4') {
-              $stat='Admitted';
-              }else{
-                $stat='Referred';
-              }
-      }
-      ?>
+          <h5><strong>Patient Name</strong>&nbsp;&nbsp;&nbsp;<?php echo $pname;?>&nbsp<?php echo $lname;?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          Phone:<?php echo $phone; ?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          status&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-primary btn-xs"><?php echo $stat; ?>
+        </h5></div>
 
-    <div class="wrapper wrapper-content animated fadeInRight">
-                <div class="row">
-                  <div class="col-lg-11">
-                      <div class="ibox float-e-margins">
-                        <div class="ibox-title">
-                            <h5>{{$facilty}}</h5>
-                            <div class="ibox-tools">
-                                <a class="collapse-link">
-                                  {{$Name}}
-                                </a>
-                                <a class="collapse-link">
-                                    <i class="fa fa-chevron-up"></i>
-                                </a>
-                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                    <i class="fa fa-wrench"></i>
-                                </a>
+<!--tabs-->
+        <div class="col-lg-12">
+            <div class="tabs-container">
+              <!-- <div class="col-lg-12 tbg"> -->
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#tab-1">Home</button></a></li>
+                    <li class=""><a data-toggle="tab" href="#tab-2">History</a></li>
+                    <li class=""><a data-toggle="tab" href="#tab-3">Tests</a></li>
+                    <li class=""><a data-toggle="tab" href="#tab-4">Prescriptions</a></li>
+                    <li class=""><a data-toggle="tab" href="#tab-5">Admit</a></li>
+                    <li class=""><a data-toggle="tab" href="#tab-6">Discharge</a></li>
+                    <li class=""><a data-toggle="tab" href="#tab-7">Transfer</a></li>
+                    <li class=""><a data-toggle="tab" href="#tab-8">End Visit</a></li>
+                </ul>
+              <!-- </div> -->
+                <div class="tab-content">
+                      <div id="tab-1" class="tab-pane active">
+                        <div class="panel-body">
 
-                                <a class="close-link">
-                                    <i class="fa fa-times"></i>
-                                </a>
-                            </div>
+  <div class="wrapper wrapper-content">
+          <div class="row animated fadeInRight">
+              <div class="col-md-4">
+                  <div class="ibox float-e-margins">
+                      <div class="ibox-title">
+                          <h5>Observation's</h5>
+                      </div>
+                      <div>
 
-                          <div class="ibox-content">
-                          <div class="row show-grid">
-                              <div class="col-xs-6 col-sm-4">  <h4>NAME:<?php echo $pname;?>&nbsp<?php echo $lname;?></h4></div>
+                          <div class="ibox-content profile-content">
 
-                              <!-- Optional: clear the XS cols if their content doesn't match in height -->
-                              <div class="clearfix visible-xs"></div>
-                              <div class="col-xs-6 col-sm-4"><h4>Phone:<?php echo $phone; ?></h4></div>
-                              <div class="col-xs-6 col-sm-4">status&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-primary btn-xs"><?php echo $stat; ?>
-                              </button></div>
+                              <h5>Chief Complaint:</h5>
+                              <p><?php echo $complain;?> </p>
+                              <h5>Observation's:</h5>
+                              <p><?php echo $observations;?></p>
 
                           </div>
-                        </div>
+                  </div>
+              </div>
+                  </div>
+              <div class="col-md-8">
+                  <div class="ibox float-e-margins">
+                      <div class="ibox-title">
+                        <button class="btn btn-primary btn-block m"><i class="fa fa-arrow-down"></i> Vitals</button>
+                    </div>
+                      <div class="ibox-content">
+
+                          <div>
+                              <div class="feed-activity-list">
+
+                                  <div class="row m-t-lg">
+                                      <div class="col-md-4">
+                                       <h5><strong>Age</strong> <?php echo $age;?></h5>
+                                      </div>
+                                      <div class="col-md-4">
+                                       <h5><strong>D.O.B</strong> <?php echo $age;?></h5>
+                                      </div>
+                                      <div class="col-md-4">
+                                      <h5><strong>National ID</strong><?php echo $nid;?></h5>
+                                      </div>
+
+                                    </div>
+                                  <div class="row m-t-lg">
+                                      <div class="col-md-4">
+                                       <h5><strong>weight</strong> <?php echo $weight;?></h5>
+                                      </div>
+                                      <div class="col-md-4">
+                                      <h5><strong>height</strong><?php echo $height;?></h5>
+                                      </div>
+                                      <div class="col-md-4">
+                                       <h5><strong>Temperature</strong><?php echo $temperature;?></h5>
+                                      </div>
+                                    </div>
+                                  <div class="row m-t-lg">
+                                      <div class="col-md-4">
+                                       <h5><strong>Systolic BP:</strong> <?php echo $systolic;?></h5>
+                                      </div>
+                                      <div class="col-md-4">
+                                      <h5><strong>Diastolic BP</strong><?php echo $diastolic;?></h5>
+                                      </div>
+
+                                    </div>
+                              </div>
+
+                              <button class="btn btn-primary btn-block m"><i class="fa fa-arrow-up"></i>Vitals</button>
+
+                          </div>
+
                       </div>
                   </div>
 
-
-
-        </div>
-
-    <div class="row">
-
-      @if (count($errors) > 0)
-     <div class="alert alert-danger">
-      <strong>Whoops!</strong> There were some problems with your input.<br><br>
-     <ul>
-      @foreach ($errors->all() as $error)
-     <li>{{ $error }}</li>
-      @endforeach
-     </ul>
-     </div>
-     @endif
-
-
+              </div>
+          </div>
+      </div>
 </div>
-    <!--Home tabs-->
-    <div class="col-lg-11">
-        <div class="ibox float-e-margins">
-
-
-    <div class="tabs-container">
-  <ul class="nav nav-tabs">
-      <li class="active"><a data-toggle="tab" href="#tab-1" aria-expanded="true"> HOME</a></li>
-      <li class=""><a data-toggle="tab" href="#tab-2" aria-expanded="false">HISTORY</a></li>
-      <li class=""><a data-toggle="tab" href="#tab-3" aria-expanded="false">TESTS</a></li>
-     <li class=""><a data-toggle="tab" href="#tab-4" aria-expanded="false">PRESCRIPTION</a></li>
-      <li class=""><a data-toggle="tab" href="#tab-5" aria-expanded="false">END VISIT</a></li>
-
-  </ul>
-  <div class="tab-content">
-      <div id="tab-1" class="tab-pane active">
-        <div class="panel-body">
-        <div class="col-lg-11">
-        <div class="ibox float-e-margins">
+</div><!--tabs1-->
+<!--tabs2-->
+<div id="tab-2" class="tab-pane">
+    <div class="ibox float-e-margins">
             <div class="ibox-title">
-                <h5>Basic Data</h5>
-                <div class="ibox-tools">
-                  @role('Doctor')
-                   <a class="collapse-link">
-                    {{$Name}}
-                  </a>  @endrole
-                    <a class="collapse-link">
-                        <i class="fa fa-chevron-up"></i>
-                    </a>
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-wrench"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-user">
+                <h5>All Patient Visit History</h5>
 
-                        <li><a href="#">Config option 1</a>
-                        </li>
-                        <li><a href="#">Config option 2</a>
-                        </li>
-                    </ul>
-                    <a class="close-link">
-                        <i class="fa fa-times"></i>
-                    </a>
-                </div>
             </div>
             <div class="ibox-content">
-               <div class="table-responsive">
-            <table class="table table-striped table-bordered table-hover dataTables-example" >
-            <thead>
-
-                  </thead>
-
-                  <tbody>
-                     <tr>
-                        <td>Name</td>
-                        <td><?php echo $pname;?>&nbsp<?php echo $lname;?></td>
-                        <td><strong>Age:</strong></td>
-                        <td><?php echo $age;?></td>
-                     </tr>
-                     <tr>
-                        <td><strong>National ID:</strong></td>
-                        <td><?php echo $nid;?></td>
-                        <td><strong>Appointment Date:</strong></td>
-                        <td><?php echo $appdate;?></td>
-                     </tr>
-                     <tr>
-
-                        <td><strong>Facility Name:</strong></td>
-                        <td><?php echo $facilty;?></td>
-                        <td></td>
-                        <td></td>
-
-                     </tr>
-                     <tr>
-                          <td><strong>VITALS</strong></td>
-                    </tr>
-                     <tr>
-                        <td><strong>Weight:</strong></td>
-                        <td><?php echo $weight;?></td>
-                        <td><strong>Height:</strong></td>
-                        <td><?php echo $height;?></td>
-                     </tr>
-                     <tr>
-                        <td><strong>Temperature:</strong></td>
-                        <td><?php echo $temperature;?></td>
-                        <td><strong>Systolic BP:</strong></td>
-                        <td><?php echo $systolic;?></td>
-                     </tr>
-                     <tr>
-                        <td><strong>Diastolic BP:</strong></td>
-                        <td><?php echo $diastolic;?></td>
-                        <td><strong>Allergies:</strong></td>
-                        <td><?php echo $allergies;?></td>
-                     </tr>
-                     <tr>
-                          <td><strong>VITALS</strong></td>
-                    </tr>
-                     <tr>
-                        <td><strong>Chief Complaint:</strong></td>
-                        <td><?php echo $complain;?></td>
-                        <td></td>
-                        <td></td>
-                     </tr>
-
-                     <tr>
-                        <td><strong>Observation's:</strong></td>
-                        <td><?php echo $observations;?></td>
-                        <td></td>
-                        <td></td>
-                     </tr>
-
-
-
-                  </tbody>
-               </table>
-            </div>
-         </div>
-        </div>
-      </div>
-     </div>
-</div>
-      <!--History tabs-->
-      <!--Patient controller @showpatient-->
-
-
-
-      <div id="tab-2" class="tab-pane">
-          <div class="panel-body">
             <div class="table-responsive">
-              <table id="basic-datatables" class="table table-bordered" cellspacing="0" width="100%">
-
-       <thead>
-           <tr>
-             <th></th>
-               <th>Date of visit</th>
-               <th>Chief Complain</th>
-               <th>observations</th>
-               <th>Prescription</th>
-               <th>Prescription</th>
-         </tr>
-       </thead>
-
-       <tbody>
-         <?php $i =1; ?>
-      @foreach($patientdetails as $triageDetails)
-           <tr>
-               <td>{{ +$i }}</td>
-               <td>{{$triageDetails->updated_at}}</td>
-               <td>{{$triageDetails->chief_compliant}}</td>
-               <td>{{$triageDetails->observation}}</td>
-               <td>{{$triageDetails->observation}}</td>
-               <td><a href="{{route('visit',$appoid)}}" class="btn btn-default btn-xs">View</a></td>
-
-
-           </tr>
-           <?php $i++; ?>
-
-        @endforeach
-
-        </tbody>
-      </table>
-  </div>
-    </div>
-  </div>
-
-
-<!--Test tabs-->
-            <div id="tab-3" class="tab-pane">
-              <div class="panel-body">
-
-
-                <!--Tests tart tabs-->
-                <?php
-              foreach($tstdone as $tstdn)  {
-                 $stats = $tstdn->id;
-        }
-            if ( empty ($stats) ) {?>
-              <style type="text/css">#testdat{
-              display:none;
-              }</style>
-              <?php
-              }
-               else {?>
-            <style type="text/css">#test{
-            display:none;
-            }</style>
-            <?php
-            }
-              ?>
-
-    <div id="test">
-      <div class="table-responsive">
-       <table id="basic-datatables" class="table table-bordered" cellspacing="0" width="100%">
+            <table class="table table-striped table-bordered table-hover dataTables-conditional" >
             <thead>
-              <tr>
-            <h4><strong>Tests</strong></h4>
-               </tr>
-           </thead>
-      <tbody>
-          {{ Form::open(array('route' => array('patienttest'),'method'=>'POST')) }}
-    <?php
-                  $tst= (new \App\Http\Controllers\TestController);
-                  $tests = $tst->TestList();
-                  foreach($tests as $test){
-
-                }
-                  ?>
-
-                  <tr>
-                    <td>Conditional Diagnosis</td>
-                  <td><select name="conditional_diagnosis[]" id="druglist" multiple='multiple'class="form-control m-b" >
-                @foreach($tests as $druglist)
-                   <option value="{{$druglist->id }}">{{ $druglist->name }}</option>
-                  @endforeach
-                  </select>
-                  </td>
-              </tr>
-                  <div class="col-xs-12 col-sm-12 col-md-12">
-                  <div class="form-group">
-              <tr><td>Select Test</td>
-                <td>  <select name="test" id='pre-selected-options1' multiple='multiple'>
-                    @foreach($tests as $test)
-                     <option value="{{ $test->id }}">{{ $test->name }}</option>
-                    @endforeach
-                </select>
-              </td>
-               <td> </td>
-            </tr>
-</div>
-</div>
-
-
-            <?php
-            $tstd= (new \App\Http\Controllers\TestController);
-            $testsd = $tstd->TestListdetails();
-            foreach($testsd as $testd){
-
-            }
-            ?>
-            <tr><td> Test Details</td>
-            <td>  <select name="test_reccommended[]" id='pre-selected-options' multiple='multiple'>
-            @foreach($testsd as $testd)
-             <option value="{{ $testd->tests_id }}">{{ $testd->test_name }}</option>
-            @endforeach
-            </select>
-            </td>
-            <td>  </td>
-            </tr>
-            <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
             <tr>
-
-              <td>{{ Form::hidden('patient_id',$pdetails->pat_id, array('class' => 'form-control')) }}
-            </td>
-
-              <td>{{ Form::hidden('test_status',1, array('class' => 'form-control')) }}
-            </td>
+              <th></th>
+                <th>Date of visit</th>
+                <th>Chief Complain</th>
+                <th>observations</th>
+                <th>Prescription</th>
+                <th>view more</th>
             </tr>
-            <tr>
-            <td>{{ Form::hidden('appointment_id',$pdetails->app_id, array('class' => 'form-control')) }}
-            </td>
-
-              <td>{{ Form::hidden('doc_id',$Docdata->doc_id, array('class' => 'form-control')) }}
-              </td></tr>
-              </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-              <tr> <td>  </td>
-                <td><button type="submit" class="btn btn-primary">Submit</button>  </td>
-
-              </tr>
-              </div>
-                {{ Form::close() }}
-
-             </tbody>
-           </table>
-              </div>
-              </div>
-<!--Test result tabs PatientController@testdone-->
-              <div id="testdat">
-              <div class="table-responsive">
-                <button id="hide">X</button>
-               <button id="show">Add Another Test</button>
-          <table id="basic-datatables" class="table table-bordered" cellspacing="0" width="100%">
-            <thead>
-             <tr>
-               <th></th>
-
-                 <th>Test Recommended</th>
-                 <th>Done</th>
-                 <th>Result</th>
-                 <th>Faciity</th>
-                 <th>Apointment Id</th>
-                  <th>Note</th>
-                 <th>Date Test Done</th>
-
-           </tr>
-         </thead>
-
-         <tbody>
-           <?php $i =1; ?>
-
-        @foreach($tstdone as $tstdn)
+            </thead>
+            <tbody>
+              <?php $i =1; ?>
+           @foreach($patientdetails as $triageDetails)
                 <tr>
-                   <td>{{ +$i }}</td>
-                <td>{{$tstdn->test_reccommended}}</td>
-                 <td>{{$tstdn->done}}</td>
-                 <td>{{$tstdn->results}}</td>
-                 <td>{{$tstdn->facility_id}}</td>
-                 <td>{{$tstdn->appointment_id}}</td>
-                 <td>{{$tstdn->note}}</td>
-                 <td>{{$tstdn->created_at}}</td>
-        </tr>
-             <?php $i++; ?>
-
-          @endforeach
-
-          </tbody>
-        </table>
-        </div>
+                    <td>{{ +$i }}</td>
+                    <td>{{$triageDetails->updated_at}}</td>
+                    <td>{{$triageDetails->chief_compliant}}</td>
+                    <td>{{$triageDetails->observation}}</td>
+                    <td>{{$triageDetails->observation}}</td>
+                    <td><a href="{{route('visit',$appoid)}}" class="btn btn-default btn-xs"><i class="fa fa-search-plus"></i></a></td>
+                 </tr>
+                <?php $i++; ?>
+                  @endforeach
+           </tbody>
+            <tfoot>
+              <tr>
+                <th></th>
+                  <th>Date of visit</th>
+                  <th>Chief Complain</th>
+                  <th>observations</th>
+                  <th>Prescription</th>
+                  <th>Prescription</th>
+              </tr>
+            </tfoot>
+            </table>
+          </div>
+         </div>
       </div>
-  </div>
+
+</div><!--2 tabs-->
+<!--tabs3-->
+<div id="tab-3" class="tab-pane">
+<div class="ibox float-e-margins">
+<div class="ibox-content">
+{{ Form::open(array('route' => array('patienttest'),'method'=>'POST')) }}
+<!-- {{ Form::open(array('id' => 'ptest')) }} -->
+
+<div class="col-md-4">
+
+<div class="form-group ">
+    <label for="d_list2">Conditional Diagnosis:</label>
+    <select id="d_list2" name="conditional" class="d_list2 form-control"></select>
+</div>
+
+<div class="form-group">
+    <label for="tag_list">Select Test:</label>
+    <select id="tag_list" name="test" class="form-control tag_list1" ></select>
+</div>
+</div>
+
+{{ Form::hidden('appointment_id',$pdetails->app_id, array('class' => 'form-control')) }}
+{{ Form::hidden('doc_id',$Docdata->doc_id, array('class' => 'form-control')) }}
+
+<div class="form-group  text-center">
+<button type="submit" class="btn btn-primary">Submit</button>  </td>
+</div>
+{{ Form::close() }}
+</div>
 </div>
 
 
+<!--Test result tabs PatientController@testdone-->
+<div id="testR">
+<div class="table-responsive">
+<table class="table table-striped table-bordered table-hover dataTables-conditional" >
+   <thead>
+<tr>
+ <th></th>
+    <th>Date </th>
+   <th>Test Name</th>
+   <th>Conditional Diagnosis</th>
+   <th>Status</th>
+   <th>Result</th>
+   <th>Faciity</th>
+   <th>Note</th>
 
-<!--Prescription tabs-->
-      <div id="tab-4" class="tab-pane">
+
+</tr>
+</thead>
+
+<tbody>
+<?php $i =1; ?>
+
+@foreach($tstdone as $tstdn)
+  <tr>
+  <td>{{ +$i }}</td>
+  <td>{{$tstdn->created_at}}</td>
+  <td>{{$tstdn->name}}</td>
+  <td>{{$tstdn->disease}}</td>
+  <td>{{$tstdn->done}}</td>
+   <td>{{$tstdn->results}}</td>
+   <td>{{$tstdn->FacilityName}}</td>
+   <td>{{$tstdn->note}}</td>
+
+</tr>
+<?php $i++; ?>
+
+@endforeach
+
+</tbody>
+</table>
+</div>
+</div>
+
+</div><!--3tabs-->
+
+<!--tabs4-->
+                    <div id="tab-4" class="tab-pane">
 
         {{ Form::open(array('route' => array('prescription.store'),'method'=>'POST')) }}
 
-        <div class="panel-body">
-              <div class="table-responsive">
-           <table class="table table-small-font table-bordered table-striped">
-         <thead>
-          <tr>
-          <td>
-             </td>
-          </tr>
-         </thead>
-
-         <tbody>
+                  <?php  $routem= (new \App\Http\Controllers\TestController);
+                        $routems = $routem->RouteM();
+                    ?>
+                  <?php $Strength= (new \App\Http\Controllers\TestController);
+                        $Strengths = $Strength->Strength();
+                    ?>
+                  <?php $frequency= (new \App\Http\Controllers\TestController);
+                        $frequent = $frequency->Frequency();
+                    ?>
 
 
-
-          <?php
-          $drgs= (new \App\Http\Controllers\TestController);
-          $drugs = $drgs->drugList();
-          foreach($drugs as $druglist){
-
-          }
-          ?>
-          <tr>
-            <td> Drug List</td>
-          <td><select name="drug_id[]" id="druglist" multiple='multiple'class="form-control m-b" >
-        @foreach($drugs as $druglist)
-           <option value="{{$druglist->id }}">{{ $druglist->drugname  }}</option>
-          @endforeach
-          </select>
-          </td>
-      </tr>
-
-      <tr>
-    <td>
-    </td>
-    <td>{{ Form::hidden('filled_status', 1, array('placeholder' => 'FullName','class' => 'form-control')) }}</td>
-    </tr>
-
-      <tr><td>
-      <div class="form-group{{ $errors->has('role') ? ' has-error' : '' }}">
-          <label for="role" class="col-md-4 control-label">Dosage</label></td>
-        <td>  <div class="col-md-6"><select class="form-control m-b" name="dosage" id="example-getting-started" >
-                <option value='Full'>FULL</option>
-                <option value='Half'>HALF</option>
-                <option value='Quater'>QUATER</option>
-
-                </select>
-              @if ($errors->has('role'))
-                  <span class="help-block">
-                      <strong>{{ $errors->first('role') }}</strong>
-                  </span>
-              @endif
-          </div>
-      </div>  </td>
-      </tr>
-      <tr>
-        <td>
-         </td>
-        <td>{{ Form::text('doc_id',$Did, array('class' => 'form-control')) }}</td>
-      </tr>
-      <tr><td>
-      <div class="form-group{{ $errors->has('role') ? ' has-error' : '' }}">
-          <label for="role" class="col-md-4 control-label">Doseform</label></td>
-        <td>  <div class="col-md-6"><select class="form-control m-b" name="doseform" id="doseform" >
-                <option value='Cream'>CREAM</option>
-                <option value='Dental'>DENTAL</option>
-                <option value='Infusion'>INFUSION</option>
-                <option value='Injection'>INJECTION</option>
-                <option value='Tablets'>TABLETS</option>
-
-                </select>
-              @if ($errors->has('role'))
-                  <span class="help-block">
-                      <strong>{{ $errors->first('role') }}</strong>
-                  </span>
-              @endif
-          </div>
-      </div>  </td>
-      </tr>
+                      <div class="ibox float-e-margins">
+                        <div class="ibox-content">
 
 
-<tr>
-  <td>
-    </td>
- <td>{{ Form::hidden('triage_id',$pdetails->triage_id, array('class' => 'form-control')) }}</td>
-</tr>
-<tr>
- <td>
-  </td>
- <td>{{ Form::hidden('appointment_id',$pdetails->app_id, array('class' => 'form-control')) }}</td>
-</tr>
+                          <div class="form-group ">
+                              <label for="d_list3">Confirmed Diagnosis:</label>
+                              <select id="d_list3" name="diagnosis" class="form-control d_list2"></select>
+                          </div>
+                          <div class="form-group">
+                              <label for="presc">Prescription:</label>
+                              <select id="presc" name="prescription" class="form-control presc1" ></select>
+                          </div>
+                          <div class="form-group">
+                              <label for="dosage" class="col-md-2 control-label">Dosage Form</label></td>
+                               <select class="form-control m-b" name="dosage" id="example-getting-started" >
+                                <?php $druglists=DB::table('druglists')->distinct()->get(['DosageForm']); ?>
+                                @foreach($druglists as $druglist)
+                                       <option value='{{$druglist->DosageForm}}'>{{$druglist->DosageForm}}</option>
+                                @endforeach
+                              </select>
+                            </div>
 
-<tr>      <div class="col-xs-12 col-sm-12 col-md-12">
-          <div class="form-group">
-          <td><strong>Doctor note:</strong></td>
-        <td>  {{ Form::textarea('doc_note', null, array('placeholder' => 'note..','class' => 'form-control')) }}
-          </td></div>
-          </div>
+                             <div class="form-group">
+                              <label for="dosage" class="col-md-2 control-label">Strength</label></td>
+                               <select class="js-example-placeholder-single" id="testsj" name="strength">
+                                   @foreach($Strengths as $Strengthz)
+                                     <option value="{{$Strengthz->id }}">{{ $Strengthz->strength  }} </option>
+                                  @endforeach
+                               </select>
+                        <input type="radio" name="dosage" value="ml"> Ml &nbsp;&nbsp;<input type="radio" name="dosage" value="mg"> Mg
+                            </div>
 
-      </tr>
-      <tr><td>
-         </td>
-       <td>{{ Form::hidden('patient_id',$pdetails->pat_id, array('class' => 'form-control')) }}</td>
-      </tr>
-      <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-      <tr><td>
+                             <div class="form-group">
+                              <label for="dosage" class="col-md-2 control-label">Route</label></td>
+                               <select class="js-example-placeholder-single" name="routes">
+                                   @foreach($routems as $routemz)
+                                     <option value="{{$routemz->id }}">{{ $routemz->abbreviation }}----{{ $routemz->name  }} </option>
+                                  @endforeach
+                               </select>
+                            </div>
 
-      </td> <td>
+                              <div class="form-group">
+                              <label for="dosage" class="col-md-2 control-label">Frequency</label></td>
+                               <select class="js-example-placeholder-single"  name="frequency">
+                                   @foreach($frequent as $freq)
+                                     <option value="{{$freq->id }}">{{ $freq->abbreviation }}----{{ $freq->name  }} </option>
+                                  @endforeach
+                               </select>
+                            </div>
+                            
+                            {{ Form::hidden('appointment_id',$pdetails->app_id, array('class' => 'form-control')) }}
+                            {{ Form::hidden('doc_id',$Docdata->doc_id, array('class' => 'form-control')) }}
 
-       <button type="submit" class="btn btn-primary">Submit</button>
-       {{ Form::close() }}
-      </td>
-      </tr>
-      </div>
-          </tbody>
-        </table>
-        </div>
-      </div>
-   </div>
-      <div id="tab-5" class="tab-pane">
-        <div class="panel-body">
-                <div class="col-lg-6">
-                            <div class="tabs-container">
-                                <ul class="nav nav-tabs">
-                                    <li class="active"><a data-toggle="tab" href="#tab-51">Admit/Discharge</a></li>
-                                    <li class=""><a data-toggle="tab" href="#tab-52">Transfer</a></li>
-                                </ul>
-                                <div class="tab-content">
-                                    <div id="tab-51" class="tab-pane active">
-                                        <div class="panel-body">
-                                            <strong>Admit/Discharge</strong>
-{{ Form::open(array('route' => array('patientnotes'),'method'=>'POST')) }}
-<div class="form-group">
-    <label for="role" class="col-md-4 control-label">Action</label>
-  <div class="col-md-6"><select class="form-control m-b" name="appointment_status" id="action" required >
-          <option value=''>Select ...</option>
-          <option value='4'>Admit</option>
-          <option value='3'>Discharge</option>
-      </select>
+                            <!-- <div class="form-group">
+                             <label for="dosage" class="col-md-2 control-label">Doctor note</label></td>
+                              <div class="col-md-4">
+                                  {{ Form::textarea('doc_note', null, array('placeholder' => 'note..','class' => 'form-control col-lg-8')) }}
+                                </div>
+                            </div> -->
 
-    </div>
-</div>
-<div class="col-xs-12 col-sm-12 col-md-12">
-          <div class="form-group">
-          <strong>Doctor note:</strong>
-       {{ Form::textarea('note', null, array('placeholder' => 'note..','class' => 'form-control')) }}
-        {{ Form::text('appointment_id',$pdetails->app_id, array('class' => 'form-control')) }}
-        {{ Form::text('patient_id',$pdetails->pat_id, array('class' => 'form-control')) }}
-          </div>
-          </div>
+                                    <div class="form-group  text-center">
+                                    <button type="submit" class="btn btn-primary">Submit</button>  </td>
+                                     </div>
 
-<button type="submit" class="btn btn-primary">Submit</button>
+                                {{ Form::close() }}
 
-{{ Form::close() }}
-    </div>
-  </div>
-          <div id="tab-52" class="tab-pane">
-               <div class="panel-body">
+                                   </div>
+                                </div>
+                               </div><!--4 tabs-->
 
-                           <?php
-                           $drgs= (new \App\Http\Controllers\TestController);
-                           $drugs = $drgs->drugList();
-                           foreach($drugs as $druglist){
+                    <!--tabs5 Admit-->
+                    <div id="tab-5" class="tab-pane">
+                            <div class="panel-body">
+                                    {{ Form::open(array('route' => array('patientnotes'),'method'=>'POST')) }}
 
-                           }
-                           ?>
-  <strong>Transfer</strong>
-{{ Form::open(array('route' => array('patientnotes'),'method'=>'POST')) }}
-<div class="form-group">
-  <label for="role" class="col-md-4 control-label">Facility </label>
-<div class="col-md-6">
-  <select name="drug_id[]" id="druglist" multiple='multiple'class="form-control m-b" >
-  @foreach($drugs as $druglist)
-   <option value="{{$druglist->id }}">{{ $druglist->drugname  }}</option>
-  @endforeach
-  </select>
+                                    <div class="form-group col-md-8 col-md-offset-1">
+                                        <label for="presc">Facility:</label>
+                                        <select id="facility" name="facility" class="form-control facility1" ></select>
+                                    </div>
+                                      <div class="form-group col-md-8 col-md-offset-1" id="data_1">
+                                          <label class="font-normal">Next Appointment Date</label>
+                                          <div class="input-group date">
+                                              <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                              <input type="text" class="form-control" name="next_appointment" value="">
+                                          </div>
+                                      </div>
+                                  {{ Form::hidden('appointment_status',4, array('class' => 'form-control')) }}
 
-  </div>
-</div>
-<div class="col-xs-12 col-sm-12 col-md-12">
-        <div class="form-group">
-        <strong>Doctor note:</strong>
-     {{ Form::textarea('note', null, array('placeholder' => 'note..','class' => 'form-control')) }}
-      {{ Form::text('appointment_id',$pdetails->app_id, array('class' => 'form-control')) }}
-      {{ Form::text('patient_id',$pdetails->pat_id, array('class' => 'form-control')) }}
-      {{ Form::text('facilty_from',$pdetails->facility_id, array('class' => 'form-control')) }}
-        </div>
-        </div>
+                                  {{ Form::hidden('test_status',1, array('class' => 'form-control')) }}
+                                  {{ Form::hidden('appointment_id',$pdetails->app_id, array('class' => 'form-control')) }}
+                                  {{ Form::hidden('doc_id',$Docdata->doc_id, array('class' => 'form-control')) }}
 
-<button type="submit" class="btn btn-primary">Submit</button>
 
-{{ Form::close() }}
-  </div>
+                      <div class="form-group col-md-8 col-md-offset-1">
+                       <label for="role" class="control-label">Doctor note</label>
+                        {{ Form::textarea('doc_note', null, array('placeholder' => 'note..','class' => 'form-control col-lg-8')) }}
+                    </div>
+
+
+                    <div class="form-group  col-md-8 col-md-offset-1">
+                    <button type="submit" class="btn btn-primary">Submit</button>  </td>
+                    </div>
+                  {{ Form::close() }}
+                        </div><!--panel body-->
+                    </div><!--5 tabs Admit-->
+
+                    <!--tabs6 Discharge-->
+                    <div id="tab-6" class="tab-pane">
+                            <div class="panel-body">
+                                    {{ Form::open(array('route' => array('patientnotes'),'method'=>'POST')) }}
+
+
+                                      <div class="form-group col-md-8 col-md-offset-1" id="data_1">
+                                          <label class="font-normal">Next Appointment Date</label>
+                                          <div class="input-group date">
+                                              <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                              <input type="text" class="form-control" name="next_appointment" value="">
+                                          </div>
+                                      </div>
+                                  {{ Form::hidden('appointment_status',3, array('class' => 'form-control')) }}
+
+                                  {{ Form::hidden('test_status',1, array('class' => 'form-control')) }}
+                                  {{ Form::hidden('appointment_id',$pdetails->app_id, array('class' => 'form-control')) }}
+                                  {{ Form::hidden('doc_id',$Docdata->doc_id, array('class' => 'form-control')) }}
+
+
+                      <div class="form-group col-md-8 col-md-offset-1">
+                       <label for="role" class="control-label">Doctor note</label>
+                        {{ Form::textarea('doc_note', null, array('placeholder' => 'note..','class' => 'form-control col-lg-8')) }}
+                    </div>
+
+
+                    <div class="form-group  col-md-8 col-md-offset-1">
+                    <button type="submit" class="btn btn-primary">Submit</button>  </td>
+                    </div>
+                  {{ Form::close() }}
+
+
+                          </div><!--panel body-->
+                    </div><!--6tabs Discharged-->
+                    <!--tabs7 Transfer-->
+                    <div id="tab-7" class="tab-pane">
+                            <div class="panel-body">
+                                    {{ Form::open(array('route' => array('patientnotes'),'method'=>'POST')) }}
+                                    <div class="form-group col-md-8 col-md-offset-1">
+                                        <label for="presc">Facility:</label>
+                                        <select id="facility" name="facility" class="form-control facility1" ></select>
                                     </div>
 
-                                </div>
+
+                                   {{ Form::hidden('appointment_status',5, array('class' => 'form-control')) }}
+
+                                  {{ Form::hidden('test_status',1, array('class' => 'form-control')) }}
+                                  {{ Form::hidden('appointment_id',$pdetails->app_id, array('class' => 'form-control')) }}
+                                  {{ Form::hidden('doc_id',$Docdata->doc_id, array('class' => 'form-control')) }}
 
 
-                            </div>
-                        </div>
+                      <div class="form-group col-md-8 col-md-offset-1">
+                       <label for="role" class="control-label">Doctor note</label>
+                        {{ Form::textarea('doc_note', null, array('placeholder' => 'note..','class' => 'form-control col-lg-8')) }}
+                    </div>
 
 
-        </div>
+                    <div class="form-group  col-md-8 col-md-offset-1">
+                    <button type="submit" class="btn btn-primary">Submit</button>  </td>
+                    </div>
+                  {{ Form::close() }}
 
-
-    </div>
-  </div><!--end of tab-->
-  </div>
-  </div>
-
-
-
-  </div>
-    </div>
-
-
-
-  </div><!--row-->
-
+                          </div><!--panel body-->
+                    </div><!--7tabs-->
 
 
 
@@ -684,4 +495,24 @@
 
 
 
+
+
+
+
+
+
+
+
+
+              </div><!--tabcontent-->
+          </div><!--tabs-container-->
+        </div><!--col12-->
+        <!--tabs-->
+
+        </div><!--row-->
+  </div><!--wrapper-->
+
+
+</body>
+</html>
 @endsection

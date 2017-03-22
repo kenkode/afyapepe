@@ -55,20 +55,17 @@ class PrescriptionController extends Controller
 
 
     Prescription_detail::create([
-
            'presc_id' => $id,
            'drug_id' => $request['prescription'],
            'diagnosis' => $request['diagnosis'],
-           'dosage' => $request['dosage'],
+           'doseform' => $request['dosage'],
            'strength' => $request['strength'],
            'routes' => $request['routes'],
            'frequency' => $request['frequency'],
-           'facility_id' => $request['facility'],
+           'appointment_id' => $request['appointment_id'],
+
 
        ]);
-
-      //  $docnote=$request['doc_note'];
-
 
 
    return redirect()->route('newpatients');

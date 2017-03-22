@@ -245,9 +245,6 @@ return redirect('doctor.create');
 </div>
 </div>
 
-
-
-
 {{ Form::hidden('appointment_id',$pdetails->app_id, array('class' => 'form-control')) }}
 {{ Form::hidden('doc_id',$Docdata->doc_id, array('class' => 'form-control')) }}
 
@@ -266,14 +263,14 @@ return redirect('doctor.create');
    <thead>
 <tr>
  <th></th>
-
-   <th>Test Recommended</th>
-   <th>Done</th>
+    <th>Date </th>
+   <th>Test Name</th>
+   <th>Conditional Diagnosis</th>
+   <th>Status</th>
    <th>Result</th>
    <th>Faciity</th>
-   <th>Apointment Id</th>
-    <th>Note</th>
-   <th>Date Test Done</th>
+   <th>Note</th>
+
 
 </tr>
 </thead>
@@ -283,14 +280,15 @@ return redirect('doctor.create');
 
 @foreach($tstdone as $tstdn)
   <tr>
-     <td>{{ +$i }}</td>
-  <td>{{$tstdn->tests_reccommended}}</td>
-   <td>{{$tstdn->done}}</td>
+  <td>{{ +$i }}</td>
+  <td>{{$tstdn->created_at}}</td>
+  <td>{{$tstdn->name}}</td>
+  <td>{{$tstdn->disease}}</td>
+  <td>{{$tstdn->done}}</td>
    <td>{{$tstdn->results}}</td>
-   <td>{{$tstdn->facility_id}}</td>
-   <td>{{$tstdn->facility_id}}</td>
+   <td>{{$tstdn->FacilityName}}</td>
    <td>{{$tstdn->note}}</td>
-   <td>{{$tstdn->created_at}}</td>
+
 </tr>
 <?php $i++; ?>
 
@@ -368,11 +366,7 @@ return redirect('doctor.create');
                                   @endforeach
                                </select>
                             </div>
-                             {{ Form::hidden('facility',$pdetails->FacilityCode, array('class' => 'form-control')) }}
-                             {{ Form::hidden('triage_id',$pdetails->triage_id, array('class' => 'form-control')) }}
-                             {{ Form::hidden('filled_status', 1, array('class' => 'form-control')) }}
-
-                            {{ Form::hidden('test_status',1, array('class' => 'form-control')) }}
+                            
                             {{ Form::hidden('appointment_id',$pdetails->app_id, array('class' => 'form-control')) }}
                             {{ Form::hidden('doc_id',$Docdata->doc_id, array('class' => 'form-control')) }}
 

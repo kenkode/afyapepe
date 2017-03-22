@@ -27,7 +27,7 @@
                         </li>
                         <li class="list-group-item">
                             <span class="pull-right">
-                                {{$pdetails->national_id}}
+                                {{$pdetails->nationalId}}
                             </span>
                           National ID
                         </li>

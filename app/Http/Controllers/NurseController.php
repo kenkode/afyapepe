@@ -48,10 +48,16 @@ class NurseController extends Controller
       return view('nurse.appointment');
     }
 
+
+    public function showDependents($id)
+    {
+        return view('nurse.showdependent')->with('id',$id);
+    }
+
     public function wList(){
       $patients = DB::table('afya_users')
         ->Join('patients', 'afya_users.id', '=', 'patients.afya_user_id')
-        ->select('afya_users.*', 'patients.allergies')
+        ->select('afya_users.*')
         ->where('afya_users.status',2)
         ->get();
 
@@ -61,11 +67,13 @@ class NurseController extends Controller
 
     public function newPatient(){
       $today = Carbon::today();
-      $patients = DB::table('afya_users')
-        ->Join('patients', 'afya_users.id', '=', 'patients.afya_user_id')
-        ->select('afya_users.*', 'patients.*')
-        ->where('afya_users.status',1)
-        ->where('patients.created_at','>=',$today)
+      $patients = DB::table('appointments as app')
+        ->Join('afya_users as par', 'app.afya_user_id', '=', 'par.id')
+        ->leftjoin('dependant as dep','app.persontreated','=','dep.id')
+        ->select('par.id as parid','par.firstname as first','par.secondName as second','par.gender as gender','par.age as age','dep.id as depid','dep.firstName as dfirst','dep.secondName as dsecond','dep.age as dage',
+            'dep.gender as dgender','app.created_at as created_at','app.persontreated as persontreated')
+        ->where('par.status',1)
+        ->where('app.created_at','>=',$today)
         ->get();
         return view('nurse.newpatient')->with('patients',$patients);
     }

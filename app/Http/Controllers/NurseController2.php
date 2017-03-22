@@ -28,6 +28,11 @@ class NurseController extends Controller
 
       return view('nurse.nurseupdate')->with('id',$id);
     }
+     public function showDependents($id)
+    {
+        return view('nurse.showdependent')->with('id',$id);
+    }
+
    public function nurseUpdates(Request  $request){
      $id=$request->id;
      $blood=$request->blood;

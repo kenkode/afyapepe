@@ -3,7 +3,7 @@
 @section('title', 'Waiting patients')
 @section('content')
   <div class="content-page  equal-height">
-      <span class="label label-info">Today's Patients</span>
+     
       <div class="content">
           <div class="container">
 
@@ -16,7 +16,7 @@ $current = Carbon::now();
 
  <div class="wrapper wrapper-content animated fadeInRight">
            <div class="row">
-               <div class="col-lg-12">
+              <div class="col-lg-10 col-lg-offset-1">
                <div class="ibox float-e-margins">
                    <div class="ibox-title">
                        <h5>Waiting list</h5>
@@ -84,15 +84,7 @@ $current = Carbon::now();
                                                    @endforeach
 
                                                    </tbody>
-                                                   <tfoot>
-                                                     <tr>
-                                                         <th> No</th>
-                                                         <th> Name</th>
-                                                         <th>Gender</th>
-                                                         <th> Age</th>
-                                                       <th>Time waited to see the doctor</th>
-                                                   </tr>
-                                                   </tfoot>
+                                                   
                                                  </table>
                                                      </div>
 

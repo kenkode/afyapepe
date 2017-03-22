@@ -73,6 +73,7 @@ Route::group(['middleware' => ['auth','role:Admin|Nurse']], function() {
 	Route::post('updateuser','NurseController@updateUser');
   Route::get('nurseupdate/{id}','NurseController@nurseUpdate');
 	Route::post('nurseupdates','NurseController@nurseUpdates');
+	Route::get('nurse.dependents/{id}','NurseController@showDependents');
   Route::post('nurse.show',['as'=>'createdetail','uses'=>'NurseController@createdetails']);
 });
 
@@ -147,6 +148,9 @@ Route::group(['middleware' => ['auth','role:Admin|Patient']], function() {
 Route::group(['middleware' => ['auth','role:Admin|Registrar']], function() {
 	Route::resource('registrar','RegistrarController');
 	Route::get('registrar.show/{id}','RegistrarController@showUser');
+	Route::get('registrar.select/{id}','RegistrarController@selectChoice');
+	Route::get('registrar.addDependents/{id}','RegistrarController@addDependents');
+	Route::get('registrar.dependant/{id}','RegistrarController@selectDependant');
 	Route::post('updateusers','RegistrarController@updateUsers');
 	Route::post('registrarnextkin','RegistrarController@registrarNextkin');
 	Route::get('update/{id}','RegistrarController@updateKin');
@@ -154,6 +158,10 @@ Route::group(['middleware' => ['auth','role:Admin|Registrar']], function() {
 	Route::get('consultationfee/{id}','RegistrarController@consultationFee');
 	Route::post('consultationfee','RegistrarController@consultationFees');
 	Route::get('fees','RegistrarController@Fees');
+	Route::post('createdependent','RegistrarController@createDependent');
+	Route::get('registrar.dependantTriage/{id}','RegistrarController@dependantTriage');
+	Route::post('Dependentconsultationfee','RegistrarController@Dependentconsultationfee');
+
 
 });
 Route::group(['middleware' => ['auth','role:Admin|Test']], function() {

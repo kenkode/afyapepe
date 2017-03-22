@@ -156,10 +156,13 @@
     <label for="exampleInputEmail1">Email</label>
     <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  name="email" />
     </div>
-       <div class="form-group">
-      <label for="exampleInputEmail1">Date of Birth</label>
-      <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  name="date" />
-      </div>
+    <div class="form-group" id="data_1">
+     <label for="exampleInputPassword1">Date of Birth</label>
+     <div class="input-group date">
+         <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+         <input type="text" class="form-control" name="date" value="">
+     </div>
+     </div>
        <div class="form-group">
       <label for="exampleInputPassword1">Place of Birth</label>
       <input type="text"  class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  name="place"/>

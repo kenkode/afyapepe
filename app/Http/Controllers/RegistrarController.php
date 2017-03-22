@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Redirect;
 
 use App\Http\Requests;
 use DB;
@@ -21,7 +22,7 @@ class RegistrarController extends Controller
      */
     public function index()
     {
-        $today = Carbon::today();
+        $today = date('Y-m-d');
         $users=DB::table('afya_users')->
         join('afyamessages','afya_users.msisdn','=','afyamessages.msisdn')->
         leftjoin('constituency','afya_users.constituency','=','constituency.const_id')->
@@ -38,6 +39,52 @@ class RegistrarController extends Controller
       $user=DB::table('afya_users')->where('id',$id)->first();
       return view('registrar.show')->with('user',$user);
     }
+
+    public function selectChoice($id){
+
+      return view('registrar.select')->with('id',$id);
+    }
+
+    public function selectDependant($id){
+      return view('registrar.dependants')->with('id',$id);
+    }
+
+    public function createDependent(Request $request){
+      $id=$request->id;
+      $first=$request->first;
+      $second=$request->second;
+      $gender=$request->gender;
+      $blood=$request->blood;
+      $pob=$request->pob;
+      $dob=$request->dob;
+      $age=$request->age;
+      $relation=$request->relationship;
+
+      DB::table('dependant')->insert(
+      ['afya_user_id' => $id,
+      'firstName' => $first,
+      'secondName'=> $second,
+      'gender'=>$gender,
+      'blood_type'=>$blood,
+      'dob'=>$dob,
+      'pob'=>$pob,
+      'age'=>$age,
+      'relationship'=>$relation
+      ]
+  );
+
+   return redirect()->action('RegistrarController@selectDependant', [$id]);
+    }
+public function addDependents($id){
+  return view('registrar.addDependents')->with('id',$id);
+}
+
+public function dependantTriage($id){
+  $user=DB::table('dependant')->where('id',$id)->first();
+  return view('registrar.dependantTriage')->with('id',$id)->with('user',$user);
+}
+
+
 
     public function updateUsers(Request $request){
       $id=$request->id;
@@ -134,9 +181,57 @@ class RegistrarController extends Controller
  'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
  'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
 );
+ DB::table('appointments')->insert([
+  'status'=>1,
+  'facility_id'=>1001,
+  'afya_user_id'=>$id,
+  'doc_id'=>1,
+  'persontreated'=>'Self',
+  'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+ 'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
+
+
+  ]);
 
    return redirect()->action('RegistrarController@index');
     }
+ public function Dependentconsultationfee(Request $request){
+      $id=$request->id;
+      $descr=$request->descr;
+      $type=$request->type;
+      $mode=$request->mode;
+      $amount=$request->amount;
+      $user=$request->afya_user;
+  DB::table('appointments')->insert([
+  'status'=>1,
+  'facility_id'=>1001,
+  'afya_user_id'=>$user,
+  'doc_id'=>1,
+  'persontreated'=>$id,
+  'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+ 'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
+
+
+  ]);
+  $phone=DB::Table('afya_users')->where('id',$user)->select('msisdn')->first();
+  DB::table('afyamessages')->where('msisdn',$phone->msisdn)->
+  update([
+ 'status' => 1,
+ 'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+ 'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
+
+   DB::table('fees')->insert(
+      ['patient_id' => $id,
+      'type'=>$type,
+      'descr' => $descr,
+      'action'=> $mode,
+      'amount'=> $amount,
+      'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+      'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
+  );
+   return redirect()->action('RegistrarController@index');
+
+ }
  public function Fees(){
    $fees=DB::table('fees')->
    join('afya_users','fees.patient_id','=','afya_users.id')->where('type','=','yes')

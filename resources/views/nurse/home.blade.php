@@ -2,7 +2,7 @@
 @section('title', 'All patients')
 @section('content')
   <div class="content-page  equal-height">
-      <span class="label label-info">All Patients</span>
+      
       <div class="content">
           <div class="container">
 
@@ -10,10 +10,10 @@
 
             <div class="wrapper wrapper-content animated fadeInRight">
                       <div class="row">
-                          <div class="col-lg-12">
+                          <div class="col-lg-10 col-lg-offset-1">
                           <div class="ibox float-e-margins">
                               <div class="ibox-title">
-
+                               <h5>All Patient  Details</h5>
                                   <div class="ibox-tools">
 
                                       <a class="collapse-link">
@@ -70,15 +70,7 @@
                                                    @endforeach
 
                                                    </tbody>
-                                                   <tfoot>
-                                                     <tr>
-                                                         <th>No</th>
-                                                         <th>Name</th>
-                                                         <th>Gender</th>
-                                                         <th>Age</th>
-                                                         <th>Date</th>
-                                                   </tr>
-                                                  </tfoot>
+                                                   
                                                  </table>
                                                      </div>
 

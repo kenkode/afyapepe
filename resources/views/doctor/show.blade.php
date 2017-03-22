@@ -228,27 +228,27 @@ return redirect('doctor.create');
 <!--tabs3-->
 <div id="tab-3" class="tab-pane">
 <div class="ibox float-e-margins">
-<div class="ibox-content">
+<div class="ibox-content col-md-12">
 {{ Form::open(array('route' => array('patienttest'),'method'=>'POST')) }}
 <!-- {{ Form::open(array('id' => 'ptest')) }} -->
 
-<div class="col-md-4">
+<div class="col-md-6">
 
 <div class="form-group ">
     <label for="d_list2">Conditional Diagnosis:</label>
-    <select id="d_list2" name="conditional" class="d_list2 form-control"></select>
+    <select id="d_list2" name="conditional" class="d_list2 form-control" style="width: 100%"></select>
 </div>
 
 <div class="form-group">
-    <label for="tag_list">Select Test:</label>
-    <select id="tag_list" name="test" class="form-control tag_list1" ></select>
+    <label for="tag_list" class="col-md-4">Select Test:</label>
+    <select id="tag_list" name="test" class="form-control tag_list1" style="width: 100%"></select>
 </div>
 </div>
-
+<div class="form-group  text-center col-md-2">
 {{ Form::hidden('appointment_id',$pdetails->app_id, array('class' => 'form-control')) }}
 {{ Form::hidden('doc_id',$Docdata->doc_id, array('class' => 'form-control')) }}
 
-<div class="form-group  text-center">
+<br /><br /><br />
 <button type="submit" class="btn btn-primary">Submit</button>  </td>
 </div>
 {{ Form::close() }}
@@ -258,7 +258,7 @@ return redirect('doctor.create');
 
 <!--Test result tabs PatientController@testdone-->
 <div id="testR">
-<div class="table-responsive">
+<div class="table-responsive ibox-content">
 <table class="table table-striped table-bordered table-hover dataTables-conditional" >
    <thead>
 <tr>
@@ -318,19 +318,19 @@ return redirect('doctor.create');
 
 
                       <div class="ibox float-e-margins">
-                        <div class="ibox-content">
-
+                        <div class="ibox-content col-md-12">
+                    <div class="ibox-content col-md-6 col-md-offset-2">
 
                           <div class="form-group ">
                               <label for="d_list3">Confirmed Diagnosis:</label>
-                              <select id="d_list3" name="diagnosis" class="form-control d_list2"></select>
+                              <select  name="diagnosis" class="form-control d_list2" style="width: 100%"></select>
                           </div>
                           <div class="form-group">
-                              <label for="presc">Prescription:</label>
-                              <select id="presc" name="prescription" class="form-control presc1" ></select>
+                              <label for="presc" class="col-md-4">Prescription:</label>
+                              <select id="presc" name="prescription" class="form-control presc1" style="width: 100%"></select>
                           </div>
                           <div class="form-group">
-                              <label for="dosage" class="col-md-2 control-label">Dosage Form</label></td>
+                              <label for="dosage">Dosage Form</label></td>
                                <select class="form-control m-b" name="dosage" id="example-getting-started" >
                                 <?php $druglists=DB::table('druglists')->distinct()->get(['DosageForm']); ?>
                                 @foreach($druglists as $druglist)
@@ -341,17 +341,17 @@ return redirect('doctor.create');
 
                              <div class="form-group">
                               <label for="dosage" class="col-md-2 control-label">Strength</label></td>
-                               <select class="js-example-placeholder-single" id="testsj" name="strength">
+                               <select class="form-control" id="testsj" name="strength">
                                    @foreach($Strengths as $Strengthz)
                                      <option value="{{$Strengthz->id }}">{{ $Strengthz->strength  }} </option>
                                   @endforeach
                                </select>
-                        <input type="radio" name="dosage" value="ml"> Ml &nbsp;&nbsp;<input type="radio" name="dosage" value="mg"> Mg
+                        <input type="radio" name="strength_unit" value="ml"> Ml &nbsp;&nbsp;<input type="radio" name="dosage" value="mg"> Mg
                             </div>
 
                              <div class="form-group">
                               <label for="dosage" class="col-md-2 control-label">Route</label></td>
-                               <select class="js-example-placeholder-single" name="routes">
+                               <select class="form-control" name="routes">
                                    @foreach($routems as $routemz)
                                      <option value="{{$routemz->id }}">{{ $routemz->abbreviation }}----{{ $routemz->name  }} </option>
                                   @endforeach
@@ -360,13 +360,13 @@ return redirect('doctor.create');
 
                               <div class="form-group">
                               <label for="dosage" class="col-md-2 control-label">Frequency</label></td>
-                               <select class="js-example-placeholder-single"  name="frequency">
+                               <select class="form-control"  name="frequency">
                                    @foreach($frequent as $freq)
                                      <option value="{{$freq->id }}">{{ $freq->abbreviation }}----{{ $freq->name  }} </option>
                                   @endforeach
                                </select>
                             </div>
-                            
+
                             {{ Form::hidden('appointment_id',$pdetails->app_id, array('class' => 'form-control')) }}
                             {{ Form::hidden('doc_id',$Docdata->doc_id, array('class' => 'form-control')) }}
 
@@ -382,7 +382,7 @@ return redirect('doctor.create');
                                      </div>
 
                                 {{ Form::close() }}
-
+                                    </div>
                                    </div>
                                 </div>
                                </div><!--4 tabs-->
@@ -393,8 +393,8 @@ return redirect('doctor.create');
                                     {{ Form::open(array('route' => array('patientnotes'),'method'=>'POST')) }}
 
                                     <div class="form-group col-md-8 col-md-offset-1">
-                                        <label for="presc">Facility:</label>
-                                        <select id="facility" name="facility" class="form-control facility1" ></select>
+                                        <label for="presc" class="col-md-6">Facility:</label>
+                                        <select id="facility" name="facility" class="form-control facility1" style="width: 100%"></select>
                                     </div>
                                       <div class="form-group col-md-8 col-md-offset-1" id="data_1">
                                           <label class="font-normal">Next Appointment Date</label>
@@ -462,8 +462,8 @@ return redirect('doctor.create');
                             <div class="panel-body">
                                     {{ Form::open(array('route' => array('patientnotes'),'method'=>'POST')) }}
                                     <div class="form-group col-md-8 col-md-offset-1">
-                                        <label for="presc">Facility:</label>
-                                        <select id="facility" name="facility" class="form-control facility1" ></select>
+                                        <label for="presc" class="col-md-6">Facility:</label>
+                                        <select id="facility" name="facility" class="form-control facility1" style="width: 100%"></select>
                                     </div>
 
 

@@ -4,125 +4,39 @@
 @section('content')
 <div class="row  border-bottom white-bg dashboard-header">
 
-                <div class="col-md-3">
+                <div class="col-md-4">
                   @foreach($patientvisit as $pdetails)
 
                   <h2>{{$pdetails->firstname}} {{$pdetails->secondName}}</h2>
 
-                    <small>You have 42 messages and 6 notifications.</small>
+                    <small>Patient Name</small>
                     <ul class="list-group clear-list m-t">
-                        <li class="list-group-item fist-item">
-                            <span class="pull-right">
-                              <?php $gender=$pdetails->gender;?>
-                                @if($gender==1){{"Male"}}@else{{"Female"}}@endif
-                            </span>
-                            Gender
+              <h2>Chief Complain</h2>
 
-                        </li>
-                        <li class="list-group-item">
-                            <span class="pull-right">
-                              {{$pdetails->dob}}
-                            </span>
-                            Date of Birth
-                        </li>
-                        <li class="list-group-item">
-                            <span class="pull-right">
-                                {{$pdetails->nationalId}}
-                            </span>
-                          National ID
-                        </li>
-                        <li class="list-group-item">
-                            <span class="pull-right">
-                              {{$pdetails->constituency}}
-                            </span>
-                          Constituency
-                        </li>
-                        <li class="list-group-item">
-                            <span class="pull-right">
-                                12:00 am
-                            </span>
-                        Write a letter to Sandra
-                        </li>
-                    </ul>
-                </div>
-                <div class="col-md-3">
-                        <h2>Next of kin info</h2>
+              <li class="list-group-item fist-item">
+              {{$pdetails->chief_compliant}}
+              </span>
+              </li>
+              </ul>
+              </div>
+
+                <div class="col-md-4">
+                        <h2></h2>
                         <small>.</small>
                         <ul class="list-group clear-list m-t">
-                            <li class="list-group-item fist-item">
-                                <span class="pull-right">
-                                     {{$pdetails->kin_name}}
-                                </span>
-                                Name
-                            </li>
-                            <li class="list-group-item">
-                                <span class="pull-right">
-                                    {{$pdetails->relation}}
-                                </span>
-                                Relation
-                            </li>
-                            <li class="list-group-item">
-                                <span class="pull-right">
-                                  {{$pdetails->phone_of_kin}}
-                                </span>
-                                Phone
-                            </li>
-                            <li class="list-group-item">
-                                <span class="pull-right">
-                                  {{$pdetails->constituency}}
-                                </span>
-                                Constituency
-                            </li>
-                            <li class="list-group-item">
-                                <span class="pull-right">
-                                    12:00 am
-                                </span>
-                              Write a letter to Sandra
-                            </li>
+                          <h2>Observations </h2>
+                          <li class="list-group-item">
+                            {{$pdetails->observation}}
+                          </li>
+
                         </ul>
                     </div>
-                    <div class="col-md-3">
-                          <h2>Observations </h2>
-                            <small>.</small>
-                          <ul class="list-group clear-list m-t">
-                              <li class="list-group-item fist-item">
-                                  <span class="pull-right">
-                                  {{$pdetails->chief_compliant}}
-                                  </span>
-                                  Chief Complain
-                              </li>
-                              <li class="list-group-item">
-                                  <span class="pull-right">
-                                {{$pdetails->observation}}
-                                  </span>
-                                Observation
-                              </li>
-                              <li class="list-group-item">
-                                  <span class="pull-right">
-                                  {{$pdetails->Doctor_note}}
-                                  </span>
-                             Doctor Note
-                              </li>
-                              <li class="list-group-item">
-                                  <span class="pull-right">
-                                    {{$pdetails->constituency}}
-                                  </span>
-                                  Constituency
-                              </li>
 
-                          </ul>
-                      </div>
                       <div class="col-md-3">
                       <h2>TRIAGE INFO</h2>
                       <small>.</small>
                       <ul class="list-group clear-list m-t">
-                          <li class="list-group-item fist-item">
-                              <span class="pull-right">
-                                  {{$pdetails->facility_id}}
 
-                              </span>
-                             Facility
-                          </li>
                           <li class="list-group-item">
                               <span class="pull-right">
                                 {{$pdetails->temperature}}
@@ -263,7 +177,7 @@
                          <th></th>
 
                            <th>Drug Name</th>
-                           <th>Facility Name</th>
+
                            <th>Available</th>
                            <th>Dosage Form</th>
                            <th>Dose given</th>
@@ -278,7 +192,7 @@
                           <tr>
                              <td>{{ +$i }}</td>
                           <td>{{$presc->drugname}}</td>
-                           <td>{{$presc->FacilityName}}</td>
+
                            <td>{{$presc->availability}}</td>
                            <td>{{$presc->doseform}}</td>
                            <td>{{$presc->dosage}}</td>

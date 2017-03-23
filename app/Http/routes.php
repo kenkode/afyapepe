@@ -63,7 +63,7 @@ Route::group(['middleware' => ['auth','role:Admin|Nurse']], function() {
 	Route::get('waitingList', 'NurseController@wList');
 	Route::get('nurseappointment','NurseController@Appointment');
 	Route::get('calendarnurse','NurseController@Calendar');
-  Route::get('nurse.patientshow/{id}','NurseController@patientShow');
+    Route::get('nurse.patientshow/{id}','NurseController@patientShow');
 	Route::get('nurse.createkin/{id}',['as'=>'createkin','uses'=>'NurseController@createnextkin']);
 	Route::get('nurse.vaccine/{id}',['as'=>'vaccinescreate','uses'=>'NurseController@vaccinescreate']);
   Route::get('nurse.details/{id}',['as'=>'details','uses'=>'NurseController@details']);
@@ -75,6 +75,10 @@ Route::group(['middleware' => ['auth','role:Admin|Nurse']], function() {
 	Route::post('nurseupdates','NurseController@nurseUpdates');
 	Route::get('nurse.dependents/{id}','NurseController@showDependents');
   Route::post('nurse.show',['as'=>'createdetail','uses'=>'NurseController@createdetails']);
+  Route::get('immuninationchart/{id}','NurseController@immuninationChart');
+  Route::get('growth/{id}','NurseController@childGrowth');
+  Route::get('update.dependant/{id}','NurseController@updateDependant');
+  Route::post('Dependantupdate','NurseController@Dependantupdate');
 });
 
 // Doctor routes;

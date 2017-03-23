@@ -34,10 +34,51 @@ class NurseController extends Controller
         return view('nurse.create');
 
     }
+    public function updateDependant($id){
+
+        return view('nurse.updatedependant')->with('id',$id);
+    }
 
     public function nurseUpdate($id){
 
       return view('nurse.nurseupdate');
+    }
+    public function Dependantupdate(Request $request){
+     $id=$request->id;
+     $father_name=$request->father_name;
+     $father_phone=$request->father_phone;
+     $mother_name=$request->mother_name;
+     $mother_phone=$request->mother_phone;
+     $birthno=$request->Birth_number;
+     $birth=$request->birth;
+     $dob=$request->dob;
+      
+    DB::table('dependant_parent')->insert(
+    ['name' => $father_name,
+    'relationship' => 'Father',
+    'phone'=> $father_phone,
+    'dependant_id'=>$id,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
+);
+ DB::table('dependant_parent')->insert(
+    ['name' => $mother_name,
+    'relationship' => 'Mother',
+    'phone'=> $mother_phone,
+    'dependant_id'=>$id,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
+);
+ DB::table('dependant')->where('id', $id)
+            ->update([
+                             'birth_no' =>  $birthno,
+                             'next_sibling' => $birth,
+                             'next_sibling_date' => $dob,
+                             'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
+                             ]);
+ return redirect()->action('NurseController@showDependents', [$id]);
+
     }
 
     public function Calendar(){
@@ -48,7 +89,14 @@ class NurseController extends Controller
       return view('nurse.appointment');
     }
 
-
+    public function immuninationChart($id){
+        return view('nurse.chart')->with('id',$id);
+    }
+     
+    public function childGrowth($id){
+        return view('nurse.growth')->with('id',$id);
+    }
+     
     public function showDependents($id)
     {
         return view('nurse.showdependent')->with('id',$id);

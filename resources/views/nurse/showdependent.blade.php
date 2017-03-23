@@ -117,8 +117,8 @@
       </div> 
       </div> 
       </div>   
-    
-<div id="tab-2" class="tab-pane active">
+
+<div id="tab-2" class="tab-pane">
                         <div class="panel-body">
 
   <div class="wrapper wrapper-content">
@@ -168,7 +168,7 @@
       </div> 
       </div> 
       </div>   
-<div id="tab-3" class="tab-pane active">
+<div id="tab-3" class="tab-pane">
                         <div class="panel-body">
 
   <div class="wrapper wrapper-content">

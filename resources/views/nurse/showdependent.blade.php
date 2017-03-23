@@ -49,7 +49,23 @@
   </div>
   </div>
 
-  
+ <div class="col-lg-12">
+            <div class="tabs-container">
+              <!-- <div class="col-lg-12 tbg"> -->
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#tab-1">Immunination Chart</a></li>
+                    <li class=""><a data-toggle="tab" href="#tab-2">Measures of Growth & Weight</a></li>
+                    <li class=""><a data-toggle="tab" href="#tab-3">Nutrition Check</a></li>
+                    <li class=""><a data-toggle="tab" href="#tab-4">Adverse Events</a></li>
+                   
+                </ul>
+    <div class="tab-content">
+                      <div id="tab-1" class="tab-pane active">
+                        <div class="panel-body">
+
+  <div class="wrapper wrapper-content">
+          <div class="row animated fadeInRight">
+
            <div class="col-lg-10 col-lg-offset-1">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
@@ -97,8 +113,17 @@
          
                 </div>
             </div>
-      
-        <div class="col-lg-10 col-lg-offset-1">
+      </div> 
+      </div> 
+      </div> 
+      </div>   
+    
+<div id="tab-2" class="tab-pane active">
+                        <div class="panel-body">
+
+  <div class="wrapper wrapper-content">
+          <div class="row animated fadeInRight">
+ <div class="col-lg-10 col-lg-offset-1">
                         <div class="ibox float-e-margins">
                             <div class="ibox-title">
                               <h5>Measures of  Growth & Weight</h5>
@@ -139,15 +164,28 @@
 <a href="{{ url('growth', $dependant->id) }}" class="btn btn-primary btn-sm">Update Details</a>
    </div>
 
+      </div> 
+      </div> 
+      </div> 
+      </div>   
+<div id="tab-3" class="tab-pane active">
+                        <div class="panel-body">
 
+  <div class="wrapper wrapper-content">
+          <div class="row animated fadeInRight">
+      </div> 
+      </div> 
+      </div> 
+      </div> 
+<div id="tab-4" class="tab-pane active">
+                        <div class="panel-body">
 
+  <div class="wrapper wrapper-content">
+          <div class="row animated fadeInRight">
+      </div> 
+      </div> 
+      </div> 
+      </div> 
 
-
-</div>
-
-</div>
-
-
-</div>
-</div>
+</div><!--3tabs-->
 @endsection

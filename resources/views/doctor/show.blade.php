@@ -31,7 +31,7 @@ return redirect('doctor.create');
         // $patientid = $pdetails->pat_id;
         $pname = $pdetails->firstname;
         $lname = $pdetails->secondName;
-        $age = $pdetails->dob;
+        $dob = $pdetails->dob;
         $nid = $pdetails->nationalId;
         $appoid = $pdetails->app_id;
         $appdate = $pdetails->created_at;
@@ -64,6 +64,11 @@ return redirect('doctor.create');
         }else{
           $stat='Referred';
         }
+
+
+ $interval = date_diff(date_create(), date_create($dob));
+ $age= $interval->format(" %Y Year, %M Months, %d Days Old");
+
 }
 ?>
 
@@ -101,76 +106,51 @@ return redirect('doctor.create');
 
   <div class="wrapper wrapper-content">
           <div class="row animated fadeInRight">
-              <div class="col-md-4">
-                  <div class="ibox float-e-margins">
-                      <div class="ibox-title">
-                          <h5>Observation's</h5>
-                      </div>
-                      <div>
+            <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Todays Patient Vitals</h5>
 
-                          <div class="ibox-content profile-content">
-
-                              <h5>Chief Complaint:</h5>
-                              <p><?php echo $complain;?> </p>
-                              <h5>Observation's:</h5>
-                              <p><?php echo $observations;?></p>
-
-                          </div>
-                  </div>
-              </div>
-                  </div>
-              <div class="col-md-8">
-                  <div class="ibox float-e-margins">
-                      <div class="ibox-title">
-                        <button class="btn btn-primary btn-block m"><i class="fa fa-arrow-down"></i> Vitals</button>
                     </div>
-                      <div class="ibox-content">
+                    <div class="ibox-content">
+                    <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover dataTables-conditional" >
+                    <thead>
+                    <tr>
+                      <th></th>
+                       <th>Chief Complain</th>
+                        <th>observations</th>
+                        <th>Age</th>
+                        <th>Weight</th>
+                        <th>Height</th>
+                        <th>Temperature</th>
+                        <th>Systolic BP</th>
+                        <th>Diastolic BP</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                      <?php $i =1; ?>
+                   @foreach($patientdetails as $triageDetails)
+                        <tr>
+                            <td>{{ +$i }}</td>
+                            <td><?php echo $complain;?></td>
+                            <td><?php echo $observations;?></td>
+                            <td><?php echo $age;?></td>
+                            <td><?php echo $weight;?></td>
+                            <td><?php echo $height;?></td>
+                            <td><?php echo $temperature;?></td>
+                            <td><?php echo $systolic;?></td>
+                            <td><?php echo $diastolic;?></td>
 
-                          <div>
-                              <div class="feed-activity-list">
+                         </tr>
+                        <?php $i++; ?>
+                          @endforeach
+                   </tbody>
 
-                                  <div class="row m-t-lg">
-                                      <div class="col-md-4">
-                                       <h5><strong>Age</strong> <?php echo $age;?></h5>
-                                      </div>
-                                      <div class="col-md-4">
-                                       <h5><strong>D.O.B</strong> <?php echo $age;?></h5>
-                                      </div>
-                                      <div class="col-md-4">
-                                      <h5><strong>National ID</strong><?php echo $nid;?></h5>
-                                      </div>
-
-                                    </div>
-                                  <div class="row m-t-lg">
-                                      <div class="col-md-4">
-                                       <h5><strong>weight</strong> <?php echo $weight;?></h5>
-                                      </div>
-                                      <div class="col-md-4">
-                                      <h5><strong>height</strong><?php echo $height;?></h5>
-                                      </div>
-                                      <div class="col-md-4">
-                                       <h5><strong>Temperature</strong><?php echo $temperature;?></h5>
-                                      </div>
-                                    </div>
-                                  <div class="row m-t-lg">
-                                      <div class="col-md-4">
-                                       <h5><strong>Systolic BP:</strong> <?php echo $systolic;?></h5>
-                                      </div>
-                                      <div class="col-md-4">
-                                      <h5><strong>Diastolic BP</strong><?php echo $diastolic;?></h5>
-                                      </div>
-
-                                    </div>
-                              </div>
-
-                              <button class="btn btn-primary btn-block m"><i class="fa fa-arrow-up"></i>Vitals</button>
-
-                          </div>
-
-                      </div>
+                    </table>
                   </div>
-
+                 </div>
               </div>
+
           </div>
       </div>
 </div>
@@ -281,7 +261,7 @@ return redirect('doctor.create');
 @foreach($tstdone as $tstdn)
   <tr>
   <td>{{ +$i }}</td>
-  <td>{{$tstdn->created_at}}</td>
+ <td>{{$tstdn->created_at}}</td>
   <td>{{$tstdn->name}}</td>
   <td>{{$tstdn->disease}}</td>
   <td>{{$tstdn->done}}</td>
@@ -319,19 +299,19 @@ return redirect('doctor.create');
 
                       <div class="ibox float-e-margins">
                         <div class="ibox-content col-md-12">
-                    <div class="ibox-content col-md-6 col-md-offset-2">
+                    <div class="ibox-content col-md-8 col-md-offset-2">
 
                           <div class="form-group ">
-                              <label for="d_list3">Confirmed Diagnosis:</label>
-                              <select  name="diagnosis" class="form-control d_list2" style="width: 100%"></select>
+                              <label for="d_list3" class="col-md-4">Confirmed Diagnosis:</label>
+                              <select  name="diagnosis" class="form-control d_list2" style="width: 50%"></select>
                           </div>
                           <div class="form-group">
                               <label for="presc" class="col-md-4">Prescription:</label>
-                              <select id="presc" name="prescription" class="form-control presc1" style="width: 100%"></select>
+                              <select id="presc" name="prescription" class="form-control presc1" style="width: 50%"></select>
                           </div>
                           <div class="form-group">
-                              <label for="dosage">Dosage Form</label></td>
-                               <select class="form-control m-b" name="dosage" id="example-getting-started" >
+                              <label for="dosage" class="col-md-4">Dosage Form</label></td>
+                               <select class="form-control m-b col-md-4" name="dosageform" id="example-getting-started" style="width: 50%">
                                 <?php $druglists=DB::table('druglists')->distinct()->get(['DosageForm']); ?>
                                 @foreach($druglists as $druglist)
                                        <option value='{{$druglist->DosageForm}}'>{{$druglist->DosageForm}}</option>
@@ -340,29 +320,31 @@ return redirect('doctor.create');
                             </div>
 
                              <div class="form-group">
-                              <label for="dosage" class="col-md-2 control-label">Strength</label></td>
-                               <select class="form-control" id="testsj" name="strength">
+                              <label for="dosage" class="col-md-4 control-label">Strength</label></td>
+                               <select class="form-control" id="testsj" name="strength" style="width: 25%">
                                    @foreach($Strengths as $Strengthz)
-                                     <option value="{{$Strengthz->id }}">{{ $Strengthz->strength  }} </option>
+                                     <option value="{{$Strengthz->strength}}">{{ $Strengthz->strength  }}  </option>
                                   @endforeach
-                               </select>
-                        <input type="radio" name="strength_unit" value="ml"> Ml &nbsp;&nbsp;<input type="radio" name="dosage" value="mg"> Mg
-                            </div>
+                              </select>
+
+                        <input type="radio" name="strength_unit" value="ml"> Ml &nbsp;&nbsp;<input type="radio" name="strength_unit" value="mg"> Mg
+
+                           </div>
 
                              <div class="form-group">
-                              <label for="dosage" class="col-md-2 control-label">Route</label></td>
-                               <select class="form-control" name="routes">
+                              <label for="dosage" class="col-md-4 control-label">Route</label></td>
+                               <select class="form-control" name="routes" style="width: 50%">
                                    @foreach($routems as $routemz)
-                                     <option value="{{$routemz->id }}">{{ $routemz->abbreviation }}----{{ $routemz->name  }} </option>
+                                     <option value="{{$routemz->abbreviation }}">{{ $routemz->abbreviation }}----{{ $routemz->name  }} </option>
                                   @endforeach
                                </select>
                             </div>
 
                               <div class="form-group">
-                              <label for="dosage" class="col-md-2 control-label">Frequency</label></td>
-                               <select class="form-control"  name="frequency">
+                              <label for="dosage" class="col-md-4 control-label">Frequency</label></td>
+                               <select class="form-control"  name="frequency" style="width: 50%">
                                    @foreach($frequent as $freq)
-                                     <option value="{{$freq->id }}">{{ $freq->abbreviation }}----{{ $freq->name  }} </option>
+                                     <option value="{{$freq->abbreviation }}">{{ $freq->abbreviation }}----{{ $freq->name  }} </option>
                                   @endforeach
                                </select>
                             </div>

@@ -329,6 +329,7 @@ class ComposerStaticInit5fef077b84beee0fd1ad93df66b19f0a
         'CreatePasswordResetsTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
         'CreateTriageDetailsTable' => __DIR__ . '/../..' . '/database/migrations/2016_10_26_102124_create_triage_details_table.php',
         'CreateUsersTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_000000_create_users_table.php',
+        'CreateVaccinesTables' => __DIR__ . '/../..' . '/database/migrations/2017_03_23_152816_create_vaccines_tables.php',
         'DOBCategoryTableSeeder' => __DIR__ . '/../..' . '/database/seeds/DOBCategoryTableSeeder.php',
         'DatabaseSeeder' => __DIR__ . '/../..' . '/database/seeds/DatabaseSeeder.php',
         'DiabetesCategoryTableSeeder' => __DIR__ . '/../..' . '/database/seeds/DiabetesCategoryTableSeeder.php',

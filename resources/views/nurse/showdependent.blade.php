@@ -87,12 +87,13 @@
                                                               <thead>
                                                                   <tr>
                                                                       <th>No</th>
-                                                                      <th>Date</th>
-                                                                      <th>Immunization </th>
-                                                                      <th>Location</th>
-                                                                      <th>Facility Name</th>
+                                                                      <th>Disease</th>
+                                                                      <th>Antigen</th>
+                                                                      <th>Age</th>
+                                                                      <th>Date Guideline</th>
 
-                                                                      <th>Done</th>
+                                                                      <th>Status</th>
+                                                                      <th>Vaccine Name</th>
 
                                                                 </tr>
                                                               </thead>

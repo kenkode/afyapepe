@@ -12,6 +12,7 @@ return array(
     'CreatePasswordResetsTable' => $baseDir . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
     'CreateTriageDetailsTable' => $baseDir . '/database/migrations/2016_10_26_102124_create_triage_details_table.php',
     'CreateUsersTable' => $baseDir . '/database/migrations/2014_10_12_000000_create_users_table.php',
+    'CreateVaccinesTables' => $baseDir . '/database/migrations/2017_03_23_152816_create_vaccines_tables.php',
     'DOBCategoryTableSeeder' => $baseDir . '/database/seeds/DOBCategoryTableSeeder.php',
     'DatabaseSeeder' => $baseDir . '/database/seeds/DatabaseSeeder.php',
     'DiabetesCategoryTableSeeder' => $baseDir . '/database/seeds/DiabetesCategoryTableSeeder.php',

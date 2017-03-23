@@ -59,6 +59,7 @@ class RegistrarController extends Controller
       $dob=$request->dob;
       $age=$request->age;
       $relation=$request->relationship;
+      $school=$request->school;
 
       DB::table('dependant')->insert(
       ['afya_user_id' => $id,
@@ -69,7 +70,8 @@ class RegistrarController extends Controller
       'dob'=>$dob,
       'pob'=>$pob,
       'age'=>$age,
-      'relationship'=>$relation
+      'relationship'=>$relation,
+      'school'=>$school
       ]
   );
 

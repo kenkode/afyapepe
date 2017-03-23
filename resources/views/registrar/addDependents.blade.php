@@ -35,9 +35,17 @@
               <label for="exampleInputPassword1">Age</label>
               <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" name="age"  value="
                "  >
+               </div>
+                <div class="form-group">
+              <label for="exampleInputPassword1">School</label>
+              <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" name="school"  value="
+               "  >
                 
 
               </div>
+                
+
+             
               <div class="form-group">
      <label for="exampleInputPassword1">Relationship</label>
     <select class="form-control" name="relationship">

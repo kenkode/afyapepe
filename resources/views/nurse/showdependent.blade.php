@@ -4,10 +4,10 @@
 <div class="wrapper wrapper-content animated fadeInRight">
     
     <div class="row">
-    <div class="col-lg-6 col-lg-offset-1">
+    <div class="col-lg-6 ">
         <div class="ibox float-e-margins">
             <div class="ibox-title">
-                <h5>Patient Information</h5>
+                <h5>Dependant Information</h5>
                 <div class="ibox-tools">
                     <a class="collapse-link">
                         <i class="fa fa-chevron-up"></i>
@@ -41,13 +41,51 @@
              <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Next of Kin Phone" name="phone" value="{{$dependant->gender or ''}}" readonly  >
             </div>
 
-            <a href="{{ url('update.dependant', $dependant->id) }}" class="btn btn-primary btn-sm">Update Details</a>
             
+  </div>
+  </div>
+  </div>
+  <div class="col-lg-6 ">
+  <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Parent Information</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                     <a class="close-link">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
+   <div class="form-group">
+            <?php $father=DB::table('dependant_parent')->where('dependant_id',$id)->where('relationship','=','Father')->first();?>
+            <label for="exampleInputPassword1">Father Name</label>
+            <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Next of Kin Phone" name="phone" value="{{$father->name or ''}}" readonly  >
+            </div>
+             <div class="form-group">
+            <label for="exampleInputPassword1">Father Phone</label>
+             <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Next of Kin Phone" name="phone" value="{{$father->phone or ''}}" readonly  >
+            </div>
+             <?php $mother=DB::table('dependant_parent')->where('dependant_id',$id)->where('relationship','=','Mother')->first();?>
+             <div class="form-group">
+            <label for="exampleInputPassword1">Mother Name</label>
+            <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Next of Kin Phone" name="phone" value="{{$mother->name or ''}}" readonly  >
+            </div>
+             <div class="form-group">
+            <label for="exampleInputPassword1">Mother Phone</label>
+             <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Next of Kin Phone" name="phone" value="{{$mother->phone or ''}}" readonly  >
+            </div>
+  <a href="{{ url('update.dependant', $dependant->id) }}" class="btn btn-primary btn-sm">Update Details</a>
+            
+  </div>
+  </div>
   </div>
   </form>
 
-  </div>
-  </div>
+
+  
 
  <div class="col-lg-12">
             <div class="tabs-container">
@@ -189,4 +227,11 @@
       </div> 
 
 </div><!--3tabs-->
+</div>
+ @include('includes.default.footer')
+
+        
+      </div><!--content-->
+      </div><!--content page-->
+
 @endsection

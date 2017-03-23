@@ -35,7 +35,7 @@ public function store(Request $request)
 {
 
             $this->validate($request, [
-          'patient_id' => 'required',
+
           'doc_id' => 'required',
           'conditional' => 'required',
           'appointment_id' => 'required',
@@ -43,15 +43,14 @@ public function store(Request $request)
        $id = $request->input('appointment_id');
                      $PatientTest = Patienttest ::create([
                         'test_reccommended' => $request->get('test'),
-                        'conditional_diagnosis' => $request->get('conditional'),
-                        'patient_id' => $request->get('patient_id'),
                         'doc_id' => $request->get('doc_id'),
                         'appointment_id' => $request->get('appointment_id'),
                                   ]);
-                         $ptid = $PatientTest->id;
+    $ptid = $PatientTest->id;
 
    $patienttd = DB::table('patient_test_details')->insertGetId(
              [
+               'conditional_diagnosis' => $request->get('conditional'),
                'patient_test_id' => $ptid,
                'tests_reccommended' => $request->get('test'),
                'appointment_id'=> $request->get('appointment_id')

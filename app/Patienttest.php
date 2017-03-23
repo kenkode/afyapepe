@@ -14,7 +14,7 @@ class Patienttest extends Model
     */
    protected $table = 'patient_test';
 
-   public $fillable = ['patient_id','appointment_id','doc_id','test_status','test_reccommended','conditional_diagnosis','doc_note'];
+   public $fillable = ['appointment_id','doc_id','test_reccommended','doc_note'];
    protected $casts = [
 
     ];

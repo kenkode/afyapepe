@@ -2,18 +2,59 @@
 @extends('layouts.show')
 @section('title', 'vist')
 @section('content')
+<?php
+      foreach ($patientvisit as $pdetails) {
+        // $patientid = $pdetails->pat_id;
+
+      }
+        ?>
 <div class="row  border-bottom white-bg dashboard-header">
+  <div>
+  <h3>{{$pdetails->firstname}} {{$pdetails->secondName}}</h3>
+  <small>Patient Name</small>
+</div>
 
-                <div class="col-md-4">
-                  @foreach($patientvisit as $pdetails)
+<div class="col-md-4">
+  <ul class="list-group clear-list m-t">
+    <h3>Today's Vitals </h3>
+    <li class="list-group-item">
+        <span class="pull-right">
+          {{$pdetails->temperature}}
+        </span>
+        Temperature
+    </li>
+    <li class="list-group-item">
+        <span class="pull-right">
+          {{$pdetails->current_weight}}
+        </span>
+       Weight
+    </li>
+    <li class="list-group-item">
+        <span class="pull-right">
+           {{$pdetails->current_height}}
+        </span>
+     Height
+    </li>
+    <li class="list-group-item">
+        <span class="pull-right">
+         {{$pdetails->diastolic_bp}}
+        </span>
+        Diastolic BP
+    </li>
+    <li class="list-group-item">
+        <span class="pull-right">
+        {{$pdetails->systolic_bp}}
+        </span>
+       Systolic BP
+    </li>
 
-                  <h2>{{$pdetails->firstname}} {{$pdetails->secondName}}</h2>
+</ul>
 
-                    <small>Patient Name</small>
-                    <ul class="list-group clear-list m-t">
-              <h2>Chief Complain</h2>
-
-              <li class="list-group-item fist-item">
+</div>
+    <div class="col-md-4">
+          <ul class="list-group clear-list m-t">
+                <h3>Chief Complain</h3>
+                 <li class="list-group-item">
               {{$pdetails->chief_compliant}}
               </span>
               </li>
@@ -21,10 +62,8 @@
               </div>
 
                 <div class="col-md-4">
-                        <h2></h2>
-                        <small>.</small>
                         <ul class="list-group clear-list m-t">
-                          <h2>Observations </h2>
+                          <h3>Observations </h3>
                           <li class="list-group-item">
                             {{$pdetails->observation}}
                           </li>
@@ -32,44 +71,7 @@
                         </ul>
                     </div>
 
-                      <div class="col-md-3">
-                      <h2>TRIAGE INFO</h2>
-                      <small>.</small>
-                      <ul class="list-group clear-list m-t">
 
-                          <li class="list-group-item">
-                              <span class="pull-right">
-                                {{$pdetails->temperature}}
-                              </span>
-                              Temperature
-                          </li>
-                          <li class="list-group-item">
-                              <span class="pull-right">
-                                {{$pdetails->current_weight}}
-                              </span>
-                             Weight
-                          </li>
-                          <li class="list-group-item">
-                              <span class="pull-right">
-                                 {{$pdetails->current_height}}
-                              </span>
-                           Height
-                          </li>
-                          <li class="list-group-item">
-                              <span class="pull-right">
-                               {{$pdetails->diastolic_bp}}
-                              </span>
-                              Diastolic BP
-                          </li>
-                          <li class="list-group-item">
-                              <span class="pull-right">
-                              {{$pdetails->systolic_bp}}
-                              </span>
-                             Systolic BP
-                          </li>
-
-                      </ul>
-                  </div>
 
         </div>
 
@@ -101,44 +103,45 @@
                                       </div>
                                   </div>
                                   <div class="ibox-content">
-                                     <div class="table-responsive">
-                                       <table class="table table-striped table-bordered table-hover dataTables-conditional" >
-                                         <thead>
+                                    <div class="table-responsive ibox-content">
+                                    <table class="table table-striped table-bordered table-hover dataTables-conditional" >
+                                       <thead>
                                     <tr>
-                                      <th></th>
+                                     <th></th>
+                                        <th>Date </th>
+                                       <th>Test Name</th>
+                                       <th>Conditional Diagnosis</th>
+                                       <th>Status</th>
+                                       <th>Result</th>
+                                       <th>Faciity</th>
+                                       <th>Note</th>
 
-                                        <th>Test Recommended</th>
-                                        <th>Done</th>
-                                        <th>Result</th>
-                                        <th>Faciity</th>
-                                        <th>Apointment Id</th>
-                                         <th>Note</th>
-                                        <th>Date Test Done</th>
 
-                                  </tr>
-                                </thead>
+                                    </tr>
+                                    </thead>
 
-                                <tbody>
-                                  <?php $i =1; ?>
+                                    <tbody>
+                                    <?php $i =1; ?>
 
-                               @foreach($tstdone as $tstdn)
-                                       <tr>
-                                          <td>{{ +$i }}</td>
-                                       <td>{{$tstdn->test_reccommended}}</td>
-                                        <td>{{$tstdn->done}}</td>
-                                        <td>{{$tstdn->results}}</td>
-                                        <td>{{$tstdn->facility_id}}</td>
-                                        <td>{{$tstdn->appointment_id}}</td>
-                                        <td>{{$tstdn->note}}</td>
-                                        <td>{{$tstdn->created_at}}</td>
-                               </tr>
+                                    @foreach($tstdone as $tstdn)
+                                      <tr>
+                                      <td>{{ +$i }}</td>
+                                      <td>{{$tstdn->created_at}}</td>
+                                      <td>{{$tstdn->name}}</td>
+                                      <td>{{$tstdn->disease}}</td>
+                                      <td>{{$tstdn->done}}</td>
+                                       <td>{{$tstdn->results}}</td>
+                                       <td>{{$tstdn->FacilityName}}</td>
+                                       <td>{{$tstdn->note}}</td>
+
+                                    </tr>
                                     <?php $i++; ?>
 
-                                 @endforeach
+                                    @endforeach
 
-                              </tbody>
-                            </table>
-                          </div>
+                                    </tbody>
+                                    </table>
+                                    </div>
                         </div>
                       </div>
                   </div>
@@ -176,11 +179,12 @@
                        <tr>
                          <th></th>
 
-                           <th>Drug Name</th>
 
-                           <th>Available</th>
-                           <th>Dosage Form</th>
-                           <th>Dose given</th>
+                            <th>Diagnosis</th>
+                            <th>Drug Name</th>
+                            <th>Dosage Form</th>
+                           <th>Strength</th>
+                           <th>Strength Unit</th>
                            <th>Date given</th>
                      </tr>
                    </thead>
@@ -191,11 +195,11 @@
                   @foreach($prescription as $presc)
                           <tr>
                              <td>{{ +$i }}</td>
-                          <td>{{$presc->drugname}}</td>
-
-                           <td>{{$presc->availability}}</td>
+                           <td>{{$presc->name}}</td>
+                           <td>{{$presc->drugname}}</td>
                            <td>{{$presc->doseform}}</td>
-                           <td>{{$presc->dosage}}</td>
+                           <td>{{$presc->strength}}</td>
+                           <td>{{$presc->strength_unit}}</td>
                            <td>{{$presc->created_at}}</td>
 
                   </tr>
@@ -210,7 +214,7 @@
                 </div>
             </div>
 
-@endforeach
+
         </div><!--container-->
       </div><!--content-->
 

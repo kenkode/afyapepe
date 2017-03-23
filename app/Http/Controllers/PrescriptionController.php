@@ -58,7 +58,7 @@ class PrescriptionController extends Controller
            'presc_id' => $id,
            'drug_id' => $request['prescription'],
            'diagnosis' => $request['diagnosis'],
-           'doseform' => $request['dosage'],
+           'doseform' => $request['dosageform'],
            'strength' => $request['strength'],
            'strength_unit' => $request['strength_unit'],
            'routes' => $request['routes'],

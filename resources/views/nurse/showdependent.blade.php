@@ -45,6 +45,7 @@
   </div>
   </div>
   </div>
+
   <div class="col-lg-6 ">
   <div class="ibox float-e-margins">
             <div class="ibox-title">
@@ -118,7 +119,7 @@
                             </a>
                         </div>
                     </div>
-                    <div class="ibox-content">
+                   
 
 
                                                                  <table class="table table-small-font table-bordered table-striped">
@@ -127,7 +128,7 @@
                                                                       <th>No</th>
                                                                       <th>Disease</th>
                                                                       <th>Antigen</th>
-                                                                      <th>Age</th>
+                                                                     
                                                                       <th>Date Guideline</th>
 
                                                                       <th>Status</th>
@@ -135,13 +136,25 @@
 
                                                                 </tr>
                                                               </thead>
+                                                              <?php $i=1;
+                                                      $vaccines=DB::table('vaccine')->leftjoin('dependant_vaccination','dependant_vaccination.vaccine_id','=','vaccine.id')->select('vaccine.*','dependant_vaccination.*')->get(); ?>
+                                                        @foreach($vaccines as $vaccine)
 
                                                               <tbody>
+                                                      
                                                            
-
-                                                               
+                                                         <td>{{$i}}</td>
+                                                         <td>{{$vaccine->disease}}</td>
+                                                         <td>{{$vaccine->antigen}}</td>
+                                                        
+                                                         <td>{{$vaccine-> date_guideline or ''}}</td>
+                                                          <td>{{$vaccine->status or ''}}</td>
+                                                           <td>{{$vaccine-> vaccin_name or ''}}</td>       
+                                                        
 
                                                                </tbody>
+                                                           <?php $i++ ?>
+                                                          @endforeach
                                                              </table>
 
                                                                

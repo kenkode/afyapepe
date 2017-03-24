@@ -46,7 +46,9 @@ class RegistrarController extends Controller
     }
 
     public function selectDependant($id){
-      return view('registrar.dependants')->with('id',$id);
+
+     
+            return view('registrar.dependants')->with('id',$id);
     }
 
     public function createDependent(Request $request){

@@ -53,6 +53,7 @@ class NurseController extends Controller
      $birth=$request->birth;
      $dob=$request->dob;
       
+ 
     DB::table('dependant_parent')->insert(
     ['name' => $father_name,
     'relationship' => 'Father',
@@ -77,6 +78,10 @@ class NurseController extends Controller
                              'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
     'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
                              ]);
+
+
+
+   
  return redirect()->action('NurseController@showDependents', [$id]);
 
     }

@@ -864,6 +864,7 @@ class ComposerStaticInit5fef077b84beee0fd1ad93df66b19f0a
         'Text_Template' => __DIR__ . '/..' . '/phpunit/php-text-template/src/Template.php',
         'TumourCategoryTableSeeder' => __DIR__ . '/../..' . '/database/seeds/TumourCategoryTableSeeder.php',
         'UpdatePatientsTable' => __DIR__ . '/../..' . '/database/migrations/2016_10_27_072444_update_patients_table.php',
+        'VaccineSeederTable' => __DIR__ . '/../..' . '/database/seeds/VaccineSeederTable.php',
         'Zizaco\\Entrust\\MigrationCommand' => __DIR__ . '/..' . '/zizaco/entrust/src/commands/MigrationCommand.php',
     );
 

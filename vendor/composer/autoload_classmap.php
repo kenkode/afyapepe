@@ -547,5 +547,6 @@ return array(
     'Text_Template' => $vendorDir . '/phpunit/php-text-template/src/Template.php',
     'TumourCategoryTableSeeder' => $baseDir . '/database/seeds/TumourCategoryTableSeeder.php',
     'UpdatePatientsTable' => $baseDir . '/database/migrations/2016_10_27_072444_update_patients_table.php',
+    'VaccineSeederTable' => $baseDir . '/database/seeds/VaccineSeederTable.php',
     'Zizaco\\Entrust\\MigrationCommand' => $vendorDir . '/zizaco/entrust/src/commands/MigrationCommand.php',
 );

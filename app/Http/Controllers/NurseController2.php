@@ -30,6 +30,7 @@ class NurseController extends Controller
     }
      public function showDependents($id)
     {
+        
         return view('nurse.showdependent')->with('id',$id);
     }
 

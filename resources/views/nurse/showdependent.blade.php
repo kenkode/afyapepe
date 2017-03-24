@@ -119,6 +119,7 @@
                             </a>
                         </div>
                     </div>
+                    <div class="ibox-content">
                    
 
 
@@ -143,9 +144,9 @@
                                                               <tbody>
                                                       
                                                            
-                                                         <td>{{$i}}</td>
-                                                         <td>{{$vaccine->disease}}</td>
-                                                         <td>{{$vaccine->antigen}}</td>
+                                                         <td><a href="{{url('chart',$id)}}">{{$i}}</a></td>
+                                                         <td><a href="{{url('chart',$id)}}">{{$vaccine->disease}}</a></td>
+                                                         <td><a href="{{url('chart',$id)}}">{{$vaccine->antigen}}</a></td>
                                                         
                                                          <td>{{$vaccine-> date_guideline or ''}}</td>
                                                           <td>{{$vaccine->status or ''}}</td>
@@ -159,7 +160,7 @@
 
                                                                
 
- <a href="{{ url('immuninationchart', $dependant->id) }}" class="btn btn-primary btn-sm">Update Details</a>
+
 
                     </div>
          

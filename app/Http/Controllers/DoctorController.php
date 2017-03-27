@@ -39,7 +39,7 @@ class DoctorController extends Controller
         //  ->where('appointments.created_at','>=',$today)
          ->where([
                        ['appointments.created_at','>=','2017-03-27'],
-                       ['appointments.status', '=', 1],
+                       ['appointments.status', '=', 2],
                        ['appointments.doc_id', '=',Auth::user()->id],
                       ])
          ->get();

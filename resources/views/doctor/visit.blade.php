@@ -9,7 +9,9 @@
       }
         ?>
 <div class="row  border-bottom white-bg dashboard-header">
+  <a href="{{route('showPatient',$pdetails->appointment_id)}}">BACK<i class="fa fa-arrow-circle-o-left"></i></a>
   <div>
+
   <h3>{{$pdetails->firstname}} {{$pdetails->secondName}}</h3>
   <small>Patient Name</small>
 </div>

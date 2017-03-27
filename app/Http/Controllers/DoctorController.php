@@ -38,7 +38,7 @@ class DoctorController extends Controller
          ->select('afya_users.*','appointments.id as appid', 'appointments.created_at', 'appointments.facility_id')
         //  ->where('appointments.created_at','>=',$today)
          ->where([
-                       ['appointments.created_at','>=',$today],
+                       ['appointments.created_at','>=','2017-03-27'],
                        ['appointments.status', '=', 1],
                        ['appointments.doc_id', '=',Auth::user()->id],
                       ])

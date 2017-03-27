@@ -41,8 +41,7 @@
                          <li>
 
                          <li><a href="{{ URL::to('registrar') }}"><i class="fa fa-users"></i> <span>Today Patients</span>
-                          <li><a href="{{ URL::to('registrar')}}"><i class="fa fa-users"></i> <span>All Patients</span>
-
+                          
 
                         <a href="{{ URL::to('fees') }}"><i class="fa fa-money"></i> <span>Consultation Fee</span>
                           <a href="{{ URL::to('#')}}">  <i class="fa fa-envelope "></i> <span>Email</span>

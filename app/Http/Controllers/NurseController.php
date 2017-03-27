@@ -99,13 +99,13 @@ class NurseController extends Controller
     }
     public function nurseUpdates(Request  $request){
      $id=$request->id;
-     $blood=$request->blood;
+     
      $constituency=$request->constituency;
      $phone=$request->phone;
 
      DB::table('afya_users')->where('id', $id)
                  ->update([
-                                  'blood_type' =>  $blood,
+                                  
                                   'constituency' => $constituency,
                                   'msisdn'=>$phone,
                                   'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
@@ -313,8 +313,8 @@ DB::table('appointments')->where('id',$appointment->id)->update([
         ->get();
 
         $vaccines =DB::table('vaccination')
-          ->Join('diseases','vaccination.diseaseId','=','diseases.id')
-          ->select('vaccination.*', 'diseases.name')
+          ->Join('vaccine','vaccination.diseaseId','=','vaccine.id')
+          ->select('vaccination.*', 'vaccine.disease')
           ->where('vaccination.userId',$id)
           ->get();
           return view('nurse.show')->with('patient',$patient)->with(['vaccines'=>$vaccines,'kin'=>$kin,'details'=>$details]);

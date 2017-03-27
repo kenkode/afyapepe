@@ -26,19 +26,7 @@
     <input type="hidden" name="_token" value="{{ csrf_token() }}">
     <input type="hidden" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{$id}}" name="id"  required>
 
-    <div class="form-group">
-    <label for="exampleInputEmail1">Blood Group</label>
-    <select class="form-control" name="blood">
-    <option value="O +">O +</option>
-    <option value="O -">O -</option>
-    <option value="A +">A +</option>
-    <option value="A -">A -</option>
-    <option value="B +">B +</option>
-    <option value="B -">B -</option>
-    <option value="AB +">AB +</option>
-    <option value="AB -">AB -</option>
-    </select>
-    </div>
+    
     <div class="form-group">
     <label for="exampleInputEmail1">Phone Number</label>
     <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="phone"  required>

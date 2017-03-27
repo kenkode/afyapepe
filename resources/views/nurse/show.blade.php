@@ -168,7 +168,7 @@
                                                              @foreach($vaccines as $vac)
                                                                   <tr>
                                                                       <td>{{$i}}</td>
-                                                                      <td>{{$vac->name}}</td>
+                                                                      <td>{{$vac->disease}}</td>
                                                                       <td>{{$vac->vaccine_name}}</td>
 
                                                                       <td><?php $yes=$vac->Yes;

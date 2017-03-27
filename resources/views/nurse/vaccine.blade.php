@@ -32,9 +32,9 @@
 
                  <label class="control-label" for="validateSelect">Diseases</label>
                   <select  name="diseases" class="form-control" data-parsley-required="true">
-                   <?php  $diseases = DB::table('diseases')->get();?>
+                   <?php  $diseases = DB::table('vaccine')->get();?>
                   @foreach($diseases as $disease)
-                   <option value="{{$disease->id}}">{{$disease->name}}</option>
+                   <option value="{{$disease->id}}">{{$disease->disease}}</option>
                  @endforeach
                 </select>
                 </div>

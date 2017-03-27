@@ -59,7 +59,7 @@ return view('admin.config');
 // Nurse routes;
 Route::group(['middleware' => ['auth','role:Admin|Nurse']], function() {
 	Route::resource('nurse','NurseController');
-	Route::get('newpatient', 'NurseController@newPatient');
+	Route::get('all_patients', 'NurseController@users');
 	Route::get('waitingList', 'NurseController@wList');
 	Route::get('nurseappointment','NurseController@Appointment');
 	Route::get('calendarnurse','NurseController@Calendar');

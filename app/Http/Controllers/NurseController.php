@@ -18,7 +18,19 @@ class NurseController extends Controller
      {
          $this->middleware('auth');
      }
-    public function index()
+    public function index(){
+      $today = Carbon::today();
+      $patients = DB::table('appointments as app')
+        ->Join('afya_users as par', 'app.afya_user_id', '=', 'par.id')
+        ->leftjoin('dependant as dep','app.persontreated','=','dep.id')
+        ->select('par.id as parid','par.firstname as first','par.secondName as second','par.gender as gender','par.age as age','dep.id as depid','dep.firstName as dfirst','dep.secondName as dsecond','dep.age as dage',
+            'dep.gender as dgender','app.created_at as created_at','app.persontreated as persontreated')
+        ->where('app.status','=',1)
+        ->where('app.created_at','>=',$today)
+        ->get();
+        return view('nurse.newpatient')->with('patients',$patients);
+    }
+    public function users()
     {
       $patients=DB::table('afya_users')->get();
       return view('nurse.home')->with('patients',$patients);
@@ -137,18 +149,7 @@ return Redirect::route('nurse.show', [$id]);
 
     }
 
-    public function newPatient(){
-      $today = Carbon::today();
-      $patients = DB::table('appointments as app')
-        ->Join('afya_users as par', 'app.afya_user_id', '=', 'par.id')
-        ->leftjoin('dependant as dep','app.persontreated','=','dep.id')
-        ->select('par.id as parid','par.firstname as first','par.secondName as second','par.gender as gender','par.age as age','dep.id as depid','dep.firstName as dfirst','dep.secondName as dsecond','dep.age as dage',
-            'dep.gender as dgender','app.created_at as created_at','app.persontreated as persontreated')
-        ->where('par.status',1)
-        ->where('app.created_at','>=',$today)
-        ->get();
-        return view('nurse.newpatient')->with('patients',$patients);
-    }
+    
     public function createnextkin($id){
       return view ('nurse.createkin')->with('id',$id);
     }
@@ -256,7 +257,11 @@ $appointment=DB::table('appointments')->where('afya_user_id', $id)->orderBy('cre
 
 );
 
-        return Redirect::route('nurse.show', [$id]);
+DB::table('appointments')->where('id',$appointment->id)->update([
+    'status'=>2]);
+
+
+        return redirect()->action('NurseController@index');
     }
 
 

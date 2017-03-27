@@ -187,7 +187,7 @@ public function dependantTriage($id){
 );
  DB::table('appointments')->insert([
   'status'=>1,
-  'facility_id'=>1001,
+  'facility_id'=>19310,
   'afya_user_id'=>$id,
   'doc_id'=>6,
   'persontreated'=>'Self',

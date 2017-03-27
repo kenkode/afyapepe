@@ -45,6 +45,7 @@ class PrescriptionController extends Controller
   //  }
    protected function store(Request $request)
    {
+     $appid=$request['appointment_id'];
       $Prescription=Prescription::create([
            'appointment_id' => $request['appointment_id'],
            'doc_id' => $request['doc_id'],
@@ -69,7 +70,7 @@ class PrescriptionController extends Controller
        ]);
 
 
-   return redirect()->route('newpatients');
+   return redirect()->route('showPatient',$appid);
    }
 
 

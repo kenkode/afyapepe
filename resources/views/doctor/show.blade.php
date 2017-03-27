@@ -365,9 +365,76 @@ return redirect('doctor.create');
 
                                 {{ Form::close() }}
                                     </div>
+                                    <div class="col-lg-12">
+                                      <div class="ibox float-e-margins">
+                                        <div class="ibox-content col-md-12">
+                                        <div class="ibox-title">
+                                            <h5>Prescription List</h5>
+                                            <div class="ibox-tools">
+
+                                                <a class="collapse-link">
+                                                    <i class="fa fa-chevron-up"></i>
+                                                </a>
+                                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                                    <i class="fa fa-wrench"></i>
+                                                </a>
+                                                <ul class="dropdown-menu dropdown-user">
+
+                                                    <li><a href="#">Config option 1</a>
+                                                    </li>
+                                                    <li><a href="#">Config option 2</a>
+                                                    </li>
+                                                </ul>
+                                                <a class="close-link">
+                                                    <i class="fa fa-times"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="ibox-content">
+                                           <div class="table-responsive">
+                                        <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                        <thead>
+                                       <tr>
+                                         <th></th>
+
+
+                                            <th>Diagnosis</th>
+                                            <th>Drug Name</th>
+                                            <th>Dosage Form</th>
+                                           <th>Strength</th>
+                                           <th>Strength Unit</th>
+                                           <th>Date given</th>
+                                     </tr>
+                                   </thead>
+
+                                   <tbody>
+                                     <?php $i =1; ?>
+
+                                  @foreach($prescription as $presc)
+                                          <tr>
+                                             <td>{{ +$i }}</td>
+                                           <td>{{$presc->name}}</td>
+                                           <td>{{$presc->drugname}}</td>
+                                           <td>{{$presc->doseform}}</td>
+                                           <td>{{$presc->strength}}</td>
+                                           <td>{{$presc->strength_unit}}</td>
+                                           <td>{{$presc->created_at}}</td>
+
+                                  </tr>
+                                       <?php $i++; ?>
+
+                                    @endforeach
+
+                                      </tbody>
+                                    </table>
                                    </div>
+                                  </div>
                                 </div>
-                               </div><!--4 tabs-->
+                            </div>
+                            </div>
+                                   </div>
+                               </div>
+                      </div><!--4 tabs-->
 
                     <!--tabs5 Admit-->
                     <div id="tab-5" class="tab-pane">

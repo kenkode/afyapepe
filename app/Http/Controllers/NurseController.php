@@ -41,7 +41,7 @@ class NurseController extends Controller
 
     public function nurseUpdate($id){
 
-      return view('nurse.nurseupdate');
+      return view('nurse.nurseupdate')->with('id',$id);
     }
     public function Dependantupdate(Request $request){
      $id=$request->id;
@@ -85,6 +85,25 @@ class NurseController extends Controller
  return redirect()->action('NurseController@showDependents', [$id]);
 
     }
+    public function nurseUpdates(Request  $request){
+     $id=$request->id;
+     $blood=$request->blood;
+     $constituency=$request->constituency;
+     $phone=$request->phone;
+
+     DB::table('afya_users')->where('id', $id)
+                 ->update([
+                                  'blood_type' =>  $blood,
+                                  'constituency' => $constituency,
+                                  'msisdn'=>$phone,
+                                  'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+                                  'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
+                                ]);
+
+
+return Redirect::route('nurse.show', [$id]);
+
+   }
 
     public function Calendar(){
     return view('nurse.calendar');

@@ -26,7 +26,7 @@ class RegistrarController extends Controller
         $users=DB::table('afya_users')->
         join('afyamessages','afya_users.msisdn','=','afyamessages.msisdn')->
         leftjoin('constituency','afya_users.constituency','=','constituency.const_id')->
-        select('afya_users.*','constituency.Constituency','constituency.cont_id')
+        select('afya_users.*','afyamessages.created_at as created_at','constituency.Constituency','constituency.cont_id')
         ->where('afyamessages.facilityCode',19310)
         ->where('afyamessages.created_at','>=',$today)
         ->where('afyamessages.status','=',NULL)

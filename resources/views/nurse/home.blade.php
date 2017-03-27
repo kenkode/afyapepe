@@ -52,8 +52,8 @@
                                                     <?php $i =1; ?>
                                                  @foreach($patients as $patient)
                                                       <tr>
-                                                          <td><a href="{{route('nurse.show',$patient->id)}}">{{$i}}</a></td>
-                                                          <td><a href="{{route('nurse.show',$patient->id)}}">{{$patient->firstname}} {{$patient->secondName}}</a></td>
+                                                          <td><a href="{{url('showpatient',$patient->id)}}">{{$i}}</a></td>
+                                                          <td><a href="{{url('showpatient',$patient->id)}}">{{$patient->firstname}} {{$patient->secondName}}</a></td>
 
                                                           <td><?php $gender=$patient->gender;?>
                                                             @if($gender==1){{"Male"}}@else{{"Female"}}@endif</a>

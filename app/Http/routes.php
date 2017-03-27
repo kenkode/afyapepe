@@ -79,6 +79,7 @@ Route::group(['middleware' => ['auth','role:Admin|Nurse']], function() {
   Route::get('growth/{id}','NurseController@childGrowth');
   Route::get('update.dependant/{id}','NurseController@updateDependant');
   Route::post('Dependantupdate','NurseController@Dependantupdate');
+  Route::get('showpatient/{id}','NurseController@shoWpatient');
 });
 
 // Doctor routes;

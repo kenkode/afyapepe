@@ -314,6 +314,32 @@ $appointment=DB::table('appointments')->where('afya_user_id', $id)->orderBy('cre
           ->get();
           return view('nurse.show')->with('patient',$patient)->with(['vaccines'=>$vaccines,'kin'=>$kin,'details'=>$details]);
     }
+
+public function showPatient($id){
+$patient= DB::table('afya_users')
+        ->where('afya_users.id',$id)
+        ->first();
+
+        $kin=DB::table('kin_details')
+        ->Join('kin','kin_details.relation','=','kin.id')
+        ->select('kin_details.*', 'kin.relation')
+        ->where('kin_details.afya_user_id',$id)
+        ->first();
+        $details=DB::table('triage_details')
+        ->Join('appointments','appointments.id','=','triage_details.appointment_id')
+        ->where('appointments.afya_user_id',$id)
+        ->select('triage_details.*')
+        ->orderBy('triage_details.id','desc')
+        ->get();
+
+        $vaccines =DB::table('vaccination')
+          ->Join('diseases','vaccination.diseaseId','=','diseases.id')
+          ->select('vaccination.*', 'diseases.name')
+          ->where('vaccination.userId',$id)
+          ->get();
+          return view('nurse.showpatient')->with('patient',$patient)->with(['vaccines'=>$vaccines,'kin'=>$kin,'details'=>$details]);
+
+}
 public function patientShow($id){
   return view('nurse.patientshow');
 }

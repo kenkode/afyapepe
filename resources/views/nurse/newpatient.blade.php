@@ -14,7 +14,7 @@
                           <div class="col-lg-10 col-lg-offset-1">
                           <div class="ibox float-e-margins">
                               <div class="ibox-title">
-                               <h5>Patient  Details</h5>
+                               <h5>Today Patient  Details</h5>
 
                                   <div class="ibox-tools">
 

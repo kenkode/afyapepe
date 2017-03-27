@@ -218,9 +218,11 @@ class NurseController extends Controller
         $nurse=$request->nurse;
         $doctor=$request->doctor;
 
+$appointment=DB::table('appointments')->where('afya_user_id', $id)->orderBy('created_at', 'desc')->first();
+
     DB::table('triage_details')->insert(
-    ['afya_user_id' => $id,
-    'facility_id' => 10001,
+    ['appointment_id' => $appointment->id,
+    
     'current_weight'=> $weight,
     'current_height'=>$heightS,
     'temperature'=>$temperature,
@@ -280,8 +282,10 @@ class NurseController extends Controller
         ->where('kin_details.afya_user_id',$id)
         ->first();
         $details=DB::table('triage_details')
-        ->where('triage_details.afya_user_id',$id)
-        ->orderBy('id','desc')
+        ->Join('appointments','appointments.id','=','triage_details.appointment_id')
+        ->where('appointments.afya_user_id',$id)
+        ->select('triage_details.*')
+        ->orderBy('triage_details.id','desc')
         ->get();
 
         $vaccines =DB::table('vaccination')

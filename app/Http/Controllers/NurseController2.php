@@ -230,7 +230,7 @@ DB::table('appointments')->insert(
         ->where('kin_details.afya_user_id',$id)
         ->first();
         $details=DB::table('triage_details')
-        ->where('triage_details.afya_user_id',$id)
+        ->where('triage_details.appointment_id',$id)
         ->orderby('updated_at','desc')
         ->get();
 

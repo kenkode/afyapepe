@@ -189,7 +189,7 @@ public function dependantTriage($id){
   'status'=>1,
   'facility_id'=>1001,
   'afya_user_id'=>$id,
-  'doc_id'=>1,
+  'doc_id'=>6,
   'persontreated'=>'Self',
   'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
  'updated_at' => \Carbon\Carbon::now()->toDateTimeString()

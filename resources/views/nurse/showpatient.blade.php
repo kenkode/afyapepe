@@ -218,6 +218,7 @@
        <tr>
            <th>No</th>
             <th>Date</th>
+            <th>Time</th>
            <th>Weight</th>
            <th>Height</th>
            <th>BMI</th>
@@ -237,7 +238,8 @@
       @foreach($details as $detail)
        <tr>
            <td>{{$i}}</td>
-            <td>{{$detail->updated_at}}</td>
+             <td>{{ date('d -m- Y', strtotime($detail->updated_at)) }}</td>
+            <td>{{ date('H:i:s', strtotime($detail->updated_at)) }}</td>
            <td>{{$detail->current_weight}}</td>
            <td>{{$detail->current_height}}</td>
             <td><?php $height=$detail->current_height; $weight=$detail->current_weight;

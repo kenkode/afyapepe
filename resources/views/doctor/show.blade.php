@@ -47,6 +47,7 @@ return redirect('doctor.create');
         $gender = $pdetails->gender;
         $phone = $pdetails->msisdn;
         $stat= $pdetails->appstatus;
+        $afyauserId= $pdetails->afyaId;
         if ($gender=1) {
           $gender='Male';
         }else{
@@ -90,8 +91,8 @@ return redirect('doctor.create');
             <div class="tabs-container">
               <!-- <div class="col-lg-12 tbg"> -->
                 <ul class="nav nav-tabs">
-                    <li class="active"><a data-toggle="tab" href="#tab-1">Home</button></a></li>
-                    <li class=""><a data-toggle="tab" href="#tab-2">History</a></li>
+                    <!-- <li class="active"><a data-toggle="tab" href="#tab-1">Home</button></a></li> -->
+                    <li class="active"><a data-toggle="tab" href="#tab-2">History</a></li>
                     <li class=""><a data-toggle="tab" href="#tab-3">Tests</a></li>
                     <li class=""><a data-toggle="tab" href="#tab-4">Prescriptions</a></li>
                     <li class=""><a data-toggle="tab" href="#tab-5">Admit</a></li>
@@ -101,62 +102,9 @@ return redirect('doctor.create');
                 </ul>
               <!-- </div> -->
                 <div class="tab-content">
-                      <div id="tab-1" class="tab-pane active">
-                        <div class="panel-body">
 
-  <div class="wrapper wrapper-content">
-          <div class="row animated fadeInRight">
-            <div class="ibox float-e-margins">
-                    <div class="ibox-title">
-                        <h5>Todays Patient Vitals</h5>
-
-                    </div>
-                    <div class="ibox-content">
-                    <div class="table-responsive">
-                    <table class="table table-striped table-bordered table-hover dataTables-conditional" >
-                    <thead>
-                    <tr>
-                      <th></th>
-                       <th>Chief Complain</th>
-                        <th>observations</th>
-                        <th>Age</th>
-                        <th>Weight</th>
-                        <th>Height</th>
-                        <th>Temperature</th>
-                        <th>Systolic BP</th>
-                        <th>Diastolic BP</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                      <?php $i =1; ?>
-                   @foreach($patientdetails as $triageDetails)
-                        <tr>
-                            <td>{{ +$i }}</td>
-                            <td><?php echo $complain;?></td>
-                            <td><?php echo $observations;?></td>
-                            <td><?php echo $age;?></td>
-                            <td><?php echo $weight;?></td>
-                            <td><?php echo $height;?></td>
-                            <td><?php echo $temperature;?></td>
-                            <td><?php echo $systolic;?></td>
-                            <td><?php echo $diastolic;?></td>
-
-                         </tr>
-                        <?php $i++; ?>
-                          @endforeach
-                   </tbody>
-
-                    </table>
-                  </div>
-                 </div>
-              </div>
-
-          </div>
-      </div>
-</div>
-</div><!--tabs1-->
 <!--tabs2-->
-<div id="tab-2" class="tab-pane">
+<div id="tab-2" class="tab-pane active">
     <div class="ibox float-e-margins">
             <div class="ibox-title">
                 <h5>All Patient Visit History</h5>
@@ -170,22 +118,54 @@ return redirect('doctor.create');
               <th></th>
                 <th>Date of visit</th>
                 <th>Chief Complain</th>
-                <th>observations</th>
+                <th>Doctor's Note</th>
+                <th>Test</th>
                 <th>Prescription</th>
                 <th>view more</th>
             </tr>
             </thead>
             <tbody>
+              <?php
+              $pathists = DB::table('appointments')
+              ->Join('triage_details', 'appointments.id', '=', 'triage_details.appointment_id')
+              ->Join('patient_test', 'appointments.id',  '=', 'patient_test.appointment_id')
+              ->Join('prescriptions', 'appointments.id', '=', 'prescriptions.appointment_id')
+              ->select('triage_details.chief_compliant','triage_details.updated_at',
+              'patient_test.test_status','prescriptions.filled_status','appointments.id')
+
+              ->where('appointments.afya_user_id',$afyauserId)
+              ->get();
+              ?>
               <?php $i =1; ?>
-           @foreach($patientdetails as $triageDetails)
+           @foreach($pathists as $pathist)
                 <tr>
                     <td>{{ +$i }}</td>
-                    <td>{{$triageDetails->updated_at}}</td>
-                    <td>{{$triageDetails->chief_compliant}}</td>
-                    <td>{{$triageDetails->observation}}</td>
-                    <td>{{$triageDetails->observation}}</td>
-                    <td><a href="{{route('visit',$appoid)}}" class="btn btn-default btn-xs"><i class="fa fa-search-plus"></i></a></td>
+                    <td>{{$pathist->updated_at}}</td>
+                    <td>{{$pathist->chief_compliant}}</td>
+                    <td>{{$pathist->chief_compliant}}</td>
+                    <td><?php
+                    $tests=$pathist->test_status;
+                    if ($tests==0) {
+                      $tests= 'Pending';
+                    } elseif($tests==1) {
+                      $tests= 'Done';
+                    }else {
+                        $tests= 'Partial';
+                    }
+                      ?>  {{$tests}}</td>
+                      <td><?php
+                      $prescs=$pathist->filled_status;
+                      if ($prescs==0) {
+                        $prescs= 'Pending';
+                      } elseif($prescs==1) {
+                        $prescs= 'Complete';
+                      }else {
+                          $prescs= 'Partial';
+                      }
+                        ?>  {{$prescs}}</td>
+                    <td><a href="{{route('visit',$pathist->id)}}" class="btn btn-default btn-xs"><i class="fa fa-search-plus"></i></a></td>
                  </tr>
+
                 <?php $i++; ?>
                   @endforeach
            </tbody>
@@ -197,6 +177,7 @@ return redirect('doctor.create');
                   <th>observations</th>
                   <th>Prescription</th>
                   <th>Prescription</th>
+                    <th>view more</th>
               </tr>
             </tfoot>
             </table>

@@ -21,7 +21,7 @@
                 </div>
             </li>
             <li>
-            <a href="patient"><i class="fa fa-home"></i> <span>Home</span> </a>
+            <a href="patient"><i class="fa fa-user"></i> <span>Your Profile</span> </a>
 
             </li>
 

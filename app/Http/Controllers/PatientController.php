@@ -45,7 +45,9 @@ class PatientController extends Controller
     }
 
   public function Expenditure(){
-    return view('patient.expenditure');
+    $id = Auth::id();
+      $patient=DB::table('afya_users')->where('users_id',$id)->first();
+    return view('patient.expenditure')->with('patient',$patient);
   }
     public function patientAppointment(){
       return view('patient.appointment');

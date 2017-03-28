@@ -35,12 +35,12 @@
             <div class="tabs-container">
               <!-- <div class="col-lg-12 tbg"> -->
                 <ul class="nav nav-tabs">
-                    <li class="active"><a data-toggle="tab" href="#tab-1">Allergy List</button></a></li>
-                    <li class=""><a data-toggle="tab" href="#tab-2">Vaccinations List</a></li>
-                    <li class=""><a data-toggle="tab" href="#tab-3">Patient History</a></li>
-                    <li class=""><a data-toggle="tab" href="#tab-4">Patient Tests</a></li>
-                    <li class=""><a data-toggle="tab" href="#tab-5">Patient Prescriptions</a></li>
-                    <li class=""><a data-toggle="tab" href="#tab-6">Hospital Admission</a></li>
+                    <li class="active"><a data-toggle="tab" href="#tab-1">Your Allergy List</button></a></li>
+                    <li class=""><a data-toggle="tab" href="#tab-2">Your Vaccinations List</a></li>
+                    <li class=""><a data-toggle="tab" href="#tab-3">Your Patient History</a></li>
+                    <li class=""><a data-toggle="tab" href="#tab-4">Your Patient Tests</a></li>
+                    <li class=""><a data-toggle="tab" href="#tab-5">Your Patient Prescriptions</a></li>
+                    <li class=""><a data-toggle="tab" href="#tab-6">Your Hospital Admission</a></li>
                     
                 </ul>
                 <br>
@@ -51,7 +51,7 @@
                 <div class="col-lg-11">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>Your Allergy List</h5>
+                        <h5>Allergy List</h5>
                         <div class="ibox-tools">
                           @role('Patient')
                            <a class="collapse-link">
@@ -109,7 +109,7 @@
                      <div class="col-lg-11">
                      <div class="ibox float-e-margins">
                          <div class="ibox-title">
-                             <h5>Your Vaccinations List</h5>
+                             <h5>Vaccinations List</h5>
                              <div class="ibox-tools">
                                @role('Patient')
                                 <a class="collapse-link">
@@ -187,7 +187,7 @@
                      <div class="col-lg-11">
                      <div class="ibox float-e-margins">
                          <div class="ibox-title">
-                             <h5>Your Patient History</h5>
+                             <h5>Patient History</h5>
                              <div class="ibox-tools">
                                @role('Patient')
                                 <a class="collapse-link">
@@ -273,7 +273,7 @@
                           <div class="col-lg-11">
                           <div class="ibox float-e-margins">
                               <div class="ibox-title">
-                                  <h5>Your Patient Tests</h5>
+                                  <h5>Patient Tests</h5>
                                   <div class="ibox-tools">
                                     @role('Patient')
                                      <a class="collapse-link">
@@ -346,7 +346,7 @@
                           <div class="col-lg-11">
                           <div class="ibox float-e-margins">
                               <div class="ibox-title">
-                                  <h5>Your Patient Prescriptions</h5>
+                                  <h5>Patient Prescriptions</h5>
                                   <div class="ibox-tools">
                                     @role('Patient')
                                      <a class="collapse-link">
@@ -408,7 +408,7 @@
                                <div class="col-lg-11">
                                <div class="ibox float-e-margins">
                                    <div class="ibox-title">
-                                       <h5>Your Hospital Admission</h5>
+                                       <h5>Hospital Admission</h5>
                                        <div class="ibox-tools">
                                          @role('Patient')
                                           <a class="collapse-link">

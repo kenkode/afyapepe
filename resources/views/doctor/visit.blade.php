@@ -176,7 +176,7 @@
                         </div>
                         <div class="ibox-content">
                            <div class="table-responsive">
-                        <table class="table table-striped table-bordered table-hover dataTables-example" >
+                        <table class="table table-striped table-bordered table-hover dataTables-conditional" >
                         <thead>
                        <tr>
                          <th></th>
@@ -184,10 +184,14 @@
 
                             <th>Diagnosis</th>
                             <th>Drug Name</th>
+                            <th>Drug Replaced By</th>
                             <th>Dosage Form</th>
                            <th>Strength</th>
                            <th>Strength Unit</th>
                            <th>Date given</th>
+                           <th>Date Bought</th>
+                           <th>Status</th>
+
                      </tr>
                    </thead>
 
@@ -199,10 +203,14 @@
                              <td>{{ +$i }}</td>
                            <td>{{$presc->name}}</td>
                            <td>{{$presc->drugname}}</td>
+                           <td>{{$presc->drugname}}</td>
                            <td>{{$presc->doseform}}</td>
                            <td>{{$presc->strength}}</td>
                            <td>{{$presc->strength_unit}}</td>
                            <td>{{$presc->created_at}}</td>
+                           <td>{{$presc->created_at}}</td>
+                           <td>{{$presc->created_at}}</td>
+
 
                   </tr>
                        <?php $i++; ?>

@@ -25,6 +25,27 @@
                                 <label>Gender:</label>
                                 @if($patient->gender==1){{"Male"}}@else{{"Female"}}@endif
                             </li>
+                             <li>
+                                <span class="fa  fa-medkit m-r-xs"></span>
+                                <label>Blood Type:</label>
+                                {{$patient->blood_type}}
+                            </li>
+
+                           <li>
+                                <span class="fa  fa-map m-r-xs"></span>
+                                <label>Constituency:</label>
+                                <?php $const=$patient->constituency; $cons=DB::table('constituency')->where('const_id',$const)->first();?>{{$cons->Constituency}}
+                            </li>
+                             <li>
+                                <span class="fa  fa-map m-r-xs"></span>
+                                <label>County:</label>
+                                <?php $county=DB::Table('county')->where('id',$cons->cont_id)->first();?> {{$county->county}}
+                            </li>
+                             <li>
+                                <span class="fa  fa-phone m-r-xs"></span>
+                                <label>Phone:</label>
+                                {{$patient->msisdn}}
+                            </li>
                         </ul>
 
                     </div>
@@ -48,7 +69,7 @@
                       <div id="tab-1" class="tab-pane active">
                         
             <div class="row">
-                <div class="col-lg-11">
+                <div class="col-lg-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <h5>Allergy List</h5>
@@ -106,7 +127,7 @@
       <div id="tab-2" class="tab-pane">
        <div class="wrapper wrapper-content animated fadeInRight">
                  <div class="row">
-                     <div class="col-lg-11">
+                     <div class="col-lg-12">
                      <div class="ibox float-e-margins">
                          <div class="ibox-title">
                              <h5>Vaccinations List</h5>
@@ -184,7 +205,7 @@
       <div id="tab-3" class="tab-pane">
       <div class="wrapper wrapper-content animated fadeInRight">
                  <div class="row">
-                     <div class="col-lg-11">
+                     <div class="col-lg-12">
                      <div class="ibox float-e-margins">
                          <div class="ibox-title">
                              <h5>Patient History</h5>
@@ -270,7 +291,7 @@
             <div id="tab-4" class="tab-pane">
             <div class="wrapper wrapper-content animated fadeInRight">
                       <div class="row">
-                          <div class="col-lg-11">
+                          <div class="col-lg-12">
                           <div class="ibox float-e-margins">
                               <div class="ibox-title">
                                   <h5>Patient Tests</h5>
@@ -343,7 +364,7 @@
                  <div id="tab-5" class="tab-pane">
                  <div class="wrapper wrapper-content animated fadeInRight">
                       <div class="row">
-                          <div class="col-lg-11">
+                          <div class="col-lg-12">
                           <div class="ibox float-e-margins">
                               <div class="ibox-title">
                                   <h5>Patient Prescriptions</h5>
@@ -405,7 +426,7 @@
                  <div id="tab-6" class="tab-pane">
                  <div class="wrapper wrapper-content animated fadeInRight">
                            <div class="row">
-                               <div class="col-lg-11">
+                               <div class="col-lg-12">
                                <div class="ibox float-e-margins">
                                    <div class="ibox-title">
                                        <h5>Hospital Admission</h5>

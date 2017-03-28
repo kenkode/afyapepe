@@ -4,6 +4,36 @@
 <div class="content-page  equal-height">
       <div class="content">
           <div class="container">
+          <div class="col-lg-4">
+                     <div class="widget navy-bg ">
+
+                                <h2>
+                                    {{$patient->firstname}} {{$patient->secondName}}
+                                </h2>
+                        <ul class="list-unstyled m-t-md">
+                            <li>
+                                <span class="fa fa-users m-r-xs"></span>
+                                <label>Age:</label>
+                                {{$patient->age}}
+                            </li>
+                            
+                            <li>
+                                <span class="fa  fa-genderless m-r-xs"></span>
+                                <label>Gender:</label>
+                                @if($patient->gender==1){{"Male"}}@else{{"Female"}}@endif
+                            </li>
+                             <li>
+                                <span class="fa  fa-medkit m-r-xs"></span>
+                                <label>Blood Type:</label>
+                                {{$patient->blood_type}}
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+          </div>
+
  <div class="col-lg-12">
  <h2>Your Profile</h2>
             <div class="tabs-container">

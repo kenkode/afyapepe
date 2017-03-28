@@ -39,8 +39,9 @@ class PatientController extends Controller
         return view('patient.home')->with('patient',$patient)->with('nextkin',$nextkin);
     }
     public function patientAllergies(){
-
-      return view('patient.patientallery');
+      $id = Auth::id();
+      $patient=DB::table('afya_users')->where('users_id',$id)->first();
+      return view('patient.patientallery')->with('patient',$patient);
     }
 
   public function Expenditure(){

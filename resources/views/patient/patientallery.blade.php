@@ -6,6 +6,13 @@
           <div class="container">
 
   <div class="wrapper wrapper-content animated fadeInRight">
+  <div class="panel-body">
+
+          <h5><strong>Patient Name</strong>&nbsp;&nbsp;&nbsp;{{$patient->firstname}} {{$patient->secondName}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <strong>Age</strong>&nbsp;&nbsp;{{$patient->age}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           <strong>Gender</strong>&nbsp;&nbsp;@if($patient->gender==1){{"Male"}}@else{{"Female"}}@endif&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          
+        </h5></div>
             <div class="row">
                 <div class="col-lg-11">
                 <div class="ibox float-e-margins">
@@ -97,8 +104,9 @@
                          <thead>
                              <tr>
                                  <th>No</th>
-                                 <th>Vaccination Name</th>
-                                <th>Vaccinations Test</th>
+                                 <th>Antigen</th>
+                                <th>Vaccinations Name</th>
+                                <th>Location(Facility)</th>
                                  <th>Date </th>
 
                                  <!-- <th>Constituency of Residence</th> -->
@@ -107,8 +115,26 @@
                          </thead>
 
                          <tbody>
+                         <?php $i=1;
+                         $vaccines=DB::table('vaccination')->
+                         join('vaccine','vaccine.id','=','vaccination.diseaseId')->
+                         select('vaccine.*','vaccination.*')
+                         ->where('vaccination.userId',$patient->id)
+                         ->where('vaccination.yes','=','yes')->
+                         Orderby('yesdate','desc')->get();
+                         ?>
+                         @foreach($vaccines as $vaccine)
+                         <tr>
+                         <td>{{$i}}</td>
+                         <td>{{$vaccine->antigen}}</td>
+                         <td>{{$vaccine->vaccine_name}}</td>
+                         <td>St Jude's Huruma Community Health Services</td>
+                          <td>{{ date('d -m- Y', strtotime($vaccine->yesdate)) }}</td>
+                         
+                         </tr>
 
-
+                         <?php $i++ ?>
+                         @endforeach
                           </tbody>
                         </table>
                             </div>

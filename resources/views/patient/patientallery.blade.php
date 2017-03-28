@@ -144,6 +144,90 @@
                 </div>
                 </div>
             </div>
+      <div class="wrapper wrapper-content animated fadeInRight">
+                 <div class="row">
+                     <div class="col-lg-11">
+                     <div class="ibox float-e-margins">
+                         <div class="ibox-title">
+                             <h5>Patient History</h5>
+                             <div class="ibox-tools">
+                               @role('Patient')
+                                <a class="collapse-link">
+
+                               </a>  @endrole
+                                 <a class="collapse-link">
+                                     <i class="fa fa-chevron-up"></i>
+                                 </a>
+                                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                     <i class="fa fa-wrench"></i>
+                                 </a>
+                                 <ul class="dropdown-menu dropdown-user">
+
+                                     <li><a href="#">Config option 1</a>
+                                     </li>
+                                     <li><a href="#">Config option 2</a>
+                                     </li>
+                                 </ul>
+                                 <a class="close-link">
+                                     <i class="fa fa-times"></i>
+                                 </a>
+                             </div>
+                         </div>
+                         <div class="ibox-content">
+
+                             <div class="table-responsive">
+                         <table class="table table-striped table-bordered table-hover dataTables-example" >
+                         <thead>
+                             <tr>
+                                 <th>No</th>
+            <th>Date</th>
+            <th>Time</th>
+           <th>Weight</th>
+           <th>Height</th>
+           <th>BMI</th>
+           <th>Temperature</th>
+           <th>Systolic_bp</th>
+           <th>Diastolic_bp</th>
+           <th>Chief Compliant</th>
+
+                                 <!-- <th>Constituency of Residence</th> -->
+
+                           </tr>
+                         </thead>
+
+                         <tbody>
+                         <?php $i=1;
+                         $triages=DB::table('triage_details')->join('appointments','appointments.id','=','triage_details.appointment_id')
+                         ->select('triage_details.*')->where('appointments.afya_user_id',$patient->id)->Orderby('triage_details.updated_at','desc')->get();
+                        ?>
+                        @foreach($triages as $triage)
+                        <tr>
+                         <td>{{$i}}</td>
+            <td>{{ date('d -m- Y', strtotime($triage->updated_at)) }}</td>
+            <td>{{ date('H:i:s', strtotime($triage->updated_at)) }}</td>
+           <td>{{$triage->current_weight}}</td>
+           <td>{{$triage->current_height}}</td>
+            <td><?php $height=$triage->current_height; $weight=$triage->current_weight;
+               $bmi =$weight/($height*$height);
+               echo number_format($bmi, 2);
+            ?></td>
+           <td>{{$triage->temperature}}</td>
+          <td>{{$triage->systolic_bp}}</td>
+         <td>{{$triage->diastolic_bp}}</td>
+         <td>{{$triage->chief_compliant}}</td>
+         </tr>
+                          <?php $i++ ?>
+                         @endforeach
+                        
+                          </tbody>
+                        </table>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
             <div class="wrapper wrapper-content animated fadeInRight">
                       <div class="row">
                           <div class="col-lg-11">

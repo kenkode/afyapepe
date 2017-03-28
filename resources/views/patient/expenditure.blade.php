@@ -114,9 +114,13 @@
 
                     <?php $i=1;
                      
-
+                  
                     $expenditures=DB::table('fees')->where('patient_id',$patient->id)
                     ->where('type','=','Yes')
+                    ->whereBetween('created_at', [
+    Carbon\Carbon::now()->startOfWeek(),
+    Carbon\Carbon::now()->endOfWeek(),
+])
                     ->orderby('created_at','desc')->get(); ?>
                     @foreach($expenditures as $exp)
                       <tr>
@@ -128,7 +132,11 @@
                       </tr>
                       <?php $i++ ?>
                       @endforeach
- <td></td><td></td><td></td><td>Total</td><td></td>
+<?php $wekexp=DB::table('fees')->where('patient_id',$patient->id)->whereBetween('created_at', [
+    Carbon\Carbon::now()->startOfWeek(),
+    Carbon\Carbon::now()->endOfWeek(),
+])->sum('amount'); ?>
+ <td></td><td></td><td></td><td>Total</td><td>{{$wekexp}}</td>
                      </tbody>
                    </table>
                        </div>
@@ -194,13 +202,13 @@
     Carbon\Carbon::now()->startOfMonth(),
     Carbon\Carbon::now()->endOfMonth(),
 ])->orderby('created_at','desc')->get(); ?>
-                    @foreach($expenditures as $exp)
+                    @foreach($expenditures as $mexp)
                       <tr>
                       <td>{{$i}}</td>
-                       <td>{{ date('d -m- Y', strtotime($exp->created_at)) }}</td>
-            <td>{{ date('H:i:s', strtotime($exp->created_at)) }}</td>
+                       <td>{{ date('d -m- Y', strtotime($mexp->created_at)) }}</td>
+            <td>{{ date('H:i:s', strtotime($mexp->created_at)) }}</td>
                       <td>St Jude's Huruma Community Health Services</td>
-                      <td>{{$exp->amount}}</td>
+                      <td>{{$mexp->amount}}</td>
                       </tr>
                       <?php $i++ ?>
                       @endforeach
@@ -271,13 +279,13 @@
                     $expenditures=DB::table('fees')->where('patient_id',$patient->id)
                     ->whereYear('created_at','=',date("Y"))
                     ->where('type','=','Yes')->orderby('created_at','desc')->get(); ?>
-                    @foreach($expenditures as $exp)
+                    @foreach($expenditures as $yexp)
                       <tr>
                       <td>{{$i}}</td>
-                       <td>{{ date('d -m- Y', strtotime($exp->created_at)) }}</td>
-            <td>{{ date('H:i:s', strtotime($exp->created_at)) }}</td>
+                       <td>{{ date('d -m- Y', strtotime($yexp->created_at)) }}</td>
+            <td>{{ date('H:i:s', strtotime($yexp->created_at)) }}</td>
                       <td>St Jude's Huruma Community Health Services</td>
-                      <td>{{$exp->amount}}</td>
+                      <td>{{$yexp->amount}}</td>
                       </tr>
                       <?php $i++ ?>
                       @endforeach

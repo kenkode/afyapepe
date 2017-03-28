@@ -29,7 +29,14 @@ class PatientController extends Controller
      */
     public function index()
     {
-        return view('patient.home');
+      $id = Auth::id();
+      $patient=DB::table('afya_users')->where('users_id',$id)->first();
+      $nextkin=DB::table('kin_details')
+      ->join('kin','kin.id','=','kin_details.relation')
+      ->select('kin_details.kin_name','kin_details.phone_of_kin',
+        'kin.relation')->where('afya_user_id',$patient->id)->
+      orderBy('created_at','desc')->first();
+        return view('patient.home')->with('patient',$patient)->with('nextkin',$nextkin);
     }
     public function patientAllergies(){
 

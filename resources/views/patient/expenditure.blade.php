@@ -1,10 +1,11 @@
 @extends('layouts.patient')
 @section('title', 'Patient Tests')
 @section('content')
+
   <div class="content-page  equal-height">
       <div class="content">
           <div class="container">
-           <div class="col-lg-4">
+       <div class="col-lg-4">
                      <div class="widget navy-bg ">
 
                                 <h2>
@@ -22,13 +23,202 @@
                                 <label>Gender:</label>
                                 @if($patient->gender==1){{"Male"}}@else{{"Female"}}@endif
                             </li>
+                             <li>
+                                <span class="fa  fa-medkit m-r-xs"></span>
+                                <label>Blood Type:</label>
+                                {{$patient->blood_type}}
+                            </li>
+
+                           <li>
+                                <span class="fa  fa-map m-r-xs"></span>
+                                <label>Constituency:</label>
+                                <?php $const=$patient->constituency; $cons=DB::table('constituency')->where('const_id',$const)->first();?>{{$cons->Constituency}}
+                            </li>
+                             <li>
+                                <span class="fa  fa-map m-r-xs"></span>
+                                <label>County:</label>
+                                <?php $county=DB::Table('county')->where('id',$cons->cont_id)->first();?> {{$county->county}}
+                            </li>
+                             <li>
+                                <span class="fa  fa-phone m-r-xs"></span>
+                                <label>Phone:</label>
+                                {{$patient->msisdn}}
+                            </li>
                         </ul>
 
                     </div>
 
           </div>
+  <div class="col-lg-12">
+ <h2>Your Health Expenditures</h2>
+            <div class="tabs-container">
+              <!-- <div class="col-lg-12 tbg"> -->
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#tab-1">This Week</button></a></li>
+                    <li class=""><a data-toggle="tab" href="#tab-2">This Month</a></li>
+                    <li class=""><a data-toggle="tab" href="#tab-3">This Year</a></li>
+                    
+                    
+                </ul>
+                <br>
+          <div class="tab-content">
+                      <div id="tab-1" class="tab-pane active">
+            <div class="row">
+                <div class="col-lg-11">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Health Expenditures </h5>
+                        <div class="ibox-tools">
+                          @role('Patient')
+                           <a class="collapse-link">
 
-  <div class="wrapper wrapper-content animated fadeInRight">
+                          </a>  @endrole
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user">
+
+                                <li><a href="#">Config option 1</a>
+                                </li>
+                                <li><a href="#">Config option 2</a>
+                                </li>
+                            </ul>
+                            <a class="close-link">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+
+                        <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover dataTables-example" >
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Facility</th>
+                            
+                            <th>Amount(Kshs)</th>
+                          
+
+                            <!-- <th>Constituency of Residence</th> -->
+
+                      </tr>
+                    </thead>
+ 
+                    <tbody>
+
+                    <?php $i=1;
+                     
+
+                    $expenditures=DB::table('fees')->where('patient_id',$patient->id)
+                    ->where('type','=','Yes')
+                    ->orderby('created_at','desc')->get(); ?>
+                    @foreach($expenditures as $exp)
+                      <tr>
+                      <td>{{$i}}</td>
+                       <td>{{ date('d -m- Y', strtotime($exp->created_at)) }}</td>
+            <td>{{ date('H:i:s', strtotime($exp->created_at)) }}</td>
+                      <td>St Jude's Huruma Community Health Services</td>
+                      <td>{{$exp->amount}}</td>
+                      </tr>
+                      <?php $i++ ?>
+                      @endforeach
+ <td></td><td></td><td></td><td>Total</td><td></td>
+                     </tbody>
+                   </table>
+                       </div>
+
+                   </div>
+               </div>
+           </div>
+           </div>
+           </div>
+           <div id="tab-2" class="tab-pane">
+            <div class="row">
+                <div class="col-lg-11">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Health Expenditures </h5>
+                        <div class="ibox-tools">
+                          @role('Patient')
+                           <a class="collapse-link">
+
+                          </a>  @endrole
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user">
+
+                                <li><a href="#">Config option 1</a>
+                                </li>
+                                <li><a href="#">Config option 2</a>
+                                </li>
+                            </ul>
+                            <a class="close-link">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+
+                        <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover dataTables-example" >
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Facility</th>
+                            
+                            <th>Amount(Kshs)</th>
+                          
+
+                            <!-- <th>Constituency of Residence</th> -->
+
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                    <?php $i=1;
+
+                    $expenditures=DB::table('fees')->where('patient_id',$patient->id)
+                    ->where('type','=','Yes')->whereBetween('created_at', [
+    Carbon\Carbon::now()->startOfMonth(),
+    Carbon\Carbon::now()->endOfMonth(),
+])->orderby('created_at','desc')->get(); ?>
+                    @foreach($expenditures as $exp)
+                      <tr>
+                      <td>{{$i}}</td>
+                       <td>{{ date('d -m- Y', strtotime($exp->created_at)) }}</td>
+            <td>{{ date('H:i:s', strtotime($exp->created_at)) }}</td>
+                      <td>St Jude's Huruma Community Health Services</td>
+                      <td>{{$exp->amount}}</td>
+                      </tr>
+                      <?php $i++ ?>
+                      @endforeach
+          <?php $monthexp=DB::table('fees')->where('patient_id',$patient->id)->whereBetween('created_at', [
+    Carbon\Carbon::now()->startOfMonth(),
+    Carbon\Carbon::now()->endOfMonth(),
+])->sum('amount'); ?>
+                <td></td><td></td><td></td><td>Total</td><td>{{$monthexp}}</td>
+                     </tbody>
+                   </table>
+                       </div>
+
+                   </div>
+               </div>
+           </div>
+           </div>
+           </div>
+           <div id="tab-3" class="tab-pane">
             <div class="row">
                 <div class="col-lg-11">
                 <div class="ibox float-e-margins">
@@ -79,6 +269,7 @@
                     <tbody>
                     <?php $i=1;
                     $expenditures=DB::table('fees')->where('patient_id',$patient->id)
+                    ->whereYear('created_at','=',date("Y"))
                     ->where('type','=','Yes')->orderby('created_at','desc')->get(); ?>
                     @foreach($expenditures as $exp)
                       <tr>
@@ -90,7 +281,9 @@
                       </tr>
                       <?php $i++ ?>
                       @endforeach
-
+  <?php $yearexp=DB::table('fees')->where('patient_id',$patient->id)->whereYear('created_at','=',date("Y"))
+ ->sum('amount'); ?>
+ <td></td><td></td><td></td><td>Total</td><td>{{$yearexp}}</td>
                      </tbody>
                    </table>
                        </div>
@@ -99,7 +292,10 @@
                </div>
            </div>
            </div>
+           </div>
+           </div>
        </div>
+       <br><br><br>
 
        @include('includes.default.footer')
 

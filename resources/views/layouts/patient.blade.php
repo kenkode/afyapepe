@@ -87,7 +87,7 @@
     <script src="{{ asset('js/plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
 
     <!-- Custom and plugin javascript -->
-    <script src="{{ asset('js/inspinia.js') }}"></script>
+    <script src="{{ asset('js/inspinia.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/plugins/pace/pace.min.js') }}"></script>
 
     <!-- jQuery UI  -->
@@ -103,9 +103,7 @@
 
     <!-- Custom and plugin javascript -->
 <script src="{{ asset('js/plugins/pace/pace.min.js') }}" type="text/javascript"></script>
-      <script src="{{ asset('js/inspinia.js') }}" type="text/javascript"></script>
-
-    <!-- Page-Level Scripts -->
+     
     <script>
         $(document).ready(function(){
             $('.dataTables-example').DataTable({

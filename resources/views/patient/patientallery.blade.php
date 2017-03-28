@@ -7,12 +7,29 @@
 
   <div class="wrapper wrapper-content animated fadeInRight">
   <div class="panel-body">
+  <div class="col-lg-4">
+                     <div class="widget navy-bg ">
 
-          <h5><strong>Patient Name</strong>&nbsp;&nbsp;&nbsp;{{$patient->firstname}} {{$patient->secondName}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          <strong>Age</strong>&nbsp;&nbsp;{{$patient->age}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-           <strong>Gender</strong>&nbsp;&nbsp;@if($patient->gender==1){{"Male"}}@else{{"Female"}}@endif&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          
-        </h5></div>
+                                <h2>
+                                    {{$patient->firstname}} {{$patient->secondName}}
+                                </h2>
+                        <ul class="list-unstyled m-t-md">
+                            <li>
+                                <span class="fa fa-users m-r-xs"></span>
+                                <label>Age:</label>
+                                {{$patient->age}}
+                            </li>
+                            
+                            <li>
+                                <span class="fa  fa-genderless m-r-xs"></span>
+                                <label>Gender:</label>
+                                @if($patient->gender==1){{"Male"}}@else{{"Female"}}@endif
+                            </li>
+                        </ul>
+
+                    </div>
+
+          </div>
 
      <div class="col-lg-12">
             <div class="tabs-container">
@@ -34,7 +51,7 @@
                 <div class="col-lg-11">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>Allergy List</h5>
+                        <h5>Your Allergy List</h5>
                         <div class="ibox-tools">
                           @role('Patient')
                            <a class="collapse-link">
@@ -61,7 +78,7 @@
                     <div class="ibox-content">
 
                         <div class="table-responsive">
-                    <table class="table table-striped table-bordered table-hover dataTables-example" >
+                     <table class="table table-striped table-bordered table-hover dataTables-example" >
                     <thead>
                         <tr>
                             <th>No</th>
@@ -92,7 +109,7 @@
                      <div class="col-lg-11">
                      <div class="ibox float-e-margins">
                          <div class="ibox-title">
-                             <h5>Vaccinations List</h5>
+                             <h5>Your Vaccinations List</h5>
                              <div class="ibox-tools">
                                @role('Patient')
                                 <a class="collapse-link">
@@ -170,7 +187,7 @@
                      <div class="col-lg-11">
                      <div class="ibox float-e-margins">
                          <div class="ibox-title">
-                             <h5>Patient History</h5>
+                             <h5>Your Patient History</h5>
                              <div class="ibox-tools">
                                @role('Patient')
                                 <a class="collapse-link">
@@ -256,7 +273,7 @@
                           <div class="col-lg-11">
                           <div class="ibox float-e-margins">
                               <div class="ibox-title">
-                                  <h5>Patient Tests</h5>
+                                  <h5>Your Patient Tests</h5>
                                   <div class="ibox-tools">
                                     @role('Patient')
                                      <a class="collapse-link">
@@ -329,7 +346,7 @@
                           <div class="col-lg-11">
                           <div class="ibox float-e-margins">
                               <div class="ibox-title">
-                                  <h5>Patient Prescriptions</h5>
+                                  <h5>Your Patient Prescriptions</h5>
                                   <div class="ibox-tools">
                                     @role('Patient')
                                      <a class="collapse-link">
@@ -391,7 +408,7 @@
                                <div class="col-lg-11">
                                <div class="ibox float-e-margins">
                                    <div class="ibox-title">
-                                       <h5>Hospital Admission</h5>
+                                       <h5>Your Hospital Admission</h5>
                                        <div class="ibox-tools">
                                          @role('Patient')
                                           <a class="collapse-link">

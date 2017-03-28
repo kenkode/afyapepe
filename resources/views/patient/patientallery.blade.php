@@ -13,6 +13,23 @@
            <strong>Gender</strong>&nbsp;&nbsp;@if($patient->gender==1){{"Male"}}@else{{"Female"}}@endif&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           
         </h5></div>
+
+     <div class="col-lg-12">
+            <div class="tabs-container">
+              <!-- <div class="col-lg-12 tbg"> -->
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#tab-1">Allergy List</button></a></li>
+                    <li class=""><a data-toggle="tab" href="#tab-2">Vaccinations List</a></li>
+                    <li class=""><a data-toggle="tab" href="#tab-3">Patient History</a></li>
+                    <li class=""><a data-toggle="tab" href="#tab-4">Patient Tests</a></li>
+                    <li class=""><a data-toggle="tab" href="#tab-5">Patient Prescriptions</a></li>
+                    <li class=""><a data-toggle="tab" href="#tab-6">Hospital Admission</a></li>
+                    
+                </ul>
+                <br>
+         <div class="tab-content">
+                      <div id="tab-1" class="tab-pane active">
+                        
             <div class="row">
                 <div class="col-lg-11">
                 <div class="ibox float-e-margins">
@@ -51,7 +68,7 @@
                             <th>Name</th>
                             <th>Description </th>
 
-                            <!-- <th>Constituency of Residence</th> -->
+                            
 
                       </tr>
                     </thead>
@@ -67,7 +84,9 @@
                </div>
            </div>
            </div>
+      
        </div>
+      <div id="tab-2" class="tab-pane">
        <div class="wrapper wrapper-content animated fadeInRight">
                  <div class="row">
                      <div class="col-lg-11">
@@ -144,6 +163,8 @@
                 </div>
                 </div>
             </div>
+      </div>
+      <div id="tab-3" class="tab-pane">
       <div class="wrapper wrapper-content animated fadeInRight">
                  <div class="row">
                      <div class="col-lg-11">
@@ -228,6 +249,8 @@
                 </div>
                 </div>
             </div>
+            </div>
+            <div id="tab-4" class="tab-pane">
             <div class="wrapper wrapper-content animated fadeInRight">
                       <div class="row">
                           <div class="col-lg-11">
@@ -265,6 +288,7 @@
                                   <tr>
                                       <th>No</th>
                                       <th>Date</th>
+
                                       <th>Test Type</th>
                                       <th>Test</th>
                                       <th>Doctor Name</th>
@@ -277,8 +301,18 @@
                               </thead>
 
                               <tbody>
+                              <?php $i=1; 
+                              $tests=DB::table('patient_test')
+                                 ->join('appointments','appointments.id','=','patient_test.appointment_id')
+                                 ->join('patient_test_details','patient_test_details.patient_test_id','=','patient_test.id')->select('patient_test.*','patient_test_details.*')->
+                              where('appointments.afya_user_id',$patient->id)->get(); ?>
+                              @foreach($tests as $test)
+                              <tr>
+                              <td>{{$i}}</td>
+                              </tr>
 
-
+                               <?php $i++ ?>
+                               @endforeach
                                </tbody>
                              </table>
                                  </div>
@@ -288,6 +322,8 @@
                      </div>
                      </div>
                  </div>
+                 </div>
+                 <div id="tab-5" class="tab-pane">
                  <div class="wrapper wrapper-content animated fadeInRight">
                       <div class="row">
                           <div class="col-lg-11">
@@ -348,6 +384,8 @@
                      </div>
                      </div>
                  </div>
+                 </div>
+                 <div id="tab-6" class="tab-pane">
                  <div class="wrapper wrapper-content animated fadeInRight">
                            <div class="row">
                                <div class="col-lg-11">
@@ -409,6 +447,9 @@
                           </div>
                           </div>
                       </div>
+                      </div>
+                      </div>
+                      <br><br>
        @include('includes.default.footer')
 
          </div><!--container-->

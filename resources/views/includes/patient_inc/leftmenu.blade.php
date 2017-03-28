@@ -29,7 +29,7 @@
  <span>Patient Details</span></a></li>
 
 <li><a href="{{ URL::to('expenditure')}}">  <i class="fa fa-money "></i> <span>Health Expenditure</span></a></li>
-<li><a href="{{ URL::to('patientappointment')}}">  <i class="fa fa-clock-o"></i> <span>Appointment</span></a></li>
+
 
 <li><a href="{{ URL::to('patientcalendar')}}">  <i class="glyphicon glyphicon-calendar "></i> <span>Calendar</span></a></li>
 

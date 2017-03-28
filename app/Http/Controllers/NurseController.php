@@ -238,6 +238,8 @@ return Redirect::route('nurse.show', [$id]);
         $nurse=$request->nurse;
         $doctor=$request->doctor;
 
+
+$chiefcompliant = implode(',', $chiefcompliant);
 $appointment=DB::table('appointments')->where('afya_user_id', $id)->orderBy('created_at', 'desc')->first();
 
     DB::table('triage_details')->insert(
@@ -249,7 +251,7 @@ $appointment=DB::table('appointments')->where('afya_user_id', $id)->orderBy('cre
     'systolic_bp'=>$systolic,
     'diastolic_bp'=>$diastolic,
     'chief_compliant'=>$chiefcompliant,
-    'observation'=>$observation,
+    'observation'=>'NUll',
     'consulting_physician'=>$nurse,
     'Doctor_note'=>'',
     'prescription'=>'',

@@ -61,21 +61,20 @@
                  @endforeach
 
     </div>
+    
     <div class="form-group">
     <label for="exampleInputPassword1">Chief-Compliant</label>
-    <textarea class="form-control" placeholer="" name="chiefcompliant" required>
-    </textarea>
-
+    <select multipleclass="form-control" name="chiefcompliant[]"  >
+    <?php $chiefs = DB::table('chief_compliant_table')->get();?>
+                  @foreach($chiefs as $chief)
+                   <option value="{{$chief->name}}">{{$chief->name}}</option>
+                 @endforeach
+                </select>
     </div>
-    <div class="form-group">
-    <label for="exampleInputPassword1">Observation</label>
-    <textarea class="form-control" placeholer="" name="observation" required>
-    </textarea>
-
-    </div>
+    
 
     <div class="form-group">
-    <label for="exampleInputPassword1">Nurse Details</label>
+    <label for="exampleInputPassword1">Nurse Notes</label>
     <textarea class="form-control" placeholer="" name="nurse" required>
     </textarea>
 

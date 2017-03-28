@@ -64,7 +64,7 @@
     
     <div class="form-group">
     <label for="exampleInputPassword1">Chief-Compliant</label>
-    <select multipleclass="form-control" name="chiefcompliant[]"  >
+    <select multiple="multiple" class="form-control" name="chiefcompliant[]"  >
     <?php $chiefs = DB::table('chief_compliant_table')->get();?>
                   @foreach($chiefs as $chief)
                    <option value="{{$chief->name}}">{{$chief->name}}</option>

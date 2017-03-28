@@ -50,7 +50,8 @@
 
           </div>
   <div class="col-lg-12">
- <h2>Your Health Expenditures</h2>
+
+ <h5>Your Health Expenditures</h5>
             <div class="tabs-container">
               <!-- <div class="col-lg-12 tbg"> -->
                 <ul class="nav nav-tabs">

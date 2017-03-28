@@ -56,17 +56,16 @@ class PatientController extends Controller
 
      {
 
-
        $patientdetails = DB::table('appointments')
+        ->Join('afya_users', 'appointments.afya_user_id', '=', 'afya_users.id')
+        ->Join('triage_details', 'appointments.id', '=', 'triage_details.appointment_id')
+        ->Join('facilities', 'appointments.facility_id', '=', 'facilities.FacilityCode')
+        ->select('afya_users.*','triage_details.*','triage_details.id as triage_id',
+         'appointments.id as app_id','appointments.status as appstatus','appointments.facility_id',
+           'appointments.created_at','facilities.FacilityName','facilities.FacilityCode')
+       ->where('appointments.id',$id)
+       ->get();
 
-          ->Join('afya_users', 'appointments.afya_user_id', '=', 'afya_users.id')
-          ->Join('triage_details', 'appointments.id', '=', 'triage_details.appointment_id')
-          ->Join('facilities', 'appointments.facility_id', '=', 'facilities.FacilityCode')
-          ->select('afya_users.*','triage_details.*','triage_details.id as triage_id',
-          'appointments.id as app_id','appointments.status as appstatus','appointments.facility_id',
-          'appointments.created_at','facilities.FacilityName','facilities.FacilityCode')
-          ->where('appointments.id',$id)
-          ->get();
 
 
       $tstdone = DB::table('patient_test_details')

@@ -320,16 +320,15 @@ return redirect('doctor.create');
                             </div>
 
                              <div class="form-group">
-                              <label for="dosage" class="col-md-4 control-label">Strength</label>
-                               <select class="form-control" id="testsj" name="strength" style="width:50%">
+                              <label for="dosage" class="col-md-4 control-label">Strength</label></td>
+                               <select class="form-control" id="testsj" name="strength" style="width: 25%">
                                    @foreach($Strengths as $Strengthz)
                                      <option value="{{$Strengthz->strength}}">{{ $Strengthz->strength  }}  </option>
                                   @endforeach
                               </select>
-                              <div class="form-group">
-                               <label for="dosage" class="col-md-4 control-label">Strength Unit</label>
+
                         <input type="radio" name="strength_unit" value="ml"> Ml &nbsp;&nbsp;<input type="radio" name="strength_unit" value="mg"> Mg
-                             </div>
+
                            </div>
 
                              <div class="form-group">
@@ -420,6 +419,7 @@ return redirect('doctor.create');
                                            <td>{{$presc->strength}}</td>
                                            <td>{{$presc->strength_unit}}</td>
                                            <td>{{$presc->created_at}}</td>
+
                                   </tr>
                                        <?php $i++; ?>
 

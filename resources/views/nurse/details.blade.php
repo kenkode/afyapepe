@@ -57,10 +57,11 @@
 
     <?php  $allergies = DB::table('allergies')->get();?>
                   @foreach($allergies as $allergy)
-                  <input type="checkbox" name="allergy[]" value="{{$allergy->name}}"> {{$allergy->name}}
+                  <input type="checkbox"  name="allergy[]" value="{{$allergy->name}}"> {{$allergy->name}}
                  @endforeach
 
     </div>
+ 
     
     
      <div class="form-group">
@@ -74,20 +75,17 @@
     </div>
     <div class="form-group">
     <label for="exampleInputPassword1">Observation</label>
-    <select  class="form-control" name="observation"  >
-    <?php $nurses = DB::table('nurse_observation')->get();?>
-                  @foreach($nurses as $nurse)
-                   <option value="{{$nurse->name}}">{{$nurse->name}}</option>
+    <select  class="form-control" name="observation" id="observation" >
+    
+                  @foreach($observations as $observation)
+                   <option value="{{$observation->id}}">{{$observation->name}}</option>
                  @endforeach
                 </select>
     </div>
     <div class="form-group">
     <label for="exampleInputPassword1">symptoms</label>
-    <select  class="form-control" name="symptoms"  >
-    <?php $symptoms = DB::table('nurse_symptoms')->where('nurse_observation_id',$nurse->id)->get();?>
-                  @foreach($symptoms as $symptom)
-                   <option value="{{$symptom->symptoms}}">{{$symptom->symptoms}}</option>
-                 @endforeach
+    <select  class="form-control" name="symptoms" id="#symptoms">
+    
                 </select>
     </div>
     
@@ -125,6 +123,7 @@
 </div>
     </div>
   @include('includes.default.footer')
+
 
 
 @endsection

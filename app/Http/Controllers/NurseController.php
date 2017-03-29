@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
+use App\Observation;
 use Redirect;
 use Carbon\Carbon;
 use App\Http\Requests;
@@ -46,6 +47,8 @@ class NurseController extends Controller
         return view('nurse.create');
 
     }
+
+    
     public function updateDependant($id){
 
         return view('nurse.updatedependant')->with('id',$id);
@@ -219,8 +222,8 @@ return Redirect::route('nurse.show', [$id]);
 
     public function details($id){
 
-
-        return view('nurse.details')->with('id',$id);
+       $observations=Observation::all();
+        return view('nurse.details')->with('id',$id)->with('observations',$observations);
 
     }
 

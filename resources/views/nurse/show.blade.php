@@ -152,7 +152,7 @@
 
                                                                  <table class="table table-small-font table-bordered table-striped">
                                                               <thead>
-                                                                  <<tr>
+                                                                  <tr>
                                                                       <th>No</th>
                                  <th>Antigen</th>
                                 <th>Vaccinations Name</th>

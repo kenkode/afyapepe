@@ -62,17 +62,9 @@
 
     </div>
     
-    <div class="form-group">
-    <label for="exampleInputPassword1">Chief-Compliant</label>
-    <select multiple="multiple" class="form-control" name="chiefcompliant[]"  >
-    <?php $chiefs = DB::table('chief_compliant_table')->get();?>
-                  @foreach($chiefs as $chief)
-                   <input type="checkbox" name="{{$chief->name}}">{{$chief->name}}
-                 @endforeach
-                </select>
-    </div>
+    
      <div class="form-group">
-    <label for="exampleInputPassword1">Observations</label>
+    <label for="exampleInputPassword1">Chief Compliant</label>
     <select multiple="multiple" class="form-control" name="chiefcompliant[]"  >
     <?php $chiefs = DB::table('chief_compliant_table')->get();?>
                   @foreach($chiefs as $chief)

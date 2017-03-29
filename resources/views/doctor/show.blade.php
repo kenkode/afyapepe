@@ -128,8 +128,8 @@ return redirect('doctor.create');
               <?php
               $pathists = DB::table('appointments')
               ->Join('triage_details', 'appointments.id', '=', 'triage_details.appointment_id')
-              ->Join('patient_test', 'appointments.id',  '=', 'patient_test.appointment_id')
-              ->Join('prescriptions', 'appointments.id', '=', 'prescriptions.appointment_id')
+              ->leftJoin('patient_test', 'appointments.id',  '=', 'patient_test.appointment_id')
+              ->leftJoin('prescriptions', 'appointments.id', '=', 'prescriptions.appointment_id')
               ->select('triage_details.chief_compliant','triage_details.updated_at',
               'patient_test.test_status','prescriptions.filled_status','appointments.id')
 
@@ -333,12 +333,7 @@ return redirect('doctor.create');
                             {{ Form::hidden('appointment_id',$pdetails->app_id, array('class' => 'form-control')) }}
                             {{ Form::hidden('doc_id',$Docdata->doc_id, array('class' => 'form-control')) }}
 
-                            <!-- <div class="form-group">
-                             <label for="dosage" class="col-md-2 control-label">Doctor note</label></td>
-                              <div class="col-md-4">
-                                  {{ Form::textarea('doc_note', null, array('placeholder' => 'note..','class' => 'form-control col-lg-8')) }}
-                                </div>
-                            </div> -->
+                        
 
                                     <div class="form-group  text-center">
                                     <button type="submit" class="btn btn-primary">Submit</button>  </td>

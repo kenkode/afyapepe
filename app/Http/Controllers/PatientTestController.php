@@ -8,6 +8,7 @@ use App\Patienttest;
 use Illuminate\Support\Facades\Input;
 use Auth;
 
+
 class PatientTestController extends Controller
 {
     /**
@@ -40,24 +41,35 @@ public function store(Request $request)
           'conditional' => 'required',
           'appointment_id' => 'required',
           ]);
-       $id = $request->input('appointment_id');
-                     $PatientTest = Patienttest ::create([
-                        'test_reccommended' => $request->get('test'),
-                        'doc_id' => $request->get('doc_id'),
-                        'appointment_id' => $request->get('appointment_id'),
-                                  ]);
-    $ptid = $PatientTest->id;
+
+     $appointment=$request->get('appointment_id');
+     $pttids= Patienttest::where('appointment_id',$appointment)
+      ->first();
+
+     if (is_null($pttids)) {
+     //  - add new
+$PatientTest = Patienttest ::create([
+  'doc_id' => $request->get('doc_id'),
+  'appointment_id' => $request->get('appointment_id'),
+              ]);
+          $ptid = $PatientTest->id;
+     } else {
+     // Already favorited - delete the existing
+      $ptid =$pttids->id;
+     }
+
+
 
    $patienttd = DB::table('patient_test_details')->insertGetId(
              [
                'conditional_diagnosis' => $request->get('conditional'),
                'patient_test_id' => $ptid,
                'tests_reccommended' => $request->get('test'),
-               'appointment_id'=> $request->get('appointment_id')
+
 
              ]
            );
-      return redirect()->route('showPatient', ['id' => $id]);
+      return redirect()->route('showPatient', ['id' => $appointment]);
       }
 
 

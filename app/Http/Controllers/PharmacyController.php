@@ -37,18 +37,28 @@ class PharmacyController extends Controller
                   ->get(); */
 
 
-        $facility = Auth::user()->facility_code;
+        $user_id = Auth::user()->id;
+
+        $data = DB::table('pharmacists')
+                  ->where('user_id', $user_id)
+                  ->first();
+
+        $facility = $data->premiseid;
+
         $results = DB::table('afya_users')
                 ->join('afyamessages', 'afya_users.msisdn', '=', 'afyamessages.msisdn')
-                ->join('patients', 'patients.afya_user_id', '=', 'afya_users.id')
-                ->join('prescriptions', 'prescriptions.patient_id', '=', 'patients.id')
+                ->join('appointments', 'appointments.afya_user_id', '=', 'afya_users.id')
+                ->join('prescriptions', 'prescriptions.appointment_id', '=', 'appointments.id')
                 ->join('doctors', 'doctors.doc_id', '=', 'prescriptions.doc_id')
-                ->select('afya_users.*','prescriptions.created_at AS presc_date','patients.allergies','doctors.name')
+                ->select('afya_users.*','prescriptions.created_at AS presc_date','prescriptions.id AS presc_id','doctors.name')
                 ->where([
                   ['afyamessages.facilityCode', '=', $facility],
+                  ['afyamessages.created_at','>=',$today],
                 ])
-                ->whereRaw('DATE(afyamessages.dateCreated) = CURDATE()')
+              //  ->whereDate('afyamessages.created_at','=',$today)
+              //  ->whereRaw('DATE(prescriptions.created_at) = CURDATE()')
                 ->whereIn('prescriptions.filled_status', [0, 2])
+                ->groupBy('appointments.id')
                 ->get();
 
         return view('pharmacy.home')->with('results',$results);
@@ -116,12 +126,36 @@ class PharmacyController extends Controller
      */
     public function show($id)
     {
-      $patient = DB::table('afya_users')
-        ->Join('triage_details', 'afya_users.id', '=', 'triage_details.patient_id')
-        ->select('afya_users.*', 'triage_details.*')
-        ->where('triage_details.id',$id)
-        ->first();
-      return view ('pharmacy.show')->with('patient',$patient);
+      $today = Carbon::today();
+      $user_id = Auth::user()->id;
+
+      $data = DB::table('pharmacists')
+                ->where('user_id', $user_id)
+                ->first();
+
+      $facility = $data->premiseid;
+
+      $patients = DB::table('prescriptions')
+        ->join('prescription_details', 'prescription_details.presc_id', '=', 'prescriptions.id')
+        ->join('druglists', 'prescription_details.drug_id', '=', 'druglists.id')
+        ->join('appointments', 'prescriptions.appointment_id', '=', 'appointments.id')
+        ->join('afya_users', 'afya_users.id', '=', 'appointments.afya_user_id')
+        ->join('afyamessages', 'afyamessages.msisdn', '=', 'afya_users.msisdn')
+        ->join('route', 'prescription_details.routes', '=', 'route.id')
+        ->select('druglists.drugname', 'prescriptions.*','prescription_details.*','afya_users.*', 'route.name')
+        ->where([
+          ['prescriptions.id', '=', $id],
+          ['afyamessages.facilityCode', '=', $facility],
+          ['afyamessages.created_at','>=',$today],
+
+        ])
+      //  ->whereDate('afyamessages.created_at','=',$today)
+      //  ->whereRaw('DATE(prescriptions.created_at) = CURDATE()')
+        ->whereIn('prescriptions.filled_status', [0, 2])
+        ->groupBy('appointments.id')
+        ->get();
+
+      return view ('pharmacy.show')->with('patients',$patients);
     }
 
     /**

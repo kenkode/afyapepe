@@ -1,38 +1,14 @@
 @extends('layouts.pharmacy')
 @section('title', 'Pharmacy')
 @section('content')
-<div class="content-page  equal-height">
 
-    <div class="content">
-        <div class="container">
-
-
-
-          <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
             <div class="col-lg-11">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-
-                    <div class="ibox-tools">
-
-                        <a class="collapse-link">
-                            <i class="fa fa-chevron-up"></i>
-                        </a>
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            <i class="fa fa-wrench"></i>
-                        </a>
-                        <ul class="dropdown-menu dropdown-user">
-
-                            <li><a href="#">Config option 1</a>
-                            </li>
-                            <li><a href="#">Config option 2</a>
-                            </li>
-                        </ul>
-                        <a class="close-link">
-                            <i class="fa fa-times"></i>
-                        </a>
-                    </div>
+                  <h5>Prescription Details</h5>
+                    
                 </div>
                 <div class="ibox-content">
 
@@ -44,7 +20,7 @@
                           <th>Patient Name</th>
                           <th>Age</th>
                           <th>Gender</th>
-                          <th>Allergies</th>
+
                           <th>Prescribing Doctor</th>
                           <th>Date of Prescription</th>
                     </tr>
@@ -68,7 +44,7 @@
                                 $gender = 'Female';
                               }
 
-                              $allergies = $result->allergies;
+                            //  $allergies = $result->allergies;
                               $daktari = $result->name;
 
                               $presc_date = $result->presc_date;
@@ -77,13 +53,13 @@
 
                           ?>
                               <tr>
-                                  <td><a href="{{route('pharmacy.show',$result->id)}}">{{$i}}</a></td>
-                                  <td><a href="{{route('pharmacy.show',$result->id)}}">{{$name}}</a></td>
-                                  <td>{{$age}}</td>
+                                  <td><a href="{{route('pharmacy.show',$result->presc_id)}}">{{$i}}</a></td>
+                                  <td><a href="{{route('pharmacy.show',$result->presc_id)}}">{{$name}}</a></td>
+                                  <td><a href="{{route('pharmacy.show',$result->presc_id)}}">{{$age}}</td>
                                   <td><a href="{{route('pharmacy.show',$result->id)}}">{{$gender}}</a></td>
-                                  <td>{{$allergies}} </td>
-                                  <td>{{$daktari}} </td>
-                                  <td>{{$presc_date}}</td>
+
+                                  <td><a href="{{route('pharmacy.show',$result->presc_id)}}">{{$daktari}} </td>
+                                  <td><a href="{{route('pharmacy.show',$result->presc_id)}}">{{$presc_date}}</td>
 
 
                               </tr>
@@ -104,9 +80,5 @@
                    </div>
 
                </div>
-
-
-
-                       </div>
 
 @endsection

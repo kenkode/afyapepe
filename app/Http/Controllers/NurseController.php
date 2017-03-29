@@ -235,10 +235,21 @@ return Redirect::route('nurse.show', [$id]);
         $allergies=$request->allergies;
         $chiefcompliant=$request->chiefcompliant;
         $observation=$request->observation;
+        $symptoms=$request->symptoms;
         $nurse=$request->nurse;
         $doctor=$request->doctor;
+        $allergy=$request->allergy;
 
+$allergy=implode(',', $allergy);
+$allergies=explode(',', $allergy);
+foreach ($allergies as $all) {
 
+   DB::table('afya_users_allergy')->insert([
+    'afya_user_id'=>$id,
+    'allergy_name'=>$all,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
+}
 $chiefcompliant = implode(',', $chiefcompliant);
 $appointment=DB::table('appointments')->where('afya_user_id', $id)->orderBy('created_at', 'desc')->first();
 
@@ -251,7 +262,8 @@ $appointment=DB::table('appointments')->where('afya_user_id', $id)->orderBy('cre
     'systolic_bp'=>$systolic,
     'diastolic_bp'=>$diastolic,
     'chief_compliant'=>$chiefcompliant,
-    'observation'=>'NUll',
+    'observation'=>$observation,
+    'symptoms'=>$symptoms,
     'nurse_notes'=>$nurse,
     'Doctor_note'=>'',
     'prescription'=>'',

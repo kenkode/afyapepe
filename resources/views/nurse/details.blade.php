@@ -57,25 +57,41 @@
 
     <?php  $allergies = DB::table('allergies')->get();?>
                   @foreach($allergies as $allergy)
-                  <input type="checkbox" name="{{$allergy->id}}"> {{$allergy->name}}
+                  <input type="checkbox"  name="allergy[]" value="{{$allergy->name}}"> {{$allergy->name}}
                  @endforeach
 
     </div>
-    <div class="form-group">
-    <label for="exampleInputPassword1">Chief-Compliant</label>
-    <textarea class="form-control" placeholer="" name="chiefcompliant" required>
-    </textarea>
-
+ 
+    
+    
+     <div class="form-group">
+    <label for="exampleInputPassword1">Chief Compliant</label>
+    <select multiple="multiple" class="form-control" name="chiefcompliant[]"  >
+    <?php $chiefs = DB::table('chief_compliant_table')->get();?>
+                  @foreach($chiefs as $chief)
+                   <option value="{{$chief->name}}">{{$chief->name}}</option>
+                 @endforeach
+                </select>
     </div>
     <div class="form-group">
     <label for="exampleInputPassword1">Observation</label>
-    <textarea class="form-control" placeholer="" name="observation" required>
-    </textarea>
-
+    <select  class="form-control" name="observation" id="observation" >
+    
+                  @foreach($observations as $observation)
+                   <option value="{{$observation->id}}">{{$observation->name}}</option>
+                 @endforeach
+                </select>
     </div>
+    <div class="form-group">
+    <label for="exampleInputPassword1">symptoms</label>
+    <select  class="form-control" name="symptoms" id="#symptoms">
+    
+                </select>
+    </div>
+    
 
     <div class="form-group">
-    <label for="exampleInputPassword1">Nurse Details</label>
+    <label for="exampleInputPassword1">Nurse Notes</label>
     <textarea class="form-control" placeholer="" name="nurse" required>
     </textarea>
 
@@ -107,6 +123,7 @@
 </div>
     </div>
   @include('includes.default.footer')
+
 
 
 @endsection

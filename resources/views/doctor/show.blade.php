@@ -31,7 +31,7 @@ return redirect('doctor.create');
         // $patientid = $pdetails->pat_id;
         $pname = $pdetails->firstname;
         $lname = $pdetails->secondName;
-        $age = $pdetails->dob;
+        $dob = $pdetails->dob;
         $nid = $pdetails->nationalId;
         $appoid = $pdetails->app_id;
         $appdate = $pdetails->created_at;
@@ -47,6 +47,7 @@ return redirect('doctor.create');
         $gender = $pdetails->gender;
         $phone = $pdetails->msisdn;
         $stat= $pdetails->appstatus;
+        $afyauserId= $pdetails->afyaId;
         if ($gender=1) {
           $gender='Male';
         }else{
@@ -64,6 +65,11 @@ return redirect('doctor.create');
         }else{
           $stat='Referred';
         }
+
+
+ $interval = date_diff(date_create(), date_create($dob));
+ $age= $interval->format(" %Y Year, %M Months, %d Days Old");
+
 }
 ?>
 
@@ -85,8 +91,8 @@ return redirect('doctor.create');
             <div class="tabs-container">
               <!-- <div class="col-lg-12 tbg"> -->
                 <ul class="nav nav-tabs">
-                    <li class="active"><a data-toggle="tab" href="#tab-1">Home</button></a></li>
-                    <li class=""><a data-toggle="tab" href="#tab-2">History</a></li>
+                    <!-- <li class="active"><a data-toggle="tab" href="#tab-1">Home</button></a></li> -->
+                    <li class="active"><a data-toggle="tab" href="#tab-2">History</a></li>
                     <li class=""><a data-toggle="tab" href="#tab-3">Tests</a></li>
                     <li class=""><a data-toggle="tab" href="#tab-4">Prescriptions</a></li>
                     <li class=""><a data-toggle="tab" href="#tab-5">Admit</a></li>
@@ -96,87 +102,9 @@ return redirect('doctor.create');
                 </ul>
               <!-- </div> -->
                 <div class="tab-content">
-                      <div id="tab-1" class="tab-pane active">
-                        <div class="panel-body">
 
-  <div class="wrapper wrapper-content">
-          <div class="row animated fadeInRight">
-              <div class="col-md-4">
-                  <div class="ibox float-e-margins">
-                      <div class="ibox-title">
-                          <h5>Observation's</h5>
-                      </div>
-                      <div>
-
-                          <div class="ibox-content profile-content">
-
-                              <h5>Chief Complaint:</h5>
-                              <p><?php echo $complain;?> </p>
-                              <h5>Observation's:</h5>
-                              <p><?php echo $observations;?></p>
-
-                          </div>
-                  </div>
-              </div>
-                  </div>
-              <div class="col-md-8">
-                  <div class="ibox float-e-margins">
-                      <div class="ibox-title">
-                        <button class="btn btn-primary btn-block m"><i class="fa fa-arrow-down"></i> Vitals</button>
-                    </div>
-                      <div class="ibox-content">
-
-                          <div>
-                              <div class="feed-activity-list">
-
-                                  <div class="row m-t-lg">
-                                      <div class="col-md-4">
-                                       <h5><strong>Age</strong> <?php echo $age;?></h5>
-                                      </div>
-                                      <div class="col-md-4">
-                                       <h5><strong>D.O.B</strong> <?php echo $age;?></h5>
-                                      </div>
-                                      <div class="col-md-4">
-                                      <h5><strong>National ID</strong><?php echo $nid;?></h5>
-                                      </div>
-
-                                    </div>
-                                  <div class="row m-t-lg">
-                                      <div class="col-md-4">
-                                       <h5><strong>weight</strong> <?php echo $weight;?></h5>
-                                      </div>
-                                      <div class="col-md-4">
-                                      <h5><strong>height</strong><?php echo $height;?></h5>
-                                      </div>
-                                      <div class="col-md-4">
-                                       <h5><strong>Temperature</strong><?php echo $temperature;?></h5>
-                                      </div>
-                                    </div>
-                                  <div class="row m-t-lg">
-                                      <div class="col-md-4">
-                                       <h5><strong>Systolic BP:</strong> <?php echo $systolic;?></h5>
-                                      </div>
-                                      <div class="col-md-4">
-                                      <h5><strong>Diastolic BP</strong><?php echo $diastolic;?></h5>
-                                      </div>
-
-                                    </div>
-                              </div>
-
-                              <button class="btn btn-primary btn-block m"><i class="fa fa-arrow-up"></i>Vitals</button>
-
-                          </div>
-
-                      </div>
-                  </div>
-
-              </div>
-          </div>
-      </div>
-</div>
-</div><!--tabs1-->
 <!--tabs2-->
-<div id="tab-2" class="tab-pane">
+<div id="tab-2" class="tab-pane active">
     <div class="ibox float-e-margins">
             <div class="ibox-title">
                 <h5>All Patient Visit History</h5>
@@ -190,22 +118,54 @@ return redirect('doctor.create');
               <th></th>
                 <th>Date of visit</th>
                 <th>Chief Complain</th>
-                <th>observations</th>
+                <th>Doctor's Note</th>
+                <th>Test</th>
                 <th>Prescription</th>
                 <th>view more</th>
             </tr>
             </thead>
             <tbody>
+              <?php
+              $pathists = DB::table('appointments')
+              ->Join('triage_details', 'appointments.id', '=', 'triage_details.appointment_id')
+              ->Join('patient_test', 'appointments.id',  '=', 'patient_test.appointment_id')
+              ->Join('prescriptions', 'appointments.id', '=', 'prescriptions.appointment_id')
+              ->select('triage_details.chief_compliant','triage_details.updated_at',
+              'patient_test.test_status','prescriptions.filled_status','appointments.id')
+
+              ->where('appointments.afya_user_id',$afyauserId)
+              ->get();
+              ?>
               <?php $i =1; ?>
-           @foreach($patientdetails as $triageDetails)
+           @foreach($pathists as $pathist)
                 <tr>
                     <td>{{ +$i }}</td>
-                    <td>{{$triageDetails->updated_at}}</td>
-                    <td>{{$triageDetails->chief_compliant}}</td>
-                    <td>{{$triageDetails->observation}}</td>
-                    <td>{{$triageDetails->observation}}</td>
-                    <td><a href="{{route('visit',$appoid)}}" class="btn btn-default btn-xs"><i class="fa fa-search-plus"></i></a></td>
+                    <td>{{$pathist->updated_at}}</td>
+                    <td>{{$pathist->chief_compliant}}</td>
+                    <td>{{$pathist->chief_compliant}}</td>
+                    <td><?php
+                    $tests=$pathist->test_status;
+                    if ($tests==0) {
+                      $tests= 'Pending';
+                    } elseif($tests==1) {
+                      $tests= 'Done';
+                    }else {
+                        $tests= 'Partial';
+                    }
+                      ?>  {{$tests}}</td>
+                      <td><?php
+                      $prescs=$pathist->filled_status;
+                      if ($prescs==0) {
+                        $prescs= 'Pending';
+                      } elseif($prescs==1) {
+                        $prescs= 'Complete';
+                      }else {
+                          $prescs= 'Partial';
+                      }
+                        ?>  {{$prescs}}</td>
+                    <td><a href="{{route('visit',$pathist->id)}}" class="btn btn-default btn-xs"><i class="fa fa-search-plus"></i></a></td>
                  </tr>
+
                 <?php $i++; ?>
                   @endforeach
            </tbody>
@@ -217,6 +177,7 @@ return redirect('doctor.create');
                   <th>observations</th>
                   <th>Prescription</th>
                   <th>Prescription</th>
+                    <th>view more</th>
               </tr>
             </tfoot>
             </table>
@@ -228,27 +189,27 @@ return redirect('doctor.create');
 <!--tabs3-->
 <div id="tab-3" class="tab-pane">
 <div class="ibox float-e-margins">
-<div class="ibox-content">
+<div class="ibox-content col-md-12">
 {{ Form::open(array('route' => array('patienttest'),'method'=>'POST')) }}
 <!-- {{ Form::open(array('id' => 'ptest')) }} -->
 
-<div class="col-md-4">
+<div class="col-md-6">
 
 <div class="form-group ">
     <label for="d_list2">Conditional Diagnosis:</label>
-    <select id="d_list2" name="conditional" class="d_list2 form-control"></select>
+    <select id="d_list2" name="conditional" class="d_list2 form-control" style="width: 100%"></select>
 </div>
 
 <div class="form-group">
-    <label for="tag_list">Select Test:</label>
-    <select id="tag_list" name="test" class="form-control tag_list1" ></select>
+    <label for="tag_list" class="col-md-4">Select Test:</label>
+    <select id="tag_list" name="test" class="form-control tag_list1" style="width: 100%"></select>
 </div>
 </div>
-
+<div class="form-group  text-center col-md-2">
 {{ Form::hidden('appointment_id',$pdetails->app_id, array('class' => 'form-control')) }}
 {{ Form::hidden('doc_id',$Docdata->doc_id, array('class' => 'form-control')) }}
 
-<div class="form-group  text-center">
+<br /><br /><br />
 <button type="submit" class="btn btn-primary">Submit</button>  </td>
 </div>
 {{ Form::close() }}
@@ -258,7 +219,7 @@ return redirect('doctor.create');
 
 <!--Test result tabs PatientController@testdone-->
 <div id="testR">
-<div class="table-responsive">
+<div class="table-responsive ibox-content">
 <table class="table table-striped table-bordered table-hover dataTables-conditional" >
    <thead>
 <tr>
@@ -281,7 +242,7 @@ return redirect('doctor.create');
 @foreach($tstdone as $tstdn)
   <tr>
   <td>{{ +$i }}</td>
-  <td>{{$tstdn->created_at}}</td>
+ <td>{{$tstdn->created_at}}</td>
   <td>{{$tstdn->name}}</td>
   <td>{{$tstdn->disease}}</td>
   <td>{{$tstdn->done}}</td>
@@ -318,20 +279,20 @@ return redirect('doctor.create');
 
 
                       <div class="ibox float-e-margins">
-                        <div class="ibox-content">
-
+                        <div class="ibox-content col-md-12">
+                    <div class="ibox-content col-md-8 col-md-offset-2">
 
                           <div class="form-group ">
-                              <label for="d_list3">Confirmed Diagnosis:</label>
-                              <select id="d_list3" name="diagnosis" class="form-control d_list2"></select>
+                              <label for="d_list3" class="col-md-4">Confirmed Diagnosis:</label>
+                              <select  name="diagnosis" class="form-control d_list2" style="width: 50%"></select>
                           </div>
                           <div class="form-group">
-                              <label for="presc">Prescription:</label>
-                              <select id="presc" name="prescription" class="form-control presc1" ></select>
+                              <label for="presc" class="col-md-4">Prescription:</label>
+                              <select id="presc" name="prescription" class="form-control presc1" style="width: 50%"></select>
                           </div>
                           <div class="form-group">
-                              <label for="dosage" class="col-md-2 control-label">Dosage Form</label></td>
-                               <select class="form-control m-b" name="dosage" id="example-getting-started" >
+                              <label for="dosage" class="col-md-4">Dosage Form</label></td>
+                               <select class="form-control m-b col-md-4" name="dosageform" id="example-getting-started" style="width: 50%">
                                 <?php $druglists=DB::table('druglists')->distinct()->get(['DosageForm']); ?>
                                 @foreach($druglists as $druglist)
                                        <option value='{{$druglist->DosageForm}}'>{{$druglist->DosageForm}}</option>
@@ -340,33 +301,35 @@ return redirect('doctor.create');
                             </div>
 
                              <div class="form-group">
-                              <label for="dosage" class="col-md-2 control-label">Strength</label></td>
-                               <select class="js-example-placeholder-single" id="testsj" name="strength">
+                              <label for="dosage" class="col-md-4 control-label">Strength</label></td>
+                               <select class="form-control" id="testsj" name="strength" style="width: 25%">
                                    @foreach($Strengths as $Strengthz)
-                                     <option value="{{$Strengthz->id }}">{{ $Strengthz->strength  }} </option>
+                                     <option value="{{$Strengthz->strength}}">{{ $Strengthz->strength  }}  </option>
                                   @endforeach
-                               </select>
-                        <input type="radio" name="dosage" value="ml"> Ml &nbsp;&nbsp;<input type="radio" name="dosage" value="mg"> Mg
-                            </div>
+                              </select>
+
+                        <input type="radio" name="strength_unit" value="ml"> Ml &nbsp;&nbsp;<input type="radio" name="strength_unit" value="mg"> Mg
+
+                           </div>
 
                              <div class="form-group">
-                              <label for="dosage" class="col-md-2 control-label">Route</label></td>
-                               <select class="js-example-placeholder-single" name="routes">
+                              <label for="dosage" class="col-md-4 control-label">Route</label></td>
+                               <select class="form-control" name="routes" style="width: 50%">
                                    @foreach($routems as $routemz)
-                                     <option value="{{$routemz->id }}">{{ $routemz->abbreviation }}----{{ $routemz->name  }} </option>
+                                     <option value="{{$routemz->abbreviation }}">{{ $routemz->abbreviation }}----{{ $routemz->name  }} </option>
                                   @endforeach
                                </select>
                             </div>
 
                               <div class="form-group">
-                              <label for="dosage" class="col-md-2 control-label">Frequency</label></td>
-                               <select class="js-example-placeholder-single"  name="frequency">
+                              <label for="dosage" class="col-md-4 control-label">Frequency</label></td>
+                               <select class="form-control"  name="frequency" style="width: 50%">
                                    @foreach($frequent as $freq)
-                                     <option value="{{$freq->id }}">{{ $freq->abbreviation }}----{{ $freq->name  }} </option>
+                                     <option value="{{$freq->abbreviation }}">{{ $freq->abbreviation }}----{{ $freq->name  }} </option>
                                   @endforeach
                                </select>
                             </div>
-                            
+
                             {{ Form::hidden('appointment_id',$pdetails->app_id, array('class' => 'form-control')) }}
                             {{ Form::hidden('doc_id',$Docdata->doc_id, array('class' => 'form-control')) }}
 
@@ -382,10 +345,77 @@ return redirect('doctor.create');
                                      </div>
 
                                 {{ Form::close() }}
+                                    </div>
+                                    <div class="col-lg-12">
+                                      <div class="ibox float-e-margins">
+                                        <div class="ibox-content col-md-12">
+                                        <div class="ibox-title">
+                                            <h5>Prescription List</h5>
+                                            <div class="ibox-tools">
 
+                                                <a class="collapse-link">
+                                                    <i class="fa fa-chevron-up"></i>
+                                                </a>
+                                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                                    <i class="fa fa-wrench"></i>
+                                                </a>
+                                                <ul class="dropdown-menu dropdown-user">
+
+                                                    <li><a href="#">Config option 1</a>
+                                                    </li>
+                                                    <li><a href="#">Config option 2</a>
+                                                    </li>
+                                                </ul>
+                                                <a class="close-link">
+                                                    <i class="fa fa-times"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="ibox-content">
+                                           <div class="table-responsive">
+                                        <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                        <thead>
+                                       <tr>
+                                         <th></th>
+
+
+                                            <th>Diagnosis</th>
+                                            <th>Drug Name</th>
+                                            <th>Dosage Form</th>
+                                           <th>Strength</th>
+                                           <th>Strength Unit</th>
+                                           <th>Date given</th>
+                                     </tr>
+                                   </thead>
+
+                                   <tbody>
+                                     <?php $i =1; ?>
+
+                                  @foreach($prescription as $presc)
+                                          <tr>
+                                             <td>{{ +$i }}</td>
+                                           <td>{{$presc->name}}</td>
+                                           <td>{{$presc->drugname}}</td>
+                                           <td>{{$presc->doseform}}</td>
+                                           <td>{{$presc->strength}}</td>
+                                           <td>{{$presc->strength_unit}}</td>
+                                           <td>{{$presc->created_at}}</td>
+
+                                  </tr>
+                                       <?php $i++; ?>
+
+                                    @endforeach
+
+                                      </tbody>
+                                    </table>
                                    </div>
+                                  </div>
                                 </div>
-                               </div><!--4 tabs-->
+                            </div>
+                            </div>
+                                   </div>
+                               </div>
+                      </div><!--4 tabs-->
 
                     <!--tabs5 Admit-->
                     <div id="tab-5" class="tab-pane">
@@ -393,8 +423,8 @@ return redirect('doctor.create');
                                     {{ Form::open(array('route' => array('patientnotes'),'method'=>'POST')) }}
 
                                     <div class="form-group col-md-8 col-md-offset-1">
-                                        <label for="presc">Facility:</label>
-                                        <select id="facility" name="facility" class="form-control facility1" ></select>
+                                        <label for="presc" class="col-md-6">Facility:</label>
+                                        <select id="facility" name="facility" class="form-control facility1" style="width: 100%"></select>
                                     </div>
                                       <div class="form-group col-md-8 col-md-offset-1" id="data_1">
                                           <label class="font-normal">Next Appointment Date</label>
@@ -462,8 +492,8 @@ return redirect('doctor.create');
                             <div class="panel-body">
                                     {{ Form::open(array('route' => array('patientnotes'),'method'=>'POST')) }}
                                     <div class="form-group col-md-8 col-md-offset-1">
-                                        <label for="presc">Facility:</label>
-                                        <select id="facility" name="facility" class="form-control facility1" ></select>
+                                        <label for="presc" class="col-md-6">Facility:</label>
+                                        <select id="facility" name="facility" class="form-control facility1" style="width: 100%"></select>
                                     </div>
 
 

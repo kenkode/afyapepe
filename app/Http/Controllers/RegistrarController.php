@@ -26,7 +26,7 @@ class RegistrarController extends Controller
         $users=DB::table('afya_users')->
         join('afyamessages','afya_users.msisdn','=','afyamessages.msisdn')->
         leftjoin('constituency','afya_users.constituency','=','constituency.const_id')->
-        select('afya_users.*','constituency.Constituency','constituency.cont_id')
+        select('afya_users.*','afyamessages.created_at as created_at','constituency.Constituency','constituency.cont_id')
         ->where('afyamessages.facilityCode',19310)
         ->where('afyamessages.created_at','>=',$today)
         ->where('afyamessages.status','=',NULL)
@@ -46,7 +46,9 @@ class RegistrarController extends Controller
     }
 
     public function selectDependant($id){
-      return view('registrar.dependants')->with('id',$id);
+
+     
+            return view('registrar.dependants')->with('id',$id);
     }
 
     public function createDependent(Request $request){
@@ -59,6 +61,7 @@ class RegistrarController extends Controller
       $dob=$request->dob;
       $age=$request->age;
       $relation=$request->relationship;
+      $school=$request->school;
 
       DB::table('dependant')->insert(
       ['afya_user_id' => $id,
@@ -69,7 +72,8 @@ class RegistrarController extends Controller
       'dob'=>$dob,
       'pob'=>$pob,
       'age'=>$age,
-      'relationship'=>$relation
+      'relationship'=>$relation,
+      'school'=>$school
       ]
   );
 
@@ -183,9 +187,9 @@ public function dependantTriage($id){
 );
  DB::table('appointments')->insert([
   'status'=>1,
-  'facility_id'=>1001,
+  'facility_id'=>19310,
   'afya_user_id'=>$id,
-  'doc_id'=>1,
+  'doc_id'=>6,
   'persontreated'=>'Self',
   'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
  'updated_at' => \Carbon\Carbon::now()->toDateTimeString()

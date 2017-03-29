@@ -326,9 +326,12 @@ class ComposerStaticInit5fef077b84beee0fd1ad93df66b19f0a
         'AutoCategoryTableSeeder' => __DIR__ . '/../..' . '/database/seeds/AutoCategoryTableSeeder.php',
         'CoagulationCategoryTableSeeder' => __DIR__ . '/../..' . '/database/seeds/CoagulationCategoryTableSeeder.php',
         'CreateKinDetailsTable' => __DIR__ . '/../..' . '/database/migrations/2016_10_26_080717_create_kin_details_table.php',
+        'CreateObservationsTable' => __DIR__ . '/../..' . '/database/migrations/2017_03_29_155353_create_observations_table.php',
         'CreatePasswordResetsTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
+        'CreateSymptomsTable' => __DIR__ . '/../..' . '/database/migrations/2017_03_29_155530_create_symptoms_table.php',
         'CreateTriageDetailsTable' => __DIR__ . '/../..' . '/database/migrations/2016_10_26_102124_create_triage_details_table.php',
         'CreateUsersTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_000000_create_users_table.php',
+        'CreateVaccinesTables' => __DIR__ . '/../..' . '/database/migrations/2017_03_23_152816_create_vaccines_tables.php',
         'DOBCategoryTableSeeder' => __DIR__ . '/../..' . '/database/seeds/DOBCategoryTableSeeder.php',
         'DatabaseSeeder' => __DIR__ . '/../..' . '/database/seeds/DatabaseSeeder.php',
         'DiabetesCategoryTableSeeder' => __DIR__ . '/../..' . '/database/seeds/DiabetesCategoryTableSeeder.php',
@@ -863,6 +866,7 @@ class ComposerStaticInit5fef077b84beee0fd1ad93df66b19f0a
         'Text_Template' => __DIR__ . '/..' . '/phpunit/php-text-template/src/Template.php',
         'TumourCategoryTableSeeder' => __DIR__ . '/../..' . '/database/seeds/TumourCategoryTableSeeder.php',
         'UpdatePatientsTable' => __DIR__ . '/../..' . '/database/migrations/2016_10_27_072444_update_patients_table.php',
+        'VaccineSeederTable' => __DIR__ . '/../..' . '/database/seeds/VaccineSeederTable.php',
         'Zizaco\\Entrust\\MigrationCommand' => __DIR__ . '/..' . '/zizaco/entrust/src/commands/MigrationCommand.php',
     );
 

@@ -21,7 +21,7 @@
                 </div>
             </li>
             <li>
-            <a href="patient"><i class="fa fa-home"></i> <span>Home</span> </a>
+            <a href="patient"><i class="fa fa-user"></i> <span>Your Profile</span> </a>
 
             </li>
 
@@ -29,7 +29,7 @@
  <span>Patient Details</span></a></li>
 
 <li><a href="{{ URL::to('expenditure')}}">  <i class="fa fa-money "></i> <span>Health Expenditure</span></a></li>
-<li><a href="{{ URL::to('patientappointment')}}">  <i class="fa fa-clock-o"></i> <span>Appointment</span></a></li>
+
 
 <li><a href="{{ URL::to('patientcalendar')}}">  <i class="glyphicon glyphicon-calendar "></i> <span>Calendar</span></a></li>
 

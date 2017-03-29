@@ -35,12 +35,12 @@
                          ->Join('patients', 'afya_users.id', '=', 'patients.afya_user_id')
                          ->select('afya_users.*', 'patients.allergies')
                          ->where('afya_users.status',2)->count();
-                       $newpatient =  DB::table('appointments')->where('created_at','>=',$today)->count();
+                       $newpatient =  DB::table('appointments')->where('created_at','>=',$today)->where('status',1)->count();
                      ?>
                          <li>
 
-  <a href="{{ URL::to('newpatient') }}"><i class="fa fa-users"></i> <span>Today Patients</span>       <span class="badge"><?php echo $newpatient; ?></span>
-                             <a href="{{ URL::to('nurse')}}"><i class="fa fa-users"></i> <span>All Patients</span>       <span class="badge"><?php echo $data; ?></span>
+  <a href="{{ URL::to('nurse') }}"><i class="fa fa-users"></i> <span>Today Patients</span>       <span class="badge"><?php echo $newpatient; ?></span>
+                             <a href="{{ URL::to('all_patients')}}"><i class="fa fa-users"></i> <span>All Patients</span>       <span class="badge"><?php echo $data; ?></span>
 
 
                           <a href="{{ URL::to('waitingList')}}">  <i class="glyphicon glyphicon-dashboard "></i> <span>Waiting List</span><span class="badge"><?php echo $wList;?></span>

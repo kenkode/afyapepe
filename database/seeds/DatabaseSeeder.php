@@ -28,5 +28,6 @@ class DatabaseSeeder extends Seeder
          $this->call(InfectiveCategoryTableSeeder::class);
          $this->call(MolecularCategoryTableSeeder::class);
          $this->call(HaemotologyTableSeeder::class);
+         $this->call(VaccineSeederTable::class);
     }
 }

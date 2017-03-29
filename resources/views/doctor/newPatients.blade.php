@@ -48,16 +48,20 @@
                     </div>
                     <div class="ibox-content">
                        <div class="table-responsive">
-                    <table class="table table-striped table-bordered table-hover dataTables-example" >
+                    <table class="table table-striped table-bordered table-hover dataTables-main" >
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>FirstName</th>
-                            <th>Surname</th>
+                            <th>Name</th>
+                            <th>Chief Complain</th>
                             <th>Gender</th>
                             <th>Age</th>
-                            <th>National ID</th>
-                            <th>Mobile No</th>
+                            <th>Weight</th>
+                            <th>Height</th>
+                            <th>Temperature</th>
+                            <th>Systolic BP</th>
+                            <th>Diastolic BP</th>
+                            <th>Constituency</th>
                             <!-- <th>Constituency of Residence</th> -->
 
                       </tr>
@@ -69,14 +73,22 @@
                         <tr>
 
                             <td><a href="{{route('showPatient',$apatient->appid)}}">{{$i}}</a></td>
-                            <td><a href="{{route('showPatient',$apatient->appid)}}">{{$apatient->firstname}}</a></td>
-                            <td><a href="{{route('showPatient',$apatient->appid)}}">{{$apatient->secondName}}</a></td>
+                            <td><a href="{{route('showPatient',$apatient->appid)}}">{{$apatient->firstname}} {{$apatient->secondName}}</a></td>
+                            <td><a href="{{route('showPatient',$apatient->appid)}}">{{$apatient->chief_compliant}}</a></td>
                             <td><?php $gender=$apatient->gender;?>
                               @if($gender==1){{"Male"}}@else{{"Female"}}@endif</a>
                             </td>
-                            <td>{{$apatient->age}}</td>
-                            <td>{{$apatient->age}}</td>
-                            <td>{{$apatient->msisdn}}</td>
+                            <td><?php   $dob=$apatient->dob;
+                             $interval = date_diff(date_create(), date_create($dob));
+                             $age= $interval->format(" %Y Year, %M Months, %d Days Old");?>
+
+                              {{$age}}</td>
+                            <td>{{$apatient->current_weight}}</td>
+                            <td>{{$apatient->current_height}}</td>
+                            <td>{{$apatient->temperature}}</td>
+                            <td>{{$apatient->systolic_bp}}</td>
+                            <td>{{$apatient->diastolic_bp}}</td>
+                              <td>{{$apatient->Constituency}}</td>
 
                         </tr>
                         <?php $i++; ?>

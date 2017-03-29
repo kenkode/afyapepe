@@ -9,13 +9,10 @@
 
     <title>Afyapepe- @yield('title') </title>
 
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/core.js"/>
     <link rel="stylesheet" href="{{ asset('css/plugins/toastr/toastr.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('js/plugins/gritter/jquery.gritter.css') }}" />
-    <link rel="stylesheet" href="{{ asset('css/vendor.css') }}" />
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}" />
-
-    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" />
+     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('font-awesome/css/font-awesome.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/plugins/dataTables/datatables.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/animate.css') }}" />
@@ -27,7 +24,7 @@
      <link rel="stylesheet" href="{!! asset('css/plugins/steps/jquery.steps.css') !!}" />
       <script type="text/javascript" src="{{ asset('js/modernizr.js') }}"></script>
 
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  
 
 
 </head>
@@ -86,12 +83,13 @@
     <!-- Toastr -->
     <script src="{{ asset('js/plugins/fullcalendar/moment.min.js') }}"></script>
     <script src="{{ asset('js/jquery-3.1.1.min.js') }}"></script>
+
+
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('js/plugins/metisMenu/jquery.metisMenu.js') }}"></script>
     <script src="{{ asset('js/plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
 
-    <!-- Custom and plugin javascript -->
-    <script src="{{ asset('js/inspinia.js') }}"></script>
+  
     <script src="{{ asset('js/plugins/pace/pace.min.js') }}"></script>
 
     <!-- jQuery UI  -->
@@ -110,6 +108,21 @@
       <script src="{{ asset('js/inspinia.js') }}" type="text/javascript"></script>
 
     <!-- Page-Level Scripts -->
+    <script>
+    $('#observation').on('change',function(e){
+      console.log(e);
+      var cat_id =e.target.value;
+      $.get('/ajax-subcat?cat_id=' + cat_id,function(data){
+        $('#symptoms').empty();
+        $.each(data,function(nurse.details,subcatObj){
+          $('#symptoms').append('<option value="'+subcatObj.id+'">'+subcatObj.name+'</option>');
+        })
+      });
+      });
+    
+
+
+    </script>
     <script>
         $(document).ready(function(){
             $('.dataTables-example').DataTable({
@@ -167,6 +180,9 @@
                        $("#embedcode").hide();
              });
        });
+   </script>
+   </script>
+    
    </script>
 
    <script>

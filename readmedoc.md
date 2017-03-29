@@ -15,8 +15,9 @@ All patients at any given time
 
 ##table appointment status
 0= just dialled ussd waiting for nurse
-1= From nurse waiting for doctor
-2= Active (seeing adoctor)
-3= Discharged
-4= Admitted
-5= referal
+1=
+2= From nurse waiting for doctor
+3= Active (seeing adoctor)
+4= Discharged
+5= Admitted
+6= referal

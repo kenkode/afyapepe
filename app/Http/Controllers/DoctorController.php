@@ -35,11 +35,13 @@ class DoctorController extends Controller
 
        $patients = DB::table('afya_users')
          ->Join('appointments', 'afya_users.id', '=', 'appointments.afya_user_id')
-         ->select('afya_users.*','appointments.id as appid', 'appointments.created_at', 'appointments.facility_id')
+         ->Join('triage_details', 'appointments.id', '=', 'triage_details.appointment_id')
+         ->leftJoin('constituency', 'afya_users.constituency', '=', 'constituency.const_id')
+         ->select('afya_users.*','triage_details.*','appointments.id as appid', 'appointments.created_at', 'appointments.facility_id','constituency.Constituency')
         //  ->where('appointments.created_at','>=',$today)
          ->where([
                        ['appointments.created_at','>=',$today],
-                       ['appointments.status', '=', 1],
+                       ['appointments.status', '=', 2],
                        ['appointments.doc_id', '=',Auth::user()->id],
                       ])
          ->get();
@@ -47,54 +49,55 @@ class DoctorController extends Controller
        return view('doctor.newPatients')->with('patients',$patients);
      }
 
-     public function newPatients()
+    //  public function newPatients()
+     //
+    //  {
+    //   $today = Carbon::today();
+     //
+    //    $patients = DB::table('afya_users')
+    //      ->Join('appointments', 'afya_users.id', '=', 'appointments.afya_user_id')
+    //      ->select('afya_users.*','appointments.id as appid', 'appointments.created_at', 'appointments.facility_id')
+    //     //  ->where('appointments.created_at','>=',$today)
+    //      ->where([
+    //                    ['appointments.created_at','>=',$today],
+    //                    ['appointments.status', '=', 1],
+    //                    ['appointments.doc_id', '=',Auth::user()->id],
+    //                   ])
+    //      ->get();
+     //
+    //    return view('doctor.newPatients')->with('patients',$patients);
+    //  }
 
-     {
-      $today = Carbon::today();
 
-       $patients = DB::table('afya_users')
-         ->Join('appointments', 'afya_users.id', '=', 'appointments.afya_user_id')
-         ->select('afya_users.*','appointments.id as appid', 'appointments.created_at', 'appointments.facility_id')
-        //  ->where('appointments.created_at','>=',$today)
-         ->where([
-                       ['appointments.created_at','>=',$today],
-                       ['appointments.status', '=', 1],
-                       ['appointments.doc_id', '=',Auth::user()->id],
-                      ])
-         ->get();
+  //    public function all()
+  // {
+  //   $today = Carbon::today();
+  //     $allpatients = DB::table('afya_users')
+  //       ->Join('patients', 'afya_users.id', '=', 'patients.afya_user_id')
+  //       ->Join('appointments', 'patients.id', '=', 'appointments.patient_id')
+  //       ->select('afya_users.*','patients.*','appointments.id as appid' )
+  //       ->where([
+  //
+  //                     ['appointments.status', '!=', 0],
+  //                    ])
+  //       ->get();
+  //
+  //           return view('doctor.allpatients')->with('allpatients',$allpatients);
+  //         }
 
-       return view('doctor.newPatients')->with('patients',$patients);
-     }
-
-
-     public function all()
-  {
-    $today = Carbon::today();
-      $allpatients = DB::table('afya_users')
-        ->Join('patients', 'afya_users.id', '=', 'patients.afya_user_id')
-        ->Join('appointments', 'patients.id', '=', 'appointments.patient_id')
-        ->select('afya_users.*','patients.*','appointments.id as appid' )
-        ->where([
-
-                      ['appointments.status', '!=', 0],
-                     ])
-        ->get();
-
-            return view('doctor.allpatients')->with('allpatients',$allpatients);
-          }
-
-          public function seen()
-     {
-       $today = Carbon::today();
-
-        $seenpatients = DB::table('patients')
-          ->Join('afya_users', 'patients.afya_user_id', '=', 'afya_users.id')
-          ->Join('patient_test', 'patients.id', '=', 'patient_test.patient_id')
-          ->select('afya_users.*','patients.*', 'patient_test.test_status')
-          ->where('patient_test.test_status','=','1')
-          ->get();
-
-        return view('doctor.seenpatients')->with('seenpatients',$seenpatients);}
+    //       public function seen()
+    //  {
+    //    $today = Carbon::today();
+     //
+    //     $seenpatients = DB::table('patients')
+    //       ->Join('afya_users', 'patients.afya_user_id', '=', 'afya_users.id')
+    //       ->Join('patient_test', 'patients.id', '=', 'patient_test.patient_id')
+    //       ->select('afya_users.*','patients.*', 'patient_test.test_status')
+    //       ->where('patient_test.test_status','=','1')
+    //       ->get();
+     //
+    //     return view('doctor.seenpatients')->with('seenpatients',$seenpatients);
+    //   }
     /**
      * Show the form for creating a new resource.
      *

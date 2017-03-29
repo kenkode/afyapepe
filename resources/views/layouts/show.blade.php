@@ -12,8 +12,10 @@
 
     <link rel="stylesheet" href="{{asset('bootstrap/css/bootstrap.min.css') }}" />
     <link rel="stylesheet" href="{{asset('select/select2.min.css') }}" />
-    <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script> -->
+
+
+    <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.js"></script> -->
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     <!-- <link rel="stylesheet" href="{{asset('css/bootstrap.min.css') }}" /> -->
     <link rel="stylesheet" href="{{asset('font-awesome/css/font-awesome.css') }}" />
@@ -79,7 +81,7 @@
   </script>
    <script>
        $('.tag_list1').select2({
-           placeholder: "Choose tags...",
+           placeholder: "Select test...",
            minimumInputLength: 2,
            ajax: {
                url: '/tags/tst',
@@ -98,8 +100,8 @@
            }
        });
 
-       $('.d_list2').select2({
-           placeholder: "Choose tags...",
+       $('.d_list2 ').select2({
+           placeholder: "Choose disease...",
 
            minimumInputLength: 2,
            ajax: {
@@ -123,7 +125,7 @@
 
     <script>
           $('.presc1').select2({
-              placeholder: "Choose tags...",
+              placeholder: "Select prescriptions...",
               minimumInputLength: 2,
               ajax: {
                   url: '/tags/drugs',
@@ -145,7 +147,7 @@
 
       <script>
             $('.facility1').select2({
-                placeholder: "Choose tags...",
+                placeholder: "Select facility to .....",
                 minimumInputLength: 2,
                 ajax: {
                     url: '/tags/fac',
@@ -168,6 +170,34 @@
        $(document).ready(function(){
            $('.dataTables-conditional').DataTable({
                pageLength: 5,
+               responsive: true,
+               dom: '<"html5buttons"B>lTfgitp',
+               buttons: [
+                   { extend: 'copy'},
+                   {extend: 'csv'},
+                   {extend: 'excel', title: 'ExampleFile'},
+                   {extend: 'pdf', title: 'ExampleFile'},
+
+                   {extend: 'print',
+                    customize: function (win){
+                           $(win.document.body).addClass('white-bg');
+                           $(win.document.body).css('font-size', '10px');
+
+                           $(win.document.body).find('table')
+                                   .addClass('compact')
+                                   .css('font-size', 'inherit');
+                   }
+                   }
+               ]
+
+           });
+
+       });
+
+
+       $(document).ready(function(){
+           $('.dataTables-main').DataTable({
+               pageLength: 25,
                responsive: true,
                dom: '<"html5buttons"B>lTfgitp',
                buttons: [

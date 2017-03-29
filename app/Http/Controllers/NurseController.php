@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
+use App\Observation;
 use Redirect;
 use Carbon\Carbon;
 use App\Http\Requests;
@@ -18,7 +19,19 @@ class NurseController extends Controller
      {
          $this->middleware('auth');
      }
-    public function index()
+    public function index(){
+      $today = Carbon::today();
+      $patients = DB::table('appointments as app')
+        ->Join('afya_users as par', 'app.afya_user_id', '=', 'par.id')
+        ->leftjoin('dependant as dep','app.persontreated','=','dep.id')
+        ->select('par.id as parid','par.firstname as first','par.secondName as second','par.gender as gender','par.age as age','dep.id as depid','dep.firstName as dfirst','dep.secondName as dsecond','dep.age as dage',
+            'dep.gender as dgender','app.created_at as created_at','app.persontreated as persontreated')
+        ->where('app.status','=',1)
+        ->where('app.created_at','>=',$today)
+        ->get();
+        return view('nurse.newpatient')->with('patients',$patients);
+    }
+    public function users()
     {
       $patients=DB::table('afya_users')->get();
       return view('nurse.home')->with('patients',$patients);
@@ -35,10 +48,77 @@ class NurseController extends Controller
 
     }
 
+    
+    public function updateDependant($id){
+
+        return view('nurse.updatedependant')->with('id',$id);
+    }
+
     public function nurseUpdate($id){
 
-      return view('nurse.nurseupdate');
+      return view('nurse.nurseupdate')->with('id',$id);
     }
+    public function Dependantupdate(Request $request){
+     $id=$request->id;
+     $father_name=$request->father_name;
+     $father_phone=$request->father_phone;
+     $mother_name=$request->mother_name;
+     $mother_phone=$request->mother_phone;
+     $birthno=$request->Birth_number;
+     $birth=$request->birth;
+     $dob=$request->dob;
+      
+ 
+    DB::table('dependant_parent')->insert(
+    ['name' => $father_name,
+    'relationship' => 'Father',
+    'phone'=> $father_phone,
+    'dependant_id'=>$id,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
+);
+ DB::table('dependant_parent')->insert(
+    ['name' => $mother_name,
+    'relationship' => 'Mother',
+    'phone'=> $mother_phone,
+    'dependant_id'=>$id,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
+);
+ DB::table('dependant')->where('id', $id)
+            ->update([
+                             'birth_no' =>  $birthno,
+                             'next_sibling' => $birth,
+                             'next_sibling_date' => $dob,
+                             'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
+                             ]);
+
+
+
+   
+ return redirect()->action('NurseController@showDependents', [$id]);
+
+    }
+    public function nurseUpdates(Request  $request){
+     $id=$request->id;
+     
+     $constituency=$request->constituency;
+     $phone=$request->phone;
+
+     DB::table('afya_users')->where('id', $id)
+                 ->update([
+                                  
+                                  'constituency' => $constituency,
+                                  'msisdn'=>$phone,
+                                  'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+                                  'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
+                                ]);
+
+
+return Redirect::route('nurse.show', [$id]);
+
+   }
 
     public function Calendar(){
     return view('nurse.calendar');
@@ -48,7 +128,14 @@ class NurseController extends Controller
       return view('nurse.appointment');
     }
 
-
+    public function immuninationChart($id){
+        return view('nurse.chart')->with('id',$id);
+    }
+     
+    public function childGrowth($id){
+        return view('nurse.growth')->with('id',$id);
+    }
+     
     public function showDependents($id)
     {
         return view('nurse.showdependent')->with('id',$id);
@@ -65,18 +152,7 @@ class NurseController extends Controller
 
     }
 
-    public function newPatient(){
-      $today = Carbon::today();
-      $patients = DB::table('appointments as app')
-        ->Join('afya_users as par', 'app.afya_user_id', '=', 'par.id')
-        ->leftjoin('dependant as dep','app.persontreated','=','dep.id')
-        ->select('par.id as parid','par.firstname as first','par.secondName as second','par.gender as gender','par.age as age','dep.id as depid','dep.firstName as dfirst','dep.secondName as dsecond','dep.age as dage',
-            'dep.gender as dgender','app.created_at as created_at','app.persontreated as persontreated')
-        ->where('par.status',1)
-        ->where('app.created_at','>=',$today)
-        ->get();
-        return view('nurse.newpatient')->with('patients',$patients);
-    }
+    
     public function createnextkin($id){
       return view ('nurse.createkin')->with('id',$id);
     }
@@ -146,8 +222,8 @@ class NurseController extends Controller
 
     public function details($id){
 
-
-        return view('nurse.details')->with('id',$id);
+       $observations=Observation::all();
+        return view('nurse.details')->with('id',$id)->with('observations',$observations);
 
     }
 
@@ -162,12 +238,27 @@ class NurseController extends Controller
         $allergies=$request->allergies;
         $chiefcompliant=$request->chiefcompliant;
         $observation=$request->observation;
+        $symptoms=$request->symptoms;
         $nurse=$request->nurse;
         $doctor=$request->doctor;
+        $allergy=$request->allergy;
+
+$allergy=implode(',', $allergy);
+$allergies=explode(',', $allergy);
+foreach ($allergies as $all) {
+
+   DB::table('afya_users_allergy')->insert([
+    'afya_user_id'=>$id,
+    'allergy_name'=>$all,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
+}
+$chiefcompliant = implode(',', $chiefcompliant);
+$appointment=DB::table('appointments')->where('afya_user_id', $id)->orderBy('created_at', 'desc')->first();
 
     DB::table('triage_details')->insert(
-    ['afya_user_id' => $id,
-    'facility_id' => 10001,
+    ['appointment_id' => $appointment->id,
+    
     'current_weight'=> $weight,
     'current_height'=>$heightS,
     'temperature'=>$temperature,
@@ -175,14 +266,19 @@ class NurseController extends Controller
     'diastolic_bp'=>$diastolic,
     'chief_compliant'=>$chiefcompliant,
     'observation'=>$observation,
-    'consulting_physician'=>$nurse,
+    'symptoms'=>$symptoms,
+    'nurse_notes'=>$nurse,
     'Doctor_note'=>'',
     'prescription'=>'',
     'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
 
 );
 
-        return Redirect::route('nurse.show', [$id]);
+DB::table('appointments')->where('id',$appointment->id)->update([
+    'status'=>2]);
+
+
+        return redirect()->action('NurseController@index');
     }
 
 
@@ -227,17 +323,47 @@ class NurseController extends Controller
         ->where('kin_details.afya_user_id',$id)
         ->first();
         $details=DB::table('triage_details')
-        ->where('triage_details.afya_user_id',$id)
-        ->orderBy('id','desc')
+        ->Join('appointments','appointments.id','=','triage_details.appointment_id')
+        ->where('appointments.afya_user_id',$id)
+        ->select('triage_details.*')
+        ->orderBy('triage_details.id','desc')
         ->get();
 
         $vaccines =DB::table('vaccination')
-          ->Join('diseases','vaccination.diseaseId','=','diseases.id')
-          ->select('vaccination.*', 'diseases.name')
+          ->Join('vaccine','vaccination.diseaseId','=','vaccine.id')
+          ->select('vaccination.*', 'vaccine.*')
+          ->where('vaccination.yes','=','yes')
           ->where('vaccination.userId',$id)
           ->get();
           return view('nurse.show')->with('patient',$patient)->with(['vaccines'=>$vaccines,'kin'=>$kin,'details'=>$details]);
     }
+
+public function showPatient($id){
+$patient= DB::table('afya_users')
+        ->where('afya_users.id',$id)
+        ->first();
+
+        $kin=DB::table('kin_details')
+        ->Join('kin','kin_details.relation','=','kin.id')
+        ->select('kin_details.*', 'kin.relation')
+        ->where('kin_details.afya_user_id',$id)
+        ->first();
+        $details=DB::table('triage_details')
+        ->Join('appointments','appointments.id','=','triage_details.appointment_id')
+        ->where('appointments.afya_user_id',$id)
+        ->select('triage_details.*')
+        ->orderBy('triage_details.id','desc')
+        ->get();
+
+        $vaccines =DB::table('vaccination')
+          ->Join('vaccine','vaccination.diseaseId','=','vaccine.id')
+          ->select('vaccination.*', 'vaccine.*')
+          ->where('vaccination.yes','=','yes')
+          ->where('vaccination.userId',$id)
+          ->get();
+          return view('nurse.showpatient')->with('patient',$patient)->with(['vaccines'=>$vaccines,'kin'=>$kin,'details'=>$details]);
+
+}
 public function patientShow($id){
   return view('nurse.patientshow');
 }

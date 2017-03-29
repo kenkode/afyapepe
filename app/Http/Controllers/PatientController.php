@@ -29,15 +29,26 @@ class PatientController extends Controller
      */
     public function index()
     {
-        return view('patient.home');
+      $id = Auth::id();
+      $patient=DB::table('afya_users')->where('users_id',$id)->first();
+      $nextkin=DB::table('kin_details')
+      ->join('kin','kin.id','=','kin_details.relation')
+      ->select('kin_details.kin_name','kin_details.phone_of_kin',
+        'kin.relation')->where('afya_user_id',$patient->id)->
+      orderBy('created_at','desc')->first();
+        return view('patient.home')->with('patient',$patient)->with('nextkin',$nextkin);
     }
     public function patientAllergies(){
-
-      return view('patient.patientallery');
+      $id = Auth::id();
+      $patient=DB::table('afya_users')->where('users_id',$id)->first();
+      return view('patient.patientallery')->with('patient',$patient);
     }
 
   public function Expenditure(){
-    return view('patient.expenditure');
+    $id = Auth::id();
+      $patient=DB::table('afya_users')->where('users_id',$id)->first();
+      
+    return view('patient.expenditure')->with('patient',$patient);
   }
     public function patientAppointment(){
       return view('patient.appointment');
@@ -56,100 +67,66 @@ class PatientController extends Controller
 
      {
 
-
        $patientdetails = DB::table('appointments')
+        ->Join('afya_users', 'appointments.afya_user_id', '=', 'afya_users.id')
+        ->Join('triage_details', 'appointments.id', '=', 'triage_details.appointment_id')
+        ->Join('facilities', 'appointments.facility_id', '=', 'facilities.FacilityCode')
+        ->select('afya_users.*','afya_users.id as afyaId','triage_details.*','triage_details.id as triage_id',
+         'appointments.id as app_id','appointments.status as appstatus','appointments.facility_id',
+           'appointments.created_at','facilities.FacilityName','facilities.FacilityCode')
+       ->where('appointments.id',$id)
+       ->get();
 
-          ->Join('afya_users', 'appointments.afya_user_id', '=', 'afya_users.id')
-          ->Join('triage_details', 'appointments.id', '=', 'triage_details.appointment_id')
-          ->Join('facilities', 'appointments.facility_id', '=', 'facilities.FacilityCode')
-          ->select('afya_users.*','triage_details.*','triage_details.id as triage_id',
-          'appointments.id as app_id','appointments.status as appstatus','appointments.facility_id',
-          'appointments.created_at','facilities.FacilityName','facilities.FacilityCode')
-          ->where('appointments.id',$id)
-          ->get();
 
 
-      $tstdone = DB::table('patient_test_details')
+      $tstdone = DB::table('patient_test')
+      ->leftJoin('patient_test_details', 'patient_test.id', '=', 'patient_test_details.patient_test_id')
       ->leftJoin('facilities', 'patient_test_details.facility_id', '=', 'facilities.FacilityCode')
       ->leftJoin('tests', 'patient_test_details.tests_reccommended', '=', 'tests.id')
       ->leftJoin('diseases', 'patient_test_details.conditional_diagnosis', '=', 'diseases.code')
       ->select('patient_test_details.*','facilities.*','tests.name','diseases.name as disease')
-      ->where('appointment_id', '=',$id)
+      ->where('patient_test.appointment_id', '=',$id)
       ->get();
 
-      // $tstdone = DB::table('patient_test_details')
-      // ->Join('patient_test', 'patient_test_details.appointment_id', '=', 'patient_test.appointment_id')
-      // ->Join('tests', 'patient_test.test_reccommended', '=', 'tests.id')
-      // ->Join('diseases', 'patient_test.conditional_diagnosis', '=', 'diseases.short_desc')
-      // ->select('patient_test_details.*','tests.name','diseases.short_desc')
-      // ->where('patient_test_details.appointment_id', '=',$id)
-      // ->get();
-  return view('doctor.show')->with('tstdone',$tstdone)->with('patientdetails',$patientdetails);
+      $prescription = DB::table('prescriptions')
+      ->leftJoin('prescription_details','prescriptions.id', '=', 'prescription_details.presc_id')
+      ->Join('druglists','prescription_details.drug_id', '=', 'druglists.id')
+      ->Join('diseases','prescription_details.diagnosis', '=', 'diseases.code')
+      ->select('prescription_details.created_at as pdate','prescription_details.*','druglists.drugname','diseases.name')
+      ->where('prescriptions.appointment_id', '=',$id)
+      ->get();
+  return view('doctor.show')->with('tstdone',$tstdone)->with('patientdetails',$patientdetails)->with('prescription',$prescription);
 }
 
-public function showhistory($id)
 
-{
-
-
-  $patientdetails = DB::table('appointments')
-  ->Join('afya_users', 'appointments.afya_user_id', '=', 'afya_users.id')
-  ->Join('triage_details', 'appointments.id', '=', 'triage_details.appointment_id')
-  ->Join('facilities', 'appointments.facility_id', '=', 'facilities.FacilityCode')
-  ->select('afya_users.*','triage_details.*','triage_details.id as triage_id',
-  'appointments.id as app_id','appointments.status as appstatus','appointments.facility_id',
-  'appointments.created_at','facilities.FacilityName','facilities.FacilityCode')
-  ->where('appointments.id',$id)
-  ->get();
-
-     $tstdone = DB::table('patient_test_details')
-     ->where('appointment_id', '=',$id)
-     ->get();
-
- $prescription = DB::table('prescriptions')
- ->Join('prescription_details','prescriptions.id', '=', 'prescription_details.presc_id')
- ->Join('druglists','prescription_details.drug_id', '=', 'druglists.id')
- ->Join('facilities','prescription_details.facility_id', '=', 'facilities.FacilityCode')
- ->select('prescriptions.*','prescriptions.created_at as pdate','prescription_details.*','druglists.drugname','facilities.FacilityName')
- ->where('prescriptions.appointment_id', '=',$id )
- ->orderBy('prescriptions.created_at', 'desc')
- ->get();
-
- // $prescription = DB::table('prescriptions')
- // ->Join('prescription_details','prescriptions.id', '=', 'prescription_details.presc_id')
- // ->Join('druglists','prescription_details.drug_id', '=', 'druglists.id')
- // ->Join('facilities','prescription_details.facility_id', '=', 'facilities.FacilityCode')
- // ->select('prescriptions.*','prescriptions.created_at as pdate','prescription_details.*','druglists.drugname','facilities.FacilityName')
- // ->where('prescriptions.appointment_id', '=',$id)
- // ->get();
-
-return view('doctor.showhistory')->with('tstdone',$tstdone)->with('patientdetails',$patientdetails)->with('prescription',$prescription);
-}
 public function pvisit($id)
 {
   $patientvisit = DB::table('afya_users')
 
-  ->Join('appointments','afya_users.id', '=', 'appointments.afya_user_id')
-  ->Join('kin_details','afya_users.id', '=', 'kin_details.afya_user_id')
-  ->Join('constituency','afya_users.constituency', '=', 'constituency.const_id')
-  ->Join('kin','kin_details.relation', '=', 'kin.id')
-  ->Join('triage_details','appointments.id', '=', 'triage_details.appointment_id')
+  ->leftJoin('appointments','afya_users.id', '=', 'appointments.afya_user_id')
+  ->leftJoin('kin_details','afya_users.id', '=', 'kin_details.afya_user_id')
+  ->leftJoin('constituency','afya_users.constituency', '=', 'constituency.const_id')
+  ->leftJoin('kin','kin_details.relation', '=', 'kin.id')
+  ->leftJoin('triage_details','appointments.id', '=', 'triage_details.appointment_id')
   ->select('afya_users.*','appointments.*','kin_details.*','triage_details.*','constituency.Constituency'
   ,'kin.relation')
   ->where('appointments.id', '=',$id )
   ->get();
 
   $tstdone = DB::table('patient_test')
-  ->Join('patient_test_details','patient_test.appointment_id', '=', 'patient_test_details.appointment_id')
-  ->select('patient_test_details.*','patient_test.test_reccommended','patient_test.appointment_id')
+  ->leftJoin('patient_test_details', 'patient_test.id', '=', 'patient_test_details.patient_test_id')
+  ->leftJoin('facilities', 'patient_test_details.facility_id', '=', 'facilities.FacilityCode')
+  ->leftJoin('tests', 'patient_test_details.tests_reccommended', '=', 'tests.id')
+  ->leftJoin('diseases', 'patient_test_details.conditional_diagnosis', '=', 'diseases.code')
+  ->select('patient_test_details.*','facilities.*','tests.name','diseases.name as disease')
   ->where('patient_test.appointment_id', '=',$id)
   ->get();
 
   $prescription = DB::table('prescriptions')
-  ->Join('prescription_details','prescriptions.id', '=', 'prescription_details.presc_id')
+  ->leftJoin('prescription_details','prescriptions.id', '=', 'prescription_details.presc_id')
   ->Join('druglists','prescription_details.drug_id', '=', 'druglists.id')
-  ->Join('facilities','prescription_details.facility_id', '=', 'facilities.FacilityCode')
-  ->select('prescriptions.*','prescriptions.created_at as pdate','prescription_details.*','druglists.drugname','facilities.FacilityName')
+  ->Join('diseases','prescription_details.diagnosis', '=', 'diseases.code')
+  ->select('prescription_details.created_at as pdate','prescription_details.*','druglists.drugname','diseases.name')
   ->where('prescriptions.appointment_id', '=',$id)
   ->get();
 return view('doctor.visit')->with('patientvisit',$patientvisit)

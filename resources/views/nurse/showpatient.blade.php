@@ -33,7 +33,7 @@
              </div>
              <div class="form-group">
             <label for="exampleInputPassword1">Blood Group</label>
-            <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Blood Group" name="phone" value="{{$patient->blood_type or ''}}" readonly  >
+            <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Next of Kin Phone" name="phone" value="{{$patient->blood_type or ''}}" readonly  >
             </div>
              <div class="form-group">
             <label for="exampleInputPassword1">Gender</label>
@@ -60,8 +60,7 @@
          else{ echo "";} ?>" readonly=""/>
          </div>
 
-  <a href="{{ url('nurseupdate', $patient->id) }}" class="btn btn-primary btn-sm">Update Details</a>
-
+  
 
             </div>
           </div>
@@ -103,7 +102,7 @@
                  <label for="exampleInputPassword1">Phone</label>
                  <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Next of Kin Phone" name="phone" value=""  >
                  </div>
-                 <button type="submit" class="btn btn-primary btn-sm">Create Details</button>
+                 
                     {!! Form::close() !!}
                 @else
                   <form class="form-horizontal">
@@ -123,7 +122,7 @@
                 <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Next of Kin Phone" name="phone"
                 value="{{$kin->phone_of_kin}}"readonly="">
                 </div>
-  <a href="{{ route('createkin', $patient->id) }}" class="btn btn-primary btn-sm">Update Details</a>
+  
                         </div>
 
         {!! Form::close() !!}
@@ -180,7 +179,7 @@
 
                                                                </tbody>
                                                              </table>
-                                                               <a href="{{ route('vaccinescreate', $patient->id) }}" class="btn btn-primary btn-sm">Update Details</a>
+                                                               
 
 
 
@@ -234,7 +233,7 @@
       @foreach($details as $detail)
        <tr>
            <td>{{$i}}</td>
-            <td>{{ date('d -m- Y', strtotime($detail->updated_at)) }}</td>
+             <td>{{ date('d -m- Y', strtotime($detail->updated_at)) }}</td>
             <td>{{ date('H:i:s', strtotime($detail->updated_at)) }}</td>
            <td>{{$detail->current_weight}}</td>
            <td>{{$detail->current_height}}</td>
@@ -257,7 +256,7 @@
 
         </tbody>
       </table>
-      <a href="{{ route('details', $patient->id) }}" class="btn btn-primary btn-sm">Add Details</a>
+      
 
    </div>
 

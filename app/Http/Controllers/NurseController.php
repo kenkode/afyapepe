@@ -316,7 +316,8 @@ DB::table('appointments')->where('id',$appointment->id)->update([
 
         $vaccines =DB::table('vaccination')
           ->Join('vaccine','vaccination.diseaseId','=','vaccine.id')
-          ->select('vaccination.*', 'vaccine.disease')
+          ->select('vaccination.*', 'vaccine.*')
+          ->where('vaccination.yes','=','yes')
           ->where('vaccination.userId',$id)
           ->get();
           return view('nurse.show')->with('patient',$patient)->with(['vaccines'=>$vaccines,'kin'=>$kin,'details'=>$details]);
@@ -340,8 +341,9 @@ $patient= DB::table('afya_users')
         ->get();
 
         $vaccines =DB::table('vaccination')
-          ->Join('diseases','vaccination.diseaseId','=','diseases.id')
-          ->select('vaccination.*', 'diseases.name')
+          ->Join('vaccine','vaccination.diseaseId','=','vaccine.id')
+          ->select('vaccination.*', 'vaccine.*')
+          ->where('vaccination.yes','=','yes')
           ->where('vaccination.userId',$id)
           ->get();
           return view('nurse.showpatient')->with('patient',$patient)->with(['vaccines'=>$vaccines,'kin'=>$kin,'details'=>$details]);

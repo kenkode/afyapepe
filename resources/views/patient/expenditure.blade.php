@@ -51,7 +51,7 @@
           </div>
   <div class="col-lg-12">
 
- <h5>Your Health Expenditures</h5>
+ 
             <div class="tabs-container">
               <!-- <div class="col-lg-12 tbg"> -->
                 <ul class="nav nav-tabs">

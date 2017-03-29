@@ -152,32 +152,27 @@
 
                                                                  <table class="table table-small-font table-bordered table-striped">
                                                               <thead>
-                                                                  <tr>
+                                                                  <<tr>
                                                                       <th>No</th>
-                                                                      <th>Disease Name</th>
-                                                                      <th>Vaccine Name</th>
-                                                                      <th>Yes</th>
-
-                                                                      <th>Date</th>
+                                 <th>Antigen</th>
+                                <th>Vaccinations Name</th>
+                                <th>Location(Facility)</th>
+                                 <th>Date </th>
 
                                                                 </tr>
                                                               </thead>
 
                                                               <tbody>
                                                            <?php $i =1; ?>
-                                                             @foreach($vaccines as $vac)
+                                                             @foreach($vaccines as $vaccine)
                                                                   <tr>
-                                                                      <td>{{$i}}</td>
-                                                                      <td>{{$vac->disease}}</td>
-                                                                      <td>{{$vac->vaccine_name}}</td>
-
-                                                                      <td><?php $yes=$vac->Yes;
-                                                                        if($yes=="yes"){ echo '<p><i class="glyphicon glyphicon-ok-circle" aria-hidden="true"></i></p>';}else{ echo '<p><i class="glyphicon glyphicon-remove-circle" aria-hidden="true"></i></p>';} ?>
-                                                                        </td>
-                                                                      <td><?php if($yes!=="yes"){echo"0000:00:00";}
-                                                                      else{ echo $vac=$vac->yesdate;} ?></td>
-
-                                                                  </tr>
+                         <td>{{$i}}</td>
+                         <td>{{$vaccine->antigen}}</td>
+                         <td>{{$vaccine->vaccine_name}}</td>
+                         <td>St Jude's Huruma Community Health Services</td>
+                          <td>{{ date('d -m- Y', strtotime($vaccine->yesdate)) }}</td>
+                         
+                         </tr>
                                                                   <?php $i++; ?>
 
                                                                @endforeach

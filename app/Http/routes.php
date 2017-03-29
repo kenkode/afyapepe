@@ -80,6 +80,14 @@ Route::group(['middleware' => ['auth','role:Admin|Nurse']], function() {
   Route::get('update.dependant/{id}','NurseController@updateDependant');
   Route::post('Dependantupdate','NurseController@Dependantupdate');
   Route::get('showpatient/{id}','NurseController@shoWpatient');
+
+Route::get('/ajax-subcat',function(){
+	$cat_id= Input::get('cat_id');
+	$symptoms= Symptom::where('observation_id','=',$cat_id)->get();
+
+	return Response::json($symptoms);
+
+});
 });
 
 // Doctor routes;
@@ -128,6 +136,10 @@ Route::get('competition', 'ManufacturerController@Competition');
 
 
 });
+
+/**
+* Pharmacy Routes
+**/
 Route::group(['middleware' => ['auth','role:Admin|Pharmacy']], function() {
 Route::resource('pharmacy','PharmacyController');
 Route::get('pharmacy/{id}', 'PharmacyController@show');

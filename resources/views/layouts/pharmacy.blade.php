@@ -21,6 +21,11 @@
     <link rel="stylesheet" href="{!! asset('css/animate.css') !!}" />
     <link rel="stylesheet" href="{!! asset('css/style.css') !!}" />
 
+    <link href="{!! asset('css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css') !!}" rel="stylesheet">
+    <link href="{!! asset('css/plugins/iCheck/custom.css') !!}" rel="stylesheet">
+
+
+
 </head>
 
 <body>
@@ -33,9 +38,6 @@
     <!-- Main view  -->
     @yield('content')
 
-        </div>
-
-    </div>
 
 @include('includes.pharm_inc.footer')
 

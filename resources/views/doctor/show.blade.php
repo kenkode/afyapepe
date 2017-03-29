@@ -333,7 +333,7 @@ return redirect('doctor.create');
                             {{ Form::hidden('appointment_id',$pdetails->app_id, array('class' => 'form-control')) }}
                             {{ Form::hidden('doc_id',$Docdata->doc_id, array('class' => 'form-control')) }}
 
-                        
+
 
                                     <div class="form-group  text-center">
                                     <button type="submit" class="btn btn-primary">Submit</button>  </td>

@@ -48,6 +48,32 @@ class NurseController extends Controller
 
     }
 
+    public function immunination($id){
+
+        return view('nurse.immunination')->with('id',$id);
+    }
+
+   public function storeImmunization(Request $request){
+    $id=$request->id;
+
+    $dependant=DB::table('dependant')->where('id',$id)->first();
+    $dob=$dependant->dob;
+    $vaccines=DB::table('vaccine')->get();
+    foreach ($vaccines as $vaccine) {
+    $MyDateCarbon = \Carbon\Carbon::parse($dob);
+    $MyDateCarbon->addDays($vaccine->age);
+    DB::table('dependant_vaccination')->insert(
+    [
+    'dependent_id'=>$id,
+    'vaccine_id'=>$vaccine->id,
+    'date_guideline'=>$MyDateCarbon,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
+);
+        
+    }
+    return redirect()->action('NurseController@showDependents',[$id]);
+   }
     
     public function updateDependant($id){
 

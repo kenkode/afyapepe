@@ -49,35 +49,33 @@ class NurseController extends Controller
     }
 
     public function immunination($id){
-        $dependant=DB::table('dependant')->where('id',$id)->first();
-        $end = Carbon::parse($dependant->dob);
-        $now = Carbon::now();
-        $length = $end->diffInDays($now);
+
+        
 
         return view('nurse.immunination')->with('id',$id);
     }
 
    public function storeImmunization(Request $request){
     $id=$request->id;
+    $userid=$request->userid;
+    $status=$request->status;
+    $vaccinename=$request->vaccine_name;
+    $vaccinedate=$request->vaccine_date;
 
-    $dependant=DB::table('dependant')->where('id',$id)->first();
-    $dob=$dependant->dob;
-    $vaccines=DB::table('vaccine')->get();
-    foreach ($vaccines as $vaccine) {
-    $MyDateCarbon = \Carbon\Carbon::parse($dob);
-    $MyDateCarbon->addDays($vaccine->age);
-    DB::table('dependant_vaccination')->insert(
-    [
-    'dependent_id'=>$id,
-    'vaccine_id'=>$vaccine->id,
-    'date_guideline'=>$MyDateCarbon,
-    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+
+     DB::table('dependant_vaccination')->where('id',$id)->update(
+    ['status' => $status,
+    'status_date' =>$vaccinedate,
+    'vaccin_name'=> $vaccinename,
+     'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
     'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
 );
-        
-    }
-    return redirect()->action('NurseController@showDependents',[$id]);
+
+
+return redirect()->action('NurseController@showDependents', [$userid]);
+
    }
+   
     
     public function updateDependant($id){
 
@@ -159,6 +157,7 @@ return Redirect::route('nurse.show', [$id]);
     }
 
     public function immuninationChart($id){
+
         return view('nurse.chart')->with('id',$id);
     }
      

@@ -135,56 +135,37 @@
                                                                       <th>Date Guideline</th>
 
                                                                       <th>Status</th>
+                                                                      <th>Vaccination Date</th>
                                                                       <th>Vaccine Name</th>
 
                                                                 </tr>
                                                               </thead>
-                                                              <?php $i=1;
-                                                      
-
-                                                      $vaccines=DB::table('vaccine')->leftjoin('dependant_vaccination','dependant_vaccination.vaccine_id','=','vaccine.id')->select('vaccine.*','dependant_vaccination.*')->where('dependant_vaccination.dependent_id',$id)
-                                                      ->where('vaccine.age','=>',$length)->get(); ?>
-                                                      @if(count($vaccines) > 0)
-     
-                                                        @foreach($vaccines as $vaccine)
-
-                                                              <tbody>
-                                                      
-                                                           
-                                                         <td><a href="{{url('immuninationshow',$id)}}">{{$i}}</a></td>
-                                                         <td><a href="{{url('immuninationshow',$id)}}">{{$vaccine->disease}}</a></td>
-                                                         <td><a href="{{url('immuninationshow',$id)}}">{{$vaccine->antigen}}</a></td>
-                                                        <td>{{$vaccine->duration or ''}}</td>
-                                                         <td>{{ date('d -m- Y', strtotime($vaccine-> date_guideline))}}</td>
-                                                          <td>{{$vaccine->status or ''}}</td>
-                                                           <td>{{$vaccine-> vaccin_name or ''}}</td>       
-                                                        
-                                                             
-                                                               </tbody>
-                                                           <?php $i++ ?>
-                                                          @endforeach
-                                                        @else
-                                                        <?php  $vaccines=DB::table('vaccine')->leftjoin('dependant_vaccination','dependant_vaccination.vaccine_id','=','vaccine.id')->select('vaccine.*','dependant_vaccination.*')
+                                                              
+                                                        <?php  $vaccines=DB::table('vaccine')->leftjoin('dependant_vaccination','dependant_vaccination.vaccine_id','=','vaccine.id')->select('vaccine.*','dependant_vaccination.*','dependant_vaccination.id as userid')
                                                          ->where('vaccine.age','=>',$length)->get(); ?>
+                                                          <?php $i=1; ?>
                                                         @foreach($vaccines as $vaccine)
-
+                                                          
                                                               <tbody>
                                                       
-                                                           
-                                                         <td><a href="{{url('immunination',$id)}}">{{$i}}</a></td>
-                                                         <td><a href="{{url('immunination',$id)}}">{{$vaccine->disease}}</a></td>
-                                                         <td><a href="{{url('immunination',$id)}}">{{$vaccine->antigen}}</a></td>
-                                                        <td>{{$vaccine->duration or ''}}</td>
-                                                         <td></td>
+                                                           <tr>
+                                                         <td><a href="{{url('immunination',$vaccine->userid)}}">
+                                                         {{$i}}</a></td>
+                                                         <td><a href="{{url('immunination',$vaccine->userid)}}">{{$vaccine->disease}}</a></td>
+                                                         <td><a href="{{url('immunination',$vaccine->userid)}}">{{$vaccine->antigen}}</a></td>
+                                                        
+                                                         <td>{{$vaccine->duration or ''}}</td>
+                                                         <td>{{$vaccine->date_guideline or ''}}</td>
                                                           <td>{{$vaccine->status or ''}}</td>
+                                                          <td>{{$vaccine->status_date or ''}}</td>
                                                            <td>{{$vaccine-> vaccin_name or ''}}</td>       
                                                         
-                                                             
+                                                             </tr>
                                                                </tbody>
                                                            <?php $i++ ?>
                                                           @endforeach
 
-                                                        @endif
+                                                      
                                                              </table>
 
                                                                

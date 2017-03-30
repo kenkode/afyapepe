@@ -28,9 +28,11 @@
 
                 <div class="form-group">
                 <input type="hidden" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{$id}}" name="id"  required>
-                
+         <?php  $vaccines=DB::table('vaccine')->leftjoin('dependant_vaccination','dependant_vaccination.vaccine_id','=','vaccine.id')->select('vaccine.*','dependant_vaccination.*')
+                                                         ->where('vaccine.age','=>',$length)->get(); ?>
+                                                        @foreach($vaccines as $vaccine)
 
-
+                                                        @endforeach
       
      <button type="submit" class="btn btn-primary">Process Immunization Chart</button>
       {!! Form::close() !!}

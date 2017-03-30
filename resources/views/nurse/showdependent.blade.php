@@ -140,7 +140,10 @@
                                                                 </tr>
                                                               </thead>
                                                               <?php $i=1;
-                                                      $vaccines=DB::table('vaccine')->leftjoin('dependant_vaccination','dependant_vaccination.vaccine_id','=','vaccine.id')->select('vaccine.*','dependant_vaccination.*')->where('dependant_vaccination.dependent_id',$id)->get(); ?>
+                                                      
+
+                                                      $vaccines=DB::table('vaccine')->leftjoin('dependant_vaccination','dependant_vaccination.vaccine_id','=','vaccine.id')->select('vaccine.*','dependant_vaccination.*')->where('dependant_vaccination.dependent_id',$id)
+                                                      ->where('vaccine.age','=>',$length)->get(); ?>
                                                       @if(count($vaccines) > 0)
      
                                                         @foreach($vaccines as $vaccine)
@@ -161,7 +164,8 @@
                                                            <?php $i++ ?>
                                                           @endforeach
                                                         @else
-                                                        <?php  $vaccines=DB::table('vaccine')->leftjoin('dependant_vaccination','dependant_vaccination.vaccine_id','=','vaccine.id')->select('vaccine.*','dependant_vaccination.*')->get(); ?>
+                                                        <?php  $vaccines=DB::table('vaccine')->leftjoin('dependant_vaccination','dependant_vaccination.vaccine_id','=','vaccine.id')->select('vaccine.*','dependant_vaccination.*')
+                                                         ->where('vaccine.age','=>',$length)->get(); ?>
                                                         @foreach($vaccines as $vaccine)
 
                                                               <tbody>

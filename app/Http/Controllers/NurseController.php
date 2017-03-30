@@ -49,6 +49,10 @@ class NurseController extends Controller
     }
 
     public function immunination($id){
+        $dependant=DB::table('dependant')->where('id',$id)->first();
+        $end = Carbon::parse($dependant->dob);
+        $now = Carbon::now();
+        $length = $end->diffInDays($now);
 
         return view('nurse.immunination')->with('id',$id);
     }
@@ -164,7 +168,12 @@ return Redirect::route('nurse.show', [$id]);
      
     public function showDependents($id)
     {
-        return view('nurse.showdependent')->with('id',$id);
+        $dependant=DB::table('dependant')->where('id',$id)->first();
+        $end = Carbon::parse($dependant->dob);
+        $now = Carbon::now();
+        $length = $end->diffInDays($now);
+
+        return view('nurse.showdependent')->with('id',$id)->with('length',$length);
     }
 
     public function wList(){

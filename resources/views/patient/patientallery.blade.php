@@ -58,9 +58,9 @@
                 <ul class="nav nav-tabs">
                     <li class="active"><a data-toggle="tab" href="#tab-1">Your Allergy List</button></a></li>
                     <li class=""><a data-toggle="tab" href="#tab-2">Your Vaccinations List</a></li>
-                    <li class=""><a data-toggle="tab" href="#tab-3">Your Patient History</a></li>
-                    <li class=""><a data-toggle="tab" href="#tab-4">Your Patient Tests</a></li>
-                    <li class=""><a data-toggle="tab" href="#tab-5">Your Patient Prescriptions</a></li>
+                    <li class=""><a data-toggle="tab" href="#tab-3">Your History</a></li>
+                    <li class=""><a data-toggle="tab" href="#tab-4">Your  Tests</a></li>
+                    <li class=""><a data-toggle="tab" href="#tab-5">Your  Prescriptions</a></li>
                     <li class=""><a data-toggle="tab" href="#tab-6">Your Hospital Admission</a></li>
                     
                 </ul>

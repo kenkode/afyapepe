@@ -223,7 +223,8 @@ return Redirect::route('nurse.show', [$id]);
     public function details($id){
 
        $observations=Observation::all();
-        return view('nurse.details')->with('id',$id)->with('observations',$observations);
+       $symptoms=Symptom::all();
+        return view('nurse.details')->with('id',$id)->with('observations',$observations)->with('symptoms',$symptoms);
 
     }
 

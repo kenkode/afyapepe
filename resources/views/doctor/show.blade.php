@@ -316,7 +316,7 @@ return redirect('doctor.create');
                               <label for="dosage" class="col-md-4 control-label">Route</label></td>
                                <select class="form-control" name="routes" style="width: 50%">
                                    @foreach($routems as $routemz)
-                                     <option value="{{$routemz->abbreviation }}">{{ $routemz->abbreviation }}----{{ $routemz->name  }} </option>
+                                     <option value="{{$routemz->id }}">{{ $routemz->abbreviation }}----{{ $routemz->name  }} </option>
                                   @endforeach
                                </select>
                             </div>
@@ -325,7 +325,7 @@ return redirect('doctor.create');
                               <label for="dosage" class="col-md-4 control-label">Frequency</label></td>
                                <select class="form-control"  name="frequency" style="width: 50%">
                                    @foreach($frequent as $freq)
-                                     <option value="{{$freq->abbreviation }}">{{ $freq->abbreviation }}----{{ $freq->name  }} </option>
+                                     <option value="{{$freq->id }}">{{ $freq->abbreviation }}----{{ $freq->name  }} </option>
                                   @endforeach
                                </select>
                             </div>

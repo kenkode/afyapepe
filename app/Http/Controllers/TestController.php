@@ -117,7 +117,7 @@ function Strength(){
 return $Strength;
 }
 function RouteM(){
- $routem = DB::table('Route')
+ $routem = DB::table('route')
  ->get();
 return $routem;
 }

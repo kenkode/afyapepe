@@ -37,12 +37,7 @@ class PrescriptionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-  //   public function store(Request $request){
-  //     Prescription::create($request->all());
-  //     Prescription_detail::create($request->all());
-  //     return redirect()->route('newpatients');
-  //   // return view('doctor.newPatients');
-  //  }
+
    protected function store(Request $request)
    {
      $appid=$request['appointment_id'];

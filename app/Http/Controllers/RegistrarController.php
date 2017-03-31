@@ -226,9 +226,9 @@ public function dependantTriage($id){
       $user=$request->afya_user;
   DB::table('appointments')->insert([
   'status'=>1,
-  'facility_id'=>1001,
+  'facility_id'=>19310,
   'afya_user_id'=>$user,
-  'doc_id'=>1,
+  'doc_id'=>6,
   'persontreated'=>$id,
   'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
  'updated_at' => \Carbon\Carbon::now()->toDateTimeString()

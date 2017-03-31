@@ -162,7 +162,7 @@ return Redirect::route('nurse.show', [$id]);
 
     DB::table('triage_details')->insert(
     ['patient_id' => $id,
-    'facility_id' => 10001,
+    'facility_id' => 19310,
     'current_weight'=> $weight,
     'current_height'=>$heightS,
     'temperature'=>$temperature,

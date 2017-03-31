@@ -23,6 +23,7 @@
   <link rel="stylesheet" href="{{asset('css/plugins/datapicker/datepicker3.css') }}" />
     <link rel="stylesheet" href="{{asset('css/animate.css') }}" />
     <link rel="stylesheet" href="{{asset('css/style.css') }}" />
+    <link rel="stylesheet" href="{{asset('css/custom.css') }}" />
 </head>
 
 <body>
@@ -56,6 +57,7 @@
 
    <!-- Custom and plugin javascript -->
   <script src="{{ asset('js/plugins/pace/pace.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/custom.js') }}" type="text/javascript"></script>
 
   <script>
 
@@ -249,5 +251,6 @@ $("document").ready(function(){
 });
  });//end of document ready function
  </script>
+
 </body>
 </html>

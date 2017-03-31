@@ -237,7 +237,7 @@ return redirect('doctor.create');
 
                          <div class="form-group">
                              <label for="tag_list" class="col-md-4">Select Biochestry Test:</label>
-                                  <select class="test-multiple" multiple="multiple" style="width: 100%">
+                                  <select class="test-multiple" name="biotests[]" multiple="multiple" style="width: 100%">
                                     <?php $biotests=DB::table('lab_test')->where('category', '=','Biochemistry')->distinct()->get(['id','name']); ?>
                                     @foreach($biotests as $biotest)
                                            <option value='{{$biotest->id}}'>{{$biotest->name}}</option>
@@ -249,7 +249,7 @@ return redirect('doctor.create');
                       <div class="Coagulation box">
                         <div class="form-group">
                             <label for="tag_list" class="col-md-4">Select Coagulation  Test:</label>
-                                 <select class="test-multiple" multiple="multiple" style="width: 100%">
+                                 <select class="test-multiple" name="coagtests[]" multiple="multiple" style="width: 100%">
                                    <?php $coagtests=DB::table('lab_test')->where('category', '=','Coagulation')->distinct()->get(['id','name']); ?>
                                    @foreach($coagtests as $coagtest)
                                           <option value='{{$coagtest->id}}'>{{$coagtest->name}}</option>
@@ -260,7 +260,7 @@ return redirect('doctor.create');
                       <div class="Haematology box">
                         <div class="form-group">
                             <label for="tag_list" class="col-md-4">Select Haematology Test:</label>
-                                 <select class="test-multiple" multiple="multiple" style="width: 100%">
+                                 <select class="test-multiple" name="haemtests[]" multiple="multiple" style="width: 100%">
                                    <?php $haemtests=DB::table('lab_test')->where('category', '=','Haematology')->distinct()->get(['id','name']); ?>
                                    @foreach($haemtests as $haemtest)
                                           <option value='{{$haemtest->id}}'>{{$haemtest->name}}</option>
@@ -271,7 +271,7 @@ return redirect('doctor.create');
                       <div class="Immuno_infective box">
                         <div class="form-group">
                             <label for="tag_list" class="col-md-4">Select Immunology Infective Test:</label>
-                                 <select class="test-multiple" multiple="multiple" style="width: 100%">
+                                 <select class="test-multiple" name="inftests[]" multiple="multiple" style="width: 100%">
                                    <?php $imitests=DB::table('lab_test')->where('category', '=','Immunology_Infective')->distinct()->get(['id','name']); ?>
                                    @foreach($imitests as $imitest)
                                           <option value='{{$imitest->id}}'>{{$imitest->name}}</option>
@@ -282,7 +282,7 @@ return redirect('doctor.create');
                       <div class="Immuno_auto box">
                         <div class="form-group">
                             <label for="tag_list" class="col-md-4">Select Immunology Auto Immune Test:</label>
-                                 <select class="test-multiple" multiple="multiple" style="width: 100%">
+                                 <select class="test-multiple" name="autotests[]" multiple="multiple" style="width: 100%">
                                    <?php $imatests=DB::table('lab_test')->where('category', '=','Immunology-Auto-Immune')->distinct()->get(['id','name']); ?>
                                    @foreach($imatests as $imatest)
                                           <option value='{{$imatest->id}}'>{{$imatest->name}}</option>
@@ -293,8 +293,8 @@ return redirect('doctor.create');
                       <div class="Microbilogy box">
 
                         <div class="form-group">
-                            <label for="tag_list" class="col-md-4">Select Microbiology Test:</label>
-                                 <select class="test-multiple" multiple="multiple" style="width: 100%">
+                            <label for="tag_list" class="col-md-4">Select Microbiologye  Test:</label>
+                                 <select class="test-multiple" name="microtests[]" multiple="multiple" style="width: 100%">
                                    <?php $micrtests=DB::table('lab_test')->where('category', '=','Microbiology')->distinct()->get(['id','name']); ?>
                                    @foreach($micrtests as $micrtest)
                                           <option value='{{$micrtest->id}}'>{{$micrtest->name}}</option>

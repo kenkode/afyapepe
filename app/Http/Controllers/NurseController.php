@@ -76,6 +76,51 @@ class NurseController extends Controller
 return redirect()->action('NurseController@showDependents', [$userid]);
 
    }
+
+   public function updateInfant(Request $request){
+
+    $id=$request->id;
+    $breastfeed=$request->breastfeed;
+    $neck=$request->neck;
+    $bulging=$request->bulging;
+    $tone=$request->tone;
+    $umbilicus=$request->umbilicus;
+    $skin=$request->skin;
+    $jaundice=$request->jaundice;
+    $size=$request->size;
+    $abs=$request->abs;
+   $detail=$request->abs_detail;
+
+     DB::table('infants_triage')->insert(
+    ['dependent_id' => $id,
+    'breast_feed' => $breastfeed,
+    'stiff_neck'=> $neck,
+    'bulging_fontance' =>$bulging,
+    'reduced_movement'  =>$tone,
+     'umbilicus'=>$umbilicus,
+     'skin'=>$skin,
+     'jaundice'=>$jaundice,
+     'gest_size'=>$size,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
+);
+
+foreach ($abs as $key => $abs) {
+    
+  
+    DB::table('infact_abnormalities')->insert(
+    ['dependent_id' => $id,
+    'name' => $abs,
+    'abnormalities_describe'=> $detail,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
+);
+
+}
+
+
+return redirect()->action('NurseController@showDependents', [$id]);
+   }
    
     
     public function updateDependant($id){

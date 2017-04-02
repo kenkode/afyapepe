@@ -82,6 +82,7 @@ Route::group(['middleware' => ['auth','role:Admin|Nurse']], function() {
   Route::get('showpatient/{id}','NurseController@shoWpatient');
   Route::get('immunination/{id}','NurseController@immunination');
   Route::post('immunization','NurseController@storeImmunization');
+  Route::post('updateinfant','NurseController@updateInfant');
 
 Route::get('/ajax-subcat',function(){
 	$cat_id= Input::get('cat_id');

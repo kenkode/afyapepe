@@ -90,7 +90,7 @@
               <!-- <div class="col-lg-12 tbg"> -->
                 <ul class="nav nav-tabs">
                     <li class="active"><a data-toggle="tab" href="#tab-1">Immunination Chart</a></li>
-                    <li class=""><a data-toggle="tab" href="#tab-5">Mother Details</a></li>
+                    <li class=""><a data-toggle="tab" href="#tab-5">Baby/Mother Details</a></li>
                     <li class=""><a data-toggle="tab" href="#tab-2">Measures of Growth & Weight</a></li>
                     <li class=""><a data-toggle="tab" href="#tab-3">Nutrition Check</a></li>
                     <li class=""><a data-toggle="tab" href="#tab-4">Adverse Events</a></li>
@@ -179,282 +179,214 @@
       </div> 
       </div> 
       </div>   
-<div id="tab-5" class="tab-pane active">
+
+<div id="tab-5" class="tab-pane">
                         <div class="panel-body">
 
   <div class="wrapper wrapper-content">
           <div class="row animated fadeInRight">
- <div class="row">
-  <div class="col-lg-6"> 
-  <div class="ibox-title">
-                            <h5>Mother Details</h5>
-                            </div>       
+    <?php $infants=DB::table('infants_triage')->where('dependent_id',$dependant->id)->get(); 
+    $abs=DB::table('infact_abnormalities')->where('dependent_id',$dependant->id)->get(); 
+    ?>
+     
+     @if (count($infants) > 0)
+      <div class="col-lg-10 col-lg-offset-1">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
 
-          <div class="ibox-content">
-               <form class="form-horizontal" role="form" method="POST" action="#" novalidate>
-              <input type="hidden" name="_token" value="{{ csrf_token() }}">
-              <input type="hidden" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{$id}}" name="id"  required>
-               <div class="form-group">
-              <label for="exampleInputEmail1">Age:</label>
-              <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" name="age"  value="
-               "  >
-              </div> 
-              <div class="form-group">
-             <label for="exampleInputEmail1">Gravidity:</label>
-             <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" name="gravidity"  value="
-              "  >
-             </div>
-             <div class="form-group">
-             <label for="exampleInputEmail1">Parity:</label>
-             <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" name="parity"  value="
-              "  >
-             </div>
-             <div class="form-group">
-             <label for="exampleInputEmail1">Blood Group:</label>
-             <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" name="parity"  value="
-              "  >
-             </div>
-              <div class="form-group">
-             <label for="exampleInputEmail1">Sublocation:</label>
-             <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" name="parity"  value="
-              "  >
-             </div>
+                            <a class="close-link">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                   
+<h5>Baby Details</h5>
 
-             
-      <div class="form-group">
-  <label class="control-label" for="name">Hiv</label>
-  <input type="radio" value="no" id="type" name="type" checked='checked' autocomplete="off" />
-    <label>Negative</label>
-          <input type="radio" value="yes" id="type" name="type" class="youtube" />
-        <label>Positive</label>
-        <div id="embedcode">
-     ARV <select name="mode"><option value="">Select</option><option value="yes">Yes</option><option value="No">No</option></select>
-      
-      </div>
-    </div>
-    <div class="form-group">
-  <label class="control-label" for="name">VDRL? </label>
-  <input type="radio" value="no"  name="vdrl" checked='checked' autocomplete="off" />
-    <label>Negative</label>
-          <input type="radio" value="yes"  name="vdrl" class="youtube" />
-        <label>Positive</label>
-    </div>
-     <div class="form-group">
-  <label class="control-label" for="name">Fever? </label>
-  <input type="radio" value="no"  name="fever" checked='checked' autocomplete="off" />
-    <label>No</label>
-          <input type="radio" value="yes"  name="fever" class="youtube" />
-        <label>Yes</label>
-    </div>
-     <div class="form-group">
-  <label class="control-label" for="name">Antibiotics</label>
-  <input type="radio" value="no"  name="vdrl" checked='checked' autocomplete="off" />
-    <label>No</label>
-          <input type="radio" value="yes"  name="vdrl" class="youtube" />
-        <label>Yes</label>
-    </div>
-     <div class="form-group">
-  <label class="control-label" for="name">Diabetes? </label>
-  <input type="radio" value="no"  name="vdrl" checked='checked' autocomplete="off" />
-    <label>No</label>
-          <input type="radio" value="yes"  name="vdrl" class="youtube" />
-        <label>Yes</label>
-    </div>
-    <div class="form-group">
-  <label class="control-label" for="name">TB Positive ? </label>
-  <input type="radio" value="no"  name="vdrl" checked='checked' autocomplete="off" />
-    <label>No</label>
-          <input type="radio" value="yes"  name="vdrl" class="youtube" />
-        <label>Yes</label>
-    </div>
-     <div class="form-group">
-  <label class="control-label" for="name">TB Treatment? </label>
-  <input type="radio" value="no"  name="vdrl" checked='checked' autocomplete="off" />
-    <label>No</label>
-          <input type="radio" value="yes"  name="vdrl" class="youtube" />
-        <label>Yes</label>
-    </div>
-              <div class="form-group">
-              <label for="exampleInputPassword1">Labour-1st Stage</label>
-              <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" name="age"  value="
-               "  >
-               </div>
-               <div class="form-group">
-              <label for="exampleInputPassword1">Labour-2st Stage</label>
-              <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" name="age"  value="
-               "  >
-               </div>
+                                                                 <table class="table table-small-font table-bordered table-striped">
+                                                              <thead>
+                                                                  <tr>
+                                                                      <th>No</th>
+                                                                      <th>Date</th>
+                                                                      <th>Time</th>
+                                                                      <th>Breast Feed</th>
+                                                                      <th>Stiff Neck</th>
+                                                                      <th>Bulging Fontanelle</th>
 
-    <div class="form-group">
-  <label class="control-label" for="name">Hypertention? </label>
-  <input type="radio" value="no"  name="vdrl" checked='checked' autocomplete="off" />
-    <label>No</label>
-          <input type="radio" value="yes"  name="vdrl" class="youtube" />
-        <label>Yes</label>
-    </div>
-     <div class="form-group">
-  <label class="control-label" for="name">APH? </label>
-  <input type="radio" value="no"  name="vdrl" checked='checked' autocomplete="off" />
-    <label>No</label>
-          <input type="radio" value="yes"  name="vdrl" class="youtube" />
-        <label>Yes</label>
-    </div>
+                                                                     
+                                                                      <th>Reduce Movement/Tone</th>
+
+                                                                      <th>Umbilicus</th>
+                                                                      <th>Skin</th>
+                                                                      <th>Jaundice</th>
+                                                                      <th>Gest/Size</th>
+                                                                      
+
+                                                                </tr>
+                                                              </thead>
+                                                              
+                                                                                                              <?php $i=1; ?>
+                                                        @foreach($infants as $infant)
+                                                          
+                                                              <tbody>
+                                                      
+                                                           <tr>
+                                                         <td>{{$i}}</td> 
+                                                         <td>{{ date('d -m- Y', strtotime($infant->created_at))}}</td>     
+                                                        <td>{{ date('H:i:s', strtotime($infant->created_at))}}</td>     
+                                                        <td>{{$infant->breast_feed}}</td>     
+                                                        <td>{{$infant->stiff_neck}}</td>     
+                                                        <td>{{$infant->bulging_fontance}}</td>     
+                                                        <td>{{$infant->reduced_movement}}</td>     
+                                                        <td>{{$infant->umbilicus}}</td>     
+                                                        <td>{{$infant->skin}}</td>     
+                                                        <td>{{$infant->jaundice}}</td>     
+                                                        <td>{{$infant->gest_size}}</td>     
+                                                           
+                                                        
+                                                             </tr>
+                                                               </tbody>
+                                                           <?php $i++ ?>
+                                                          @endforeach
+
+                                                      
+                                                             </table>
+
+<br>
+
+<h5> Baby Abnormalities</h5>
+
+             <table class="table table-small-font table-bordered table-striped">
+                                                              <thead>
+                                                                  <tr>
+                                                                      <th>No</th>
+                                                                      <th>Date</th>
+                                                                      <th>Time</th>
+                                                                      <th>Abnormalities</th>
+                                                                      <th>Abnormalities Description</th>
+                                                                     
+                                                                      
+
+                                                                </tr>
+                                                              </thead>
+                                                              
+                                                                                                              <?php $i=1; ?>
+                                                        @foreach($abs as $ab)
+                                                          
+                                                              <tbody>
+                                                      
+                                                           <tr>
+                                                         <td>{{$i}}</td> 
+                                                         <td>{{ date('d -m- Y', strtotime($ab->created_at))}}</td>     
+                                                        <td>{{ date('H:i:s', strtotime($ab->created_at))}}</td>     
+                                                        <td>{{$ab->name}}</td>     
+                                                        <td>{{$ab->abnormalities_describe}}</td>     
+                                                             
+                                                           
+                                                        
+                                                             </tr>
+                                                               </tbody>
+                                                           <?php $i++ ?>
+                                                          @endforeach
+
+                                                      
+                                                             </table>
+
+                                                               
 
 
 
-
-                <div class="form-group">
-              <label for="exampleInputPassword1">Babies Presenting Problems</label>
-              <textarea class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" name="Babies_Presenting_Problems"  value="
-               "  ></textarea> 
-                
-
-              </div>
-              <div class="form-group">
-              <label for="exampleInputPassword1">Mothers Presenting Problems</label>
-              <textarea class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" name="Mothers_Presenting_Problems"  value="
-               "  ></textarea> 
-                
-
-              </div>
-              <div class="form-group">
-              <label for="exampleInputPassword1">Relevant Drugs:Pre Admission</label>
-              <textarea class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" name="Relevant_Drugs"  value="
-               "  ></textarea> 
-                
-
-              </div>
-                
-
-             
-              
-             
-              
-              
+                    </div>
+         
+                </div>
+            </div>
+     @else
+      <div class="row">
+      <div class="col-lg-6">
+  <div class="ibox float-e-margins">
            
-               </div>
-             </div>
-        <div class="col-lg-6">
-        <div class="ibox-title">
-                            <h5>General Examination</h5>
-        </div>
-        <div class="ibox-content">
-               <form class="form-horizontal" role="form" method="POST" action="#" novalidate>
-              <input type="hidden" name="_token" value="{{ csrf_token() }}">
-              <input type="hidden" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{$id}}" name="id"  required>
-               <div class="form-group">
-  <label class="control-label" for="name">Oral thush:? </label>
-  <input type="radio" value="no"  name="vdrl" checked='checked' autocomplete="off" />
-    <label>No</label>
-          <input type="radio" value="yes"  name="vdrl" class="youtube" />
-        <label>Yes</label>
-    </div>
-     <div class="form-group">
-  <label class="control-label" for="name">Lympn N> 1cm :? </label>
-  <input type="radio" value="no"  name="vdrl" checked='checked' autocomplete="off" />
-    <label>No</label>
-          <input type="radio" value="yes"  name="vdrl" class="youtube" />
-        <label>Yes</label>
-    </div>
-    <div class="form-group">
-  <label class="control-label" for="name">Fever</label>
-  <input type="radio" value="no" id="types" name="type" checked='checked' autocomplete="off" />
-    <label>No</label>
-          <input type="radio" value="yes" id="types" name="type" class="youtube" />
-        <label>Yes</label>
-        <div id="embedcode">
-   No of days <input type="number" value="number" id="types" name="feveno"/>
-      
-      </div>
+  <div class="ibox-content">
+  
+     <form class="form-horizontal" role="form" method="POST" action="/updateinfant" novalidate>
+    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+    <input type="hidden" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{$dependant->id}}" name="id"  required>
 
-        </div>
     <div class="form-group">
-  <label class="control-label" for="name">Difficulty Breathing ? </label>
-  <input type="radio" value="no"  name="vdrl" checked='checked' autocomplete="off" />
-    <label>No</label>
-          <input type="radio" value="yes"  name="vdrl" class="youtube" />
-        <label>Yes</label>
-    </div>
-     <div class="form-group">
-  <label class="control-label" for="name">Diarrhoea ? </label>
-  <input type="radio" value="no"  name="vdrl" checked='checked' autocomplete="off" />
-    <label>No</label>
-          <input type="radio" value="yes"  name="vdrl" class="youtube" />
-        <label>Yes</label>
-    </div>
-         <div class="form-group">
-  <label class="control-label" for="name">Contact with TB ? </label>
-  <input type="radio" value="no"  name="vdrl" checked='checked' autocomplete="off" />
-    <label>No</label>
-          <input type="radio" value="yes"  name="vdrl" class="youtube" />
-        <label>Yes</label>
-    </div>
+    <label for="exampleInputEmail1">Can suck/Breastfeed?</label>
+   <label>No</label> <input type="radio" value="No"  name="breastfeed"/>
+   <label>Yes</label><input type="radio" value="yes"  name="breastfeed"/>
+   </div>
+
+   <div class="form-group">
+    <label for="exampleInputEmail1">Stiff Neck?</label>
+   <label>No</label> <input type="radio" value="No"  name="neck"/>
+   <label>Yes</label><input type="radio" value="Yes"  name="neck"/>
+   </div>
+
+   <div class="form-group">
+    <label for="exampleInputEmail1">Bulging fontanelle?</label>
+   <label>No</label> <input type="radio" value="No"  name="bulging"/>
+   <label>Yes</label><input type="radio" value="Yes"  name="bulging"/>
+   </div>
+   <div class="form-group">
+    <label for="exampleInputEmail1">Reduced Movement/Tone ?</label>
+   <label>No</label> <input type="radio" value="No"  name="tone"/>
+   <label>Yes</label><input type="radio" value="Yes"  name="tone"/>
+   </div> 
     <div class="form-group">
-  <label class="control-label" for="name">Chronic Cough(last 12 Months) ? </label>
-  <input type="radio" value="no"  name="vdrl" checked='checked' autocomplete="off" />
-    <label>No</label>
-          <input type="radio" value="yes"  name="vdrl" class="youtube" />
-        <label>Yes</label>
-    </div>
-     <div class="form-group">
-  <label class="control-label" for="name">Diarrhoea-Bloody ? </label>
-  <input type="radio" value="no"  name="vdrl" checked='checked' autocomplete="off" />
-    <label>No</label>
-          <input type="radio" value="yes"  name="vdrl" class="youtube" />
-        <label>Yes</label>
+    <label for="exampleInputPassword1">Umbilicus</label>
+    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Clean,Local Pus, Plus + Red Skin" name="umbilicus"  required>
     </div>
     <div class="form-group">
-  <label class="control-label" for="name">Vomiting  ? </label>
-  <input type="radio" value="no"  name="vdrl" checked='checked' autocomplete="off" />
-    <label>No</label>
-          <input type="radio" value="yes"  name="vdrl" class="youtube" />
-        <label>Yes</label>
+    <label for="exampleInputPassword1">Skin</label>
+    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Brusing,Rash,Postules" name="skin"  required>
     </div>
     <div class="form-group">
-  <label class="control-label" for="name">Vomiting Everything ? </label>
-  <input type="radio" value="no"  name="vdrl" checked='checked' autocomplete="off" />
-    <label>No</label>
-          <input type="radio" value="yes"  name="vdrl" class="youtube" />
-        <label>Yes</label>
+    <label for="exampleInputPassword1">Jaundice</label>
+    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="None,+,+++" name="jaundice"  required>
     </div>
     <div class="form-group">
-  <label class="control-label" for="name">Difficult Feeding ? </label>
-  <input type="radio" value="no"  name="vdrl" checked='checked' autocomplete="off" />
-    <label>No</label>
-          <input type="radio" value="yes"  name="vdrl" class="youtube" />
-        <label>Yes</label>
+    <label for="exampleInputPassword1">Gest/Size</label>
+    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Clean,Local Pus, Plus + Red Skin" name="size"  required>
     </div>
-    <div class="form-group">
-  <label class="control-label" for="name">Convulsions ? </label>
-  <input type="radio" value="no"  name="vdrl" checked='checked' autocomplete="off" />
-    <label>No</label>
-          <input type="radio" value="yes"  name="vdrl" class="youtube" />
-        <label>Yes</label>
-    </div>
-     <div class="form-group">
-  <label class="control-label" for="name">Partial/Focal Fits ? </label>
-  <input type="radio" value="no"  name="vdrl" checked='checked' autocomplete="off" />
-    <label>No</label>
-          <input type="radio" value="yes"  name="vdrl" class="youtube" />
-        <label>Yes</label>
-    </div>
-     <div class="form-group">
-  <label class="control-label" for="name">Apnoea ? </label>
-  <input type="radio" value="no"  name="vdrl" checked='checked' autocomplete="off" />
-    <label>No</label>
-          <input type="radio" value="yes"  name="vdrl" class="youtube" />
-        <label>Yes</label>
-    </div>
-        </div>
+    
+  
+
+</div>
+            
+  </div>
+  </div>
+  <div class="col-lg-6">
+  <h2> Abonormalities-Tick All Relevant and Describe</h2>
+<?php $abs=DB::table('abnormalities')->get(); ?>
+@foreach($abs as $ab )
+<div class="form-group">
+   <label for="chkPassport">
+    <input type="checkbox" id="chkPassport" name="abs[]" value="{{$ab->name}}"/>
+   {{$ab->name}}
+</label>
+
+<div class="{{$ab->name}}"  style="display: none">
+    <label>Describe:</label><br>
+    <textarea rows="3" cols="50" name="abs_detail"></textarea>
+</div>
+</div>
+@endforeach
+   <button type="submit" class="btn btn-primary btn-block">Update Details</button>
+      {!! Form::close() !!}
+  </div>
+  </div>
+  @endif
+      </div> 
+      </div> 
+      </div> 
       </div> 
       
-
-         <button type="submit" class="btn btn-primary btn-sm">Save</button>
-                 {!! Form::close() !!}
-       
-      </div> 
-      </div> 
-      </div>
        
 
 
@@ -529,10 +461,15 @@
 
 </div><!--3tabs-->
 </div>
+</div>
+</div>
+
+
+ 
  @include('includes.default.footer')
 
-        
-      </div><!--content-->
+        </div>
+    
       </div><!--content page-->
 
 @endsection

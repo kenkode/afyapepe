@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
     <link rel="stylesheet" href="{!!asset('css/plugins/fullcalendar/fullcalendar.css')!!}" />
     <link rel="stylesheet" media="print" href="{!!asset('css/plugins/fullcalendar/fullcalendar.print.css')!!}" />
+     <link rel="stylesheet" href="{{asset('css/custom.css') }}" />
 
     <link rel="stylesheet" href="{!! asset('css/plugins/iCheck/custom.css') !!}" />
      <link rel="stylesheet" href="{!! asset('css/plugins/steps/jquery.steps.css') !!}" />
@@ -101,11 +102,23 @@
     <!-- Full Calendar -->
     <script src="{{ asset('js/plugins/fullcalendar/fullcalendar.min.js') }}"></script>
 
-
+ <script src="{{ asset('js/custom.js') }}" type="text/javascript"></script>
 
     <!-- Custom and plugin javascript -->
 <script src="{{ asset('js/plugins/pace/pace.min.js') }}" type="text/javascript"></script>
       <script src="{{ asset('js/inspinia.js') }}" type="text/javascript"></script>
+ <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $("#chkPassport").click(function () {
+            if ($(this).is(":checked")) {
+                $("#dvPassport").show();
+            } else {
+                $("#dvPassport").hide();
+            }
+        });
+    });
+</script>
 
     <!-- Page-Level Scripts -->
     <script>

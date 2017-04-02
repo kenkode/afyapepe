@@ -171,7 +171,7 @@
    <script>
        $(document).ready(function(){
            $('.dataTables-conditional').DataTable({
-               pageLength: 5,
+               pageLength: 25,
                responsive: true,
                dom: '<"html5buttons"B>lTfgitp',
                buttons: [

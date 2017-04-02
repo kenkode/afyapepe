@@ -41,10 +41,11 @@
 														<thead>
 																										<tr>
 																												<th>No</th>
-																												<th>Patient Name</th>
-																												<th>Gender</th>
-																												<th>Age</th>
+																												<th>Test Name</th>
+																												<th>Category</th>
+																												<th>Sub- Category</th>
 																												<th>Conditional Diesease</th>
+																												<th>Status</th>
 																												<th>Date Created</th>
 																									</tr>
 																								</thead>
@@ -54,20 +55,22 @@
 																									<?php $i =1; ?>
 
 																									@foreach($tsts as $tst)
-																									<?php  $gender= $tst->gender;
-																									if ($gender=1) {$gender='Male';}else{$gender='Female';}
-																									 $dob=$tst->dob;
-																									 $interval = date_diff(date_create(), date_create($dob));
-																									 $age= $interval->format(" %Y Year, %M Months, %d Days Old");
-                                                  ?>
+
 																									  <tr>
-																									  <td><a href="{{route('patientTest',$tst->id)}}">{{$i}}</a></td>
-																									 <td><a href="{{route('patientTest',$tst->id)}}">{{$tst->firstname}} {{$tst->secondName}}</a></td>
-																									  <td>{{$gender}}</td>
-																									  <td>
-												                              {{$age}}</td>
+																									  <td><a href="{{route('testing',$tst->testid)}}">{{$i}}</a></td>
+																									 <td><a href="{{route('testing',$tst->testid)}}">{{$tst->test}}</a></td>
+																									  <td>{{$tst->category}}</td>
+																									  <td>{{$tst->sub_category}}</td>
 																									  <td>{{$tst->disease}}</td>
-																									   <td>{{$tst->date}}</td>
+																									   <td><?php
+																										 $status=$tst->done; if ($status==0) {
+																									   	$status='NOT DONE';
+																									   } else {
+																									   	$status='DONE';
+																									   }
+																									    ?>
+                                                  {{$status}}</td>
+																										  <td>{{$tst->date}}</td>
 																								</tr>
 																									<?php $i++; ?>
 

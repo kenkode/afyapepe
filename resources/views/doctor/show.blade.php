@@ -478,7 +478,7 @@ return redirect('doctor.create');
                                         </div>
                                         <div class="ibox-content">
                                            <div class="table-responsive">
-                                        <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                        <table class="table table-striped table-bordered table-hover dataTables-conditional" >
                                         <thead>
                                        <tr>
                                          <th></th>

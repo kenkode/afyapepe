@@ -11,7 +11,7 @@ $(document).ready(function () {
                 });
               });
 
-
+// show checkbox divs
 $(document).ready(function(){
  $('input[type="checkbox"]').click(function(){
        var inputValue = $(this).attr("value");
@@ -21,6 +21,7 @@ $(document).ready(function(){
    });
 
 });
+
 $(document).ready(function(){
  $('input[name="checkbox"]').click(function(){
        var inputValue = $(this).attr("value");

@@ -97,11 +97,8 @@ Route::get('/ajax-subcat',function(){
   Route::group(['middleware' => ['auth','role:Admin|Doctor']], function() {
 	Route::resource('doctor','DoctorController');
 	Route::get('doctorProfile', [ 'as' => 'doctorProfile', 'uses' => 'DoctorController@DocDetails']);
-  // Route::get('newpatients', [ 'as' => 'newpatients', 'uses' => 'DoctorController@newPatients']);
   Route::get('appointment','DoctorController@Appointment');
 	Route::get('calendar','DoctorController@Calendar');
-	// Route::get('patientsseen', 'DoctorController@seen');
-	// Route::get('allpatients', 'DoctorController@all');
 	Route::resource('prescription', 'PrescriptionController@store');
 
    Route::Post('show', [ 'as' => 'patienttest', 'uses' => 'PatientTestController@store']);
@@ -185,9 +182,16 @@ Route::group(['middleware' => ['auth','role:Admin|Registrar']], function() {
 
 
 });
+/**
+* Pharmacy Routes
+**/
 Route::group(['middleware' => ['auth','role:Admin|Test']], function() {
 	Route::resource('test','TestController');
 	Route::get('testsales','TestController@testSales');
 	Route::get('testanalytics','TestController@testAnalytics');
+	Route::resource('test','TestController');
+	Route::get('patientTests/{id}', [ 'as' => 'patientTest', 'uses' => 'TestController@testdetails']);
+	Route::get('test', [ 'as' => 'testing', 'uses' => 'TestController@testing']);
+
 
 });

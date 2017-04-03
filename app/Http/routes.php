@@ -14,6 +14,8 @@ Route::get('/', function () {
 return view('welcome');
 });
 
+
+
 Route::get('steve', function () {
 return view('steve');
 });
@@ -67,6 +69,7 @@ Route::group(['middleware' => ['auth','role:Admin|Nurse']], function() {
 	Route::get('nurse.createkin/{id}',['as'=>'createkin','uses'=>'NurseController@createnextkin']);
 	Route::get('nurse.vaccine/{id}',['as'=>'vaccinescreate','uses'=>'NurseController@vaccinescreate']);
   Route::get('nurse.details/{id}',['as'=>'details','uses'=>'NurseController@details']);
+  Route::get('infactdetails/{id}','NurseController@infactDetails');
 	Route::post('nextkin','NurseController@nextkin');
 	Route::post('updatekin','NurseController@Updatekin');
 	Route::post('vaccine','NurseController@vaccine');
@@ -75,6 +78,7 @@ Route::group(['middleware' => ['auth','role:Admin|Nurse']], function() {
 	Route::post('nurseupdates','NurseController@nurseUpdates');
 	Route::get('nurse.dependents/{id}','NurseController@showDependents');
   Route::post('nurse.show',['as'=>'createdetail','uses'=>'NurseController@createdetails']);
+  Route::post('createinfantdetails','NurseController@createinfantDetails');
   Route::get('immuninationchart/{id}','NurseController@immuninationChart');
   Route::get('growth/{id}','NurseController@childGrowth');
   Route::get('update.dependant/{id}','NurseController@updateDependant');

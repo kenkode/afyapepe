@@ -89,8 +89,11 @@
             <div class="tabs-container">
               <!-- <div class="col-lg-12 tbg"> -->
                 <ul class="nav nav-tabs">
-                    <li class="active"><a data-toggle="tab" href="#tab-1">Immunination Chart</a></li>
+
+                  
+                     <li class="active"><a data-toggle="tab" href="#tab-6">Vitals</a></li>
                     <li class=""><a data-toggle="tab" href="#tab-5">Baby/Mother Details</a></li>
+                      <li class=""><a data-toggle="tab" href="#tab-1">Immunination Chart</a></li>
                     <li class=""><a data-toggle="tab" href="#tab-2">Measures of Growth & Weight</a></li>
                     <li class=""><a data-toggle="tab" href="#tab-3">Nutrition Check</a></li>
                     <li class=""><a data-toggle="tab" href="#tab-4">Adverse Events</a></li>
@@ -98,7 +101,7 @@
                    
                 </ul>
     <div class="tab-content">
-                      <div id="tab-1" class="tab-pane active">
+                      <div id="tab-1" class="tab-pane">
                         <div class="panel-body">
 
   <div class="wrapper wrapper-content">
@@ -387,9 +390,92 @@
       </div> 
       </div> 
       
-       
+ <div id="tab-6" class="tab-pane active">
+                        <div class="panel-body">
+
+  <div class="wrapper wrapper-content">
+          <div class="row animated fadeInRight">
+      
+ <div class="row">
+         <div class="col-lg-12">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                              <h5>Vital History</h5>
+                                <div class="ibox-tools">
+                                    <a class="collapse-link">
+                                        <i class="fa fa-chevron-up"></i>
+                                    </a>
+
+                                    <a class="close-link">
+                                        <i class="fa fa-times"></i>
+                                    </a>
+                                </div>
+                            </div>
 
 
+        <div class="ibox-content">
+        <div class="table-responsive">
+      <table class="table table-striped table-bordered table-hover dataTables-example" >
+      <thead>
+       <tr>
+           <th>No</th>
+            <th>Date</th>
+            <th>Time</th>
+           <th>Weight</th>
+           <th>Height</th>
+           <th>BMI</th>
+           <th>Temperature</th>
+           <th>Systolic_bp</th>
+           <th>Diastolic_bp</th>
+           <th>Chief Compliant</th>
+
+
+            
+
+      </tr>
+      </thead>
+
+      <tbody>
+      <?php $i =1; ?>
+      @foreach($details as $detail)
+       <tr>
+           <td>{{$i}}</td>
+            <td>{{ date('d -m- Y', strtotime($detail->updated_at)) }}</td>
+            <td>{{ date('H:i:s', strtotime($detail->updated_at)) }}</td>
+           <td>{{$detail->current_weight}}</td>
+           <td>{{$detail->current_height}}</td>
+            <td><?php $height=$detail->current_height; $weight=$detail->current_weight;
+               $bmi =$weight/($height*$height);
+               echo number_format($bmi, 2);
+            ?></td>
+           <td>{{$detail->temperature}}</td>
+          <td>{{$detail->systolic_bp}}</td>
+         <td>{{$detail->diastolic_bp}}</td>
+         <td>{{$detail->chief_compliant}}</td>
+
+        
+
+       </tr>
+       <?php $i++; ?>
+
+      @endforeach
+
+
+        </tbody>
+      </table>
+       <a href="{{ URL('infactdetails', $dependant->id) }}" class="btn btn-primary btn-sm">Add Details</a>
+
+
+   </div>
+
+</div>
+</div> 
+      </div> 
+      </div> 
+      </div> 
+</div>
+</div>
+</div>
 <div id="tab-2" class="tab-pane">
                         <div class="panel-body">
 

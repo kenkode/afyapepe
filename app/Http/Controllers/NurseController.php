@@ -213,13 +213,22 @@ return Redirect::route('nurse.show', [$id]);
      
     public function showDependents($id)
     {
+        $details=DB::table('triage_infacts')
+        ->Join('appointments','appointments.id','=','triage_infacts.appointment_id')
+        ->where('appointments.persontreated',$id)
+        ->select('triage_infacts.*')
+        ->orderBy('triage_infacts.id','desc')
+        ->get();
+
         $dependant=DB::table('dependant')->where('id',$id)->first();
         $end = Carbon::parse($dependant->dob);
         $now = Carbon::now();
         $length = $end->diffInDays($now);
 
-        return view('nurse.showdependent')->with('id',$id)->with('length',$length);
+        return view('nurse.showdependent')->with('id',$id)->with('length',$length)->with('details',$details);
     }
+
+
 
     public function wList(){
       $patients = DB::table('afya_users')
@@ -306,6 +315,67 @@ return Redirect::route('nurse.show', [$id]);
        $symptoms=Symptom::all();
         return view('nurse.details')->with('id',$id)->with('observations',$observations)->with('symptoms',$symptoms);
 
+    }
+
+    public function infactDetails($id){
+
+     $observations=Observation::all();
+       $symptoms=Symptom::all();
+        return view('nurse.create_infact_triage')->with('id',$id)->with('observations',$observations)->with('symptoms',$symptoms);
+
+    }
+
+    public function createinfantDetails (Request $request){
+        $id=$request->id;
+        $weight=$request->weight;
+        $heightS=$request->current_height;
+        $temperature=$request->temperature;
+        $systolic=$request->systolic;
+        $diastolic=$request->diastolic;
+        $allergies=$request->allergies;
+        $chiefcompliant=$request->chiefcompliant;
+        $observation=$request->observation;
+        $symptoms=$request->symptoms;
+        $nurse=$request->nurse;
+        $doctor=$request->doctor;
+        $allergy=$request->allergy;
+
+$allergy=implode(',', $allergy);
+$allergies=explode(',', $allergy);
+foreach ($allergies as $all) {
+
+   DB::table('afya_users_allergy')->insert([
+    'afya_user_id'=>$id,
+    'allergy_name'=>$all,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
+}
+$chiefcompliant = implode(',', $chiefcompliant);
+$appointment=DB::table('appointments')->where('persontreated', $id)->orderBy('created_at', 'desc')->first();
+
+    DB::table('triage_infacts')->insert(
+    ['appointment_id' => $appointment->id,
+    
+    'current_weight'=> $weight,
+    'current_height'=>$heightS,
+    'temperature'=>$temperature,
+    'systolic_bp'=>$systolic,
+    'diastolic_bp'=>$diastolic,
+    'chief_compliant'=>$chiefcompliant,
+    'observation'=>$observation,
+    'symptoms'=>$symptoms,
+    'nurse_notes'=>$nurse,
+    'Doctor_note'=>'',
+    'prescription'=>'',
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
+
+);
+
+DB::table('appointments')->where('persontreated',$appointment->id)->update([
+    'status'=>2]);
+
+
+        return redirect()->action('NurseController@showDependents',[$id]);
     }
 
     public function createdetails(Request $request)

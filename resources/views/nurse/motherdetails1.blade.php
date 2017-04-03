@@ -176,6 +176,7 @@
     </div>
   @include('includes.default.footer')
 
-
+</div>
+</div>
 
 @endsection

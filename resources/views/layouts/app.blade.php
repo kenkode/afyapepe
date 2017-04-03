@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="{{ asset('css/plugins/dataTables/datatables.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/animate.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
+    <link rel="stylesheet" href="{{asset('css/custom.css') }}" />
       <script type="text/javascript" src="{{ asset('js/modernizr.js') }}"></script>
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 </head>
@@ -73,6 +74,7 @@
 
     <!-- ChartJS-->
     <script src="{{ asset('js/plugins/chartJs/Chart.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/custom.js') }}" type="text/javascript"></script>
 
 
     <!-- Toastr -->

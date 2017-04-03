@@ -300,6 +300,8 @@
                                                       
                                                              </table>
 
+
+ <a href="{{ URL('babydetails', $dependant->id) }}" class="btn btn-primary btn-sm">Add Details</a>
                                                                
 
 
@@ -318,46 +320,234 @@
      <form class="form-horizontal" role="form" method="POST" action="/updateinfant" novalidate>
     <input type="hidden" name="_token" value="{{ csrf_token() }}">
     <input type="hidden" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{$dependant->id}}" name="id"  required>
+    <h2> Baby Details</h2>
+   <div class="form-group" id="data_1">
+                 <label for="exampleInputPassword1">Admission Date</label>
+                 <div class="input-group date">
+                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                     <input type="text" class="form-control" name="dob" value="">
+                 </div>
+                 </div>
+    <div class="form-group">
+                 <label for="exampleInputPassword1">IP No</label>
+            <input type="text" class="form-control" name="ipno">
+    </div>
+    <div class="form-group">
+                 <label for="exampleInputPassword1">Gestation</label>
+            <input type="text" class="form-control" name="gestation">
+    </div>
 
     <div class="form-group">
-    <label for="exampleInputEmail1">Can suck/Breastfeed?</label>
-   <label>No</label> <input type="radio" value="No"  name="breastfeed"/>
-   <label>Yes</label><input type="radio" value="yes"  name="breastfeed"/>
+                 <label for="exampleInputPassword1">Temperature</label>
+            <input type="number" class="form-control" name="ipno">
+    </div>
+
+    <div class="form-group">
+    <label for="exampleInputEmail1">APGar?</label><br>
+   1m <input type="checkbox" value="1m"  name="apgar"/>
+   5m <input type="checkbox" value="5m"  name="apgar"/>
+   10m <input type="checkbox" value="10m"  name="apgar"/>
    </div>
 
    <div class="form-group">
-    <label for="exampleInputEmail1">Stiff Neck?</label>
-   <label>No</label> <input type="radio" value="No"  name="neck"/>
-   <label>Yes</label><input type="radio" value="Yes"  name="neck"/>
+                 <label for="exampleInputPassword1">Birth Weight</label>
+            <input type="number" class="form-control" name="birthweight">
+    </div>
+    <div class="form-group">
+                 <label for="exampleInputPassword1">Weight Now</label>
+            <input type="number" class="form-control" name="weightnow">
+    </div>
+
+       <div class="form-group">
+   <label for="exampleInputEmail1">BBA?</label><br>
+   No <input type="checkbox" value="No"  name="bba" />
+   Yes <input type="checkbox" value="yes"  name="bba"  />
+    
+</label>
+
+<div class="yes"  style="display: none">
+    <label>Born Where?</label><br>
+  Home  <input type="checkbox" value="Home"  name="bba_where"/>
+  Clinic  <input type="checkbox" value="Clinic"  name="bba_where" />
+  Other Hospitals <input type="checkbox" value="Other"  name="bba_where" />
+    
+</div>
+</div>
+
+<div class="form-group">
+    <label for="exampleInputEmail1">Delivery?</label><br>
+   SDV <input type="checkbox" value="SDV"  name="delivery"/>
+   Vacuum <input type="checkbox" value="vaccum"  name="delivery"/>
+   Breech <input type="checkbox" value="breech"  name="delivery"/>
+   Cs <input type="checkbox" value="cs"  name="delivery"/>
+   
    </div>
 
    <div class="form-group">
-    <label for="exampleInputEmail1">Bulging fontanelle?</label>
-   <label>No</label> <input type="radio" value="No"  name="bulging"/>
-   <label>Yes</label><input type="radio" value="Yes"  name="bulging"/>
+   <label>Resuscitation?</label><br>
+   None <input type="checkbox" value="None"  name="resuscitation"/>
+   Oxygen <input type="checkbox" value="Oxygen"  name="resuscitation"/>
+   Bag/Mask <input type="checkbox" value="Bag/Mask"  name="resuscitation"/>
+   </div>
+
+   <div class="form-group">
+   <label>ROM?</label><br>
+  -<12h <input type="checkbox" value="-<12h" name="rom"/>
+  12-18>18<input type="checkbox" value="12-18>18h" name="rom"/>
+     
    </div>
    <div class="form-group">
-    <label for="exampleInputEmail1">Reduced Movement/Tone ?</label>
-   <label>No</label> <input type="radio" value="No"  name="tone"/>
-   <label>Yes</label><input type="radio" value="Yes"  name="tone"/>
+   <label>Given Vitamen: K?</label><br>
+   Yes <input type="checkbox" name="vitamen" value="Yes">
+   No <input type="checkbox" name="vitamen" value="No">
+     
+   </div>
+
+   <div class="form-group">
+     <label>Given Eye Prophylaxis?</label><br>
+      Yes <input type="checkbox" name="prophylaxis" value="Yes">
+   No <input type="checkbox" name="prophylaxis" value="No">
+   </div>
+    <h2> Mother Details</h2>
+    <div class="form-group">
+    <label for="exampleInputEmail1">Can suck/Breastfeed?</label><br>
+   No <input type="checkbox" value="No"  name="breastfeed"/>
+   Yes <input type="checkbox" value="yes"  name="breastfeed"/>
+   </div>
+
+   <div class="form-group">
+    <label for="exampleInputEmail1">Stiff Neck?</label><br>
+   No <input type="checkbox" value="No"  name="neck"/>
+   Yes <input type="checkbox" value="Yes"  name="neck"/>
+   </div>
+
+   <div class="form-group">
+    <label for="exampleInputEmail1">Bulging fontanelle?</label><br>
+   No <input type="checkbox" value="No"  name="bulging"/>
+   Yes <input type="checkbox" value="Yes"  name="bulging"/>
+   </div>
+   <div class="form-group">
+    <label for="exampleInputEmail1">Reduced Movement/Tone ?</label><br>
+    No <input type="checkbox" value="Yes"  name="tone"/>
+    Yes <input type="checkbox" value="Yes"  name="tone"/>
    </div> 
     <div class="form-group">
-    <label for="exampleInputPassword1">Umbilicus</label>
-    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Clean,Local Pus, Plus + Red Skin" name="umbilicus"  required>
-    </div>
-    <div class="form-group">
-    <label for="exampleInputPassword1">Skin</label>
-    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Brusing,Rash,Postules" name="skin"  required>
-    </div>
-    <div class="form-group">
-    <label for="exampleInputPassword1">Jaundice</label>
-    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="None,+,+++" name="jaundice"  required>
-    </div>
-    <div class="form-group">
-    <label for="exampleInputPassword1">Gest/Size</label>
-    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Clean,Local Pus, Plus + Red Skin" name="size"  required>
-    </div>
+    <label for="exampleInputPassword1">Umbilicus?</label><br>
     
+       Clean <input type="checkbox" value="Clean"  name="umbilicus"/>
+       Local Pus <input type="checkbox" value="Local Pus"  name="umbilicus"/>
+       Plus + Red Skin <input type="checkbox" value="Plus + Red Skin"  name="umbilicus"/>
+      
+    </div>
+    <div class="form-group">
+    <label for="exampleInputPassword1">Skin?</label><br>
+    
+     Brusing  <input type="checkbox" value="Brusing"  name="skin"/>
+      Rash  <input type="checkbox" value="Rash"  name="skin"/>
+      Postules  <input type="checkbox" value="Postules"  name="skin"/>
+    </div>
+    <div class="form-group">
+    <label for="exampleInputPassword1">Jaundice</label><br>
+    
+    None <input type="checkbox" value="None"  name="jaundice"/>
+       +  <input type="checkbox" value="+"  name="jaundice"/>
+     +++  <input type="checkbox" value="+++"  name="jaundice"/>
+
+    </div>
+    <div class="form-group">
+    <label for="exampleInputPassword1">Gest/Size</label><br>
+    
+    Clean <input type="checkbox" value="Brusing"  name="size"/>
+    Local Pus  <input type="checkbox" value="Brusing"  name="size"/>
+    Plus + Red Skin <input type="checkbox" value="Brusing"  name="size"/>
+    </div>
+
+    <div class="form-group">
+    <label for="exampleInputPassword1">Stridor?</label><br>
+    No <input type="checkbox" value="No"  name="stridor"/>
+    Yes  <input type="checkbox" value="Yes"  name="stridor"/>
+    </div>
+
+    <div class="form-group">
+    <label>Oxygen Saturation (enter(represent this in %)?</label>
+    <input type="text" name="oxygen_saturation" class="form-control">
+    </div>
+    <div class="form-group">
+    <label>Central Cyanosis?</label><br>
+    No <input type="checkbox" value="No"  name="cyanosis"/>
+    Yes  <input type="checkbox" value="Yes"  name="cyanosis"/>
+    </div>
+    <div class="form-group">
+    <label>InDrawing</label><br>
+    None <input type="checkbox" name="indrawing" value="None">
+    Severe <input type="checkbox" name="indrawing" value="Severe">
+    Sternum <input type="checkbox" name="indrawing" value="Sternum">
+      
+    </div>  
+    <div class="form-group">
+    <label for="exampleInputPassword1">Grunting?</label><br>
+    No <input type="checkbox" value="No"  name="grunting"/>
+    Yes  <input type="checkbox" value="Yes"  name="grunting"/>
+    </div>  
+    <div class="form-group">
+    <label for="exampleInputPassword1">Air Entry Bilateral?</label><br>
+    No <input type="checkbox" value="No"  name="air_entry"/>
+    Yes  <input type="checkbox" value="Yes"  name="air_entry"/>
+    </div>
+    <div class="form-group">
+    <label>Crackles</label>
+    No <input type="checkbox" value="No"  name="crackles"/>
+    Yes  <input type="checkbox" value="Yes"  name="crackles"/>
+    </div>
+    <div class="form-group">
+    <label>Cry?</label><br>
+    Normal <input type="checkbox" value="No"  name="cry"/>
+    Hoarse  <input type="checkbox" value="Yes"  name="cry"/>
+    Weak  <input type="checkbox" value="Yes"  name="cry"/>
+    </div>
+    <div class="form-group">
+    <label>Femoral Pulse</label><br>
+    Normal <input type="checkbox" value="Normal"  name="femoral_pulse"/>
+    Weak <input type="checkbox" value="Weak"  name="femoral_pulse"/>
+    </div>
+  <div class="form-group">
+    <label>Cap Refill</label><br>
+    Possible <input type="checkbox" name="refill" value="possible" />
+    Not Possible <input type="checkbox" name="refill" value="notpossible">
+    <div class="possible"  style="display: none">
+    <label>In Seconds?</label><br>
+  <input type="number" name="Seconds">
+    
+</div>
+  </div>
+
+  <div class="form-group">
+    <label>Murmur</label><br>
+    Yes <input type="checkbox" name="Murmur" value="Murmur_Yes" />
+    No <input type="checkbox" name="Murmur" value="Murmur_No">
+    <div class="possible"  style="display: none">
+    <label>Yes?</label><br>
+  <input type="text" name="murmur_yes">
+    
+</div>
+  </div>
+  <div class="form-group">
+  <label>Pallar/Anaemia</label><br>
+  0 <input type="checkbox" name="anaemia" value="0" />
+  + <input type="checkbox" name="anaemia" value="+">
+  +++ <input type="checkbox" name="anaemia" value="+++">
+    
+  </div>
+
+
+<div class="form-group">
+  <label>Skin Cold</label><br>
+  Hand <input type="checkbox" name="skin_cold" value="Hand" />
+  Elbow <input type="checkbox" name="skin_cold" value="Elbow">
+  Shoulder <input type="checkbox" name="skin_cold" value="Shoulder">
+    
+  </div>
+   
   
 
 </div>
@@ -365,6 +555,237 @@
   </div>
   </div>
   <div class="col-lg-6">
+  <div class="form-group">
+  <label>Age</label>
+  <input type="text" name="age" placeholder="mother age" class="form-control" />
+    
+  </div>
+  <div class="form-group">
+  <label>Gravidity</label><br>
+  <input type="text" name="gravidity" placeholder="mother gravidity" class="form-control" />
+    
+  </div>
+  <div class="form-group">
+  <label>Parity</label><br>
+  <input type="text" name="parity" class="form-control" placeholder="mother parity" />
+    
+  </div>
+  <div class="form-group">
+              <label for="exampleInputEmail1">Blood Group</label>
+              <select class="form-control" name="blood_type">
+              <option value="O +">O +</option>
+              <option value="O -">O -</option>
+              <option value="A +">A +</option>
+              <option value="A -">A -</option>
+              <option value="B +">B +</option>
+              <option value="B -">B -</option>
+              <option value="AB +">AB +</option>
+              <option value="AB -">AB -</option>
+              </select>
+              </div>
+ <div class="form-group">
+ <label>Sublocation</label>
+ <input type="text" name="sublocation" class="form-control">
+   
+ </div>
+     <div class="form-group">
+   <label for="exampleInputEmail1">Hiv status?</label><br>
+   Negative <input type="checkbox" value="Negative"  name=hiv />
+   Positive <input type="checkbox" value="Positive"  name="hiv"  />
+
+<div class="Positive"  style="display: none">
+    <label>ARV's</label><br>
+  No  <input type="checkbox" value="No"  name="arvs"/>
+  Yes  <input type="checkbox" value="Yes"  name="arvs" />
+     
+</div>
+</div>
+<div class="form-group">
+<label>VDRL</label><br>
+ Negative <input type="checkbox" value="Negative"  name="vdrl" />
+   Positive <input type="checkbox" value="Positive"  name="vdrl"  />
+ 
+</div>
+
+<div class="form-group">
+<label>Fever</label><br>
+ No <input type="checkbox" value="No"  name="fever" />
+   Yes <input type="checkbox" value="Yes"  name="fever"  />
+ 
+</div>
+<div class="form-group">
+<label>Antibiotics?</label><br>
+Yes <input type="checkbox" name="antibiotics" value="Yes" />
+No <input type="checkbox" name="antibiotics" value="No" />
+  
+</div>
+
+<div class="form-group">
+<label>Diabetes?</label><br>
+Yes <input type="checkbox" name="diabetes" value="Yes" />
+No <input type="checkbox" name="diabetes" value="No" />
+  
+</div>
+<div class="form-group">
+<label>TB Positive?</label><br>
+Yes <input type="checkbox" name="tb" value="Yes" />
+No <input type="checkbox" name="tb" value="No" />
+  
+</div>
+<div class="form-group">
+<label>TB Treatment?</label><br>
+Yes <input type="checkbox" name="tb_treatment" value="Yes" />
+No <input type="checkbox" name="tb_treatment" value="No" />
+  
+</div>
+<div class="form-group">
+<label>Labour</label><br>
+1 stage <input type="text" name="labour1" class="form-control" placeholder="Enter Hours"/>
+2 stage <input type="text" name="labour2" class="form-control" placeholder="Enter Minutes"/>
+</div>
+
+<div class="form-group">
+<label>Hypertention?</label><br>
+Yes <input type="checkbox" name="hypertention" value="Yes" />
+No <input type="checkbox" name="hypertention" value="No" />
+  </div>
+
+<div class="form-group">
+<label>APH?</label><br>
+Yes <input type="checkbox" name="aph" value="Yes" />
+No <input type="checkbox" name="aph" value="No" />
+  </div>
+<div class="form-group">
+<label>Babies Presenting Problems?</label>
+<textarea name="babyproblem" class="form-control"></textarea>
+  
+</div>
+
+<div class="form-group">
+<label>Mother Presenting Problems?</label>
+<textarea name="motherproblem" class="form-control"></textarea>
+  
+</div>
+<div class="form-group">
+<label>Revelant Drugs( Pre Admission)</label>
+<textarea name="revelantdrugs" class="form-control"></textarea>
+  
+</div>
+
+<h2>General Examination</h2>
+<div class="form-group">
+<label>Oral thrush?</label><br>
+Yes <input type="checkbox" name="oral" value="Yes" />
+No <input type="checkbox" name="oral" value="No" />
+  </div>
+<div class="form-group">
+<label>Lympn N>1cm?</label><br>
+Yes <input type="checkbox" name="lympn" value="Yes" />
+No <input type="checkbox" name="lympn" value="No" />
+  </div>
+    <div class="form-group">
+   <label for="exampleInputEmail1">Fever?</label><br>
+   No<input type="checkbox" value="No"  name="fevers" />
+   Yes <input type="checkbox" value="Yes"  name="fevers"  />
+
+<div class="Yes"  style="display: none">
+    <label>Number of days</label><br>
+  <input type="number" value="No"  name="days"/>
+  
+     
+</div>
+</div>
+<div class="form-group">
+<label>Difficulty Breathing?</label>
+ No  <input type="checkbox" value="No"  name="fevers" />
+ Yes <input type="checkbox" value="Yes"  name="fevers"  />
+  
+</div>
+
+ <div class="form-group">
+   <label for="exampleInputEmail1">Diarrhoea?</label><br>
+   No<input type="checkbox" value="No"  name="diarrhoea" />
+   Yes <input type="checkbox" value="Yes"  name="diarrhoea"  />
+
+<div class="Yes"  style="display: none">
+    <label>Number of days</label><br>
+  <input type="number" value="No"  name="diarrhoea_days"/>
+  
+     
+</div>
+</div>
+<div class="form-group">
+<label>Contact with TB?</label>
+ No  <input type="checkbox" value="No"  name="contact_tb" />
+ Yes <input type="checkbox" value="Yes"  name="contact_tb"  />
+  
+</div>
+
+<div class="form-group">
+<label>Chronic Cough(last 12 Months)?</label>
+ No  <input type="checkbox" value="No"  name="cough" />
+ Yes <input type="checkbox" value="Yes"  name="cough"  />
+  
+</div>
+
+<div class="form-group">
+<label>Diarrhoea-Bloody?</label>
+ No  <input type="checkbox" value="No"  name="diarrhoea_bloody" />
+ Yes <input type="checkbox" value="Yes"  name="diarrhoea_bloody"  />
+  
+</div>
+
+<div class="form-group">
+<label>Vomiting Yes/No?</label>
+ No  <input type="checkbox" value="No"  name="vomiting" />
+ Yes <input type="checkbox" value="Yes"  name="vomiting"  />
+ <div class="Yes"  style="display: none">
+    <label>number per 24 hours</label><br>
+  <input type="number"  name="vomiting_hours"/>
+  </div>
+</div>
+
+<div class="form-group">
+<label>Vomits Everything?</label>
+ No  <input type="checkbox" value="No"  name="vomits_eveything" />
+ Yes <input type="checkbox" value="Yes"  name="vomits_eveything"  />
+  
+</div>
+
+<div class="form-group">
+<label>Difficult Feeding?</label>
+ No  <input type="checkbox" value="No"  name="feeding_difficult" />
+ Yes <input type="checkbox" value="Yes"  name="feeding_difficult"  />
+  
+</div>
+
+<div class="form-group">
+<label>Convulsion</label>
+No  <input type="checkbox" value="No"  name="convulsion" />
+ Yes <input type="checkbox" value="Yes"  name="convulsion"  />
+ <div class="Yes"  style="display: none">
+    <label>number per 24 hours</label><br>
+  <input type="number"  name="convulsion_hours"/>
+  </div>
+  
+</div>
+<div class="form-group">
+<label>Partial/Focal Fits?</label>
+ No  <input type="checkbox" value="No"  name="fits" />
+ Yes <input type="checkbox" value="Yes"  name="fits"  />
+  
+</div>
+
+<div class="form-group">
+<label>Apnoea?</label>
+ No  <input type="checkbox" value="No"  name="apnoea" />
+ Yes <input type="checkbox" value="Yes"  name="apnoea"  />
+  
+</div>
+
+
+
+
   <h2> Abonormalities-Tick All Relevant and Describe</h2>
 <?php $abs=DB::table('abnormalities')->get(); ?>
 @foreach($abs as $ab )

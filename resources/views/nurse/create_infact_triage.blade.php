@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.nurse')
 
 @section('content')
 <div class="col-lg-6">
@@ -53,15 +53,19 @@
       </div>
       <div class="ibox-content">
 
-    <div class="form-group">
-    <label for="exampleInputEmail1">Allergies</label><br>
-
-    <?php  $allergies = DB::table('allergies')->get();?>
-                  @foreach($allergies as $allergy)
-                  <input type="checkbox"  name="allergy[]" value="{{$allergy->name}}"> {{$allergy->name}}
-                 @endforeach
-
-    </div>
+<div class="form-group">
+<label>Vomiting Yes/No?</label>
+ No  <input type="checkbox" value="No"  name="vomiting" />
+ Yes <input type="checkbox" value="Yes"  name="vomiting"  />
+ <div class="Yes"  style="display: none">
+    <label>number per 24 hours</label><br>
+  <input type="number"  name="vomiting_hours"/>
+  </div>
+  <div class="No"  style="display: none">
+    <label>number  24 hours</label><br>
+  <input type="number"  name="vomiting_hours"/>
+  </div>
+</div>
  
     
     

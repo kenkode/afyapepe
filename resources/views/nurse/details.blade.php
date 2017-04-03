@@ -57,7 +57,18 @@
 
     <?php  $allergies = DB::table('allergies')->get();?>
                   @foreach($allergies as $allergy)
-                  <input type="checkbox"  name="allergy[]" value="{{$allergy->name}}"> {{$allergy->name}}
+                  <div class="form-group">
+   <label for="chkPassport">
+    <input type="checkbox" id="chkPassport" name="allergy[]" value="{{$allergy->name}}"/>
+   {{${{$allergy->name}}->name}}
+</label>
+
+<div class="{{$allergy->name}}"  style="display: none">
+    <label>Describe:</label><br>
+    <textarea rows="3" cols="50" name="abs_detail"></textarea>
+</div>
+</div>
+                 
                  @endforeach
 
     </div>

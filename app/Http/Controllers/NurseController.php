@@ -326,7 +326,7 @@ return Redirect::route('nurse.show', [$id]);
     }
 
     public function createinfantDetails (Request $request){
-        $id=$request->id;
+       $id=$request->id;
         $weight=$request->weight;
         $heightS=$request->current_height;
         $temperature=$request->temperature;
@@ -338,18 +338,94 @@ return Redirect::route('nurse.show', [$id]);
         $symptoms=$request->symptoms;
         $nurse=$request->nurse;
         $doctor=$request->doctor;
-        $allergy=$request->allergy;
+        
+       
+       
+       
+        
+       
 
-$allergy=implode(',', $allergy);
-$allergies=explode(',', $allergy);
-foreach ($allergies as $all) {
 
-   DB::table('afya_users_allergy')->insert([
+
+$drugs=$request->drugs;
+if($drugs){
+foreach($drugs as $key =>$drug) {
+     DB::table('afya_users_allergy')->insert([
     'afya_user_id'=>$id,
-    'allergy_name'=>$all,
+    'allergy_name'=>'Drug Allergy',
+    'allergy_id'=>$drug,
     'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
     'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
 }
+}
+ $foods=$request->foods;
+ if($foods){
+foreach($foods as $key) {
+    DB::table('afya_users_allergy')->insert([
+    'afya_user_id'=>$id,
+    'allergy_name'=>'Food Allergy',
+    'allergy_id'=>$key,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
+}
+}
+ $latexs=$request->latexs;
+ if($latexs){
+foreach($latexs as $key) {
+   DB::table('afya_users_allergy')->insert([
+    'afya_user_id'=>$id,
+    'allergy_name'=>'Latex Allergy',
+    'allergy_id'=>$key,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
+}
+}
+
+ $molds=$request->molds;
+ if($molds){
+   DB::table('afya_users_allergy')->insert([
+    'afya_user_id'=>$id,
+    'allergy_name'=>'Mold Allergy',
+    'allergy_id'=>$molds,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
+}
+$pets=$request->pets;
+if($pets)
+{
+foreach($pets as $key) {
+    DB::table('afya_users_allergy')->insert([
+    'afya_user_id'=>$id,
+    'allergy_name'=>'Pets Allergy',
+    'allergy_id'=>$key,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
+}
+}
+
+$pollens=$request->pollens;
+if($pollens) {   
+   DB::table('afya_users_allergy')->insert([
+    'afya_user_id'=>$id,
+    'allergy_name'=>'Pollen Allergy',
+    'allergy_id'=>$pollens,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
+}
+
+$insects=$request->insects;
+if($insects)
+{
+foreach($insects as $key) {
+    DB::table('afya_users_allergy')->insert([
+    'afya_user_id'=>$id,
+    'allergy_name'=>'Insect Allergy',
+    'allergy_id'=>$key,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
+}
+}
+
 $chiefcompliant = implode(',', $chiefcompliant);
 $appointment=DB::table('appointments')->where('persontreated', $id)->orderBy('created_at', 'desc')->first();
 
@@ -371,11 +447,11 @@ $appointment=DB::table('appointments')->where('persontreated', $id)->orderBy('cr
 
 );
 
-DB::table('appointments')->where('persontreated',$appointment->id)->update([
+DB::table('appointments')->where('id',$appointment->id)->update([
     'status'=>2]);
 
 
-        return redirect()->action('NurseController@showDependents',[$id]);
+        return redirect()->action('NurseController@index');
     }
 
     public function createdetails(Request $request)
@@ -392,18 +468,95 @@ DB::table('appointments')->where('persontreated',$appointment->id)->update([
         $symptoms=$request->symptoms;
         $nurse=$request->nurse;
         $doctor=$request->doctor;
-        $allergy=$request->allergy;
+        
+       
+       
+       
+        
+       
 
-$allergy=implode(',', $allergy);
-$allergies=explode(',', $allergy);
-foreach ($allergies as $all) {
 
-   DB::table('afya_users_allergy')->insert([
+
+$drugs=$request->drugs;
+if($drugs){
+foreach($drugs as $key =>$drug) {
+     DB::table('afya_users_allergy')->insert([
     'afya_user_id'=>$id,
-    'allergy_name'=>$all,
+    'allergy_name'=>'Drug Allergy',
+    'allergy_id'=>$drug,
     'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
     'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
 }
+}
+ $foods=$request->foods;
+ if($foods){
+foreach($foods as $key) {
+    DB::table('afya_users_allergy')->insert([
+    'afya_user_id'=>$id,
+    'allergy_name'=>'Food Allergy',
+    'allergy_id'=>$key,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
+}
+}
+ $latexs=$request->latexs;
+ if($latexs){
+foreach($latexs as $key) {
+   DB::table('afya_users_allergy')->insert([
+    'afya_user_id'=>$id,
+    'allergy_name'=>'Latex Allergy',
+    'allergy_id'=>$key,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
+}
+}
+
+ $molds=$request->molds;
+ if($molds){
+   DB::table('afya_users_allergy')->insert([
+    'afya_user_id'=>$id,
+    'allergy_name'=>'Mold Allergy',
+    'allergy_id'=>$molds,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
+}
+$pets=$request->pets;
+if($pets)
+{
+foreach($pets as $key) {
+    DB::table('afya_users_allergy')->insert([
+    'afya_user_id'=>$id,
+    'allergy_name'=>'Pets Allergy',
+    'allergy_id'=>$key,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
+}
+}
+
+$pollens=$request->pollens;
+if($pollens) {   
+   DB::table('afya_users_allergy')->insert([
+    'afya_user_id'=>$id,
+    'allergy_name'=>'Pollen Allergy',
+    'allergy_id'=>$pollens,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
+}
+
+$insects=$request->insects;
+if($insects)
+{
+foreach($insects as $key) {
+    DB::table('afya_users_allergy')->insert([
+    'afya_user_id'=>$id,
+    'allergy_name'=>'Insect Allergy',
+    'allergy_id'=>$key,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
+}
+}
+
+
 $chiefcompliant = implode(',', $chiefcompliant);
 $appointment=DB::table('appointments')->where('afya_user_id', $id)->orderBy('created_at', 'desc')->first();
 

@@ -54,54 +54,77 @@
 
     <div class="form-group">
 <label>Allergies</label><br>
- Drug Allergy <input type="checkbox" value="Drug"  name="drug" />
- <div class="Drug"  style="display: none">
+ Drug Allergy <input type="checkbox" value="drug"  name="drug" />
+ <div class="drug"  style="display: none">
     <label>Drug Name</label><br>
- <select multiple="multiple" class="form-control" name="drugname[]"  >
+ <select multiple="multiple" class="form-control" name="drugs[]">
     <?php $druglists = DB::table('druglists')->get();?>
                   @foreach($druglists as $druglist)
                    <option value="{{$druglist->id}}">{{$druglist->drugname}}</option>
                  @endforeach
                 </select>
-  <label>Ingredients</label><br>
-  <select multiple="multiple" class="form-control" name="ingredients[]"  >
-   <?php $druglists = DB::table('druglists')->get();?>
-                  @foreach($druglists as $druglist)
-                   <option value="{{$druglist->id}}">{{$druglist->Ingredients}}</option>
-                 @endforeach
-                </select>
-  </div>
+    </div>
 
  Food Allergy <input type="checkbox" value="food"  name="food" />
  <div class="food"  style="display: none">
     <label>Food Allergy Name</label><br>
-  <input type="text"  name="food_allergy_name"  class="form-control" />
+ <select multiple="multiple" class="form-control" name="foods[]"  >
+    <?php $foods = DB::table('food_allergy')->get();?>
+                  @foreach($foods as $food)
+                   <option value="{{$food->id}}">{{$food->name}}</option>
+                 @endforeach
+                </select>
   </div>
  Latex Allergy <input type="checkbox" value="latex"  name="latex" />
  <div class="latex"  style="display: none">
     <label>Latex Allergy Name</label><br>
-  <input type="text"  name="latex_allergy_name" class="form-control" />
+   <select multiple="multiple" class="form-control" name="latexs[]"  >
+    <?php $latexs = DB::table('Latex_allergy')->get();?>
+                  @foreach($latexs as $latex)
+                   <option value="{{$latex->id}}">{{$latex->name}}</option>
+                 @endforeach
+                </select>
   </div>
  Mold Allergy  <input type="checkbox" value="mold"  name="mold" />
  <div class="mold"  style="display: none">
     <label>Mold Allergy</label><br>
-  <input type="text"  name="mold_allergy_name" class="form-control" />
+ <select multiple="multiple" class="form-control" name="molds[]"  >
+    <?php $molds = DB::table('mold_allergy')->get();?>
+                  @foreach($molds as $mold)
+                   <option value="{{$mold->id}}">{{$mold->name}}</option>
+                 @endforeach
+                </select>
   </div>
  Pet Allergy   <input type="checkbox" value="pet"  name="pet" />
  <div class="pet"  style="display: none">
     <label>Pet Allergy Name</label><br>
-  <input type="text"  name="pet_allergy_name" class="form-control" />
+ <select multiple="multiple" class="form-control" name="pets[]"  >
+    <?php $pets = DB::table('pet_allergy')->get();?>
+                  @foreach($pets as $pet)
+                   <option value="{{$pet->id}}">{{$pet->name}}</option>
+                 @endforeach
+                </select>
   </div>
  Pollen Allergy  <input type="checkbox" value="pollen"  name="pollen" />
  <div class="pollen"  style="display: none">
     <label>Pollen Allergy Name</label><br>
-  <input type="text"  name="pollen_allergy_name" class="form-control" />
+  <select multiple="multiple" class="form-control" name="pollens[]"  >
+    <?php $pollens = DB::table('pollen_allergy')->get();?>
+                  @foreach($pollens as $pollen)
+                   <option value="{{$pollen->id}}">{{$pollen->name}}</option>
+                 @endforeach
+                </select>
   </div>
  Insect Allergy  <input type="checkbox" value="insect"  name="insect"  />
  
   <div class="insect"  style="display: none">
     <label>Insect Allergy Name</label><br>
-  <input type="text"  name="insect_allergy_name" class="form-control" />
+    <select multiple="multiple" class="form-control" name="insects[]"  >
+    <?php $insects = DB::table('insect_allergy')->get();?>
+                  @foreach($insects as $insect)
+                   <option value="{{$insect->id}}">{{$insect->name}}</option>
+                 @endforeach
+                </select>
   </div>
 </div>
  

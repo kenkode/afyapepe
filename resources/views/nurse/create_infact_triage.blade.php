@@ -54,16 +54,55 @@
       <div class="ibox-content">
 
 <div class="form-group">
-<label>Vomiting Yes/No?</label>
- No  <input type="checkbox" value="No"  name="vomiting" />
- Yes <input type="checkbox" value="Yes"  name="vomiting"  />
- <div class="Yes"  style="display: none">
-    <label>number per 24 hours</label><br>
-  <input type="number"  name="vomiting_hours"/>
+<label>Allergies</label><br>
+ Drug Allergy <input type="checkbox" value="Drug"  name="drug" />
+ <div class="Drug"  style="display: none">
+    <label>Drug Name</label><br>
+ <select multiple="multiple" class="form-control" name="drugname[]"  >
+    <?php $druglists = DB::table('druglists')->get();?>
+                  @foreach($druglists as $druglist)
+                   <option value="{{$druglist->id}}">{{$druglist->drugname}}</option>
+                 @endforeach
+                </select>
+  <label>Ingredients</label><br>
+  <select multiple="multiple" class="form-control" name="ingredients[]"  >
+   <?php $druglists = DB::table('druglists')->get();?>
+                  @foreach($druglists as $druglist)
+                   <option value="{{$druglist->id}}">{{$druglist->Ingredients}}</option>
+                 @endforeach
+                </select>
   </div>
-  <div class="No"  style="display: none">
-    <label>number  24 hours</label><br>
-  <input type="number"  name="vomiting_hours"/>
+
+ Food Allergy <input type="checkbox" value="food"  name="food" />
+ <div class="food"  style="display: none">
+    <label>Food Allergy Name</label><br>
+  <input type="text"  name="food_allergy_name"  class="form-control" />
+  </div>
+ Latex Allergy <input type="checkbox" value="latex"  name="latex" />
+ <div class="latex"  style="display: none">
+    <label>Latex Allergy Name</label><br>
+  <input type="text"  name="latex_allergy_name" class="form-control" />
+  </div>
+ Mold Allergy  <input type="checkbox" value="mold"  name="mold" />
+ <div class="mold"  style="display: none">
+    <label>Mold Allergy</label><br>
+  <input type="text"  name="mold_allergy_name" class="form-control" />
+  </div>
+ Pet Allergy   <input type="checkbox" value="pet"  name="pet" />
+ <div class="pet"  style="display: none">
+    <label>Pet Allergy Name</label><br>
+  <input type="text"  name="pet_allergy_name" class="form-control" />
+  </div>
+ Pollen Allergy  <input type="checkbox" value="pollen"  name="pollen" />
+ <div class="pollen"  style="display: none">
+    <label>Pollen Allergy Name</label><br>
+  <input type="text"  name="pollen_allergy_name" class="form-control" />
+  </div>
+ Insect Allergy  <input type="checkbox" value="insect"  name="insect"  />
+ 
+  <div class="insect"  style="display: none">
+    <label>Insect Allergy Name</label><br>
+  <input type="text"  name="insect_allergy_name" class="form-control" />
   </div>
 </div>
  

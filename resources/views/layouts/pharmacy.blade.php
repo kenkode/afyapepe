@@ -24,7 +24,7 @@
     <link href="{!! asset('css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css') !!}" rel="stylesheet">
     <link href="{!! asset('css/plugins/iCheck/custom.css') !!}" rel="stylesheet">
 
-
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
 </head>
 

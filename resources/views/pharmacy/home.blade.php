@@ -8,7 +8,7 @@
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                   <h5>Prescription Details</h5>
-                    
+
                 </div>
                 <div class="ibox-content">
 
@@ -20,7 +20,6 @@
                           <th>Patient Name</th>
                           <th>Age</th>
                           <th>Gender</th>
-
                           <th>Prescribing Doctor</th>
                           <th>Date of Prescription</th>
                     </tr>
@@ -56,7 +55,7 @@
                                   <td><a href="{{route('pharmacy.show',$result->presc_id)}}">{{$i}}</a></td>
                                   <td><a href="{{route('pharmacy.show',$result->presc_id)}}">{{$name}}</a></td>
                                   <td><a href="{{route('pharmacy.show',$result->presc_id)}}">{{$age}}</td>
-                                  <td><a href="{{route('pharmacy.show',$result->id)}}">{{$gender}}</a></td>
+                                  <td><a href="{{route('pharmacy.show',$result->presc_id)}}">{{$gender}}</a></td>
 
                                   <td><a href="{{route('pharmacy.show',$result->presc_id)}}">{{$daktari}} </td>
                                   <td><a href="{{route('pharmacy.show',$result->presc_id)}}">{{$presc_date}}</td>

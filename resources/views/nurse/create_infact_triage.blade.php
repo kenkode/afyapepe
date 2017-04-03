@@ -4,12 +4,13 @@
 <div class="col-lg-6">
     <div class="ibox float-e-margins">
       <div class="ibox-title">
-          <h5>Patient Details</h5>
+          <h5>Child Details</h5>
 
       </div>
       <div class="ibox-content">
-
- {!! Form::open(array('route' => 'createdetail','method'=>'POST')) !!}
+      <form action="{{ url('createinfantdetails') }}"   method="post">
+ <input type="hidden" name="_token" value="{{ Session::token() }}"/>
+ 
     <div class="form-group">
     <input type="hidden" class="form-control" id="exampleInputEmail1S" aria-describedby="emailHelp" value="{{$id}}" name="id"  required>
     <div class="form-group">
@@ -48,7 +49,7 @@
 <div class="col-lg-6">
     <div class="ibox float-e-margins">
       <div class="ibox-title">
-          <h5>Patient Observations</h5>
+          <h5>Child Observations</h5>
       </div>
       <div class="ibox-content">
 
@@ -99,26 +100,7 @@
     </textarea>
 
     </div>
-    <?php $db=DB::table('afya_users')->where('id',$id)->first(); $gender=$db->gender; ?>
-    @if($gender==1)
-
-    @else
-    <div class="form-group">
-    <label for="exampleInputPassword1">Pregnant?</label>
-    <input type="radio" value="No"  name="pregnant"> No <input type="radio" value="Yes"  name="pregnant"> Yes
-    </div>
-   @endif
-
-
-    <div class="form-group">
-    <label for="exampleInputEmail1">Consulting Physician</label>
-    <select class="form-control" name="doctor" >
-    <?php $doctors = DB::table('users')->Where('role', '=','Doctor')->get();?>
-                  @foreach($doctors as $doctor)
-                   <option value="{{$doctor->id}}">{{$doctor->name}}</option>
-                 @endforeach
-                </select>
-    </div>
+    
 
     <button type="submit" class="btn btn-primary">Save</button>
      {!! Form::close() !!}

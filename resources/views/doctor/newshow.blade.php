@@ -18,9 +18,10 @@
          <tbody id="products-list" name="products-list">
            @foreach ($testresult as $tres)
             <tr id="product{{$tres->id}}">
-             <td>{{$tres->id}}</td>
-             <td>{{$tres->patient_id}}</td>
-             <td>{{$tres->appointment_id}}</td>
+             <td>{{$tres->created_at}}</td>
+             <td>{{$tres->name}}</td>
+             <td>{{$tres->disease}}</td>
+
               <td>
               <button class="btn btn-warning btn-detail open_modal" value="{{$tres->id}}">Edit</button>
               <button class="btn btn-danger btn-delete delete-product" value="{{$tres->id}}">Delete</button>

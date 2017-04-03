@@ -29,9 +29,37 @@ class TestController extends Controller
     public function index()
     {
 
-        return view('test.home');
+      $tsts = DB::table('patient_test')
+      ->Join('appointments', 'patient_test.appointment_id', '=', 'appointments.id')
+      ->Join('afya_users', 'appointments.afya_user_id', '=', 'afya_users.id')
+      ->Join('patient_test_details', 'patient_test.id', '=', 'patient_test_details.patient_test_id')
+      ->Join('diseases', 'patient_test_details.conditional_diagnosis', '=', 'diseases.code')
+      ->select('afya_users.*','diseases.name as disease','patient_test_details.created_at as date')
+      ->where('patient_test.test_status', '=',0)
+      ->get();
+
+        return view('test.home')->with('tsts',$tsts);
     }
 
+public function testdetails($id){
+  $tsts = DB::table('patient_test')
+  ->Join('appointments', 'patient_test.appointment_id', '=', 'appointments.id')
+  ->Join('afya_users', 'appointments.afya_user_id', '=', 'afya_users.id')
+  ->Join('patient_test_details', 'patient_test.id', '=', 'patient_test_details.patient_test_id')
+  ->Join('diseases', 'patient_test_details.conditional_diagnosis', '=', 'diseases.code')
+  ->Join('lab_test', 'patient_test_details.tests_reccommended', '=', 'lab_test.id')
+  ->select('afya_users.*','diseases.name as disease','patient_test_details.created_at as date','patient_test_details.done',
+  'lab_test.test_type_id','lab_test.name as test','lab_test.sub_category','lab_test.category','lab_test.id as testid')
+  ->where('patient_test.id', '=',$id)
+  ->get();
+return view('test.pdetails')->with('tsts',$tsts);
+}
+
+public function testing(){
+
+    return view('test.test');
+
+}
     public function testSales(){
         return view('test.testsales');
 
@@ -117,7 +145,7 @@ function Strength(){
 return $Strength;
 }
 function RouteM(){
- $routem = DB::table('Route')
+ $routem = DB::table('route')
  ->get();
 return $routem;
 }

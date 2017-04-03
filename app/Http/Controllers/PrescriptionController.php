@@ -37,23 +37,28 @@ class PrescriptionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-  //   public function store(Request $request){
-  //     Prescription::create($request->all());
-  //     Prescription_detail::create($request->all());
-  //     return redirect()->route('newpatients');
-  //   // return view('doctor.newPatients');
-  //  }
+
    protected function store(Request $request)
    {
      $appid=$request['appointment_id'];
+
+
+
+      $pttids= Prescription::where('appointment_id',$appid)
+       ->first();
+
+      if (is_null($pttids)) {
+      //  - add new
       $Prescription=Prescription::create([
            'appointment_id' => $request['appointment_id'],
            'doc_id' => $request['doc_id'],
-           'patient_id' => $request['patient_id'],
-           'filled_status' => $request['filled_status'],
+           'filled_status' => 0,
       ]);
       $id=$Prescription->id;
-
+      } else {
+      // Already favorited - delete the existing
+       $id =$pttids->id;
+      }
 
     Prescription_detail::create([
            'presc_id' => $id,
@@ -64,9 +69,6 @@ class PrescriptionController extends Controller
            'strength_unit' => $request['strength_unit'],
            'routes' => $request['routes'],
            'frequency' => $request['frequency'],
-           'appointment_id' => $request['appointment_id'],
-
-
        ]);
 
 

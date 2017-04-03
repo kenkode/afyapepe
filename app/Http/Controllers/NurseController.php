@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use App\Observation;
+use App\Symptom;
 use Redirect;
 use Carbon\Carbon;
 use App\Http\Requests;
@@ -48,6 +49,79 @@ class NurseController extends Controller
 
     }
 
+    public function immunination($id){
+
+        
+
+        return view('nurse.immunination')->with('id',$id);
+    }
+
+   public function storeImmunization(Request $request){
+    $id=$request->id;
+    $userid=$request->userid;
+    $status=$request->status;
+    $vaccinename=$request->vaccine_name;
+    $vaccinedate=$request->vaccine_date;
+
+
+     DB::table('dependant_vaccination')->where('id',$id)->update(
+    ['status' => $status,
+    'status_date' =>$vaccinedate,
+    'vaccin_name'=> $vaccinename,
+     'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
+);
+
+
+return redirect()->action('NurseController@showDependents', [$userid]);
+
+   }
+
+   public function updateInfant(Request $request){
+
+    $id=$request->id;
+    $breastfeed=$request->breastfeed;
+    $neck=$request->neck;
+    $bulging=$request->bulging;
+    $tone=$request->tone;
+    $umbilicus=$request->umbilicus;
+    $skin=$request->skin;
+    $jaundice=$request->jaundice;
+    $size=$request->size;
+    $abs=$request->abs;
+   $detail=$request->abs_detail;
+
+     DB::table('infants_triage')->insert(
+    ['dependent_id' => $id,
+    'breast_feed' => $breastfeed,
+    'stiff_neck'=> $neck,
+    'bulging_fontance' =>$bulging,
+    'reduced_movement'  =>$tone,
+     'umbilicus'=>$umbilicus,
+     'skin'=>$skin,
+     'jaundice'=>$jaundice,
+     'gest_size'=>$size,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
+);
+
+foreach ($abs as $key => $abs) {
+    
+  
+    DB::table('infact_abnormalities')->insert(
+    ['dependent_id' => $id,
+    'name' => $abs,
+    'abnormalities_describe'=> $detail,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
+);
+
+}
+
+
+return redirect()->action('NurseController@showDependents', [$id]);
+   }
+   
     
     public function updateDependant($id){
 
@@ -129,6 +203,7 @@ return Redirect::route('nurse.show', [$id]);
     }
 
     public function immuninationChart($id){
+
         return view('nurse.chart')->with('id',$id);
     }
      
@@ -138,8 +213,22 @@ return Redirect::route('nurse.show', [$id]);
      
     public function showDependents($id)
     {
-        return view('nurse.showdependent')->with('id',$id);
+        $details=DB::table('triage_infacts')
+        ->Join('appointments','appointments.id','=','triage_infacts.appointment_id')
+        ->where('appointments.persontreated',$id)
+        ->select('triage_infacts.*')
+        ->orderBy('triage_infacts.id','desc')
+        ->get();
+
+        $dependant=DB::table('dependant')->where('id',$id)->first();
+        $end = Carbon::parse($dependant->dob);
+        $now = Carbon::now();
+        $length = $end->diffInDays($now);
+
+        return view('nurse.showdependent')->with('id',$id)->with('length',$length)->with('details',$details);
     }
+
+
 
     public function wList(){
       $patients = DB::table('afya_users')
@@ -223,8 +312,70 @@ return Redirect::route('nurse.show', [$id]);
     public function details($id){
 
        $observations=Observation::all();
-        return view('nurse.details')->with('id',$id)->with('observations',$observations);
+       $symptoms=Symptom::all();
+        return view('nurse.details')->with('id',$id)->with('observations',$observations)->with('symptoms',$symptoms);
 
+    }
+
+    public function infactDetails($id){
+
+     $observations=Observation::all();
+       $symptoms=Symptom::all();
+        return view('nurse.create_infact_triage')->with('id',$id)->with('observations',$observations)->with('symptoms',$symptoms);
+
+    }
+
+    public function createinfantDetails (Request $request){
+        $id=$request->id;
+        $weight=$request->weight;
+        $heightS=$request->current_height;
+        $temperature=$request->temperature;
+        $systolic=$request->systolic;
+        $diastolic=$request->diastolic;
+        $allergies=$request->allergies;
+        $chiefcompliant=$request->chiefcompliant;
+        $observation=$request->observation;
+        $symptoms=$request->symptoms;
+        $nurse=$request->nurse;
+        $doctor=$request->doctor;
+        $allergy=$request->allergy;
+
+$allergy=implode(',', $allergy);
+$allergies=explode(',', $allergy);
+foreach ($allergies as $all) {
+
+   DB::table('afya_users_allergy')->insert([
+    'afya_user_id'=>$id,
+    'allergy_name'=>$all,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
+}
+$chiefcompliant = implode(',', $chiefcompliant);
+$appointment=DB::table('appointments')->where('persontreated', $id)->orderBy('created_at', 'desc')->first();
+
+    DB::table('triage_infacts')->insert(
+    ['appointment_id' => $appointment->id,
+    
+    'current_weight'=> $weight,
+    'current_height'=>$heightS,
+    'temperature'=>$temperature,
+    'systolic_bp'=>$systolic,
+    'diastolic_bp'=>$diastolic,
+    'chief_compliant'=>$chiefcompliant,
+    'observation'=>$observation,
+    'symptoms'=>$symptoms,
+    'nurse_notes'=>$nurse,
+    'Doctor_note'=>'',
+    'prescription'=>'',
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
+
+);
+
+DB::table('appointments')->where('persontreated',$appointment->id)->update([
+    'status'=>2]);
+
+
+        return redirect()->action('NurseController@showDependents',[$id]);
     }
 
     public function createdetails(Request $request)

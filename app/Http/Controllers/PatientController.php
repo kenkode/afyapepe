@@ -47,7 +47,7 @@ class PatientController extends Controller
   public function Expenditure(){
     $id = Auth::id();
       $patient=DB::table('afya_users')->where('users_id',$id)->first();
-      
+
     return view('patient.expenditure')->with('patient',$patient);
   }
     public function patientAppointment(){
@@ -82,9 +82,9 @@ class PatientController extends Controller
       $tstdone = DB::table('patient_test')
       ->leftJoin('patient_test_details', 'patient_test.id', '=', 'patient_test_details.patient_test_id')
       ->leftJoin('facilities', 'patient_test_details.facility_id', '=', 'facilities.FacilityCode')
-      ->leftJoin('tests', 'patient_test_details.tests_reccommended', '=', 'tests.id')
+      ->leftJoin('lab_test', 'patient_test_details.tests_reccommended', '=', 'lab_test.id')
       ->leftJoin('diseases', 'patient_test_details.conditional_diagnosis', '=', 'diseases.code')
-      ->select('patient_test_details.*','facilities.*','tests.name','diseases.name as disease')
+      ->select('patient_test_details.*','facilities.*','lab_test.name','diseases.name as disease')
       ->where('patient_test.appointment_id', '=',$id)
       ->get();
 
@@ -116,9 +116,9 @@ public function pvisit($id)
   $tstdone = DB::table('patient_test')
   ->leftJoin('patient_test_details', 'patient_test.id', '=', 'patient_test_details.patient_test_id')
   ->leftJoin('facilities', 'patient_test_details.facility_id', '=', 'facilities.FacilityCode')
-  ->leftJoin('tests', 'patient_test_details.tests_reccommended', '=', 'tests.id')
+  ->leftJoin('lab_test', 'patient_test_details.tests_reccommended', '=', 'lab_test.id')
   ->leftJoin('diseases', 'patient_test_details.conditional_diagnosis', '=', 'diseases.code')
-  ->select('patient_test_details.*','facilities.*','tests.name','diseases.name as disease')
+  ->select('patient_test_details.*','facilities.*','lab_test.name','diseases.name as disease')
   ->where('patient_test.appointment_id', '=',$id)
   ->get();
 

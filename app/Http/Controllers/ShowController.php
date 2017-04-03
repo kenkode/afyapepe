@@ -33,8 +33,17 @@ class ShowController extends Controller
   // $tstdone = DB::table('patient_test_details')
   //  ->where('appointment_id', '=',$id)
   // ->get();
-  $testresult = DB::table('patient_test_details')
-  ->where('appointment_id', '=',$id)
+
+  // $testresult = DB::table('patient_test_details')
+  // ->where('appointment_id', '=',$id)
+  // ->get();
+  $testresult = DB::table('patient_test')
+  ->leftJoin('patient_test_details', 'patient_test.id', '=', 'patient_test_details.patient_test_id')
+  ->leftJoin('facilities', 'patient_test_details.facility_id', '=', 'facilities.FacilityCode')
+  ->leftJoin('tests', 'patient_test_details.tests_reccommended', '=', 'tests.id')
+  ->leftJoin('diseases', 'patient_test_details.conditional_diagnosis', '=', 'diseases.code')
+  ->select('patient_test_details.*','facilities.*','tests.name','diseases.name as disease')
+  ->where('patient_test.appointment_id', '=',$id)
   ->get();
   return view('doctor.newshow')->with('testresult',$testresult);
 }

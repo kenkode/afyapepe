@@ -21,3 +21,7 @@ All patients at any given time
 4= Discharged
 5= Admitted
 6= referal
+##table patient_test status
+0= pending
+1= Done 
+2= Partially Done

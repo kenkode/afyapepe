@@ -14,6 +14,8 @@ Route::get('/', function () {
 return view('welcome');
 });
 
+
+
 Route::get('steve', function () {
 return view('steve');
 });
@@ -67,6 +69,7 @@ Route::group(['middleware' => ['auth','role:Admin|Nurse']], function() {
 	Route::get('nurse.createkin/{id}',['as'=>'createkin','uses'=>'NurseController@createnextkin']);
 	Route::get('nurse.vaccine/{id}',['as'=>'vaccinescreate','uses'=>'NurseController@vaccinescreate']);
   Route::get('nurse.details/{id}',['as'=>'details','uses'=>'NurseController@details']);
+  Route::get('infactdetails/{id}','NurseController@infactDetails');
 	Route::post('nextkin','NurseController@nextkin');
 	Route::post('updatekin','NurseController@Updatekin');
 	Route::post('vaccine','NurseController@vaccine');
@@ -75,11 +78,15 @@ Route::group(['middleware' => ['auth','role:Admin|Nurse']], function() {
 	Route::post('nurseupdates','NurseController@nurseUpdates');
 	Route::get('nurse.dependents/{id}','NurseController@showDependents');
   Route::post('nurse.show',['as'=>'createdetail','uses'=>'NurseController@createdetails']);
+  Route::post('createinfantdetails','NurseController@createinfantDetails');
   Route::get('immuninationchart/{id}','NurseController@immuninationChart');
   Route::get('growth/{id}','NurseController@childGrowth');
   Route::get('update.dependant/{id}','NurseController@updateDependant');
   Route::post('Dependantupdate','NurseController@Dependantupdate');
   Route::get('showpatient/{id}','NurseController@shoWpatient');
+  Route::get('immunination/{id}','NurseController@immunination');
+  Route::post('immunization','NurseController@storeImmunization');
+  Route::post('updateinfant','NurseController@updateInfant');
 
 Route::get('/ajax-subcat',function(){
 	$cat_id= Input::get('cat_id');
@@ -94,11 +101,8 @@ Route::get('/ajax-subcat',function(){
   Route::group(['middleware' => ['auth','role:Admin|Doctor']], function() {
 	Route::resource('doctor','DoctorController');
 	Route::get('doctorProfile', [ 'as' => 'doctorProfile', 'uses' => 'DoctorController@DocDetails']);
-  // Route::get('newpatients', [ 'as' => 'newpatients', 'uses' => 'DoctorController@newPatients']);
   Route::get('appointment','DoctorController@Appointment');
 	Route::get('calendar','DoctorController@Calendar');
-	// Route::get('patientsseen', 'DoctorController@seen');
-	// Route::get('allpatients', 'DoctorController@all');
 	Route::resource('prescription', 'PrescriptionController@store');
 
    Route::Post('show', [ 'as' => 'patienttest', 'uses' => 'PatientTestController@store']);
@@ -182,9 +186,16 @@ Route::group(['middleware' => ['auth','role:Admin|Registrar']], function() {
 
 
 });
+/**
+* Pharmacy Routes
+**/
 Route::group(['middleware' => ['auth','role:Admin|Test']], function() {
 	Route::resource('test','TestController');
 	Route::get('testsales','TestController@testSales');
 	Route::get('testanalytics','TestController@testAnalytics');
+	Route::resource('test','TestController');
+	Route::get('patientTests/{id}', [ 'as' => 'patientTest', 'uses' => 'TestController@testdetails']);
+	Route::get('test', [ 'as' => 'testing', 'uses' => 'TestController@testing']);
+
 
 });

@@ -63,7 +63,7 @@ class RegistrarController extends Controller
       $relation=$request->relationship;
       $school=$request->school;
 
-      DB::table('dependant')->insert(
+     $dependant_id= DB::table('dependant')->insertGetId(
       ['afya_user_id' => $id,
       'firstName' => $first,
       'secondName'=> $second,
@@ -76,6 +76,24 @@ class RegistrarController extends Controller
       'school'=>$school
       ]
   );
+     $end = Carbon::parse($dob);
+        $now = Carbon::now();
+        $length = $end->diffInDays($now);
+if ($length <=1825) {
+  $vaccines=DB::table('vaccine')->get();
+    foreach ($vaccines as $vaccine) {
+    $MyDateCarbon = \Carbon\Carbon::parse($dob);
+    $MyDateCarbon->addDays($vaccine->age);
+    DB::table('dependant_vaccination')->insert(
+    [
+    'dependent_id'=>$dependant_id,
+    'vaccine_id'=>$vaccine->id,
+    'date_guideline'=>$MyDateCarbon,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
+);
+}
+}
 
    return redirect()->action('RegistrarController@selectDependant', [$id]);
     }
@@ -208,9 +226,9 @@ public function dependantTriage($id){
       $user=$request->afya_user;
   DB::table('appointments')->insert([
   'status'=>1,
-  'facility_id'=>1001,
+  'facility_id'=>19310,
   'afya_user_id'=>$user,
-  'doc_id'=>1,
+  'doc_id'=>6,
   'persontreated'=>$id,
   'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
  'updated_at' => \Carbon\Carbon::now()->toDateTimeString()

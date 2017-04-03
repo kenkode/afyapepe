@@ -8,6 +8,7 @@ use App\Patienttest;
 use Illuminate\Support\Facades\Input;
 use Auth;
 
+
 class PatientTestController extends Controller
 {
     /**
@@ -34,30 +35,105 @@ class PatientTestController extends Controller
 public function store(Request $request)
 {
 
-            $this->validate($request, [
-
+    $this->validate($request, [
           'doc_id' => 'required',
           'conditional' => 'required',
           'appointment_id' => 'required',
+
           ]);
-       $id = $request->input('appointment_id');
-                     $PatientTest = Patienttest ::create([
-                        'test_reccommended' => $request->get('test'),
-                        'doc_id' => $request->get('doc_id'),
-                        'appointment_id' => $request->get('appointment_id'),
-                                  ]);
+
+ $appointment=$request->get('appointment_id');
+ $pttids= Patienttest::where('appointment_id',$appointment)
+  ->first();
+
+     if (is_null($pttids)) {
+     //  - add new
+   $PatientTest = Patienttest ::create([
+  'doc_id' => $request->get('doc_id'),
+  'appointment_id' => $request->get('appointment_id'),
+  'test_status' => 0,
+              ]);
     $ptid = $PatientTest->id;
+     } else {
+     // Already test exist - just get the id
+      $ptid =$pttids->id;
+     }
+// Inserting Biochemistry tests
+$Rtests=$request->biotests;
+if ($Rtests) {
+  foreach($Rtests as $key) {
+$patienttd = DB::table('patient_test_details')->insert([
+             'conditional_diagnosis' => $request->get('conditional'),
+             'patient_test_id' => $ptid,
+             'tests_reccommended' => $key,
+             'done' => 0,
+          ]);
+         }
+}
 
-   $patienttd = DB::table('patient_test_details')->insertGetId(
-             [
-               'conditional_diagnosis' => $request->get('conditional'),
-               'patient_test_id' => $ptid,
-               'tests_reccommended' => $request->get('test'),
-               'appointment_id'=> $request->get('appointment_id')
 
-             ]
-           );
-      return redirect()->route('showPatient', ['id' => $id]);
+            // Inserting Coagulation tests
+                 $Ctests=$request->coagtests;
+                 if ($Ctests) {
+                 foreach($Ctests as $key) {
+               $patienttd = DB::table('patient_test_details')->insert([
+                            'conditional_diagnosis' => $request->get('conditional'),
+                            'patient_test_id' => $ptid,
+                            'tests_reccommended' => $key,
+                            'done' => 0,
+                         ]);
+                        }
+                      }
+                // Inserting Haematology tests
+                     $Htests=$request->haemtests;
+                     if ($Htests) {
+                     foreach($Htests as $key) {
+                   $patienttd = DB::table('patient_test_details')->insert([
+                                'conditional_diagnosis' => $request->get('conditional'),
+                                'patient_test_id' => $ptid,
+                                'tests_reccommended' => $key,
+                                'done' => 0,
+                             ]);
+                            }
+                          }
+                  // Inserting Immunology_Infective tests
+                       $Intests=$request->inftests;
+                       if ($Intests) {
+                       foreach($Intests as $key) {
+
+                     $patienttd = DB::table('patient_test_details')->insert([
+                                  'conditional_diagnosis' => $request->get('conditional'),
+                                  'patient_test_id' => $ptid,
+                                  'tests_reccommended' => $key,
+                                  'done' => 0,
+                               ]);
+                              }
+                            }
+                // Inserting Immunology-Auto-Immune tests
+                     $Atests=$request->autotests;
+                     if ($Atests) {
+                     foreach($Atests as $key) {
+                   $patienttd = DB::table('patient_test_details')->insert([
+                                'conditional_diagnosis' => $request->get('conditional'),
+                                'patient_test_id' => $ptid,
+                                'tests_reccommended' => $key,
+                                'done' => 0,
+                             ]);
+                            }
+                          }
+                // Inserting Microbiology tests
+                $Mtests=$request->microtests;
+                if ($Mtests) {
+                  foreach($Mtests as $key) {
+                   $patienttd = DB::table('patient_test_details')->insert([
+                                'conditional_diagnosis' => $request->get('conditional'),
+                                'patient_test_id' => $ptid,
+                                'tests_reccommended' => $key,
+                                'done' => 0,
+                             ]);
+                            }
+                          }
+  return redirect()->route('showPatient', ['id' => $appointment]);
       }
 
 

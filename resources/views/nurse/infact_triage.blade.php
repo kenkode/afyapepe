@@ -294,13 +294,13 @@ No <input type="checkbox" name="aph" value="No" />
   </div>
 <div class="form-group">
 <label>Babies Presenting Problems?</label>
-<textarea name="babyproblem" class="form-control" required=""></textarea>
+<textarea name="babyproblem" class="form-control"></textarea>
   
 </div>
 
 <div class="form-group">
 <label>Mother Presenting Problems?</label>
-<textarea name="motherproblem" class="form-control" required=""></textarea>
+<textarea name="motherproblem" class="form-control"></textarea>
   
 </div>
 <div class="form-group">
@@ -309,7 +309,7 @@ No <input type="checkbox" name="aph" value="No" />
   </div>
 
 
-
+    <a class="btn btn-primary btnNext" >Next</a>
 </div>
 </div>
 

@@ -301,7 +301,7 @@
                                                              </table>
 
 
- <a href="{{ URL('babydetails', $dependant->id) }}" class="btn btn-primary btn-sm">Add Details</a>
+ 
                                                                
 
 

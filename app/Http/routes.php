@@ -17,7 +17,7 @@ return view('welcome');
 
 
 Route::get('steve', function () {
-return view('steve');
+return view('nurse.infact_triage');
 });
 
 Route::auth();

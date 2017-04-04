@@ -122,8 +122,7 @@ Route::get('/ajax-subcat',function(){
 
 Route::get('testresult/{id}','ShowController@index');
 Route::post('testresult','ShowController@store');
-
-	});
+});
 
 Route::group(['middleware' => ['auth','role:Admin|Manufacturer']], function() {
 Route::resource('manufacturer','ManufacturerController');

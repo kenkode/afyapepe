@@ -342,11 +342,11 @@ return Redirect::route('nurse.show', [$id]);
      
     public function showDependents($id)
     {
-        $details=DB::table('triage_infacts')
-        ->Join('appointments','appointments.id','=','triage_infacts.appointment_id')
+        $details=DB::table('triage_infants')
+        ->Join('appointments','appointments.id','=','triage_infants.appointment_id')
         ->where('appointments.persontreated',$id)
-        ->select('triage_infacts.*')
-        ->orderBy('triage_infacts.id','desc')
+        ->select('triage_infants.*')
+        ->orderBy('triage_infants.id','desc')
         ->get();
 
         $dependant=DB::table('dependant')->where('id',$id)->first();
@@ -558,7 +558,7 @@ foreach($insects as $key) {
 $chiefcompliant = implode(',', $chiefcompliant);
 $appointment=DB::table('appointments')->where('persontreated', $id)->orderBy('created_at', 'desc')->first();
 
-    DB::table('triage_infacts')->insert(
+    DB::table('triage_infants')->insert(
     ['appointment_id' => $appointment->id,
     
     'current_weight'=> $weight,

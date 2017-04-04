@@ -31,7 +31,7 @@
               
              <div class="form-group">
             <label for="exampleInputPassword1">Blood Group</label>
-            <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Next of Kin Phone" name="phone" value="{{$dependant->blood_type or ''}}" readonly  >
+            <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Blood Group" name="phone" value="{{$dependant->blood_type or ''}}" readonly  >
             </div>
              <div class="form-group">
             <label for="exampleInputPassword1">Gender</label>
@@ -188,7 +188,7 @@
 
   <div class="wrapper wrapper-content">
           <div class="row animated fadeInRight">
-    <?php $infants=DB::table('infants_triage')->where('dependent_id',$dependant->id)->get(); 
+    <?php $infants=DB::table('infants_details')->where('dependent_id',$dependant->id)->get(); 
     $abs=DB::table('infact_abnormalities')->where('dependent_id',$dependant->id)->get(); 
     ?>
      
@@ -339,7 +339,7 @@
 
     <div class="form-group">
                  <label for="exampleInputPassword1">Temperature</label>
-            <input type="number" class="form-control" name="ipno">
+            <input type="number" class="form-control" name="temperature">
     </div>
 
     <div class="form-group">
@@ -590,7 +590,7 @@
  </div>
      <div class="form-group">
    <label for="exampleInputEmail1">Hiv status?</label><br>
-   Negative <input type="checkbox" value="Negative"  name=hiv />
+   Negative <input type="checkbox" value="Negative"  name="hiv" />
    Positive <input type="checkbox" value="Positive"  name="hiv"  />
 
 <div class="Positive"  style="display: none">
@@ -685,10 +685,10 @@ No <input type="checkbox" name="lympn" value="No" />
   </div>
     <div class="form-group">
    <label for="exampleInputEmail1">Fever?</label><br>
-   No<input type="checkbox" value="No"  name="fevers" />
-   Yes <input type="checkbox" value="Yes"  name="fevers"  />
+   No<input type="checkbox" value="No_fevers"  name="fevers" />
+   Yes <input type="checkbox" value="Yes_fevers"  name="fevers"  />
 
-<div class="Yes"  style="display: none">
+<div class="Yes_fevers"  style="display: none">
     <label>Number of days</label><br>
   <input type="number" value="No"  name="days"/>
   
@@ -697,17 +697,17 @@ No <input type="checkbox" name="lympn" value="No" />
 </div>
 <div class="form-group">
 <label>Difficulty Breathing?</label>
- No  <input type="checkbox" value="No"  name="fevers" />
- Yes <input type="checkbox" value="Yes"  name="fevers"  />
+ No  <input type="checkbox" value="No"  name="difficulty_breathing" />
+ Yes <input type="checkbox" value="Yes"  name="difficulty_breathing"  />
   
 </div>
 
  <div class="form-group">
    <label for="exampleInputEmail1">Diarrhoea?</label><br>
-   No<input type="checkbox" value="No"  name="diarrhoea" />
-   Yes <input type="checkbox" value="Yes"  name="diarrhoea"  />
+   No<input type="checkbox" value="No_diarrhoea"  name="diarrhoea" />
+   Yes <input type="checkbox" value="Yes_diarrhoea"  name="diarrhoea"  />
 
-<div class="Yes"  style="display: none">
+<div class="Yes_diarrhoea"  style="display: none">
     <label>Number of days</label><br>
   <input type="number" value="No"  name="diarrhoea_days"/>
   
@@ -737,9 +737,9 @@ No <input type="checkbox" name="lympn" value="No" />
 
 <div class="form-group">
 <label>Vomiting Yes/No?</label>
- No  <input type="checkbox" value="No"  name="vomiting" />
- Yes <input type="checkbox" value="Yes"  name="vomiting"  />
- <div class="Yes"  style="display: none">
+ No  <input type="checkbox" value="No_vomiting"  name="vomiting" />
+ Yes <input type="checkbox" value="Yes_vomiting"  name="vomiting"  />
+ <div class="Yes_vomiting"  style="display: none">
     <label>number per 24 hours</label><br>
   <input type="number"  name="vomiting_hours"/>
   </div>
@@ -761,9 +761,9 @@ No <input type="checkbox" name="lympn" value="No" />
 
 <div class="form-group">
 <label>Convulsion</label>
-No  <input type="checkbox" value="No"  name="convulsion" />
- Yes <input type="checkbox" value="Yes"  name="convulsion"  />
- <div class="Yes"  style="display: none">
+No  <input type="checkbox" value="No_convulsion"  name="convulsion" />
+ Yes <input type="checkbox" value="Yes_convulsion"  name="convulsion"  />
+ <div class="Yes_convulsion"  style="display: none">
     <label>number per 24 hours</label><br>
   <input type="number"  name="convulsion_hours"/>
   </div>

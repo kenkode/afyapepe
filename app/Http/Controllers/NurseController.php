@@ -89,10 +89,87 @@ return redirect()->action('NurseController@showDependents', [$userid]);
     $jaundice=$request->jaundice;
     $size=$request->size;
     $abs=$request->abs;
-   $detail=$request->abs_detail;
-
-     DB::table('infants_triage')->insert(
+    $dob=$request->dob;
+    $ipno=$request->ipno;
+    $detail=$request->abs_detail;
+    $gestation=$request->gestation;
+    $temperature=$request->temperature;
+    $apgar=$request->apgar;
+    $birthweight=$request->birthweight;
+    $weightnow=$request->weightnow;
+    $bba=$request->bba;
+    $bba_where=$request->bba_where;
+    $delivery=$request->delivery;
+    $vitamink=$request->vitamen;
+    $resuscitation=$request->resuscitation;
+    $rom=$request->rom;
+    $prophylaxis=$request->prophylaxis;
+    $stridor=$request->stridor;
+    $oxygen=$request->oxygen_saturation;
+    $cyanosis=$request->cyanosis;
+    $indrawing=$request->indrawing;
+    $grunting=$request->grunting;
+    $air_entry=$request->air_entry;
+    $crackles=$request->crackles;
+    $cry=$request->cry;
+    $femoral_pulse=$request->femoral_pulse;
+    $refill=$request->refill;
+    $murmur=$request->Murmur;
+    $anaemia=$request->anaemia;
+    $skincold=$request->skin_cold;
+    $age=$request->age;
+    $gravidity=$request->gravidity;
+    $parity=$request->parity;
+    $blood_type=$request->blood_type;
+    $sublocation=$request->sublocation;
+    $hiv=$request->hiv;
+    $arvs=$request->arvs;
+    $vdrl=$request->vdrl;
+    $fever=$request->fever;
+    $antibiotics=$request->antibiotics;
+    $diabetes=$request->diabetes;
+    $tb=$request->tb;
+    $tb_treatment=$request->tb_treatment;
+    $labour1=$request->labour1;
+    $labour2=$request->labour2;
+    $hypertention=$request->hypertention;
+    $aph=$request->aph;
+    $babyproblem=$request->babyproblem;
+    $motherproblem=$request->motherproblem;
+    $revelantdrugs=$request->revelantdrugs;
+    $oral=$request->oral;
+    $lympn=$request->lympn;
+    $difficultybreathing=$request->difficulty_breathing;
+    $diarrhoea=$request->diarrhoea;
+    $diarrhoeadays=$request->diarrhoea_days;
+    $contact_tb=$request->contact_tb;
+    $cough=$request->cough;
+    $diarrhoeabloody=$request->diarrhoea_bloody;
+    $vomiting=$request->vomiting;
+    $vomitinghours=$request->vomiting_hours;
+    $vomitseveything=$request->vomits_eveything;
+    $feedingdifficult=$request->feeding_difficult;
+    $convulsion=$request->convulsion;
+    $convulsionhours=$request->convulsion_hours;
+    $fits=$request->fits;
+    $apnoea=$request->apnoea;
+    $hypertension=$request->hypertention;
+     DB::table('infants_details')->insert(
     ['dependent_id' => $id,
+    'admission_date'=>$dob,
+    'ipno'=>$ipno,
+    'gestation'=>$gestation,
+    'temperature'=>$temperature,
+    'apgar'=>$apgar,
+    'birth_weight'=>$birthweight,
+    'weight_now'=>$weightnow,
+    'bba'=>$bba,
+    'bba_where'=>$bba_where,
+    'delivery'=>$delivery,
+    'resuscitation'=>$resuscitation,
+    'rom'=>$rom,
+    'vitamin_K'=>$vitamink,
+    'prophylaxis'=>$prophylaxis,
     'breast_feed' => $breastfeed,
     'stiff_neck'=> $neck,
     'bulging_fontance' =>$bulging,
@@ -101,9 +178,60 @@ return redirect()->action('NurseController@showDependents', [$userid]);
      'skin'=>$skin,
      'jaundice'=>$jaundice,
      'gest_size'=>$size,
+     'stridor'=>$stridor,
+     'oxygen'=>$oxygen,
+     'cyanosis'=>$cyanosis,
+     'indrawing'=>$indrawing,
+     'grunting'=>$grunting,
+     'air_entry_bilateral'=>$air_entry,
+     'crackles'=>$crackles,
+     'femoral_pulse'=>$femoral_pulse,
+     'cap_refill'=>$refill,
+     'murmur'=>$murmur,
+     'pallar_anaemia'=>$anaemia,
+     'skin_cold'=>$skincold,
+     'mother_age'=>$age,
+     'mother_gravidity'=>$gravidity,
+     'mother_parity'=>$parity,
+     'mother_blood_group'=>$blood_type,
+     'sublocation'=>$sublocation,
+     'hiv_status'=>$hiv,
+     'arvs'=>$arvs,
+     'vdrl'=>$vdrl,
+     'fever'=>$fever,
+     'antibiotics'=>$antibiotics,
+     'diabetes'=>$diabetes,
+     'tb'=>$tb,
+     'tb_treatment'=>$tb_treatment,
+     '1_stage'=>$labour1,
+     '2_stage'=>$labour2,
+      'hypertension'=>$hypertension,
+      'aph'=>$aph,
+      'babies_problem'=>$babyproblem,
+      'mother_problem'=>$motherproblem,
+      'revelant_drug'=>$revelantdrugs,
+      'oral_thrush'=>$oral,
+      'lympn'=>$lympn,
+      'difficult_breathing'=>$difficultybreathing,
+      'diarrhoea'=>$diarrhoea,
+      'diarrhoea_day'=>$diarrhoeadays,
+      'contact_tb'=>$contact_tb,
+      'chronic_cough'=>$cough,
+      'diarrhoea_bloody'=>$diarrhoeabloody,
+      'vomiting'=>$vomiting,
+      'vomiting_hours'=>$vomitinghours,
+      'vomiting_everything'=>$vomitseveything,
+      'difficult_feeding'=>$feedingdifficult,
+      'convulsion'=>$convulsion,
+      'convulsion_hours'=>$convulsionhours,
+      'partial_fits'=>$fits,
+      'apnoea'=>$apnoea,
+
     'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
     'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
 );
+
+if($abs){
 
 foreach ($abs as $key => $abs) {
     
@@ -115,6 +243,7 @@ foreach ($abs as $key => $abs) {
     'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
     'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
 );
+  }
 
 }
 

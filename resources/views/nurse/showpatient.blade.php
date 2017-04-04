@@ -33,7 +33,7 @@
              </div>
              <div class="form-group">
             <label for="exampleInputPassword1">Blood Group</label>
-            <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Next of Kin Phone" name="phone" value="{{$patient->blood_type or ''}}" readonly  >
+            <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Blood Group" name="blood_type" value="{{$patient->blood_type or ''}}" readonly  >
             </div>
              <div class="form-group">
             <label for="exampleInputPassword1">Gender</label>

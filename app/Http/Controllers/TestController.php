@@ -9,6 +9,7 @@ use App\Patient;
 use App\Druglist;
 use App\Test;
 use App\TestDetails;
+use Carbon\Carbon;
 class TestController extends Controller
 {
     /**
@@ -34,8 +35,8 @@ class TestController extends Controller
       ->Join('afya_users', 'appointments.afya_user_id', '=', 'afya_users.id')
       ->Join('patient_test_details', 'patient_test.id', '=', 'patient_test_details.patient_test_id')
       ->Join('diseases', 'patient_test_details.conditional_diagnosis', '=', 'diseases.code')
-      ->select('afya_users.*','diseases.name as disease','patient_test_details.created_at as date')
-      ->where('patient_test.test_status', '=',0)
+      ->select('afya_users.*','diseases.name as disease','patient_test_details.created_at as date','patient_test.test_status')
+      // ->where('patient_test.test_status', '!=',1)
       ->get();
 
         return view('test.home')->with('tsts',$tsts);
@@ -44,22 +45,24 @@ class TestController extends Controller
 public function testdetails($id){
   $tsts = DB::table('patient_test')
   ->Join('appointments', 'patient_test.appointment_id', '=', 'appointments.id')
-  ->Join('afya_users', 'appointments.afya_user_id', '=', 'afya_users.id')
+   ->Join('afya_users', 'appointments.afya_user_id', '=', 'afya_users.id')
+    ->Join('triage_details', 'appointments.id', '=', 'triage_details.appointment_id')
   ->Join('patient_test_details', 'patient_test.id', '=', 'patient_test_details.patient_test_id')
   ->Join('diseases', 'patient_test_details.conditional_diagnosis', '=', 'diseases.code')
   ->Join('lab_test', 'patient_test_details.tests_reccommended', '=', 'lab_test.id')
   ->select('afya_users.*','diseases.name as disease','patient_test_details.created_at as date','patient_test_details.done',
-  'lab_test.test_type_id','lab_test.name as test','lab_test.sub_category','lab_test.category','lab_test.id as testid')
-  ->where('patient_test.id', '=',$id)
+  'patient_test_details.id as patTdid','triage_details.*','lab_test.name as testname','lab_test.category','lab_test.sub_category')
+
+  ->where([
+                ['patient_test.id', '=',$id],
+                ['patient_test_details.done', '=',0],
+
+               ])
   ->get();
+
 return view('test.pdetails')->with('tsts',$tsts);
 }
 
-public function testing(){
-
-    return view('test.test');
-
-}
     public function testSales(){
         return view('test.testsales');
 
@@ -68,7 +71,57 @@ public function testAnalytics(){
   return view('test.testanalytics');
 
 }
-        /**
+
+public function testResult(Request $request)
+{
+$now = Carbon::now();
+  $testId =$request->testId;
+  DB::table('patient_test_details')
+    ->where('id',$testId)
+    ->update(['done'  =>1,
+    'results'  => $request['results'],
+     'note'  => $request['notes'],
+     'updated_at'  => $request['notes'],
+   ]);
+
+   $tsts = DB::table('patient_test_details')->where('id', '=', $testId)->first();
+   $appid=$tsts->patient_test_id;
+
+
+   $query1 = DB::table('patient_test_details')
+           ->select(DB::raw('count(id) as idz'))
+           ->where([
+                     ['patient_test_id', '=', $appid],
+                      ['done', '=', 1],
+                        ])
+
+           ->first();
+   $count1 = $query1->idz;
+   $query2 = DB::table('patient_test_details')
+           ->select(DB::raw('count(id) as ids'))
+           ->where('patient_test_id', '=', $appid)
+           ->first();
+   $count2 = $query2->ids;
+
+   if($count1 == $count2)
+   {
+    DB::table('patient_test')
+              ->where('id', $appid)
+              ->update(
+                ['test_status' => 1, 'updated_at'=> $now]
+              );
+   }else {
+     DB::table('patient_test')
+               ->where('id', $appid)
+               ->update(
+                 ['test_status' => 2, 'updated_at'=> $now]
+               );
+             }
+
+
+   return redirect()->route('patientTest',$appid);
+}
+  /**
          * Show the form for creating a new resource.
          *
          * @return \Illuminate\Http\Response
@@ -118,10 +171,7 @@ public function testAnalytics(){
          * @param  int  $id
          * @return \Illuminate\Http\Response
          */
-        public function update(Request $request, $id)
-        {
 
-        }
 
 
         /**

@@ -61,8 +61,8 @@
                             <th>Temperature</th>
                             <th>Systolic BP</th>
                             <th>Diastolic BP</th>
-                            <!-- <th>Constituency</th> -->
-
+                            <th>Constituency</th>
+                            <th>Gurdian</th>
                             <!-- <th>Constituency of Residence</th> -->
 
                       </tr>
@@ -74,49 +74,24 @@
                         <tr>
 
                             <td><a href="{{route('showPatient',$apatient->appid)}}">{{$i}}</a></td>
-                            <td><a href="{{route('showPatient',$apatient->appid)}}">
-                              <?php if ($apatient->person_treated=='Self') {echo $apatient->firstname ;  echo $apatient->secondName;}
-                              else {echo $apatient->Infname; echo $apatient->InfName;}
-                             ?></a></td>
-                            <td><a href="{{route('showPatient',$apatient->appid)}}">
-                              <?php if ($apatient->person_treated=='Self') {echo $apatient->chief_compliant;}
-                              else {echo $apatient->Infcompliant;}
-                             ?>
-                              {{$apatient->chief_compliant}}</a></td>
-                            <td><?php
-                             if ($apatient->person_treated=='Self') { $gender=$apatient->gender;}
-                            else {$gender=$apatient->Infgender;}?>
+                            <td><a href="{{route('showPatient',$apatient->appid)}}">{{$apatient->firstName}} {{$apatient->secondName}}</a></td>
+                            <td><a href="{{route('showPatient',$apatient->appid)}}">{{$apatient->chief_compliant}}</a></td>
+                            <td><?php $gender=$apatient->gender;?>
                               @if($gender==1){{"Male"}}@else{{"Female"}}@endif</a>
                             </td>
-                            <td><?php
-                            if ($apatient->person_treated=='Self') { $dob=$apatient->dob;}
-                            else {$dob=$apatient->Infdob;}
-
-
+                            <td><?php   $dob=$apatient->dob;
                              $interval = date_diff(date_create(), date_create($dob));
                              $age= $interval->format(" %Y Year, %M Months, %d Days Old");?>
 
                               {{$age}}</td>
-                            <td>
-                              <?php if ($apatient->person_treated=='Self') {echo $apatient->current_weight;}
-                              else {echo $apatient->Infweight;}
-                             ?></td>
-                            <td>  <?php if ($apatient->person_treated=='Self') {echo $apatient->current_height;}
-                              else {echo $apatient->Infheight;}
-                             ?></td>
-                            <td>
-                              <?php if ($apatient->person_treated=='Self') {echo $apatient->temperature;}
-                               else {echo $apatient->Inftemp;}
-                              ?></td>
-                            <td>
-                              <?php if ($apatient->person_treated=='Self') {echo $apatient->systolic_bp;}
-                               else {echo $apatient->Infsysto;}
-                              ?></td>
-                            <td>
-                              <?php if ($apatient->person_treated=='Self') {echo $apatient->diastolic_bp;}
-                               else {echo $apatient->Infdiasto;}
-                              ?>
-                              <!-- <td>{{$apatient->Constituency}}</td> -->
+                            <td>{{$apatient->current_weight}}</td>
+                            <td>{{$apatient->current_height}}</td>
+                            <td>{{$apatient->temperature}}</td>
+                            <td>{{$apatient->systolic_bp}}</td>
+                            <td>{{$apatient->diastolic_bp}}</td>
+                            <td>{{$apatient->Constituency}}</td>
+                            <td>{{$apatient->firstname}} {{$apatient->ndName}}</td>
+
 
                         </tr>
                         <?php $i++; ?>

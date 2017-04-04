@@ -29,46 +29,60 @@ return redirect('doctor.create');
 <?php
       foreach ($patientdetails as $pdetails) {
         // $patientid = $pdetails->pat_id;
-        $pname = $pdetails->firstname;
-        $lname = $pdetails->secondName;
-        $dob = $pdetails->dob;
-        $nid = $pdetails->nationalId;
-        $appoid = $pdetails->app_id;
-        $appdate = $pdetails->created_at;
-        $facilty = $pdetails->FacilityName;
-        $weight = $pdetails->current_weight;
-        $height = $pdetails->current_height;
-        $temperature = $pdetails->temperature;
-        $systolic = $pdetails->systolic_bp;
-        $diastolic = $pdetails->diastolic_bp;
-
-        $complain = $pdetails->chief_compliant;
-        $observations = $pdetails->observation;
-        $gender = $pdetails->gender;
-        $phone = $pdetails->msisdn;
-        $stat= $pdetails->appstatus;
-        $afyauserId= $pdetails->afyaId;
-        if ($gender=1) {
-          $gender='Male';
-        }else{
-          $gender='Female';
+       if ($pdetails->person_treated=='Self') {
+         $pname = $pdetails->firstname;
+         $lname = $pdetails->secondName;
+         $facilty = $pdetails->FacilityName;
+         $phone = $pdetails->msisdn;
+         $stat= $pdetails->appstatus;
+         $afyauserId= $pdetails->afyaId;
         }
-
-        if ($stat=="1") {
-          $stat='queueing';
-        }elseif($stat=="2") {
-          $stat='Active';
-        }elseif($stat=="3") {
-          $stat='Discharged';
-        }elseif($stat=='4') {
-        $stat='Admitted';
-        }else{
-          $stat='Referred';
-        }
+        else {
+          $pname = $pdetails->Infname;
+          $lname = $pdetails->InfName;
+          $facilty = $pdetails->FacilityName;
+          $phone = $pdetails->msisdn;
+          $stat= $pdetails->appstatus;
+          $afyauserId= $pdetails->afyaId;
+         }
 
 
- $interval = date_diff(date_create(), date_create($dob));
- $age= $interval->format(" %Y Year, %M Months, %d Days Old");
+        // $dob = $pdetails->dob;
+        // $nid = $pdetails->nationalId;
+        // $appoid = $pdetails->app_id;
+        // $appdate = $pdetails->created_at;
+
+        // $weight = $pdetails->current_weight;
+        // $height = $pdetails->current_height;
+        // $temperature = $pdetails->temperature;
+        // $systolic = $pdetails->systolic_bp;
+        // $diastolic = $pdetails->diastolic_bp;
+        //
+        // $complain = $pdetails->chief_compliant;
+        // $observations = $pdetails->observation;
+        // $gender = $pdetails->gender;
+
+ //        if ($gender=1) {
+ //          $gender='Male';
+ //        }else{
+ //          $gender='Female';
+ //        }
+ //
+ //        if ($stat=="1") {
+ //          $stat='queueing';
+ //        }elseif($stat=="2") {
+ //          $stat='Active';
+ //        }elseif($stat=="3") {
+ //          $stat='Discharged';
+ //        }elseif($stat=='4') {
+ //        $stat='Admitted';
+ //        }else{
+ //          $stat='Referred';
+ //        }
+ //
+ //
+ // $interval = date_diff(date_create(), date_create($dob));
+ // $age= $interval->format(" %Y Year, %M Months, %d Days Old");
 
 }
 ?>
@@ -91,8 +105,8 @@ return redirect('doctor.create');
             <div class="tabs-container">
               <!-- <div class="col-lg-12 tbg"> -->
                 <ul class="nav nav-tabs">
-                    <!-- <li class="active"><a data-toggle="tab" href="#tab-1">Home</button></a></li> -->
-                    <li class="active"><a data-toggle="tab" href="#tab-2">History</a></li>
+                    <li class="active"><a data-toggle="tab" href="#tab-1">Today's Triage</button></a></li>
+                    <li><a data-toggle="tab" href="#tab-2">History</a></li>
                     <li class=""><a data-toggle="tab" href="#tab-3">Tests</a></li>
                     <li class=""><a data-toggle="tab" href="#tab-4">Prescriptions</a></li>
                     <li class=""><a data-toggle="tab" href="#tab-5">Admit</a></li>
@@ -102,9 +116,86 @@ return redirect('doctor.create');
                 </ul>
               <!-- </div> -->
                 <div class="tab-content">
+                  <!--tabs1-->
+                  <div id="tab-1" class="tab-pane active">
+                      <div class="ibox float-e-margins">
+                        <div class="table-responsive ibox-content">
+                        <table class="table table-striped table-bordered table-hover dataTables-conditional" >
+                           <thead>
+                        <tr>
+                         <th></th>
+                           <th>Weight </th>
+                           <th>Height</th>
+                           <th>Temperature</th>
+                           <th>Systolic BP</th>
+                           <th>Diastolic BP</th>
+                           <th>BMI</th>
+                           <th>Chief Compliant</th>
+                           <th>Observations</th>
+                           <th>Symptoms</th>
+                           <th>Nurse Notes</th>
 
+
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <?php $i =1; ?>
+
+                        @foreach($patientdetails as $pdetails)
+                          <tr>
+                          <td>{{ +$i }}</td>
+                         <td><?php if ($pdetails->person_treated=='Self') {echo $pdetails->current_weight;}
+                         else {echo $pdetails->Infweight;}
+                         ?>
+                           </td>
+                          <td><?php if ($pdetails->person_treated=='Self') {echo $pdetails->current_height;}
+                          else {echo $pdetails->Infheight;}
+                          ?></td>
+                          <td><?php if ($pdetails->person_treated=='Self') {echo $pdetails->temperature;}
+                            else {echo $pdetails->Inftemp;}
+                            ?></td>
+                          <td>
+                            <?php if ($pdetails->person_treated=='Self') {echo $pdetails->systolic_b;}
+                              else {echo $pdetails->Infsysto;}
+                              ?></td>
+                           <td>
+                             <?php if ($pdetails->person_treated=='Self') {echo $pdetails->diastolic_b;}
+                               else {echo $pdetails->Infdiasto;}
+                               ?></td>
+                           <td>
+                             <?php if ($pdetails->person_treated=='Self') {$height=$pdetails->current_height; $weight=$pdetails->current_weight;}
+                               else {$height=$pdetails->Infheight; $weight=$pdetails->Infweight;}
+                                         $bmi =$weight/($height*$height);
+                                      echo number_format($bmi, 2);
+                                   ?></td>
+                           <td><?php if ($pdetails->person_treated=='Self') {echo $pdetails->chief_compliant;}
+                             else {echo $pdetails->Infcompliant;}
+                             ?></td>
+                           <td><?php if ($pdetails->person_treated=='Self') {echo $pdetails->observation;}
+                             else {echo $pdetails->Infobservation;}
+                             ?></td>
+                           <td><?php if ($pdetails->person_treated=='Self') {echo $pdetails->symptoms;}
+                             else {echo $pdetails->Infsymptoms;}
+                             ?></td>
+                           <td><?php if ($pdetails->person_treated=='Self') {echo $pdetails->nurse_notes;}
+                             else {echo $pdetails->nurse_notes;}
+                             ?>
+                               </td>
+
+
+                        </tr>
+                        <?php $i++; ?>
+
+                        @endforeach
+
+                        </tbody>
+                        </table>
+                        </div>
+                         </div>
+                      </div>
 <!--tabs2-->
-<div id="tab-2" class="tab-pane active">
+<div id="tab-2" class="tab-pane">
     <div class="ibox float-e-margins">
             <div class="ibox-title">
                 <h5>All Patient Visit History</h5>
@@ -130,8 +221,13 @@ return redirect('doctor.create');
               ->Join('triage_details', 'appointments.id', '=', 'triage_details.appointment_id')
               ->leftJoin('patient_test', 'appointments.id',  '=', 'patient_test.appointment_id')
               ->leftJoin('prescriptions', 'appointments.id', '=', 'prescriptions.appointment_id')
+              ->leftJoin('dependant', 'appointments.person_treated', '=', 'dependant.id')
+              ->leftJoin('triage_infants', 'appointments.id', '=', 'triage_infants.appointment_id')
               ->select('triage_details.chief_compliant','triage_details.updated_at',
-              'patient_test.test_status','prescriptions.filled_status','appointments.id')
+              'patient_test.test_status','prescriptions.filled_status','appointments.id',
+              'appointments.person_treated',
+
+              'triage_infants.chief_compliant as Infcompliant','triage_infants.updated_at as Infupdated')
 
               ->where('appointments.afya_user_id',$afyauserId)
               ->get();
@@ -140,11 +236,17 @@ return redirect('doctor.create');
            @foreach($pathists as $pathist)
                 <tr>
                     <td>{{ +$i }}</td>
-                    <td>{{$pathist->updated_at}}</td>
-                    <td>{{$pathist->chief_compliant}}</td>
-                    <td>{{$pathist->chief_compliant}}</td>
+                    <td><?php if ($pathist->person_treated=='Self') {echo $pathist->updated_at;}
+                    else {echo $pathist->Infupdated;}?></td>
+                    <td><?php if ($pathist->person_treated=='Self') {echo $pathist->chief_compliant;}
+                    else {echo $pathist->Infcompliant;}?></td>
+                    <td><?php if ($pathist->person_treated=='Self') {echo $pathist->chief_compliant;}
+                    else {echo $pathist->Infcompliant;}?></td>
                     <td><?php
-                    $tests=$pathist->test_status;
+                    if ($pathist->person_treated=='Self') {$tests=$pathist->test_status;}
+                    else {$tests=$pathist->test_status;}
+
+
                     if (is_null($tests)) {
                       $tests= 'N/A';
                     }

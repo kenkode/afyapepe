@@ -8,7 +8,6 @@ use App\Http\Requests;
 use App\Doctor;
 use Carbon\Carbon;
 use Auth;
-
 use App\Patient;
 
 class DoctorController extends Controller
@@ -33,11 +32,22 @@ class DoctorController extends Controller
      {
       $today = Carbon::today();
 
-       $patients = DB::table('afya_users')
-         ->Join('appointments', 'afya_users.id', '=', 'appointments.afya_user_id')
-         ->Join('triage_details', 'appointments.id', '=', 'triage_details.appointment_id')
+       $patients = DB::table('appointments')
+       ->leftJoin('afya_users', 'appointments.afya_user_id', '=', 'afya_users.id')
+        //  ->Join('appointments', 'afya_users.id', '=', 'appointments.afya_user_id')
+         ->leftJoin('triage_details', 'appointments.id', '=', 'triage_details.appointment_id')
+        ->leftJoin('dependant', 'appointments.person_treated', '=', 'dependant.id')
+        ->leftJoin('triage_infants', 'appointments.id', '=', 'triage_infants.appointment_id')
          ->leftJoin('constituency', 'afya_users.constituency', '=', 'constituency.const_id')
-         ->select('afya_users.*','triage_details.*','appointments.id as appid', 'appointments.created_at', 'appointments.facility_id','constituency.Constituency')
+         ->select('afya_users.*','triage_details.*','appointments.id as appid',
+          'appointments.created_at','appointments.facility_id','constituency.Constituency',
+          'appointments.person_treated',
+          'triage_infants.current_weight as Infweight','triage_infants.current_height as Infheight','triage_infants.temperature as Inftemp',
+          'triage_infants.systolic_bp as Infsysto','triage_infants.diastolic_bp as Infdiasto','triage_infants.chief_compliant as Infcompliant',
+          'triage_infants.observation as Infobservation','triage_infants.symptoms as Infsymptoms','triage_infants.nurse_notes as Infnotes',
+          'dependant.firstName as Infname','dependant.secondName as InfName','dependant.gender as Infgender','dependant.blood_type as Infblood_type',
+          'dependant.dob as Infdob','dependant.pob as Infpob'
+        )
         //  ->where('appointments.created_at','>=',$today)
          ->where([
                        ['appointments.created_at','>=',$today],
@@ -49,55 +59,27 @@ class DoctorController extends Controller
        return view('doctor.newPatients')->with('patients',$patients);
      }
 
-    //  public function newPatients()
-     //
-    //  {
-    //   $today = Carbon::today();
-     //
-    //    $patients = DB::table('afya_users')
-    //      ->Join('appointments', 'afya_users.id', '=', 'appointments.afya_user_id')
-    //      ->select('afya_users.*','appointments.id as appid', 'appointments.created_at', 'appointments.facility_id')
-    //     //  ->where('appointments.created_at','>=',$today)
-    //      ->where([
-    //                    ['appointments.created_at','>=',$today],
-    //                    ['appointments.status', '=', 1],
-    //                    ['appointments.doc_id', '=',Auth::user()->id],
-    //                   ])
-    //      ->get();
-     //
-    //    return view('doctor.newPatients')->with('patients',$patients);
-    //  }
+public function dependant()
 
+{
+ $today = Carbon::today();
 
-  //    public function all()
-  // {
-  //   $today = Carbon::today();
-  //     $allpatients = DB::table('afya_users')
-  //       ->Join('patients', 'afya_users.id', '=', 'patients.afya_user_id')
-  //       ->Join('appointments', 'patients.id', '=', 'appointments.patient_id')
-  //       ->select('afya_users.*','patients.*','appointments.id as appid' )
-  //       ->where([
-  //
-  //                     ['appointments.status', '!=', 0],
-  //                    ])
-  //       ->get();
-  //
-  //           return view('doctor.allpatients')->with('allpatients',$allpatients);
-  //         }
+  $patients = DB::table('appointments')
+  ->Join('dependant', 'appointments.person_treated', '=', 'dependant.id')
+  ->Join('triage_infants', 'appointments.id', '=', 'triage_infants.appointment_id')
+  ->Join('afya_users', 'dependant.afya_user_id', '=', 'afya_users.id')
+  ->leftJoin('constituency', 'afya_users.constituency', '=', 'constituency.const_id')
+  ->select('triage_infants.*','dependant.*','appointments.*','appointments.id as appid',
+  'afya_users.firstname','afya_users.secondName as ndName','afya_users.constituency','constituency.Constituency')
+  ->where([
+                  ['appointments.created_at','>=',$today],
+                  ['appointments.status', '=', 2],
+                  ['appointments.doc_id', '=',Auth::user()->id],
+                 ])
+    ->get();
 
-    //       public function seen()
-    //  {
-    //    $today = Carbon::today();
-     //
-    //     $seenpatients = DB::table('patients')
-    //       ->Join('afya_users', 'patients.afya_user_id', '=', 'afya_users.id')
-    //       ->Join('patient_test', 'patients.id', '=', 'patient_test.patient_id')
-    //       ->select('afya_users.*','patients.*', 'patient_test.test_status')
-    //       ->where('patient_test.test_status','=','1')
-    //       ->get();
-     //
-    //     return view('doctor.seenpatients')->with('seenpatients',$seenpatients);
-    //   }
+  return view('doctor.newdependant')->with('patients',$patients);
+}
     /**
      * Show the form for creating a new resource.
      *

@@ -124,7 +124,7 @@ Route::get('testresult/{id}','ShowController@index');
 Route::post('testresult','ShowController@store');
 
 
-
+Route::get('newdependant', [ 'as' => 'dependant', 'uses' => 'DoctorController@dependant']);
 	});
 
 Route::group(['middleware' => ['auth','role:Admin|Manufacturer']], function() {
@@ -187,15 +187,15 @@ Route::group(['middleware' => ['auth','role:Admin|Registrar']], function() {
 
 });
 /**
-* Pharmacy Routes
+* Test Routes
 **/
 Route::group(['middleware' => ['auth','role:Admin|Test']], function() {
 	Route::resource('test','TestController');
 	Route::get('testsales','TestController@testSales');
 	Route::get('testanalytics','TestController@testAnalytics');
-	Route::resource('test','TestController');
 	Route::get('patientTests/{id}', [ 'as' => 'patientTest', 'uses' => 'TestController@testdetails']);
-	Route::get('test', [ 'as' => 'testing', 'uses' => 'TestController@testing']);
+	// Route::get('testing/{id} ', [ 'as' => 'testing', 'uses' => 'TestController@testing']);
+  Route::Post('pdetails', [ 'as' => 'testResult', 'uses' => 'TestController@testResult']);
 
 
 });

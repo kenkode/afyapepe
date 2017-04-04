@@ -30,7 +30,7 @@ class PatientController extends Controller
     public function index()
     {
       $id = Auth::id();
-      $patient=DB::table('afya_users')->where('users_id',$id)->first();
+      $patient=DB::table('afya_users')->where('users_Constituencyid',$id)->first();
       $nextkin=DB::table('kin_details')
       ->join('kin','kin.id','=','kin_details.relation')
       ->select('kin_details.kin_name','kin_details.phone_of_kin',
@@ -68,12 +68,20 @@ class PatientController extends Controller
      {
 
        $patientdetails = DB::table('appointments')
-        ->Join('afya_users', 'appointments.afya_user_id', '=', 'afya_users.id')
-        ->Join('triage_details', 'appointments.id', '=', 'triage_details.appointment_id')
-        ->Join('facilities', 'appointments.facility_id', '=', 'facilities.FacilityCode')
+        ->leftJoin('afya_users', 'appointments.afya_user_id', '=', 'afya_users.id')
+        ->leftJoin('triage_details', 'appointments.id', '=', 'triage_details.appointment_id')
+    ->leftJoin('dependant', 'appointments.person_treated', '=', 'dependant.id')
+    ->leftJoin('triage_infants', 'appointments.id', '=', 'triage_infants.appointment_id')
+        ->leftJoin('facilities', 'appointments.facility_id', '=', 'facilities.FacilityCode')
         ->select('afya_users.*','afya_users.id as afyaId','triage_details.*','triage_details.id as triage_id',
          'appointments.id as app_id','appointments.status as appstatus','appointments.facility_id',
-           'appointments.created_at','facilities.FacilityName','facilities.FacilityCode')
+           'appointments.created_at','facilities.FacilityName','facilities.FacilityCode',
+           'appointments.person_treated',
+           'triage_infants.current_weight as Infweight','triage_infants.current_height as Infheight','triage_infants.temperature as Inftemp',
+           'triage_infants.systolic_bp as Infsysto','triage_infants.diastolic_bp as Infdiasto','triage_infants.chief_compliant as Infcompliant',
+           'triage_infants.observation as Infobservation','triage_infants.symptoms as Infsymptoms','triage_infants.nurse_notes as Infnotes',
+           'dependant.firstName as Infname','dependant.secondName as InfName','dependant.gender as Infgender','dependant.blood_type as Infblood_type',
+           'dependant.dob as Infdob','dependant.pob as Infpob')
        ->where('appointments.id',$id)
        ->get();
 

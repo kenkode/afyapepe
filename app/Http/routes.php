@@ -123,8 +123,6 @@ Route::get('/ajax-subcat',function(){
 Route::get('testresult/{id}','ShowController@index');
 Route::post('testresult','ShowController@store');
 
-
-Route::get('newdependant', [ 'as' => 'dependant', 'uses' => 'DoctorController@dependant']);
 	});
 
 Route::group(['middleware' => ['auth','role:Admin|Manufacturer']], function() {

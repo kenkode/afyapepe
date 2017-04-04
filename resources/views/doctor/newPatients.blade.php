@@ -75,21 +75,21 @@
 
                             <td><a href="{{route('showPatient',$apatient->appid)}}">{{$i}}</a></td>
                             <td><a href="{{route('showPatient',$apatient->appid)}}">
-                              <?php if ($apatient->person_treated=='Self') {echo $apatient->firstname ;  echo $apatient->secondName;}
+                              <?php if ($apatient->persontreated=='Self') {echo $apatient->firstname ;  echo $apatient->secondName;}
                               else {echo $apatient->Infname; echo $apatient->InfName;}
                              ?></a></td>
                             <td><a href="{{route('showPatient',$apatient->appid)}}">
-                              <?php if ($apatient->person_treated=='Self') {echo $apatient->chief_compliant;}
+                              <?php if ($apatient->persontreated=='Self') {echo $apatient->chief_compliant;}
                               else {echo $apatient->Infcompliant;}
                              ?>
                               {{$apatient->chief_compliant}}</a></td>
                             <td><?php
-                             if ($apatient->person_treated=='Self') { $gender=$apatient->gender;}
+                             if ($apatient->persontreated=='Self') { $gender=$apatient->gender;}
                             else {$gender=$apatient->Infgender;}?>
                               @if($gender==1){{"Male"}}@else{{"Female"}}@endif</a>
                             </td>
                             <td><?php
-                            if ($apatient->person_treated=='Self') { $dob=$apatient->dob;}
+                            if ($apatient->persontreated=='Self') { $dob=$apatient->dob;}
                             else {$dob=$apatient->Infdob;}
 
 
@@ -98,22 +98,22 @@
 
                               {{$age}}</td>
                             <td>
-                              <?php if ($apatient->person_treated=='Self') {echo $apatient->current_weight;}
+                              <?php if ($apatient->persontreated=='Self') {echo $apatient->current_weight;}
                               else {echo $apatient->Infweight;}
                              ?></td>
-                            <td>  <?php if ($apatient->person_treated=='Self') {echo $apatient->current_height;}
+                            <td>  <?php if ($apatient->persontreated=='Self') {echo $apatient->current_height;}
                               else {echo $apatient->Infheight;}
                              ?></td>
                             <td>
-                              <?php if ($apatient->person_treated=='Self') {echo $apatient->temperature;}
+                              <?php if ($apatient->persontreated=='Self') {echo $apatient->temperature;}
                                else {echo $apatient->Inftemp;}
                               ?></td>
                             <td>
-                              <?php if ($apatient->person_treated=='Self') {echo $apatient->systolic_bp;}
+                              <?php if ($apatient->persontreated=='Self') {echo $apatient->systolic_bp;}
                                else {echo $apatient->Infsysto;}
                               ?></td>
                             <td>
-                              <?php if ($apatient->person_treated=='Self') {echo $apatient->diastolic_bp;}
+                              <?php if ($apatient->persontreated=='Self') {echo $apatient->diastolic_bp;}
                                else {echo $apatient->Infdiasto;}
                               ?>
                               <!-- <td>{{$apatient->Constituency}}</td> -->

@@ -70,13 +70,13 @@ class PatientController extends Controller
        $patientdetails = DB::table('appointments')
         ->leftJoin('afya_users', 'appointments.afya_user_id', '=', 'afya_users.id')
         ->leftJoin('triage_details', 'appointments.id', '=', 'triage_details.appointment_id')
-    ->leftJoin('dependant', 'appointments.person_treated', '=', 'dependant.id')
+    ->leftJoin('dependant', 'appointments.persontreated', '=', 'dependant.id')
     ->leftJoin('triage_infants', 'appointments.id', '=', 'triage_infants.appointment_id')
         ->leftJoin('facilities', 'appointments.facility_id', '=', 'facilities.FacilityCode')
         ->select('afya_users.*','afya_users.id as afyaId','triage_details.*','triage_details.id as triage_id',
          'appointments.id as app_id','appointments.status as appstatus','appointments.facility_id',
            'appointments.created_at','facilities.FacilityName','facilities.FacilityCode',
-           'appointments.person_treated',
+           'appointments.persontreated',
            'triage_infants.current_weight as Infweight','triage_infants.current_height as Infheight','triage_infants.temperature as Inftemp',
            'triage_infants.systolic_bp as Infsysto','triage_infants.diastolic_bp as Infdiasto','triage_infants.chief_compliant as Infcompliant',
            'triage_infants.observation as Infobservation','triage_infants.symptoms as Infsymptoms','triage_infants.nurse_notes as Infnotes',

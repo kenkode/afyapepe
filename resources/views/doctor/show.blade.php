@@ -29,7 +29,7 @@ return redirect('doctor.create');
 <?php
       foreach ($patientdetails as $pdetails) {
         // $patientid = $pdetails->pat_id;
-       if ($pdetails->person_treated=='Self') {
+       if ($pdetails->persontreated=='Self') {
          $pname = $pdetails->firstname;
          $lname = $pdetails->secondName;
          $facilty = $pdetails->FacilityName;
@@ -145,40 +145,40 @@ return redirect('doctor.create');
                         @foreach($patientdetails as $pdetails)
                           <tr>
                           <td>{{ +$i }}</td>
-                         <td><?php if ($pdetails->person_treated=='Self') {echo $pdetails->current_weight;}
+                         <td><?php if ($pdetails->persontreated=='Self') {echo $pdetails->current_weight;}
                          else {echo $pdetails->Infweight;}
                          ?>
                            </td>
-                          <td><?php if ($pdetails->person_treated=='Self') {echo $pdetails->current_height;}
+                          <td><?php if ($pdetails->persontreated=='Self') {echo $pdetails->current_height;}
                           else {echo $pdetails->Infheight;}
                           ?></td>
-                          <td><?php if ($pdetails->person_treated=='Self') {echo $pdetails->temperature;}
+                          <td><?php if ($pdetails->persontreated=='Self') {echo $pdetails->temperature;}
                             else {echo $pdetails->Inftemp;}
                             ?></td>
                           <td>
-                            <?php if ($pdetails->person_treated=='Self') {echo $pdetails->systolic_b;}
+                            <?php if ($pdetails->persontreated=='Self') {echo $pdetails->systolic_b;}
                               else {echo $pdetails->Infsysto;}
                               ?></td>
                            <td>
-                             <?php if ($pdetails->person_treated=='Self') {echo $pdetails->diastolic_b;}
+                             <?php if ($pdetails->persontreated=='Self') {echo $pdetails->diastolic_b;}
                                else {echo $pdetails->Infdiasto;}
                                ?></td>
                            <td>
-                             <?php if ($pdetails->person_treated=='Self') {$height=$pdetails->current_height; $weight=$pdetails->current_weight;}
+                             <?php if ($pdetails->persontreated=='Self') {$height=$pdetails->current_height; $weight=$pdetails->current_weight;}
                                else {$height=$pdetails->Infheight; $weight=$pdetails->Infweight;}
                                          $bmi =$weight/($height*$height);
                                       echo number_format($bmi, 2);
                                    ?></td>
-                           <td><?php if ($pdetails->person_treated=='Self') {echo $pdetails->chief_compliant;}
+                           <td><?php if ($pdetails->persontreated=='Self') {echo $pdetails->chief_compliant;}
                              else {echo $pdetails->Infcompliant;}
                              ?></td>
-                           <td><?php if ($pdetails->person_treated=='Self') {echo $pdetails->observation;}
+                           <td><?php if ($pdetails->persontreated=='Self') {echo $pdetails->observation;}
                              else {echo $pdetails->Infobservation;}
                              ?></td>
-                           <td><?php if ($pdetails->person_treated=='Self') {echo $pdetails->symptoms;}
+                           <td><?php if ($pdetails->persontreated=='Self') {echo $pdetails->symptoms;}
                              else {echo $pdetails->Infsymptoms;}
                              ?></td>
-                           <td><?php if ($pdetails->person_treated=='Self') {echo $pdetails->nurse_notes;}
+                           <td><?php if ($pdetails->persontreated=='Self') {echo $pdetails->nurse_notes;}
                              else {echo $pdetails->nurse_notes;}
                              ?>
                                </td>
@@ -221,11 +221,11 @@ return redirect('doctor.create');
               ->Join('triage_details', 'appointments.id', '=', 'triage_details.appointment_id')
               ->leftJoin('patient_test', 'appointments.id',  '=', 'patient_test.appointment_id')
               ->leftJoin('prescriptions', 'appointments.id', '=', 'prescriptions.appointment_id')
-              ->leftJoin('dependant', 'appointments.person_treated', '=', 'dependant.id')
+              ->leftJoin('dependant', 'appointments.persontreated', '=', 'dependant.id')
               ->leftJoin('triage_infants', 'appointments.id', '=', 'triage_infants.appointment_id')
               ->select('triage_details.chief_compliant','triage_details.updated_at',
               'patient_test.test_status','prescriptions.filled_status','appointments.id',
-              'appointments.person_treated',
+              'appointments.persontreated',
 
               'triage_infants.chief_compliant as Infcompliant','triage_infants.updated_at as Infupdated')
 
@@ -236,14 +236,14 @@ return redirect('doctor.create');
            @foreach($pathists as $pathist)
                 <tr>
                     <td>{{ +$i }}</td>
-                    <td><?php if ($pathist->person_treated=='Self') {echo $pathist->updated_at;}
+                    <td><?php if ($pathist->persontreated=='Self') {echo $pathist->updated_at;}
                     else {echo $pathist->Infupdated;}?></td>
-                    <td><?php if ($pathist->person_treated=='Self') {echo $pathist->chief_compliant;}
+                    <td><?php if ($pathist->persontreated=='Self') {echo $pathist->chief_compliant;}
                     else {echo $pathist->Infcompliant;}?></td>
-                    <td><?php if ($pathist->person_treated=='Self') {echo $pathist->chief_compliant;}
+                    <td><?php if ($pathist->persontreated=='Self') {echo $pathist->chief_compliant;}
                     else {echo $pathist->Infcompliant;}?></td>
                     <td><?php
-                    if ($pathist->person_treated=='Self') {$tests=$pathist->test_status;}
+                    if ($pathist->persontreated=='Self') {$tests=$pathist->test_status;}
                     else {$tests=$pathist->test_status;}
 
 

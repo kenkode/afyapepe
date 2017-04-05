@@ -34,7 +34,4 @@ $(document).ready(function(){
 
 // select test
 $(".test-multiple").select2();
-<<<<<<< Updated upstream
-=======
-// show Modal test
->>>>>>> Stashed changes
+

@@ -330,7 +330,7 @@ No <input type="checkbox" name="aph" value="No" />
       <div class="ibox-content">
 
 <div class="form-group">
-<label>Allergies</label><br>
+
  Drug Allergy <input type="checkbox" value="drug"  name="drug" />
  <div class="drug"  style="display: none">
     <label>Drug Name</label><br>

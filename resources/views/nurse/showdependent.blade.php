@@ -209,7 +209,7 @@
                     </div>
                     <div class="ibox-content">
                    
-<h5>Baby Details</h5>
+<h2><label>Baby Details</label></h2>
 
                                                                  <table class="table table-small-font table-bordered table-striped">
                                                               <thead>
@@ -320,7 +320,7 @@
      <form class="form-horizontal" role="form" method="POST" action="/updateinfant" novalidate>
     <input type="hidden" name="_token" value="{{ csrf_token() }}">
     <input type="hidden" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{$dependant->id}}" name="id"  required>
-    <h2> Baby Details</h2>
+    <h2><label>Baby Details</label></h2>
    <div class="form-group" id="data_1">
                  <label for="exampleInputPassword1">Admission Date</label>
                  <div class="input-group date">
@@ -408,7 +408,7 @@
       Yes <input type="checkbox" name="prophylaxis" value="Yes">
    No <input type="checkbox" name="prophylaxis" value="No">
    </div>
-    <h2> Mother Details</h2>
+<h2><label>Mother Details</label></h2>
     <div class="form-group">
     <label for="exampleInputEmail1">Can suck/Breastfeed?</label><br>
    No <input type="checkbox" value="No"  name="breastfeed"/>
@@ -672,7 +672,7 @@ No <input type="checkbox" name="aph" value="No" />
   
 </div>
 
-<h2>General Examination</h2>
+<h2><label>General Examination</label></h2>
 <div class="form-group">
 <label>Oral thrush?</label><br>
 Yes <input type="checkbox" name="oral" value="Yes" />
@@ -786,7 +786,7 @@ No  <input type="checkbox" value="No_convulsion"  name="convulsion" />
 
 
 
-  <h2> Abonormalities-Tick All Relevant and Describe</h2>
+  <h2><label> Abonormalities-Tick All Relevant and Describe</label></h2>
 <?php $abs=DB::table('abnormalities')->get(); ?>
 @foreach($abs as $ab )
 <div class="form-group">

@@ -324,7 +324,7 @@ No <input type="checkbox" name="tb_treatment" value="No" />
 </div>
 <div class="col-lg-6">
 <div class="form-group">
-<label>Labour</label>
+<label>Labour</label><br>
 1 stage <input type="text" name="labour1" class="form-control" placeholder="Enter Hours"/>
 2 stage <input type="text" name="labour2" class="form-control" placeholder="Enter Minutes"/>
 </div>

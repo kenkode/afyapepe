@@ -110,7 +110,7 @@
           <div class="row">
       <div class="col-lg-6">
   <div class="ibox float-e-margins">
-   <h2><label>Baby Details</label></h2>
+   <h2><label><u>Baby Details</u></label></h2>
            
   <div class="ibox-content">
   
@@ -229,7 +229,7 @@
 
       <div id="tab-8" class="tab-pane">
                         <div class="panel-body">
-<h2><label>Mother Details</label></h2>
+<h2><label><u>Mother Details</u></label></h2>
   <div class="wrapper wrapper-content">
           <div class="row animated fadeInRight">
 
@@ -468,7 +468,7 @@ No <input type="checkbox" name="aph" value="No" />
                     </div>
                     <div class="ibox-content">
                    
-<h2><label>Baby Details</label></h2>
+<h2><label><u>Baby Details</u></label></h2>
 
                                                                  <table class="table table-small-font table-bordered table-striped">
                                                               <thead>
@@ -535,7 +535,7 @@ No <input type="checkbox" name="aph" value="No" />
      @else
       <div class="row">
       <div class="col-lg-6">
-<h2><label>Vitals</label></h2>
+<h2><label><u>Vitals</u></label></h2>
  <div class="form-group">
    <label for="exampleInputEmail1">Fever</label>
    No<input type="checkbox" value="No_fevers"  name="fevers" />
@@ -621,9 +621,53 @@ No  <input type="checkbox" value="No_convulsion"  name="convulsion" />
  Yes <input type="checkbox" value="Yes"  name="apnoea"  />
   
 </div>
+<h2> <label><U>Circulation</U></label></h2>
+    <div class="form-group">
+    <label>Femoral Pulse</label>
+    Normal <input type="checkbox" value="Normal"  name="femoral_pulse"/>
+    Weak <input type="checkbox" value="Weak"  name="femoral_pulse"/>
+    </div>
+  <div class="form-group">
+    <label>Cap Refill</label>
+    Possible <input type="checkbox" name="refill" value="possible" />
+    Not Possible <input type="checkbox" name="refill" value="notpossible">
+    <div class="possible"  style="display: none">
+    <label>In Seconds</label>
+  <input type="number" name="Seconds">
+    
 </div>
+  </div>
+
+  <div class="form-group">
+    <label>Murmur</label>
+    Yes <input type="checkbox" name="Murmur" value="Murmur_Yes" />
+    No <input type="checkbox" name="Murmur" value="Murmur_No">
+    <div class="possible"  style="display: none">
+    <label>Yes?</label>
+  <input type="text" name="murmur_yes">
+    
+</div>
+</div>
+<div>
+<label>Pallor/Anaemia</label>
+0 <input type="checkbox" name="pallor" value="0" />
++ <input type="checkbox" name="pallor" value="+" />
++++ <input type="checkbox" name="pallor" value="+++" />
+  
+</div>
+
+
+<div class="form-group">
+<label>Skin cold</label>
+Hand <input type="checkbox" name="skincold" value="Hand" />
+Elbow <input type="checkbox" name="skincold" value="Elbow" />
+Shoulder <input type="checkbox" name="skincold" value="Shoulder" />
+  </div>
+    
+  </div>
+
 <div class="col-lg-6">
-   <h2> <label>Airways & Breathing</label></h2>
+   <h2> <label><u>Airways & Breathing</u></label></h2>
 
     <div class="form-group">
     <label for="exampleInputPassword1">Stridor</label>
@@ -668,33 +712,9 @@ No  <input type="checkbox" value="No_convulsion"  name="convulsion" />
     Hoarse  <input type="checkbox" value="Yes"  name="cry"/>
     Weak  <input type="checkbox" value="Yes"  name="cry"/>
     </div>
-    <h2> <label>Circulation</label></h2>
-    <div class="form-group">
-    <label>Femoral Pulse</label>
-    Normal <input type="checkbox" value="Normal"  name="femoral_pulse"/>
-    Weak <input type="checkbox" value="Weak"  name="femoral_pulse"/>
-    </div>
-  <div class="form-group">
-    <label>Cap Refill</label>
-    Possible <input type="checkbox" name="refill" value="possible" />
-    Not Possible <input type="checkbox" name="refill" value="notpossible">
-    <div class="possible"  style="display: none">
-    <label>In Seconds</label>
-  <input type="number" name="Seconds">
-    
-</div>
-  </div>
 
-  <div class="form-group">
-    <label>Murmur</label>
-    Yes <input type="checkbox" name="Murmur" value="Murmur_Yes" />
-    No <input type="checkbox" name="Murmur" value="Murmur_No">
-    <div class="possible"  style="display: none">
-    <label>Yes?</label>
-  <input type="text" name="murmur_yes">
-    
-</div>
-  </div>
+   
+
  
   
 
@@ -706,8 +726,9 @@ No  <input type="checkbox" value="No_convulsion"  name="convulsion" />
 
 
   @endif
-      </div>
-      </div> 
+  </div>
+  </div>
+      
       </div> 
       </div> 
       </div> 
@@ -887,6 +908,82 @@ No  <input type="checkbox" value="No_convulsion"  name="convulsion" />
       </div> 
       </div> 
       </div> 
+
+<div id="tab-9" class="tab-pane active">
+                        <div class="panel-body">
+
+  <div class="wrapper wrapper-content">
+          <div class="row animated fadeInRight">
+          <div class="row">
+          <div class="col-lg-6">
+ <h2> <label><u>General Examination</u></label></h2>
+          <div class="form-group">
+    <label for="exampleInputPassword1">Skin</label>
+    Bruising <input type="checkbox" value="Bruising"  name="skin"/>
+    Rash <input type="checkbox" value="Rash"  name="skin"/>
+    Pustules <input type="checkbox" value="Pustules"  name="skin"/>
+    </div>
+    <div class="form-group">
+    <label>Jaundice</label>
+    None <input type="checkbox" value="None"  name="jaundice"/>
+    +  <input type="checkbox" value="+"  name="jaundice"/>
+    +++ <input type="checkbox" value="+++"  name="jaundice"/>
+    </div>
+    <div class="form-group">
+    <label>Gest/Size</label>
+    Normal <input type="checkbox" value="Normal"  name="gest_size"/>
+    Perm <input type="checkbox" value="Perm"  name="gest_size"/>
+    SGA/wasted  <input type="checkbox" value="SGA/wasted"  name="gest_size"/>
+    </div>
+
+    <h2> <label><u>Umbilicus</u></label></h2>
+    <div class="form-group">
+    <label>Umbilicus</label>
+    Clean <input type="checkbox" value="Clean"  name="umbilicus"/>
+    Local Pus <input type="checkbox" value="LocalPus"  name="umbilicus"/>
+    Pus + red skin  <input type="checkbox" value="Pus red skin "  name="umbilicus"/>
+    </div>
+    </div>
+    <div class="col-lg-6">
+    <h2> <label><u>Disability</u></label></h2>
+    <div class="form-group">
+<label>Can suck/breastfeed</label>
+Yes <input type="checkbox" name="breastfeed" value="Yes" />
+No <input type="checkbox" name="breastfeed" value="No" />
+  
+</div>
+
+<div class="form-group">
+<label>Stiff neck</label>
+Yes <input type="checkbox" name="neck" value="Yes" />
+No <input type="checkbox" name="neck" value="No" />
+  
+</div>
+<div class="form-group">
+<label>Bulging fontanelle</label>
+Yes <input type="checkbox" name="fontanelle" value="Yes" />
+No <input type="checkbox" name="fontanelle" value="No" />
+  
+</div>
+<div class="form-group">
+<label>Irritable</label>
+Yes <input type="checkbox" name="irritable" value="Yes" />
+No <input type="checkbox" name="irritable" value="No" />
+  
+</div>
+
+
+<div class="form-group">
+<label>Reduced movement/tone</label>
+Yes <input type="checkbox" name="tone" value="Yes" />
+No <input type="checkbox" name="tone" value="No" />
+  </div>
+    </div>
+    
+      </div> 
+      </div> 
+      </div> 
+      </div>
 <div id="tab-4" class="tab-pane active">
                         <div class="panel-body">
 

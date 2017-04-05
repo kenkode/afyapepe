@@ -342,6 +342,8 @@ return Redirect::route('nurse.show', [$id]);
      
     public function showDependents($id)
     {
+         $observations=Observation::all();
+       $symptoms=Symptom::all();
         $details=DB::table('triage_infants')
         ->Join('appointments','appointments.id','=','triage_infants.appointment_id')
         ->where('appointments.persontreated',$id)
@@ -354,7 +356,7 @@ return Redirect::route('nurse.show', [$id]);
         $now = Carbon::now();
         $length = $end->diffInDays($now);
 
-        return view('nurse.showdependent')->with('id',$id)->with('length',$length)->with('details',$details);
+        return view('nurse.showdependent')->with('id',$id)->with('length',$length)->with('details',$details)->with('observations',$observations)->with('symptoms',$symptoms);
     }
 
 

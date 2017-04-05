@@ -110,7 +110,7 @@
           <div class="row">
       <div class="col-lg-6">
   <div class="ibox float-e-margins">
-   <h2><label><u>Baby Details</u></label></h2>
+   <h4><label><u>Baby Details</u></label></h4>
            
   <div class="ibox-content">
   
@@ -131,7 +131,10 @@
     </div>
     <div class="form-group">
                  <label for="exampleInputPassword1">Gestation</label>
-            <input type="text" class="form-control" name="gestation">
+           <select name="" class="form-control">
+  <option value="Latent TB">24 weeks</option>
+  <option value="TB Disease">25 weeks</option>  
+</select>
     </div>
 
     <div class="form-group">
@@ -229,7 +232,7 @@
 
       <div id="tab-8" class="tab-pane">
                         <div class="panel-body">
-<h2><label><u>Mother Details</u></label></h2>
+<h4><label><u>Mother Details</u></label></h4>
   <div class="wrapper wrapper-content">
           <div class="row animated fadeInRight">
 
@@ -311,6 +314,10 @@ No <input type="checkbox" name="diabetes" value="No" />
 </div>
 <div class="form-group">
 <label>TB Positive</label>
+<select name="" class="form-control">
+  <option value="Latent TB">Latent TB</option>
+  <option value="TB Disease">TB Disease</option>  
+</select>
 Yes <input type="checkbox" name="tb" value="Yes" />
 No <input type="checkbox" name="tb" value="No" />
   
@@ -468,7 +475,7 @@ No <input type="checkbox" name="aph" value="No" />
                     </div>
                     <div class="ibox-content">
                    
-<h2><label><u>Baby Details</u></label></h2>
+<h4><label><u>Baby Details</u></label></h4>
 
                                                                  <table class="table table-small-font table-bordered table-striped">
                                                               <thead>
@@ -535,7 +542,7 @@ No <input type="checkbox" name="aph" value="No" />
      @else
       <div class="row">
       <div class="col-lg-6">
-<h2><label><u>Vitals</u></label></h2>
+<h4><label><u>Vitals</u></label></h4>
  <div class="form-group">
    <label for="exampleInputEmail1">Fever</label>
    No<input type="checkbox" value="No_fevers"  name="fevers" />
@@ -621,7 +628,7 @@ No  <input type="checkbox" value="No_convulsion"  name="convulsion" />
  Yes <input type="checkbox" value="Yes"  name="apnoea"  />
   
 </div>
-<h2> <label><U>Circulation</U></label></h2>
+<h4> <label><U>Circulation</U></label></h4>
     <div class="form-group">
     <label>Femoral Pulse</label>
     Normal <input type="checkbox" value="Normal"  name="femoral_pulse"/>
@@ -667,7 +674,7 @@ Shoulder <input type="checkbox" name="skincold" value="Shoulder" />
   </div>
 
 <div class="col-lg-6">
-   <h2> <label><u>Airways & Breathing</u></label></h2>
+   <h4> <label><u>Airways & Breathing</u></label></h4>
 
     <div class="form-group">
     <label for="exampleInputPassword1">Stridor</label>
@@ -712,6 +719,69 @@ Shoulder <input type="checkbox" name="skincold" value="Shoulder" />
     Hoarse  <input type="checkbox" value="Yes"  name="cry"/>
     Weak  <input type="checkbox" value="Yes"  name="cry"/>
     </div>
+
+     <h4> <label><u>Other Vitals</u></label></h4>
+    <div class="form-group">
+    <label for="exampleInputEmail1">Weight</label>
+    <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Weight" name="weight"  required>
+    </div>
+    <div class="form-group">
+    <label for="exampleInputEmail1">Height</label>
+    <input type="name" class="form-control" placeholder="Height in Metres" name="current_height"
+     required>
+    </div>
+   <div class="form-group">
+    <label for="exampleInputPassword1">Temperature</label>
+    <input type="name" class="form-control" id="exampleInputPassword1" placeholder="Temperature" name="temperature"  required>
+   </div>
+
+    <div class="form-group">
+    <label for="exampleInputPassword1">Systolic BP</label>
+    <input type="name" class="form-control" id="exampleInputPassword1" placeholder="Systolic BP" name="systolic"  required>
+    </div>
+    <div class="form-group">
+    <label for="exampleInputEmail1">Diastolic BP</label>
+    <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Diastolic BP" name="diastolic"  required>
+    </div>
+ 
+  
+
+     <div class="form-group">
+    <label for="exampleInputPassword1">Chief Complaint/Reason for visit</label>
+    <select multiple="multiple" class="form-control" name="chiefcompliant[]"  >
+    <?php $chiefs = DB::table('chief_compliant_table')->get();?>
+                  @foreach($chiefs as $chief)
+                   <option value="{{$chief->name}}">{{$chief->name}}</option>
+                 @endforeach
+                </select>
+    </div>
+    <div class="form-group">
+    <label for="exampleInputPassword1">Observation</label>
+    <select  class="form-control" name="observation" id="observation" >
+    
+                  @foreach($observations as $observation)
+                   <option value="{{$observation->name}}">{{$observation->name}}</option>
+                 @endforeach
+                </select>
+    </div>
+    <div class="form-group">
+    <label for="exampleInputPassword1">symptoms</label>
+    <select  class="form-control" name="symptoms" id="symptoms">
+     @foreach($symptoms as  $symptom)
+                   <option value="{{$symptom->name}}">{{$symptom->name}}</option>
+                 @endforeach
+    
+                </select>
+    </div>
+    
+
+    <div class="form-group">
+    <label for="exampleInputPassword1">Nurse Notes</label>
+    <textarea class="form-control" placeholer="" name="nurse" required>
+    </textarea>
+
+    </div>
+    
 
    
 
@@ -838,7 +908,7 @@ Shoulder <input type="checkbox" name="skincold" value="Shoulder" />
  <div class="col-lg-10 col-lg-offset-1">
                         <div class="ibox float-e-margins">
                             <div class="ibox-title">
-                              <h5>Measures of  Growth & Weight</h5>
+                              <h4>Measures of  Growth & Weight</h4>
                                 <div class="ibox-tools">
                                     <a class="collapse-link">
                                         <i class="fa fa-chevron-up"></i>
@@ -882,14 +952,68 @@ Shoulder <input type="checkbox" name="skincold" value="Shoulder" />
       </div> 
       </div>
       </div>
-      </div>  
+      </div>
+      <div id="tab-3" class="tab-pane">
+                        <div class="panel-body">
+
+  <div class="wrapper wrapper-content">
+          <div class="row animated fadeInRight">
+ <div class="col-lg-10 col-lg-offset-1">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                              <h4>MUAC/Nutrition Test</h4>
+                                <div class="ibox-tools">
+                                    <a class="collapse-link">
+                                        <i class="fa fa-chevron-up"></i>
+                                    </a>
+
+                                    <a class="close-link">
+                                        <i class="fa fa-times"></i>
+                                    </a>
+                                </div>
+                            </div>
+
+
+        <div class="ibox-content">
+        <div class="table-responsive">
+      <table class="table table-striped table-bordered table-hover dataTables-example" >
+      <thead>
+       <tr>
+           <th>No</th>
+            <th>Date</th>
+           <th>Time</th>
+           <th>MUAC</th>
+           <th>Score</th> 
+           
+           
+
+      </tr>
+      </thead>
+
+      <tbody>
+     
+
+
+        </tbody>
+      </table>
+      
+<a href="{{ url('growth', $dependant->id) }}" class="btn btn-primary btn-sm">Update Details</a>
+   </div>
+
+      </div> 
+      </div> 
+      </div> 
+      </div> 
+      </div>
+      </div>
+      </div> 
 <div id="tab-10" class="tab-pane">
                         <div class="panel-body">
 
   <div class="wrapper wrapper-content">
           <div class="row animated fadeInRight">
 
-<h2><label> Abonormalities-Tick All Relevant and Describe</label></h2>
+<h4><label> Abonormalities-Tick All Relevant and Describe</label></h4>
 <?php $abs=DB::table('abnormalities')->get(); ?>
 @foreach($abs as $ab )
 <div class="form-group">
@@ -909,14 +1033,14 @@ Shoulder <input type="checkbox" name="skincold" value="Shoulder" />
       </div> 
       </div> 
 
-<div id="tab-9" class="tab-pane active">
+<div id="tab-9" class="tab-pane">
                         <div class="panel-body">
 
   <div class="wrapper wrapper-content">
           <div class="row animated fadeInRight">
           <div class="row">
           <div class="col-lg-6">
- <h2> <label><u>General Examination</u></label></h2>
+ <h4> <label><u>General Examination</u></label></h4>
           <div class="form-group">
     <label for="exampleInputPassword1">Skin</label>
     Bruising <input type="checkbox" value="Bruising"  name="skin"/>
@@ -936,7 +1060,7 @@ Shoulder <input type="checkbox" name="skincold" value="Shoulder" />
     SGA/wasted  <input type="checkbox" value="SGA/wasted"  name="gest_size"/>
     </div>
 
-    <h2> <label><u>Umbilicus</u></label></h2>
+    <h4> <label><u>Umbilicus</u></label></h4>
     <div class="form-group">
     <label>Umbilicus</label>
     Clean <input type="checkbox" value="Clean"  name="umbilicus"/>
@@ -984,7 +1108,7 @@ No <input type="checkbox" name="tone" value="No" />
       </div> 
       </div> 
       </div>
-<div id="tab-4" class="tab-pane active">
+<div id="tab-4" class="tab-pane">
                         <div class="panel-body">
 
   <div class="wrapper wrapper-content">
@@ -1001,6 +1125,7 @@ No <input type="checkbox" name="tone" value="No" />
 </div>
 </div>
 
+<br><br>
 
  
  @include('includes.default.footer')

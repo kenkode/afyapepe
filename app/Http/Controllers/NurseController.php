@@ -467,6 +467,36 @@ return Redirect::route('nurse.show', [$id]);
         $symptoms=$request->symptoms;
         $nurse=$request->nurse;
         $doctor=$request->doctor;
+        $hiv=$request->hiv;
+       $arvs=$request->arvs;
+    $vdrl=$request->vdrl;
+    $fever=$request->fever;
+    $antibiotics=$request->antibiotics;
+    $diabetes=$request->diabetes;
+    $tb=$request->tb;
+    $tb_treatment=$request->tb_treatment;
+    $aph=$request->aph;
+    $babyproblem=$request->babyproblem;
+    $motherproblem=$request->motherproblem;
+    $revelantdrugs=$request->revelantdrugs;
+    $oral=$request->oral;
+    $lympn=$request->lympn;
+    $difficultybreathing=$request->difficulty_breathing;
+    $diarrhoea=$request->diarrhoea;
+    $diarrhoeadays=$request->diarrhoea_days;
+    $contact_tb=$request->contact_tb;
+    $cough=$request->cough;
+    $diarrhoeabloody=$request->diarrhoea_bloody;
+    $vomiting=$request->vomiting;
+    $vomitinghours=$request->vomiting_hours;
+    $vomitseveything=$request->vomits_eveything;
+    $feedingdifficult=$request->feeding_difficult;
+    $convulsion=$request->convulsion;
+    $convulsionhours=$request->convulsion_hours;
+    $fits=$request->fits;
+    $apnoea=$request->apnoea;
+    $hypertension=$request->hypertention;
+    $abs=$request->abs;
         
        
        
@@ -555,6 +585,23 @@ foreach($insects as $key) {
 }
 }
 
+
+if($abs){
+
+foreach ($abs as $key => $abs) {
+    
+  
+    DB::table('infact_abnormalities')->insert(
+    ['dependent_id' => $id,
+    'name' => $abs,
+    'abnormalities_describe'=> $detail,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
+);
+  }
+
+}
+
 $chiefcompliant = implode(',', $chiefcompliant);
 $appointment=DB::table('appointments')->where('persontreated', $id)->orderBy('created_at', 'desc')->first();
 
@@ -572,6 +619,35 @@ $appointment=DB::table('appointments')->where('persontreated', $id)->orderBy('cr
     'nurse_notes'=>$nurse,
     'Doctor_note'=>'',
     'prescription'=>'',
+    'hiv'=>$hiv,
+     'arvs'=>$arvs,
+     'vdrl'=>$vdrl,
+     'fever'=>$fever,
+     'antibiotics'=>$antibiotics,
+     'diabetes'=>$diabetes,
+     'tb'=>$tb,
+     'tb_treatment'=>$tb_treatment,
+      'hypertention'=>$hypertension,
+      'aph'=>$aph,
+      'baby_problem'=>$babyproblem,
+      'mother_problem'=>$motherproblem,
+      'revelant_drug'=>$revelantdrugs,
+      'oral_thrush'=>$oral,
+      'lympn'=>$lympn,
+      'difficult_breathing'=>$difficultybreathing,
+      'diarrhoea'=>$diarrhoea,
+      'diarrhoea_day'=>$diarrhoeadays,
+      'contact_tb'=>$contact_tb,
+      'chronic_cough'=>$cough,
+      'diarrhoea_bloody'=>$diarrhoeabloody,
+      'vomiting'=>$vomiting,
+      'vomiting_hours'=>$vomitinghours,
+      'vomiting_everything'=>$vomitseveything,
+      'difficult_feeding'=>$feedingdifficult,
+      'convulsion'=>$convulsion,
+      'convulsion_hours'=>$convulsionhours,
+      'fits'=>$fits,
+      'aponea'=>$apnoea,
     'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
 
 );

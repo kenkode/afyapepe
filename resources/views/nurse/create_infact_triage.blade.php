@@ -85,12 +85,13 @@
                 <ul class="nav nav-tabs">
 
                   
+                    <li class="active"><a data-toggle="tab" href="#tab-4">Vitals</a></li>
                     
+                    <li class=""><a data-toggle="tab" href="#tab-1">General Examination</a></li>
                     
-                    <li class="active"><a data-toggle="tab" href="#tab-1">General Examination</a></li>
-                    <li class=""><a data-toggle="tab" href="#tab-2">Allergies</a></li>
                     <li class=""><a data-toggle="tab" href="#tab-3">Abnormalites</a></li>
-                    <li class=""><a data-toggle="tab" href="#tab-4">Vitals</a></li>
+                    <li class=""><a data-toggle="tab" href="#tab-2">Allergies</a></li>
+                    
                     
                    
                 </ul>
@@ -110,17 +111,17 @@
     <input type="hidden" class="form-control" id="exampleInputEmail1S" aria-describedby="emailHelp" value="{{$id}}" name="id"  required>
     
   <div class="form-group">
-<label>Oral thrush?</label><br>
+<label>Oral thrush</label><br>
 Yes <input type="checkbox" name="oral" value="Yes" />
 No <input type="checkbox" name="oral" value="No" />
   </div>
 <div class="form-group">
-<label>Lympn N>1cm?</label><br>
+<label>Lympn N>1cm</label><br>
 Yes <input type="checkbox" name="lympn" value="Yes" />
 No <input type="checkbox" name="lympn" value="No" />
   </div>
     <div class="form-group">
-   <label for="exampleInputEmail1">Fever?</label><br>
+   <label for="exampleInputEmail1">Fever</label><br>
    No<input type="checkbox" value="No_fevers"  name="fevers" />
    Yes <input type="checkbox" value="Yes_fevers"  name="fevers"  />
 
@@ -132,14 +133,14 @@ No <input type="checkbox" name="lympn" value="No" />
 </div>
 </div>
 <div class="form-group">
-<label>Difficulty Breathing?</label>
+<label>Difficulty Breathing</label>
  No  <input type="checkbox" value="No"  name="difficulty_breathing" />
  Yes <input type="checkbox" value="Yes"  name="difficulty_breathing"  />
   
 </div>
 
  <div class="form-group">
-   <label for="exampleInputEmail1">Diarrhoea?</label><br>
+   <label for="exampleInputEmail1">Diarrhoea</label><br>
    No<input type="checkbox" value="No_diarrhoea"  name="diarrhoea" />
    Yes <input type="checkbox" value="Yes_diarrhoea"  name="diarrhoea"  />
 
@@ -151,28 +152,28 @@ No <input type="checkbox" name="lympn" value="No" />
 </div>
 </div>
 <div class="form-group">
-<label>Contact with TB?</label>
+<label>Contact with TB</label>
  No  <input type="checkbox" value="No"  name="contact_tb" />
  Yes <input type="checkbox" value="Yes"  name="contact_tb"  />
   
 </div>
 
 <div class="form-group">
-<label>Chronic Cough(last 12 Months)?</label>
+<label>Chronic Cough(last 12 Months)</label>
  No  <input type="checkbox" value="No"  name="cough" />
  Yes <input type="checkbox" value="Yes"  name="cough"  />
   
 </div>
 
 <div class="form-group">
-<label>Diarrhoea-Bloody?</label>
+<label>Diarrhoea-Bloody</label>
  No  <input type="checkbox" value="No"  name="diarrhoea_bloody" />
  Yes <input type="checkbox" value="Yes"  name="diarrhoea_bloody"  />
   
 </div>
 
 <div class="form-group">
-<label>Vomiting Yes/No?</label>
+<label>Vomiting</label>
  No  <input type="checkbox" value="No_vomiting"  name="vomiting" />
  Yes <input type="checkbox" value="Yes_vomiting"  name="vomiting"  />
  <div class="Yes_vomiting"  style="display: none">
@@ -182,14 +183,14 @@ No <input type="checkbox" name="lympn" value="No" />
 </div>
 
 <div class="form-group">
-<label>Vomits Everything?</label>
+<label>Vomits Everything</label>
  No  <input type="checkbox" value="No"  name="vomits_eveything" />
  Yes <input type="checkbox" value="Yes"  name="vomits_eveything"  />
   
 </div>
 
 <div class="form-group">
-<label>Difficult Feeding?</label>
+<label>Difficult Feeding</label>
  No  <input type="checkbox" value="No"  name="feeding_difficult" />
  Yes <input type="checkbox" value="Yes"  name="feeding_difficult"  />
   
@@ -206,20 +207,20 @@ No  <input type="checkbox" value="No_convulsion"  name="convulsion" />
   
 </div>
 <div class="form-group">
-<label>Partial/Focal Fits?</label>
+<label>Partial/Focal Fits</label>
  No  <input type="checkbox" value="No"  name="fits" />
  Yes <input type="checkbox" value="Yes"  name="fits"  />
   
 </div>
 
 <div class="form-group">
-<label>Apnoea?</label>
+<label>Apnoea</label>
  No  <input type="checkbox" value="No"  name="apnoea" />
  Yes <input type="checkbox" value="Yes"  name="apnoea"  />
   
 </div>
      <div class="form-group">
-   <label for="exampleInputEmail1">Hiv status?</label><br>
+   <label for="exampleInputEmail1">Hiv status</label><br>
    Negative <input type="checkbox" value="Negative"  name="hiv" />
    Positive <input type="checkbox" value="Positive"  name="hiv"  />
 
@@ -255,26 +256,26 @@ No  <input type="checkbox" value="No_convulsion"  name="convulsion" />
 
 <div class="col-lg-6">
 <div class="form-group">
-<label>Antibiotics?</label><br>
+<label>Antibiotics</label><br>
 Yes <input type="checkbox" name="antibiotics" value="Yes" />
 No <input type="checkbox" name="antibiotics" value="No" />
   
 </div>
 
 <div class="form-group">
-<label>Diabetes?</label><br>
+<label>Diabetes</label><br>
 Yes <input type="checkbox" name="diabetes" value="Yes" />
 No <input type="checkbox" name="diabetes" value="No" />
   
 </div>
 <div class="form-group">
-<label>TB Positive?</label><br>
+<label>TB Positive</label><br>
 Yes <input type="checkbox" name="tb" value="Yes" />
 No <input type="checkbox" name="tb" value="No" />
   
 </div>
 <div class="form-group">
-<label>TB Treatment?</label><br>
+<label>TB Treatment</label><br>
 Yes <input type="checkbox" name="tb_treatment" value="Yes" />
 No <input type="checkbox" name="tb_treatment" value="No" />
   
@@ -282,24 +283,24 @@ No <input type="checkbox" name="tb_treatment" value="No" />
 
 
 <div class="form-group">
-<label>Hypertention?</label><br>
+<label>Hypertention</label><br>
 Yes <input type="checkbox" name="hypertention" value="Yes" />
 No <input type="checkbox" name="hypertention" value="No" />
   </div>
 
 <div class="form-group">
-<label>APH?</label><br>
+<label>APH</label><br>
 Yes <input type="checkbox" name="aph" value="Yes" />
 No <input type="checkbox" name="aph" value="No" />
   </div>
 <div class="form-group">
-<label>Babies Presenting Problems?</label>
+<label>Babies Presenting Problems</label>
 <textarea name="babyproblem" class="form-control" required=""></textarea>
   
 </div>
 
 <div class="form-group">
-<label>Mother Presenting Problems?</label>
+<label>Mother Presenting Problems</label>
 <textarea name="motherproblem" class="form-control" required=""></textarea>
   
 </div>
@@ -402,6 +403,8 @@ No <input type="checkbox" name="aph" value="No" />
                  @endforeach
                 </select>
   </div>
+<br><br>
+  <button type="submit" class="btn btn-primary">Save</button>
 </div>
 </div>
 </div>
@@ -410,9 +413,9 @@ No <input type="checkbox" name="aph" value="No" />
 </div>
 <div id="tab-3" class="tab-pane">
                         <div class="panel-body">
-<div class="col-lg-6 col-lg-offset-2">
+<div class="col-lg-6 ">
 
-  <h2> Abnormalities-Tick All Relevant and Describe</h2>
+  <h2>Select  All Relevant and Describe</h2>
 <?php $abs=DB::table('abnormalities')->get(); ?>
 @foreach($abs as $ab )
 <div class="form-group">
@@ -497,7 +500,7 @@ No <input type="checkbox" name="aph" value="No" />
     </div>
     
 
-    <button type="submit" class="btn btn-primary">Save</button>
+    
      {!! Form::close() !!}
     </div>
     </div>
@@ -508,7 +511,7 @@ No <input type="checkbox" name="aph" value="No" />
     </div>
     </div>
 
-
+<br><br><br>
   @include('includes.default.footer')
 </div>
 

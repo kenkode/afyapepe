@@ -34,9 +34,3 @@ $(document).ready(function(){
 
 
 $(".test-multiple").select2();
-// show Modal test
-
-
-
-
-})

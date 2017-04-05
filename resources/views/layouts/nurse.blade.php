@@ -124,53 +124,7 @@
     <!-- Custom and plugin javascript -->
 <script src="{{ asset('js/plugins/pace/pace.min.js') }}" type="text/javascript"></script>
     <!--  <script src="{{ asset('js/inspinia.js') }}" type="text/javascript"></script>-->
-    <script>
-      
-  $(document).ready(function() {
-    
-    var navListItems = $('ul.setup-panel li a'),
-        allWells = $('.setup-content');
-
-    allWells.hide();
-
-    navListItems.click(function(e)
-    {
-        e.preventDefault();
-        var $target = $($(this).attr('href')),
-            $item = $(this).closest('li');
-        
-        if (!$item.hasClass('disabled')) {
-            navListItems.closest('li').removeClass('active');
-            $item.addClass('active');
-            allWells.hide();
-            $target.show();
-        }
-    });
-    
-    $('ul.setup-panel li.active a').trigger('click');
-    
-    // DEMO ONLY //
-      
-    var  current_active = $("ul.setup-panel li.active");
-      
-    $('#activate-step').on('click', function(e) {
-        current_active = $("ul.setup-panel li.active");
-        current_active_id=current_active.data("id");
-        
-        $('ul.setup-panel li:eq('+current_active_id+')').removeClass('disabled');
-        $('ul.setup-panel li a[href="#step-'+(current_active_id+1)+'"]').trigger('click');
-       
-    })
-        $('#back-step').on('click', function(e) {
-            current_active = $("ul.setup-panel li.active");
-            current_active_id=current_active.data("id");
-            
-        $('ul.setup-panel li a[href="#step-'+(current_active_id-1)+'"]').trigger('click');
-       
-    })    
-});
-
-    </script>
+   
     <script>
 
 

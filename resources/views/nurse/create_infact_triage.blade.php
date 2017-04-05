@@ -508,7 +508,7 @@ No <input type="checkbox" name="aph" value="No" />
     </div>
     </div>
 
-<br><br><br>
+
   @include('includes.default.footer')
 </div>
 

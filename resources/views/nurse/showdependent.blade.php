@@ -224,6 +224,9 @@
   
 </div>
    </div>
+
+   <button type="submit" class="btn btn-primary">Save</button>
+     {!! Form::close() !!}
   
    </div>
    </div>
@@ -359,6 +362,9 @@ No <input type="checkbox" name="aph" value="No" />
 <textarea name="revelantdrugs" class="form-control"></textarea>
   
 </div>
+
+<button type="submit" class="btn btn-primary">Save</button>
+     {!! Form::close() !!}
 
       </div> 
       </div>
@@ -781,9 +787,19 @@ Shoulder <input type="checkbox" name="skincold" value="Shoulder" />
     </textarea>
 
     </div>
+    <div class="form-group">
+    <label for="exampleInputEmail1">Consulting Physician</label>
+    <select class="form-control" name="doctor" >
+    <?php $doctors = DB::table('users')->Where('role', '=','Doctor')->get();?>
+                  @foreach($doctors as $doctor)
+                   <option value="{{$doctor->id}}">{{$doctor->name}}</option>
+                 @endforeach
+                </select>
+    </div>
     
 
-   
+   <button type="submit" class="btn btn-primary">Save</button>
+     {!! Form::close() !!}
 
  
   
@@ -1102,6 +1118,8 @@ No <input type="checkbox" name="irritable" value="No" />
 Yes <input type="checkbox" name="tone" value="Yes" />
 No <input type="checkbox" name="tone" value="No" />
   </div>
+  <button type="submit" class="btn btn-primary">Save</button>
+     {!! Form::close() !!}
     </div>
     
       </div> 

@@ -131,7 +131,7 @@
     
     
      <div class="form-group">
-    <label for="exampleInputPassword1">Chief Compliant</label>
+    <label for="exampleInputPassword1">Chief Complaint/Reason for visit</label>
     <select multiple="multiple" class="form-control" name="chiefcompliant[]"  >
     <?php $chiefs = DB::table('chief_compliant_table')->get();?>
                   @foreach($chiefs as $chief)

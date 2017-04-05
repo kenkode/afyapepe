@@ -117,6 +117,8 @@ Route::get('/ajax-subcat',function(){
    Route::get('/disis/find', 'DiseasesController@find');
 	 Route::get('/tags/fac', 'FacilityController@ffacility');
 
+  Route::get('motherdetails1', [ 'as' => 'mom1', 'uses' => 'InfantController@MDetails1']);
+	Route::get('motherdetails2', [ 'as' => 'mom2', 'uses' => 'InfantController@MDetails2']);
 
 
 

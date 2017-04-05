@@ -134,6 +134,8 @@ return redirect('doctor.create');
                            <th>Observations</th>
                            <th>Symptoms</th>
                            <th>Nurse Notes</th>
+                           <th>More detail1</th>
+                           <th>More detail2</th>
 
 
                         </tr>
@@ -156,11 +158,11 @@ return redirect('doctor.create');
                             else {echo $pdetails->Inftemp;}
                             ?></td>
                           <td>
-                            <?php if ($pdetails->persontreated=='Self') {echo $pdetails->systolic_b;}
+                            <?php if ($pdetails->persontreated=='Self') {echo $pdetails->systolic_bp;}
                               else {echo $pdetails->Infsysto;}
                               ?></td>
                            <td>
-                             <?php if ($pdetails->persontreated=='Self') {echo $pdetails->diastolic_b;}
+                             <?php if ($pdetails->persontreated=='Self') {echo $pdetails->diastolic_bp;}
                                else {echo $pdetails->Infdiasto;}
                                ?></td>
                            <td>
@@ -182,7 +184,8 @@ return redirect('doctor.create');
                              else {echo $pdetails->nurse_notes;}
                              ?>
                                </td>
-
+                               <td><a href="{{route('mom1')}}">Mother Details1</a></td>
+                               <td><a href="{{route('mom2')}}">Mother Details2</a></td>
 
                         </tr>
                         <?php $i++; ?>
@@ -218,7 +221,7 @@ return redirect('doctor.create');
             <tbody>
               <?php
               $pathists = DB::table('appointments')
-              ->Join('triage_details', 'appointments.id', '=', 'triage_details.appointment_id')
+              ->leftJoin('triage_details', 'appointments.id', '=', 'triage_details.appointment_id')
               ->leftJoin('patient_test', 'appointments.id',  '=', 'patient_test.appointment_id')
               ->leftJoin('prescriptions', 'appointments.id', '=', 'prescriptions.appointment_id')
               ->leftJoin('dependant', 'appointments.persontreated', '=', 'dependant.id')

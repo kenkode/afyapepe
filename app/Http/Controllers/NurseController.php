@@ -77,6 +77,21 @@ return redirect()->action('NurseController@showDependents', [$userid]);
 
    }
 
+   public function infantNutrition(Request $request){
+    $id=$request->patient_id;
+    $score=$request->muac;
+     DB::table('dependant_nutrition_test')->insert(
+    ['dependent_id' => $id,
+    'score' =>$score,
+     'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
+);
+
+
+return redirect()->action('NurseController@showDependents', [$id]);
+
+   }
+
    public function updateInfant(Request $request){
 
     $id=$request->id;

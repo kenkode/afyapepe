@@ -1006,15 +1006,60 @@ Shoulder <input type="checkbox" name="skincold" value="Shoulder" />
       </tr>
       </thead>
 
+<?php $i=1;  $nutritions=DB::table('dependant_nutrition_test')->where('dependent_id',$id)->get();?>
+@foreach($nutritions as $nutrition)
       <tbody>
-     
+      <tr>
+<td>{{$i}}</td> 
+<td>{{ date('d -m- Y', strtotime($nutrition->created_at))}}</td>     
+<td>{{ date('H:i:s', strtotime($nutrition->created_at))}}</td>     
+ <td>{{$nutrition->score}}</td>
+ <td><?php $score=$nutrition->score;
+ if ($score<=110) {
+   echo '<div style="color:red">Severe Acute Malnutrition (SAM)</div>';
+ }
+elseif($score>111 & $score<=125){
+  echo '<div style="color:orange">Moderate Acute Malnutrition (MAM)</div>';
+}
+elseif($score>126 & $score<=135){
+  echo '<div style="color:yellow"><b>Growth Promotion and Monitoring (GPM)</b></div>';
+}
+else{
+  echo ' <div style="color:green">Well Nourished.</div>';
+}
+  ?></td>
 
 
+</tr>
         </tbody>
+        <?php $i++; ?>
+@endforeach
       </table>
       
-<a href="{{ url('growth', $dependant->id) }}" class="btn btn-primary btn-sm">Update Details</a>
-   </div>
+                            <a data-toggle="modal" class="btn btn-primary" href="#modal-form">Add</a>
+                            
+                            <div id="modal-form" class="modal fade" aria-hidden="true">
+                            <div class="modal-dialog">
+                            <div class="modal-content">
+                            <div class="modal-body">
+                            <div class="row">
+                            <div class="col-sm-6">
+                               {!! Form::open(array('url' => 'nurse.nutrition','method'=>'POST')) !!}
+                              <input type="hidden" name="patient_id" value="{{$dependant->id}}">
+                               <div class="form-group">
+    <label for="exampleInputEmail1">MUAC Reading</label>
+    <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder=" in mm" name="muac"  required>
+    </div>
+                               
+                                      <button class="btn btn-sm btn-primary" type="submit"><strong>Submit</strong></button>
+                                  </div>
+                              {{ Form::close() }}
+                                </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                       
 
       </div> 
       </div> 
@@ -1023,6 +1068,7 @@ Shoulder <input type="checkbox" name="skincold" value="Shoulder" />
       </div>
       </div>
       </div> 
+      </div>
 <div id="tab-10" class="tab-pane">
                         <div class="panel-body">
 

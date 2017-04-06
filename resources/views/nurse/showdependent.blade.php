@@ -106,15 +106,100 @@
     <div class="tab-content">
     <div id="tab-7" class="tab-pane active">
                         <div class="panel-body">
+  <table class="table table-small-font table-bordered table-striped">
+ <thead>
+    <tr>
+   <th>No</th>
+  <th>Admission Date</th>
+  <th>Ip No</th>
+  <th>Gestation</th>
+   <th>Temperature</th>               
+    <th>Apgar</th>
+   <th>Birth Weight</th>
+  <th>Weight Now</th>
+   <th>BBA</th>
+   <th>Born Where</th>
+   <th>Delivery</th>
+   <th>Resuscitiation</th>
+   <th>View</th>
+   
+    </tr>
+    <?php 
+    $i=1; $details=DB::table('baby_details')->where('dependent_id',$id)->get();?>
+    </thead>
+    @foreach($details as $detail)
+    <tbody>
+     <tr>
+     <td>{{$i}}</td>
+     <td>{{$detail->dob}}</td>
+     <td>{{$detail->ipno}}</td>
+     <td>{{$detail->gestation}}</td>
+     <td>{{$detail->temperature}}</td>
+     <td>{{$detail->apgar}}</td>
+     <td>{{$detail->birthweight}}</td>
+     <td>{{$detail->weightnow}}</td>
+     <td>{{$detail->bba}}</td>
+     <td>{{$detail->bba_where}}</td>
+     <td>{{$detail->delivery}}</td>
+      <td>{{$detail->resuscitation}}</td>
+      <td><a data-toggle="modal" class="btn btn-primary" href="#modal-form1">
+
+<i class="fa fa-search" aria-hidden="true"></i>
+</a>
+                            
+                            <div id="modal-form1" class="modal fade" aria-hidden="false">
+                           
+                            <div class="modal-body">
+                            <br>
+          <div class="row">
+        <div class="col-lg-6 col-lg-offset-2">
   
+  <table class="table table-small-font table-bordered table-striped">
+  <tr>
+    <th>ROM</th>
+    <th>Given Vitamen K </th>
+    <th>Given Eye Prophylaxis</th>
+    <th>Babies Presenting Problems</th>
+    <th>Revelant Drugs( Pre Admission)</th>
+    </tr>
+    <tbody>
+      <tr>
+      <td>{{$detail->rom}}</td>
+      <td>{{$detail->vitamen}}</td>
+      <td>{{$detail->prophylaxis}}</td>
+       <td>{{$detail->babyproblem}}</td>
+        <td>{{$detail->revelantdrugs}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+</div>
+</div>
+</div>
+  </td>
+     </tr>
+     </tbody>
+     @endforeach
+     <?php  $i++;?>
+     </table>
+                   
+                                                               
+  <a data-toggle="modal" class="btn btn-primary" href="#modal-form">Add</a>
+                            
+                            <div id="modal-form" class="modal fade" aria-hidden="true">
+                            <div class="modal-dialog">
+                            <div class="modal-content">
+                            <div class="modal-body">
           <div class="row">
       <div class="col-lg-6">
   <div class="ibox float-e-margins">
    <h4><label><u>Baby Details</u></label></h4>
            
   <div class="ibox-content">
+                                            
   
-     <form class="form-horizontal" role="form" method="POST" action="/updateinfant" novalidate>
+     <form class="form-horizontal" role="form" method="POST" action="/babydetails" novalidate>
     <input type="hidden" name="_token" value="{{ csrf_token() }}">
     <input type="hidden" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{$dependant->id}}" name="id"  required>
    
@@ -131,7 +216,7 @@
     </div>
     <div class="form-group">
                  <label for="exampleInputPassword1">Gestation</label>
-           <select name="" class="form-control">
+  <select name="gestation" class="form-control">
   <option value="Latent TB">24 weeks</option>
   <option value="TB Disease">25 weeks</option>  
 </select>
@@ -229,18 +314,115 @@
      {!! Form::close() !!}
   
    </div>
+   </form>
+   </div>
+   </div>
+   </div>
+   </div>
    </div>
       </div> 
-      </form>
+      
 
       <div id="tab-8" class="tab-pane">
                         <div class="panel-body">
-<h4><label><u>Mother Details</u></label></h4>
+
+<table class="table table-small-font table-bordered table-striped">
+ <thead>
+    <tr>
+   <th>No</th>
+  <th>Date of Birth</th>
+  <th>Gravidity</th>
+  <th>Parity</th>
+   <th>Blood Type</th>               
+    <th>Sublocation</th>
+   <th>Hiv</th>
+  <th>ARV's</th>
+   <th>Vdrl</th>
+   <th>Fever</th>
+   <th>Antibiotics</th>
+   <th>Diabetes</th>
+   <th>View</th>
+   
+    </tr>
+    <?php 
+    $i=1; $mothers=DB::table('mother_details')->where('dependent_id',$id)->get();?>
+    </thead>
+    @foreach($mothers as $mother)
+    <tbody>
+     <tr>
+     <td>{{$i}}</td>
+     <td>{{$mother->dob}}</td>
+     <td>{{$mother->gravity}}</td>
+     <td>{{$mother->parity}}</td>
+     <td>{{$mother->blood_type}}</td>
+     <td>{{$mother->sublocation}}</td>
+     <td>{{$mother->hiv}}</td>
+     <td>{{$mother->arvs}}</td>
+     <td>{{$mother->vdrl}}</td>
+     <td>{{$mother->fever}}</td>
+     <td>{{$mother->antibioties}}</td>
+      <td>{{$mother->diabetes}}</td>
+      <td><a data-toggle="modal" class="btn btn-primary" href="#modal-form3">
+
+<i class="fa fa-search" aria-hidden="true"></i>
+</a>
+                            
+                            <div id="modal-form3" class="modal fade" aria-hidden="false">
+                           
+                            <div class="modal-body">
+                            <br>
+          <div class="row">
+        <div class="col-lg-6 col-lg-offset-2">
+  
+  <table class="table table-small-font table-bordered table-striped">
+  <tr>
+    <th>Tb</th>
+    <th>Tb Type</th>
+    <th>Labour 1</th>
+    <th>Labour 2</th>
+    <th>Hypertension</th>
+    <th>Aph</th>
+    <th>Mother Problem</th>
+    <th>Revelant Drugs</th>
+    </tr>
+    <tbody>
+      <tr>
+      <td>{{$mother->tb}}</td>
+      <td>{{$mother->tb_type}}</td>
+      <td>{{$mother->tb_treatment}}</td>
+       <td>{{$mother->labour1}}</td>
+        <td>{{$mother->labour2}}</td>
+        <td>{{$mother->hypertension}}</td>
+        <td>{{$mother->aph}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+</div>
+</div>
+</div>
+  </td>
+     </tr>
+     </tbody>
+     @endforeach
+     <?php  $i++;?>
+     </table>
+                   
+                                                               
+  <a data-toggle="modal" class="btn btn-primary" href="#modal-form2">Add</a>
+  <div id="modal-form2" class="modal fade" aria-hidden="true">
+                            <div class="modal-dialog">
+                            <div class="modal-content">
+                            <div class="modal-body">
   <div class="wrapper wrapper-content">
           <div class="row animated fadeInRight">
 
           <div class="row"> 
           <div class="col-lg-6">
+ <form class="form-horizontal" role="form" method="POST" action="/motherdetails" novalidate>
+    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+    <input type="hidden" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{$dependant->id}}" name="id"  required>
   <div class="form-group" id="data_1">
                  <label for="exampleInputPassword1">Date of Birth</label>
                  <div class="input-group date">
@@ -317,12 +499,15 @@ No <input type="checkbox" name="diabetes" value="No" />
 </div>
 <div class="form-group">
 <label>TB Positive</label>
-<select name="" class="form-control">
-  <option value="Latent TB">Latent TB</option>
-  <option value="TB Disease">TB Disease</option>  
-</select>
+
 Yes <input type="checkbox" name="tb" value="Yes" />
 No <input type="checkbox" name="tb" value="No" />
+<div class="Yes"  style="display: none">
+    <label>TB Type </label>
+  Latent TB  <input type="checkbox" value="Latent TB"  name="tb_type"/>
+  TB Disease  <input type="checkbox" value="TB Disease"  name="tb_type" />
+     
+</div>
   
 </div>
 <div class="form-group">
@@ -370,6 +555,10 @@ No <input type="checkbox" name="aph" value="No" />
       </div>
       </div> 
       </div> 
+      </div>
+      </div>
+      </div>
+      </div>
       </div>
       </div>
       

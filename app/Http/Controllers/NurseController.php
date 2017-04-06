@@ -76,6 +76,50 @@ class NurseController extends Controller
 return redirect()->action('NurseController@showDependents', [$userid]);
 
    }
+public function babyDetails(Request $request){
+    $id=$request->id;
+    $dob=$request->dob;
+    $ipno=$request->ipno;
+    $gestation=$request->gestation;
+    $temperature=$request->temperature;
+    $apgar=$request->apgar;
+    $birthweight=$request->birthweight;
+    $weightnow=$request->weightnow;
+    $bba=$request->bba;
+    $bba_where=$request->bba_where;
+    $delivery=$request->delivery;
+    $resuscitation=$request->resuscitation;
+    $rom=$request->rom;
+    $vitamen=$request->vitamen;
+    $prophylaxis=$request->prophylaxis;
+    $babyproblem=$request->babyproblem;
+    $revelantdrugs=$request->revelantdrugs;
+    DB::table('baby_details')->insert(
+    ['dependent_id' => $id,
+     'dob'=>$dob,
+     'ipno'=>$ipno,
+     'gestation'=>$gestation,
+     'temperature'=>$temperature,
+     'apgar'=>$apgar,
+     'birthweight'=>$birthweight,
+     'weightnow'=>$weightnow,
+     'bba'=>$bba,
+     'bba_where'=>$bba_where,
+     'delivery'=>$delivery,
+     'resuscitation'=>$resuscitation,
+     'rom'=>$rom,
+     'vitamen'=>$vitamen,
+     'prophylaxis'=>$prophylaxis,
+     'babyproblem'=>$babyproblem,
+     'revelantdrugs'=>$revelantdrugs,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
+);
+return redirect()->action('NurseController@showDependents', [$id]);
+}
+public function motherDetails(Request $request){
+    
+}
 
    public function infantNutrition(Request $request){
     $id=$request->patient_id;

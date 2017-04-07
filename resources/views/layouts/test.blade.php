@@ -82,8 +82,7 @@
     <!-- Page-Level Scripts -->
     <script>
     $(document).ready(function() {
-
-    $('a[data-toggle=modal], button[data-toggle=modal]').click(function () {
+  $('a[data-toggle=modal], button[data-toggle=modal]').click(function () {
 
       var data_id = '';
 

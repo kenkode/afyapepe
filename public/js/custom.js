@@ -1,14 +1,17 @@
 // show radio divs
 $(document).ready(function () {
-  $('#div1').hide();
+  // $('#div1').hide();
   $('#div2').hide();
-                   $('#id_radio1').click(function () {
-                       $('#div1').show('fast');
+  $('#othertest').hide();
+                   $('#button1').click(function () {
+                       $('#div1').toggle('fast');
                });
-               $('#id_radio2').click(function () {
-                     $('#div1').hide();
 
-                });
+
+               $('#button2').click(function () {
+                   $('#othertest').toggle('fast');
+           });
+
               });
 
 // show checkbox divs
@@ -35,3 +38,10 @@ $(document).ready(function(){
 // select test
 $(".test-multiple").select2();
 
+// select test
+// $(document).ready(function(){
+//     $(".buttons").click(function () {
+//     var div= $("#"+this.value);
+//           div.toggle("slow").siblings().hide("slow");
+//     });
+// });

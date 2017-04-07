@@ -13,14 +13,7 @@ use App\Patient;
 class InfantController extends Controller
 {
 
-    public function MDetails1()
-    {
-          return view('doctor.motherdetails1');
-    }
-    public function MDetails2()
-    {
-          return view('doctor.motherdetails2');
-    }
+  
 
 
 

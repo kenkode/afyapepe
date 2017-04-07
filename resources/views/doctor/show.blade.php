@@ -36,8 +36,10 @@ return redirect('doctor.create');
          $phone = $pdetails->msisdn;
          $stat= $pdetails->appstatus;
          $afyauserId= $pdetails->afyaId;
+
         }
         else {
+          $dependantId= $pdetails->Infid;
           $pname = $pdetails->Infname;
           $lname = $pdetails->InfName;
           $facilty = $pdetails->FacilityName;
@@ -47,42 +49,6 @@ return redirect('doctor.create');
          }
 
 
-        // $dob = $pdetails->dob;
-        // $nid = $pdetails->nationalId;
-        // $appoid = $pdetails->app_id;
-        // $appdate = $pdetails->created_at;
-
-        // $weight = $pdetails->current_weight;
-        // $height = $pdetails->current_height;
-        // $temperature = $pdetails->temperature;
-        // $systolic = $pdetails->systolic_bp;
-        // $diastolic = $pdetails->diastolic_bp;
-        //
-        // $complain = $pdetails->chief_compliant;
-        // $observations = $pdetails->observation;
-        // $gender = $pdetails->gender;
-
- //        if ($gender=1) {
- //          $gender='Male';
- //        }else{
- //          $gender='Female';
- //        }
- //
- //        if ($stat=="1") {
- //          $stat='queueing';
- //        }elseif($stat=="2") {
- //          $stat='Active';
- //        }elseif($stat=="3") {
- //          $stat='Discharged';
- //        }elseif($stat=='4') {
- //        $stat='Admitted';
- //        }else{
- //          $stat='Referred';
- //        }
- //
- //
- // $interval = date_diff(date_create(), date_create($dob));
- // $age= $interval->format(" %Y Year, %M Months, %d Days Old");
 
 }
 ?>
@@ -134,11 +100,7 @@ return redirect('doctor.create');
                            <th>Observations</th>
                            <th>Symptoms</th>
                            <th>Nurse Notes</th>
-                           <th>More detail1</th>
-                           <th>More detail2</th>
-
-
-                        </tr>
+                      </tr>
                         </thead>
 
                         <tbody>
@@ -184,10 +146,7 @@ return redirect('doctor.create');
                              else {echo $pdetails->nurse_notes;}
                              ?>
                                </td>
-                               <td><a href="{{route('mom1')}}">Mother Details1</a></td>
-                               <td><a href="{{route('mom2')}}">Mother Details2</a></td>
-
-                        </tr>
+                         </tr>
                         <?php $i++; ?>
 
                         @endforeach
@@ -297,185 +256,9 @@ return redirect('doctor.create');
       </div>
 
 </div><!--2 tabs-->
-<!--tabs3-->
-<div id="tab-3" class="tab-pane">
-<div class="ibox float-e-margins">
-<div class="ibox-content col-md-12">
-{{ Form::open(array('route' => array('patienttest'),'method'=>'POST')) }}
-<!-- {{ Form::open(array('id' => 'ptest')) }} -->
-
-<div class="col-md-6">
-
-<div class="form-group ">
-    <label for="d_list2">Conditional Diagnosis:</label>
-    <select id="d_list2" name="conditional" class="d_list2 form-control" style="width: 100%"></select>
-</div>
-
-            <div class="form-group">
-                 <label style="margin right:250px;">Request Test:</label>
-                  <input id="id_radio1" type="radio" name="name_radio1" value="value_radio1"  style="width: 50px;"/>YES
-                   <input id="id_radio2" type="radio" name="name_radio1" value="value_radio2" style="width: 50px;"/>NO
-              </div>
-              <div>
-                   <div id="div1">
-                     <div class="form-group ">
-                         <label class="col-md-4">Test Categories:</label>
-                         <input type="checkbox" name="colorCheckbox" value="MRI">MRI
-                         <input type="checkbox" name="colorCheckbox" value="Lab"> Laboratory
-                         <input type="checkbox" name="colorCheckbox" value="Neurology"> Neurology
-                          <input type="checkbox" name="colorCheckbox" value="Gestrointestinal"> Gestrointestinal
-                     </div>
-
-                      <div class="MRI box">MRI TESTS COMING SOON</div>
-                      <!-- Laboratory Tests starts}} -->
-                     <div class="Lab box">
-                       <div class="form-group ">
-                          <label class="col-md-4">Laboratory Test Categories:</label>
-                          <input type="checkbox" name="lab_test_cat" value="biochemistry">Biochemistry
-                          <input type="checkbox" name="lab_test_cat" value="Coagulation"> Coagulation
-                          <input type="checkbox" name="lab_test_cat" value="Haematology"> Haematology
-                           <input type="checkbox" name="lab_test_cat" value="Immuno_infective">Immuno_infective
-                           <input type="checkbox" name="lab_test_cat" value="Immuno_auto ">Immuno Auto Immune
-                           <input type="checkbox" name="lab_test_cat" value="Microbilogy">Microbilogy
-                      </div>
-                       <div class="biochemistry box">
-
-                         <div class="form-group">
-                             <label for="tag_list" class="col-md-4">Select Biochestry Test:</label>
-                                  <select class="test-multiple" name="biotests[]" multiple="multiple" style="width: 100%">
-                                    <?php $biotests=DB::table('lab_test')->where('category', '=','Biochemistry')->distinct()->get(['id','name']); ?>
-                                    @foreach($biotests as $biotest)
-                                           <option value='{{$biotest->id}}'>{{$biotest->name}}</option>
-                                    @endforeach
-                                    </select>
-                              </div>
-
-                       </div>
-                      <div class="Coagulation box">
-                        <div class="form-group">
-                            <label for="tag_list" class="col-md-4">Select Coagulation  Test:</label>
-                                 <select class="test-multiple" name="coagtests[]" multiple="multiple" style="width: 100%">
-                                   <?php $coagtests=DB::table('lab_test')->where('category', '=','Coagulation')->distinct()->get(['id','name']); ?>
-                                   @foreach($coagtests as $coagtest)
-                                          <option value='{{$coagtest->id}}'>{{$coagtest->name}}</option>
-                                   @endforeach
-                                   </select>
-                             </div>
-                      </div>
-                      <div class="Haematology box">
-                        <div class="form-group">
-                            <label for="tag_list" class="col-md-4">Select Haematology Test:</label>
-                                 <select class="test-multiple" name="haemtests[]" multiple="multiple" style="width: 100%">
-                                   <?php $haemtests=DB::table('lab_test')->where('category', '=','Haematology')->distinct()->get(['id','name']); ?>
-                                   @foreach($haemtests as $haemtest)
-                                          <option value='{{$haemtest->id}}'>{{$haemtest->name}}</option>
-                                   @endforeach
-                                   </select>
-                             </div>
-                      </div>
-                      <div class="Immuno_infective box">
-                        <div class="form-group">
-                            <label for="tag_list" class="col-md-4">Select Immunology Infective Test:</label>
-                                 <select class="test-multiple" name="inftests[]" multiple="multiple" style="width: 100%">
-                                   <?php $imitests=DB::table('lab_test')->where('category', '=','Immunology_Infective')->distinct()->get(['id','name']); ?>
-                                   @foreach($imitests as $imitest)
-                                          <option value='{{$imitest->id}}'>{{$imitest->name}}</option>
-                                   @endforeach
-                                   </select>
-                             </div>
-                      </div>
-                      <div class="Immuno_auto box">
-                        <div class="form-group">
-                            <label for="tag_list" class="col-md-4">Select Immunology Auto Immune Test:</label>
-                                 <select class="test-multiple" name="autotests[]" multiple="multiple" style="width: 100%">
-                                   <?php $imatests=DB::table('lab_test')->where('category', '=','Immunology-Auto-Immune')->distinct()->get(['id','name']); ?>
-                                   @foreach($imatests as $imatest)
-                                          <option value='{{$imatest->id}}'>{{$imatest->name}}</option>
-                                   @endforeach
-                                   </select>
-                             </div>
-                      </div>
-                      <div class="Microbilogy box">
-
-                        <div class="form-group">
-                            <label for="tag_list" class="col-md-4">Select Microbiologye  Test:</label>
-                                 <select class="test-multiple" name="microtests[]" multiple="multiple" style="width: 100%">
-                                   <?php $micrtests=DB::table('lab_test')->where('category', '=','Microbiology')->distinct()->get(['id','name']); ?>
-                                   @foreach($micrtests as $micrtest)
-                                          <option value='{{$micrtest->id}}'>{{$micrtest->name}}</option>
-                                   @endforeach
-                                   </select>
-                             </div>
-                      </div>
-                    </div><!-- Laboratory Tests Ends}} -->
-                     <div class="Neurology box">Neurology TESTS COMING SOON</div>
-                     <div class="Gestrointestinal box">Gestrointestinal TESTS COMING SOON</div>
-
-
-
-                   </div>
-
-              </div>
-
-
-
-</div>
-<div class="form-group  text-center col-md-2">
-{{ Form::hidden('appointment_id',$pdetails->app_id, array('class' => 'form-control')) }}
-{{ Form::hidden('doc_id',$Docdata->doc_id, array('class' => 'form-control')) }}
-
-<br /><br /><br />
-<button type="submit" class="btn btn-primary">Submit</button>  </td>
-</div>
-{{ Form::close() }}
-</div>
-</div>
-
-
-<!--Test result tabs PatientController@testdone-->
-<div id="testR">
-<div class="table-responsive ibox-content">
-<table class="table table-striped table-bordered table-hover dataTables-conditional" >
-   <thead>
-<tr>
- <th></th>
-    <th>Date </th>
-   <th>Test Name</th>
-   <th>Conditional Diagnosis</th>
-   <th>Status</th>
-   <th>Result</th>
-   <th>Faciity</th>
-   <th>Note</th>
-
-
-</tr>
-</thead>
-
-<tbody>
-<?php $i =1; ?>
-
-@foreach($tstdone as $tstdn)
-  <tr>
-  <td>{{ +$i }}</td>
- <td>{{$tstdn->created_at}}</td>
-  <td>{{$tstdn->name}}</td>
-  <td>{{$tstdn->disease}}</td>
-  <td>{{$tstdn->done}}</td>
-   <td>{{$tstdn->results}}</td>
-   <td>{{$tstdn->FacilityName}}</td>
-   <td>{{$tstdn->note}}</td>
-
-</tr>
-<?php $i++; ?>
-
-@endforeach
-
-</tbody>
-</table>
-</div>
-</div>
-
-</div><!--3tabs-->
+<!--3tabs-->
+@include('doctor.test')
+<!--3tabs-->
 
 <!--tabs4-->
                     <div id="tab-4" class="tab-pane">

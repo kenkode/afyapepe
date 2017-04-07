@@ -58,6 +58,90 @@ public function store(Request $request)
      // Already test exist - just get the id
       $ptid =$pttids->id;
      }
+     // Insertingmalaria2 tests
+     $malaria2=$request->malaria2;
+     if ($malaria2) {
+       foreach($malaria2 as $key) {
+     $patienttd = DB::table('patient_test_details')->insert([
+                  'conditional_diagnosis' => $request->get('conditional'),
+                  'patient_test_id' => $ptid,
+                  'tests_reccommended' => $key,
+                  'done' => 0,
+               ]);
+              }
+     }
+     // Inserting Haematology2 tests
+     $haematology2=$request->haematology2;
+     if ($haematology2) {
+       foreach($haematology2 as $key) {
+     $patienttd = DB::table('patient_test_details')->insert([
+                  'conditional_diagnosis' => $request->get('conditional'),
+                  'patient_test_id' => $ptid,
+                  'tests_reccommended' => $key,
+                  'done' => 0,
+               ]);
+              }
+     }
+     // Inserting chemistry2 tests
+     $chemistry2=$request->chemistry2;
+     if ($chemistry2) {
+       foreach($chemistry2 as $key) {
+     $patienttd = DB::table('patient_test_details')->insert([
+                  'conditional_diagnosis' => $request->get('conditional'),
+                  'patient_test_id' => $ptid,
+                  'tests_reccommended' => $key,
+                  'done' => 0,
+               ]);
+              }
+     }
+     // Inserting hiv2 tests
+     $hiv2=$request->hiv2;
+     if ($hiv2) {
+       foreach($hiv2 as $key) {
+     $patienttd = DB::table('patient_test_details')->insert([
+                  'conditional_diagnosis' => $request->get('conditional'),
+                  'patient_test_id' => $ptid,
+                  'tests_reccommended' => $key,
+                  'done' => 0,
+               ]);
+              }
+     }
+     // Inserting glucose2 tests
+     $glucose2=$request->glucose2;
+     if ($glucose2) {
+       foreach($glucose2 as $key) {
+     $patienttd = DB::table('patient_test_details')->insert([
+                  'conditional_diagnosis' => $request->get('conditional'),
+                  'patient_test_id' => $ptid,
+                  'tests_reccommended' => $key,
+                  'done' => 0,
+               ]);
+              }
+     }
+     // Inserting microbiology2 tests
+     $microbiology2=$request->microbiology2;
+     if ($microbiology2) {
+       foreach($microbiology2 as $key) {
+     $patienttd = DB::table('patient_test_details')->insert([
+                  'conditional_diagnosis' => $request->get('conditional'),
+                  'patient_test_id' => $ptid,
+                  'tests_reccommended' => $key,
+                  'done' => 0,
+               ]); 
+              }
+     }
+     // Inserting xray2 tests
+     $xray2=$request->xray2;
+     if ($xray2) {
+       foreach($xray2 as $key) {
+     $patienttd = DB::table('patient_test_details')->insert([
+                  'conditional_diagnosis' => $request->get('conditional'),
+                  'patient_test_id' => $ptid,
+                  'tests_reccommended' => $key,
+                  'done' => 0,
+               ]);
+              }
+     }
 // Inserting Biochemistry tests
 $Rtests=$request->biotests;
 if ($Rtests) {

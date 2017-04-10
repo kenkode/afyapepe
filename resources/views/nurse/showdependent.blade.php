@@ -1018,6 +1018,44 @@ Shoulder <input type="checkbox" name="skincold" value="Shoulder" />
     <div class="ibox float-e-margins">
      
       <div class="ibox-content">
+<table class="table table-small-font table-bordered table-striped">
+ <thead>
+    <tr>
+   <th>No</th>
+  <th>Allery Type</th>
+  <th>Allery Name</th>
+  </tr>
+  </thead>
+    </tr>
+    <?php $i=1;?>
+    <?php  $allergies=DB::table('patient_allergy')
+    ->Join('allergies_type','allergies_type.id','=','patient_allergy.allergy_id')
+    ->Join('allergies','allergies.id','=','allergies_type.allergies_id')
+    ->Select('allergies_type.name','allergies.name as Allergy')
+    ->Where('patient_allergy.dependant_id','=',$dependant->id)
+    ->get(); ?>
+    @foreach($allergies as $allergy)
+    <tbody>
+      <tr>
+      <td>{{$i}}</td>
+      <td>{{$allergy->Allergy}}</td>
+      <td>{{$allergy->name}}</td>
+      
+      
+        
+      </tr>
+    </tbody>
+    <?php $i++; ?>
+    @endforeach
+    </table>
+     <a data-toggle="modal" class="btn btn-primary" href="#modal-form6">Add</a>
+     <div id="modal-form6" class="modal fade" aria-hidden="true">
+                            <div class="modal-dialog">
+                            <div class="modal-content">
+                            <div class="modal-body">
+    <form class="form-horizontal" role="form" method="POST" action="/allergies" novalidate>
+    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+    <input type="hidden" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{$dependant->id}}" name="id"  required>
 
 <div class="form-group">
 
@@ -1097,7 +1135,11 @@ Shoulder <input type="checkbox" name="skincold" value="Shoulder" />
 <br><br>
   <button type="submit" class="btn btn-primary">Save</button>
 
-
+</div>
+</form>
+</div>
+</div>
+</div>
 </div>
 </div> 
       </div> 

@@ -76,6 +76,81 @@ class NurseController extends Controller
 return redirect()->action('NurseController@showDependents', [$userid]);
 
    }
+   public function dependantAllergy(Request $request){
+     $id=$request->id;
+    $drugs=$request->drugs;
+if($drugs){
+foreach($drugs as $key =>$drug) {
+     DB::table('patient_allergy')->insert([
+    'dependant_id'=>$id,
+    'allergy_id'=>$drug,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
+}
+}
+ $foods=$request->foods;
+ if($foods){
+foreach($foods as $key) {
+    DB::table('patient_allergy')->insert([
+    'dependant_id'=>$id,
+    'allergy_id'=>$key,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
+}
+}
+ $latexs=$request->latexs;
+ if($latexs){
+foreach($latexs as $key) {
+   DB::table('patient_allergy')->insert([
+    'dependant_id'=>$id,
+    'allergy_id'=>$key,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
+}
+}
+
+ $molds=$request->molds;
+ if($molds){
+   DB::table('patient_allergy')->insert([
+    'dependant_id'=>$id,
+    'allergy_id'=>$molds,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
+}
+$pets=$request->pets;
+if($pets)
+{
+foreach($pets as $key) {
+    DB::table('patient_allergy')->insert([
+   'dependant_id'=>$id,
+    'allergy_id'=>$key,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
+}
+}
+
+$pollens=$request->pollens;
+if($pollens) {   
+   DB::table('patient_allergy')->insert([
+    'dependant_id'=>$id,
+    'allergy_id'=>$pollens,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
+}
+
+$insects=$request->insects;
+if($insects)
+{
+foreach($insects as $key) {
+    DB::table('patient_allergy')->insert([
+   'dependant_id'=>$id,
+    'allergy_id'=>$key,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
+}
+}
+ return redirect()->action('NurseController@showDependents', [$id]);
+   }
 public function babyDetails(Request $request){
     $id=$request->id;
     $dob=$request->dob;

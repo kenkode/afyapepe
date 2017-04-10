@@ -1038,9 +1038,9 @@ Shoulder <input type="checkbox" name="skincold" value="Shoulder" />
     <tbody>
       <tr>
       <td>{{$i}}</td>
-      <td>{{$allergy->Allergy}}</td>
+       <td>{{$allergy->Allergy}}</td>
       <td>{{$allergy->name}}</td>
-      
+     
       
         
       </tr>

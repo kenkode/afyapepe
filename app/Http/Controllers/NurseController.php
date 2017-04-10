@@ -169,7 +169,7 @@ public function babyDetails(Request $request){
     $prophylaxis=$request->prophylaxis;
     $babyproblem=$request->babyproblem;
     $revelantdrugs=$request->revelantdrugs;
-    DB::table('baby_details')->insert(
+    DB::table('infant_details')->insert(
     ['dependent_id' => $id,
      'dob'=>$dob,
      'ipno'=>$ipno,
@@ -476,7 +476,7 @@ return Redirect::route('nurse.show', [$id]);
      
     public function showDependents($id)
     {
-         $observations=Observation::all();
+        $observations=Observation::all();
        $symptoms=Symptom::all();
         $details=DB::table('triage_infants')
         ->Join('appointments','appointments.id','=','triage_infants.appointment_id')

@@ -655,89 +655,7 @@ No <input type="checkbox" name="aph" value="No" />
     <?php $infants=DB::table('infant_details')->where('dependent_id',$dependant->id)->get(); 
     $abs=DB::table('infant_abnormalities')->where('dependent_id',$dependant->id)->get(); 
     ?>
-     
-     @if (count($infants) > 0)
-      <div class="col-lg-10 col-lg-offset-1">
-                <div class="ibox float-e-margins">
-                    <div class="ibox-title">
-                        
-                        <div class="ibox-tools">
-                            <a class="collapse-link">
-                                <i class="fa fa-chevron-up"></i>
-                            </a>
 
-                            <a class="close-link">
-                                <i class="fa fa-times"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="ibox-content">
-                   
-<h4><label><u>Baby Details</u></label></h4>
-
-                                                                 <table class="table table-small-font table-bordered table-striped">
-                                                              <thead>
-                                                                  <tr>
-                                                                      <th>No</th>
-                                                                      <th>Date</th>
-                                                                      <th>Time</th>
-                                                                      <th>Breast Feed</th>
-                                                                      <th>Stiff Neck</th>
-                                                                      <th>Bulging Fontanelle</th>
-
-                                                                     
-                                                                      <th>Reduce Movement/Tone</th>
-
-                                                                      <th>Umbilicus</th>
-                                                                      <th>Skin</th>
-                                                                      <th>Jaundice</th>
-                                                                      <th>Gest/Size</th>
-                                                                      
-
-                                                                </tr>
-                                                              </thead>
-                                                              
-                                                                                                              <?php $i=1; ?>
-                                                        @foreach($infants as $infant)
-                                                          
-                                                              <tbody>
-                                                      
-                                                           <tr>
-                                                         <td>{{$i}}</td> 
-                                                         <td>{{ date('d -m- Y', strtotime($infant->created_at))}}</td>     
-                                                        <td>{{ date('H:i:s', strtotime($infant->created_at))}}</td>     
-                                                        <td>{{$infant->breast_feed}}</td>     
-                                                        <td>{{$infant->stiff_neck}}</td>     
-                                                        <td>{{$infant->bulging_fontance}}</td>     
-                                                        <td>{{$infant->reduced_movement}}</td>     
-                                                        <td>{{$infant->umbilicus}}</td>     
-                                                        <td>{{$infant->skin}}</td>     
-                                                        <td>{{$infant->jaundice}}</td>     
-                                                        <td>{{$infant->gest_size}}</td>     
-                                                           
-                                                        
-                                                             </tr>
-                                                               </tbody>
-                                                           <?php $i++ ?>
-                                                          @endforeach
-
-                                                      
-                                                             </table>
-
-<br>
-
-
-
- 
-                                                               
-
-
-
-                    </div>
-         
-                </div>
-            </div>
-     @else
       <div class="row">
       <div class="col-lg-6">
 <h4><label><u>Vitals</u></label></h4>
@@ -967,7 +885,7 @@ Shoulder <input type="checkbox" name="skincold" value="Shoulder" />
     </div>
     <div class="form-group">
     <label for="exampleInputPassword1">symptoms</label>
-    <select  multiple="multiple" class="form-control" name="symptoms[]" id="symptoms">
+    <select multiple="multiple" class="form-control" name="symptoms[]" id="symptoms">
      @foreach($symptoms as  $symptom)
                    <option value="{{$symptom->name}}">{{$symptom->name}}</option>
                  @endforeach
@@ -1006,7 +924,7 @@ Shoulder <input type="checkbox" name="skincold" value="Shoulder" />
   
 
 
-  @endif
+
   </div>
   </div>
       
@@ -1312,6 +1230,9 @@ else{
 
   <div class="wrapper wrapper-content">
           <div class="row animated fadeInRight">
+ <form class="form-horizontal" role="form" method="POST" action="/abnormalities" novalidate>
+    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+    <input type="hidden" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{$dependant->id}}" name="id"  required>          
 
 <h4><label> Abonormalities-Tick All Relevant and Describe</label></h4>
 <?php $abs=DB::table('abnormalities')->get(); ?>
@@ -1328,10 +1249,17 @@ else{
 </div>
 </div>
 @endforeach
+
+
+                                      <button class="btn btn-sm btn-primary" type="submit"><strong>Submit</strong></button>
+                                 
+                              {{ Form::close() }}
+                                
       </div> 
       </div> 
       </div> 
-      </div> 
+     
+      </div>
 
 <div id="tab-9" class="tab-pane">
                         <div class="panel-body">
@@ -1341,6 +1269,9 @@ else{
           <div class="row">
           <div class="col-lg-6">
  <h4> <label><u>General Examination</u></label></h4>
+ <form class="form-horizontal" role="form" method="POST" action="/disability" novalidate>
+    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+    <input type="hidden" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{$dependant->id}}" name="id"  required>
           <div class="form-group">
     <label for="exampleInputPassword1">Skin</label>
     Bruising <input type="checkbox" value="Bruising"  name="skin"/>

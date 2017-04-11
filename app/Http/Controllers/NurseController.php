@@ -350,6 +350,87 @@ DB::table('appointments')->where('id',$appointment->id)->update([
 
 }
 
+public function patientDisability(Request $request){
+    $id=$request->id;
+    $breastfeed=$request->breastfeed;
+    $neck=$request->neck;
+    $fontanelle=$request->fontanelle;
+    $irritable=$request->irritable;
+    $tone=$request->tone;
+
+    if($breastfeed=="No"){
+
+          DB::table('patient_disabilities')->insert(
+    ['dependant_id' => $id,
+    'name' =>'breastfeed',
+    'notes'=> 'cant suck',
+     'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
+);
+
+    }
+
+    if($fontanelle=="Yes"){
+        DB::table('patient_disabilities')->insert(
+    ['dependant_id' => $id,
+    'name' =>'Bulging fontanelle',
+     'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
+);
+    }
+    if($irritable=="Yes"){
+        DB::table('patient_disabilities')->insert(
+    ['dependant_id' => $id,
+    'name' =>'Irritable',
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
+);
+    }
+    if($tone=="Yes"){
+        DB::table('patient_disabilities')->insert(
+    ['dependant_id' => $id,
+    'name' =>'Reduced movement',
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
+);
+    }
+    if($neck=="Yes"){
+        DB::table('patient_disabilities')->insert(
+    ['dependant_id' => $id,
+    'name' =>'Stiff neck',
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
+);
+    }
+ return redirect()->action('NurseController@showDependents', [$id]);
+ 
+
+
+}
+public function abnormalities(Request $request){
+    $id=$request->id;
+
+    $abs=$request->abs;
+    if($abs){
+
+foreach ($abs as $key => $abs) {
+    
+  
+    DB::table('patient_abnormalities')->insert(
+    ['dependant_id' => $id,
+    'name' => $abs,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
+);
+  }
+
+}
+
+
+return redirect()->action('NurseController@showDependents', [$id]);
+
+}
+
    public function infantNutrition(Request $request){
     $id=$request->patient_id;
     $score=$request->muac;

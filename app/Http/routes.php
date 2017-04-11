@@ -91,6 +91,7 @@ Route::group(['middleware' => ['auth','role:Admin|Nurse']], function() {
   Route::post('babydetails','NurseController@babyDetails');
   Route::post('motherdetails','NurseController@motherDetails');
   Route::post('allergies','NurseController@dependantAllergy');
+  Route::post('vitaldetails','NurseController@vitalDetails');
 
 Route::get('/ajax-subcat',function(){
 	$cat_id= Input::get('cat_id');

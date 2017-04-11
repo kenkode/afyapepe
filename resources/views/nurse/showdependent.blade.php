@@ -378,6 +378,7 @@
   <tr>
     <th>Tb</th>
     <th>Tb Type</th>
+    <th>Tb Treatment</th>
     <th>Labour 1</th>
     <th>Labour 2</th>
     <th>Hypertension</th>
@@ -394,6 +395,8 @@
         <td>{{$mother->labour2}}</td>
         <td>{{$mother->hypertension}}</td>
         <td>{{$mother->aph}}</td>
+         <td>{{$mother->motherproblem}}</td>
+          <td>{{$mother->revelantdrugs}}</td>
       </tr>
     </tbody>
   </table>
@@ -738,6 +741,9 @@ No <input type="checkbox" name="aph" value="No" />
       <div class="row">
       <div class="col-lg-6">
 <h4><label><u>Vitals</u></label></h4>
+<form class="form-horizontal" role="form" method="POST" action="/vitaldetails" novalidate>
+    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+    <input type="hidden" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{$dependant->id}}" name="id"  required>
  <div class="form-group">
    <label for="exampleInputEmail1">Fever</label>
    No<input type="checkbox" value="No_fevers"  name="fevers" />
@@ -943,7 +949,7 @@ Shoulder <input type="checkbox" name="skincold" value="Shoulder" />
 
      <div class="form-group">
     <label for="exampleInputPassword1">Chief Complaint/Reason for visit</label>
-    <select multiple="multiple" class="form-control" name="chiefcompliant[]"  >
+    <select multiple="multiple" class="form-control" name="chiefcompliants[]"  >
     <?php $chiefs = DB::table('chief_compliant_table')->get();?>
                   @foreach($chiefs as $chief)
                    <option value="{{$chief->name}}">{{$chief->name}}</option>
@@ -952,7 +958,7 @@ Shoulder <input type="checkbox" name="skincold" value="Shoulder" />
     </div>
     <div class="form-group">
     <label for="exampleInputPassword1">Observation</label>
-    <select  class="form-control" name="observation" id="observation" >
+    <select  multiple="multiple"  class="form-control" name="observations[]" id="observation" >
     
                   @foreach($observations as $observation)
                    <option value="{{$observation->name}}">{{$observation->name}}</option>
@@ -961,7 +967,7 @@ Shoulder <input type="checkbox" name="skincold" value="Shoulder" />
     </div>
     <div class="form-group">
     <label for="exampleInputPassword1">symptoms</label>
-    <select  class="form-control" name="symptoms" id="symptoms">
+    <select  multiple="multiple" class="form-control" name="symptoms[]" id="symptoms">
      @foreach($symptoms as  $symptom)
                    <option value="{{$symptom->name}}">{{$symptom->name}}</option>
                  @endforeach

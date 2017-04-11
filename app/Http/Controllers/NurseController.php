@@ -218,6 +218,7 @@ $revelantdrugs=$request->revelantdrugs;
  DB::table('mother_details')->insert(
     ['dependent_id' => $id,
        'dob'=>$dob,
+       'gravity'=>$gravidity,
     'parity'=>$parity,
     'blood_type'=>$blood_type,
     'sublocation'=>$sublocation,

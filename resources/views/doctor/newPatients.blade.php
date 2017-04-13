@@ -110,11 +110,11 @@
                               ?></td>
                             <td>
                               <?php if ($apatient->persontreated=='Self') {echo $apatient->systolic_bp;}
-                               else {echo $apatient->Infsysto;}
+                               else {}
                               ?></td>
                             <td>
                               <?php if ($apatient->persontreated=='Self') {echo $apatient->diastolic_bp;}
-                               else {echo $apatient->Infdiasto;}
+                               else {}
                               ?>
                               <!-- <td>{{$apatient->Constituency}}</td> -->
 

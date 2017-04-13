@@ -85,12 +85,9 @@
   $('a[data-toggle=modal], button[data-toggle=modal]').click(function () {
 
       var data_id = '';
-
-      if (typeof $(this).data('id') !== 'undefined') {
-
-        data_id = $(this).data('id');
+if (typeof $(this).data('id') !== 'undefined') {
+         data_id = $(this).data('id');
       }
-
       $('#edit-content').val(data_id);
     })
   });

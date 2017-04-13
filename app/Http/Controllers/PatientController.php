@@ -73,12 +73,13 @@ class PatientController extends Controller
     ->leftJoin('dependant', 'appointments.persontreated', '=', 'dependant.id')
     ->leftJoin('triage_infants', 'appointments.id', '=', 'triage_infants.appointment_id')
         ->leftJoin('facilities', 'appointments.facility_id', '=', 'facilities.FacilityCode')
-        ->select('afya_users.*','afya_users.id as afyaId','triage_details.*','triage_details.id as triage_id',
+        ->select('afya_users.*','afya_users.id as afyaId','triage_infants.*','triage_details.*','triage_details.id as triage_id',
          'appointments.id as app_id','appointments.status as appstatus','appointments.facility_id',
            'appointments.created_at','facilities.FacilityName','facilities.FacilityCode',
            'appointments.persontreated',
-           'triage_infants.current_weight as Infweight','triage_infants.current_height as Infheight','triage_infants.temperature as Inftemp',
-           'triage_infants.systolic_bp as Infsysto','triage_infants.diastolic_bp as Infdiasto','triage_infants.chief_compliant as Infcompliant',
+           'triage_infants.weight as Infweight','triage_infants.height as Infheight','triage_infants.temperature as Inftemp',
+          'triage_infants.chief_compliant as Infcompliant','triage_infants.nurse_notes as InfNnotes','triage_infants.resp_rate as Infresp_rate',
+          'triage_infants.pulse as Infpulse','triage_infants.bp as Infbp',
            'triage_infants.observation as Infobservation','triage_infants.symptoms as Infsymptoms','triage_infants.nurse_notes as Infnotes',
            'dependant.id as Infid','dependant.firstName as Infname','dependant.secondName as InfName','dependant.gender as Infgender','dependant.blood_type as Infblood_type',
            'dependant.dob as Infdob','dependant.pob as Infpob')

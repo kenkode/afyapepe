@@ -87,7 +87,7 @@
     </div>
     <div class="form-group ">
         <label for="d_list2">Doctor Note(For test):</label>
-      <textarea rows="4" name="docnote" placeholder="Write something for test" cols="50" class="form-control"></textarea>
+      <textarea rows="4" name="docnote" cols="50" class="form-control">Enter text for Test</textarea>
     </div>
   </div>
 
@@ -197,11 +197,11 @@
       @endforeach
 
       <label>Patient Chronic Disease:</label>
-      <?php $allergy=DB::table('patient_chronic')
-      ->Join('diseases', 'patient_chronic.disease_id',  '=', 'diseases.id')
+      <?php $chronic=DB::table('patient_diagnosis')
+      ->Join('diseases', 'patient_diagnosis.disease_id',  '=', 'diseases.id')
       ->where('afya_user_id', '=',$afyauserId)->distinct()->get(['name']); ?>
 
-      @foreach($allergy as $micrtest)
+      @foreach($chronic as $micrtest)
            <input type="text" value="{{$micrtest->name}}" class="form-control" readonly="readonly">
       @endforeach
 
@@ -222,8 +222,8 @@ else { ?>
       @endforeach
 
       <label>Patient Chronic Disease:</label>
-      <?php $allergy=DB::table('patient_chronic')
-      ->Join('diseases', 'patient_chronic.disease_id',  '=', 'diseases.id')
+      <?php $allergy=DB::table('patient_diagnosis')
+      ->Join('diseases', 'patient_diagnosis.disease_id',  '=', 'diseases.id')
       ->where('dependant_id', '=',$dependantId)->distinct()->get(['name']); ?>
 
       @foreach($allergy as $micrtest)

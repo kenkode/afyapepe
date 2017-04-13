@@ -7,7 +7,7 @@ use App\Http\Requests;
 use App\Patienttest;
 use Illuminate\Support\Facades\Input;
 use Auth;
-
+use Carbon\Carbon;
 
 class PatientTestController extends Controller
 {
@@ -127,7 +127,7 @@ public function store(Request $request)
                   'patient_test_id' => $ptid,
                   'tests_reccommended' => $key,
                   'done' => 0,
-               ]); 
+               ]);
               }
      }
      // Inserting xray2 tests
@@ -217,6 +217,20 @@ $patienttd = DB::table('patient_test_details')->insert([
                              ]);
                             }
                           }
+                          // Inserting tests Notes
+                          $Note=$request->docnote;
+                          if ($Note) {
+                            $Now = Carbon::now();
+                             $patientNote = DB::table('patientNotes')->insert([
+                                          'appointment_id' => $request->get('appointment_id'),
+                                          'written_by' => 'Doctor',
+                                          'note' => 'Doctor',
+                                          'target' => 'Test',
+                                          'created_at' => $Now,
+
+                                       ]);
+
+                                    }
   return redirect()->route('showPatient', ['id' => $appointment]);
       }
 

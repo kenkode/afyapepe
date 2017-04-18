@@ -46,7 +46,7 @@
          </div>
          <div class="form-group">
         <label for="exampleInputPassword1">NHIF</label>
-        <input type="number" class="form-control" id="exampleInputPassword1" placeholder="nhif" name="phone" value="{{$user->nhif}}" readonly=""/>
+        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="nhif" name="phone" value="{{$user->nhif}}" readonly=""/>
         </div>
 
           </div>

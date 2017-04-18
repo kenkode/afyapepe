@@ -1,5 +1,3 @@
-etch1
-
 @extends('layouts.show')
 @section('title', 'vist')
 @section('content')

@@ -84,7 +84,7 @@ return redirect('doctor.create');
                 <div class="tab-content">
                   <!--tabs1-->
                   <div id="tab-1" class="tab-pane active">
-        @include('doctor.triage')
+                   @include('doctor.triage')
                    </div><!--tabs1-->
 
 <!--tabs2-->

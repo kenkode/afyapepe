@@ -38,10 +38,8 @@ $(document).ready(function(){
 // select test
 $(".test-multiple").select2();
 
-// select test
-// $(document).ready(function(){
-//     $(".buttons").click(function () {
-//     var div= $("#"+this.value);
-//           div.toggle("slow").siblings().hide("slow");
-//     });
-// });
+// wizzard for infants
+$(document).ready(function(){
+    $("#wizard").steps();
+
+});

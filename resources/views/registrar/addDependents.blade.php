@@ -33,16 +33,7 @@
 
               </div>
              
-              <input type="hidden" class="form-group" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" name="age"  value="1
-               "  >
-             
-                <div class="form-group">
-              <label for="exampleInputPassword1">School</label>
-              <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" name="school"  value="
-               "  >
-                
-
-              </div>
+              
                 
 
              

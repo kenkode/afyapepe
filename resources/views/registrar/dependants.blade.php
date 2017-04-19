@@ -20,7 +20,7 @@
                               <th>No</th>
                               <th>Name</th>
                               <th>Gender</th>
-                              <th>Age</th>
+                              
                               <th>Relationship</th>
                             <th>Date of Birth</th>
                       <th>Place of Birth</th>
@@ -34,7 +34,7 @@
                         <td><a href="{{URL('registrar.dependantTriage',$dependant->id)}}">{{$i}}</a></td>
                         <td><a href="{{URL('registrar.dependantTriage',$dependant->id)}}">{{$dependant->firstName}} {{$dependant->secondName}}</a></td>
                         <td>{{$dependant->gender}}</td>
-                        <td>{{$dependant->age}}</td>
+                        
                         <td>{{$dependant->relationship or ''}}</td>
                         <td>{{$dependant->dob or ''}}</td>
                         <td>{{$dependant->pob or ''}}</td>

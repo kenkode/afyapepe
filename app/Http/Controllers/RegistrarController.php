@@ -63,6 +63,9 @@ class RegistrarController extends Controller
       $relation=$request->relationship;
       $school=$request->school;
 
+      $parent=DB::table('afya_users')->where('id',$id)->first();
+      $name=$parent->firstname.$parent->secondName;
+
      $dependant_id= DB::table('dependant')->insertGetId(
       ['afya_user_id' => $id,
       'firstName' => $first,
@@ -71,11 +74,22 @@ class RegistrarController extends Controller
       'blood_type'=>$blood,
       'dob'=>$dob,
       'pob'=>$pob,
-      'age'=>$age,
+      'age'=>0,
       'relationship'=>$relation,
       'school'=>$school
       ]
   );
+
+     DB::table('dependant_parent')->insert([
+      'name'=> $name,
+      'relationship'=> $relation,
+      'phone'=>$parent->msisdn,
+      'dependant_id'=>$dependant_id,
+      'created_at'  => \Carbon\Carbon::now()->toDateTimeString(),
+      'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
+      ]);
+
+
      $end = Carbon::parse($dob);
         $now = Carbon::now();
         $length = $end->diffInDays($now);

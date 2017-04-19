@@ -975,19 +975,20 @@ foreach ($abs as $key => $abs) {
 }
 
 $chiefcompliant = implode(',', $chiefcompliant);
+$symptom= implode(',', $symptoms);
+$observations= implode(',', $observation);
 $appointment=DB::table('appointments')->where('persontreated', $id)->orderBy('created_at', 'desc')->first();
 
     DB::table('triage_infants')->insert(
     ['appointment_id' => $appointment->id,
-    
     'current_weight'=> $weight,
     'current_height'=>$heightS,
     'temperature'=>$temperature,
     'systolic_bp'=>$systolic,
     'diastolic_bp'=>$diastolic,
     'chief_compliant'=>$chiefcompliant,
-    'observation'=>$observation,
-    'symptoms'=>$symptoms,
+    'observation'=>$observations,
+    'symptoms'=>$symptom,
     'nurse_notes'=>$nurse,
     'Doctor_note'=>'',
     'prescription'=>'',
@@ -1135,11 +1136,12 @@ foreach($insects as $key) {
 
 
 $chiefcompliant = implode(',', $chiefcompliant);
+$symptoms= implode(',', $symptoms);
+$observation= implode(',', $observation);
 $appointment=DB::table('appointments')->where('afya_user_id', $id)->orderBy('created_at', 'desc')->first();
 
     DB::table('triage_details')->insert(
     ['appointment_id' => $appointment->id,
-    
     'current_weight'=> $weight,
     'current_height'=>$heightS,
     'temperature'=>$temperature,

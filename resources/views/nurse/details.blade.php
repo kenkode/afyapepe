@@ -140,21 +140,19 @@
     </div>
     <div class="form-group">
     <label for="exampleInputPassword1">Observation</label>
-    <select  class="form-control" name="observation" id="observation" >
-    
-                  @foreach($observations as $observation)
+    <select multiple="multiple" class="form-control" name="observation[]">
+          @foreach($observations as $observation)
                    <option value="{{$observation->name}}">{{$observation->name}}</option>
                  @endforeach
                 </select>
     </div>
     <div class="form-group">
     <label for="exampleInputPassword1">symptoms</label>
-    <select  class="form-control" name="symptoms" id="symptoms">
+    <select multiple="multiple" class="form-control" name="symptoms[]">
      @foreach($symptoms as  $symptom)
                    <option value="{{$symptom->name}}">{{$symptom->name}}</option>
                  @endforeach
-    
-                </select>
+    </select>
     </div>
     
 

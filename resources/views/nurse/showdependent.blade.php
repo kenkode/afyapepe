@@ -131,7 +131,7 @@
     <tbody>
      <tr>
      <td>{{$i}}</td>
-     <td>{{$detail->dob}}</td>
+     <td>{{$detail->admission_date}}</td>
      <td>{{$detail->ipno}}</td>
      <td>{{$detail->gestation}}</td>
      <td>{{$detail->temperature}}</td>
@@ -207,7 +207,7 @@
                  <label for="exampleInputPassword1">Admission Date</label>
                  <div class="input-group date">
                      <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                     <input type="text" class="form-control" name="date_admission" value="">
+                     <input type="text" class="form-control" name="admission_date" value="">
                  </div>
                  </div>
     <div class="form-group">

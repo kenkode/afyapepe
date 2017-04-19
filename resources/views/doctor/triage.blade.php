@@ -59,7 +59,9 @@
 
 
 
-              <?php } else { ?>
+              <?php }
+              if ($dependantdays <='28') {
+                ?>
                 <div class="row">
 
               <div class="col-lg-12">
@@ -320,18 +322,19 @@
                 <?php $MotherD=DB::table('mother_details')
                   ->leftJoin('afya_users', 'mother_details.afya_user_id',  '=', 'afya_users.id')
                   ->leftJoin('constituency', 'afya_users.constituency',  '=', 'constituency.const_id')
-                  ->where('dependant_id', '=', $dependantId)
+                  ->where('mother_details.dependant_id', '=', $dependantId)
                      ->select('mother_details.*','afya_users.*','constituency.constituency as const')
                      ->get();
+
                      ?>
                      @foreach($MotherD as $mother)
-                     <div class="form-group"><label class="col-lg-2 control-label">Name</label>
+                     <div class="form-group"><label class="col-lg-4 control-label">Name</label>
                         <div class="col-lg-8"><input type="text" value="{{$mother->firstname}} {{$mother->secondName}}" class="form-control" readonly="readonly" > </div>
                       </div>
-                      <div class="form-group"><label class="col-lg-2 control-label">Blood type</label>
+                      <div class="form-group"><label class="col-lg-4 control-label">Blood type</label>
                          <div class="col-lg-8"><input type="text" value="{{$mother->blood_type}}" class="form-control" readonly="readonly" > </div>
                        </div>
-                       <div class="form-group"><label class="col-lg-2 control-label">Age</label>
+                       <div class="form-group"><label class="col-lg-4 control-label">Age</label>
                         <?php
                         $dob=$mother->dob;
                          $interval = date_diff(date_create(), date_create($dob));
@@ -340,19 +343,52 @@
 
                           <div class="col-lg-8"><input type="text" value="{{$age}}" class="form-control" readonly="readonly" > </div>
                         </div>
-                        <div class="form-group"><label class="col-lg-2 control-label">Constituency</label>
+                        <div class="form-group"><label class="col-lg-4 control-label">Constituency</label>
                            <div class="col-lg-8"><input type="text" value="{{$mother->const}}" class="form-control" readonly="readonly" > </div>
                          </div>
+                         <div class="form-group"><label class="col-lg-4 control-label">Gravity</label>
+                            <div class="col-lg-8"><input type="text" value="{{$mother->gravity}}" class="form-control" readonly="readonly" > </div>
+                          </div>
+                          <div class="form-group"><label class="col-lg-4 control-label">Parity</label>
+                             <div class="col-lg-8"><input type="text" value="{{$mother->parity}}" class="form-control" readonly="readonly" > </div>
+                           </div>
+                           <div class="form-group"><label class="col-lg-4 control-label">Labour 1</label>
+                              <div class="col-lg-8"><input type="text" value="{{$mother->labour1}}" class="form-control" readonly="readonly" > </div>
+                            </div>
 
-
-
-                        </form>
+                         </form>
                         </div>
                         <div class="col-sm-6">
                         <form role="form" class="form-horizontal">
                           <br />  <br />
-                          <div class="form-group"><label class="col-lg-4 control-label">Jaundice</label>
-                             <div class="col-lg-8"><input type="text" value="{{ $dependantId}}" class="form-control" readonly="readonly" > </div>
+                          <div class="form-group"><label class="col-lg-4 control-label">Labour 2</label>
+                             <div class="col-lg-8"><input type="text" value="{{$mother->labour2}}" class="form-control" readonly="readonly" > </div>
+                           </div>
+                           <div class="form-group"><label class="col-lg-4 control-label">APH</label>
+                              <div class="col-lg-8"><input type="text" value="{{$mother->aph}}" class="form-control" readonly="readonly" > </div>
+                            </div>
+                            <div class="form-group"><label class="col-lg-4 control-label">Relevant Drugs</label>
+                               <div class="col-lg-8"><input type="text" value="{{$mother->revelantdrugs}}" class="form-control" readonly="readonly" > </div>
+                             </div>
+                            <div class="form-group"><label class="col-lg-4 control-label">Other Issue</label>
+                               <div class="col-lg-8"><input type="text" value="{{$mother->motherproblem}}" class="form-control" readonly="readonly" > </div>
+                             </div>
+                         @endforeach
+                          <?php $MotherD=DB::table('mother_details')
+                            ->leftJoin('patient_diagnosis', 'mother_details.afya_user_id',  '=', 'patient_diagnosis.afya_user_id')
+                            ->leftJoin('diseases', 'patient_diagnosis.disease_id',  '=', 'diseases.id')
+                            ->where([ ['mother_details.dependant_id', '=', $dependantId],
+                            ['patient_diagnosis.chronic', '=', 'Y'],
+                                    ])
+                            ->select('patient_diagnosis.*','diseases.name as disease')
+                            ->get();
+                               ?>
+                               @foreach($MotherD as $mother)
+                          <div class="form-group"><label class="col-lg-4 control-label">Disease</label>
+                             <div class="col-lg-8"><input type="text" value="{{ $mother->disease}}" class="form-control" readonly="readonly" > </div>
+                          </div>
+                          <div class="form-group"><label class="col-lg-4 control-label">Date Diagnosed</label>
+                             <div class="col-lg-8"><input type="text" value="{{$mother->date_diagnosed}}" class="form-control" readonly="readonly" > </div>
                           </div>
 
 
@@ -370,46 +406,64 @@
                               <div class="text-center m-t-md">
                                 <div class="ibox-content">
                         <div class="row">
-                        <div class="col-sm-6 b-r"><h3 class="m-t-none m-b">C</h3>
+                        <div class="col-sm-6 b-r"><h3 class="m-t-none m-b">Baby's Details</h3>
                         <form class="form-horizontal">
+                          <?php $BabyD=DB::table('infant_details')
+                            ->where('dependant_id', '=', $dependantId)
+                            ->select('infant_details.*')
+                            ->get();
+                               ?>
 
-                        @foreach($patientdetails as $pdetails)
 
-                        <div class="form-group"><label class="col-lg-4 control-label">Femoral Pulse</label>
-                        <div class="col-lg-8"><input type="text" value="{{ $pdetails->femoral_pulse}}" class="form-control" readonly="readonly" > </div>
+                        <div class="form-group"><label class="col-lg-4 control-label">Age</label>
+                        <div class="col-lg-8"><input type="text" value="{{ $dependantage}}" class="form-control" readonly="readonly" > </div>
                         </div>
-                        <div class="form-group"><label class="col-lg-4 control-label">Cap Refill</label>
-                        <div class="col-lg-8"><input type="text" value="{{ $pdetails->cap_refill}}" class="form-control" readonly="readonly" > </div>
+                        @foreach($BabyD as $baby)
+                        <div class="form-group"><label class="col-lg-4 control-label">Birth wt</label>
+                        <div class="col-lg-8"><input type="text" value="{{ $baby->birthweight}}" class="form-control" readonly="readonly" > </div>
                         </div>
-                        <div class="form-group"><label class="col-lg-4 control-label">Murmur</label>
-                        <div class="col-lg-8"><input type="text" value="{{ $pdetails->murmur}}" class="form-control" readonly="readonly" > </div>
+                        <div class="form-group"><label class="col-lg-4 control-label">Gestation</label>
+                        <div class="col-lg-8"><input type="text" value="{{ $baby->gestation}}" class="form-control" readonly="readonly" > </div>
                         </div>
-
-                        <div class="form-group"><label class="col-lg-4 control-label">Skin</label>
-                        <div class="col-lg-8"><input type="text" value="{{ $pdetails->skin}}" class="form-control" readonly="readonly" > </div>
+                        <div class="form-group"><label class="col-lg-4 control-label">Apgar</label>
+                        <div class="col-lg-8"><input type="text" value="{{ $baby->apgar}}" class="form-control" readonly="readonly" > </div>
                         </div>
-
-
-                        </form>
+                        <div class="form-group"><label class="col-lg-4 control-label">BBA</label>
+                        <div class="col-lg-8"><input type="text" value="{{ $baby->bba}}" class="form-control" readonly="readonly" > </div>
+                        </div>
+                        <div class="form-group"><label class="col-lg-4 control-label">Where Born</label>
+                        <div class="col-lg-8"><input type="text" value="{{ $baby->bba_where}}" class="form-control" readonly="readonly" > </div>
+                        </div>
+                        <div class="form-group"><label class="col-lg-4 control-label">Delivery</label>
+                        <div class="col-lg-8"><input type="text" value="{{ $baby->delivery}}" class="form-control" readonly="readonly" > </div>
+                        </div>
+                      </form>
                         </div>
                         <div class="col-sm-6">
                         <form role="form" class="form-horizontal">
                           <br />  <br />
-                          <div class="form-group"><label class="col-lg-4 control-label">Jaundice</label>
-                             <div class="col-lg-8"><input type="text" value="{{ $pdetails->jaundice}}" class="form-control" readonly="readonly" > </div>
+                          <div class="form-group"><label class="col-lg-4 control-label">Resuscitation</label>
+                          <div class="col-lg-8"><input type="text" value="{{ $baby->resuscitation }}" class="form-control" readonly="readonly" > </div>
                           </div>
-                          <div class="form-group"><label class="col-lg-4 control-label">Gest/Size</label>
-                             <div class="col-lg-8"><input type="text" value="{{ $pdetails->gest_size}}" class="form-control" readonly="readonly" > </div>
-                           </div>
-                          <div class="form-group"><label class="col-lg-4 control-label">Pallor/Anaemia</label>
-                              <div class="col-lg-8"><input type="text" value="{{ $pdetails->pallor}}" class="form-control" readonly="readonly" > </div>
-                        </div>
-                          <div class="form-group"><label class="col-lg-4 control-label">Skin Cold</label>
-                             <div class="col-lg-8"><input type="text" value="{{ $pdetails->skin_cold}}" class="form-control" readonly="readonly" > </div>
-                           </div>
-                           <div class="form-group"><label class="col-lg-4 control-label">Umblicus</label>
-                              <div class="col-lg-8"><input type="text" value="{{$pdetails->umbilicus}}" class="form-control" readonly="readonly" > </div>
-                            </div>
+                          <div class="form-group"><label class="col-lg-4 control-label">Rom</label>
+                          <div class="col-lg-8"><input type="text" value="{{$baby->rom }}" class="form-control" readonly="readonly" > </div>
+                          </div>
+                          <div class="form-group"><label class="col-lg-4 control-label">Delivery</label>
+                          <div class="col-lg-8"><input type="text" value="{{ $baby->delivery}}" class="form-control" readonly="readonly" > </div>
+                          </div>
+                          <div class="form-group"><label class="col-lg-4 control-label">Vitamin Given</label>
+                          <div class="col-lg-8"><input type="text" value="{{ $baby->vitamen}}" class="form-control" readonly="readonly" > </div>
+                          </div>
+                          <div class="form-group"><label class="col-lg-4 control-label">Prophylaxis</label>
+                          <div class="col-lg-8"><input type="text" value="{{ $baby->prophylaxis}}" class="form-control" readonly="readonly" > </div>
+                          </div>
+                          <div class="form-group"><label class="col-lg-4 control-label">Relevant Drugs </label>
+                          <div class="col-lg-8"><input type="text" value="{{ $baby->revelantdrugs}}" class="form-control" readonly="readonly" > </div>
+                          </div>
+                          <div class="form-group"><label class="col-lg-4 control-label">Other Issues</label>
+                          <div class="col-lg-8"><input type="text" value="{{ $baby->babyproblem}}" class="form-control" readonly="readonly" > </div>
+                          </div>
+
 
 
                         </form>
@@ -484,7 +538,8 @@
               </div>
           </div>
           </div>
-
+</div>
 
 <?php } ?>
-   </div></div>
+
+ </div>

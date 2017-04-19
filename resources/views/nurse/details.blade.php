@@ -16,6 +16,7 @@
     <label for="exampleInputEmail1">Weight</label>
     <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Weight" name="weight"  required>
     </div>
+    
     <div class="form-group">
     <label for="exampleInputEmail1">Height</label>
     <input type="name" class="form-control" placeholder="Height in Metres" name="current_height"

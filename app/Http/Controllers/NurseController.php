@@ -153,7 +153,7 @@ foreach($insects as $key) {
    }
 public function babyDetails(Request $request){
     $id=$request->id;
-    $dob=$request->dob;
+    $dob=$request->admission_date;
     $ipno=$request->ipno;
     $gestation=$request->gestation;
     $temperature=$request->temperature;
@@ -171,7 +171,7 @@ public function babyDetails(Request $request){
     $revelantdrugs=$request->revelantdrugs;
     DB::table('infant_details')->insert(
     ['dependent_id' => $id,
-     'dob'=>$dob,
+     'admission_date'=>$dob,
      'ipno'=>$ipno,
      'gestation'=>$gestation,
      'temperature'=>$temperature,

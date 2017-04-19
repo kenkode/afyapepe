@@ -207,7 +207,7 @@
                  <label for="exampleInputPassword1">Admission Date</label>
                  <div class="input-group date">
                      <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                     <input type="text" class="form-control" name="dob" value="">
+                     <input type="text" class="form-control" name="date_admission" value="">
                  </div>
                  </div>
     <div class="form-group">

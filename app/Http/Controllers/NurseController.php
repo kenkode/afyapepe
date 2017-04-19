@@ -66,7 +66,7 @@ class NurseController extends Controller
 
      DB::table('dependant_vaccination')->where('id',$id)->update(
     ['status' => $status,
-    'status_date' =>$vaccinedate,
+    'status_date' => $vaccinedate,
     'vaccin_name'=> $vaccinename,
      'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
     'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]

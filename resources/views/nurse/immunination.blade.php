@@ -43,26 +43,23 @@
     <input type="text" class="form-control" id="exampleInputPassword1" placeholder="" name="phone" value="{{$vaccine->antigen or ''}}" readonly  >
     </div>
 
-      <div class="form-group">
-  <label class="control-label" for="name">Status</label>
-  <input type="radio" value="Not Done" id="type" name="status" checked='checked' autocomplete="off" />
-    <label>Not Done</label>
-          <input type="radio" value="yes" id="type" name="status" class="youtube" />
-        <label>Done</label>
-        <div id="embedcode">
-     <div class="form-group" id="data_1">
-                 
+     <div class="form-group">
+   <label for="exampleInputEmail1">Status</label>
+   Not Done <input type="checkbox" value="Not Done"  name="status" />
+   Done <input type="checkbox" value="Done"  name="status"  />
+    
+
+<div class="Done"  style="display: none">
+   <div class="form-group" id="data_1">
+                 <label for="exampleInputPassword1">Date of Vaccine</label>
                  <div class="input-group date">
                      <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                      <input type="text" class="form-control" name="vaccine_date" value="">
                  </div>
                  </div>
-       <div class="form-group">
-    <label for="exampleInputEmail1">Vaccine Name</label>
-    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="" name="vaccine_name"  >
-      </div>
-    </div>
-    </div>
+  
+</div>
+</div>
 
 <br>
                                                        
@@ -76,4 +73,8 @@
     </div>
  </div>
 </div>
-@endsection
+ @include('includes.default.footer')
+             </div>
+           
+            
+            @endsection

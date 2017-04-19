@@ -592,7 +592,7 @@ No <input type="checkbox" name="aph" value="No" />
                                                                  <table class="table table-small-font table-bordered table-striped">
                                                               <thead>
                                                                   <tr>
-                                                                      <th>No</th>
+                                                                     
                                                                       <th>Disease</th>
                                                                       <th>Antigen</th>
                                                                       <th>Duration</th>
@@ -602,12 +602,12 @@ No <input type="checkbox" name="aph" value="No" />
 
                                                                       <th>Status</th>
                                                                       <th>Vaccination Date</th>
-                                                                      <th>Vaccine Name</th>
+                                                                     
 
                                                                 </tr>
                                                               </thead>
                                                               
-                                                        <?php  $vaccines=DB::table('vaccine')->leftjoin('dependant_vaccination','dependant_vaccination.vaccine_id','=','vaccine.id')->select('vaccine.*','dependant_vaccination.*','dependant_vaccination.id as userid')
+                                                        <?php  $vaccines=DB::table('vaccine')->join('dependant_vaccination','dependant_vaccination.vaccine_id','=','vaccine.id')->distinct()->select('vaccine.*','dependant_vaccination.*','dependant_vaccination.id as userid')
                                                          ->where('vaccine.age','=>',$length)->get(); ?>
                                                           <?php $i=1; ?>
                                                         @foreach($vaccines as $vaccine)
@@ -615,17 +615,24 @@ No <input type="checkbox" name="aph" value="No" />
                                                               <tbody>
                                                       
                                                            <tr>
-                                                         <td><a href="{{url('immunination',$vaccine->userid)}}">
-                                                         {{$i}}</a></td>
+                                                         
                                                          <td><a href="{{url('immunination',$vaccine->userid)}}">{{$vaccine->disease}}</a></td>
                                                          <td><a href="{{url('immunination',$vaccine->userid)}}">{{$vaccine->antigen}}</a></td>
                                                         
-                                                         <td>{{$vaccine->duration or ''}}</td>
+                                                         <td><?php $age=$vaccine->age; 
+                                                         if($age==0){echo("Birth");}
+                                                         else if($age==42){echo("6 Weeks");}
+                                                         else if($age==70){echo("10 Weeks");}
+                                                         else if($age==98){echo("14 Weeks");}
+                                                         else if($age==183){echo("6 months");}
+                                                         else if($age==274){echo("9 months");}
+                                                         else if($age==335){echo("11 months");}
+                                                         else if($age==456){echo("15 months");}
+                                                         else if($age==730){echo("2 Years");}?></td>
                                                          <td>{{$vaccine->date_guideline or ''}}</td>
                                                           <td>{{$vaccine->status or ''}}</td>
                                                           <td>{{$vaccine->status_date or ''}}</td>
-                                                           <td>{{$vaccine-> vaccin_name or ''}}</td>       
-                                                        
+                                                          
                                                              </tr>
                                                                </tbody>
                                                            <?php $i++ ?>

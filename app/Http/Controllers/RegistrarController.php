@@ -116,6 +116,7 @@ public function dependantTriage($id){
       $email=$request->email;
       $constituency=$request->constituency;
       $nhif=$request->nhif;
+      $blood=$request->blood_type;
 
       DB::table('afya_users')->where('id',$id)->
       update([
@@ -124,6 +125,7 @@ public function dependantTriage($id){
      'nhif'=>$nhif,
      'nationalId'=>$idno,
      'email'=>$email,
+     'blood_type'=>$blood,
      'constituency' =>$constituency,
      'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
      'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);

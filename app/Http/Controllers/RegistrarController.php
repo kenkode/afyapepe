@@ -50,6 +50,11 @@ class RegistrarController extends Controller
      
             return view('registrar.dependants')->with('id',$id);
     }
+    public function allPatients(){
+  
+       return view('registrar.allpatients');
+
+    }
 
     public function createDependent(Request $request){
       $id=$request->id;

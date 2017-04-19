@@ -187,6 +187,7 @@ Route::group(['middleware' => ['auth','role:Admin|Registrar']], function() {
 	Route::post('createdependent','RegistrarController@createDependent');
 	Route::get('registrar.dependantTriage/{id}','RegistrarController@dependantTriage');
 	Route::post('Dependentconsultationfee','RegistrarController@Dependentconsultationfee');
+	Route::get('allpatients','RegistrarController@allPatients');
 
 
 });

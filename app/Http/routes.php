@@ -117,6 +117,7 @@ Route::get('/ajax-subcat',function(){
 	 Route::get('showhistory/{id}',['as'=>'showhistory', 'uses'=>'PatientController@showhistory']);
    Route::get('show/{id}',['as'=>'showPatient', 'uses'=>'PatientController@showpatient']);
    Route::get('visit/{id}', [ 'as' => 'visit', 'uses' => 'PatientController@pvisit']);
+	 Route::get('depvisit/{id}', [ 'as' => 'dependantvisit', 'uses' => 'PatientController@dependantvisit']);
 	 Route::Post('showpatient', [ 'as' => 'patientnotes', 'uses' => 'PatientController@PatientNotes']);
 	 Route::get('/tags/find', 'TagController@find');
 	 Route::get('/tags/tst', 'TagController@ftest');

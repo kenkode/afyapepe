@@ -29,7 +29,7 @@ return redirect('doctor.create');
 <?php
       foreach ($patientdetails as $pdetails) {
         // $patientid = $pdetails->pat_id;
-       if ($pdetails->persontreated=='Self') {
+
          $pname = $pdetails->firstname;
          $lname = $pdetails->secondName;
          $facilty = $pdetails->FacilityName;
@@ -37,16 +37,25 @@ return redirect('doctor.create');
          $stat= $pdetails->appstatus;
          $afyauserId= $pdetails->afyaId;
 
-        }
-        else {
+
           $dependantId= $pdetails->Infid;
           $pname = $pdetails->Infname;
           $lname = $pdetails->InfName;
           $facilty = $pdetails->FacilityName;
           $phone = $pdetails->msisdn;
-          $stat= $pdetails->appstatus;
-          $afyauserId= $pdetails->afyaId;
-         }
+
+          $dependantAge= $pdetails->Infdob;
+
+           $interval = date_diff(date_create(), date_create($dependantAge));
+           $dependantage= $interval->format(" %Y Year, %M Months, %d Days Old");
+
+
+ $now = time(); // or your date as well
+ $your_date = strtotime($dependantAge);
+ $datediff = $now - $your_date;
+
+ $dependantdays= floor($datediff / (60 * 60 * 24));
+
 
 
 
@@ -92,17 +101,17 @@ return redirect('doctor.create');
     <div class="ibox float-e-margins">
             <div class="ibox-title">
                 <h5>All Patient Visit History</h5>
-
             </div>
             <div class="ibox-content">
             <div class="table-responsive">
+              <?php if ($pdetails->persontreated=='Self') {
+              ?>
             <table class="table table-striped table-bordered table-hover dataTables-conditional" >
             <thead>
             <tr>
               <th></th>
                 <th>Date of visit</th>
                 <th>Chief Complaint</th>
-                <th>Doctor's Note</th>
                 <th>Test</th>
                 <th>Prescription</th>
                 <th>view more</th>
@@ -114,14 +123,9 @@ return redirect('doctor.create');
               ->leftJoin('triage_details', 'appointments.id', '=', 'triage_details.appointment_id')
               ->leftJoin('patient_test', 'appointments.id',  '=', 'patient_test.appointment_id')
               ->leftJoin('prescriptions', 'appointments.id', '=', 'prescriptions.appointment_id')
-              ->leftJoin('dependant', 'appointments.persontreated', '=', 'dependant.id')
-              ->leftJoin('triage_infants', 'appointments.id', '=', 'triage_infants.appointment_id')
               ->select('triage_details.chief_compliant','triage_details.updated_at',
               'patient_test.test_status','prescriptions.filled_status','appointments.id',
-              'appointments.persontreated',
-
-              'triage_infants.chief_compliant as Infcompliant','triage_infants.updated_at as Infupdated')
-
+              'appointments.persontreated' )
               ->where('appointments.afya_user_id',$afyauserId)
               ->get();
               ?>
@@ -129,18 +133,12 @@ return redirect('doctor.create');
            @foreach($pathists as $pathist)
                 <tr>
                     <td>{{ +$i }}</td>
-                    <td><?php if ($pathist->persontreated=='Self') {echo $pathist->updated_at;}
-                    else {echo $pathist->Infupdated;}?></td>
-                    <td><?php if ($pathist->persontreated=='Self') {echo $pathist->chief_compliant;}
-                    else {echo $pathist->Infcompliant;}?></td>
-                    <td><?php if ($pathist->persontreated=='Self') {echo $pathist->chief_compliant;}
-                    else {echo $pathist->Infcompliant;}?></td>
+                    <td>{{ $pathist->updated_at}}</td>
+                    <td> {{$pathist->chief_compliant}}</td>
+
                     <td><?php
-                    if ($pathist->persontreated=='Self') {$tests=$pathist->test_status;}
-                    else {$tests=$pathist->test_status;}
-
-
-                    if (is_null($tests)) {
+                    $tests=$pathist->test_status;
+                     if (is_null($tests)) {
                       $tests= 'N/A';
                     }
                     elseif($tests==0) {
@@ -175,13 +173,93 @@ return redirect('doctor.create');
                 <th></th>
                   <th>Date of visit</th>
                   <th>Chief Complaint</th>
-                  <th>observations</th>
+                  <th>Test</th>
                   <th>Prescription</th>
-                  <th>Prescription</th>
+
                     <th>view more</th>
               </tr>
             </tfoot>
             </table>
+            <?php }
+            if ($dependantdays <='28') {
+              ?>
+              <table class="table table-striped table-bordered table-hover dataTables-conditional" >
+              <thead>
+              <tr>
+                <th></th>
+                  <th>Date of visit</th>
+                  <th>Chief Complaint</th>
+                  <th>Test</th>
+                  <th>Prescription</th>
+                  <th>view more</th>
+              </tr>
+              </thead>
+              <tbody>
+                <?php
+                $pathists = DB::table('appointments')
+
+                ->leftJoin('patient_test', 'appointments.id',  '=', 'patient_test.appointment_id')
+                ->leftJoin('prescriptions', 'appointments.id', '=', 'prescriptions.appointment_id')
+                ->leftJoin('dependant', 'appointments.persontreated', '=', 'dependant.id')
+                ->leftJoin('triage_infants', 'appointments.id', '=', 'triage_infants.appointment_id')
+                ->select('patient_test.test_status','prescriptions.filled_status','appointments.id',
+                'appointments.persontreated',
+                 'triage_infants.chief_compliant as Infcompliant','triage_infants.updated_at as Infupdated')
+                ->where('appointments.persontreated',$dependantId)
+                ->get();
+                ?>
+                <?php $i =1; ?>
+              @foreach($pathists as $pathist)
+                  <tr>
+                      <td>{{ +$i }}</td>
+                      <td>{{$pathist->Infupdated}}</td>
+                      <td>{{$pathist->Infcompliant}}</td>
+                      <td><?php
+                    $tests=$pathist->test_status;
+                        if (is_null($tests)) {
+                        $tests= 'N/A';
+                      }
+                      elseif($tests==0) {
+                       $tests= 'Pending';
+                     } elseif($tests==1) {
+                        $tests= 'Done';
+                      }else {
+                          $tests= 'Partial';
+                      }
+                        ?>  {{$tests}}</td>
+                        <td><?php
+                        $prescs=$pathist->filled_status;
+                        if (is_null($prescs)) {
+                          $prescs= 'N/A';
+                        }
+                        elseif ($prescs==0) {
+                          $prescs= 'Pending';
+                        } elseif($prescs==1) {
+                          $prescs= 'Complete';
+                        }else {
+                            $prescs= 'Partial';
+                        }
+                          ?>  {{$prescs}}</td>
+                      <td><a href="{{route('dependantvisit',$pathist->id)}}" class="btn btn-default btn-xs"><i class="fa fa-search-plus"></i></a></td>
+                   </tr>
+
+                  <?php $i++; ?>
+                    @endforeach
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th></th>
+                    <th>Date of visit</th>
+                    <th>Chief Complaint</th>
+                    <th>Test</th>
+                     <th>Prescription</th>
+                      <th>view more</th>
+                </tr>
+              </tfoot>
+              </table>
+
+              <?php } ?>
+
           </div>
          </div>
       </div>

@@ -142,7 +142,36 @@ return view('doctor.visit')->with('patientvisit',$patientvisit)
                            ->with('tstdone',$tstdone)
                            ->with('prescription',$prescription);
 }
+public function dependantvisit($id)
+{
+  $patientvisit = DB::table('triage_infants')
 
+  ->leftJoin('appointments','triage_infants.appointment_id', '=', 'appointments.id')
+  ->leftJoin('dependant','triage_infants.dependant_id', '=', 'dependant.id')
+  ->select('dependant.*','appointments.*','triage_infants.*')
+  ->where('triage_infants.appointment_id', '=',$id )
+  ->get();
+
+  $tstdone = DB::table('patient_test')
+  ->leftJoin('patient_test_details', 'patient_test.id', '=', 'patient_test_details.patient_test_id')
+  ->leftJoin('facilities', 'patient_test_details.facility_id', '=', 'facilities.FacilityCode')
+  ->leftJoin('lab_test', 'patient_test_details.tests_reccommended', '=', 'lab_test.id')
+  ->leftJoin('diseases', 'patient_test_details.conditional_diagnosis', '=', 'diseases.code')
+  ->select('patient_test_details.*','facilities.*','lab_test.name','diseases.name as disease')
+  ->where('patient_test.appointment_id', '=',$id)
+  ->get();
+
+  $prescription = DB::table('prescriptions')
+  ->leftJoin('prescription_details','prescriptions.id', '=', 'prescription_details.presc_id')
+  ->Join('druglists','prescription_details.drug_id', '=', 'druglists.id')
+  ->Join('diseases','prescription_details.diagnosis', '=', 'diseases.code')
+  ->select('prescription_details.created_at as pdate','prescription_details.*','druglists.drugname','diseases.name')
+  ->where('prescriptions.appointment_id', '=',$id)
+  ->get();
+return view('doctor.depvisit')->with('patientvisit',$patientvisit)
+                           ->with('tstdone',$tstdone)
+                           ->with('prescription',$prescription);
+}
 public function PatientNotes(Request $request)
 
 {

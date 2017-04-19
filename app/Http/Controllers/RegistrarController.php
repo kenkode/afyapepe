@@ -80,14 +80,7 @@ class RegistrarController extends Controller
       ]
   );
 
-     DB::table('dependant_parent')->insert([
-      'name'=> $name,
-      'relationship'=> $relation,
-      'phone'=>$parent->msisdn,
-      'dependant_id'=>$dependant_id,
-      'created_at'  => \Carbon\Carbon::now()->toDateTimeString(),
-      'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
-      ]);
+     
 
 
      $end = Carbon::parse($dob);

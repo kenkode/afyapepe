@@ -44,17 +44,22 @@
             <label for="exampleInputPassword1">Birth Number</label>
              <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Birth Number" name="Birth_number" >
             </div>
-             <div class="form-group">
-  <label class="control-label" for="name">Younger sibling(born to mother)?</label>
-  <input type="radio" value="no" id="type" name="birth" checked='checked' autocomplete="off" />
-    <label>No</label>
-          <input type="radio" value="yes" id="type" name="birth" class="youtube" />
-        <label>Yes</label>
-        <div id="embedcode">
-      
-       <input type="date"   name="dob" >
-      </div>
-    </div>
+            <div class="form-group">
+            <label for="exampleInputEmail1">Younger sibling(born to mother)?</label>
+            No <input type="checkbox" value="No"  name="birth" />
+            Yes <input type="checkbox" value="Yes"  name="birth"  />
+            <div class="Yes" style="display: none">
+             <div class="form-group" id="data_1">
+                 <label>Date of Birth</label>
+                 <div class="input-group date">
+                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                     <input type="text" class="form-control" name="dob" value="">
+                 </div>
+                 </div> 
+    
+</div>
+</div>
+             
     <input type="submit" name="submit">
     </form>
     </div>

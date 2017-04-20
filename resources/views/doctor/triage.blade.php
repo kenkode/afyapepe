@@ -115,13 +115,17 @@
                 <div class="form-group"><label class="col-lg-4 control-label">Pulse<small>/min</small></label>
                    <div class="col-lg-8"><input type="text" value="{{ $pdetails->Infpulse}}" class="form-control" readonly="readonly" > </div>
                 </div>
+                <div class="form-group"><label class="col-lg-4 control-label">BP<small>/mmHg</small></label>
+                   <div class="col-lg-8"><input type="text" value="{{ $pdetails->Infsysbp}}" class="form-control" readonly="readonly" > </div>
+                 </div>
 
              </form>
           </div>
                       <div class="col-sm-6">
                         <form role="form" class="form-horizontal">
+                          <br /><br />
                           <div class="form-group"><label class="col-lg-4 control-label">BP<small>/mmHg</small></label>
-                             <div class="col-lg-8"><input type="text" value="{{ $pdetails->Infbp}}" class="form-control" readonly="readonly" > </div>
+                             <div class="col-lg-8"><input type="text" value="{{ $pdetails->Infdiasbp}}" class="form-control" readonly="readonly" > </div>
                            </div>
                           <div class="form-group"><label class="col-lg-4 control-label">Resp Rate<small>bpm</small></label>
                               <div class="col-lg-8"><input type="text" value="{{ $pdetails->Infresp_rate}}" class="form-control" readonly="readonly" > </div>

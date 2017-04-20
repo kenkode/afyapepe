@@ -37,7 +37,7 @@ return redirect('doctor.create');
          $stat= $pdetails->appstatus;
          $afyauserId= $pdetails->afyaId;
 
-
+          $app_id= $pdetails->app_id;
           $dependantId= $pdetails->Infid;
           $pname = $pdetails->Infname;
           $lname = $pdetails->InfName;

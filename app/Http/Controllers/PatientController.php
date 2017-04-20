@@ -80,7 +80,7 @@ class PatientController extends Controller
            'triage_infants.weight as Infweight','triage_infants.height as Infheight','triage_infants.temperature as Inftemp',
           'triage_infants.chief_compliant as Infcompliant','triage_infants.nurse_notes as InfNnotes','triage_infants.resp_rate as Infresp_rate',
           'triage_infants.pulse as Infpulse','triage_infants.systolic_bp as Infsysbp','triage_infants.diastolic_bp as Infdiasbp',
-           'triage_infants.observation as Infobservation','triage_infants.symptoms as Infsymptoms','triage_infants.nurse_notes as Infnotes',
+           'triage_infants.observation as Infobservation','triage_infants.symptoms as Infsymptoms',
            'dependant.id as Infid','dependant.firstName as Infname','dependant.secondName as InfName','dependant.gender as Infgender','dependant.blood_type as Infblood_type',
            'dependant.dob as Infdob','dependant.pob as Infpob')
        ->where('appointments.id',$id)

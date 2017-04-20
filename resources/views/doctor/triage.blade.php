@@ -87,7 +87,14 @@
                       </div>
                   </div>
                   <div class="ibox-content">
-
+                  <?php  $dependantdetails = DB::table('triage_infants')
+                          ->select('triage_infants.*', 'triage_infants.weight as Infweight','triage_infants.height as Infheight','triage_infants.temperature as Inftemp',
+                          'triage_infants.chief_compliant as Infcompliant','triage_infants.nurse_notes as InfNnotes','triage_infants.resp_rate as Infresp_rate',
+                          'triage_infants.pulse as Infpulse','triage_infants.systolic_bp as Infsysbp','triage_infants.diastolic_bp as Infdiasbp',
+                           'triage_infants.observation as Infobservation','triage_infants.symptoms as Infsymptoms')
+                     ->where('appointment_id',$app_id)
+                    ->get(); ?>
+                     @foreach($dependantdetails as $pdetails)
                       <div id="wizard">
                           <h1>Vital Signs</h1>
                           <div class="step-content">
@@ -97,7 +104,7 @@
                       <div class="col-sm-6 b-r"><h3 class="m-t-none m-b">Vitals</h3>
                         <form class="form-horizontal">
 
-                   @foreach($patientdetails as $pdetails)
+
 
                    <div class="form-group"><label class="col-lg-4 control-label">weight</label>
                       <div class="col-lg-8"><input type="text" value="{{ $pdetails->Infweight}}" class="form-control" readonly="readonly" > </div>
@@ -268,8 +275,7 @@
                       <div class="col-sm-6 b-r"><h3 class="m-t-none m-b">C</h3>
                         <form class="form-horizontal">
 
-
-                   <div class="form-group"><label class="col-lg-4 control-label">Femoral Pulse</label>
+                  <div class="form-group"><label class="col-lg-4 control-label">Femoral Pulse</label>
                       <div class="col-lg-8"><input type="text" value="{{ $pdetails->femoral_pulse}}" class="form-control" readonly="readonly" > </div>
                     </div>
                     <div class="form-group"><label class="col-lg-4 control-label">Cap Refill</label>

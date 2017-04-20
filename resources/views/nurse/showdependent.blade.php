@@ -93,7 +93,7 @@
                      <li class="active"><a data-toggle="tab" href="#tab-7">Baby Details</a></li>
                       <li class=""><a data-toggle="tab" href="#tab-8">Mother Details</a></li>
                      <li class=""><a data-toggle="tab" href="#tab-5">Vitals</a></li>
-                     <li class=""><a data-toggle="tab" href="#tab-9">General Examination</a></li>
+                     <li class=""><a data-toggle="tab" href="#tab-9">Disabilities</a></li>
                       <li class=""><a data-toggle="tab" href="#tab-10">Abnormalities</a></li>
                       <li class=""><a data-toggle="tab" href="#tab-1">Immunination Chart</a></li>
                     <li class=""><a data-toggle="tab" href="#tab-2">Measures of Growth & Weight</a></li>
@@ -796,6 +796,36 @@ Hand <input type="checkbox" name="skincold" value="Hand" />
 Elbow <input type="checkbox" name="skincold" value="Elbow" />
 Shoulder <input type="checkbox" name="skincold" value="Shoulder" />
   </div>
+      <h4> <label><u>General Examination</u></label></h4>
+ <form class="form-horizontal" role="form" method="POST" action="/disability" novalidate>
+    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+    <input type="hidden" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{$dependant->id}}" name="id"  required>
+          <div class="form-group">
+    <label for="exampleInputPassword1">Skin</label>
+    Bruising <input type="checkbox" value="Bruising"  name="skin"/>
+    Rash <input type="checkbox" value="Rash"  name="skin"/>
+    Pustules <input type="checkbox" value="Pustules"  name="skin"/>
+    </div>
+    <div class="form-group">
+    <label>Jaundice</label>
+    None <input type="checkbox" value="None"  name="jaundice"/>
+    +  <input type="checkbox" value="+"  name="jaundice"/>
+    +++ <input type="checkbox" value="+++"  name="jaundice"/>
+    </div>
+    <div class="form-group">
+    <label>Gest/Size</label>
+    Normal <input type="checkbox" value="Normal"  name="gest_size"/>
+    Perm <input type="checkbox" value="Perm"  name="gest_size"/>
+    SGA/wasted  <input type="checkbox" value="SGA/wasted"  name="gest_size"/>
+    </div>
+
+    <h4> <label><u>Umbilicus</u></label></h4>
+    <div class="form-group">
+    <label>Umbilicus</label>
+    Clean <input type="checkbox" value="Clean"  name="umbilicus"/>
+    Local Pus <input type="checkbox" value="LocalPus"  name="umbilicus"/>
+    Pus + red skin  <input type="checkbox" value="Pus red skin "  name="umbilicus"/>
+    </div>
     
   </div>
 
@@ -846,6 +876,7 @@ Shoulder <input type="checkbox" name="skincold" value="Shoulder" />
     Weak  <input type="checkbox" value="Yes"  name="cry"/>
     </div>
 
+
      <h4> <label><u>Other Vitals</u></label></h4>
     <div class="form-group">
     <label for="exampleInputEmail1">Weight</label>
@@ -855,6 +886,10 @@ Shoulder <input type="checkbox" name="skincold" value="Shoulder" />
     <label for="exampleInputEmail1">Height</label>
     <input type="name" class="form-control" placeholder="Height in Metres" name="current_height"
      required>
+    </div>
+     <div class="form-group">
+    <label for="exampleInputEmail1">Head Head Measurement</label>
+    <input type="name" class="form-control" placeholder="" name="cir">
     </div>
    <div class="form-group">
     <label for="exampleInputPassword1">Temperature</label>
@@ -1274,39 +1309,41 @@ else{
   <div class="wrapper wrapper-content">
           <div class="row animated fadeInRight">
           <div class="row">
-          <div class="col-lg-6">
- <h4> <label><u>General Examination</u></label></h4>
- <form class="form-horizontal" role="form" method="POST" action="/disability" novalidate>
-    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-    <input type="hidden" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{$dependant->id}}" name="id"  required>
-          <div class="form-group">
-    <label for="exampleInputPassword1">Skin</label>
-    Bruising <input type="checkbox" value="Bruising"  name="skin"/>
-    Rash <input type="checkbox" value="Rash"  name="skin"/>
-    Pustules <input type="checkbox" value="Pustules"  name="skin"/>
-    </div>
-    <div class="form-group">
-    <label>Jaundice</label>
-    None <input type="checkbox" value="None"  name="jaundice"/>
-    +  <input type="checkbox" value="+"  name="jaundice"/>
-    +++ <input type="checkbox" value="+++"  name="jaundice"/>
-    </div>
-    <div class="form-group">
-    <label>Gest/Size</label>
-    Normal <input type="checkbox" value="Normal"  name="gest_size"/>
-    Perm <input type="checkbox" value="Perm"  name="gest_size"/>
-    SGA/wasted  <input type="checkbox" value="SGA/wasted"  name="gest_size"/>
-    </div>
-
-    <h4> <label><u>Umbilicus</u></label></h4>
-    <div class="form-group">
-    <label>Umbilicus</label>
-    Clean <input type="checkbox" value="Clean"  name="umbilicus"/>
-    Local Pus <input type="checkbox" value="LocalPus"  name="umbilicus"/>
-    Pus + red skin  <input type="checkbox" value="Pus red skin "  name="umbilicus"/>
-    </div>
-    </div>
-    <div class="col-lg-6">
+          <div class="col-lg-10">
+<table class="table table-small-font table-bordered table-striped">
+ <thead>
+    <tr>
+   <th>No</th>
+    <th>Disability Name</th>
+  </tr>
+  </thead>
+    </tr>
+    <?php $i=1;?>
+    <?php  $allergies=DB::table('patient_disabilities')
+        ->Where('patient_disabilities.dependant_id','=',$dependant->id)
+    ->get(); ?>
+    @foreach($allergies as $allergy)
+    <tbody>
+      <tr>
+      <td>{{$i}}</td>
+       
+      <td>{{$allergy->name}}</td>
+     
+      
+        
+      </tr>
+    </tbody>
+    <?php $i++; ?>
+    @endforeach
+    </table>
+     <a data-toggle="modal" class="btn btn-primary" href="#modal-form11">Add</a>
+     <div id="modal-form11" class="modal fade" aria-hidden="true">
+                            <div class="modal-dialog">
+                            <div class="modal-content">
+                            <div class="modal-body">
+ 
+ 
+    
     <h2> <label><u>Disability</u></label></h2>
     <div class="form-group">
 <label>Can suck/breastfeed</label>
@@ -1342,6 +1379,10 @@ No <input type="checkbox" name="tone" value="No" />
   </div>
   <button type="submit" class="btn btn-primary">Save</button>
      {!! Form::close() !!}
+    </div>
+    </div>
+    </div>
+    </div>
     </div>
     
       </div> 

@@ -248,6 +248,11 @@ return redirect()->action('NurseController@showDependents', [$id]);
 }
 public function vitalDetails(Request $request){
 $id=$request->id;
+$cir=$request->cir;
+$skin=$request->skin;
+$jaundice=$request->jaundice;
+$gest_size=$request->gest_size;
+$umbilicus=$request->umbilicus;
 $fever=$request->fevers;
 $days=$request->days;
 $difficultybreathing=$request->difficulty_breathing;
@@ -296,9 +301,14 @@ $cry=$request->cry;
 $appointment=DB::table('appointments')->where('persontreated', $id)->orderBy('created_at', 'desc')->first();
 DB::table('triage_infants')->insert(
     ['appointment_id' => $appointment->id,
-    
-    'current_weight'=> $weight,
-    'current_height'=>$heightS,
+    'dependent_id'=>$id,
+      'skin'=>$skin,
+      'jaundice'=>$jaundice,
+      'gest_size'=>$gest_size,
+      'umbilicus'=>$umbilicus,
+      'head_circum'=>$cir,
+    'weight'=> $weight,
+    'height'=>$heightS,
     'temperature'=>$temperature,
     'systolic_bp'=>$systolic,
     'diastolic_bp'=>$diastolic,
@@ -306,9 +316,8 @@ DB::table('triage_infants')->insert(
     'observation'=>$observation,
     'symptoms'=>$symptoms,
     'nurse_notes'=>$nurse,
-    'Doctor_note'=>'',
-    'prescription'=>'',
-    'fever'=>$fever,
+    'Doctor_notes'=>'',
+     'fever'=>$fever,
     'fever_days'=>$days,
     'difficult_breathing'=>$difficultybreathing,
     'diarrhoea'=>$diarrhoea,

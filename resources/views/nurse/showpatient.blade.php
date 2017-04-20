@@ -188,6 +188,67 @@
                 </div>
             </div>
         </div>
+ <div class="row">
+         <div class="col-lg-12">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                              <h5>Patient Allergy</h5>
+                                <div class="ibox-tools">
+                                    <a class="collapse-link">
+                                        <i class="fa fa-chevron-up"></i>
+                                    </a>
+
+                                    <a class="close-link">
+                                        <i class="fa fa-times"></i>
+                                    </a>
+                                </div>
+                            </div>
+
+
+        <div class="ibox-content">
+        <div class="table-responsive">
+      <table class="table table-striped table-bordered table-hover dataTables-example" >
+      <thead>
+       <tr>
+      <th>No</th>
+  <th>Allery Type</th>
+  <th>Allery Name</th>
+  </tr>
+      </thead>
+
+      <?php $i =1;  $allergies=DB::table('afya_users_allergy')
+    ->Join('allergies_type','allergies_type.id','=','afya_users_allergy.allergies_type_id')
+    ->Join('allergies','allergies.id','=','allergies_type.allergies_id')
+    ->Select('allergies_type.name','allergies.name as Allergy')
+    ->Where('afya_users_allergy.afya_user_id','=',$patient->id)
+    ->get(); ?>
+     <tbody>
+       @foreach($allergies as $allergy)
+   
+      <tr>
+      <td>{{$i}}</td>
+       <td>{{$allergy->Allergy}}</td>
+      <td>{{$allergy->name}}</td>        
+      </tr>
+  
+       <?php $i++; ?>
+
+      @endforeach
+
+        </tbody>
+      </table>
+      
+
+   </div>
+
+</div>
+
+
+
+</div>
+</div>
+
+</div>
 
       <div class="row">
          <div class="col-lg-12">
@@ -271,5 +332,8 @@
 </div>
 
 </div>
-</div>
+@include('includes.default.footer')
+          </div><!--content-->
+      </div><!--content page-->
+
 @endsection

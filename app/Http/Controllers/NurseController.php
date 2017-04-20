@@ -215,25 +215,15 @@ $aph=$request->aph;
 $motherproblem=$request->motherproblem;
 $revelantdrugs=$request->revelantdrugs;
 
+$afyaid=DB::table('dependant')->where('id',$id)->first();
+
  DB::table('mother_details')->insert(
     ['dependent_id' => $id,
-       'dob'=>$dob,
-       'gravity'=>$gravidity,
+    'afya_user_id'=>$afyaid->afya_user_id,
+    'gravity'=>$gravidity,
     'parity'=>$parity,
-    'blood_type'=>$blood_type,
-    'sublocation'=>$sublocation,
-    'hiv'=>$hiv,
-    'arvs'=>$arvs,
-    'vdrl'=>$vdrl,
-    'fever'=>$fever,
-    'antibioties'=>$antibiotics,
-    'diabetes'=>$diabetes,
-    'tb'=>$tb,
-    'tb_type'=>$tb_type,
-    'tb_treatment'=>$tb_treatment,
     'labour1'=>$labour1,
     'labour2'=>$labour2,
-    'hypertension'=>$hypertention,
     'aph'=>$aph,
     'motherproblem'=>$motherproblem,
     'revelantdrugs'=>$revelantdrugs,
@@ -1057,9 +1047,7 @@ DB::table('appointments')->where('id',$appointment->id)->update([
         $doctor=$request->doctor;
         
        
-       
-       
-        
+      
        
 
 

@@ -330,11 +330,8 @@
  <thead>
     <tr>
    <th>No</th>
-  <th>Date of Birth</th>
   <th>Gravidity</th>
   <th>Parity</th>
-   <th>Blood Type</th>               
-    <th>Sublocation</th>
    <th>Hiv</th>
   <th>ARV's</th>
    <th>Vdrl</th>
@@ -351,17 +348,14 @@
     <tbody>
      <tr>
      <td>{{$i}}</td>
-     <td>{{$mother->dob}}</td>
-     <td>{{$mother->gravity}}</td>
-     <td>{{$mother->parity}}</td>
-     <td>{{$mother->blood_type}}</td>
-     <td>{{$mother->sublocation}}</td>
-     <td>{{$mother->hiv}}</td>
-     <td>{{$mother->arvs}}</td>
-     <td>{{$mother->vdrl}}</td>
-     <td>{{$mother->fever}}</td>
-     <td>{{$mother->antibioties}}</td>
-      <td>{{$mother->diabetes}}</td>
+     <td>{{$mother->gravity or ''}}</td>
+     <td>{{$mother->parity or ''}}</td>
+     <td>{{$mother->hiv or ''}}</td>
+     <td>{{$mother->arvs or ''}}</td>
+     <td>{{$mother->vdrl or ''}}</td>
+     <td>{{$mother->fever or ''}}</td>
+     <td>{{$mother->antibioties or ''}}</td>
+      <td>{{$mother->diabetes or ''}}</td>
       <td><a data-toggle="modal" class="btn btn-primary" href="#modal-form3">
 
 <i class="fa fa-search" aria-hidden="true"></i>
@@ -388,15 +382,15 @@
     </tr>
     <tbody>
       <tr>
-      <td>{{$mother->tb}}</td>
-      <td>{{$mother->tb_type}}</td>
-      <td>{{$mother->tb_treatment}}</td>
-       <td>{{$mother->labour1}}</td>
-        <td>{{$mother->labour2}}</td>
-        <td>{{$mother->hypertension}}</td>
-        <td>{{$mother->aph}}</td>
-         <td>{{$mother->motherproblem}}</td>
-          <td>{{$mother->revelantdrugs}}</td>
+      <td>{{$mother->tb or ''}}</td>
+      <td>{{$mother->tb_type or ''}}</td>
+      <td>{{$mother->tb_treatment or ''}}</td>
+       <td>{{$mother->labour1 or ''}}</td>
+        <td>{{$mother->labour2 or ''}}</td>
+        <td>{{$mother->hypertension or ''}}</td>
+        <td>{{$mother->aph or ''}}</td>
+         <td>{{$mother->motherproblem or ''}}</td>
+          <td>{{$mother->revelantdrugs or ''}}</td>
       </tr>
     </tbody>
   </table>
@@ -444,25 +438,8 @@
   <input type="text" name="parity" class="form-control" placeholder="mother parity" />
     
   </div>
+ 
   <div class="form-group">
-              <label for="exampleInputEmail1">Blood Group</label>
-              <select class="form-control" name="blood_type">
-              <option value="O +">O +</option>
-              <option value="O -">O -</option>
-              <option value="A +">A +</option>
-              <option value="A -">A -</option>
-              <option value="B +">B +</option>
-              <option value="B -">B -</option>
-              <option value="AB +">AB +</option>
-              <option value="AB -">AB -</option>
-              </select>
-              </div>
- <div class="form-group">
- <label>Sublocation</label>
- <input type="text" name="sublocation" class="form-control">
-   
- </div>
-     <div class="form-group">
    <label for="exampleInputEmail1">Hiv status</label>
    Negative <input type="checkbox" value="Negative"  name="hiv" />
    Positive <input type="checkbox" value="Positive"  name="hiv"  />

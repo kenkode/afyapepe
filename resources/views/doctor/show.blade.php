@@ -281,7 +281,9 @@ return redirect('doctor.create');
 
                                     <div class="form-group col-md-8 col-md-offset-1">
                                         <label for="presc" class="col-md-6">Facility:</label>
-                                        <select id="facility" name="facility" class="form-control facility1" style="width: 100%"></select>
+                                          <input type="text" class="form-control" name="next_appointment" value="{{$facilty}}">
+
+                                        <!-- <select id="facility" name="facility" class="form-control facility1" style="width: 100%"></select> -->
                                     </div>
                                       <div class="form-group col-md-8 col-md-offset-1" id="data_1">
                                           <label class="font-normal">Next Appointment Date</label>

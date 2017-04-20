@@ -375,7 +375,8 @@
                              </div>
                          @endforeach
                           <?php $MotherD=DB::table('mother_details')
-                            ->leftJoin('patient_diagnosis', 'mother_details.afya_user_id',  '=', 'patient_diagnosis.afya_user_id')
+                          ->leftJoin('appointments', 'mother_details.afya_user_id',  '=', 'appointments.afya_user_id')
+                            ->leftJoin('patient_diagnosis', 'appointments.id',  '=', 'patient_diagnosis.appointment_id')
                             ->leftJoin('diseases', 'patient_diagnosis.disease_id',  '=', 'diseases.id')
                             ->where([ ['mother_details.dependant_id', '=', $dependantId],
                             ['patient_diagnosis.chronic', '=', 'Y'],

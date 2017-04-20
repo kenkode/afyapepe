@@ -42,9 +42,7 @@ class PrescriptionController extends Controller
    {
      $appid=$request['appointment_id'];
 
-
-
-      $pttids= Prescription::where('appointment_id',$appid)
+$pttids= Prescription::where('appointment_id',$appid)
        ->first();
 
       if (is_null($pttids)) {
@@ -56,21 +54,29 @@ class PrescriptionController extends Controller
       ]);
       $id=$Prescription->id;
       } else {
-      // Already favorited - delete the existing
+      // Already exist - get the id the existing
        $id =$pttids->id;
       }
-
+      // Inserting  diagnosis tests
+     $diagnosis= DB::table('patient_diagnosis')->insert([
+                        'disease_id' => $request->get('condiagnosis'),
+                        'level' => $request->get('type'),
+                        'severity' => $request->get('severity'),
+                        'chronic' => $request->get('chronic'),
+                        'appointment_id' => $request->get('appointment_id'),
+]);
+$prescrt=$request->prescription;
+if ($prescrt) {
     Prescription_detail::create([
            'presc_id' => $id,
            'drug_id' => $request['prescription'],
-           'diagnosis' => $request['diagnosis'],
            'doseform' => $request['dosageform'],
            'strength' => $request['strength'],
            'strength_unit' => $request['strength_unit'],
            'routes' => $request['routes'],
            'frequency' => $request['frequency'],
        ]);
-
+}
 
    return redirect()->route('showPatient',$appid);
    }
@@ -108,7 +114,7 @@ class PrescriptionController extends Controller
      */
     public function update(Request $request, $id)
     {
-      
+
     }
 
     /**

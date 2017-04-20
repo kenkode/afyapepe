@@ -13,12 +13,78 @@
 
               <div class="ibox float-e-margins">
                 <div class="ibox-content col-md-12">
-            <div class="ibox-content col-md-8 col-md-offset-2">
+            <div class="">
+              <div class="col-sm-6 b-r">
+              <?php  if ($dependantdays <='28') {
+                  ?>
+                <div class="form-group">
+                    <label for="tag_list" class="">Conditional Diagnosis:</label>
+                         <select class="test-multiple" name="condiagnosis"  style="width: 100%">
+                           <?php $diagnoses=DB::table('diagnoses')->where(function($query)
+                    {
+                        $query->where('target', '=','28 ')
+                              ->orWhere('target', '=','28-29');
+                    })
+                    ->get();
+                      ?>
+                           @foreach($diagnoses as $diag)
+                                  <option value='{{$diag->id}}'>{{$diag->name}}</option>
+                           @endforeach
+                           </select>
+                     </div>
+                     <?php } if ($dependantdays >='28') { ?>
+                     <div class="form-group">
+                         <label for="tag_list" class="">Confirmed Diagnosis:</label>
+                              <select class="test-multiple" name="condiagnosis"  style="width: 100%">
+                                <?php $diagnoses=DB::table('diagnoses')->where(function($query)
+                         {
+                             $query->where('target', '=','29 ')
+                                   ->orWhere('target', '=','28-29');
+                         })
+                         ->get();
+                           ?>
 
-                  <div class="form-group ">
+                                @foreach($diagnoses as $diag)
+                                       <option value='{{$diag->id}}'>{{$diag->name}}</option>
+                                @endforeach
+                                </select>
+                          </div>
+                          <?php }  ?>
+                          <div class="form-group">
+                              <label for="tag_list" class="">Type of Diagnosis:</label>
+                                   <select class="test-multiple" name="type"  style="width: 100%">
+                                     <option value=''>Choose one</option>
+                                       <option value='Primary'>Primary</option>
+                                       <option value='Secondary'>Secondary</option>
+                                     </select>
+                               </div>
+                               <div class="form-group">
+                                   <label for="tag_list" class="">Chronic:</label>
+                                        <select class="test-multiple" name="chronic"  style="width: 100%">
+                                          <option value=''>Choose one</option>
+                                            <option value='Y'>YES</option>
+                                            <option value='N'>No</option>
+                                          </select>
+                                    </div>
+                               <div class="form-group">
+                                   <label for="tag_list" class="">Level of Severity:</label>
+                                        <select class="test-multiple" name="severity"  style="width: 100%">
+                                          <?php $severeity=DB::table('severity')->get();
+                                     ?>
+
+                                          @foreach($severeity as $diag)
+
+                                                 <option value='{{$diag->id}}'>{{$diag->name}}</option>
+                                          @endforeach
+                                          </select>
+                                    </div>
+
+                  <!-- <div class="form-group ">
                       <label for="d_list3" class="col-md-4">Confirmed Diagnosis:</label>
                       <select  name="diagnosis" class="form-control d_list2" style="width: 50%"></select>
-                  </div>
+                  </div> -->
+                </div>
+<div class="col-sm-6 b-r">
                   <div class="form-group">
                       <label for="presc" class="col-md-4">Prescription:</label>
                       <select id="presc" name="prescription" class="form-control presc1" style="width: 50%"></select>
@@ -73,7 +139,7 @@
                              </div>
 
                         {{ Form::close() }}
-                            </div>
+                            </div></div>
                             <div class="col-lg-12">
                               <div class="ibox float-e-margins">
                                 <div class="ibox-content col-md-12">
@@ -106,8 +172,6 @@
                                <tr>
                                  <th></th>
 
-
-                                    <th>Diagnosis</th>
                                     <th>Drug Name</th>
                                     <th>Dosage Form</th>
                                    <th>Strength</th>
@@ -122,7 +186,7 @@
                           @foreach($prescription as $presc)
                                   <tr>
                                      <td>{{ +$i }}</td>
-                                   <td>{{$presc->name}}</td>
+
                                    <td>{{$presc->drugname}}</td>
                                    <td>{{$presc->doseform}}</td>
                                    <td>{{$presc->strength}}</td>

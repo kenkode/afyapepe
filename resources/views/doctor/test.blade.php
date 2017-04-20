@@ -8,8 +8,42 @@
 <!-- {{ Form::open(array('id' => 'ptest')) }} -->
 
   <div class="col-sm-6 b-r">
+  <?php  if ($dependantdays <='28') {
+      ?>
+    <div class="form-group">
+        <label for="tag_list" class="">Conditional Diagnosis:</label>
+             <select class="test-multiple" name="mainconditional"  style="width: 100%">
+               <?php $diagnoses=DB::table('diagnoses')->where(function($query)
+        {
+            $query->where('target', '=','28 ')
+                  ->orWhere('target', '=','28-29');
+        })
+        ->get();
+          ?>
+               @foreach($diagnoses as $diag)
+                      <option value='{{$diag->id}}'>{{$diag->name}}</option>
+               @endforeach
+               </select>
+         </div>
+         <?php } if ($dependantdays >='28') { ?>
+         <div class="form-group">
+             <label for="tag_list" class="">Conditional Diagnosis:</label>
+                  <select class="test-multiple" name="mainconditional"  style="width: 100%">
+                    <?php $diagnoses=DB::table('diagnoses')->where(function($query)
+             {
+                 $query->where('target', '=','29 ')
+                       ->orWhere('target', '=','28-29');
+             })
+             ->get();
+               ?>
+                    @foreach($diagnoses as $diag)
+                           <option value='{{$diag->id}}'>{{$diag->name}}</option>
+                    @endforeach
+                    </select>
+              </div>
+               <?php }  ?>
 <div class="form-group ">
-    <label for="d_list2">Conditional Diagnosis:</label>
+    <label for="d_list2"> Other Conditional Diagnosis:</label>
     <select id="d_list2" name="conditional" class="d_list2 form-control" style="width: 100%"></select>
 </div>
 
@@ -53,7 +87,7 @@
                               </div>
                               <div class="form-group">
                                   <label for="tag_list" class="">TB Test:</label>
-                                       <select class="test-multiple" name="tb[]" multiple="multiple" style="width: 100%">
+                                       <select class="test-multiple" name="tb2[]" multiple="multiple" style="width: 100%">
                                          <?php $biotests=DB::table('lab_test')->where('sub_category', '=','TB')->distinct()->get(['id','name']); ?>
                                          @foreach($biotests as $biotest)
                                                 <option value='{{$biotest->id}}'>{{$biotest->name}}</option>
@@ -240,9 +274,10 @@ else { ?>
       @endforeach
 
       <label>Patient Chronic Disease:</label>
-      <?php $allergy=DB::table('patient_diagnosis')
-      ->Join('diseases', 'patient_diagnosis.disease_id',  '=', 'diseases.id')
-      ->where('dependant_id', '=',$dependantId)->distinct()->get(['name']); ?>
+      <?php $allergy=DB::table('appointments')
+        ->Join('patient_diagnosis', 'appointments.id',  '=', 'patient_diagnosis.appointment_id')
+      ->Join('diagnoses', 'patient_diagnosis.disease_id',  '=', 'diagnoses.id')
+      ->where([ ['appointments.persontreated', '=',$dependantId],['patient_diagnosis.chronic', '=','Y'],])->distinct()->get(['name']); ?>
 
       @foreach($allergy as $micrtest)
            <input type="text" value="{{$micrtest->name}}" class="form-control" readonly="readonly">
@@ -271,6 +306,7 @@ else { ?>
     <th>Date </th>
    <th>Test Name</th>
    <th>Conditional Diagnosis</th>
+   <th>Other Diagnosis</th>
    <th>Status</th>
    <th>Result</th>
    <th>Faciity</th>
@@ -288,8 +324,19 @@ else { ?>
   <td>{{ +$i }}</td>
  <td>{{$tstdn->created_at}}</td>
   <td>{{$tstdn->name}}</td>
+ <td>{{$tstdn->diagnoses}}</td>
   <td>{{$tstdn->disease}}</td>
-  <td>{{$tstdn->done}}</td>
+  <td><?php
+  $prescs=$tstdn->done;
+  if (is_null($prescs)) {
+    $prescs= 'N/A';
+  }
+  elseif ($prescs==0) {
+    $prescs= 'Pending';
+  } elseif($prescs==1) {
+    $prescs= 'Complete';
+  }
+    ?>  {{$prescs}}</td>
    <td>{{$tstdn->results}}</td>
    <td>{{$tstdn->FacilityName}}</td>
    <td>{{$tstdn->note}}</td>

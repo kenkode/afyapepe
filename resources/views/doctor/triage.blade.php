@@ -115,13 +115,17 @@
                 <div class="form-group"><label class="col-lg-4 control-label">Pulse<small>/min</small></label>
                    <div class="col-lg-8"><input type="text" value="{{ $pdetails->Infpulse}}" class="form-control" readonly="readonly" > </div>
                 </div>
+                <div class="form-group"><label class="col-lg-4 control-label">BP<small>/mmHg</small></label>
+                   <div class="col-lg-8"><input type="text" value="{{ $pdetails->Infsysbp}}" class="form-control" readonly="readonly" > </div>
+                 </div>
 
              </form>
           </div>
                       <div class="col-sm-6">
                         <form role="form" class="form-horizontal">
+                          <br /><br />
                           <div class="form-group"><label class="col-lg-4 control-label">BP<small>/mmHg</small></label>
-                             <div class="col-lg-8"><input type="text" value="{{ $pdetails->Infbp}}" class="form-control" readonly="readonly" > </div>
+                             <div class="col-lg-8"><input type="text" value="{{ $pdetails->Infdiasbp}}" class="form-control" readonly="readonly" > </div>
                            </div>
                           <div class="form-group"><label class="col-lg-4 control-label">Resp Rate<small>bpm</small></label>
                               <div class="col-lg-8"><input type="text" value="{{ $pdetails->Infresp_rate}}" class="form-control" readonly="readonly" > </div>
@@ -375,7 +379,8 @@
                              </div>
                          @endforeach
                           <?php $MotherD=DB::table('mother_details')
-                            ->leftJoin('patient_diagnosis', 'mother_details.afya_user_id',  '=', 'patient_diagnosis.afya_user_id')
+                          ->leftJoin('appointments', 'mother_details.afya_user_id',  '=', 'appointments.afya_user_id')
+                            ->leftJoin('patient_diagnosis', 'appointments.id',  '=', 'patient_diagnosis.appointment_id')
                             ->leftJoin('diseases', 'patient_diagnosis.disease_id',  '=', 'diseases.id')
                             ->where([ ['mother_details.dependant_id', '=', $dependantId],
                             ['patient_diagnosis.chronic', '=', 'Y'],

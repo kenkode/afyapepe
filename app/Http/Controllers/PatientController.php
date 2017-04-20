@@ -79,7 +79,7 @@ class PatientController extends Controller
            'appointments.persontreated',
            'triage_infants.weight as Infweight','triage_infants.height as Infheight','triage_infants.temperature as Inftemp',
           'triage_infants.chief_compliant as Infcompliant','triage_infants.nurse_notes as InfNnotes','triage_infants.resp_rate as Infresp_rate',
-          'triage_infants.pulse as Infpulse','triage_infants.bp as Infbp',
+          'triage_infants.pulse as Infpulse','triage_infants.systolic_bp as Infsysbp','triage_infants.diastolic_bp as Infdiasbp',
            'triage_infants.observation as Infobservation','triage_infants.symptoms as Infsymptoms','triage_infants.nurse_notes as Infnotes',
            'dependant.id as Infid','dependant.firstName as Infname','dependant.secondName as InfName','dependant.gender as Infgender','dependant.blood_type as Infblood_type',
            'dependant.dob as Infdob','dependant.pob as Infpob')
@@ -92,16 +92,19 @@ class PatientController extends Controller
       ->leftJoin('patient_test_details', 'patient_test.id', '=', 'patient_test_details.patient_test_id')
       ->leftJoin('facilities', 'patient_test_details.facility_id', '=', 'facilities.FacilityCode')
       ->leftJoin('lab_test', 'patient_test_details.tests_reccommended', '=', 'lab_test.id')
-      ->leftJoin('diseases', 'patient_test_details.conditional_diagnosis', '=', 'diseases.code')
-      ->select('patient_test_details.*','facilities.*','lab_test.name','diseases.name as disease')
+      ->leftJoin('patient_cond_diagnosis', 'patient_test.appointment_id', '=', 'patient_cond_diagnosis.appointment_id')
+      ->Join('diagnoses', 'patient_cond_diagnosis.disease_id', '=', 'diagnoses.id')
+      ->Join('diseases', 'patient_cond_diagnosis.other_disease_id', '=', 'diseases.code')
+      ->select('patient_test_details.*','facilities.*','lab_test.name','diseases.name as disease','diagnoses.name as diagnoses')
       ->where('patient_test.appointment_id', '=',$id)
       ->get();
 
       $prescription = DB::table('prescriptions')
-      ->leftJoin('prescription_details','prescriptions.id', '=', 'prescription_details.presc_id')
+      ->Join('prescription_details','prescriptions.id', '=', 'prescription_details.presc_id')
       ->Join('druglists','prescription_details.drug_id', '=', 'druglists.id')
-      ->Join('diseases','prescription_details.diagnosis', '=', 'diseases.code')
-      ->select('prescription_details.created_at as pdate','prescription_details.*','druglists.drugname','diseases.name')
+      // ->Join('patient_diagnosis','prescriptions.appointment_id', '=', 'patient_diagnosis.appointment_id')
+      // ->Join('diagnoses','patient_diagnosis.disease_id', '=', 'diagnoses.id')
+      ->select('prescription_details.created_at as pdate','prescription_details.*','druglists.drugname')
       ->where('prescriptions.appointment_id', '=',$id)
       ->get();
   return view('doctor.show')->with('tstdone',$tstdone)->with('patientdetails',$patientdetails)->with('prescription',$prescription);
@@ -126,8 +129,10 @@ public function pvisit($id)
   ->leftJoin('patient_test_details', 'patient_test.id', '=', 'patient_test_details.patient_test_id')
   ->leftJoin('facilities', 'patient_test_details.facility_id', '=', 'facilities.FacilityCode')
   ->leftJoin('lab_test', 'patient_test_details.tests_reccommended', '=', 'lab_test.id')
-  ->leftJoin('diseases', 'patient_test_details.conditional_diagnosis', '=', 'diseases.code')
-  ->select('patient_test_details.*','facilities.*','lab_test.name','diseases.name as disease')
+  ->leftJoin('patient_cond_diagnosis', 'patient_test.appointment_id', '=', 'patient_cond_diagnosis.appointment_id')
+  ->Join('diagnoses', 'patient_cond_diagnosis.disease_id', '=', 'diagnoses.id')
+  ->Join('diseases', 'patient_cond_diagnosis.other_disease_id', '=', 'diseases.code')
+  ->select('patient_test_details.*','facilities.*','lab_test.name','diseases.name as disease','diagnoses.name as diagnoses')
   ->where('patient_test.appointment_id', '=',$id)
   ->get();
 
@@ -156,8 +161,10 @@ public function dependantvisit($id)
   ->leftJoin('patient_test_details', 'patient_test.id', '=', 'patient_test_details.patient_test_id')
   ->leftJoin('facilities', 'patient_test_details.facility_id', '=', 'facilities.FacilityCode')
   ->leftJoin('lab_test', 'patient_test_details.tests_reccommended', '=', 'lab_test.id')
-  ->leftJoin('diseases', 'patient_test_details.conditional_diagnosis', '=', 'diseases.code')
-  ->select('patient_test_details.*','facilities.*','lab_test.name','diseases.name as disease')
+  ->leftJoin('patient_cond_diagnosis', 'patient_test.appointment_id', '=', 'patient_cond_diagnosis.appointment_id')
+  ->Join('diagnoses', 'patient_cond_diagnosis.disease_id', '=', 'diagnoses.id')
+  ->Join('diseases', 'patient_cond_diagnosis.other_disease_id', '=', 'diseases.code')
+  ->select('patient_test_details.*','facilities.*','lab_test.name','diseases.name as disease','diagnoses.name as diagnoses')
   ->where('patient_test.appointment_id', '=',$id)
   ->get();
 

@@ -99,7 +99,7 @@
                     <li class=""><a data-toggle="tab" href="#tab-2">Measures of Growth & Weight</a></li>
                     <li class=""><a data-toggle="tab" href="#tab-3">Nutrition Check</a></li>
                      <li class=""><a data-toggle="tab" href="#tab-6">Allergies</a></li>
-                    <li class=""><a data-toggle="tab" href="#tab-4">Adverse Events</a></li>
+                  
                     
                    
                 </ul>
@@ -1199,9 +1199,9 @@ else{
 @endforeach
       </table>
       
-              <a data-toggle="modal" class="btn btn-primary" href="#modal-form3">Add</a>
+              <a data-toggle="modal" class="btn btn-primary" href="#modal-form10">Add</a>
                             
-                            <div id="modal-form3" class="modal fade" aria-hidden="true">
+                            <div id="modal-form10" class="modal fade" aria-hidden="true">
                             <div class="modal-dialog">
                             <div class="modal-content">
                             <div class="modal-body">

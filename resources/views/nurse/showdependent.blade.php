@@ -1149,15 +1149,25 @@ Shoulder <input type="checkbox" name="skincold" value="Shoulder" />
 
       </tr>
       </thead>
+       <?php 
+    $i=1; $mothers=DB::table('triage_infants')->where('dependent_id',$id)->get();?>
+   
+    @foreach($mothers as $mother)
 
       <tbody>
+
+      <td>{{$i}}</td>
+       <td>{{$mother->updated_at}}</td>
+        <td>{{$mother->weight}}</td>
+         <td>{{$mother->height}}</td>
+          <td>{{$mother->head_circum}}</td>
      
-
-
-        </tbody>
+     </tbody>
+   <?php $i++;?>
+   @endforeach
+        
       </table>
       
-<a href="{{ url('growth', $dependant->id) }}" class="btn btn-primary btn-sm">Update Details</a>
    </div>
 
       </div> 

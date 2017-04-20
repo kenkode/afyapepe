@@ -28,20 +28,15 @@
 
 
 
-               <?php $data = DB::table("patients")->count();
-                       $wList=DB::table('afya_users')
-                         ->Join('patients', 'afya_users.id', '=', 'patients.afya_user_id')
-                         ->select('afya_users.*', 'patients.allergies')
-                         ->where('afya_users.status',2)->count();
-                       $newpatient= DB::table('afya_users')
-                         ->Join('patients', 'afya_users.id', '=', 'patients.afya_user_id')
-                         ->select('afya_users.*', 'patients.allergies')
-                         ->where('afya_users.status',1)->count();
+               <?php $allpatients=DB::table('afya_users')->count();
+               $today = date('Y-m-d');
+               $patients=DB::table('afyamessages')
+                         ->where('status',NULL)->where('created_at','>=',$today)->count();
                      ?>
                          <li>
 
-                         <li><a href="{{ URL::to('registrar') }}"><i class="fa fa-users"></i> <span>Today's Patients</span>
-                          <li><a href="{{ URL::to('allpatients') }}"><i class="fa fa-users"></i> <span>All Patients</span>
+                         <li><a href="{{ URL::to('registrar') }}"><i class="fa fa-users"></i> <span>Today's Patients</span> <span class="badge"><?php echo $patients; ?></span>
+                          <li><a href="{{ URL::to('allpatients') }}"><i class="fa fa-users"></i> <span>All Patients</span> <span class="badge"><?php echo $allpatients; ?></span>
                           
 
                         <a href="{{ URL::to('fees') }}"><i class="fa fa-money"></i> <span>Consultation Fee</span>

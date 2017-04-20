@@ -63,8 +63,8 @@
                                                     $users=DB::table('afya_users')->get(); ?>
                                                     @foreach ($users as $user)
                                                     <tr>
-                                                      <td>{{$i}}</td>
-                                                      <td>{{$user->firstname}} {{$user->secondName}}</td>
+                                                    <td><a href="{{URL('registrar.select',$user->id)}}">{{$i}}</a></td>
+                                                      <td><a href="{{URL('registrar.select',$user->id)}}">{{$user->firstname}} {{$user->secondName}}</a></td>
                                                        <td>{{$user->age}}</td>
                                                         <td><?php $gender=$user->gender;?>
                                                       @if($gender==1){{"Male"}}@else{{"Female"}}@endif</td>

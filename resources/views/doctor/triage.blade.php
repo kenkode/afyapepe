@@ -115,7 +115,7 @@
                 <div class="form-group"><label class="col-lg-4 control-label">Pulse<small>/min</small></label>
                    <div class="col-lg-8"><input type="text" value="{{ $pdetails->Infpulse}}" class="form-control" readonly="readonly" > </div>
                 </div>
-                <div class="form-group"><label class="col-lg-4 control-label">BP<small>/mmHg</small></label>
+                <div class="form-group"><label class="col-lg-4 control-label">Systolic BP<small>/mmHg</small></label>
                    <div class="col-lg-8"><input type="text" value="{{ $pdetails->Infsysbp}}" class="form-control" readonly="readonly" > </div>
                  </div>
 
@@ -124,7 +124,7 @@
                       <div class="col-sm-6">
                         <form role="form" class="form-horizontal">
                           <br /><br />
-                          <div class="form-group"><label class="col-lg-4 control-label">BP<small>/mmHg</small></label>
+                          <div class="form-group"><label class="col-lg-4 control-label">Diastolic BP<small>/mmHg</small></label>
                              <div class="col-lg-8"><input type="text" value="{{ $pdetails->Infdiasbp}}" class="form-control" readonly="readonly" > </div>
                            </div>
                           <div class="form-group"><label class="col-lg-4 control-label">Resp Rate<small>bpm</small></label>
@@ -144,7 +144,7 @@
                            </div>
 
                         </form>
-                        @endforeach
+
                       </div>
                   </div>
               </div>
@@ -160,7 +160,7 @@
                       <div class="col-sm-6 b-r"><h3 class="m-t-none m-b">Vitals</h3>
                         <form class="form-horizontal">
 
-                   @foreach($patientdetails as $pdetails)
+
 
                    <div class="form-group"><label class="col-lg-4 control-label">Fever No of Days</label>
                       <div class="col-lg-8"><input type="text" value="{{ $pdetails->fever_days}}" class="form-control" readonly="readonly" > </div>
@@ -202,7 +202,7 @@
 
 
                         </form>
-                        @endforeach
+
                       </div>
                   </div>
               </div>
@@ -216,7 +216,6 @@
                         <div class="col-sm-6 b-r"><h3 class="m-t-none m-b">A & B</h3>
                         <form class="form-horizontal">
 
-                        @foreach($patientdetails as $pdetails)
 
                         <div class="form-group"><label class="col-lg-4 control-label">Stridor</label>
                         <div class="col-lg-8"><input type="text" value="{{ $pdetails->stridor}}" class="form-control" readonly="readonly" > </div>
@@ -254,7 +253,7 @@
 
 
                         </form>
-                        @endforeach
+
                         </div>
                         </div>
                         </div>
@@ -269,9 +268,7 @@
                       <div class="col-sm-6 b-r"><h3 class="m-t-none m-b">C</h3>
                         <form class="form-horizontal">
 
-                   @foreach($patientdetails as $pdetails)
-
-                   <div class="form-group"><label class="col-lg-4 control-label">Femoral Pulse</label>
+                  <div class="form-group"><label class="col-lg-4 control-label">Femoral Pulse</label>
                       <div class="col-lg-8"><input type="text" value="{{ $pdetails->femoral_pulse}}" class="form-control" readonly="readonly" > </div>
                     </div>
                     <div class="form-group"><label class="col-lg-4 control-label">Cap Refill</label>

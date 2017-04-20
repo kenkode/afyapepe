@@ -294,7 +294,24 @@ public function dependantTriage($id){
      */
     public function store(Request $request)
     {
-        //
+      $first=$request->first;
+      $second=$request->second;
+      $gender=$request->gender;
+      $age=$request->age;
+      $phone=$request->phone;
+
+     $id= DB::table('afya_users')->insertGetId(
+      ['msisdn' => $phone,
+      'firstname'=>$first,
+      'secondName' => $second,
+      'gender'=> $gender,
+      'age'=> $age,
+      'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+      'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
+  );
+ 
+
+   return redirect()->action('RegistrarController@allPatients');
     }
 
     /**

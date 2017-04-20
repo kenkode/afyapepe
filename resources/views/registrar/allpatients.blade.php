@@ -96,9 +96,31 @@
                             <div class="row">
                             <div class="col-sm-8">
                                {!! Form::open(array('url' => 'registeruser','method'=>'POST')) !!}
-                                <div class="form-group">
-    
-                               </div>
+                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                               <div class="form-group">
+              <label for="exampleInputEmail1">First Name</label>
+              <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" name="first"/>
+              </div>
+              <div class="form-group">
+              <label for="exampleInputEmail1">Second Name</label>
+              <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" name="second"/>
+              </div>
+              <div class="form-group">
+              <label for="exampleInputEmail1">Phone</label>
+              <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" name="phone"/>
+              </div>
+              <div class="form-group">
+              <label for="exampleInputPassword1">Gender</label>
+              <input type="radio" value="1"  name="gender"  />
+                <label>Male</label>
+                      <input type="radio" value="2"  name="gender" />
+                    <label>Female</label>
+
+              </div>
+              <div class="form-group">
+              <label for="exampleInputEmail1">Age</label>
+              <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" name="age"/>
+              </div>
                                       <button class="btn btn-sm btn-primary" type="submit"><strong>Add</strong></button>
                                   
                               {{ Form::close() }}
@@ -106,6 +128,7 @@
                                         </div>
                                     </div>
                                     </div>
+                                </div>
                                 </div>
 @include('includes.default.footer')
           </div><!--content-->

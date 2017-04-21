@@ -270,12 +270,16 @@ return redirect('doctor.create');
 <!--3tabs-->
 
 <!--tabs4-->
+
 <div id="tab-4" class="tab-pane">
 @include('doctor.prescription')
 </div><!--4 tabs-->
 
   <!--tabs5 Admit-->
 <div id="tab-5" class="tab-pane">
+
+
+
                             <div class="panel-body">
                                     {{ Form::open(array('route' => array('patientnotes'),'method'=>'POST')) }}
 

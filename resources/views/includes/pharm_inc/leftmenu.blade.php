@@ -38,6 +38,7 @@
                          <li>
 
                            <a href="{{ URL::to('pharmacy')}}"><i class="glyphicon glyphicon-tasks"></i> <span>Today's Prescription</span></a></li>
+                           <li> <a href="{{ URL::to('prescs')}}"><i class="fa fa-newspaper-o"></i> <span>Filled Prescriptions</span></a></li>
                            <li> <a href="{{ URL::to('totalsales')}}"><i class="fa fa-money"></i> <span>Sales</span></a></li>
                          <li><a href="{{ URL::to('#') }}"><i class="fa fa-money"></i> <span>Inventory</span> </a>
                            <ul class="dropdown-menu animated fadeInRight m-t-xs">

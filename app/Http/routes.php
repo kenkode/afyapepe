@@ -155,11 +155,16 @@ Route::get('competition', 'ManufacturerController@Competition');
 Route::group(['middleware' => ['auth','role:Admin|Pharmacy']], function() {
 Route::resource('pharmacy','PharmacyController');
 Route::get('pharmacy/{id}', 'PharmacyController@show');
+Route::post('post_presc', 'PharmacyController@postPresc');
+Route::get('fill_prescription/{id}', [ 'as' => 'fillpresc', 'uses' => 'PharmacyController@fillPresc']);
+Route::get('prescs', 'PharmacyController@FilledPresc');
 Route::get('totalsales', 'PharmacyController@totalsales');
 Route::get('available', 'PharmacyController@Available');
 Route::get('analytics', 'PharmacyController@Analytics');
-
-
+Route::get('/tag/drug', 'PharmacyController@fdrugs');
+Route::get('/select2', 'PharmacyController@trySomething');
+Route::get('autocomplete',array('as'=>'autocomplete','uses'=>'PharmacyController@autocomplete'));
+Route::get('search/autocomplete', 'PharmacyController@autocomplete');
 });
 
 

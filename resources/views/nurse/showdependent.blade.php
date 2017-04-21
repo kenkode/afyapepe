@@ -709,7 +709,7 @@ No <input type="checkbox" name="aph" value="No" />
   <div class="wrapper wrapper-content">
           <div class="row animated fadeInRight">
     <?php $infants=DB::table('infant_details')->where('dependant_id',$dependant->id)->get(); 
-    $abs=DB::table('infant_abnormalities')->where('dependent_id',$dependant->id)->get(); 
+    $abs=DB::table('infant_abnormalities')->where('dependant_id',$dependant->id)->get(); 
     ?>
 
       <div class="row">
@@ -1197,7 +1197,7 @@ Shoulder <input type="checkbox" name="skincold" value="Shoulder" />
       </tr>
       </thead>
        <?php 
-    $i=1; $mothers=DB::table('triage_infants')->where('dependent_id',$id)->get();?>
+    $i=1; $mothers=DB::table('triage_infants')->where('dependant_id',$id)->get();?>
    
     @foreach($mothers as $mother)
 

@@ -289,8 +289,23 @@
     <div class="form-group">
                  <label for="exampleInputPassword1">Gestation</label>
   <select name="gestation" class="form-control">
-  <option value="Latent TB">24 weeks</option>
-  <option value="TB Disease">25 weeks</option>  
+  <option value="24">24 weeks</option>
+  <option value="25">25 weeks</option>  
+  <option value="26">26 weeks</option>
+   <option value="27">27 weeks</option> 
+    <option value="28">28 weeks</option> 
+     <option value="29">29 weeks</option> 
+      <option value="30">30 weeks</option> 
+       <option value="31">31 weeks</option> 
+        <option value="32">32 weeks</option> 
+         <option value="33">33 weeks</option> 
+          <option value="34">34 weeks</option> 
+           <option value="35">35 weeks</option> 
+            <option value="36">36 weeks</option> 
+             <option value="37">37 weeks</option> 
+              <option value="38">38 weeks</option> 
+               <option value="39">39 weeks</option> 
+                <option value="40">40 weeks</option>   
 </select>
     </div>
 

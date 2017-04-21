@@ -37,8 +37,8 @@ class DoctorController extends Controller
         //  ->Join('appointments', 'afya_users.id', '=', 'appointments.afya_user_id')
          ->leftJoin('triage_details', 'appointments.id', '=', 'triage_details.appointment_id')
 
-        ->leftJoin('triage_infants', 'appointments.id', '=', 'triage_infants.appointment_id')
-        ->leftJoin('dependant', 'triage_infants.dependant_id', '=', 'dependant.id')
+        ->leftJoin('triage_infants', 'appointments.persontreated', '=', 'triage_infants.dependant_id')
+        ->leftJoin('dependant', 'appointments.persontreated', '=', 'dependant.id')
          ->leftJoin('constituency', 'afya_users.constituency', '=', 'constituency.const_id')
          ->select('afya_users.*','triage_details.*','triage_infants.*','appointments.id as appid',
           'appointments.created_at','appointments.facility_id','constituency.Constituency',

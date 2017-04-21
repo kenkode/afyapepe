@@ -70,6 +70,10 @@ class RegistrarController extends Controller
 
       $parent=DB::table('afya_users')->where('id',$id)->first();
       $name=$parent->firstname.$parent->secondName;
+      $parentgender=$parent->gender;
+      $phone=$parent->msisdn;
+
+    
 
      $dependant_id= DB::table('dependant')->insertGetId(
       ['afya_user_id' => $id,
@@ -85,6 +89,29 @@ class RegistrarController extends Controller
       ]
   );
 
+if($parentgender==1){
+  DB::table('dependant_parent')->insert(
+    [
+    'name'=>$name,
+    'relationship'=>'Father',
+    'phone'=>$phone,
+    'dependant_id'=>$dependant_id,
+     'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
+    ]);
+} 
+  else{
+     DB::table('dependant_parent')->insert(
+    [
+    'name'=>$name,
+    'relationship'=>'Mother',
+    'phone'=>$phone,
+    'dependant_id'=>$dependant_id,
+     'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
+    ]);
+
+  }
      
 
 

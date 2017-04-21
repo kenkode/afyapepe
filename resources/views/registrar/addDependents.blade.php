@@ -32,11 +32,8 @@
                     <label>Female</label>
 
               </div>
-             
-              
-                
-
-             
+                         
+                           
               <div class="form-group">
      <label for="exampleInputPassword1">Relationship</label>
     <select class="form-control" name="relationship">

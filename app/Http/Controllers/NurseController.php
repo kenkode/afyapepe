@@ -630,18 +630,11 @@ return redirect()->action('NurseController@showDependents', [$id]);
 
       return view('nurse.nurseupdate')->with('id',$id);
     }
-    public function Dependantupdate(Request $request){
+    public function addfather(Request $request){
      $id=$request->id;
      $father_name=$request->father_name;
      $father_phone=$request->father_phone;
-     $mother_name=$request->mother_name;
-     $mother_phone=$request->mother_phone;
-     $birthno=$request->Birth_number;
-     $birth=$request->birth;
-     $dob=$request->dob;
-      
- 
-    DB::table('dependant_parent')->insert(
+      DB::table('dependant_parent')->insert(
     ['name' => $father_name,
     'relationship' => 'Father',
     'phone'=> $father_phone,
@@ -649,6 +642,21 @@ return redirect()->action('NurseController@showDependents', [$id]);
     'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
     'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
 );
+
+       return redirect()->action('NurseController@showDependents', [$id]);
+
+    }
+    public function addmother(Request $request){
+     $id=$request->id;
+
+     $mother_name=$request->mother_name;
+     $mother_phone=$request->mother_phone;
+     $birthno=$request->Birth_number;
+     $birth=$request->birth;
+     $dob=$request->dob;
+      
+ 
+   
  DB::table('dependant_parent')->insert(
     ['name' => $mother_name,
     'relationship' => 'Mother',
@@ -658,8 +666,7 @@ return redirect()->action('NurseController@showDependents', [$id]);
     'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
 );
  DB::table('dependant')->where('id', $id)
-            ->update([
-                             'birth_no' =>  $birthno,
+            ->update([      'birth_no' =>  $birthno,
                              'next_sibling' => $birth,
                              'next_sibling_date' => $dob,
                              'created_at' => \Carbon\Carbon::now()->toDateTimeString(),

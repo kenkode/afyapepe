@@ -170,7 +170,7 @@ public function babyDetails(Request $request){
     $babyproblem=$request->babyproblem;
     $revelantdrugs=$request->revelantdrugs;
     DB::table('infant_details')->insert(
-    ['dependent_id' => $id,
+    ['dependant_id' => $id,
      'admission_date'=>$dob,
      'ipno'=>$ipno,
      'gestation'=>$gestation,
@@ -218,7 +218,7 @@ $revelantdrugs=$request->revelantdrugs;
 $afyaid=DB::table('dependant')->where('id',$id)->first();
 
  DB::table('mother_details')->insert(
-    ['dependent_id' => $id,
+    ['dependant_id' => $id,
     'afya_user_id'=>$afyaid->afya_user_id,
     'gravity'=>$gravidity,
     'parity'=>$parity,
@@ -291,7 +291,7 @@ $cry=$request->cry;
 $appointment=DB::table('appointments')->where('persontreated', $id)->orderBy('created_at', 'desc')->first();
 DB::table('triage_infants')->insert(
     ['appointment_id' => $appointment->id,
-    'dependent_id'=>$id,
+    'dependant_id'=>$id,
       'skin'=>$skin,
       'jaundice'=>$jaundice,
       'gest_size'=>$gest_size,

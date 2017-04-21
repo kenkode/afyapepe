@@ -414,7 +414,7 @@
    
     </tr>
     <?php 
-    $i=1; $mothers=DB::table('mother_details')->where('dependent_id',$id)->get();?>
+    $i=1; $mothers=DB::table('mother_details')->where('dependant_id',$id)->get();?>
     </thead>
     @foreach($mothers as $mother)
     <tbody>
@@ -708,7 +708,7 @@ No <input type="checkbox" name="aph" value="No" />
 
   <div class="wrapper wrapper-content">
           <div class="row animated fadeInRight">
-    <?php $infants=DB::table('infant_details')->where('dependent_id',$dependant->id)->get(); 
+    <?php $infants=DB::table('infant_details')->where('dependant_id',$dependant->id)->get(); 
     $abs=DB::table('infant_abnormalities')->where('dependent_id',$dependant->id)->get(); 
     ?>
 

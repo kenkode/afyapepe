@@ -524,7 +524,7 @@ return redirect()->action('NurseController@showDependents', [$id]);
     $apnoea=$request->apnoea;
     $hypertension=$request->hypertention;
      DB::table('infants_details')->insert(
-    ['dependent_id' => $id,
+    ['dependant_id' => $id,
     'admission_date'=>$dob,
     'ipno'=>$ipno,
     'gestation'=>$gestation,

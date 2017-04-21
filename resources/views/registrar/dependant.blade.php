@@ -21,17 +21,7 @@
                 <label for="exampleInputPassword1">Gender</label>
                 <input type="radio" class="form-control" id="exampleInputPassword1" placeholder="" name="gender" value="1"  >Male <input type="radio" class="form-control" id="exampleInputPassword1" placeholder="" name="gender" value="2"  >Female
                 </div>
-                <div class="form-group">
-              <label for="exampleInputPassword1">Age</label>
-              <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" name="age"  value="">
-                
-
-              </div>
-              <div class="form-group">
-              <label for="exampleInputPassword1">School</label>
-              <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" name="school"  value="
-               "  >
-                
+               
 
               </div>
               <div class="form-group">

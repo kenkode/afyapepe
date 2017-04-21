@@ -17,7 +17,7 @@ return view('welcome');
 
 
 Route::get('steve', function () {
-return view('steve');
+return view('nurse.infact_triage');
 });
 
 Route::auth();
@@ -87,6 +87,16 @@ Route::group(['middleware' => ['auth','role:Admin|Nurse']], function() {
   Route::get('immunination/{id}','NurseController@immunination');
   Route::post('immunization','NurseController@storeImmunization');
   Route::post('updateinfant','NurseController@updateInfant');
+  Route::post('nurse.nutrition','NurseController@infantNutrition');
+  Route::post('babydetails','NurseController@babyDetails');
+  Route::post('motherdetails','NurseController@motherDetails');
+  Route::post('allergies','NurseController@dependantAllergy');
+  Route::post('vitaldetails','NurseController@vitalDetails');
+  Route::post('disability','NurseController@patientDisability');
+  Route::post('abnormalities','NurseController@abnormalities');
+  Route::post('addfather','NurseController@addfather');
+  Route::post('addmother','NurseController@addmother');
+
 
 Route::get('/ajax-subcat',function(){
 	$cat_id= Input::get('cat_id');
@@ -110,6 +120,7 @@ Route::get('/ajax-subcat',function(){
 	 Route::get('showhistory/{id}',['as'=>'showhistory', 'uses'=>'PatientController@showhistory']);
    Route::get('show/{id}',['as'=>'showPatient', 'uses'=>'PatientController@showpatient']);
    Route::get('visit/{id}', [ 'as' => 'visit', 'uses' => 'PatientController@pvisit']);
+	 Route::get('depvisit/{id}', [ 'as' => 'dependantvisit', 'uses' => 'PatientController@dependantvisit']);
 	 Route::Post('showpatient', [ 'as' => 'patientnotes', 'uses' => 'PatientController@PatientNotes']);
 	 Route::get('/tags/find', 'TagController@find');
 	 Route::get('/tags/tst', 'TagController@ftest');
@@ -122,10 +133,7 @@ Route::get('/ajax-subcat',function(){
 
 Route::get('testresult/{id}','ShowController@index');
 Route::post('testresult','ShowController@store');
-
-
-
-	});
+});
 
 Route::group(['middleware' => ['auth','role:Admin|Manufacturer']], function() {
 Route::resource('manufacturer','ManufacturerController');
@@ -183,19 +191,21 @@ Route::group(['middleware' => ['auth','role:Admin|Registrar']], function() {
 	Route::post('createdependent','RegistrarController@createDependent');
 	Route::get('registrar.dependantTriage/{id}','RegistrarController@dependantTriage');
 	Route::post('Dependentconsultationfee','RegistrarController@Dependentconsultationfee');
+	Route::get('allpatients','RegistrarController@allPatients');
+	Route::post('registeruser','RegistrarController@store');
 
 
 });
 /**
-* Pharmacy Routes
+* Test Routes
 **/
 Route::group(['middleware' => ['auth','role:Admin|Test']], function() {
 	Route::resource('test','TestController');
 	Route::get('testsales','TestController@testSales');
 	Route::get('testanalytics','TestController@testAnalytics');
-	Route::resource('test','TestController');
 	Route::get('patientTests/{id}', [ 'as' => 'patientTest', 'uses' => 'TestController@testdetails']);
-	Route::get('test', [ 'as' => 'testing', 'uses' => 'TestController@testing']);
+	// Route::get('testing/{id} ', [ 'as' => 'testing', 'uses' => 'TestController@testing']);
+  Route::Post('pdetails', [ 'as' => 'testResult', 'uses' => 'TestController@testResult']);
 
 
 });

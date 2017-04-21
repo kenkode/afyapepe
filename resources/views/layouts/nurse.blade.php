@@ -109,16 +109,40 @@
       <script src="{{ asset('js/inspinia.js') }}" type="text/javascript"></script>
  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script type="text/javascript">
-    $(function () {
-        $("#chkPassport").click(function () {
-            if ($(this).is(":checked")) {
-                $("#dvPassport").show();
-            } else {
-                $("#dvPassport").hide();
-            }
-        });
-    });
+   $('input[type="checkbox"]').on('change', function() {
+    $('input[name="' + this.name + '"]').not(this).prop('checked', false);
+});
 </script>
+
+ <script src="{{ asset('js/plugins/datapicker/bootstrap-datepicker.js') }}" type="text/javascript"></script>
+
+    <!-- Custom and plugin javascript -->
+
+
+
+
+    <!-- Custom and plugin javascript -->
+<script src="{{ asset('js/plugins/pace/pace.min.js') }}" type="text/javascript"></script>
+    <!--  <script src="{{ asset('js/inspinia.js') }}" type="text/javascript"></script>-->
+   
+   
+    <script>
+
+
+    $('#data_1 .input-group.date').datepicker({
+                todayBtn: "linked",
+                keyboardNavigation: false,
+                forceParse: false,
+                calendarWeeks: true,
+                autoclose: true
+            });
+
+            $(document).ready(function(){
+                $("button").click(function(){
+                    $("#testR").toggle();
+                });
+            });
+    </script>
 
     <!-- Page-Level Scripts -->
     <script>

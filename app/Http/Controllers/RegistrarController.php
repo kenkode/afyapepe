@@ -50,6 +50,11 @@ class RegistrarController extends Controller
      
             return view('registrar.dependants')->with('id',$id);
     }
+    public function allPatients(){
+  
+       return view('registrar.allpatients');
+
+    }
 
     public function createDependent(Request $request){
       $id=$request->id;
@@ -63,6 +68,13 @@ class RegistrarController extends Controller
       $relation=$request->relationship;
       $school=$request->school;
 
+      $parent=DB::table('afya_users')->where('id',$id)->first();
+      $name=$parent->firstname.$parent->secondName;
+      $parentgender=$parent->gender;
+      $phone=$parent->msisdn;
+
+    
+
      $dependant_id= DB::table('dependant')->insertGetId(
       ['afya_user_id' => $id,
       'firstName' => $first,
@@ -71,11 +83,38 @@ class RegistrarController extends Controller
       'blood_type'=>$blood,
       'dob'=>$dob,
       'pob'=>$pob,
-      'age'=>$age,
+      'age'=>0,
       'relationship'=>$relation,
       'school'=>$school
       ]
   );
+
+if($parentgender==1){
+  DB::table('dependant_parent')->insert(
+    [
+    'name'=>$name,
+    'relationship'=>'Father',
+    'phone'=>$phone,
+    'dependant_id'=>$dependant_id,
+     'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
+    ]);
+} 
+  else{
+     DB::table('dependant_parent')->insert(
+    [
+    'name'=>$name,
+    'relationship'=>'Mother',
+    'phone'=>$phone,
+    'dependant_id'=>$dependant_id,
+     'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
+    ]);
+
+  }
+     
+
+
      $end = Carbon::parse($dob);
         $now = Carbon::now();
         $length = $end->diffInDays($now);
@@ -116,6 +155,7 @@ public function dependantTriage($id){
       $email=$request->email;
       $constituency=$request->constituency;
       $nhif=$request->nhif;
+      $blood=$request->blood_type;
 
       DB::table('afya_users')->where('id',$id)->
       update([
@@ -124,6 +164,7 @@ public function dependantTriage($id){
      'nhif'=>$nhif,
      'nationalId'=>$idno,
      'email'=>$email,
+     'blood_type'=>$blood,
      'constituency' =>$constituency,
      'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
      'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
@@ -280,7 +321,24 @@ public function dependantTriage($id){
      */
     public function store(Request $request)
     {
-        //
+      $first=$request->first;
+      $second=$request->second;
+      $gender=$request->gender;
+      $age=$request->age;
+      $phone=$request->phone;
+
+     $id= DB::table('afya_users')->insertGetId(
+      ['msisdn' => $phone,
+      'firstname'=>$first,
+      'secondName' => $second,
+      'gender'=> $gender,
+      'age'=> $age,
+      'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+      'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
+  );
+ 
+
+   return redirect()->action('RegistrarController@allPatients');
     }
 
     /**

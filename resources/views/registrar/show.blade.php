@@ -46,7 +46,7 @@
          </div>
          <div class="form-group">
         <label for="exampleInputPassword1">NHIF</label>
-        <input type="number" class="form-control" id="exampleInputPassword1" placeholder="nhif" name="phone" value="{{$user->nhif}}" readonly=""/>
+        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="nhif" name="phone" value="{{$user->nhif}}" readonly=""/>
         </div>
 
           </div>
@@ -151,6 +151,20 @@
      <div class="form-group">
     <label for="exampleInputEmail1">NHIF</label>
     <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  name="nhif" />
+    </div>
+    <div class="form-group">
+    <label for="exampleInputEmail1">Blood Group</label>
+     <select  name="blood_type">
+  <option value="O+">O+</option>
+  <option value="O-">O-</option>
+  <option value="A+">A+</option>
+  <option value="A-">A-</option>
+  <option value="B+">B+</option>
+  <option value="B-">B-</option>
+  <option value="AB+">AB+</option>
+  <option value="AB-">AB-</option>
+  
+</select> 
     </div>
      <div class="form-group">
     <label for="exampleInputEmail1">Email</label>

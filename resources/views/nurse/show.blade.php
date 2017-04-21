@@ -222,9 +222,11 @@
            <th>Systolic_bp</th>
            <th>Diastolic_bp</th>
            <th>Chief Compliant</th>
+            <th>Observation</th>
+           <th>Symptoms</th>
 
 
-            <th>View</th>
+           
 
       </tr>
       </thead>
@@ -246,8 +248,8 @@
           <td>{{$detail->systolic_bp}}</td>
          <td>{{$detail->diastolic_bp}}</td>
          <td>{{$detail->chief_compliant}}</td>
-
-          <td><a href="#" class="fa fa-search fa-lg"></i></a></td>
+         <td>{{$detail->observation}}</td>
+         <td>{{$detail->symptoms}}</td>
 
        </tr>
        <?php $i++; ?>

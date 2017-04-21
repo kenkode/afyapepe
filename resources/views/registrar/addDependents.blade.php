@@ -4,19 +4,8 @@
 
 
 
-<div class="col-lg-12">
-            <div class="tabs-container">
-              <!-- <div class="col-lg-12 tbg"> -->
-                <ul class="nav nav-tabs">
-                    <li class="active"><a data-toggle="tab" href="#tab-1">Baby Details</a></li>
-                    <li class=""><a data-toggle="tab" href="#tab-2">Mother's Details</a></li>
-                    
-                   
-                </ul>
-<div class="tab-content">
-                      <div id="tab-1" class="tab-pane active">
-  <br><br>
-  <div class="col-lg-6">                     
+
+  <div class="col-lg-6  col-lg-offset-2">                     
   <div class="ibox-title">
       <h5>Dependant Details</h5>
 
@@ -43,21 +32,8 @@
                     <label>Female</label>
 
               </div>
-              <div class="form-group">
-              <label for="exampleInputPassword1">Age</label>
-              <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" name="age"  value="
-               "  >
-               </div>
-                <div class="form-group">
-              <label for="exampleInputPassword1">School</label>
-              <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" name="school"  value="
-               "  >
-                
-
-              </div>
-                
-
-             
+                         
+                           
               <div class="form-group">
      <label for="exampleInputPassword1">Relationship</label>
     <select class="form-control" name="relationship">
@@ -94,18 +70,11 @@
               <button type="submit" class="btn btn-primary btn-sm">Create Details</button>
                  {!! Form::close() !!}
                </div>
-             </div>
-             </
-              <div id="tab-2" class="tab-pane">
-              </div>
-              
-             </div>
-
-             </div>
              
-            
-               </div>
-
+              
+             
+</form>
+</div>
 
             @include('includes.default.footer')
              </div>

@@ -7,7 +7,7 @@ use App\Http\Requests;
 use App\Patienttest;
 use Illuminate\Support\Facades\Input;
 use Auth;
-
+use Carbon\Carbon;
 
 class PatientTestController extends Controller
 {
@@ -37,7 +37,7 @@ public function store(Request $request)
 
     $this->validate($request, [
           'doc_id' => 'required',
-          'conditional' => 'required',
+
           'appointment_id' => 'required',
 
           ]);
@@ -58,12 +58,119 @@ public function store(Request $request)
      // Already test exist - just get the id
       $ptid =$pttids->id;
      }
+// Inserting  conditional_diagnosis tests
+
+     $conditional= DB::table('patient_cond_diagnosis')->insert([
+                  'disease_id' => $request->get('mainconditional'),
+                  'other_disease_id' => $request->get('conditional'),
+                  'appointment_id' => $request->get('appointment_id'),
+                  'patient_test_id' => $ptid,
+
+               ]);
+     // Insertingmalaria2 tests
+     $malaria2=$request->malaria2;
+     if ($malaria2) {
+       foreach($malaria2 as $key) {
+     $patienttd = DB::table('patient_test_details')->insert([
+                'patient_test_id' => $ptid,
+                  'tests_reccommended' => $key,
+                  'done' => 0,
+               ]);
+              }
+     }
+     // Inserting Haematology2 tests
+     $haematology2=$request->haematology2;
+     if ($haematology2) {
+       foreach($haematology2 as $key) {
+     $patienttd = DB::table('patient_test_details')->insert([
+         'patient_test_id' => $ptid,
+                  'tests_reccommended' => $key,
+                  'done' => 0,
+               ]);
+              }
+     }
+     // Inserting chemistry2 tests
+     $chemistry2=$request->chemistry2;
+     if ($chemistry2) {
+       foreach($chemistry2 as $key) {
+     $patienttd = DB::table('patient_test_details')->insert([
+                  'patient_test_id' => $ptid,
+                  'tests_reccommended' => $key,
+                  'done' => 0,
+               ]);
+              }
+     }
+     // Inserting hiv2 tests
+     $hiv2=$request->hiv2;
+     if ($hiv2) {
+       foreach($hiv2 as $key) {
+     $patienttd = DB::table('patient_test_details')->insert([
+                  'patient_test_id' => $ptid,
+                  'tests_reccommended' => $key,
+                  'done' => 0,
+               ]);
+              }
+     }
+     // Inserting glucose2 tests
+     $glucose2=$request->glucose2;
+     if ($glucose2) {
+       foreach($glucose2 as $key) {
+     $patienttd = DB::table('patient_test_details')->insert([
+                  'patient_test_id' => $ptid,
+                  'tests_reccommended' => $key,
+                  'done' => 0,
+               ]);
+              }
+     }
+     // Inserting microbiology2 tests
+     $microbiology2=$request->microbiology2;
+     if ($microbiology2) {
+       foreach($microbiology2 as $key) {
+     $patienttd = DB::table('patient_test_details')->insert([
+                  'patient_test_id' => $ptid,
+                  'tests_reccommended' => $key,
+                  'done' => 0,
+               ]);
+              }
+     }
+     // Inserting xray2 tests
+     $xray2=$request->xray2;
+     if ($xray2) {
+       foreach($xray2 as $key) {
+     $patienttd = DB::table('patient_test_details')->insert([
+                  'patient_test_id' => $ptid,
+                  'tests_reccommended' => $key,
+                  'done' => 0,
+               ]);
+              }
+     }
+     // Inserting TB tests
+     $tb=$request->tb2;
+     if ($tb) {
+       foreach($tb as $key) {
+     $patienttd = DB::table('patient_test_details')->insert([
+                  'patient_test_id' => $ptid,
+                  'tests_reccommended' => $key,
+                  'done' => 0,
+               ]);
+              }
+     }
+     // Inserting TB tests
+     $urine=$request->urine2;
+     if ($urine) {
+       foreach($urine as $key) {
+     $patienttd = DB::table('patient_test_details')->insert([
+                 'patient_test_id' => $ptid,
+                  'tests_reccommended' => $key,
+                  'done' => 0,
+               ]);
+              }
+     }
 // Inserting Biochemistry tests
 $Rtests=$request->biotests;
 if ($Rtests) {
   foreach($Rtests as $key) {
 $patienttd = DB::table('patient_test_details')->insert([
-             'conditional_diagnosis' => $request->get('conditional'),
              'patient_test_id' => $ptid,
              'tests_reccommended' => $key,
              'done' => 0,
@@ -77,7 +184,6 @@ $patienttd = DB::table('patient_test_details')->insert([
                  if ($Ctests) {
                  foreach($Ctests as $key) {
                $patienttd = DB::table('patient_test_details')->insert([
-                            'conditional_diagnosis' => $request->get('conditional'),
                             'patient_test_id' => $ptid,
                             'tests_reccommended' => $key,
                             'done' => 0,
@@ -89,7 +195,6 @@ $patienttd = DB::table('patient_test_details')->insert([
                      if ($Htests) {
                      foreach($Htests as $key) {
                    $patienttd = DB::table('patient_test_details')->insert([
-                                'conditional_diagnosis' => $request->get('conditional'),
                                 'patient_test_id' => $ptid,
                                 'tests_reccommended' => $key,
                                 'done' => 0,
@@ -102,7 +207,6 @@ $patienttd = DB::table('patient_test_details')->insert([
                        foreach($Intests as $key) {
 
                      $patienttd = DB::table('patient_test_details')->insert([
-                                  'conditional_diagnosis' => $request->get('conditional'),
                                   'patient_test_id' => $ptid,
                                   'tests_reccommended' => $key,
                                   'done' => 0,
@@ -114,7 +218,6 @@ $patienttd = DB::table('patient_test_details')->insert([
                      if ($Atests) {
                      foreach($Atests as $key) {
                    $patienttd = DB::table('patient_test_details')->insert([
-                                'conditional_diagnosis' => $request->get('conditional'),
                                 'patient_test_id' => $ptid,
                                 'tests_reccommended' => $key,
                                 'done' => 0,
@@ -126,13 +229,26 @@ $patienttd = DB::table('patient_test_details')->insert([
                 if ($Mtests) {
                   foreach($Mtests as $key) {
                    $patienttd = DB::table('patient_test_details')->insert([
-                                'conditional_diagnosis' => $request->get('conditional'),
                                 'patient_test_id' => $ptid,
                                 'tests_reccommended' => $key,
                                 'done' => 0,
                              ]);
                             }
                           }
+                          // Inserting tests Notes
+                          $Note=$request->docnote;
+                          if ($Note) {
+                            $Now = Carbon::now();
+                             $patientNote = DB::table('patientNotes')->insert([
+                                          'appointment_id' => $request->get('appointment_id'),
+                                          'written_by' => 'Doctor',
+                                          'note' => 'Doctor',
+                                          'target' => 'Test',
+                                          'created_at' => $Now,
+
+                                       ]);
+
+                                    }
   return redirect()->route('showPatient', ['id' => $appointment]);
       }
 

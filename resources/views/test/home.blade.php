@@ -46,6 +46,7 @@
 																												<th>Age</th>
 																												<th>Conditional Diesease</th>
 																												<th>Date Created</th>
+																												<th>Status</th>
 																									</tr>
 																								</thead>
 
@@ -55,10 +56,20 @@
 
 																									@foreach($tsts as $tst)
 																									<?php  $gender= $tst->gender;
-																									if ($gender=1) {$gender='Male';}else{$gender='Female';}
+																									if ($gender==1) {$gender='Male';}else{$gender='Female';}
 																									 $dob=$tst->dob;
 																									 $interval = date_diff(date_create(), date_create($dob));
 																									 $age= $interval->format(" %Y Year, %M Months, %d Days Old");
+
+																									$status= $tst->test_status;
+																									//  if ($status=1) {$status='Done';}else{$status='NOT DONE';}
+																									if ($status==1) {
+																										$status='Done';
+																									}elseif($status==2) {
+																										$status='Partially Done';
+																									}else {
+																										$status='NOT DONE';
+																									}
                                                   ?>
 																									  <tr>
 																									  <td><a href="{{route('patientTest',$tst->id)}}">{{$i}}</a></td>
@@ -68,6 +79,7 @@
 												                              {{$age}}</td>
 																									  <td>{{$tst->disease}}</td>
 																									   <td>{{$tst->date}}</td>
+																										 <td>{{$status}}</td>
 																								</tr>
 																									<?php $i++; ?>
 

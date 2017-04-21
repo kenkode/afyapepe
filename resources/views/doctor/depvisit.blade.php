@@ -11,7 +11,7 @@
   <a href="{{route('showPatient',$pdetails->appointment_id)}}">BACK<i class="fa fa-arrow-circle-o-left"></i></a>
   <div>
 
-  <h3>{{$pdetails->firstname}} {{$pdetails->secondName}}</h3>
+  <h3>{{$pdetails->firstName}} {{$pdetails->secondName}}</h3>
   <small>Patient Name</small>
 </div>
 
@@ -26,27 +26,27 @@
     </li>
     <li class="list-group-item">
         <span class="pull-right">
-          {{$pdetails->current_weight}}
+          {{$pdetails->weight}}
         </span>
        Weight
     </li>
     <li class="list-group-item">
         <span class="pull-right">
-           {{$pdetails->current_height}}
+           {{$pdetails->height}}
         </span>
      Height
     </li>
     <li class="list-group-item">
         <span class="pull-right">
-         {{$pdetails->diastolic_bp}}
+         {{$pdetails->bp}}
         </span>
         Diastolic BP
     </li>
     <li class="list-group-item">
         <span class="pull-right">
-        {{$pdetails->systolic_bp}}
+        {{$pdetails->pulse}}
         </span>
-       Systolic BP
+      Pulse
     </li>
 
 </ul>

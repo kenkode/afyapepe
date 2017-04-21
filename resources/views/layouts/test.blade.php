@@ -78,8 +78,20 @@
 
     <!-- Toastr -->
     <script src="{{ asset('js/plugins/toastr/toastr.min.js') }}" type="text/javascript"></script>
-
+  <script src="{{ asset('js/custom.js') }}" type="text/javascript"></script>
     <!-- Page-Level Scripts -->
+    <script>
+    $(document).ready(function() {
+  $('a[data-toggle=modal], button[data-toggle=modal]').click(function () {
+
+      var data_id = '';
+if (typeof $(this).data('id') !== 'undefined') {
+         data_id = $(this).data('id');
+      }
+      $('#edit-content').val(data_id);
+    })
+  });
+  </script>
     <script>
         $(document).ready(function(){
             $('.dataTables-example').DataTable({

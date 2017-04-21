@@ -197,7 +197,7 @@
    
     </tr>
     <?php 
-    $i=1; $details=DB::table('infant_details')->where('dependent_id',$id)->get();?>
+    $i=1; $details=DB::table('infant_details')->where('dependant_id',$id)->get();?>
     </thead>
     @foreach($details as $detail)
     <tbody>

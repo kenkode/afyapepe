@@ -249,9 +249,11 @@
       @endforeach
 
       <label>Patient Chronic Disease:</label>
-      <?php $chronic=DB::table('patient_diagnosis')
+      <?php $chronic=DB::table('appointments')
+      ->Join('patient_diagnosis', 'appointments.id',  '=', 'patient_diagnosis.appointment_id')
       ->Join('diseases', 'patient_diagnosis.disease_id',  '=', 'diseases.id')
-      ->where('afya_user_id', '=',$afyauserId)->distinct()->get(['name']); ?>
+      ->where('appointments.afya_user_id', '=',$afyauserId)->distinct()->get(['name']); ?>
+
 
       @foreach($chronic as $micrtest)
            <input type="text" value="{{$micrtest->name}}" class="form-control" readonly="readonly">

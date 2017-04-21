@@ -34,9 +34,7 @@ class DoctorController extends Controller
 
        $patients = DB::table('appointments')
        ->leftJoin('afya_users', 'appointments.afya_user_id', '=', 'afya_users.id')
-        //  ->Join('appointments', 'afya_users.id', '=', 'appointments.afya_user_id')
-         ->leftJoin('triage_details', 'appointments.id', '=', 'triage_details.appointment_id')
-
+        ->leftJoin('triage_details', 'appointments.id', '=', 'triage_details.appointment_id')
         ->leftJoin('triage_infants', 'appointments.id', '=', 'triage_infants.appointment_id')
         ->leftJoin('dependant', 'triage_infants.dependant_id', '=', 'dependant.id')
          ->leftJoin('constituency', 'afya_users.constituency', '=', 'constituency.const_id')
@@ -49,7 +47,7 @@ class DoctorController extends Controller
           'dependant.firstName as Infname','dependant.secondName as InfName','dependant.gender as Infgender','dependant.blood_type as Infblood_type',
           'dependant.dob as Infdob','dependant.pob as Infpob'
         )
-        //  ->where('appointments.created_at','>=',$today)
+        
          ->where([
                        ['appointments.created_at','>=',$today],
                        ['appointments.status', '=', 2],

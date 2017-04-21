@@ -774,9 +774,7 @@ Elbow <input type="checkbox" name="skincold" value="Elbow" />
 Shoulder <input type="checkbox" name="skincold" value="Shoulder" />
   </div>
       <h4> <label><u>General Examination</u></label></h4>
- <form class="form-horizontal" role="form" method="POST" action="/disability" novalidate>
-    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-    <input type="hidden" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{$dependant->id}}" name="id"  required>
+
           <div class="form-group">
     <label for="exampleInputPassword1">Skin</label>
     Bruising <input type="checkbox" value="Bruising"  name="skin"/>
@@ -1332,6 +1330,9 @@ else{
  
     
     <h2> <label><u>Disability</u></label></h2>
+     <form class="form-horizontal" role="form" method="POST" action="/disability" novalidate>
+    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+    <input type="hidden" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{$dependant->id}}" name="id"  required>
     <div class="form-group">
 <label>Can suck/breastfeed</label>
 Yes <input type="checkbox" name="breastfeed" value="Yes" />

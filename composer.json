@@ -12,7 +12,8 @@
         "doctrine/dbal": "^2.5",
         "sofa/eloquence": "~5.2",
         "leyo/africastalkinglaravelgateway": "^1.0",
-        "nesbot/carbon": "^1.22"
+        "nesbot/carbon": "^1.22",
+        "nicolaslopezj/searchable": "1.*"
 
     },
     "require-dev": {

@@ -25,53 +25,92 @@
                     </tr>
                   </thead>
 
-                          <tbody>
-                            <?php $i =1;
+                  <tbody>
+                    <?php $i =1;
 
-                            foreach($results as $result)
-                            {
-                              $name = $result->firstname.'  '.$result->secondName;
-                              $age = $result->age;
-                              $gender = $result->gender;
+                    foreach($results as $result)
+                    {
+                      $name = $result->firstname.'  '.$result->secondName;
+                      $name1 = $result->fname.' '.$result->sname;
+                      $gg = $result->d_gender;
+                      $dob = $result->d_dob;
+                      $interval = date_diff(date_create(), date_create($dob));
+                      $age1 = $interval->format(" %Y Year, %M Months, %d Days Old");
+                      $age = $result->dob;
+                      $interval = date_diff(date_create(), date_create($age));
+                      $age = $interval->format(" %Y Year, %M Months, %d Days Old");
+                      $gender = $result->gender;
 
-                              if($gender === 1)
-                              {
-                                $gender = 'Male';
-                              }
-                              elseif($gender === 2)
-                              {
-                                $gender = 'Female';
-                              }
-
-                            //  $allergies = $result->allergies;
-                              $daktari = $result->name;
-
-                              $presc_date = $result->presc_date;
-                              $my_date = strtotime($presc_date);
-                              $presc_date = date("Y-m-d",$my_date);
-
-                          ?>
-                              <tr>
-                                  <td><a href="{{route('pharmacy.show',$result->presc_id)}}">{{$i}}</a></td>
-                                  <td><a href="{{route('pharmacy.show',$result->presc_id)}}">{{$name}}</a></td>
-                                  <td><a href="{{route('pharmacy.show',$result->presc_id)}}">{{$age}}</td>
-                                  <td><a href="{{route('pharmacy.show',$result->presc_id)}}">{{$gender}}</a></td>
-
-                                  <td><a href="{{route('pharmacy.show',$result->presc_id)}}">{{$daktari}} </td>
-                                  <td><a href="{{route('pharmacy.show',$result->presc_id)}}">{{$presc_date}}</td>
+                      $person = $result->persontreated;
 
 
-                              </tr>
-                              <?php $i++;
-                              }
-                               ?>
+                      if($gender === 1)
+                      {
+                        $gender = 'Male';
+                      }
+                      elseif($gender === 2)
+                      {
+                        $gender = 'Female';
+                      }
 
 
 
-                           </tbody>
+                    //  $allergies = $result->allergies;
+                      $daktari = $result->name;
 
-                         </table>
-                      </div>
+                      $presc_date = $result->presc_date;
+                      $my_date = strtotime($presc_date);
+                      $presc_date = date("Y-m-d",$my_date);
+
+                  ?>
+                      <tr>
+                          <td><a href="{{route('pharmacy.show',$result->presc_id)}}">{{$i}}</a></td>
+                          <?php if($person === 'Self')
+                          {
+                             ?>
+                          <td><a href="{{route('pharmacy.show',$result->presc_id)}}">{{$name}}</a></td>
+                          <td><a href="{{route('pharmacy.show',$result->presc_id)}}">{{$age}}</td>
+                          <td><a href="{{route('pharmacy.show',$result->presc_id)}}">{{$gender}}</a></td>
+
+                          <td><a href="{{route('pharmacy.show',$result->presc_id)}}">{{$daktari}} </td>
+                          <td><a href="{{route('pharmacy.show',$result->presc_id)}}">{{$presc_date}}</td>
+
+                          <?php
+                        }
+                        else
+                        {
+                           ?>
+                           <td><a href="{{route('pharmacy.show',$result->presc_id)}}">{{$name1}}</a></td>
+                           <td><a href="{{route('pharmacy.show',$result->presc_id)}}">{{$age1}}</td>
+                             <?php
+                             if($gg == 1)
+                             {
+                               $gg = 'Male';
+                             }
+                             elseif($gg == 2)
+                             {
+                               $gg = 'Female';
+                             }
+                              ?>
+                           <td><a href="{{route('pharmacy.show',$result->presc_id)}}">{{$gg}}</a></td>
+
+                           <td><a href="{{route('pharmacy.show',$result->presc_id)}}">{{$daktari}} </td>
+                           <td><a href="{{route('pharmacy.show',$result->presc_id)}}">{{$presc_date}}</td>
+
+                          <?php } ?>
+
+
+                      </tr>
+                      <?php $i++;
+                      }
+                       ?>
+
+
+
+                   </tbody>
+
+                 </table>
+              </div>
 
                            </div>
                        </div>

@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <title>Afyapepe- @yield('title') </title>
-
+<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/base/minified/jquery-ui.min.css" type="text/css" />
 
     <link rel="stylesheet" href="{!! asset('css/plugins/toastr/toastr.min.css') !!}" />
     <link rel="stylesheet" href="{!! asset('js/plugins/gritter/jquery.gritter.css') !!}" />
@@ -23,6 +23,8 @@
 
     <link href="{!! asset('css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css') !!}" rel="stylesheet">
     <link href="{!! asset('css/plugins/iCheck/custom.css') !!}" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{asset('select/select2.min.css') }}" />
 
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 

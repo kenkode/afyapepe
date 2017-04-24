@@ -357,7 +357,6 @@
     
 </div>
 </div>
-@endif
 <div class="form-group">
     <label for="exampleInputEmail1">Delivery</label>
    SDV <input type="checkbox" value="SDV"  name="delivery"/>
@@ -366,6 +365,7 @@
    Cs <input type="checkbox" value="cs"  name="delivery"/>
    
    </div>
+@endif
 
    <div class="form-group">
    <label>Resuscitation</label>
@@ -515,6 +515,7 @@
  <form class="form-horizontal" role="form" method="POST" action="/motherdetails" novalidate>
     <input type="hidden" name="_token" value="{{ csrf_token() }}">
     <input type="hidden" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{$dependant->id}}" name="id"  required>
+ @if(is_null($mothers))
   <div class="form-group" id="data_1">
                  <label for="exampleInputPassword1">Date of Birth</label>
                  <div class="input-group date">
@@ -522,7 +523,7 @@
                      <input type="text" class="form-control" name="dob" value="">
                  </div>
                  </div>
-  
+  @endif
   <div class="form-group">
   <label>Gravidity</label><br>
   <input type="text" name="gravidity" placeholder="mother gravidity" class="form-control" />
@@ -593,12 +594,13 @@ No <input type="checkbox" name="tb_treatment" value="No" />
 </div>
 </div>
 <div class="col-lg-6">
+@if(is_null($mothers))
 <div class="form-group">
 <label>Labour</label><br>
 1 stage <input type="text" name="labour1" class="form-control" placeholder="Enter Hours"/>
 2 stage <input type="text" name="labour2" class="form-control" placeholder="Enter Minutes"/>
 </div>
-
+@endif
 <div class="form-group">
 <label>Hypertention</label>
 Yes <input type="checkbox" name="hypertention" value="Yes" />

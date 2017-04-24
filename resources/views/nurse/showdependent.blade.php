@@ -305,7 +305,13 @@
              <option value="37">37 weeks</option> 
               <option value="38">38 weeks</option> 
                <option value="39">39 weeks</option> 
-                <option value="40">40 weeks</option>   
+                <option value="40">40 weeks</option>
+                <option value="41">41 weeks</option>
+                <option value="42">42 weeks</option>
+                <option value="43">43 weeks</option>
+                <option value="44">44 weeks</option>
+                <option value="45">45 weeks</option>
+                <option value="46">46 weeks</option>   
 </select>
     </div>
 
@@ -320,11 +326,12 @@
    5m <input type="checkbox" value="5m"  name="apgar"/>
    10m <input type="checkbox" value="10m"  name="apgar"/>
    </div>
-
+    @if(is_null($details))
    <div class="form-group">
                  <label for="exampleInputPassword1">Birth Weight</label>
             <input type="number" class="form-control" name="birthweight">
     </div>
+    @endif
     <div class="form-group">
                  <label for="exampleInputPassword1">Weight Now</label>
             <input type="number" class="form-control" name="weightnow">
@@ -335,6 +342,7 @@
     </div>
 
 <div class="col-lg-6">
+@if(is_null($details))
        <div class="form-group">
    <label for="exampleInputEmail1">BBA</label>
    No <input type="checkbox" value="No"  name="bba" />
@@ -349,7 +357,7 @@
     
 </div>
 </div>
-
+@endif
 <div class="form-group">
     <label for="exampleInputEmail1">Delivery</label>
    SDV <input type="checkbox" value="SDV"  name="delivery"/>

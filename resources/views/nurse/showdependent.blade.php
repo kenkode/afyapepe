@@ -168,9 +168,8 @@
                      <li class=""><a data-toggle="tab" href="#tab-9">Disabilities</a></li>
                       <li class=""><a data-toggle="tab" href="#tab-10">Abnormalities</a></li>
                       <li class=""><a data-toggle="tab" href="#tab-1">Immunination Chart</a></li>
-                    <li class=""><a data-toggle="tab" href="#tab-2">Measures of Growth & Weight</a></li>
-                    <li class=""><a data-toggle="tab" href="#tab-3">Nutrition Check</a></li>
-                     <li class=""><a data-toggle="tab" href="#tab-6">Allergies</a></li>
+                    <li class=""><a data-toggle="tab" href="#tab-2">Growth</a></li>
+                    <li class=""><a data-toggle="tab" href="#tab-6">Allergies</a></li>
                   
                     
                    
@@ -1245,15 +1244,6 @@ Shoulder <input type="checkbox" name="skincold" value="Shoulder" />
       </div> 
       </div> 
       </div> 
-      </div> 
-      </div>
-      </div>
-      </div>
-      <div id="tab-3" class="tab-pane">
-                        <div class="panel-body">
-
-  <div class="wrapper wrapper-content">
-          <div class="row animated fadeInRight">
  <div class="col-lg-10 col-lg-offset-1">
                         <div class="ibox float-e-margins">
                             <div class="ibox-title">
@@ -1344,11 +1334,12 @@ else{
       </div> 
       </div> 
       </div> 
-      </div> 
-      </div>
       </div>
       </div> 
       </div>
+      </div>
+      </div>
+    
 <div id="tab-10" class="tab-pane">
                         <div class="panel-body">
 

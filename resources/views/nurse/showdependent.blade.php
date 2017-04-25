@@ -165,8 +165,8 @@
                      <li class="active"><a data-toggle="tab" href="#tab-7">Baby Details</a></li>
                       <li class=""><a data-toggle="tab" href="#tab-8">Mother Details</a></li>
                      <li class=""><a data-toggle="tab" href="#tab-5">Vitals</a></li>
-                     <li class=""><a data-toggle="tab" href="#tab-9">Disabilities</a></li>
-                      <li class=""><a data-toggle="tab" href="#tab-10">Abnormalities</a></li>
+                     <li class=""><a data-toggle="tab" href="#tab-9">Disabilities & Abnormalities</a></li>
+                      
                       <li class=""><a data-toggle="tab" href="#tab-1">Immunination Chart</a></li>
                     <li class=""><a data-toggle="tab" href="#tab-2">Growth</a></li>
                     <li class=""><a data-toggle="tab" href="#tab-6">Allergies</a></li>
@@ -1340,41 +1340,6 @@ else{
       </div>
       </div>
     
-<div id="tab-10" class="tab-pane">
-                        <div class="panel-body">
-
-  <div class="wrapper wrapper-content">
-          <div class="row animated fadeInRight">
- <form class="form-horizontal" role="form" method="POST" action="/abnormalities" novalidate>
-    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-    <input type="hidden" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{$dependant->id}}" name="id"  required>          
-
-<h4><label> Abonormalities-Tick All Relevant and Describe</label></h4>
-<?php $abs=DB::table('abnormalities')->get(); ?>
-@foreach($abs as $ab )
-<div class="form-group">
-   <label for="chkPassport">
-    <input type="checkbox" id="chkPassport" name="abs[]" value="{{$ab->name}}"/>
-   {{$ab->name}}
-</label>
-
-<div class="{{$ab->name}}"  style="display: none">
-    <label>Describe:</label><br>
-    <textarea rows="3" cols="50" name="abs_detail"></textarea>
-</div>
-</div>
-@endforeach
-
-
-                                      <button class="btn btn-sm btn-primary" type="submit"><strong>Submit</strong></button>
-                                 
-                              {{ Form::close() }}
-                                
-      </div> 
-      </div> 
-      </div> 
-     
-      </div>
 
 <div id="tab-9" class="tab-pane">
                         <div class="panel-body">
@@ -1382,7 +1347,7 @@ else{
   <div class="wrapper wrapper-content">
           <div class="row animated fadeInRight">
           <div class="row">
-          <div class="col-lg-10">
+          <div class="col-lg-10 col-lg-offset-1">
 <table class="table table-small-font table-bordered table-striped">
  <thead>
     <tr>
@@ -1455,6 +1420,92 @@ No <input type="checkbox" name="tone" value="No" />
   </div>
   <button type="submit" class="btn btn-primary">Save</button>
      {!! Form::close() !!}
+    </div>
+    </div>
+    </div>
+    </div>
+    <br> <br> 
+    <table class="table table-small-font table-bordered table-striped">
+ <thead>
+    <tr>
+   <th>No</th>
+    <th>Abnormalities</th>
+    <th>Abnormalities Details</th>
+  </tr>
+  </thead>
+    </tr>
+    <?php $i=1;?>
+    <?php  $allergies=DB::table('patient_abnormalities')
+        ->Where('dependant_id','=',$dependant->id)
+    ->get(); ?>
+    @foreach($allergies as $allergy)
+    <tbody>
+      <tr>
+      <td>{{$i}}</td>
+       
+      <td>{{$allergy->name}}</td>
+      <td>{{$allergy->notes}}</td>
+     
+      
+        
+      </tr>
+    </tbody>
+    <?php $i++; ?>
+    @endforeach
+    </table>
+     <a data-toggle="modal" class="btn btn-primary" href="#modal-formab">Add</a>
+     <div id="modal-formab" class="modal fade" aria-hidden="true">
+                            <div class="modal-dialog">
+                            <div class="modal-content">
+                            <div class="modal-body">
+ 
+ 
+    
+    <h2> <label><u>Abnormalities</u></label></h2>
+   <div class="row animated fadeInRight">
+ <form class="form-horizontal" role="form" method="POST" action="/abnormalities" novalidate>
+    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+    <input type="hidden" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{$dependant->id}}" name="id"  required> 
+ Skull <input type="checkbox" value="skull"  name="skull" />
+ <div class="skull"  style="display: none">
+ <label>Describe</label>
+    <textarea name="skull_descr" class="form-control"></textarea>
+  </div>
+
+  Limbs <input type="checkbox" value="limbs"  name="limbs" />
+ <div class="limbs"  style="display: none">
+ <label>Describe</label>
+    <textarea name="limbs_descr" class="form-control"></textarea>
+  </div>
+  Spine <input type="checkbox" value="spine"  name="spine" />
+ <div class="spine"  style="display: none">
+ <label>Describe</label>
+    <textarea name="spine_descr" class="form-control"></textarea>
+  </div>
+  Palate <input type="checkbox" value="palate"  name="palate" />
+ <div class="palate"  style="display: none">
+ <label>Describe</label>
+    <textarea name="palate_descr" class="form-control"></textarea>
+  </div>
+  Face <input type="checkbox" value="face"  name="face" />
+ <div class="face"  style="display: none">
+ <label>Describe</label>
+    <textarea name="face_descr" class="form-control"></textarea>
+  </div>
+  Anus <input type="checkbox" value="anus"  name="anus" />
+ <div class="anus"  style="display: none">
+ <label>Describe</label>
+    <textarea name="anus_descr" class="form-control"></textarea>
+  </div>
+  Dysmorphic <input type="checkbox" value="dysmorphic"  name="dysmorphic" />
+ <div class="dysmorphic"  style="display: none">
+ <label>Describe</label>
+    <textarea name="dysmorphic_descr" class="form-control"></textarea>
+  </div>
+  <br>
+  <button type="submit" class="btn btn-primary">Save</button>
+     {!! Form::close() !!}
+    </div>
     </div>
     </div>
     </div>

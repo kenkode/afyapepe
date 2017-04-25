@@ -164,7 +164,7 @@
 
                      <li class="active"><a data-toggle="tab" href="#tab-7">Baby Details</a></li>
                       <li class=""><a data-toggle="tab" href="#tab-8">Mother Details</a></li>
-                     <li class=""><a data-toggle="tab" href="#tab-5">Vitals</a></li>
+                     <li class=""><a data-toggle="tab" href="#tab-5">Baby Vitals</a></li>
                      <li class=""><a data-toggle="tab" href="#tab-9">Disabilities & Abnormalities</a></li>
                       
                       <li class=""><a data-toggle="tab" href="#tab-1">Immunination Chart</a></li>

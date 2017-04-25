@@ -30,7 +30,7 @@ class PatientController extends Controller
     public function index()
     {
       $id = Auth::id();
-      $patient=DB::table('afya_users')->where('users_Constituencyid',$id)->first();
+      $patient=DB::table('afya_users')->where('users_id',$id)->first();
       $nextkin=DB::table('kin_details')
       ->join('kin','kin.id','=','kin_details.relation')
       ->select('kin_details.kin_name','kin_details.phone_of_kin',

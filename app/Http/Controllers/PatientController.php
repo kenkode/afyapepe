@@ -84,17 +84,8 @@ class PatientController extends Controller
        ->get();
 
 
-
-      $tstdone = DB::table('patient_test')
-      ->leftJoin('patient_test_details', 'patient_test.id', '=', 'patient_test_details.patient_test_id')
-      ->leftJoin('facilities', 'patient_test_details.facility_id', '=', 'facilities.FacilityCode')
-      ->leftJoin('lab_test', 'patient_test_details.tests_reccommended', '=', 'lab_test.id')
-      ->leftJoin('patient_cond_diagnosis', 'patient_test.appointment_id', '=', 'patient_cond_diagnosis.appointment_id')
-      ->Join('diagnoses', 'patient_cond_diagnosis.disease_id', '=', 'diagnoses.id')
-      ->Join('diseases', 'patient_cond_diagnosis.other_disease_id', '=', 'diseases.code')
-      ->select('patient_test_details.*','facilities.*','lab_test.name','diseases.name as disease','diagnoses.name as diagnoses')
-      ->where('patient_test.appointment_id', '=',$id)
-      ->get();
+  $products = DB::table('products')
+->get();
 
       $prescription = DB::table('prescriptions')
       ->Join('prescription_details','prescriptions.id', '=', 'prescription_details.presc_id')
@@ -104,10 +95,25 @@ class PatientController extends Controller
       ->select('prescription_details.created_at as pdate','prescription_details.*','druglists.drugname')
       ->where('prescriptions.appointment_id', '=',$id)
       ->get();
-  return view('doctor.show')->with('tstdone',$tstdone)->with('patientdetails',$patientdetails)->with('prescription',$prescription);
+
+  return view('doctor.show')->with('patientdetails',$patientdetails)
+  ->with('prescription',$prescription)->with('products',$products);
 }
 
+public function history($id)
+{
 
+  $patientD=DB::table('appointments')
+  ->leftjoin('afya_users','appointments.afya_user_id','=','afya_users.id')
+  ->leftjoin('dependant','appointments.persontreated','=','dependant.id')
+  ->leftjoin('facilities','appointments.facility_id','=','facilities.FacilityCode')
+  ->select('appointments.*','afya_users.firstname','afya_users.secondName','afya_users.gender',
+    'dependant.firstName as dep1name','dependant.secondName as dep2name','dependant.gender as depgender',
+    'dependant.dob as depdob','facilities.FacilityName')
+  ->where('appointments.id',$id)
+  ->get();
+  return view('doctor.history')->with('patientD',$patientD);
+}
 public function pvisit($id)
 {
   $patientvisit = DB::table('afya_users')

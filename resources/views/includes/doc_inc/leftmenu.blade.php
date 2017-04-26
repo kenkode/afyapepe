@@ -26,7 +26,7 @@
                       <ul class="nav nav-second-level">
                         <li><a href="{{ url('doctor') }}"><span>Today's Patient</span></a></li>
                         <li><a href="{{ url('allpatients') }}"><span>Admitted Patients</span></a></li>
-                        <li><a href="{{ url('allpatients') }}"><span>Appointment</span></a></li>>
+                        <li><a href="{{ url('allpatients') }}"><span>Appointment</span></a></li>
                       </ul>
                   </li>
 

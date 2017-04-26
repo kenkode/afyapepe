@@ -47,12 +47,22 @@ class DoctorController extends Controller
           'dependant.firstName as Infname','dependant.secondName as InfName','dependant.gender as Infgender','dependant.blood_type as Infblood_type',
           'dependant.dob as Infdob','dependant.pob as Infpob'
         )
-        
-         ->where([
-                       ['appointments.created_at','>=',$today],
-                       ['appointments.status', '=', 2],
-                       ['appointments.doc_id', '=',Auth::user()->id],
-                      ])
+
+
+                      ->where(function($query)
+               {
+                 $today = Carbon::today();
+                   $query->where([
+                                 ['appointments.created_at','>=',$today],
+                                 ['appointments.status', '=', 2],
+                                 ['appointments.doc_id', '=',Auth::user()->id],
+                                ])
+                         ->orWhere([
+                                       ['appointments.date_present','>=',$today],
+                                       ['appointments.status', '=', 2],
+                                       ['appointments.doc_id', '=',Auth::user()->id],
+                                     ]);
+               })
          ->get();
 
        return view('doctor.newPatients')->with('patients',$patients);

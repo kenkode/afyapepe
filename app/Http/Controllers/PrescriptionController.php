@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Input;
 use App\Prescription;
 use App\Prescription_detail;
 use Auth;
-
+use Carbon\Carbon;
 class PrescriptionController extends Controller
 {
     /**
@@ -16,20 +16,47 @@ class PrescriptionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function diagnoses(Request $request)
     {
-        //
-    }
+      $Now = Carbon::now();
 
+      $appointment=$request->get('appointment_id');
+      // Inserting  diagnosis tests
+     $diagnosis= DB::table('patient_diagnosis')->insert([
+                        'disease_id' => $request->get('disease'),
+                        'level' => $request->get('level'),
+                        'severity' => $request->get('severity'),
+                        'chronic' => $request->get('chronic'),
+                        'appointment_id' => $request->get('appointment_id'),
+                        'date_diagnosed' => $Now,
+]);
+  return redirect()->route('diagnoses', ['id' => $appointment]);
+    }
+    public function prescriptions($id)
+    {
+      $patientD=DB::table('appointments')
+      ->leftjoin('afya_users','appointments.afya_user_id','=','afya_users.id')
+      ->leftjoin('dependant','appointments.persontreated','=','dependant.id')
+      ->leftjoin('facilities','appointments.facility_id','=','facilities.FacilityCode')
+      ->select('appointments.*','afya_users.firstname','afya_users.secondName','afya_users.gender',
+        'dependant.firstName as dep1name','dependant.secondName as dep2name','dependant.gender as depgender',
+        'dependant.dob as depdob','facilities.FacilityName')
+      ->where('appointments.id',$id)
+      ->get();
+
+      $Pdiagnosis=DB::table('patient_diagnosis')
+      ->leftjoin('diagnoses','patient_diagnosis.disease_id','=','diagnoses.id')
+    ->select('diagnoses.name','diagnoses.id')
+      ->where('patient_diagnosis.appointment_id',$id)
+      ->get();
+      return view('doctor.prescription')->with('patientD',$patientD)->with('Pdiagnosis',$Pdiagnosis);
+    }
     /**
-     * Show the form for creating a new resource.
+     *
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
-    }
+
 
     /**
      * Store a newly created resource in storage.
@@ -42,7 +69,7 @@ class PrescriptionController extends Controller
    {
      $appid=$request['appointment_id'];
 
-$pttids= Prescription::where('appointment_id',$appid)
+    $pttids= Prescription::where('appointment_id',$appid)
        ->first();
 
       if (is_null($pttids)) {
@@ -57,18 +84,12 @@ $pttids= Prescription::where('appointment_id',$appid)
       // Already exist - get the id the existing
        $id =$pttids->id;
       }
-      // Inserting  diagnosis tests
-     $diagnosis= DB::table('patient_diagnosis')->insert([
-                        'disease_id' => $request->get('condiagnosis'),
-                        'level' => $request->get('type'),
-                        'severity' => $request->get('severity'),
-                        'chronic' => $request->get('chronic'),
-                        'appointment_id' => $request->get('appointment_id'),
-]);
+
 $prescrt=$request->prescription;
 if ($prescrt) {
     Prescription_detail::create([
            'presc_id' => $id,
+           'diagnosis' => $request['disease_id'],
            'drug_id' => $request['prescription'],
            'doseform' => $request['dosageform'],
            'strength' => $request['strength'],
@@ -78,7 +99,7 @@ if ($prescrt) {
        ]);
 }
 
-   return redirect()->route('showPatient',$appid);
+   return redirect()->route('medicines',$appid);
    }
 
 

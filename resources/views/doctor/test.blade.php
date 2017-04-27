@@ -38,7 +38,7 @@
     <?php     }else{ if($dependantdays <='28') { ?>
        <h5>{{$pdetails->dep1name}} {{$pdetails->dep2name}}</h5>
       <div class="ibox-tools">
-        <a class="collapse-link">{{FacilityName}}  </a>
+        <a class="collapse-link">{{$pdetails->FacilityName}}  </a>
       </div>
       <?php  }   } ?>
        </div>

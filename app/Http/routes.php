@@ -146,7 +146,6 @@ Route::get('tocompany', 'ManufacturerController@toCompany');
 Route::get('manustock', 'ManufacturerController@manuStock');
 Route::get('competition', 'ManufacturerController@Competition');
 
-
 });
 
 /**

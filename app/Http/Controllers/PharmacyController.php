@@ -54,8 +54,6 @@ class PharmacyController extends Controller
                   ['afyamessages.facilityCode', '=', $facility],
                   ['afyamessages.created_at','>=',$today],
                 ])
-              //  ->whereDate('afyamessages.created_at','=',$today)
-              //  ->whereRaw('DATE(prescriptions.created_at) = CURDATE()')
                 ->whereIn('prescriptions.filled_status', [0, 2])
                 ->groupBy('appointments.id')
                 ->get();
@@ -117,20 +115,126 @@ class PharmacyController extends Controller
     public function fillPresc($id)
     {
 
+      $today = Carbon::today();
+
       $results = DB::table('prescriptions')
+        ->join('appointments', 'prescriptions.appointment_id', '=', 'appointments.id')
         ->join('prescription_details', 'prescription_details.presc_id', '=', 'prescriptions.id')
         ->join('druglists', 'prescription_details.drug_id', '=', 'druglists.id')
         ->join('route', 'prescription_details.routes', '=', 'route.id')
         ->leftJoin('prescription_filled_status', 'prescription_details.id', '=', 'prescription_filled_status.presc_details_id')
         ->select('druglists.drugname', 'prescriptions.*','prescription_details.*',
-         'route.name','prescription_details.id AS presc_id','prescriptions.id AS the_id')
+         'route.name','prescription_details.id AS presc_id','prescriptions.id AS the_id',
+         'prescriptions.appointment_id','appointments.persontreated','appointments.afya_user_id')
         ->where([
-          ['prescription_details.id', '=', $id],
+          ['prescription_details.id', '=', $id]
         ])
         ->groupBy('prescription_details.id')
         ->first();
 
-      return view('pharmacy.fill_prescription')->with('results',$results);
+        //$appointment_id = $results->appointment_id;
+
+        $person_treated = $results->persontreated;
+        $afya_user_id = ''; //Initializing variable to make it global
+        $drugs = ''; //just making this variable global for later use
+
+        if($person_treated === 'Self')
+        {
+        $afya_user_id = $results->user_id;
+
+        $drugs = DB::table('prescriptions')
+          ->join('appointments', 'prescriptions.appointment_id', '=', 'appointments.id')
+          ->join('afya_users', 'afya_users.id', '=', 'appointments.afya_user_id')
+          ->join('prescription_details', 'prescription_details.presc_id', '=', 'prescriptions.id')
+          ->join('druglists', 'prescription_details.drug_id', '=', 'druglists.id')
+          ->join('route', 'prescription_details.routes', '=', 'route.id')
+          ->leftJoin('prescription_filled_status', 'prescription_details.id', '=', 'prescription_filled_status.presc_details_id')
+          ->select('druglists.drugname', 'prescription_filled_status.*','prescription_details.*',
+           'route.name AS route_name','prescription_details.id AS presc_id')
+          ->where([
+            ['afya_users.id', '=', $afya_user_id],
+            ['prescription_filled_status.end_date', '>=', $today],
+          ])
+          ->groupBy('prescription_details.id')
+          ->get();
+
+        }
+        else
+        {
+          $afya_user_id = $person_treated;
+
+          $drugs = DB::table('prescriptions')
+            ->join('appointments', 'prescriptions.appointment_id', '=', 'appointments.id')
+            ->join('afya_users', 'afya_users.id', '=', 'appointments.afya_user_id')
+            ->join('dependant', 'dependant.afya_user_id', '=', 'afya_users.id')
+            ->join('prescription_details', 'prescription_details.presc_id', '=', 'prescriptions.id')
+            ->join('druglists', 'prescription_details.drug_id', '=', 'druglists.id')
+            ->join('route', 'prescription_details.routes', '=', 'route.id')
+            ->leftJoin('prescription_filled_status', 'prescription_details.id', '=', 'prescription_filled_status.presc_details_id')
+            ->select('druglists.drugname', 'prescription_filled_status.*','prescription_details.*',
+             'route.name AS route_name','prescription_details.id AS presc_id')
+            ->where([
+              ['dependant.id', '=', $afya_user_id],
+              ['prescription_filled_status.end_date', '>=', $today],
+            ])
+            ->groupBy('prescription_details.id')
+            ->get();
+
+        }
+
+        if($person_treated === 'Self')
+        {
+
+        $afya_user_id = $results->user_id;
+
+        $diseases = DB::table('patient_chronic')
+                  ->join('chronic_illnesses', 'chronic_illnesses.id', '=', 'patient_chronic.disease_id')
+                  ->join('afya_users', 'afya_users.id', '=', 'patient_chronic.afya_user_id')
+                  ->select('chronic_illnesses.disease','patient_chronic.date_diagnosed')
+                  ->where('patient_chronic.afya_user_id', '=' , $afya_user_id)
+                  ->get();
+        }
+        else
+        {
+
+        $afya_user_id = $person_treated;
+
+        $diseases = DB::table('patient_chronic')
+                  ->join('chronic_illnesses', 'chronic_illnesses.id', '=', 'patient_chronic.disease_id')
+                  ->join('dependant', 'dependant.id', '=', 'patient_chronic.dependant_id')
+                  ->select('chronic_illnesses.disease','patient_chronic.date_diagnosed')
+                  ->where('patient_chronic.dependant_id','=',$afya_user_id)
+                  ->get();
+        }
+
+        if($person_treated === 'Self')
+        {
+
+        $afya_user_id = $results->user_id;
+
+        $allergies = DB::table('allergies')
+                  ->join('allergies_type', 'allergies.id', '=', 'allergies_type.allergies_id')
+                  ->join('patient_allergy', 'patient_allergy.allergy_id', '=', 'allergies_type.id')
+                  ->select('patient_allergy.created_at','allergies.name','allergies_type.name AS a_name')
+                  ->where('patient_allergy.afya_user_id', '=' , $afya_user_id)
+                  ->get();
+        }
+        else
+        {
+
+        $afya_user_id = $person_treated;
+
+        $allergies = DB::table('allergies_type')
+                  ->join('allergies', 'allergies.id', '=', 'allergies_type.allergies_id')
+                  ->join('patient_allergy', 'patient_allergy.allergy_id', '=', 'allergies_type.id')
+                  ->select('patient_allergy.created_at','allergies.name','allergies_type.name AS a_name')
+                  ->where('patient_allergy.dependant_id', '=' , $afya_user_id)
+                  ->get();
+        }
+
+
+
+      return view('pharmacy.fill_prescription')->with('results',$results)->with('drugs',$drugs)->with('diseases',$diseases)->with('allergies',$allergies);
     }
 
     public function FilledPresc()

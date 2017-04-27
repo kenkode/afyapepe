@@ -84,9 +84,6 @@ class PatientController extends Controller
        ->get();
 
 
-  $products = DB::table('products')
-->get();
-
       $prescription = DB::table('prescriptions')
       ->Join('prescription_details','prescriptions.id', '=', 'prescription_details.presc_id')
       ->Join('druglists','prescription_details.drug_id', '=', 'druglists.id')
@@ -97,7 +94,7 @@ class PatientController extends Controller
       ->get();
 
   return view('doctor.show')->with('patientdetails',$patientdetails)
-  ->with('prescription',$prescription)->with('products',$products);
+  ->with('prescription',$prescription);
 }
 
 public function history($id)

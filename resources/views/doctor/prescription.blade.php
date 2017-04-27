@@ -1,12 +1,10 @@
 @extends('layouts.show')
 @section('content')
-<!--tabs3-->
+
 <?php
       foreach ($patientD as $pdetails) {
-        // $patientid = $pdetails->pat_id;
-        //  $facilty = $pdetails->FacilityName;
          $stat= $pdetails->status;
-         $afyauserId= $pdetails->afya_user_id;
+          $afyauserId= $pdetails->afya_user_id;
           $dependantId= $pdetails->persontreated;
           $app_id= $pdetails->id;
           $doc_id= $pdetails->doc_id;
@@ -17,18 +15,10 @@
  $now = time(); // or your date as well
  $your_date = strtotime($dependantAge);
  $datediff = $now - $your_date;
-
  $dependantdays= floor($datediff / (60 * 60 * 24));
-
-
 
 }
 ?>
-
-
-
-
-
 
           <?php  $routem= (new \App\Http\Controllers\TestController);
                 $routems = $routem->RouteM();
@@ -52,7 +42,7 @@
                <?php     }else{ if($dependantdays <='28') { ?>
                   <h5>{{$pdetails->dep1name}} {{$pdetails->dep2name}}</h5>
                  <div class="ibox-tools">
-                   <a class="collapse-link">{{FacilityName}}  </a>
+                   <a class="collapse-link">{{$pdetails->FacilityName}}  </a>
                  </div>
                  <?php  }   } ?>
                   </div>

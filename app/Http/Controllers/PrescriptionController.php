@@ -34,7 +34,7 @@ class PrescriptionController extends Controller
     }
     public function prescriptions($id)
     {
-      $patientD=DB::table('appointments')
+      $patientD =DB::table('appointments')
       ->leftjoin('afya_users','appointments.afya_user_id','=','afya_users.id')
       ->leftjoin('dependant','appointments.persontreated','=','dependant.id')
       ->leftjoin('facilities','appointments.facility_id','=','facilities.FacilityCode')
@@ -50,6 +50,7 @@ class PrescriptionController extends Controller
       ->where('patient_diagnosis.appointment_id',$id)
       ->get();
       return view('doctor.prescription')->with('patientD',$patientD)->with('Pdiagnosis',$Pdiagnosis);
+
     }
     /**
      *

@@ -262,16 +262,6 @@ return redirect('doctor.create');
 
 </div><!--2 tabs-->
 
-<<<<<<< Updated upstream
-<!--tabs4-->
-
-<div id="tab-4" class="tab-pane">
-@include('doctor.prescription')
-</div><!--4 tabs-->
-=======
-
-
->>>>>>> Stashed changes
 
   <!--tabs5 Admit-->
 <div id="tab-5" class="tab-pane">

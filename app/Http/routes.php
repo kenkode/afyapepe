@@ -13,9 +13,6 @@
 Route::get('/', function () {
 return view('welcome');
 });
-
-
-
 Route::get('steve', function () {
 return view('nurse.infact_triage');
 });
@@ -115,12 +112,12 @@ Route::get('/ajax-subcat',function(){
 	Route::get('calendar','DoctorController@Calendar');
 	Route::resource('prescription', 'PrescriptionController@store');
 
-   Route::Post('show', [ 'as' => 'patienttest', 'uses' => 'PatientTestController@store']);
+
+	 Route::Post('show', [ 'as' => 'patienttest', 'uses' => 'PatientTestController@store']);
    Route::get('testdone/{id}', [ 'as' => 'testdone', 'uses' => 'PatientController@testdone']);
-	 Route::get('showhistory/{id}',['as'=>'showhistory', 'uses'=>'PatientController@showhistory']);
-   Route::get('show/{id}',['as'=>'showPatient', 'uses'=>'PatientController@showpatient']);
+	 Route::get('show/{id}',['as'=>'showPatient', 'uses'=>'PatientController@showpatient']);
    Route::get('visit/{id}', [ 'as' => 'visit', 'uses' => 'PatientController@pvisit']);
-	 Route::get('depvisit/{id}', [ 'as' => 'dependantvisit', 'uses' => 'PatientController@dependantvisit']);
+ Route::get('depvisit/{id}', [ 'as' => 'dependantvisit', 'uses' => 'PatientController@dependantvisit']);
 	 Route::Post('showpatient', [ 'as' => 'patientnotes', 'uses' => 'PatientController@PatientNotes']);
 	 Route::get('/tags/find', 'TagController@find');
 	 Route::get('/tags/tst', 'TagController@ftest');
@@ -128,11 +125,14 @@ Route::get('/ajax-subcat',function(){
    Route::get('/disis/find', 'DiseasesController@find');
 	 Route::get('/tags/fac', 'FacilityController@ffacility');
 
+	 Route::get('test/{id}', [ 'as' => 'testes', 'uses' => 'PatientTestController@testdata']);
+	 Route::get('diagnosis/{id}', [ 'as' => 'diagnoses', 'uses' => 'PatientTestController@diagnoses']);
+   Route::Post('diagnosis', [ 'as' => 'confdiag', 'uses' => 'PrescriptionController@diagnoses']);
+   Route::get('prescriptions/{id}', [ 'as' => 'medicines', 'uses' => 'PrescriptionController@prescriptions']);
+
+  Route::get('history/{id}', [ 'as' => 'patienthistory', 'uses' => 'PatientController@history']);
 
 
-
-Route::get('testresult/{id}','ShowController@index');
-Route::post('testresult','ShowController@store');
 });
 
 Route::group(['middleware' => ['auth','role:Admin|Manufacturer']], function() {

@@ -37,8 +37,8 @@ return redirect('doctor.create');
          $stat= $pdetails->appstatus;
          $afyauserId= $pdetails->afyaId;
 
-          $app_id= $pdetails->app_id;
           $dependantId= $pdetails->Infid;
+          $app_id= $pdetails->app_id;
           $pname = $pdetails->Infname;
           $lname = $pdetails->InfName;
           $facilty = $pdetails->FacilityName;
@@ -63,17 +63,12 @@ return redirect('doctor.create');
 ?>
 
     <div class="ibox-title">
-        <h5>{{$facilty}}</h5>
+        <h5>{{$pname }}{{$lname}}</h5>
         <div class="ibox-tools">
-          <a class="collapse-link">{{$Name}}  </a>
+          <a class="collapse-link">{{$facilty}}  </a>
         </div>
       </div>
-      <div class="panel-body">
 
-          <h5><strong>Patient Name</strong>&nbsp;&nbsp;&nbsp;<?php echo $pname;?>&nbsp<?php echo $lname;?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          Phone:<?php echo $phone; ?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          status&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-primary btn-xs"><?php echo $stat; ?>
-        </h5></div>
 
 <!--tabs-->
         <div class="col-lg-12">
@@ -81,9 +76,10 @@ return redirect('doctor.create');
               <!-- <div class="col-lg-12 tbg"> -->
                 <ul class="nav nav-tabs">
                     <li class="active"><a data-toggle="tab" href="#tab-1">Today's Triage</button></a></li>
-                    <li><a data-toggle="tab" href="#tab-2">History</a></li>
-                    <li class=""><a data-toggle="tab" href="#tab-3">Tests</a></li>
-                    <li class=""><a data-toggle="tab" href="#tab-4">Prescriptions</a></li>
+                    <li><a href="{{route('patienthistory',$app_id)}}">History</a></li>
+                    <li><a href="{{route('testes',$app_id)}}">Tests</a></li>
+                    <li><a href="{{route('diagnoses',$app_id)}}">Diagnosis</a></li>
+                    <li><a href="{{route('medicines',$app_id)}}">Prescriptions</a></li>
                     <li class=""><a data-toggle="tab" href="#tab-5">Admit</a></li>
                     <li class=""><a data-toggle="tab" href="#tab-6">Discharge</a></li>
                     <li class=""><a data-toggle="tab" href="#tab-7">Transfer</a></li>
@@ -265,15 +261,17 @@ return redirect('doctor.create');
       </div>
 
 </div><!--2 tabs-->
-<!--3tabs-->
-@include('doctor.test')
-<!--3tabs-->
 
+<<<<<<< Updated upstream
 <!--tabs4-->
 
 <div id="tab-4" class="tab-pane">
 @include('doctor.prescription')
 </div><!--4 tabs-->
+=======
+
+
+>>>>>>> Stashed changes
 
   <!--tabs5 Admit-->
 <div id="tab-5" class="tab-pane">
@@ -402,10 +400,6 @@ return redirect('doctor.create');
         </div><!--col12-->
         <!--tabs-->
 
-        </div><!--row-->
-  </div><!--wrapper-->
 
 
-</body>
-</html>
 @endsection

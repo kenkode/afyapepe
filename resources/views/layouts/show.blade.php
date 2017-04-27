@@ -17,6 +17,7 @@
     <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.js"></script> -->
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+
     <!-- <link rel="stylesheet" href="{{asset('css/bootstrap.min.css') }}" /> -->
     <link rel="stylesheet" href="{{asset('font-awesome/css/font-awesome.css') }}" />
     <link rel="stylesheet" href="{{asset('css/plugins/dataTables/datatables.min.css') }}" />
@@ -47,7 +48,8 @@
     <meta name="_token" content="{!! csrf_token() !!}" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-<script src="{{asset('js/docajax.js')}}"></script>
+  <script src="{{asset('js/ajaxscript.js')}}"></script>
+
     <!-- Mainly scripts -->
     <script src="{{ asset('js/jquery-3.1.1.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('bootstrap/js/bootstrap.min.js') }}" type="text/javascript"></script>
@@ -68,6 +70,7 @@
       <script src="{{ asset('js/plugins/validate/jquery.validate.min.js') }}" type="text/javascript"></script>
 
 
+
   <script>
 
 
@@ -79,11 +82,7 @@
               autoclose: true
           });
 
-          $(document).ready(function(){
-              $("button").click(function(){
-                  $("#testR").toggle();
-              });
-          });
+
   </script>
   <script type="text/javascript">
   $.ajaxSetup({
@@ -180,7 +179,7 @@
    <script>
        $(document).ready(function(){
            $('.dataTables-conditional').DataTable({
-               pageLength: 25,
+               pageLength: 5,
                responsive: true,
                dom: '<"html5buttons"B>lTfgitp',
                buttons: [
@@ -232,36 +231,19 @@
            });
 
        });
-
-
-
-   </script>
-   <script>
-
-$("document").ready(function(){
- $("#ptest").submit(function(e){
- e.preventDefault();
- var conditional = $("input[name=conditional]").val();
- var test = $("select[name=test]").val();
- var patient_id = $("input[name=patient_id]").val();
- var appointment_id = $("input[name=appointment_id]").val();
- var doc_id = $("input[name=doc_id]").val();
-
- var dataString = 'customer='+customer+'&details='+details;
- $.ajax({
- type: "POST",
- url : "patienttest",
- data : dataString,
- dataType : "json",
- success : function(data){
-
-}
-
-},"json");
-
-});
- });//end of document ready function
  </script>
 
+ <script>
+ $(document).ready(function() {
+$('#prescb').click(function () {
+
+   var data_id = '';
+if (typeof $(this).data('id') !== 'undefined') {
+      data_id = $(this).data('id');
+   }
+   $('#diag_id').val(data_id);
+ })
+});
+</script>
 </body>
 </html>

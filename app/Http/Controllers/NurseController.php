@@ -170,7 +170,7 @@ public function babyDetails(Request $request){
     $babyproblem=$request->babyproblem;
     $revelantdrugs=$request->revelantdrugs;
     DB::table('infant_details')->insert(
-    ['dependent_id' => $id,
+    ['dependant_id' => $id,
      'admission_date'=>$dob,
      'ipno'=>$ipno,
      'gestation'=>$gestation,
@@ -218,7 +218,7 @@ $revelantdrugs=$request->revelantdrugs;
 $afyaid=DB::table('dependant')->where('id',$id)->first();
 
  DB::table('mother_details')->insert(
-    ['dependent_id' => $id,
+    ['dependant_id' => $id,
     'afya_user_id'=>$afyaid->afya_user_id,
     'gravity'=>$gravidity,
     'parity'=>$parity,
@@ -291,7 +291,7 @@ $cry=$request->cry;
 $appointment=DB::table('appointments')->where('persontreated', $id)->orderBy('created_at', 'desc')->first();
 DB::table('triage_infants')->insert(
     ['appointment_id' => $appointment->id,
-    'dependent_id'=>$id,
+    'dependant_id'=>$id,
       'skin'=>$skin,
       'jaundice'=>$jaundice,
       'gest_size'=>$gest_size,
@@ -409,22 +409,87 @@ public function patientDisability(Request $request){
 }
 public function abnormalities(Request $request){
     $id=$request->id;
+    $skull=$request->skull;
+    $limbs=$request->limbs;
+    $spine=$request->spine;
+    $palate=$request->palate;
+    $face=$request->face;
+    $anus=$request->anus;
+    $dysmorphic=$request->dysmorphic;
 
-    $abs=$request->abs;
-    if($abs){
-
-foreach ($abs as $key => $abs) {
-    
-  
+if($skull){
+    $skulldescr=$request->skull_descr;
     DB::table('patient_abnormalities')->insert(
     ['dependant_id' => $id,
-    'name' => $abs,
+    'name' => $skull,
+    'notes'=>$skulldescr,
     'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
     'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
 );
-  }
-
 }
+if($limbs){
+    $limbsdescr=$request->limbs_descr;
+    DB::table('patient_abnormalities')->insert(
+    ['dependant_id' => $id,
+    'name' => $limbs,
+    'notes'=>$limbsdescr,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
+);
+}
+if($spine){
+    $spinedescr=$request->spine_descr;
+    DB::table('patient_abnormalities')->insert(
+    ['dependant_id' => $id,
+    'name' => $spine,
+    'notes'=>$spinedescr,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
+);
+}
+if($palate){
+    $palatedescr=$request->palate_descr;
+    DB::table('patient_abnormalities')->insert(
+    ['dependant_id' => $id,
+    'name' => $palate,
+    'notes'=>$palatedescr,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
+);
+}
+if($face){
+    $facedescr=$request->face_descr;
+    DB::table('patient_abnormalities')->insert(
+    ['dependant_id' => $id,
+    'name' => $face,
+    'notes'=>$facedescr,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
+);
+}
+if($anus){
+    $anusdescr=$request->anus_descr;
+    DB::table('patient_abnormalities')->insert(
+    ['dependant_id' => $id,
+    'name' => $anus,
+    'notes'=>$anusdescr,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
+);
+}
+if($dysmorphic){
+    $dysmorphicdescr=$request->dysmorphic_descr;
+    DB::table('patient_abnormalities')->insert(
+    ['dependant_id' => $id,
+    'name' => $dysmorphic,
+    'notes'=>$dysmorphicdescr,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
+);
+}
+
+
+
 
 
 return redirect()->action('NurseController@showDependents', [$id]);

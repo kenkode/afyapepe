@@ -1,7 +1,5 @@
-
 @extends('layouts.doctor')
-
-@section('content')
+  @section('content')
             <?php
             $doc = (new \App\Http\Controllers\DoctorController);
             $Docdatas = $doc->DocDetails();

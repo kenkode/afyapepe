@@ -40,7 +40,6 @@
                             <th>Date</th>
                             <th>Time</th>
                             <th>Name</th>
-                            <th>Descr</th>
                             <th>Amount</th>
 
 
@@ -55,7 +54,6 @@
             <td><?php $dt=$fee->created_at; echo date("d-m-Y ", strtotime( $dt));?> </td>
            <td><?php $dy=$fee->created_at; echo date("g-i-a ", strtotime( $dy));?></td>
             <td>{{$fee->firstname}} {{$fee->secondName}}</td>
-            <td>{{$fee->descr}}</td>
             <td>{{$fee->amount}}</td>
           </tr>
           <?php $i++ ?>

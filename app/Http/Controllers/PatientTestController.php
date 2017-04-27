@@ -16,10 +16,36 @@ class PatientTestController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function testdata($id)
     {
-        //
+
+      $patientD=DB::table('appointments')
+      ->leftjoin('afya_users','appointments.afya_user_id','=','afya_users.id')
+      ->leftjoin('dependant','appointments.persontreated','=','dependant.id')
+      ->leftjoin('facilities','appointments.facility_id','=','facilities.FacilityCode')
+      ->select('appointments.*','afya_users.firstname','afya_users.secondName','afya_users.gender',
+        'dependant.firstName as dep1name','dependant.secondName as dep2name','dependant.gender as depgender',
+        'dependant.dob as depdob','facilities.FacilityName')
+      ->where('appointments.id',$id)
+      ->get();
+      return view('doctor.test')->with('patientD',$patientD);
     }
+
+public function diagnoses($id)
+{
+
+  $patientD=DB::table('appointments')
+  ->leftjoin('afya_users','appointments.afya_user_id','=','afya_users.id')
+  ->leftjoin('dependant','appointments.persontreated','=','dependant.id')
+  ->leftjoin('facilities','appointments.facility_id','=','facilities.FacilityCode')
+  ->select('appointments.*','afya_users.firstname','afya_users.secondName','afya_users.gender',
+    'dependant.firstName as dep1name','dependant.secondName as dep2name','dependant.gender as depgender',
+    'dependant.dob as depdob','facilities.FacilityName')
+  ->where('appointments.id',$id)
+  ->get();
+  return view('doctor.diagnosis')->with('patientD',$patientD);
+}
+
 
     /**
      * Show the form for creating a new resource.
@@ -30,6 +56,8 @@ class PatientTestController extends Controller
     {
         //
     }
+
+
 
 
 public function store(Request $request)
@@ -242,14 +270,14 @@ $patienttd = DB::table('patient_test_details')->insert([
                              $patientNote = DB::table('patientNotes')->insert([
                                           'appointment_id' => $request->get('appointment_id'),
                                           'written_by' => 'Doctor',
-                                          'note' => 'Doctor',
+                                          'note' => $request->get('docnote'),
                                           'target' => 'Test',
                                           'created_at' => $Now,
 
                                        ]);
 
                                     }
-  return redirect()->route('showPatient', ['id' => $appointment]);
+  return redirect()->route('testes', ['id' => $appointment]);
       }
 
 

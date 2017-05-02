@@ -19,9 +19,14 @@ class PrescriptionController extends Controller
     public function diagnoses(Request $request)
     {
       $Now = Carbon::now();
+     $appointment=$request->get('appointment_id');
+     // Inserting  supportive care
+    $supportiveCare= DB::table('patient_supp_care')->insert([
+                       'name' => $request->get('care'),
+                       'appointment_id' => $appointment,
 
-      $appointment=$request->get('appointment_id');
-      // Inserting  diagnosis tests
+   ]);
+// Inserting  diagnosis tests
      $diagnosis= DB::table('patient_diagnosis')->insert([
                         'disease_id' => $request->get('disease'),
                         'level' => $request->get('level'),
@@ -46,7 +51,7 @@ class PrescriptionController extends Controller
 
       $Pdiagnosis=DB::table('patient_diagnosis')
       ->leftjoin('diagnoses','patient_diagnosis.disease_id','=','diagnoses.id')
-    ->select('diagnoses.name','diagnoses.id')
+      ->select('diagnoses.name','diagnoses.id')
       ->where('patient_diagnosis.appointment_id',$id)
       ->get();
       return view('doctor.prescription')->with('patientD',$patientD)->with('Pdiagnosis',$Pdiagnosis);

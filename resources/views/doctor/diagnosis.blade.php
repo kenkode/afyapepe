@@ -141,6 +141,8 @@ $dependantdays= floor($datediff / (60 * 60 * 24));
      </div> <!-- div id="testR" -->
      <button id="diag" class="btn btn-primary btn-block btn-outline">Confirm Diagnosis</button>
 
+
+
 <div id="confdiag" class="divtest">
   {{ Form::open(array('route' => array('confdiag'),'method'=>'POST')) }}
 
@@ -150,7 +152,7 @@ $dependantdays= floor($datediff / (60 * 60 * 24));
 
     <div class="form-group">
         <label for="tag_list" class=""> Diagnosis:</label>
-             <select class="test-multiple" name="disease"  style="width: 100%" required="required">
+             <select class="test-multiple" name="disease"  style="width: 100%" >
                <?php $diagnoses=DB::table('diagnoses')->where(function($query)
         {
             $query->where('target', '=','28 ')
@@ -166,7 +168,7 @@ $dependantdays= floor($datediff / (60 * 60 * 24));
          <?php } if ($dependantdays >='28') { ?>
          <div class="form-group">
              <label for="tag_list" class="">Diagnosis:</label>
-                  <select class="test-multiple" name="disease"  style="width: 100%" required="required">
+                  <select class="test-multiple" name="disease"  style="width: 100%" >
                     <?php $diagnoses=DB::table('diagnoses')->where(function($query)
              {
                  $query->where('target', '=','29 ')
@@ -183,36 +185,53 @@ $dependantdays= floor($datediff / (60 * 60 * 24));
               <?php }  ?>
               <div class="form-group">
                   <label for="tag_list" class="">Type of Diagnosis:</label>
-                       <select class="test-multiple" name="level"  style="width: 100%" required="required">
+                       <select class="test-multiple" name="level"  style="width: 100%" >
                          <option value=''>Choose one</option>
                            <option value='Primary'>Primary</option>
                            <option value='Secondary'>Secondary</option>
                          </select>
                      </div>
+                     <div class="form-group">
+                         <label for="tag_list" class="">Chronic:</label>
+                              <select class="test-multiple" name="chronic"  style="width: 100%" >
+                                <option value=''>Choose one</option>
+                                  <option value='Y'>YES</option>
+                                  <option value='N'>No</option>
+                                </select>
+                         </div>
+                     <div class="form-group">
+                         <label for="tag_list" class="">Level of Severity:</label>
+                              <select class="test-multiple" name="severity"  style="width: 100%" >
+                                <?php $severeity=DB::table('severity')->get();
+                           ?>
+                      <option value=''>Choose one</option>
+                                @foreach($severeity as $diag)
+                    <option value='{{$diag->id}}'>{{$diag->name}}</option>
+                                @endforeach
+                                </select>
+                             </div>
+
+
+
+
+
                    </div>
                    <div class="col-sm-6">
-                   <div class="form-group">
-                       <label for="tag_list" class="">Chronic:</label>
-                            <select class="test-multiple" name="chronic"  style="width: 100%" required="required">
+                     <div class="form-group">
+                       <label for="tag_list" class="">Supportive Care:</label>
+                            <select class="test-multiple" name="care"  style="width: 100%" >
+                              <?php $scare=DB::table('supportive_care')->get();
+                              ?>
                               <option value=''>Choose one</option>
-                                <option value='Y'>YES</option>
-                                <option value='N'>No</option>
-                              </select>
-                        </div>
-                   <div class="form-group">
-                       <label for="tag_list" class="">Level of Severity:</label>
-                            <select class="test-multiple" name="severity"  style="width: 100%" required="required">
-                              <?php $severeity=DB::table('severity')->get();
-                         ?>
-                    <option value=''>Choose one</option>
-                              @foreach($severeity as $diag)
-              <option value='{{$diag->id}}'>{{$diag->name}}</option>
+                              @foreach($scare as $sup)
+                                     <option value='{{$sup->name}}'>{{$sup->name}}</option>
                               @endforeach
                               </select>
-                           </div>
-                           {{ Form::hidden('appointment_id',$app_id, array('class' => 'form-control')) }}
                         </div>
 
+                           {{ Form::hidden('appointment_id',$app_id, array('class' => 'form-control')) }}
+                        </div>
+               </div>
 
   <div class="col-lg-offset-5">
     <button class=" mtop btn btn-sm btn-primary  m-t-n-xs" type="submit"><strong>Submit</strong></button>

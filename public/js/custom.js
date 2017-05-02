@@ -61,14 +61,9 @@ $(document).ready(function(){
 });
 
 // diagnoses toogle
-// $(document).ready(function(){
-//   $(".presc2").hide();
-//     $(".presc90.").click(function(){
-//         $(".presc2").toggle();
-//         var data_id = '';
-//   if (typeof $(this).data('id') !== 'undefined') {
-//            data_id = $(this).data('id');
-//         }
-//         $('#edit-content').val(data_id);
-//     });
-// });
+$(document).ready(function(){
+  $("#supportive").hide();
+    $("#diagSC").click(function(){
+        $("#supportive").toggle();
+    });
+});

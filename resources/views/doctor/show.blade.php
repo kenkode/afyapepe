@@ -28,8 +28,6 @@ return redirect('doctor.create');
 
 <?php
       foreach ($patientdetails as $pdetails) {
-        // $patientid = $pdetails->pat_id;
-
          $pname = $pdetails->firstname;
          $lname = $pdetails->secondName;
          $facilty = $pdetails->FacilityName;
@@ -81,10 +79,10 @@ return redirect('doctor.create');
                     <li><a href="{{route('diagnoses',$app_id)}}">Diagnosis</a></li>
                     <li><a href="{{route('medicines',$app_id)}}">Prescriptions</a></li>
                     <li class=""><a data-toggle="tab" href="#tab-5">Admit</a></li>
-                    <li class=""><a data-toggle="tab" href="#tab-6">Discharge</a></li>
+                    <li class=""><a href="{{route('discharge',$app_id)}}">Discharge</a></li>
                     <li class=""><a data-toggle="tab" href="#tab-7">Transfer</a></li>
-                    <li class=""><a data-toggle="tab" href="#tab-8">End Visit</a></li>
-                </ul>
+                    <li class="btn btn-primary"><a href="{{route('endvisit',$app_id)}}">End Visit</a></li>
+              </ul>
               <!-- </div> -->
                 <div class="tab-content">
                   <!--tabs1-->
@@ -101,25 +99,23 @@ return redirect('doctor.create');
 
 
                             <div class="panel-body">
-                                    {{ Form::open(array('route' => array('patientnotes'),'method'=>'POST')) }}
+                                    {{ Form::open(array('route' => array('admitting'),'method'=>'POST')) }}
 
                                     <div class="form-group col-md-8 col-md-offset-1">
                                         <label for="presc" class="col-md-6">Facility:</label>
-                                          <input type="text" class="form-control" name="next_appointment" value="{{$facilty}}">
+                                          <!-- <input type="text" class="form-control" name="next_appointment" value="{{$facilty}}"> -->
 
-                                        <!-- <select id="facility" name="facility" class="form-control facility1" style="width: 100%"></select> -->
+                                        <select id="facility" name="facility" class="form-control facility1" style="width: 100%"></select>
                                     </div>
                                       <div class="form-group col-md-8 col-md-offset-1" id="data_1">
-                                          <label class="font-normal">Next Appointment Date</label>
+                                          <label class="font-normal">Next Doctor Visit</label>
                                           <div class="input-group date">
                                               <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                               <input type="text" class="form-control" name="next_appointment" value="">
                                           </div>
                                       </div>
                                   {{ Form::hidden('appointment_status',4, array('class' => 'form-control')) }}
-
-                                  {{ Form::hidden('test_status',1, array('class' => 'form-control')) }}
-                                  {{ Form::hidden('appointment_id',$pdetails->app_id, array('class' => 'form-control')) }}
+                                 {{ Form::hidden('appointment_id',$pdetails->app_id, array('class' => 'form-control')) }}
                                   {{ Form::hidden('doc_id',$Docdata->doc_id, array('class' => 'form-control')) }}
 
 
@@ -139,19 +135,17 @@ return redirect('doctor.create');
                     <!--tabs6 Discharge-->
                     <div id="tab-6" class="tab-pane">
                             <div class="panel-body">
-                                    {{ Form::open(array('route' => array('patientnotes'),'method'=>'POST')) }}
+                                    {{ Form::open(array('route' => array('discharging'),'method'=>'POST')) }}
 
 
                                       <div class="form-group col-md-8 col-md-offset-1" id="data_1">
                                           <label class="font-normal">Next Appointment Date</label>
                                           <div class="input-group date">
                                               <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                              <input type="text" class="form-control" name="next_appointment" value="">
+                                              <input type="text" class="form-control" name="next_visit" value="">
                                           </div>
                                       </div>
                                   {{ Form::hidden('appointment_status',3, array('class' => 'form-control')) }}
-
-                                  {{ Form::hidden('test_status',1, array('class' => 'form-control')) }}
                                   {{ Form::hidden('appointment_id',$pdetails->app_id, array('class' => 'form-control')) }}
                                   {{ Form::hidden('doc_id',$Docdata->doc_id, array('class' => 'form-control')) }}
 
@@ -173,18 +167,16 @@ return redirect('doctor.create');
                     <!--tabs7 Transfer-->
                     <div id="tab-7" class="tab-pane">
                             <div class="panel-body">
-                                    {{ Form::open(array('route' => array('patientnotes'),'method'=>'POST')) }}
+                                    {{ Form::open(array('route' => array('transfer'),'method'=>'POST')) }}
                                     <div class="form-group col-md-8 col-md-offset-1">
                                         <label for="presc" class="col-md-6">Facility:</label>
-                                        <select id="facility" name="facility" class="form-control facility1" style="width: 100%"></select>
+                                        <select id="facility" name="facility_to" class="form-control facility1" style="width: 100%"></select>
                                     </div>
 
-
+                                   {{ Form::hidden('facility_from',$facilty, array('class' => 'form-control')) }}
                                    {{ Form::hidden('appointment_status',5, array('class' => 'form-control')) }}
-
-                                  {{ Form::hidden('test_status',1, array('class' => 'form-control')) }}
-                                  {{ Form::hidden('appointment_id',$pdetails->app_id, array('class' => 'form-control')) }}
-                                  {{ Form::hidden('doc_id',$Docdata->doc_id, array('class' => 'form-control')) }}
+                                   {{ Form::hidden('appointment_id',$pdetails->app_id, array('class' => 'form-control')) }}
+                                   {{ Form::hidden('doc_id',$Docdata->doc_id, array('class' => 'form-control')) }}
 
 
                       <div class="form-group col-md-8 col-md-offset-1">
@@ -200,21 +192,6 @@ return redirect('doctor.create');
 
                           </div><!--panel body-->
                     </div><!--7tabs-->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
               </div><!--tabcontent-->

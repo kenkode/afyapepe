@@ -112,7 +112,7 @@ Route::get('/ajax-subcat',function(){
 	Route::get('calendar','DoctorController@Calendar');
 	Route::resource('prescription', 'PrescriptionController@store');
 
-
+   Route::get('patientadmitted', [ 'as' => 'admitted', 'uses' => 'DoctorController@Admitted']);
 	//  Route::Post('show', [ 'as' => 'patienttest', 'uses' => 'PatientTestController@store']);
    Route::get('testdone/{id}', [ 'as' => 'testdone', 'uses' => 'PatientController@testdone']);
 	 Route::get('show/{id}',['as'=>'showPatient', 'uses'=>'PatientController@showpatient']);

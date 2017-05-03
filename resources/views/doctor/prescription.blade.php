@@ -150,7 +150,7 @@
                                               <button type="submit" class="btn btn-primary">Submit</button>  </td>
                                                </div>
 
-                                          {{ Form::close() }}
+                                        {{ Form::close() }}
                                               </div>
 <?php $i =1;
 

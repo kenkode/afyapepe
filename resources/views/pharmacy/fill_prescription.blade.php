@@ -41,7 +41,11 @@
                   <tr class="gradeX">
                   <td>{{$allergy->name}}</td>
                   <td>{{$allergy->a_name}} </td>
-                  <td>{{$allergy->created_at}} </td>
+                  <td>
+                    <?php
+                    echo date("Y-m-d",strtotime($allergy->created_at));
+                     ?>
+                  </td>
 
                   </tr>
                   <?php
@@ -185,11 +189,12 @@
                <select class="presc1 form-control" style="width:500px;" name="itemName"></select>
             </div> -->
 
+
             <input type="hidden" name="p_id" value="<?php echo $results->the_id; ?>" />
             <input type="hidden" name="presc_id" value="<?php echo $results->presc_id; ?>" />
 
            <div class="form-group"><label>Drug</label> <input type="text" name="drug" value="{{$results->drugname}}"  class="form-control" readonly></div>
-           <div class="form-group"><label>Strength</label> <input type="text" value="{{$results->strength}} {{$results->strength_unit}}"  class="form-control" readonly></div>
+           <div class="form-group"><label>Strength</label> <input type="text" id="gg" value="{{$results->strength}}"  class="form-control" readonly></div>
            <div class="form-group">
                <label>Is the drug prescribed issued as written?</label>
            </div>
@@ -197,7 +202,7 @@
           <input type="radio" checked="" name="availability" value="Yes" id="yeah" >
           <label for="radio3">
               Yes
-                    </label>
+          </label>
                 </div>
           <div class="radio radio-danger">
               <input type="radio" name="availability" value="No" id="nah" >
@@ -222,14 +227,33 @@
                          }
                      });
                   $('input[type="radio"]').trigger('click');
+
                </script>
 
                <div class="Box" style="display:none">
-               <div class="form-group"><label>Dose Given</label> <input type="number" name="dose_given"  class="form-control"></div>
+               <div class="form-group"><label>Dose Given</label> <input type="number" id="sub2" name="dose_given1"  class="form-control"></div>
+               <div class="form-group" id="subs" style="display:none">
+                 <label>Reason</label>
+                  <select class="form-control" name="reason22" >
+                   <?php $reasons = DB::table('substitution_reason')->distinct()->get(['reason','id']); ?>
+                   @foreach($reasons as $reason)
+                          <option value='{{$reason->id}}'>{{$reason->reason}}</option>
+                   @endforeach
+                 </select>
+               </div>
 
+               <div class="form-group">
+               <label for="from">From</label>
+               <input class="from"  type="text"  name="from1">
+               <label for="to">to</label>
+               <input class="to" type="text" name="to1">
+               </div>
                <div class="form-group"><label>Quantity</label> <input type="number" name="quantity" id="quantity" class="form-control" oninput="calculate()"></div>
+
                <div class="form-group"><label>Price</label> <input type="number" name="price" id="price" class="form-control" oninput="calculate()"></div>
                <div class="form-group"><label>Total</label> <input type="number" name="total" id="total" class="form-control" readonly oninput="calculate()"></div>
+
+
                </div>
 
                <div class="Box1" style="display:none">
@@ -306,10 +330,16 @@
             </select>
          </div>
 
-         <div class="form-group"><label>Dose Given</label> <input type="number" name="dose_given"  class="form-control"></div>
+         <div class="form-group"><label>Dose Given</label> <input type="number" name="dose_given2"  class="form-control"></div>
          <!-- <div class="form-group"><label>Reason</label> <textarea class="form-control" name="reason"></textarea></div> -->
          <div class="form-group"><label>Quantity</label> <input type="number" name="quantity1" id="quantity1" class="form-control" oninput="calculated()"></div>
          <div class="form-group"><label>Price</label> <input type="number" name="price1" id="price1" class="form-control" oninput="calculated()"></div>
+         <div class="form-group">
+         <label for="from">From</label>
+         <input class="from"  type="text"  name="from2">
+         <label for="to">to</label>
+         <input class="to" type="text" name="to2">
+         </div>
          <div class="form-group"><label>Total</label> <input type="number" name="total1" id="total1" class="form-control" readonly oninput="calculated()"></div>
 
 
@@ -338,6 +368,8 @@
                       h_change.value = myResult4;
                  }
          </script>
+
+
 
          <p> </p>
          <p> </p>

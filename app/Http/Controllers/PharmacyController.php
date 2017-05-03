@@ -45,6 +45,7 @@ class PharmacyController extends Controller
                 ->join('afyamessages', 'afya_users.msisdn', '=', 'afyamessages.msisdn')
                 ->join('appointments', 'appointments.afya_user_id', '=', 'afya_users.id')
                 ->join('prescriptions', 'prescriptions.appointment_id', '=', 'appointments.id')
+                ->join('prescription_details', 'prescription_details.presc_id', '=', 'prescriptions.id')
                 ->join('doctors', 'doctors.doc_id', '=', 'prescriptions.doc_id')
                 ->join('dependant', 'dependant.afya_user_id', '=', 'afya_users.id')
                 ->select('afya_users.*','prescriptions.created_at AS presc_date','prescriptions.id AS presc_id',
@@ -292,7 +293,8 @@ class PharmacyController extends Controller
       $the_id = $request->p_id;
 
       $id = $request->presc_id;
-      $dose = $request->dose_given;
+      $dose1 = $request->dose_given1;
+      $dose2 = $request->dose_given2;
       $reason = $request->reason;
       $quantity = $request->quantity;
       $price = $request->price;
@@ -307,22 +309,29 @@ class PharmacyController extends Controller
       $quantity1 = $request->quantity1;
       $price1 = $request->price1;
 
+      $start_date1 = date('Y-m-d',strtotime($request->from1));
+      $end_date1 = date('Y-m-d',strtotime($request->to1));
+      $start_date2 = date('Y-m-d',strtotime($request->from2));
+      $end_date2 = date('Y-m-d',strtotime($request->to2));
+
 
       if($available == 'Yes')
       {
 
       DB::table('prescription_filled_status')->insert(
-    ['presc_details_id'=>$id,
+      ['presc_details_id'=>$id,
      'available'=>$available,
-     'dose_given'=>$dose,
+     'dose_given'=>$dose1,
      'quantity'=>$quantity,
      'price'=>$price,
      'outlet_id'=>$facility,
      'submitted_by'=>$user_id,
+     'start_date'=>$start_date1,
+     'end_date'=>$end_date1,
      'created_at'=>Carbon::now(),
      'updated_at'=> Carbon::now()
-   ]
-    );
+     ]
+      );
 
     }
 
@@ -348,12 +357,15 @@ class PharmacyController extends Controller
     DB::table('prescription_filled_status')->insert(
   ['presc_details_id'=>$id,
    'available'=>$available,
-   'dose_given'=>$dose,
+   'dose_given'=>$dose2,
    'quantity'=>$quantity1,
    'price'=>$price1,
    'outlet_id'=>$facility,
    'submitted_by'=>$user_id,
    'substitute_presc_id'=>$idd,
+   'substitution_reason'=>$reason,
+   'start_date'=>$start_date2,
+   'end_date'=>$end_date2,
    'created_at'=>Carbon::now(),
    'updated_at'=> Carbon::now()
  ]
@@ -363,6 +375,7 @@ class PharmacyController extends Controller
 
   $query1 = DB::table('prescription_filled_status')
           ->select(DB::raw('count(presc_details_id) as presc_ids'))
+          ->where('presc_details_id','=',$id)
           ->whereNotNull('substitute_presc_id')
           ->orWhere('available', '=', 'Yes')
           ->first();

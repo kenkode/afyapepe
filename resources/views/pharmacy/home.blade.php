@@ -24,7 +24,7 @@
                           <th>Date of Prescription</th>
                     </tr>
                   </thead>
-
+                  
                   <tbody>
                     <?php $i =1;
 

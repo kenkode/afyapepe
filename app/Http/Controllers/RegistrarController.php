@@ -222,12 +222,13 @@ public function dependantTriage($id){
       $type=$request->type;
       $mode=$request->mode;
       $amount=$request->amount;
-      DB::table('fees')->insert(
-      ['patient_id' => $id,
-      'type'=>$type,
-      'descr' => $descr,
-      'action'=> $mode,
+
+      DB::table('consultation_fees')->insert(
+      ['afyauser_id' => $id,
+      'fee_required'=>$type,
+      'payments_method'=> $mode,
       'amount'=> $amount,
+      'person_treated'=>'Self',
       'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
       'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
   );
@@ -260,8 +261,8 @@ public function dependantTriage($id){
     }
  public function Dependentconsultationfee(Request $request){
       $id=$request->id;
-      $descr=$request->descr;
-      $type=$request->type;
+        $type=$request->type;
+        $afyauser=$request->afya_user;
       $mode=$request->mode;
       $amount=$request->amount;
       $user=$request->afya_user;
@@ -283,12 +284,13 @@ public function dependantTriage($id){
  'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
  'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
 
-   DB::table('fees')->insert(
-      ['patient_id' => $id,
-      'type'=>$type,
-      'descr' => $descr,
-      'action'=> $mode,
+   DB::table('consultation_fees')->insert(
+      ['afyauser_id' => $afyauser,
+      'dependent_id'=>$id,
+      'fee_required'=>$type,
+      'payments_method'=> $mode,
       'amount'=> $amount,
+      'person_treated'=>'Dependent',
       'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
       'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
   );

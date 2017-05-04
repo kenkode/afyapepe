@@ -251,9 +251,9 @@
 
     <div class="form-group">
 <label class="control-label" for="name">Consultation Fee ?</label>
-<input type="radio" value="no" id="type" name="type" checked='checked' autocomplete="off" />
+<input type="radio" value="No" id="type" name="type" checked='checked' autocomplete="off" />
   <label>No</label>
-        <input type="radio" value="yes" id="type" name="type" class="youtube" />
+        <input type="radio" value="Yes" id="type" name="type" class="youtube" />
       <label>Yes</label>
       <div id="embedcode">
     Payment Mode: <select name="mode"><option value="">Select</option><option value="Cash">Cash</option><option value="Mpesa">Mpesa</option><option value="Insurance">Insurance</option></select>

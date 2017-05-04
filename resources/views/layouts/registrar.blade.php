@@ -112,6 +112,7 @@
     <!-- Custom and plugin javascript -->
 <script src="{{ asset('js/plugins/pace/pace.min.js') }}" type="text/javascript"></script>
     <!--  <script src="{{ asset('js/inspinia.js') }}" type="text/javascript"></script>-->
+
     <script>
 
 
@@ -182,7 +183,7 @@
        $(document).ready(function(){
              $("#embedcode").hide();
              $("input[name='type']").change(function () {
-                  if($(this).val() == "yes")
+                  if($(this).val() == "Yes")
                        $("#embedcode").show();
                   else
                        $("#embedcode").hide();

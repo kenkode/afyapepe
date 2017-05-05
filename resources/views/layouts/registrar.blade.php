@@ -121,7 +121,8 @@
                 keyboardNavigation: false,
                 forceParse: false,
                 calendarWeeks: true,
-                autoclose: true
+                autoclose: true,
+              
             });
 
             $(document).ready(function(){

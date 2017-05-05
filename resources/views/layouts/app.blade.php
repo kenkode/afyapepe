@@ -86,6 +86,23 @@
       <!-- <script src="{{ asset('js/inspinia.js') }}" type="text/javascript"></script> -->
 
     <!-- Page-Level Scripts -->
+     <script>
+
+
+    $('#data_1 .input-group.date').datepicker({
+                todayBtn: "linked",
+                keyboardNavigation: false,
+                forceParse: false,
+                calendarWeeks: true,
+                autoclose: true
+            });
+
+            $(document).ready(function(){
+                $("button").click(function(){
+                    $("#testR").toggle();
+                });
+            });
+    </script>
     <script>
         $(document).ready(function(){
             $('.dataTables-example').DataTable({

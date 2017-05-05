@@ -64,7 +64,7 @@ class RegistrarController extends Controller
       $blood=$request->blood;
       $pob=$request->pob;
       $dob=$request->dob;
-      $age=$request->age;
+     
       $relation=$request->relationship;
       $school=$request->school;
 
@@ -83,9 +83,8 @@ class RegistrarController extends Controller
       'blood_type'=>$blood,
       'dob'=>$dob,
       'pob'=>$pob,
-      'age'=>0,
       'relationship'=>$relation,
-      'school'=>$school
+   
       ]
   );
 

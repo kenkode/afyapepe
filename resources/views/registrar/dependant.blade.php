@@ -4,7 +4,7 @@
 
 
            <div class="ibox-content">
-                 <form class="form-horizontal" role="form" method="POST" action="/registrarnextkin" novalidate>
+                 <form class="form-horizontal" role="form" method="POST" action="/createdependent" novalidate>
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <input type="hidden" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{$id}}" name="id"  required>
                  <div class="form-group">

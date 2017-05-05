@@ -64,9 +64,11 @@ class RegistrarController extends Controller
       $blood=$request->blood;
       $pob=$request->pob;
       $dob=$request->dob;
-      $age=$request->age;
+     
       $relation=$request->relationship;
       $school=$request->school;
+
+$newDate = date("Y-m-d", strtotime($dob));
 
       $parent=DB::table('afya_users')->where('id',$id)->first();
       $name=$parent->firstname.$parent->secondName;
@@ -81,11 +83,10 @@ class RegistrarController extends Controller
       'secondName'=> $second,
       'gender'=>$gender,
       'blood_type'=>$blood,
-      'dob'=>$dob,
+      'dob'=>$newDate,
       'pob'=>$pob,
-      'age'=>0,
       'relationship'=>$relation,
-      'school'=>$school
+   
       ]
   );
 

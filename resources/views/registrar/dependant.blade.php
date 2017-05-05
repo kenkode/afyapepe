@@ -14,8 +14,7 @@
                 </div>
                 <div class="form-group">
                <label for="exampleInputEmail1">Second Name</label>
-               <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" name="second"  value="
-                "  >
+               <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" name="second"  value=""/>
                </div>
                <div class="form-group">
                 <label for="exampleInputPassword1">Gender</label>

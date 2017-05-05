@@ -25,7 +25,7 @@ class NurseController extends Controller
       $patients = DB::table('appointments as app')
         ->Join('afya_users as par', 'app.afya_user_id', '=', 'par.id')
         ->leftjoin('dependant as dep','app.persontreated','=','dep.id')
-        ->select('par.id as parid','par.firstname as first','par.secondName as second','par.gender as gender','par.age as age','dep.id as depid','dep.firstName as dfirst','dep.secondName as dsecond','dep.age as dage',
+        ->select('par.id as parid','par.firstname as first','par.secondName as second','par.gender as gender','par.dob as dob','dep.id as depid','dep.firstName as dfirst','dep.secondName as dsecond','dep.dob as ddob',
             'dep.gender as dgender','app.created_at as created_at','app.persontreated as persontreated')
         ->where('app.status','=',1)
         ->where('app.created_at','>=',$today)

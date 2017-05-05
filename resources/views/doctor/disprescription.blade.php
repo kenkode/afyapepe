@@ -48,8 +48,7 @@
                   </div>
                 <div class="ibox-content col-md-12">
                   <ul class="nav nav-tabs">
-                    <li><a  href="{{route('showPatient',$app_id)}}">Home</a></li>
-                      <li class="active"><a data-toggle="tab" href="#tab-1">Today's Triage</button></a></li>
+                  <li><a  href="{{route('showPatient',$app_id)}}">Today's Triage</a></li>
                       <li><a href="{{route('patienthistory',$app_id)}}">History</a></li>
                       <li><a href="{{route('testes',$app_id)}}">Tests</a></li>
                       <li><a href="{{route('diagnoses',$app_id)}}">Diagnosis</a></li>

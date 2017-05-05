@@ -78,7 +78,7 @@ elseif ($stat = 6) {
               <!-- <div class="col-lg-12 tbg"> -->
               <ul class="nav nav-tabs">
                 <li><a  href="{{route('showPatient',$app_id)}}">Home</a></li>
-                  <li class="active"><a data-toggle="tab" href="#tab-1">Today's Triage</button></a></li>
+                  <li><a data-toggle="tab" href="#tab-1">Today's Triage</button></a></li>
                   <li><a href="{{route('patienthistory',$app_id)}}">History</a></li>
                   <li><a href="{{route('testes',$app_id)}}">Tests</a></li>
                   <li><a href="{{route('diagnoses',$app_id)}}">Diagnosis</a></li>
@@ -89,7 +89,7 @@ elseif ($stat = 6) {
                    <?php if ($stat==4) { ?>
                   <li class=""><a href="{{route('discharge',$app_id)}}">Discharge</a></li>
                    <?php } ?>
-                    <li cl ass=""><a href="{{route('transfering',$app_id)}}">Transfer</a></li>
+                    <li class="active"><a href="{{route('transfering',$app_id)}}">Transfer</a></li>
               <?php if ($stat==2) { ?>
                   <li class="btn btn-primary"><a href="{{route('endvisit',$app_id)}}">End Visit</a></li>
               <?php } ?>

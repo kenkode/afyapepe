@@ -42,12 +42,13 @@
       </div>
       <?php  }   } ?>
        </div>
-   <div class="ibox-content col-md-12">
+       <div class="col-lg-12">
+           <div class="tabs-container">
      <ul class="nav nav-tabs">
        <li><a  href="{{route('showPatient',$app_id)}}">Home</a></li>
-         <li class="active"><a data-toggle="tab" href="#tab-1">Today's Triage</button></a></li>
+         <li><a data-toggle="tab" href="#tab-1">Today's Triage</button></a></li>
          <li><a href="{{route('patienthistory',$app_id)}}">History</a></li>
-         <li><a href="{{route('testes',$app_id)}}">Tests</a></li>
+         <li class="active"><a href="{{route('testes',$app_id)}}">Tests</a></li>
          <li><a href="{{route('diagnoses',$app_id)}}">Diagnosis</a></li>
          <li><a href="{{route('medicines',$app_id)}}">Prescriptions</a></li>
           <?php if ($stat==2) { ?>
@@ -150,10 +151,11 @@
      <button id="addtestes" class="btn btn-primary btn-block btn-outline">Add Test</button>
 
 <div id="divtest" class="divtest">
+
 {{ Form::open(array('route' => array('patienttest'),'method'=>'POST')) }}
 <!-- {{ Form::open(array('id' => 'ptest')) }} -->
 
-  <div class="col-sm-6 b-r">
+  <div class="col-sm-6 b-r ibox float-e-margins ibox-content">
   <?php  if ($dependantdays <='28') {
       ?>
     <div class="form-group">
@@ -293,11 +295,12 @@
 
                    <div id="div1">
                      <div class="col-sm-6">
-                      <div id="othertest" class="">
+                      <div id="othertest" class="ibox float-e-margins ibox-content">
                     <div class="form-group ">
                          <label class="col-md-4">Test Categories:</label>
                          <input type="checkbox" name="colorCheckbox" value="MRI">MRI
                          <input type="checkbox" name="colorCheckbox" value="Lab"> Laboratory
+                         <br />
                          <input type="checkbox" name="colorCheckbox" value="Neurology"> Neurology
                           <input type="checkbox" name="colorCheckbox" value="Gestrointestinal"> Gestrointestinal
                      </div>
@@ -305,9 +308,9 @@
 
                       <div class="MRI box">MRI TESTS COMING SOON</div>
                       <!-- Laboratory Tests starts}} -->
-                     <div class="Lab box">
+                     <div class="Lab">
 
-                      <div class="col-sm-6 b-r">
+                      <div class="col-sm-6 b-r box">
                           <div class="form-group">
                              <label>Biochestry Test:</label>
                                   <select class="test-multiple" name="biotests[]" multiple="multiple" style="width: 100%">
@@ -441,7 +444,9 @@ else { ?>
 
 
 {{ Form::close() }}
+
 </div><!-- testes -->
+</div>
       </div><!-- col md 12" -->
    </div><!-- emargis" -->
 

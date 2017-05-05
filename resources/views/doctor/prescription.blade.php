@@ -46,14 +46,15 @@
                  </div>
                  <?php  }   } ?>
                   </div>
-                <div class="ibox-content col-md-12">
+              <div class="col-lg-12">
+                  <div class="tabs-container">
                   <ul class="nav nav-tabs">
                     <li><a  href="{{route('showPatient',$app_id)}}">Home</a></li>
-                      <li class="active"><a data-toggle="tab" href="#tab-1">Today's Triage</button></a></li>
+                      <li><a data-toggle="tab" href="#tab-1">Today's Triage</button></a></li>
                       <li><a href="{{route('patienthistory',$app_id)}}">History</a></li>
                       <li><a href="{{route('testes',$app_id)}}">Tests</a></li>
                       <li><a href="{{route('diagnoses',$app_id)}}">Diagnosis</a></li>
-                      <li><a href="{{route('medicines',$app_id)}}">Prescriptions</a></li>
+                      <li class="active"><a href="{{route('medicines',$app_id)}}">Prescriptions</a></li>
                        <?php if ($stat==2) { ?>
                       <li class=""><a href="{{route('admit',$app_id)}}">Admit</a></li>
                       <?php } ?>
@@ -83,7 +84,8 @@
         </table>
              </div>
           </div>
-                  <div class="col-sm-9">
+                  <div class="col-sm-9 ">
+                    <div class="ibox float-e-margins ibox-content">
                     <br />
                     {{ Form::open(array('route' => array('prescription.store'),'method'=>'POST')) }}
                           <div class="form-group">
@@ -158,6 +160,7 @@
 
                                         {{ Form::close() }}
                                               </div>
+                                            </div>
 <?php $i =1;
 
 if ($dependantdays <='28') {
@@ -260,4 +263,5 @@ $tstdone = DB::table('appointments')
                                               </div>
                         </div>
                     </div>
+                      </div>
                     @endsection

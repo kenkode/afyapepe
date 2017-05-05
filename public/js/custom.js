@@ -67,3 +67,15 @@ $(document).ready(function(){
         $("#supportive").toggle();
     });
 });
+
+// discharge
+document.getElementById('dcond').addEventListener('change', function () {
+    var style = this.value == 1 ? 'block' : 'none';
+    document.getElementById('hidden_div1').style.display = style;
+    var style = this.value == 2 ? 'block' : 'none';
+    document.getElementById('hidden_div2').style.display = style;
+    var style = this.value == 3 ? 'block' : 'none';
+    document.getElementById('hidden_div3').style.display = style;
+    var style = this.value == 4 ? 'block' : 'none';
+    document.getElementById('hidden_div4').style.display = style;
+});

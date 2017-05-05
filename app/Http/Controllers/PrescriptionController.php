@@ -20,22 +20,33 @@ class PrescriptionController extends Controller
     {
       $Now = Carbon::now();
      $appointment=$request->get('appointment_id');
+    $state = $request->get('state');
+     $care=$request->get('care');
      // Inserting  supportive care
+     if ($care) {
     $supportiveCare= DB::table('patient_supp_care')->insert([
-                       'name' => $request->get('care'),
+                       'name' => $care,
                        'appointment_id' => $appointment,
-
-   ]);
+                          ]);
+              }
 // Inserting  diagnosis tests
      $diagnosis= DB::table('patient_diagnosis')->insert([
                         'disease_id' => $request->get('disease'),
                         'level' => $request->get('level'),
+                        'state' => $request->get('state'),
                         'severity' => $request->get('severity'),
                         'chronic' => $request->get('chronic'),
                         'appointment_id' => $request->get('appointment_id'),
                         'date_diagnosed' => $Now,
 ]);
-  return redirect()->route('diagnoses', ['id' => $appointment]);
+
+if ($state== 'Discharge') {
+return redirect()->route('disdiagnosis', ['id' => $appointment]);
+} else {
+return redirect()->route('diagnoses', ['id' => $appointment]);
+}
+
+
     }
     public function prescriptions($id)
     {
@@ -74,8 +85,9 @@ class PrescriptionController extends Controller
    protected function store(Request $request)
    {
      $appid=$request['appointment_id'];
+    $state =$request['state'];
 
-    $pttids= Prescription::where('appointment_id',$appid)
+      $pttids= Prescription::where('appointment_id',$appid)
        ->first();
 
       if (is_null($pttids)) {
@@ -95,6 +107,7 @@ $prescrt=$request->prescription;
 if ($prescrt) {
     Prescription_detail::create([
            'presc_id' => $id,
+           'state' => $request['state'],
            'diagnosis' => $request['disease_id'],
            'drug_id' => $request['prescription'],
            'doseform' => $request['dosageform'],
@@ -104,8 +117,13 @@ if ($prescrt) {
            'frequency' => $request['frequency'],
        ]);
 }
+ if ($state=='Discharge') {
+return redirect()->route('disprescription',$appid);
+} else {
+  return redirect()->route('medicines',$appid);
+}
 
-   return redirect()->route('medicines',$appid);
+
    }
 
 

@@ -60,6 +60,75 @@ public function discharges($id)
   return view('doctor.discharge')->with('patientD',$patientD);
 }
 
+public function admit($id)
+{
+
+  $patientD=DB::table('appointments')
+  ->leftjoin('afya_users','appointments.afya_user_id','=','afya_users.id')
+  ->leftjoin('dependant','appointments.persontreated','=','dependant.id')
+  ->leftjoin('facilities','appointments.facility_id','=','facilities.FacilityCode')
+  ->select('appointments.*','afya_users.firstname','afya_users.secondName','afya_users.gender',
+    'dependant.firstName as dep1name','dependant.secondName as dep2name','dependant.gender as depgender',
+    'dependant.dob as depdob','facilities.FacilityName')
+  ->where('appointments.id',$id)
+  ->get();
+  return view('doctor.admit')->with('patientD',$patientD);
+}
+
+
+public function transfer($id)
+{
+  $patientD=DB::table('appointments')
+  ->leftjoin('afya_users','appointments.afya_user_id','=','afya_users.id')
+  ->leftjoin('dependant','appointments.persontreated','=','dependant.id')
+  ->leftjoin('facilities','appointments.facility_id','=','facilities.FacilityCode')
+  ->select('appointments.*','afya_users.firstname','afya_users.secondName','afya_users.gender',
+    'dependant.firstName as dep1name','dependant.secondName as dep2name','dependant.gender as depgender',
+    'dependant.dob as depdob','facilities.FacilityName')
+  ->where('appointments.id',$id)
+  ->get();
+  return view('doctor.transfer')->with('patientD',$patientD);
+}
+public function disdiagnosis($id)
+{
+  $patientD=DB::table('appointments')
+  ->leftjoin('afya_users','appointments.afya_user_id','=','afya_users.id')
+  ->leftjoin('dependant','appointments.persontreated','=','dependant.id')
+  ->leftjoin('facilities','appointments.facility_id','=','facilities.FacilityCode')
+  ->select('appointments.*','afya_users.firstname','afya_users.secondName','afya_users.gender',
+    'dependant.firstName as dep1name','dependant.secondName as dep2name','dependant.gender as depgender',
+    'dependant.dob as depdob','facilities.FacilityName')
+  ->where('appointments.id',$id)
+  ->get();
+  return view('doctor.disdiagnosis')->with('patientD',$patientD);
+}
+
+public function disprescription($id)
+{
+  $patientD=DB::table('appointments')
+  ->leftjoin('afya_users','appointments.afya_user_id','=','afya_users.id')
+  ->leftjoin('dependant','appointments.persontreated','=','dependant.id')
+  ->leftjoin('facilities','appointments.facility_id','=','facilities.FacilityCode')
+  ->select('appointments.*','afya_users.firstname','afya_users.secondName','afya_users.gender',
+    'dependant.firstName as dep1name','dependant.secondName as dep2name','dependant.gender as depgender',
+    'dependant.dob as depdob','facilities.FacilityName')
+  ->where('appointments.id',$id)
+  ->get();
+
+  $Pdiagnosis=DB::table('patient_diagnosis')
+  ->leftjoin('diagnoses','patient_diagnosis.disease_id','=','diagnoses.id')
+  ->leftjoin('severity','patient_diagnosis.severity','=','severity.id')
+  ->select('diagnoses.name','patient_diagnosis.level','severity.name as severity','diagnoses.id')
+  
+  ->where([
+                ['patient_diagnosis.appointment_id',$id],
+                ['patient_diagnosis.state', '=', 'Discharge'],
+
+               ])
+  ->get();
+
+  return view('doctor.disprescription')->with('patientD',$patientD)->with('Pdiagnosis',$Pdiagnosis);
+}
     /**
      * Show the form for creating a new resource.
      *

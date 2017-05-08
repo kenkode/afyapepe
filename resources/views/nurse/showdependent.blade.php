@@ -1353,6 +1353,7 @@ else{
     <tr>
    <th>No</th>
     <th>Disability Name</th>
+    <th>Date</th>
   </tr>
   </thead>
     </tr>
@@ -1366,6 +1367,7 @@ else{
       <td>{{$i}}</td>
        
       <td>{{$allergy->name}}</td>
+      <td>{{ date('d -m- Y', strtotime($allergy->created_at))}}</td>
      
       
         
@@ -1431,6 +1433,7 @@ No <input type="checkbox" name="tone" value="No" />
    <th>No</th>
     <th>Abnormalities</th>
     <th>Abnormalities Details</th>
+    <th>Date</th>
   </tr>
   </thead>
     </tr>
@@ -1445,6 +1448,7 @@ No <input type="checkbox" name="tone" value="No" />
        
       <td>{{$allergy->name}}</td>
       <td>{{$allergy->notes}}</td>
+      <td>{{ date('d -m- Y', strtotime($allergy->created_at))}}</td>
      
       
         

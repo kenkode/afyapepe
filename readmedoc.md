@@ -14,14 +14,15 @@ patients  wit appointment status ==1
 All patients at any given time
 
 ##table appointment status
-0= just dialled ussd waiting for nurse
-1=
+
+1=appointments
 2= From nurse waiting for doctor
-3= Active (seeing adoctor)
-4= Discharged
-5= Admitted
-6= referal
+3= Discharged Outpatient
+4= Admitted
+5= referal
+6=Discharged Inn patient
+0=Discharged Death
 ##table patient_test status
 0= pending
-1= Done 
+1= Done
 2= Partially Done

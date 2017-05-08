@@ -51,6 +51,7 @@
                         <tr>
                             <th>No</th>
                             <th>Name</th>
+                            <th>Appointment</th>
                             <th>Chief Complain</th>
                             <th>Gender</th>
                             <th>Age</th>
@@ -76,6 +77,15 @@
                               <?php if ($apatient->persontreated=='Self') {echo $apatient->firstname ;  echo $apatient->secondName;}
                               else {echo $apatient->Infname; echo $apatient->InfName;}
                              ?></a></td>
+
+                             <td> <?php if ($apatient->appointment_made=='Y'){ ?>
+                               Yes
+                             <?php }else{ ?>
+                               No
+                             <?php } ?>
+
+
+                            </td>
                             <td><a href="{{route('showPatient',$apatient->appid)}}">
                               <?php if ($apatient->persontreated=='Self') {echo $apatient->chief_compliant;}
                               else {echo $apatient->Infcompliant;}

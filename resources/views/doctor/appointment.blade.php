@@ -1,9 +1,5 @@
 @extends('layouts.doctor')
-@section('title', 'Appointment List')
-@section('content')
-  <div class="content-page  equal-height">
-      <div class="content">
-          <div class="container">
+  @section('content')
             <?php
             $doc = (new \App\Http\Controllers\DoctorController);
             $Docdatas = $doc->DocDetails();
@@ -24,7 +20,7 @@
                 <div class="col-lg-11">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>Appointment List</h5>
+                        <h5>Patients List</h5>
                         <div class="ibox-tools">
                           @role('Doctor')
                            <a class="collapse-link">
@@ -49,25 +45,81 @@
                         </div>
                     </div>
                     <div class="ibox-content">
-
-                        <div class="table-responsive">
-                    <table class="table table-striped table-bordered table-hover dataTables-example" >
+                       <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover dataTables-main" >
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Name of Patient</th>
-                            <th>Age</th>
+                            <th>Name</th>
+                            <th>Chief Complain</th>
                             <th>Gender</th>
-                            <th>Date of Appointment</th>
-                          
-                            <th>Date</th>
+                            <th>Age</th>
+                            <th>Weight</th>
+                            <th>Height</th>
+                            <th>Temperature</th>
+                            <th>Systolic BP</th>
+                            <th>Diastolic BP</th>
+                            <!-- <th>Constituency</th> -->
+
                             <!-- <th>Constituency of Residence</th> -->
 
                       </tr>
                     </thead>
 
                     <tbody>
+                      <?php $i =1; ?>
+                   @foreach($patients as $apatient)
+                        <tr>
 
+                            <td><a href="{{route('showPatient',$apatient->appid)}}">{{$i}}</a></td>
+                            <td><a href="{{route('showPatient',$apatient->appid)}}">
+                              <?php if ($apatient->persontreated=='Self') {echo $apatient->firstname ;  echo $apatient->secondName;}
+                              else {echo $apatient->Infname; echo $apatient->InfName;}
+                             ?></a></td>
+                            <td><a href="{{route('showPatient',$apatient->appid)}}">
+                              <?php if ($apatient->persontreated=='Self') {echo $apatient->chief_compliant;}
+                              else {echo $apatient->Infcompliant;}
+                             ?>
+                              {{$apatient->chief_compliant}}</a></td>
+                            <td><?php
+                             if ($apatient->persontreated=='Self') { $gender=$apatient->gender;}
+                            else {$gender=$apatient->Infgender;}?>
+                              @if($gender==1){{"Male"}}@else{{"Female"}}@endif</a>
+                            </td>
+                            <td><?php
+                            if ($apatient->persontreated=='Self') { $dob=$apatient->dob;}
+                            else {$dob=$apatient->Infdob;}
+
+
+                             $interval = date_diff(date_create(), date_create($dob));
+                             $age= $interval->format(" %Y Year, %M Months, %d Days Old");?>
+
+                              {{$age}}</td>
+                            <td>
+                              <?php if ($apatient->persontreated=='Self') {echo $apatient->current_weight;}
+                              else {echo $apatient->Infweight;}
+                             ?></td>
+                            <td>  <?php if ($apatient->persontreated=='Self') {echo $apatient->current_height;}
+                              else {echo $apatient->Infheight;}
+                             ?></td>
+                            <td>
+                              <?php if ($apatient->persontreated=='Self') {echo $apatient->temperature;}
+                               else {echo $apatient->Inftemp;}
+                              ?></td>
+                            <td>
+                              <?php if ($apatient->persontreated=='Self') {echo $apatient->systolic_bp;}
+                               else {}
+                              ?></td>
+                            <td>
+                              <?php if ($apatient->persontreated=='Self') {echo $apatient->diastolic_bp;}
+                               else {}
+                              ?>
+                              <!-- <td>{{$apatient->Constituency}}</td> -->
+
+                        </tr>
+                        <?php $i++; ?>
+
+                     @endforeach
 
                      </tbody>
                    </table>
@@ -80,8 +132,5 @@
        </div>
        @include('includes.default.footer')
 
-         </div><!--container-->
-      </div><!--content-->
-      </div><!--content page-->
 
 @endsection

@@ -102,7 +102,7 @@
                             <th>Date</th>
                             <th>Time</th>
                             <th>Facility</th>
-                            
+                            <th>Person Treated</th>
                             <th>Amount(Kshs)</th>
                           
 
@@ -116,8 +116,8 @@
                     <?php $i=1;
                      
                   
-                    $expenditures=DB::table('fees')->where('patient_id',$patient->id)
-                    ->where('type','=','Yes')
+                    $expenditures=DB::table('consultation_fees')->where('afyauser_id',$patient->id)
+                    ->where('fee_required','=','Yes')
                     ->whereBetween('created_at', [
     Carbon\Carbon::now()->startOfWeek(),
     Carbon\Carbon::now()->endOfWeek(),
@@ -129,15 +129,17 @@
                        <td>{{ date('d -m- Y', strtotime($exp->created_at)) }}</td>
             <td>{{ date('H:i:s', strtotime($exp->created_at)) }}</td>
                       <td>St Jude's Huruma Community Health Services</td>
+                        <td>{{$exp->person_treated}}</td>
                       <td>{{$exp->amount}}</td>
                       </tr>
                       <?php $i++ ?>
                       @endforeach
-<?php $wekexp=DB::table('fees')->where('patient_id',$patient->id)->whereBetween('created_at', [
+<?php $wekexp=DB::table('consultation_fees')->where('afyauser_id',$patient->id)
+                    ->where('fee_required','=','Yes')->whereBetween('created_at', [
     Carbon\Carbon::now()->startOfWeek(),
     Carbon\Carbon::now()->endOfWeek(),
 ])->sum('amount'); ?>
- <td></td><td></td><td></td><td>Total</td><td>{{$wekexp}}</td>
+ <td></td><td></td><td></td><td>Total</td><td></td><td>{{$wekexp}}</td>
                      </tbody>
                    </table>
                        </div>
@@ -186,6 +188,7 @@
                             <th>Date</th>
                             <th>Time</th>
                             <th>Facility</th>
+                            <th>Person Treated</th>
                             
                             <th>Amount(Kshs)</th>
                           
@@ -198,8 +201,8 @@
                     <tbody>
                     <?php $i=1;
 
-                    $expenditures=DB::table('fees')->where('patient_id',$patient->id)
-                    ->where('type','=','Yes')->whereBetween('created_at', [
+                    $expenditures=DB::table('consultation_fees')->where('afyauser_id',$patient->id)
+                    ->where('fee_required','=','Yes')->whereBetween('created_at', [
     Carbon\Carbon::now()->startOfMonth(),
     Carbon\Carbon::now()->endOfMonth(),
 ])->orderby('created_at','desc')->get(); ?>
@@ -209,15 +212,17 @@
                        <td>{{ date('d -m- Y', strtotime($mexp->created_at)) }}</td>
             <td>{{ date('H:i:s', strtotime($mexp->created_at)) }}</td>
                       <td>St Jude's Huruma Community Health Services</td>
+                      <td>{{$mexp->person_treated}}</td>
                       <td>{{$mexp->amount}}</td>
                       </tr>
                       <?php $i++ ?>
                       @endforeach
-          <?php $monthexp=DB::table('fees')->where('patient_id',$patient->id)->whereBetween('created_at', [
+          <?php $monthexp=DB::table('consultation_fees')->where('afyauser_id',$patient->id)
+                    ->where('fee_required','=','Yes')->whereBetween('created_at', [
     Carbon\Carbon::now()->startOfMonth(),
     Carbon\Carbon::now()->endOfMonth(),
 ])->sum('amount'); ?>
-                <td></td><td></td><td></td><td>Total</td><td>{{$monthexp}}</td>
+                <td></td><td></td><td></td><td>Total</td><td></td><td>{{$monthexp}}</td>
                      </tbody>
                    </table>
                        </div>
@@ -266,7 +271,7 @@
                             <th>Date</th>
                             <th>Time</th>
                             <th>Facility</th>
-                            
+                            <th>Person Treated</th>
                             <th>Amount(Kshs)</th>
                           
 
@@ -277,22 +282,25 @@
 
                     <tbody>
                     <?php $i=1;
-                    $expenditures=DB::table('fees')->where('patient_id',$patient->id)
+                    $expenditures=DB::table('consultation_fees')->where('afyauser_id',$patient->id)
+                    ->where('fee_required','=','Yes')
                     ->whereYear('created_at','=',date("Y"))
-                    ->where('type','=','Yes')->orderby('created_at','desc')->get(); ?>
+                    ->where('fee_required','=','Yes')->orderby('created_at','desc')->get(); ?>
                     @foreach($expenditures as $yexp)
                       <tr>
                       <td>{{$i}}</td>
                        <td>{{ date('d -m- Y', strtotime($yexp->created_at)) }}</td>
             <td>{{ date('H:i:s', strtotime($yexp->created_at)) }}</td>
                       <td>St Jude's Huruma Community Health Services</td>
+                       <td>{{$yexp->person_treated}}</td>
                       <td>{{$yexp->amount}}</td>
                       </tr>
                       <?php $i++ ?>
                       @endforeach
-  <?php $yearexp=DB::table('fees')->where('patient_id',$patient->id)->whereYear('created_at','=',date("Y"))
+  <?php $yearexp=DB::table('consultation_fees')->where('afyauser_id',$patient->id)
+                    ->where('fee_required','=','Yes')->whereYear('created_at','=',date("Y"))
  ->sum('amount'); ?>
- <td></td><td></td><td></td><td>Total</td><td>{{$yearexp}}</td>
+ <td></td><td></td><td></td><td>Total</td><td></td><td>{{$yearexp}}</td>
                      </tbody>
                    </table>
                        </div>

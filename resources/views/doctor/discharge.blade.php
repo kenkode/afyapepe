@@ -2,6 +2,23 @@
 @section('content')
 <!--tabs3-->
 <?php
+$doc = (new \App\Http\Controllers\DoctorController);
+$Docdatas = $doc->DocDetails();
+foreach($Docdatas as $Docdata){
+
+
+$Did = $Docdata->doc_id;
+$Name = $Docdata->name;
+$Address = $Docdata->address;
+$RegNo = $Docdata->regno;
+$RegDate = $Docdata->regdate;
+$Speciality = $Docdata->speciality;
+$Sub_Speciality = $Docdata->subspeciality;
+$Duser = $Docdata->user_id;
+
+}
+
+
       foreach ($patientD as $pdetails) {
         // $patientid = $pdetails->pat_id;
         //  $facilty = $pdetails->FacilityName;
@@ -44,295 +61,175 @@
        </div>
    <div class="ibox-content col-md-12">
      <ul class="nav nav-tabs">
-
-         <li><a  href="{{route('showPatient',$app_id)}}">Home</a></li>
+       <li><a  href="{{route('showPatient',$app_id)}}">Today's Triage</a></li>
          <li><a href="{{route('patienthistory',$app_id)}}">History</a></li>
          <li><a href="{{route('testes',$app_id)}}">Tests</a></li>
-         <li class=""><a href="{{route('diagnoses',$app_id)}}">Diagnosis</a></li>
-         <li class=""><a href="{{route('medicines',$app_id)}}">Prescriptions</a></li>
-         <li class="active"><a href="{{route('discharge',$app_id)}}">Discharge</a></li>
- </ul>
- <div class="ibox-content">
- <div class="row">
-     <div class="col-sm-4 b-r"><h3 class="m-t-none m-b">Sign in</h3>
-
-       <div class="table-responsive ibox-content">
-         <table class="table table-striped table-bordered table-hover " >
-          <thead>
-       <tr>
-         <th>Diagnosis</th>
-         <th>Level</th>
-         <th>Severity</th>
-     </tr>
-       </thead>
-       <tbody>
-         <?php
-         $Pdiagnosis=DB::table('patient_diagnosis')
-         ->join('diagnoses','patient_diagnosis.disease_id','=','diagnoses.id')
-         ->join('severity','patient_diagnosis.severity','=','severity.id')
-         ->select('patient_diagnosis.level','diagnoses.name','diagnoses.id','severity.name as severity')
-         ->where('patient_diagnosis.appointment_id',$app_id)
-         ->get();
-         ?>
-@foreach($Pdiagnosis as $tstdn)
-         <tr>
-         <td>{{$tstdn->name}}</td>
-         <td>{{$tstdn->level}}</td>
-         <td>{{$tstdn->severity}}</td>
-        </tr>
-       @endforeach
-      </tbody>
-     </table>
-          </div>
-     </div>
-     <div class="col-sm-8"><h4>All Test Done</h4>
-<?php $i =1;
-       $tstdone = DB::table('patient_test')
-        ->leftJoin('patient_test_details', 'patient_test.id', '=', 'patient_test_details.patient_test_id')
-        ->leftJoin('facilities', 'patient_test_details.facility_id', '=', 'facilities.FacilityCode')
-        ->leftJoin('lab_test', 'patient_test_details.tests_reccommended', '=', 'lab_test.id')
-        ->leftJoin('patient_cond_diagnosis', 'patient_test.appointment_id', '=', 'patient_cond_diagnosis.appointment_id')
-        ->Join('diagnoses', 'patient_cond_diagnosis.disease_id', '=', 'diagnoses.id')
-        ->Join('diseases', 'patient_cond_diagnosis.other_disease_id', '=', 'diseases.code')
-        ->select('patient_test_details.*','facilities.*','lab_test.name','diseases.name as disease','diagnoses.name as diagnoses')
-        ->where('patient_test.appointment_id', '=',$app_id)
-        ->orderBy('created_at', 'desc')
-        ->get();
-
-     ?>
-
-     <div class="table-responsive ibox-content">
-      <table class="table table-striped table-bordered table-hover dataTables-conditional" >
-        <thead>
-     <tr>
-      <th></th>
-
-        <th>Test Name</th>
-        <th>Conditional Diagnosis</th>
-        <th>Other Diagnosis</th>
-        <th>Status</th>
-        <th>Result</th>
-
-     </tr>
-     </thead>
-
-     <tbody>
-
-     @foreach($tstdone as $tstdn)
-       <tr>
-       <td>{{ +$i }}</td>
-      <td>{{$tstdn->name}}</td>
-      <td>{{$tstdn->diagnoses}}</td>
-       <td>{{$tstdn->disease}}</td>
-       <td><?php
-       $prescs=$tstdn->done;
-       if (is_null($prescs)) {
-         $prescs= 'N/A';
-       }
-       elseif ($prescs==0) {
-         $prescs= 'Pending';
-       } elseif($prescs==1) {
-         $prescs= 'Complete';
-       }
-         ?>  {{$prescs}}</td>
-        <td>{{$tstdn->results}}</td>
-
-
-     </tr>
-     <?php $i++; ?>
-
-     @endforeach
-
-     </tbody>
-   </table>
-
-     </div> <!-- div id="testR" -->
-
-   </div>
-</div>
+         <li><a href="{{route('diagnoses',$app_id)}}">Diagnosis</a></li>
+         <li><a href="{{route('medicines',$app_id)}}">Prescriptions</a></li>
+          <?php if ($stat==2) { ?>
+         <li class=""><a href="{{route('admit',$app_id)}}">Admit</a></li>
+         <?php } ?>
+          <?php if ($stat==4) { ?>
+         <li class=""><a href="{{route('discharge',$app_id)}}">Discharge</a></li>
+          <?php } ?>
+           <li cl ass=""><a href="{{route('transfering',$app_id)}}">Transfer</a></li>
+     <?php if ($stat==2) { ?>
+         <li class="btn btn-primary"><a href="{{route('endvisit',$app_id)}}">End Visit</a></li>
+     <?php } ?>
+   </ul>
+<div class="col-md-8">
+   <div class="tabs-container">
+         <ul class="nav nav-tabs">
+            <li class="active"><a href="{{route('discharge',$app_id)}}"> Discharge Condition</a></li>
+             <li class=""><a href="{{route('disdiagnosis',$app_id)}}"> Discharge Diagnosis</a></li>
+             <li class=""><a href="{{route('disprescription',$app_id)}}">Discharge Prescription</a></li>
+         </ul>
+ </div>
 </div>
 <div class="ibox-content">
 <div class="row">
-  {{ Form::open(array('route' => array('confdiag'),'method'=>'POST')) }}
-    <div class="col-sm-4 b-r"><h3 class="m-t-none m-b">Discharge DIagnosis</h3>
-      <?php  if ($dependantdays <='28') { ?>
 
-        <div class="form-group">
-            <label for="tag_list" class=""> Diagnosis:</label>
-                 <select class="test-multiple" name="disease"  style="width: 100%" >
-                   <?php $diagnoses=DB::table('diagnoses')->where(function($query)
-            {
-                $query->where('target', '=','28 ')
-                      ->orWhere('target', '=','28-29');
-            })
-            ->get();
-              ?><option value=''>Choose one</option>
-                   @foreach($diagnoses as $diag)
-                          <option value='{{$diag->id}}'>{{$diag->name}}</option>
-                   @endforeach
-                   </select>
-             </div>
-             <?php } if ($dependantdays >='28') { ?>
-             <div class="form-group">
-                 <label for="tag_list" class="">Diagnosis:</label>
-                      <select class="test-multiple" name="disease"  style="width: 100%" >
-                        <?php $diagnoses=DB::table('diagnoses')->where(function($query)
-                 {
-                     $query->where('target', '=','29 ')
-                           ->orWhere('target', '=','28-29');
-                 })
-                 ->get();
-                   ?>
-                          <option value=''>Choose one</option>
-                        @foreach($diagnoses as $diag)
-                               <option value='{{$diag->id}}'>{{$diag->name}}</option>
-                        @endforeach
-                        </select>
-                  </div>
-                  <?php }  ?>
-                  <div class="form-group">
-                      <label for="tag_list" class="">Type of Diagnosis:</label>
-                           <select class="test-multiple" name="level"  style="width: 100%" >
-                             <option value=''>Choose one</option>
-                               <option value='Primary'>Primary</option>
-                               <option value='Secondary'>Secondary</option>
-                             </select>
-                         </div>
-                         <div class="form-group">
-                             <label for="tag_list" class="">Chronic:</label>
-                                  <select class="test-multiple" name="chronic"  style="width: 100%" >
-                                    <option value=''>Choose one</option>
-                                      <option value='Y'>YES</option>
-                                      <option value='N'>No</option>
-                                    </select>
-                             </div>
-                         <div class="form-group">
-                             <label for="tag_list" class="">Level of Severity:</label>
-                                  <select class="test-multiple" name="severity"  style="width: 100%" >
-                                    <?php $severeity=DB::table('severity')->get();
-                               ?>
-                          <option value=''>Choose one</option>
-                                    @foreach($severeity as $diag)
-                        <option value='{{$diag->id}}'>{{$diag->name}}</option>
-                                    @endforeach
-                                    </select>
-                                 </div>
-                                 <div class="form-group">
-                                   <label for="tag_list" class="">Supportive Care:</label>
-                                        <select class="test-multiple" name="care"  style="width: 100%" >
-                                          <?php $scare=DB::table('supportive_care')->get();
-                                          ?>
-                                          <option value=''>Choose one</option>
-                                          @foreach($scare as $sup)
-                                                 <option value='{{$sup->name}}'>{{$sup->name}}</option>
-                                          @endforeach
-                                          </select>
-                                    </div>
-
-                                       {{ Form::hidden('appointment_id',$app_id, array('class' => 'form-control')) }}
+    <div class="col-sm-4 b-r"><h3 class="m-t-none m-b">Discharge Condition</h3>
 
 
-
-
-          <div class="ibox-content">
-                                    <div class="text-center">
-                                    <a data-toggle="modal" class="btn btn-primary" href="#modal-form">Form in simple modal box</a>
-                                    </div>
-                                    <div id="modal-form" class="modal fade" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-body">
-                                                    <div class="row">
-                                                        <div class="col-sm-6 b-r"><h3 class="m-t-none m-b">Sign in</h3>
-
-                                                            <p>Sign in today for more expirience.</p>
-
-                                                            <form role="form">
-                                                                <div class="form-group"><label>Email</label> <input type="email" placeholder="Enter email" class="form-control"></div>
-                                                                <div class="form-group"><label>Password</label> <input type="password" placeholder="Password" class="form-control"></div>
-                                                                <div>
-                                                                    <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>Log in</strong></button>
-                                                                    <label> <input type="checkbox" class="i-checks"> Remember me </label>
-                                                                </div>
-                                                            </form>
-                                                        </div>
-                                                        <div class="col-sm-6"><h4>Not a member?</h4>
-                                                            <p>You can create an account:</p>
-                                                            <p class="text-center">
-                                                                <a href=""><i class="fa fa-sign-in big-icon"></i></a>
-                                                            </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            </div>
-                                        </div>
-                                </div>
-                            </div>
-          <div>
-              <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>Log in</strong></button>
-
-          </div>
-      </form>
-
+      <div class="form-group">
+          <label for="tag_list" class="">Discharge Condition:</label>
+               <select id="dcond" class="form-control" name="disconditions"  style="width: 100%" >
+                 <option value=''>Choose one</option>
+                 <option value="1">Discharge Referral</option>
+                 <option value="2">Discharge Home</option>
+                 <option value="3">Discharge Home With Follow up </option>
+                 <option value="4">Dead</option>
+                 </select>
+      </div>
 
 
     </div>
-    <div class="col-sm-8"><h4>All Prescription Given</h4>
-<?php $i =1;
-$prescription= DB::table('prescriptions')
-->leftJoin('prescription_details', 'prescriptions.id', '=', 'prescription_details.presc_id')
-->leftJoin('diagnoses', 'prescription_details.diagnosis', '=', 'diagnoses.id')
-->leftJoin('druglists', 'prescription_details.drug_id', '=', 'druglists.id')
-->leftJoin('frequency', 'prescription_details.frequency', '=', 'frequency.id')
-->leftJoin('route', 'prescription_details.routes', '=', 'route.id')
-->leftJoin('prescription_filled_status', 'prescription_details.id', '=', 'prescription_filled_status.presc_details_id')
-->select('diagnoses.name','druglists.drugname','frequency.name as frequency','prescriptions.created_at',
-'route.name as route','prescription_filled_status.start_date','prescription_filled_status.end_date')
-->where('prescriptions.appointment_id', '=',$app_id)
-->orderBy('created_at', 'desc')
-->get();
 
-    ?>
+    <div class="col-sm-8"><h4>Action</h4>
 
-    <div class="table-responsive ibox-content">
-     <table class="table table-striped table-bordered table-hover dataTables-conditional" >
-       <thead>
-         <tr>
-           <th></th>
-              <th>Diagnosis</th>
-              <th>Drug Name</th>
-              <th>Start Date</th>
-              <th>Stop Date</th>
-              <th>Frequeny</th>
-              <th>Route</th>
-       </tr>
-     </thead>
+      <div id="hidden_div1" style="display: none;">
+        <div id="transfer" class="panel-body">
+          {{ Form::open(array('route' => array('discharging'),'method'=>'POST')) }}
 
-     <tbody>
-       <?php $i =1; ?>
+                <div class="form-group ">
+                    <label for="presc" class="col-md-6">Facility:</label>
+                    <select id="facility" name="facility_to" class="form-control facility1" style="width: 100%"></select>
+                </div>
 
-            @foreach($prescription as $presc)
-            <tr>
-            <td>{{ +$i }}</td>
-             <td>{{$presc->name}}</td>
-             <td>{{$presc->drugname}}</td>
-              <td>{{$presc->start_date}}</td>
-              <td>{{$presc->end_date}}</td>
-              <td>{{$presc->frequency}}</td>
-              <td>{{$presc->route}}</td>
+               {{ Form::hidden('facility_from','facility id', array('class' => 'form-control')) }}
+               {{ Form::hidden('appointment_status',5, array('class' => 'form-control')) }}
+               {{ Form::hidden('appointment_id',$app_id, array('class' => 'form-control')) }}
+               {{ Form::hidden('doc_id',$doc_id, array('class' => 'form-control')) }}
+               {{ Form::hidden('target','Transfer', array('class' => 'form-control')) }}
+             {{ Form::hidden('discondition','Discharg Transfer', array('class' => 'form-control')) }}
 
-    </tr>
-    <?php $i++; ?>
 
-    @endforeach
+      <div class="form-group ">
+      <label for="role" class="control-label">Doctor note</label>
+      {{ Form::textarea('doc_note', null, array('placeholder' => 'note..','class' => 'form-control col-lg-8')) }}
+      </div>
+      <div class="form-group  col-md-offset-1">
+      <button type="submit" class="btn btn-primary">Submit</button>  </td>
+      </div>
+      {{ Form::close() }}
 
-    </tbody>
-  </table>
+      </div><!--panel body-->
+      </div>
+<!--Discharge home -->
+      <div id="hidden_div2" style="display: none;">
+  {{ Form::open(array('route' => array('discharging'),'method'=>'POST')) }}
 
-    </div> <!-- div id="testR" -->
 
+       {{ Form::hidden('appointment_status',3, array('class' => 'form-control')) }}
+       {{ Form::hidden('appointment_id',$app_id, array('class' => 'form-control')) }}
+       {{ Form::hidden('doc_id',$doc_id, array('class' => 'form-control')) }}
+       {{ Form::hidden('target','Discharge', array('class' => 'form-control')) }}
+     {{ Form::hidden('discondition','Discharg Home', array('class' => 'form-control')) }}
+
+
+      <div class="form-group ">
+      <label for="role" class="control-label">Doctor note</label>
+      {{ Form::textarea('doc_note', null, array('placeholder' => 'note..','class' => 'form-control col-lg-8')) }}
+      </div>
+      <div class="form-group  col-md-offset-1">
+      <button type="submit" class="btn btn-primary">Submit</button>  </td>
+      </div>
+      {{ Form::close() }}
   </div>
+<!--Discharge home with follow up-->
+  <div id="hidden_div3" style="display: none;">
+    {{ Form::open(array('route' => array('discharging'),'method'=>'POST')) }}
+    <div class="form-group" id="data_1">
+        <label class="font-normal">Next Doctor Visit</label>
+        <div class="input-group date">
+            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+            <input type="text" class="form-control" name="next_appointment" value="">
+        </div>
+    </div>
+
+
+
+   {{ Form::hidden('appointment_status',1, array('class' => 'form-control')) }}
+   {{ Form::hidden('appointment_id',$app_id, array('class' => 'form-control')) }}
+   {{ Form::hidden('doc_id',$doc_id, array('class' => 'form-control')) }}
+   {{ Form::hidden('target','Discharge', array('class' => 'form-control')) }}
+   {{ Form::hidden('discondition','Discharg Home Follow Up', array('class' => 'form-control')) }}
+  {{ Form::hidden('docr',$Duser, array('class' => 'form-control')) }}
+  {{ Form::hidden('afyaUser',$afyauserId, array('class' => 'form-control')) }}
+  {{ Form::hidden('dependt',$dependantId, array('class' => 'form-control')) }}
+  {{ Form::hidden('facility_id',$fac_id, array('class' => 'form-control')) }}
+
+
+  <div class="form-group ">
+  <label for="role" class="control-label">Doctor note</label>
+  {{ Form::textarea('doc_note', null, array('placeholder' => 'note..','class' => 'form-control col-lg-8')) }}
+  </div>
+  <div class="form-group  col-md-offset-1">
+  <button type="submit" class="btn btn-primary">Submit</button>  </td>
+  </div>
+  {{ Form::close() }}
 </div>
+<!--Discharge Death-->
+<div id="hidden_div4" style="display: none;">
+  {{ Form::open(array('route' => array('discharging'),'method'=>'POST')) }}
+  <div class="form-group" id="data_1">
+      <label class="font-normal">Date of Death</label>
+      <div class="input-group date">
+          <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+          <input type="text" class="form-control" name="date_of_death">
+      </div>
+  </div>
+  <div class="form-group">
+    <label class="font-normal">Time of Death</label>
+  <div class="input-group clockpicker" data-autoclose="true">
+      <input type="text" class="form-control"name="time_of_death" placeholder="09:30" >
+      <span class="input-group-addon">
+          <span class="fa fa-clock-o"></span>
+      </span>
+    </div>
+  </div>
+
+
+  {{ Form::hidden('appointment_status',0, array('class' => 'form-control')) }}
+  {{ Form::hidden('appointment_id',$app_id, array('class' => 'form-control')) }}
+  {{ Form::hidden('doc_id',$doc_id, array('class' => 'form-control')) }}
+  {{ Form::hidden('target','Discharge', array('class' => 'form-control')) }}
+  {{ Form::hidden('discondition','Discharg Death', array('class' => 'form-control')) }}
+
+<div class="form-group ">
+<label for="role" class="control-label">Doctor note</label>
+{{ Form::textarea('doc_note', null, array('placeholder' => 'note..','class' => 'form-control col-lg-8')) }}
+</div>
+<div class="form-group  col-md-offset-1">
+<button type="submit" class="btn btn-primary">Submit</button>  </td>
+</div>
+{{ Form::close() }}
+</div>
+
+
+      </div>
+  </div>
 </div>
 
 

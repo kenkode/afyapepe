@@ -22,6 +22,8 @@
     <link rel="stylesheet" href="{{asset('font-awesome/css/font-awesome.css') }}" />
     <link rel="stylesheet" href="{{asset('css/plugins/dataTables/datatables.min.css') }}" />
   <link rel="stylesheet" href="{{asset('css/plugins/datapicker/datepicker3.css') }}" />
+  <link rel="stylesheet" href="{{asset('css/plugins/clockpicker/clockpicker.css') }}" />
+
 
   <link rel="stylesheet" href="{{asset('css/plugins/steps/jquery.steps.css') }}" />
     <link rel="stylesheet" href="{{asset('css/animate.css') }}" />
@@ -61,6 +63,8 @@
    <script src="{{ asset('select/select2.min.js') }}" type="text/javascript"></script>
    <!-- Data picker -->
    <script src="{{ asset('js/plugins/datapicker/bootstrap-datepicker.js') }}" type="text/javascript"></script>
+   <!-- Clock picker -->
+   <script src="{{ asset('js/plugins/clockpicker/clockpicker.js') }}" type="text/javascript"></script>
 
    <!-- Custom and plugin javascript -->
   <script src="{{ asset('js/plugins/pace/pace.min.js') }}" type="text/javascript"></script>
@@ -80,7 +84,7 @@ $('#data_1 .input-group.date').datepicker({
               autoclose: true
           });
 
-
+  $('.clockpicker').clockpicker();
   </script>
   <script type="text/javascript">
   $.ajaxSetup({

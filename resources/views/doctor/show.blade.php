@@ -31,6 +31,7 @@ return redirect('doctor.create');
          $pname = $pdetails->firstname;
          $lname = $pdetails->secondName;
          $facilty = $pdetails->FacilityName;
+        $faciltyid = $pdetails->FacilityCode;
          $phone = $pdetails->msisdn;
          $stat= $pdetails->appstatus;
          $afyauserId= $pdetails->afyaId;
@@ -54,6 +55,19 @@ return redirect('doctor.create');
 
  $dependantdays= floor($datediff / (60 * 60 * 24));
 
+ $appStatue=$stat;
+if ($appStatue == 2) {
+  $appStatue ='ACTIVE';
+} elseif ($stat == 3) {
+  $appStatue='Discharged Outpatient';
+} elseif ($stat == 4) {
+  $appStatue='Admitted';
+} elseif ($stat == 5) {
+  $appStatue='Refered';
+}
+elseif ($stat == 6) {
+  $appStatue='Discharged Intpatient';
+}
 
 
 
@@ -63,7 +77,9 @@ return redirect('doctor.create');
     <div class="ibox-title">
         <h5>{{$pname }}{{$lname}}</h5>
         <div class="ibox-tools">
-          <a class="collapse-link">{{$facilty}}  </a>
+            <button type="btn" class="btn btn-primary">{{$appStatue}}</button>
+
+            <a class="collapse-link">{{$facilty}}  </a>
         </div>
       </div>
 
@@ -73,21 +89,46 @@ return redirect('doctor.create');
             <div class="tabs-container">
               <!-- <div class="col-lg-12 tbg"> -->
                 <ul class="nav nav-tabs">
+              
                     <li class="active"><a data-toggle="tab" href="#tab-1">Today's Triage</button></a></li>
                     <li><a href="{{route('patienthistory',$app_id)}}">History</a></li>
                     <li><a href="{{route('testes',$app_id)}}">Tests</a></li>
                     <li><a href="{{route('diagnoses',$app_id)}}">Diagnosis</a></li>
                     <li><a href="{{route('medicines',$app_id)}}">Prescriptions</a></li>
-                    <li class=""><a data-toggle="tab" href="#tab-5">Admit</a></li>
+                     <?php if ($stat==2) { ?>
+                    <li class=""><a href="{{route('admit',$app_id)}}">Admit</a></li>
+                    <?php } ?>
+                     <?php if ($stat==4) { ?>
                     <li class=""><a href="{{route('discharge',$app_id)}}">Discharge</a></li>
-                    <li class=""><a data-toggle="tab" href="#tab-7">Transfer</a></li>
+                     <?php } ?>
+                      <li cl ass=""><a href="{{route('transfering',$app_id)}}">Transfer</a></li>
+                <?php if ($stat==2) { ?>
                     <li class="btn btn-primary"><a href="{{route('endvisit',$app_id)}}">End Visit</a></li>
+                <?php } ?>
               </ul>
               <!-- </div> -->
                 <div class="tab-content">
                   <!--tabs1-->
                   <div id="tab-1" class="tab-pane active">
-                   @include('doctor.triage')
+                    <?php if ($pdetails->persontreated=='Self') {
+                    ?>
+                          @include('doctor.triage')
+                    <?php }
+                    if ($dependantdays <='28') {
+                      ?>
+               @include('doctor.triage28')
+
+                     <?php } elseif ($dependantdays <='413') {
+                       ?>
+                @include('doctor.triage59')
+
+                <?php } else  {
+                  ?>
+                @include('doctor.triage')
+
+                      <?php } ?>
+
+
                    </div><!--tabs1-->
 
 
@@ -173,7 +214,7 @@ return redirect('doctor.create');
                                         <select id="facility" name="facility_to" class="form-control facility1" style="width: 100%"></select>
                                     </div>
 
-                                   {{ Form::hidden('facility_from',$facilty, array('class' => 'form-control')) }}
+                                   {{ Form::hidden('facility_from',$faciltyid, array('class' => 'form-control')) }}
                                    {{ Form::hidden('appointment_status',5, array('class' => 'form-control')) }}
                                    {{ Form::hidden('appointment_id',$pdetails->app_id, array('class' => 'form-control')) }}
                                    {{ Form::hidden('doc_id',$Docdata->doc_id, array('class' => 'form-control')) }}

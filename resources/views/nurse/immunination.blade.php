@@ -45,18 +45,22 @@
 
      <div class="form-group">
    <label for="exampleInputEmail1">Status</label>
-   Not Done <input type="checkbox" value="Not Done"  name="status" />
+   Not Done <input type="checkbox" value="NotDone"  name="status" />
    Done <input type="checkbox" value="Done"  name="status"  />
     
 
 <div class="Done"  style="display: none">
-   <div class="form-group" id="data_1">
+   
+                 
+                 <div class="form-group" id="data_1">
                  <label for="exampleInputPassword1">Date of Vaccine</label>
                  <div class="input-group date">
                      <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                      <input type="text" class="form-control" name="vaccine_date" value="">
                  </div>
                  </div>
+                 
+               
   
 </div>
 </div>
@@ -68,7 +72,7 @@
                </div>  <!-- /.form-group -->
 
               </div>
-              </div>
+            
     </div>
     </div>
  </div>

@@ -64,13 +64,22 @@
                                                           <td><?php $gender=$patient->gender;?>
                                                             @if($gender==1){{"Male"}}@else{{"Female"}}@endif</a>
                                                           </td>
-                                                          <td>{{$patient->age}}</td>
+                                  <td><?php $dob=$patient->dob;
+                                  $interval = date_diff(date_create(), date_create($dob));
+                             $age= $interval->format(" %Y Year, %M Months, %d Days Old");?> {{$age}}
+
+                             </td>
                                                 @else
                                                           <td><a href="{{url('nurse.dependents',$patient->depid)}}">{{$i}}</a></td>
                                                           <td><a href="{{url('nurse.dependents',$patient->depid)}}">{{$patient->dfirst}} {{$patient->dsecond}}</a></td>
                                                           <td>{{$patient->dgender}}
                                                           </td>
-                                                         <td>{{$patient->dage}}</td>
+                                                         <td><?php
+                                                         $ddob=$patient->ddob;
+                                                          $intervals = date_diff(date_create(), date_create($patient->ddob));
+                             $dage= $intervals->format(" %Y Year, %M Months, %d Days Old");?>
+
+                              {{$dage}}</td></td>
 
                                                   @endif
                                                           

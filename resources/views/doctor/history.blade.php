@@ -42,19 +42,25 @@
       </div>
       <?php  }   } ?>
        </div>
-   <div class="ibox-content col-md-12">
+       <div class="col-lg-12">
+           <div class="tabs-container">
      <ul class="nav nav-tabs">
-
-         <li><a  href="{{route('showPatient',$app_id)}}">Home</a></li>
-         <li class="active"><a href="{{route('patienthistory',$app_id)}}">History</a></li>
+       <li><a  href="{{route('showPatient',$app_id)}}">Today's Triage</a></li>
+       <li  class="active"><a href="{{route('patienthistory',$app_id)}}">History</a></li>
          <li><a href="{{route('testes',$app_id)}}">Tests</a></li>
-         <li class=""><a href="{{route('diagnoses',$app_id)}}">Diagnosis</a></li>
-         <li class=""><a href="{{route('medicines',$app_id)}}">Prescriptions</a></li>
-         <!-- <li class=""><a data-toggle="tab" href="#tab-5">Admit</a></li>
-         <li class=""><a data-toggle="tab" href="#tab-6">Discharge</a></li>
-         <li class=""><a data-toggle="tab" href="#tab-7">Transfer</a></li>
-         <li class=""><a data-toggle="tab" href="#tab-8">End Visit</a></li> -->
-     </ul>
+         <li><a href="{{route('diagnoses',$app_id)}}">Diagnosis</a></li>
+         <li><a href="{{route('medicines',$app_id)}}">Prescriptions</a></li>
+          <?php if ($stat==2) { ?>
+         <li class=""><a href="{{route('admit',$app_id)}}">Admit</a></li>
+         <?php } ?>
+          <?php if ($stat==4) { ?>
+         <li class=""><a href="{{route('discharge',$app_id)}}">Discharge</a></li>
+          <?php } ?>
+           <li cl ass=""><a href="{{route('transfering',$app_id)}}">Transfer</a></li>
+     <?php if ($stat==2) { ?>
+         <li class="btn btn-primary"><a href="{{route('endvisit',$app_id)}}">End Visit</a></li>
+     <?php } ?>
+   </ul>
 
 <?php if ($dependantId =='Self') {
 $i =1;
@@ -326,6 +332,7 @@ $i=1;
                                             </div>
                                        </div>
                                   </div>
+                                </div>
 
       </div><!-- col md 12" -->
    </div><!-- emargis" -->

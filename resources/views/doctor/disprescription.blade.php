@@ -46,15 +46,13 @@
                  </div>
                  <?php  }   } ?>
                   </div>
-              <div class="col-lg-12">
-                  <div class="tabs-container">
+                <div class="ibox-content col-md-12">
                   <ul class="nav nav-tabs">
-                    <li><a  href="{{route('showPatient',$app_id)}}">Home</a></li>
-                      <li><a data-toggle="tab" href="#tab-1">Today's Triage</button></a></li>
+                  <li><a  href="{{route('showPatient',$app_id)}}">Today's Triage</a></li>
                       <li><a href="{{route('patienthistory',$app_id)}}">History</a></li>
                       <li><a href="{{route('testes',$app_id)}}">Tests</a></li>
                       <li><a href="{{route('diagnoses',$app_id)}}">Diagnosis</a></li>
-                      <li class="active"><a href="{{route('medicines',$app_id)}}">Prescriptions</a></li>
+                      <li><a href="{{route('medicines',$app_id)}}">Prescriptions</a></li>
                        <?php if ($stat==2) { ?>
                       <li class=""><a href="{{route('admit',$app_id)}}">Admit</a></li>
                       <?php } ?>
@@ -66,33 +64,46 @@
                       <li class="btn btn-primary"><a href="{{route('endvisit',$app_id)}}">End Visit</a></li>
                   <?php } ?>
                 </ul>
-        <div class="col-sm-3 b-r">
+                <div class="col-md-8">
+                   <div class="tabs-container">
+                         <ul class="nav nav-tabs">
+                            <li class=""><a href="{{route('discharge',$app_id)}}"> Discharge Condition</a></li>
+                             <li class=""><a href="{{route('disdiagnosis',$app_id)}}"> Discharge Diagnosis</a></li>
+                             <li class="active"><a href="{{route('disprescription',$app_id)}}">Discharge Prescription</a></li>
+                         </ul>
+                 </div>
+                </div>
+          </div>
+        <div class="col-sm-5 b-r">
           <div class="table-responsive ibox-content">
             <table class="table table-striped table-bordered table-hover " >
              <thead>
           <tr>
             <th>Diagnosis</th>
+            <th>Level</th>
+            <th>Severity</th>
         </tr>
           </thead>
           <tbody>
 @foreach($Pdiagnosis as $tstdn)
             <tr>
             <td>{{$tstdn->name}}</td>
+            <td>{{$tstdn->level}}</td>
+            <td>{{$tstdn->severity}}</td>
            </tr>
           @endforeach
          </tbody>
         </table>
              </div>
           </div>
-                  <div class="col-sm-9 ">
-                    <div class="ibox float-e-margins ibox-content">
+                  <div class="col-sm-7">
                     <br />
                     {{ Form::open(array('route' => array('prescription.store'),'method'=>'POST')) }}
                           <div class="form-group">
 
                             <div class="form-group">
                                 <label for="dosage" class="col-md-4">Prescription For:</label></td>
-                                 <select class="form-control m-b col-md-4" name="disease_id" id="example-getting-started" style="width: 50%">
+                                 <select class="form-control m-b col-md-8" name="disease_id" id="example-getting-started" style="width: 50%">
                                   <?php $druglists=DB::table('druglists')->distinct()->get(['DosageForm']); ?>
                                   @foreach($Pdiagnosis as $tstdn)
                                          <option value='{{$tstdn->id}}'>{{$tstdn->name}}</option>
@@ -160,7 +171,6 @@
 
                                         {{ Form::close() }}
                                               </div>
-                                            </div>
 <?php $i =1;
 
 if ($dependantdays <='28') {
@@ -172,10 +182,10 @@ if ($dependantdays <='28') {
   ->leftJoin('frequency', 'prescription_details.frequency', '=', 'frequency.id')
   ->leftJoin('route', 'prescription_details.routes', '=', 'route.id')
   ->leftJoin('prescription_filled_status', 'prescription_details.id', '=', 'prescription_filled_status.presc_details_id')
-  ->select('diagnoses.name','druglists.drugname','frequency.name as frequency','prescriptions.created_at',
+  ->select('diagnoses.name','druglists.drugname','frequency.name as frequency','prescriptions.created_at','prescription_details.created_at as dater',
   'route.name as route','prescription_filled_status.start_date','prescription_filled_status.end_date')
   ->where('appointments.persontreated', '=',$dependantId)
-  ->orderBy('created_at', 'desc')
+  ->orderBy('dater', 'desc')
   ->get();
 
 }if ($dependantId =='Self') {
@@ -187,10 +197,10 @@ $tstdone = DB::table('appointments')
 ->leftJoin('frequency', 'prescription_details.frequency', '=', 'frequency.id')
 ->leftJoin('route', 'prescription_details.routes', '=', 'route.id')
 ->leftJoin('prescription_filled_status', 'prescription_details.id', '=', 'prescription_filled_status.presc_details_id')
-->select('diagnoses.name','druglists.drugname','frequency.name as frequency','prescriptions.created_at',
+->select('diagnoses.name','druglists.drugname','frequency.name as frequency','prescriptions.created_at','prescription_details.created_at as dater',
 'route.name as route','prescription_filled_status.start_date','prescription_filled_status.end_date')
 ->where('appointments.afya_user_id', '=',$afyauserId)
-->orderBy('created_at', 'desc')
+->orderBy('dater', 'desc')
 ->get();
 
 }
@@ -261,7 +271,6 @@ $tstdone = DB::table('appointments')
                                                         </div>
                                                    </div>
                                               </div>
-                        </div>
+
                     </div>
-                      </div>
                     @endsection

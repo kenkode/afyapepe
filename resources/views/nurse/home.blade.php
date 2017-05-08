@@ -58,7 +58,7 @@
                                                           <td><?php $gender=$patient->gender;?>
                                                             @if($gender==1){{"Male"}}@else{{"Female"}}@endif</a>
                                                           </td>
-                                                          <td>{{$patient->age}}</td>
+                                                          <td>{{$patient->dob}}</td>
 
                                                           <td>{{$patient->created_at}}</td>
 

@@ -64,9 +64,11 @@ class RegistrarController extends Controller
       $blood=$request->blood;
       $pob=$request->pob;
       $dob=$request->dob;
-      $age=$request->age;
+     
       $relation=$request->relationship;
       $school=$request->school;
+
+$newDate = date("Y-m-d", strtotime($dob));
 
       $parent=DB::table('afya_users')->where('id',$id)->first();
       $name=$parent->firstname.$parent->secondName;
@@ -81,11 +83,10 @@ class RegistrarController extends Controller
       'secondName'=> $second,
       'gender'=>$gender,
       'blood_type'=>$blood,
-      'dob'=>$dob,
+      'dob'=>$newDate,
       'pob'=>$pob,
-      'age'=>0,
       'relationship'=>$relation,
-      'school'=>$school
+   
       ]
   );
 
@@ -222,12 +223,13 @@ public function dependantTriage($id){
       $type=$request->type;
       $mode=$request->mode;
       $amount=$request->amount;
-      DB::table('fees')->insert(
-      ['patient_id' => $id,
-      'type'=>$type,
-      'descr' => $descr,
-      'action'=> $mode,
+
+      DB::table('consultation_fees')->insert(
+      ['afyauser_id' => $id,
+      'fee_required'=>$type,
+      'payments_method'=> $mode,
       'amount'=> $amount,
+      'person_treated'=>'Self',
       'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
       'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
   );
@@ -260,8 +262,8 @@ public function dependantTriage($id){
     }
  public function Dependentconsultationfee(Request $request){
       $id=$request->id;
-      $descr=$request->descr;
-      $type=$request->type;
+        $type=$request->type;
+        $afyauser=$request->afya_user;
       $mode=$request->mode;
       $amount=$request->amount;
       $user=$request->afya_user;
@@ -283,12 +285,13 @@ public function dependantTriage($id){
  'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
  'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
 
-   DB::table('fees')->insert(
-      ['patient_id' => $id,
-      'type'=>$type,
-      'descr' => $descr,
-      'action'=> $mode,
+   DB::table('consultation_fees')->insert(
+      ['afyauser_id' => $afyauser,
+      'dependent_id'=>$id,
+      'fee_required'=>$type,
+      'payments_method'=> $mode,
       'amount'=> $amount,
+      'person_treated'=>'Dependent',
       'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
       'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
   );
@@ -296,10 +299,10 @@ public function dependantTriage($id){
 
  }
  public function Fees(){
-   $fees=DB::table('fees')->
-   join('afya_users','fees.patient_id','=','afya_users.id')->where('type','=','yes')
-   ->select('fees.*','afya_users.firstname','afya_users.secondName')->
-   orderby('fees.created_at','desc')->get();
+   $fees=DB::table('consultation_fees')->
+   join('afya_users','consultation_fees.afyauser_id','=','afya_users.id')->where('fee_required','=','Yes')
+   ->select('consultation_fees.*','afya_users.firstname','afya_users.secondName')->
+   orderby('consultation_fees.created_at','desc')->get();
 
    return view('registrar.fees')->with('fees',$fees);
  }

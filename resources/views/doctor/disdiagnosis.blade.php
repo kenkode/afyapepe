@@ -39,13 +39,12 @@ $dependantdays= floor($datediff / (60 * 60 * 24));
       </div>
       <?php  }   } ?>
        </div>
-       <div class="col-lg-12">
-           <div class="tabs-container">
+   <div class="ibox-content col-md-12">
      <ul class="nav nav-tabs">
-       <li><a  href="{{route('showPatient',$app_id)}}">Today's Triage</a></li>
+      <li><a  href="{{route('showPatient',$app_id)}}">Today's Triage</a></li>
          <li><a href="{{route('patienthistory',$app_id)}}">History</a></li>
          <li><a href="{{route('testes',$app_id)}}">Tests</a></li>
-         <li class="active"><a href="{{route('diagnoses',$app_id)}}">Diagnosis</a></li>
+         <li><a href="{{route('diagnoses',$app_id)}}">Diagnosis</a></li>
          <li><a href="{{route('medicines',$app_id)}}">Prescriptions</a></li>
           <?php if ($stat==2) { ?>
          <li class=""><a href="{{route('admit',$app_id)}}">Admit</a></li>
@@ -58,99 +57,19 @@ $dependantdays= floor($datediff / (60 * 60 * 24));
          <li class="btn btn-primary"><a href="{{route('endvisit',$app_id)}}">End Visit</a></li>
      <?php } ?>
    </ul>
-
+   <div class="col-md-8">
+      <div class="tabs-container">
+            <ul class="nav nav-tabs">
+               <li class=""><a href="{{route('discharge',$app_id)}}"> Discharge Condition</a></li>
+                <li class="active"><a href="{{route('disdiagnosis',$app_id)}}"> Discharge Diagnosis</a></li>
+                <li class=""><a href="{{route('disprescription',$app_id)}}">Discharge Prescription</a></li>
+            </ul>
+    </div>
+   </div>
      <!--Test result tabs PatientController@testdone-->
-     <div id="testR">
-     <?php $i =1;
-
-      if ($dependantdays <='28') {
-        $tstdone = DB::table('appointments')
-            ->leftJoin('patient_test', 'appointments.id', '=', 'patient_test.appointment_id')
-        ->leftJoin('patient_test_details', 'patient_test.id', '=', 'patient_test_details.patient_test_id')
-        ->leftJoin('facilities', 'patient_test_details.facility_id', '=', 'facilities.FacilityCode')
-        ->leftJoin('lab_test', 'patient_test_details.tests_reccommended', '=', 'lab_test.id')
-        ->leftJoin('patient_cond_diagnosis', 'patient_test.appointment_id', '=', 'patient_cond_diagnosis.appointment_id')
-        ->Join('diagnoses', 'patient_cond_diagnosis.disease_id', '=', 'diagnoses.id')
-        ->Join('diseases', 'patient_cond_diagnosis.other_disease_id', '=', 'diseases.code')
-        ->select('patient_test_details.*','facilities.*','lab_test.name','diseases.name as disease','diagnoses.name as diagnoses')
-        ->where('appointments.persontreated', '=',$dependantId)
-        ->orderBy('created_at', 'desc')
-        ->get();
-
-     }elseif ($dependantdays >='28') {
-       $tstdone = DB::table('appointments')
-           ->leftJoin('patient_test', 'appointments.id', '=', 'patient_test.appointment_id')
-       ->leftJoin('patient_test_details', 'patient_test.id', '=', 'patient_test_details.patient_test_id')
-       ->leftJoin('facilities', 'patient_test_details.facility_id', '=', 'facilities.FacilityCode')
-       ->leftJoin('lab_test', 'patient_test_details.tests_reccommended', '=', 'lab_test.id')
-       ->leftJoin('patient_cond_diagnosis', 'patient_test.appointment_id', '=', 'patient_cond_diagnosis.appointment_id')
-       ->Join('diagnoses', 'patient_cond_diagnosis.disease_id', '=', 'diagnoses.id')
-       ->Join('diseases', 'patient_cond_diagnosis.other_disease_id', '=', 'diseases.code')
-       ->select('patient_test_details.*','facilities.*','lab_test.name','diseases.name as disease','diagnoses.name as diagnoses')
-       ->where('appointments.afya_user_id', '=',$afyauserId)
-       ->orderBy('created_at', 'desc')
-       ->get();
-
-     }
-     ?>
-
-     <div class="table-responsive ibox-content">
-
-     <table class="table table-striped table-bordered table-hover dataTables-conditional" >
-        <thead>
-     <tr>
-      <th></th>
-         <th>Date </th>
-        <th>Test Name</th>
-        <th>Conditional Diagnosis</th>
-        <th>Other Diagnosis</th>
-        <th>Status</th>
-        <th>Result</th>
-        <th>Faciity</th>
-        <th>Note</th>
 
 
-     </tr>
-     </thead>
-
-     <tbody>
-
-     @foreach($tstdone as $tstdn)
-       <tr>
-       <td>{{ +$i }}</td>
-      <td>{{$tstdn->created_at}}</td>
-       <td>{{$tstdn->name}}</td>
-      <td>{{$tstdn->diagnoses}}</td>
-       <td>{{$tstdn->disease}}</td>
-       <td><?php
-       $prescs=$tstdn->done;
-       if (is_null($prescs)) {
-         $prescs= 'N/A';
-       }
-       elseif ($prescs==0) {
-         $prescs= 'Pending';
-       } elseif($prescs==1) {
-         $prescs= 'Complete';
-       }
-         ?>  {{$prescs}}</td>
-        <td>{{$tstdn->results}}</td>
-        <td>{{$tstdn->FacilityName}}</td>
-        <td>{{$tstdn->note}}</td>
-
-     </tr>
-     <?php $i++; ?>
-
-     @endforeach
-
-     </tbody>
-     </table>
-        </div>
-     </div> <!-- div id="testR" -->
-     <button id="diag" class="btn btn-primary btn-block btn-outline">Confirm Diagnosis</button>
-
-
- <div class="ibox-content col-md-12">
-<div id="confdiag" class="divtest">
+<div id="" class="">
   {{ Form::open(array('route' => array('confdiag'),'method'=>'POST')) }}
 
 <div class="col-sm-6 b-r">
@@ -235,7 +154,7 @@ $dependantdays= floor($datediff / (60 * 60 * 24));
                               @endforeach
                               </select>
                         </div>
-                           {{ Form::hidden('state','Normal', array('class' => 'form-control')) }}
+                           {{ Form::hidden('state','Discharge', array('class' => 'form-control')) }}
                            {{ Form::hidden('appointment_id',$app_id, array('class' => 'form-control')) }}
                         </div>
                </div>
@@ -247,8 +166,8 @@ $dependantdays= floor($datediff / (60 * 60 * 24));
 
 
   {{ Form::close() }}
-</div>
-</div><!-- tabs-container -->
+
+</div><!-- testes -->
       </div><!-- col md 12" -->
    </div><!-- emargis" -->
 

@@ -104,8 +104,6 @@ class PharmacyController extends Controller
         ->groupBy('prescription_details.id')
         ->get();
 
-
-
       //return response()->view('pharmacy.show')->with('patients',$patients)->header('Content-Type', $type);
       return view('pharmacy.show')->with('patients',$patients);
     }
@@ -373,19 +371,27 @@ class PharmacyController extends Controller
 
   }
 
-  $query1 = DB::table('prescription_filled_status')
+  /*$query1 = DB::table('prescription_filled_status')
           ->select(DB::raw('count(presc_details_id) as presc_ids'))
           ->where('presc_details_id','=',$id)
           ->whereNotNull('substitute_presc_id')
           ->orWhere('available', '=', 'Yes')
+          ->first();*/
+  $query1 = DB::table('prescription_filled_status')
+          ->select(DB::raw('SUM(dose_given) AS total_given'))
+          ->where('presc_details_id','=',$id)
           ->first();
-  $count1 = $query1->presc_ids;
+  $count1 = $query1->total_given;
 
-  $query2 = DB::table('prescription_details')
+  /*$query2 = DB::table('prescription_details')
           ->select(DB::raw('count(id) as ids'))
           ->where('presc_id', '=', $the_id)
+          ->first();*/
+
+  $query2 = DB::table('prescription_details')
+          ->where('id', '=', $id)
           ->first();
-  $count2 = $query2->ids;
+  $count2 = $query2->strength;
 
   if($count1 == $count2)
   {

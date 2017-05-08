@@ -138,10 +138,10 @@ $('#diag_id').val(data_id);
 </script>
 
 <script>
- $('#sub2').keyup(function(){
- if($(this).val()<document.getElementById('gg').value)
- $('#subs').show();
- else
- $('#subs').hide();
-   });
+ // $('#sub2').bind("input propertychange",function(){
+ // if($(this).val()<document.getElementById('gg').value)
+ // $('#subs').show();
+ // else
+ // $('#subs').hide();
+ //   });
  </script>

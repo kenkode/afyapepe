@@ -33,6 +33,7 @@
   $( function() {
     var dateFormat = "mm/dd/yy",
       from = $( ".from" ).datepicker({
+          minDate: -0,
           defaultDate: "+1w",
           changeMonth: true,
           numberOfMonths: 3

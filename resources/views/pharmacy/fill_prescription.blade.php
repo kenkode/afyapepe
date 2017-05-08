@@ -192,9 +192,22 @@
 
             <input type="hidden" name="p_id" value="<?php echo $results->the_id; ?>" />
             <input type="hidden" name="presc_id" value="<?php echo $results->presc_id; ?>" />
+            <?php
+            $query1 = DB::table('prescription_filled_status')
+                    ->select(DB::raw('SUM(dose_given) AS total_given'))
+                    ->where('presc_details_id','=',$results->presc_id)
+                    ->first();
+            $count1 = $query1->total_given;
+
+            $query2 = DB::table('prescription_details')
+                    ->where('id', '=', $results->presc_id)
+                    ->first();
+            $count2 = $query2->strength;
+            $final = $count2 - $count1;
+             ?>
 
            <div class="form-group"><label>Drug</label> <input type="text" name="drug" value="{{$results->drugname}}"  class="form-control" readonly></div>
-           <div class="form-group"><label>Strength</label> <input type="text" id="gg" value="{{$results->strength}}"  class="form-control" readonly></div>
+           <div class="form-group"><label>Strength</label> <input type="text" id="gg" value="{{$final}}"  class="form-control" readonly></div>
            <div class="form-group">
                <label>Is the drug prescribed issued as written?</label>
            </div>
@@ -231,7 +244,7 @@
                </script>
 
                <div class="Box" style="display:none">
-               <div class="form-group"><label>Dose Given</label> <input type="number" id="sub2" name="dose_given1"  class="form-control"></div>
+
                <div class="form-group" id="subs" style="display:none">
                  <label>Reason</label>
                   <select class="form-control" name="reason22" >
@@ -248,8 +261,9 @@
                <label for="to">to</label>
                <input class="to" type="text" name="to1">
                </div>
-               <div class="form-group"><label>Quantity</label> <input type="number" name="quantity" id="quantity" class="form-control" oninput="calculate()"></div>
-
+               <div class="form-group"><label>Weight</label> <input type="number" id="weight1" name="weight1"  class="form-control" oninput="calc1()"></div>
+               <div class="form-group"><label>Quantity</label> <input type="number" name="quantity" id="quantity" class="form-control" oninput="calculate();calc1();"></div>
+               <div class="form-group"><label>Dose Given</label> <input type="number" id="sub2" name="dose_given1"  class="form-control" oninput="calc1()" readonly></div>
                <div class="form-group"><label>Price</label> <input type="number" name="price" id="price" class="form-control" oninput="calculate()"></div>
                <div class="form-group"><label>Total</label> <input type="number" name="total" id="total" class="form-control" readonly oninput="calculate()"></div>
 
@@ -330,9 +344,10 @@
             </select>
          </div>
 
-         <div class="form-group"><label>Dose Given</label> <input type="number" name="dose_given2"  class="form-control"></div>
-         <!-- <div class="form-group"><label>Reason</label> <textarea class="form-control" name="reason"></textarea></div> -->
-         <div class="form-group"><label>Quantity</label> <input type="number" name="quantity1" id="quantity1" class="form-control" oninput="calculated()"></div>
+
+         <div class="form-group"><label>Weight</label> <input type="number" id="weight2" name="weight2"  class="form-control" oninput="calc2()"></div>
+         <div class="form-group"><label>Quantity</label> <input type="number" name="quantity1" id="quantity1" class="form-control" oninput="calc2();calculated();"></div>
+         <div class="form-group"><label>Dose Given</label> <input type="number" name="dose_given2" id="sus"  class="form-control" oninput="calc2()" readonly></div>
          <div class="form-group"><label>Price</label> <input type="number" name="price1" id="price1" class="form-control" oninput="calculated()"></div>
          <div class="form-group">
          <label for="from">From</label>
@@ -346,29 +361,62 @@
          </div>
 
          <script type="text/javascript">
+         function calc1()
+             {
+           var myInput8 = document.getElementById('quantity').value;
+           var myInput7 = document.getElementById('weight1').value;
+
+           var h_change= document.getElementById('sub2');
+
+            myResult4 =(+myInput7) * (+myInput8) ;
+            h_change.value = myResult4;
+             }
+
+         function calc2()
+             {
+             var myInput8 = document.getElementById('quantity1').value;
+             var myInput7 = document.getElementById('weight2').value;
+
+             var h_change= document.getElementById('sus');
+
+              myResult4 =(+myInput7) * (+myInput8) ;
+              h_change.value = myResult4;
+             }
+
          function calculate()
              {
-            	var myInput7 = document.getElementById('quantity').value;
-                 var myInput8 = document.getElementById('price').value;
+               var myInput7 = document.getElementById('quantity').value;
+               var myInput8 = document.getElementById('price').value;
 
-                 var h_change= document.getElementById('total');
+               var h_change= document.getElementById('total');
 
-                  myResult4 =(+myInput7) * (+myInput8) ;
-                  h_change.value = myResult4;
+                myResult4 =(+myInput7) * (+myInput8) ;
+                h_change.value = myResult4;
              }
 
              function calculated()
                  {
-                	var myInput7 = document.getElementById('quantity1').value;
-                     var myInput8 = document.getElementById('price1').value;
+                   var myInput7 = document.getElementById('quantity1').value;
+                   var myInput8 = document.getElementById('price1').value;
 
-                     var h_change= document.getElementById('total1');
+                   var h_change= document.getElementById('total1');
 
-                      myResult4 =(+myInput7) * (+myInput8) ;
-                      h_change.value = myResult4;
+                    myResult4 =(+myInput7) * (+myInput8) ;
+                    h_change.value = myResult4;
                  }
+
+
          </script>
 
+         <script>
+          document.getElementById("subs2").addEventListener("change", function()
+          {
+            if($(this).val()<document.getElementById('gg').value)
+            $('#subs').show();
+            else
+            $('#subs').hide();
+            });
+          </script>
 
 
          <p> </p>

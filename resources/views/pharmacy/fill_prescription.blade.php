@@ -28,6 +28,7 @@
                 <thead>
 
                   <tr>
+                      <th>No</th>
                       <th>Allergy Type</th>
                       <th>Allergy Name</th>
                       <th>Date of Diagnosis</th>
@@ -35,10 +36,12 @@
                   </thead>
                   <tbody>
                     <?php
+                    $i = 1;
                     foreach ($allergies as $allergy)
                     {
                       ?>
                   <tr class="gradeX">
+                  <td>{{$i}}</td>
                   <td>{{$allergy->name}}</td>
                   <td>{{$allergy->a_name}} </td>
                   <td>
@@ -49,6 +52,7 @@
 
                   </tr>
                   <?php
+                  $i++;
                    }
                  ?>
                 </tbody>
@@ -87,21 +91,25 @@
                 <thead>
 
                   <tr>
+                      <th>No</th>
                       <th>Illness</th>
                       <th>Date Diagnosed</th>
                   </tr>
                   </thead>
                   <tbody>
                     <?php
+                    $i = 1;
                     foreach ($diseases as $disease)
                     {
                       ?>
                   <tr class="gradeX">
+                  <td>{{$i}}</td>
                   <td>{{$disease->disease}}</td>
                   <td>{{$disease->date_diagnosed}} </td>
 
                   </tr>
                   <?php
+                  $i++;
                    }
                  ?>
                 </tbody>
@@ -140,6 +148,7 @@
              <thead>
 
                <tr>
+                   <th>No</th>
                    <th>Drug</th>
                    <th>Dosage Prescribed</th>
                    <th>Dosage Given</th>
@@ -149,6 +158,7 @@
                </thead>
                <tbody>
                  <?php
+                 $i = 1;
                  foreach ($drugs as $drug)
                  {
                    ?>
@@ -161,6 +171,7 @@
 
                </tr>
                <?php
+               $i++;
                 }
               ?>
              </tbody>

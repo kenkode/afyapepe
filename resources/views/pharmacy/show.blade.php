@@ -60,9 +60,10 @@
 
   <!-- <select class="presc1 form-control" style="width:500px;" name="itemName"></select>
   <input class="form-control" id="q" placeholder="Search users" name="q" type="text" > -->
-    
+
 
      <tr>
+         <th>No</th>
          <th>Name</th>
          <th>Drug</th>
          <th>Dosage Form</th>
@@ -74,13 +75,27 @@
      </tr>
      </thead>
      <tbody>
-       <?php
+
+       <?php $i =1;
        foreach ($patients as $patient)
        {
+         $person_treated = $patient->persontreated;
          ?>
      <tr class="gradeX">
 
+     <td>{{$i}}</td>
+     <?php
+     if($person_treated == 'Self')
+     {
+      ?>
      <td>{{$patient->firstname.' '.$patient->secondName}}</td>
+     <?php
+     }
+     else
+     {?>
+       <td>{{$patient->fname.' '.$patient->sname}}</td>
+     <?php }
+      ?>
      <td>{{$patient->drugname}}</td>
      <td>{{$patient->doseform}}</td>
      <td>{{$patient->strength}}</td>
@@ -100,11 +115,13 @@
 
      </tr>
      <?php
+     $i++;
    }
     ?>
    </tbody>
   <tfoot>
     <tr>
+      <th>No</th>
       <th>Name</th>
       <th>Drug</th>
       <th>Dosage Form</th>

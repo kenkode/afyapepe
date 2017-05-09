@@ -89,15 +89,17 @@ class PharmacyController extends Controller
         ->join('druglists', 'prescription_details.drug_id', '=', 'druglists.id')
         ->join('appointments', 'prescriptions.appointment_id', '=', 'appointments.id')
         ->join('afya_users', 'afya_users.id', '=', 'appointments.afya_user_id')
+        ->join('dependant', 'dependant.afya_user_id', '=', 'afya_users.id')
         ->join('afyamessages', 'afyamessages.msisdn', '=', 'afya_users.msisdn')
         ->join('route', 'prescription_details.routes', '=', 'route.id')
         ->leftJoin('prescription_filled_status', 'prescription_details.id', '=', 'prescription_filled_status.presc_details_id')
         ->select('druglists.drugname', 'prescriptions.*','prescription_details.*',
-        'afya_users.*', 'route.name','prescription_details.id AS presc_id','prescriptions.id AS the_id')
+        'afya_users.*', 'route.name','prescription_details.id AS presc_id','prescriptions.id AS the_id',
+        'appointments.persontreated','dependant.firstName AS fname', 'dependant.secondName AS sname')
         ->where([
           ['prescriptions.id', '=', $id],
           ['afyamessages.facilityCode', '=', $facility],
-          ['afyamessages.created_at','>=',$today],
+          ['afyamessages.created_at','>=',$today]
         ])
         ->whereNull('prescription_filled_status.presc_details_id')
         ->whereIn('prescriptions.filled_status', [0, 2])
@@ -249,20 +251,112 @@ class PharmacyController extends Controller
 
       $prescs = DB::table('prescriptions')
         ->join('prescription_details', 'prescription_details.presc_id', '=', 'prescriptions.id')
+        ->join('doctors', 'doctors.doc_id', '=', 'prescriptions.doc_id')
         ->join('druglists', 'prescription_details.drug_id', '=', 'druglists.id')
         ->join('appointments', 'prescriptions.appointment_id', '=', 'appointments.id')
         ->join('afya_users', 'afya_users.id', '=', 'appointments.afya_user_id')
         ->join('afyamessages', 'afyamessages.msisdn', '=', 'afya_users.msisdn')
         ->join('prescription_filled_status', 'prescription_filled_status.presc_details_id', '=', 'prescription_details.id')
-        ->select('druglists.drugname', 'prescription_filled_status.*','prescription_details.*',
-        'prescription_filled_status.created_at AS date_filled')
+        ->select('druglists.drugname','druglists.Manufacturer','prescription_filled_status.*','prescription_details.*',
+        'prescription_filled_status.created_at AS date_filled','doctors.name AS doc','prescriptions.created_at AS prescription_date')
         ->where([
           ['afyamessages.facilityCode', '=', $facility],
         ])
         ->groupBy('prescription_filled_status.id')
         ->get();
 
-        return view('pharmacy.filled_prescriptions')->with('prescs',$prescs);
+        /* Get today's sales*/
+        $todays = DB::table('prescriptions')
+          ->join('prescription_details', 'prescription_details.presc_id', '=', 'prescriptions.id')
+          ->join('doctors', 'doctors.doc_id', '=', 'prescriptions.doc_id')
+          ->join('druglists', 'prescription_details.drug_id', '=', 'druglists.id')
+          ->join('appointments', 'prescriptions.appointment_id', '=', 'appointments.id')
+          ->join('afya_users', 'afya_users.id', '=', 'appointments.afya_user_id')
+          ->join('afyamessages', 'afyamessages.msisdn', '=', 'afya_users.msisdn')
+          ->join('prescription_filled_status', 'prescription_filled_status.presc_details_id', '=', 'prescription_details.id')
+          ->select('druglists.drugname','druglists.Manufacturer','prescription_filled_status.*','prescription_details.*',
+          'prescription_filled_status.created_at AS date_filled','doctors.name AS doc',
+          DB::raw('prescription_filled_status.quantity * prescription_filled_status.price AS total'),
+          'prescriptions.created_at AS prescription_date')
+          ->where([
+            ['afyamessages.facilityCode', '=', $facility],
+          ])
+          ->whereRaw('date(prescription_filled_status.created_at) = CURDATE()')
+          ->orderby('prescription_filled_status.created_at','desc')
+          ->groupBy('prescription_filled_status.id')
+          ->get();
+
+          /* Get this week's sales*/
+          $weeks = DB::table('prescriptions')
+            ->join('prescription_details', 'prescription_details.presc_id', '=', 'prescriptions.id')
+            ->join('doctors', 'doctors.doc_id', '=', 'prescriptions.doc_id')
+            ->join('druglists', 'prescription_details.drug_id', '=', 'druglists.id')
+            ->join('appointments', 'prescriptions.appointment_id', '=', 'appointments.id')
+            ->join('afya_users', 'afya_users.id', '=', 'appointments.afya_user_id')
+            ->join('afyamessages', 'afyamessages.msisdn', '=', 'afya_users.msisdn')
+            ->join('prescription_filled_status', 'prescription_filled_status.presc_details_id', '=', 'prescription_details.id')
+            ->select('druglists.drugname','druglists.Manufacturer','prescription_filled_status.*','prescription_details.*',
+            'prescription_filled_status.created_at AS date_filled','doctors.name AS doc',
+            DB::raw('prescription_filled_status.quantity * prescription_filled_status.price AS total'),
+            'prescriptions.created_at AS prescription_date')
+            ->where([
+              ['afyamessages.facilityCode', '=', $facility],
+            ])
+            ->whereBetween('prescription_filled_status.created_at', [
+            Carbon::now()->startOfWeek(),
+            Carbon::now()->endOfWeek(),
+            ])
+            ->orderby('prescription_filled_status.created_at','desc')
+            ->groupBy('prescription_filled_status.id')
+            ->get();
+
+            /* Get this month's sales*/
+            $months = DB::table('prescriptions')
+              ->join('prescription_details', 'prescription_details.presc_id', '=', 'prescriptions.id')
+              ->join('doctors', 'doctors.doc_id', '=', 'prescriptions.doc_id')
+              ->join('druglists', 'prescription_details.drug_id', '=', 'druglists.id')
+              ->join('appointments', 'prescriptions.appointment_id', '=', 'appointments.id')
+              ->join('afya_users', 'afya_users.id', '=', 'appointments.afya_user_id')
+              ->join('afyamessages', 'afyamessages.msisdn', '=', 'afya_users.msisdn')
+              ->join('prescription_filled_status', 'prescription_filled_status.presc_details_id', '=', 'prescription_details.id')
+              ->select('druglists.drugname','druglists.Manufacturer','prescription_filled_status.*','prescription_details.*',
+              'prescription_filled_status.created_at AS date_filled','doctors.name AS doc',
+              DB::raw('prescription_filled_status.quantity * prescription_filled_status.price AS total'),
+              'prescriptions.created_at AS prescription_date')
+              ->where([
+                ['afyamessages.facilityCode', '=', $facility],
+              ])
+              ->whereBetween('prescription_filled_status.created_at', [
+              Carbon::now()->startOfMonth(),
+              Carbon::now()->endOfMonth(),
+              ])
+              ->orderby('prescription_filled_status.created_at','desc')
+              ->groupBy('prescription_filled_status.id')
+              ->get();
+
+              /* Get this year's sales*/
+              $years = DB::table('prescriptions')
+                ->join('prescription_details', 'prescription_details.presc_id', '=', 'prescriptions.id')
+                ->join('doctors', 'doctors.doc_id', '=', 'prescriptions.doc_id')
+                ->join('druglists', 'prescription_details.drug_id', '=', 'druglists.id')
+                ->join('appointments', 'prescriptions.appointment_id', '=', 'appointments.id')
+                ->join('afya_users', 'afya_users.id', '=', 'appointments.afya_user_id')
+                ->join('afyamessages', 'afyamessages.msisdn', '=', 'afya_users.msisdn')
+                ->join('prescription_filled_status', 'prescription_filled_status.presc_details_id', '=', 'prescription_details.id')
+                ->select('druglists.drugname','druglists.Manufacturer','prescription_filled_status.*','prescription_details.*',
+                'prescription_filled_status.created_at AS date_filled','doctors.name AS doc',
+                DB::raw('prescription_filled_status.quantity * prescription_filled_status.price AS total'),
+                'prescriptions.created_at AS prescription_date')
+                ->where([
+                  ['afyamessages.facilityCode', '=', $facility],
+                ])
+                ->whereRaw('YEAR(prescription_filled_status.created_at) = YEAR(CURDATE())')
+                ->orderby('prescription_filled_status.created_at','desc')
+                ->groupBy('prescription_filled_status.id')
+                ->get();
+
+        return view('pharmacy.filled_prescriptions')->with('prescs',$prescs)->with('todays',$todays)
+                ->with('weeks',$weeks)->with('months',$months)->with('years',$years);
     }
 
     public function create()

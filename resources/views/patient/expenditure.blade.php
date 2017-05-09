@@ -131,7 +131,9 @@
                       <td>St Jude's Huruma Community Health Services</td>
                         <td><?php $person=$exp->person_treated; if($person=='Dependent'){
                           $user=DB::table('dependant')->where('id',$exp->dependent_id)->first();
-                          }?>{{$user->firstName}} {{$user->secondName }}</td>
+                          echo $user->firstName." ".$user->secondName; }
+                          else{ echo "Primary";
+                            }?></td>
                       <td>{{$exp->amount}}</td>
                       </tr>
                       <?php $i++ ?>
@@ -216,7 +218,7 @@
                       <td>St Jude's Huruma Community Health Services</td>
                       <td><?php $mperson=$mexp->person_treated; if($mperson=='Dependent'){
                           $userm=DB::table('dependant')->where('id',$mexp->dependent_id)->first();
-                          }?>{{$userm->firstName}} {{$userm->secondName }}</td>
+                         echo $userm->firstName." ".$userm->secondName;} else{ echo "Primary";}?></td>
                       <td>{{$mexp->amount}}</td>
                       </tr>
                       <?php $i++ ?>
@@ -298,7 +300,9 @@
                       <td>St Jude's Huruma Community Health Services</td>
                        <td><?php $yperson=$yexp->person_treated; if($yperson=='Dependent'){
                           $usery=DB::table('dependant')->where('id',$yexp->dependent_id)->first();
-                          }?>{{$usery->firstName}} {{$usery->secondName }}</td>
+                          echo $usery->firstName." ".$usery->secondName;} else{
+                            echo "Primary";
+                            }?></td>
                       <td>{{$yexp->amount}}</td>
                       </tr>
                       <?php $i++ ?>

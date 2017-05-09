@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="{{asset('bootstrap/css/bootstrap.min.css') }}" />
     <link rel="stylesheet" href="{{asset('select/select2.min.css') }}" />
 
-
+  <link rel="stylesheet" href="{{asset('css/plugins/chosen/bootstrap-chosen.css') }}" />
     <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.js"></script> -->
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
@@ -52,6 +52,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   <script src="{{asset('js/ajaxscript.js')}}"></script>
 
+  <!-- Chosen -->
+  <script src="{{ asset('js/plugins/chosen/chosen.jquery.js') }}"></script>
+
     <!-- Mainly scripts -->
     <script src="{{ asset('js/jquery-3.1.1.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('bootstrap/js/bootstrap.min.js') }}" type="text/javascript"></script>
@@ -75,7 +78,9 @@
 
 
 
-  <script>
+
+
+<script>
 $('#data_1 .input-group.date').datepicker({
               todayBtn: "linked",
               keyboardNavigation: false,
@@ -245,6 +250,32 @@ if (typeof $(this).data('id') !== 'undefined') {
    }
    $('#diag_id').val(data_id);
  })
+});
+</script>
+<script>
+$(document).ready(function() {
+$('a[data-toggle=modal], button[data-toggle=modal]').click(function () {
+
+  var data_id = '';
+if (typeof $(this).data('id') !== 'undefined') {
+     data_id = $(this).data('id');
+  }
+  var data_value = '';
+if (typeof $(this).data('value') !== 'undefined') {
+     data_value = $(this).data('value');
+  }
+
+
+  $('#edit-content').val(data_id);
+  $('#diseaseid').val(data_value);
+})
+});
+
+
+//fix modal force focus
+
+$('#test-pt').select2({
+    dropdownParent: $('#edit-modal')
 });
 </script>
 </body>

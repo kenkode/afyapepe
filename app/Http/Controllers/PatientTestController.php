@@ -45,6 +45,29 @@ public function diagnoses($id)
   ->get();
   return view('doctor.diagnosis')->with('patientD',$patientD);
 }
+public function diagnosesconf(Request $request)
+{
+ $appointment=$request->get('appointment_id');
+ $pat_details_id = $request->get('pat_details_id');
+
+  $patientD=DB::table('appointments')
+  ->leftjoin('afya_users','appointments.afya_user_id','=','afya_users.id')
+  ->leftjoin('dependant','appointments.persontreated','=','dependant.id')
+  ->leftjoin('facilities','appointments.facility_id','=','facilities.FacilityCode')
+  ->select('appointments.*','afya_users.firstname','afya_users.secondName','afya_users.gender',
+    'dependant.firstName as dep1name','dependant.secondName as dep2name','dependant.gender as depgender',
+    'dependant.dob as depdob','facilities.FacilityName')
+  ->where('appointments.id',$appointment)
+  ->get();
+
+  $patientT=DB::table('patient_test_details')
+  ->join('diagnoses','patient_test_details.conditional_diag_id','=','diagnoses.id')
+  ->select('diagnoses.id','diagnoses.name','patient_test_details.id as ptdid')
+  ->where('patient_test_details.id', $pat_details_id)
+  ->first();
+
+  return view('doctor.diagnosisconfirm')->with('patientD',$patientD)->with('patientT',$patientT);
+}
 public function discharges($id)
 {
 
@@ -116,10 +139,10 @@ public function disprescription($id)
   ->get();
 
   $Pdiagnosis=DB::table('patient_diagnosis')
-  ->leftjoin('diagnoses','patient_diagnosis.disease_id','=','diagnoses.id')
+  ->leftjoin('diagnoses','patient_diagnosis.disease_id','=','diagnoses.name')
   ->leftjoin('severity','patient_diagnosis.severity','=','severity.id')
   ->select('diagnoses.name','patient_diagnosis.level','severity.name as severity','diagnoses.id')
-  
+
   ->where([
                 ['patient_diagnosis.appointment_id',$id],
                 ['patient_diagnosis.state', '=', 'Discharge'],
@@ -146,12 +169,14 @@ public function store(Request $request)
 {
 
     $this->validate($request, [
-          'doc_id' => 'required',
-           'appointment_id' => 'required',
-
-          ]);
-
+                'doc_id' => 'required',
+                 'appointment_id' => 'required',
+              ]);
+ $afya_user_id=$request->get('afya_user_id');
+ $dependant_id=$request->get('dependant_id');
  $appointment=$request->get('appointment_id');
+
+
  $pttids= Patienttest::where('appointment_id',$appointment)
   ->first();
 
@@ -168,20 +193,25 @@ public function store(Request $request)
       $ptid =$pttids->id;
      }
 // Inserting  conditional_diagnosis tests
+     //
+    //  $conditional_id= DB::table('patient_cond_diagnosis')-> insertGetId(array(
+    //               'disease_id' => $request->get('mainconditional'),
+    //               'other_disease_id' => $request->get('conditional'),
+    //               'appointment_id' => $request->get('appointment_id'),
+    //               'patient_test_id' => $ptid,
+     //
+    //            ));
 
-     $conditional= DB::table('patient_cond_diagnosis')->insert([
-                  'disease_id' => $request->get('mainconditional'),
-                  'other_disease_id' => $request->get('conditional'),
-                  'appointment_id' => $request->get('appointment_id'),
-                  'patient_test_id' => $ptid,
-
-               ]);
      // Insertingmalaria2 tests
      $malaria2=$request->malaria2;
      if ($malaria2) {
        foreach($malaria2 as $key) {
      $patienttd = DB::table('patient_test_details')->insert([
-                'patient_test_id' => $ptid,
+                  'patient_test_id' => $ptid,
+                  'afya_user_id'=> $afya_user_id,
+                  'dependant_id' => $dependant_id,
+                  'appointment_id' => $request->get('appointment_id'),
+                  'conditional_diag_id' => $request->get('mainconditional'),
                   'tests_reccommended' => $key,
                   'done' => 0,
                ]);
@@ -192,7 +222,11 @@ public function store(Request $request)
      if ($haematology2) {
        foreach($haematology2 as $key) {
      $patienttd = DB::table('patient_test_details')->insert([
-         'patient_test_id' => $ptid,
+                 'patient_test_id' => $ptid,
+                 'afya_user_id'=> $afya_user_id,
+                 'dependant_id' => $dependant_id,
+                 'appointment_id' => $request->get('appointment_id'),
+                  'conditional_diag_id' => $request->get('mainconditional'),
                   'tests_reccommended' => $key,
                   'done' => 0,
                ]);
@@ -204,6 +238,10 @@ public function store(Request $request)
        foreach($chemistry2 as $key) {
      $patienttd = DB::table('patient_test_details')->insert([
                   'patient_test_id' => $ptid,
+                  'afya_user_id'=> $afya_user_id,
+                  'dependant_id' => $dependant_id,
+                  'appointment_id' => $request->get('appointment_id'),
+                  'conditional_diag_id' => $request->get('mainconditional'),
                   'tests_reccommended' => $key,
                   'done' => 0,
                ]);
@@ -215,6 +253,10 @@ public function store(Request $request)
        foreach($hiv2 as $key) {
      $patienttd = DB::table('patient_test_details')->insert([
                   'patient_test_id' => $ptid,
+                  'afya_user_id'=> $afya_user_id,
+                  'dependant_id' => $dependant_id,
+                  'appointment_id' => $request->get('appointment_id'),
+                    'conditional_diag_id' => $request->get('mainconditional'),
                   'tests_reccommended' => $key,
                   'done' => 0,
                ]);
@@ -226,6 +268,10 @@ public function store(Request $request)
        foreach($glucose2 as $key) {
      $patienttd = DB::table('patient_test_details')->insert([
                   'patient_test_id' => $ptid,
+                  'afya_user_id'=> $afya_user_id,
+                  'dependant_id' => $dependant_id,
+                  'appointment_id' => $request->get('appointment_id'),
+                    'conditional_diag_id' => $request->get('mainconditional'),
                   'tests_reccommended' => $key,
                   'done' => 0,
                ]);
@@ -237,6 +283,10 @@ public function store(Request $request)
        foreach($microbiology2 as $key) {
      $patienttd = DB::table('patient_test_details')->insert([
                   'patient_test_id' => $ptid,
+                  'afya_user_id'=> $afya_user_id,
+                  'dependant_id' => $dependant_id,
+                  'appointment_id' => $request->get('appointment_id'),
+                'conditional_diag_id' => $request->get('mainconditional'),
                   'tests_reccommended' => $key,
                   'done' => 0,
                ]);
@@ -248,6 +298,10 @@ public function store(Request $request)
        foreach($xray2 as $key) {
      $patienttd = DB::table('patient_test_details')->insert([
                   'patient_test_id' => $ptid,
+                  'afya_user_id'=> $afya_user_id,
+                  'dependant_id' => $dependant_id,
+                  'appointment_id' => $request->get('appointment_id'),
+                  'conditional_diag_id' => $request->get('mainconditional'),
                   'tests_reccommended' => $key,
                   'done' => 0,
                ]);
@@ -259,6 +313,10 @@ public function store(Request $request)
        foreach($tb as $key) {
      $patienttd = DB::table('patient_test_details')->insert([
                   'patient_test_id' => $ptid,
+                  'afya_user_id'=> $afya_user_id,
+                  'dependant_id' => $dependant_id,
+                  'appointment_id' => $request->get('appointment_id'),
+                  'conditional_diag_id' => $request->get('mainconditional'),
                   'tests_reccommended' => $key,
                   'done' => 0,
                ]);
@@ -270,6 +328,10 @@ public function store(Request $request)
        foreach($urine as $key) {
      $patienttd = DB::table('patient_test_details')->insert([
                  'patient_test_id' => $ptid,
+                 'afya_user_id'=> $afya_user_id,
+                 'dependant_id' => $dependant_id,
+                 'appointment_id' => $request->get('appointment_id'),
+                 'conditional_diag_id' => $request->get('mainconditional'),
                   'tests_reccommended' => $key,
                   'done' => 0,
                ]);
@@ -281,6 +343,10 @@ if ($Rtests) {
   foreach($Rtests as $key) {
 $patienttd = DB::table('patient_test_details')->insert([
              'patient_test_id' => $ptid,
+             'afya_user_id'=> $afya_user_id,
+             'dependant_id' => $dependant_id,
+             'appointment_id' => $request->get('appointment_id'),
+             'conditional_diag_id' => $request->get('mainconditional'),
              'tests_reccommended' => $key,
              'done' => 0,
           ]);
@@ -294,6 +360,10 @@ $patienttd = DB::table('patient_test_details')->insert([
                  foreach($Ctests as $key) {
                $patienttd = DB::table('patient_test_details')->insert([
                             'patient_test_id' => $ptid,
+                            'afya_user_id'=> $afya_user_id,
+                            'dependant_id' => $dependant_id,
+                            'appointment_id' => $request->get('appointment_id'),
+                            'conditional_diag_id' => $request->get('mainconditional'),
                             'tests_reccommended' => $key,
                             'done' => 0,
                          ]);
@@ -305,6 +375,10 @@ $patienttd = DB::table('patient_test_details')->insert([
                      foreach($Htests as $key) {
                    $patienttd = DB::table('patient_test_details')->insert([
                                 'patient_test_id' => $ptid,
+                                'afya_user_id'=> $afya_user_id,
+                                'dependant_id' => $dependant_id,
+                                'appointment_id' => $request->get('appointment_id'),
+                                'conditional_diag_id' => $request->get('mainconditional'),
                                 'tests_reccommended' => $key,
                                 'done' => 0,
                              ]);
@@ -317,6 +391,10 @@ $patienttd = DB::table('patient_test_details')->insert([
 
                      $patienttd = DB::table('patient_test_details')->insert([
                                   'patient_test_id' => $ptid,
+                                  'afya_user_id'=> $afya_user_id,
+                                  'dependant_id' => $dependant_id,
+                                  'appointment_id' => $request->get('appointment_id'),
+                                  'conditional_diag_id' => $request->get('mainconditional'),
                                   'tests_reccommended' => $key,
                                   'done' => 0,
                                ]);
@@ -328,6 +406,10 @@ $patienttd = DB::table('patient_test_details')->insert([
                      foreach($Atests as $key) {
                    $patienttd = DB::table('patient_test_details')->insert([
                                 'patient_test_id' => $ptid,
+                                'afya_user_id'=> $afya_user_id,
+                                'dependant_id' => $dependant_id,
+                                'appointment_id' => $request->get('appointment_id'),
+                                'conditional_diag_id' => $request->get('mainconditional'),
                                 'tests_reccommended' => $key,
                                 'done' => 0,
                              ]);
@@ -339,6 +421,10 @@ $patienttd = DB::table('patient_test_details')->insert([
                   foreach($Mtests as $key) {
                    $patienttd = DB::table('patient_test_details')->insert([
                                 'patient_test_id' => $ptid,
+                                'afya_user_id'=> $afya_user_id,
+                                'dependant_id' => $dependant_id,
+                                'appointment_id' => $request->get('appointment_id'),
+                                'conditional_diag_id' => $request->get('mainconditional'),
                                 'tests_reccommended' => $key,
                                 'done' => 0,
                              ]);

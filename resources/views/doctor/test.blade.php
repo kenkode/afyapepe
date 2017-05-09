@@ -66,35 +66,16 @@
      <div id="testR">
      <?php $i =1;
 
-      if ($dependantdays <='28') {
-        $tstdone = DB::table('appointments')
-        ->leftJoin('patient_test', 'appointments.id', '=', 'patient_test.appointment_id')
-        ->leftJoin('patient_test_details', 'patient_test.id', '=', 'patient_test_details.patient_test_id')
-        ->leftJoin('facilities', 'patient_test_details.facility_id', '=', 'facilities.FacilityCode')
-        ->leftJoin('lab_test', 'patient_test_details.tests_reccommended', '=', 'lab_test.id')
-        ->leftJoin('patient_cond_diagnosis', 'patient_test.appointment_id', '=', 'patient_cond_diagnosis.appointment_id')
-        ->leftJoin('diagnoses', 'patient_cond_diagnosis.disease_id', '=', 'diagnoses.id')
-        ->leftJoin('diseases', 'patient_cond_diagnosis.other_disease_id', '=', 'diseases.code')
-        ->select('patient_test_details.*','facilities.*','lab_test.name','diseases.name as disease','diagnoses.name as diagnoses')
-        ->where('appointments.persontreated', '=',$dependantId)
+        $tstdone = DB::table('patient_test_details')
+       ->leftJoin('facilities', 'patient_test_details.facility_id', '=', 'facilities.FacilityCode')
+       ->leftJoin('lab_test', 'patient_test_details.tests_reccommended', '=', 'lab_test.id')
+       ->leftJoin('diagnoses', 'patient_test_details.conditional_diag_id', '=', 'diagnoses.id')
+       ->select('patient_test_details.*','facilities.*','lab_test.name','diagnoses.name as diagnoses')
+       ->where('patient_test_details.afya_user_id', '=',$afyauserId)
+           ->orWhere('patient_test_details.dependant_id', '=',$dependantId)
         ->orderBy('created_at', 'desc')
         ->get();
 
-     }if ($dependantId =='Self') {
-       $tstdone = DB::table('appointments')
-           ->leftJoin('patient_test', 'appointments.id', '=', 'patient_test.appointment_id')
-       ->leftJoin('patient_test_details', 'patient_test.id', '=', 'patient_test_details.patient_test_id')
-       ->leftJoin('facilities', 'patient_test_details.facility_id', '=', 'facilities.FacilityCode')
-       ->leftJoin('lab_test', 'patient_test_details.tests_reccommended', '=', 'lab_test.id')
-       ->leftJoin('patient_cond_diagnosis', 'patient_test.appointment_id', '=', 'patient_cond_diagnosis.appointment_id')
-       ->Join('diagnoses', 'patient_cond_diagnosis.disease_id', '=', 'diagnoses.id')
-       ->Join('diseases', 'patient_cond_diagnosis.other_disease_id', '=', 'diseases.code')
-       ->select('patient_test_details.*','facilities.*','lab_test.name','diseases.name as disease','diagnoses.name as diagnoses')
-       ->where('appointments.afya_user_id', '=',$afyauserId)
-       ->orderBy('created_at', 'desc')
-       ->get();
-
-     }
      ?>
 
      <div class="table-responsive ibox-content">
@@ -105,7 +86,6 @@
          <th>Date </th>
         <th>Test Name</th>
         <th>Conditional Diagnosis</th>
-        <th>Other Diagnosis</th>
         <th>Status</th>
         <th>Result</th>
         <th>Faciity</th>
@@ -123,7 +103,7 @@
       <td>{{$tstdn->created_at}}</td>
        <td>{{$tstdn->name}}</td>
       <td>{{$tstdn->diagnoses}}</td>
-       <td>{{$tstdn->disease}}</td>
+
        <td><?php
        $prescs=$tstdn->done;
        if (is_null($prescs)) {
@@ -190,10 +170,7 @@
                     </select>
               </div>
                <?php }  ?>
-<div class="form-group ">
-    <label for="d_list2"> Other Conditional Diagnosis:</label>
-    <select id="d_list2" name="conditional" class="d_list2 form-control" style="width: 100%"></select>
-</div>
+
 
 
           <div class="col-sm-6 b-r">
@@ -381,6 +358,8 @@
                  </div>
 
               </div>
+{{ Form::hidden('afya_user_id',$afyauserId, array('class' => 'form-control')) }}
+{{ Form::hidden('dependant_id',$dependantId, array('class' => 'form-control')) }}
 
 {{ Form::hidden('appointment_id',$app_id, array('class' => 'form-control')) }}
 {{ Form::hidden('doc_id',$doc_id, array('class' => 'form-control')) }}

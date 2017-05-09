@@ -176,21 +176,15 @@ $i =1;
 
 <?php } }
 $i=1;
-   $tstdone = DB::table('appointments')
-  ->leftJoin('patient_test', 'appointments.id', '=', 'patient_test.appointment_id')
-   ->leftJoin('patient_test_details', 'patient_test.id', '=', 'patient_test_details.patient_test_id')
-   ->leftJoin('facilities', 'patient_test_details.facility_id', '=', 'facilities.FacilityCode')
-   ->leftJoin('lab_test', 'patient_test_details.tests_reccommended', '=', 'lab_test.id')
-   ->leftJoin('patient_cond_diagnosis', 'patient_test.appointment_id', '=', 'patient_cond_diagnosis.appointment_id')
-   ->Join('diagnoses', 'patient_cond_diagnosis.disease_id', '=', 'diagnoses.id')
-   ->Join('diseases', 'patient_cond_diagnosis.other_disease_id', '=', 'diseases.code')
-   ->select('patient_test_details.*','facilities.*','lab_test.name','diseases.name as disease','diagnoses.name as diagnoses')
-
-   ->where('appointments.afya_user_id', '=',$afyauserId)
-      ->orWhere('appointments.persontreated', '=',$dependantId)
-   ->orderBy('created_at', 'desc')
-   ->get();
-
+$tstdone = DB::table('patient_test_details')
+->leftJoin('facilities', 'patient_test_details.facility_id', '=', 'facilities.FacilityCode')
+->leftJoin('lab_test', 'patient_test_details.tests_reccommended', '=', 'lab_test.id')
+->leftJoin('diagnoses', 'patient_test_details.conditional_diag_id', '=', 'diagnoses.id')
+->select('patient_test_details.*','facilities.*','lab_test.name','diagnoses.name as diagnoses')
+->where('patient_test_details.afya_user_id', '=',$afyauserId)
+   ->orWhere('patient_test_details.dependant_id', '=',$dependantId)
+->orderBy('created_at', 'desc')
+->get();
 
    ?>
    <div class="ibox-title">
@@ -199,69 +193,69 @@ $i=1;
          <a class="collapse-link"></a>
        </div>
      </div>
-   <div class="table-responsive ibox-content">
-   <table class="table table-striped table-bordered table-hover dataTables-conditional" >
-    <thead>
-   <tr>
-   <th></th>
-     <th>Date </th>
-    <th>Test Name</th>
-    <th>Conditional Diagnosis</th>
-    <th>Other Diagnosis</th>
-    <th>Status</th>
-    <th>Result</th>
-    <th>Faciity</th>
-    <th>Note</th>
+     <div class="table-responsive ibox-content">
+      <table class="table table-striped table-bordered table-hover dataTables-conditional" >
+        <thead>
+     <tr>
+      <th></th>
+         <th>Date </th>
+        <th>Test Name</th>
+        <th>Conditional Diagnosis</th>
+        <th>Status</th>
+        <th>Result</th>
+        <th>Faciity</th>
+        <th>Note</th>
 
 
-   </tr>
-   </thead>
+     </tr>
+     </thead>
 
-   <tbody>
+     <tbody>
 
-   @foreach($tstdone as $tstdn)
-   <tr>
-   <td>{{ +$i }}</td>
-   <td>{{$tstdn->created_at}}</td>
-   <td>{{$tstdn->name}}</td>
-   <td>{{$tstdn->diagnoses}}</td>
-   <td>{{$tstdn->disease}}</td>
-   <td><?php
-   $prescs=$tstdn->done;
-   if (is_null($prescs)) {
-     $prescs= 'N/A';
-   }
-   elseif ($prescs==0) {
-     $prescs= 'Pending';
-   } elseif($prescs==1) {
-     $prescs= 'Complete';
-   }
-     ?>  {{$prescs}}</td>
-    <td>{{$tstdn->results}}</td>
-    <td>{{$tstdn->FacilityName}}</td>
-    <td>{{$tstdn->note}}</td>
+     @foreach($tstdone as $tstdn)
+       <tr>
+       <td>{{ +$i }}</td>
+      <td>{{$tstdn->created_at}}</td>
+       <td>{{$tstdn->name}}</td>
+      <td>{{$tstdn->diagnoses}}</td>
 
-   </tr>
-   <?php $i++; ?>
+       <td><?php
+       $prescs=$tstdn->done;
+       if (is_null($prescs)) {
+         $prescs= 'N/A';
+       }
+       elseif ($prescs==0) {
+         $prescs= 'Pending';
+       } elseif($prescs==1) {
+         $prescs= 'Complete';
+       }
+         ?>  {{$prescs}}</td>
+        <td>{{$tstdn->results}}</td>
+        <td>{{$tstdn->FacilityName}}</td>
+        <td>{{$tstdn->note}}</td>
 
-   @endforeach
+     </tr>
+     <?php $i++; ?>
 
-   </tbody>
-   </table>
-    </div>
+     @endforeach
+
+     </tbody>
+     </table>
+        </div>
     <?php
-    $prescriptions = DB::table('appointments')
-    ->leftJoin('prescriptions', 'appointments.id', '=', 'prescriptions.appointment_id')
-    ->leftJoin('prescription_details', 'prescriptions.id', '=', 'prescription_details.presc_id')
+
+    $prescriptions = DB::table('prescription_details')
+
     ->leftJoin('diagnoses', 'prescription_details.diagnosis', '=', 'diagnoses.id')
     ->leftJoin('druglists', 'prescription_details.drug_id', '=', 'druglists.id')
     ->leftJoin('frequency', 'prescription_details.frequency', '=', 'frequency.id')
     ->leftJoin('route', 'prescription_details.routes', '=', 'route.id')
     ->leftJoin('prescription_filled_status', 'prescription_details.id', '=', 'prescription_filled_status.presc_details_id')
-    ->select('diagnoses.name','druglists.drugname','frequency.name as frequency','prescriptions.created_at',
+    ->select('diagnoses.name','druglists.drugname','frequency.name as frequency','prescription_details.created_at',
     'route.name as route','prescription_filled_status.start_date','prescription_filled_status.end_date')
-    ->where('appointments.afya_user_id', '=',$afyauserId)
-       ->orWhere('appointments.persontreated', '=',$dependantId)
+
+    ->where('prescription_details.afya_user_id', '=',$afyauserId)
+       ->orWhere('prescription_details.dependant_id', '=',$dependantId)
     ->orderBy('created_at', 'desc')
     ->get();
 

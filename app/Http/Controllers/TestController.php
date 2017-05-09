@@ -31,12 +31,16 @@ class TestController extends Controller
     {
 
       $tsts = DB::table('patient_test')
-      ->Join('appointments', 'patient_test.appointment_id', '=', 'appointments.id')
-      ->Join('afya_users', 'appointments.afya_user_id', '=', 'afya_users.id')
-      ->Join('patient_test_details', 'patient_test.id', '=', 'patient_test_details.patient_test_id')
-      ->Join('diseases', 'patient_test_details.conditional_diagnosis', '=', 'diseases.code')
-      ->select('afya_users.*','diseases.name as disease','patient_test_details.created_at as date','patient_test.test_status')
-      // ->where('patient_test.test_status', '!=',1)
+      ->leftJoin('appointments', 'patient_test.appointment_id', '=', 'appointments.id')
+      ->leftJoin('afya_users', 'appointments.afya_user_id', '=', 'afya_users.id')
+      ->leftJoin('dependant', 'appointments.persontreated', '=', 'dependant.id')
+      ->leftJoin('patient_test_details', 'patient_test.id', '=', 'patient_test_details.patient_test_id')
+     ->select('afya_users.*','patient_test.id as tid','patient_test_details.created_at as date',
+      'patient_test.test_status','appointments.persontreated','dependant.firstName as depname',
+      'dependant.firstName as depname','dependant.secondName as depname2','dependant.gender as depgender',
+      'dependant.dob as depdob')
+      ->where('patient_test_details.done', '=',0)
+
       ->get();
 
         return view('test.home')->with('tsts',$tsts);
@@ -45,12 +49,12 @@ class TestController extends Controller
 public function testdetails($id){
   $tsts = DB::table('patient_test')
   ->Join('appointments', 'patient_test.appointment_id', '=', 'appointments.id')
-   ->Join('afya_users', 'appointments.afya_user_id', '=', 'afya_users.id')
-    ->Join('triage_details', 'appointments.id', '=', 'triage_details.appointment_id')
+  ->Join('afya_users', 'appointments.afya_user_id', '=', 'afya_users.id')
+  ->Join('triage_details', 'appointments.id', '=', 'triage_details.appointment_id')
   ->Join('patient_test_details', 'patient_test.id', '=', 'patient_test_details.patient_test_id')
-  ->Join('diseases', 'patient_test_details.conditional_diagnosis', '=', 'diseases.code')
+  ->Join('diagnoses', 'patient_test_details.conditional_diag_id', '=', 'diagnoses.id')
   ->Join('lab_test', 'patient_test_details.tests_reccommended', '=', 'lab_test.id')
-  ->select('afya_users.*','diseases.name as disease','patient_test_details.created_at as date','patient_test_details.done',
+  ->select('afya_users.*','diagnoses.name as disease','patient_test_details.created_at as date','patient_test_details.done',
   'patient_test_details.id as patTdid','triage_details.*','lab_test.name as testname','lab_test.category','lab_test.sub_category')
 
   ->where([

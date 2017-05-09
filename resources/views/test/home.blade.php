@@ -44,7 +44,7 @@
 																												<th>Patient Name</th>
 																												<th>Gender</th>
 																												<th>Age</th>
-																												<th>Conditional Diesease</th>
+																												<!-- <th>Conditional Diesease</th> -->
 																												<th>Date Created</th>
 																												<th>Status</th>
 																									</tr>
@@ -55,9 +55,15 @@
 																									<?php $i =1; ?>
 
 																									@foreach($tsts as $tst)
-																									<?php  $gender= $tst->gender;
-																									if ($gender==1) {$gender='Male';}else{$gender='Female';}
-																									 $dob=$tst->dob;
+																									<?php
+																									if ($tst->persontreated=='Self') {$gender= $tst->gender; }
+																									else {$gender= $tst->depgender;}
+
+																									  if ($gender==1) {$gender='Male';}else{$gender='Female';}
+
+																										if ($tst->persontreated=='Self') {$dob=$tst->dob; }
+																										else {$dob=$tst->depdob;}
+
 																									 $interval = date_diff(date_create(), date_create($dob));
 																									 $age= $interval->format(" %Y Year, %M Months, %d Days Old");
 
@@ -70,14 +76,20 @@
 																									}else {
 																										$status='NOT DONE';
 																									}
+
+
                                                   ?>
 																									  <tr>
-																									  <td><a href="{{route('patientTest',$tst->id)}}">{{$i}}</a></td>
-																									 <td><a href="{{route('patientTest',$tst->id)}}">{{$tst->firstname}} {{$tst->secondName}}</a></td>
-																									  <td>{{$gender}}</td>
-																									  <td>
-												                              {{$age}}</td>
-																									  <td>{{$tst->disease}}</td>
+																									  <td><a href="{{route('patientTest',$tst->tid)}}">{{$i}}</a></td>
+																									 <td><a href="{{route('patientTest',$tst->tid)}}">
+																									 <?php if ($tst->persontreated=='Self') {echo $tst->firstname ;  echo $tst->secondName;}
+																									 else {echo $tst->depname; echo $tst->depame2;}
+																									 ?></a></td>
+
+
+																										<td>{{$gender}}</td>
+																									  <td>{{$age}}</td>
+
 																									   <td>{{$tst->date}}</td>
 																										 <td>{{$status}}</td>
 																								</tr>

@@ -22,6 +22,8 @@ class PrescriptionController extends Controller
      $appointment=$request->get('appointment_id');
     $state = $request->get('state');
      $care=$request->get('care');
+    $ptdid =$request->get('ptdid');
+    $disease_id = $request->get('disease');
      // Inserting  supportive care
      if ($care) {
     $supportiveCare= DB::table('patient_supp_care')->insert([
@@ -30,8 +32,20 @@ class PrescriptionController extends Controller
                           ]);
               }
 // Inserting  diagnosis tests
+$pttids= DB::table('patient_diagnosis')
+->select('disease_id')
+->where([
+              ['appointment_id',$appointment],
+              ['disease_id', '=',$disease_id],
+ ])
+->first();
+
+
+    if (is_null($pttids)) {
      $diagnosis= DB::table('patient_diagnosis')->insert([
                         'disease_id' => $request->get('disease'),
+                        'afya_user_id' => $request->get('afya_user_id'),
+                        'dependant_id' => $request->get('dependant_id'),
                         'level' => $request->get('level'),
                         'state' => $request->get('state'),
                         'severity' => $request->get('severity'),
@@ -39,10 +53,14 @@ class PrescriptionController extends Controller
                         'appointment_id' => $request->get('appointment_id'),
                         'date_diagnosed' => $Now,
 ]);
+}
+DB::table('patient_test_details')
+          ->where('id',$ptdid)
+          ->update(['confirm'=>'Y']);
 
-if ($state== 'Discharge') {
+if ($state == 'Discharge') {
 return redirect()->route('disdiagnosis', ['id' => $appointment]);
-} else {
+} elseif ($state =='Normal'){
 return redirect()->route('diagnoses', ['id' => $appointment]);
 }
 
@@ -62,8 +80,14 @@ return redirect()->route('diagnoses', ['id' => $appointment]);
 
       $Pdiagnosis=DB::table('patient_diagnosis')
       ->leftjoin('diagnoses','patient_diagnosis.disease_id','=','diagnoses.id')
-      ->select('diagnoses.name','diagnoses.id')
-      ->where('patient_diagnosis.appointment_id',$id)
+      ->leftjoin('severity','patient_diagnosis.severity','=','severity.id')
+      ->select('diagnoses.name','patient_diagnosis.level','severity.name as severity','diagnoses.id')
+
+      ->where([
+                    ['patient_diagnosis.appointment_id',$id],
+                    ['patient_diagnosis.state', '=', 'Normal'],
+
+                   ])
       ->get();
       return view('doctor.prescription')->with('patientD',$patientD)->with('Pdiagnosis',$Pdiagnosis);
 
@@ -102,11 +126,14 @@ return redirect()->route('diagnoses', ['id' => $appointment]);
       // Already exist - get the id the existing
        $id =$pttids->id;
       }
-
+      $afya_user_id=$request->get('afya_user_id');
+      $dependant_id=$request->get('dependant_id');
 $prescrt=$request->prescription;
 if ($prescrt) {
     Prescription_detail::create([
            'presc_id' => $id,
+           'afya_user_id'=> $afya_user_id,
+           'dependant_id' => $dependant_id,
            'state' => $request['state'],
            'diagnosis' => $request['disease_id'],
            'drug_id' => $request['prescription'],
@@ -117,7 +144,7 @@ if ($prescrt) {
            'frequency' => $request['frequency'],
        ]);
 }
- if ($state=='Discharge') {
+ if ($state =='Discharge') {
 return redirect()->route('disprescription',$appid);
 } else {
   return redirect()->route('medicines',$appid);

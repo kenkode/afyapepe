@@ -105,7 +105,7 @@
 																												<th>Conditional Diesease</th>
 																												<th>Status</th>
 																												<th>Date Created</th>
-																												<th>Date Created</th>
+
 																									</tr>
 																								</thead>
 
@@ -120,7 +120,7 @@
 																									 <td>{{$tst->testname}}</td>
 																									  <td>{{$tst->category}}</td>
 																									  <td>{{$tst->sub_category}}</td>
-																									  <td>{{$tst->disease}}</td>
+																									  <td>{{$tst->disease }}</td>
 																									   <td><?php
 																										 $status=$tst->done; if ($status==0) {
 																									   	$status='NOT DONE';
@@ -131,13 +131,12 @@
                                                   {{$status}}</td>
 
 																										  <td>{{$tst->date}}</td>
-																											<td>{{$tst->patTdid}}</td>
+
 																											<td>
 																												<div>
 																													<button type="button" class="btn btn-primary" data-toggle="modal" data-id="{{$tst->patTdid}}"
 																														 data-target="#edit-modal">Perform Test</button>
-
-																								</td>
+                                                   	</td>
 																								</tr>
 																									<?php $i++; ?>
 

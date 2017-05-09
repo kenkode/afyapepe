@@ -89,7 +89,7 @@ elseif ($stat == 6) {
             <div class="tabs-container">
               <!-- <div class="col-lg-12 tbg"> -->
                 <ul class="nav nav-tabs">
-              
+
                     <li class="active"><a data-toggle="tab" href="#tab-1">Today's Triage</button></a></li>
                     <li><a href="{{route('patienthistory',$app_id)}}">History</a></li>
                     <li><a href="{{route('testes',$app_id)}}">Tests</a></li>
@@ -114,7 +114,7 @@ elseif ($stat == 6) {
                     ?>
                           @include('doctor.triage')
                     <?php }
-                    if ($dependantdays <='28') {
+                    elseif ($dependantdays <='28') {
                       ?>
                @include('doctor.triage28')
 

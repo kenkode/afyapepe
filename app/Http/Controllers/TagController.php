@@ -36,6 +36,28 @@ class TagController extends Controller
 
     {
   $Now = Carbon::now();
+  $nextappointment=$request->next_appointment;
+  $doc_note=$request->doc_notedoc_note;
+
+  if ($nextappointment) {
+    DB::table('appointments')->insert([
+        'status'  => $request->get('appointment_status'),
+        'afya_user_id'  => $request->get('afyaUser'),
+        'persontreated'  => $request->get('dependt'),
+        'appointment_made'  => 'Y',
+        'appointment_date'  => $nextappointment,
+        'created_by_users_id'  => $request->get('docr'),
+  ]);
+  }
+    if ($doc_note) {
+  DB::table('patientNotes')->insert([
+      'appointment_id'  => $request->get('appointment_id'),
+      'note'  => $request->get('doc_note'),
+      'written_by'   => 'Doctor',
+      'target'  => 'Admition',
+  ]);
+}
+
       DB::table('patient_admitted')->insert([
           'appointment_id'  => $request->get('appointment_id'),
           'facility'  => $request->get('facility'),
@@ -43,12 +65,6 @@ class TagController extends Controller
           'doc_id'  => $request->get('doc_id'),
       ]);
 
-      DB::table('patientNotes')->insert([
-          'appointment_id'  => $request->get('appointment_id'),
-          'note'  => $request->get('doc_note'),
-          'written_by'   => 'Doctor',
-          'target'  => 'Admition',
-      ]);
 
     $appid =$request['appointment_id'];
     $appstatus =$request['appointment_status'];

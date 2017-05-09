@@ -61,195 +61,79 @@ $dependantdays= floor($datediff / (60 * 60 * 24));
 
      <!--Test result tabs PatientController@testdone-->
      <div id="testR">
-     <?php $i =1;
+       <?php $i =1;
 
-      if ($dependantdays <='28') {
-        $tstdone = DB::table('appointments')
-            ->leftJoin('patient_test', 'appointments.id', '=', 'patient_test.appointment_id')
-        ->leftJoin('patient_test_details', 'patient_test.id', '=', 'patient_test_details.patient_test_id')
-        ->leftJoin('facilities', 'patient_test_details.facility_id', '=', 'facilities.FacilityCode')
-        ->leftJoin('lab_test', 'patient_test_details.tests_reccommended', '=', 'lab_test.id')
-        ->leftJoin('patient_cond_diagnosis', 'patient_test.appointment_id', '=', 'patient_cond_diagnosis.appointment_id')
-        ->Join('diagnoses', 'patient_cond_diagnosis.disease_id', '=', 'diagnoses.id')
-        ->Join('diseases', 'patient_cond_diagnosis.other_disease_id', '=', 'diseases.code')
-        ->select('patient_test_details.*','facilities.*','lab_test.name','diseases.name as disease','diagnoses.name as diagnoses')
-        ->where('appointments.persontreated', '=',$dependantId)
-        ->orderBy('created_at', 'desc')
-        ->get();
-
-     }elseif ($dependantdays >='28') {
-       $tstdone = DB::table('appointments')
-           ->leftJoin('patient_test', 'appointments.id', '=', 'patient_test.appointment_id')
-       ->leftJoin('patient_test_details', 'patient_test.id', '=', 'patient_test_details.patient_test_id')
-       ->leftJoin('facilities', 'patient_test_details.facility_id', '=', 'facilities.FacilityCode')
-       ->leftJoin('lab_test', 'patient_test_details.tests_reccommended', '=', 'lab_test.id')
-       ->leftJoin('patient_cond_diagnosis', 'patient_test.appointment_id', '=', 'patient_cond_diagnosis.appointment_id')
-       ->Join('diagnoses', 'patient_cond_diagnosis.disease_id', '=', 'diagnoses.id')
-       ->Join('diseases', 'patient_cond_diagnosis.other_disease_id', '=', 'diseases.code')
-       ->select('patient_test_details.*','facilities.*','lab_test.name','diseases.name as disease','diagnoses.name as diagnoses')
-       ->where('appointments.afya_user_id', '=',$afyauserId)
+       $tstdone = DB::table('patient_test_details')
+      ->leftJoin('facilities', 'patient_test_details.facility_id', '=', 'facilities.FacilityCode')
+      ->leftJoin('lab_test', 'patient_test_details.tests_reccommended', '=', 'lab_test.id')
+      ->leftJoin('diagnoses', 'patient_test_details.conditional_diag_id', '=', 'diagnoses.id')
+      ->select('patient_test_details.*','patient_test_details.id as ptdid','facilities.*','lab_test.name','diagnoses.name as diagnoses')
+      ->where('patient_test_details.afya_user_id', '=',$afyauserId)
+          ->orWhere('patient_test_details.dependant_id', '=',$dependantId)
        ->orderBy('created_at', 'desc')
        ->get();
-
-     }
-     ?>
-
+       ?>
      <div class="table-responsive ibox-content">
-
-     <table class="table table-striped table-bordered table-hover dataTables-conditional" >
+      <table class="table table-striped table-bordered table-hover dataTables-conditional" >
         <thead>
-     <tr>
-      <th></th>
-         <th>Date </th>
-        <th>Test Name</th>
-        <th>Conditional Diagnosis</th>
-        <th>Other Diagnosis</th>
-        <th>Status</th>
-        <th>Result</th>
-        <th>Faciity</th>
-        <th>Note</th>
+          <tr>
+           <th></th>
+              <th>Date </th>
+             <th>Test Name</th>
+             <th>Conditional Diagnosis</th>
+             <th>Status</th>
+             <th>Result</th>
+             <th>Note</th>
+             <th>Action</th>
 
 
-     </tr>
-     </thead>
+          </tr>
+          </thead>
 
-     <tbody>
+          <tbody>
 
-     @foreach($tstdone as $tstdn)
-       <tr>
-       <td>{{ +$i }}</td>
-      <td>{{$tstdn->created_at}}</td>
-       <td>{{$tstdn->name}}</td>
-      <td>{{$tstdn->diagnoses}}</td>
-       <td>{{$tstdn->disease}}</td>
-       <td><?php
-       $prescs=$tstdn->done;
-       if (is_null($prescs)) {
-         $prescs= 'N/A';
-       }
-       elseif ($prescs==0) {
-         $prescs= 'Pending';
-       } elseif($prescs==1) {
-         $prescs= 'Complete';
-       }
-         ?>  {{$prescs}}</td>
-        <td>{{$tstdn->results}}</td>
-        <td>{{$tstdn->FacilityName}}</td>
-        <td>{{$tstdn->note}}</td>
+          @foreach($tstdone as $tstdn)
+            <tr>
+            <td>{{ +$i }}</td>
+           <td>{{$tstdn->created_at}}</td>
+            <td>{{$tstdn->name}}</td>
+           <td>{{$tstdn->diagnoses}}</td>
 
+            <td><?php
+            $prescs=$tstdn->done;
+            if (is_null($prescs)) {
+              $prescs= 'N/A';
+            }
+            elseif ($prescs==0) {
+              $prescs= 'Pending';
+            } elseif($prescs==1) {
+              $prescs= 'Complete';
+            }
+              ?>  {{$prescs}}</td>
+             <td>{{$tstdn->results}}</td>
+             <td>{{$tstdn->note}}</td>
+        <td>
+          <div>
+            {{ Form::open(array('route' => array('diaconf'),'method'=>'POST')) }}
+            {{ Form::hidden('appointment_id',$app_id, array('class' => 'form-control')) }}
+            {{ Form::hidden('pat_details_id',$tstdn->ptdid, array('class' => 'form-control')) }}
+            <button class="btn btn-sm btn-primary  m-t-n-xs" type="submit"><strong>Confirm Diagnosis</strong></button>
+           {{ Form::close() }}
+        </td>
      </tr>
      <?php $i++; ?>
 
      @endforeach
 
      </tbody>
-     </table>
-        </div>
-     </div> <!-- div id="testR" -->
-     <button id="diag" class="btn btn-primary btn-block btn-outline">Confirm Diagnosis</button>
-
-
- <div class="ibox-content col-md-12">
-<div id="confdiag" class="divtest">
-  {{ Form::open(array('route' => array('confdiag'),'method'=>'POST')) }}
-
-<div class="col-sm-6 b-r">
-
-  <?php  if ($dependantdays <='28') { ?>
-
-    <div class="form-group">
-        <label for="tag_list" class=""> Diagnosis:</label>
-             <select class="test-multiple" name="disease"  style="width: 100%" >
-               <?php $diagnoses=DB::table('diagnoses')->where(function($query)
-        {
-            $query->where('target', '=','28 ')
-                  ->orWhere('target', '=','28-29');
-        })
-        ->get();
-          ?><option value=''>Choose one</option>
-               @foreach($diagnoses as $diag)
-                      <option value='{{$diag->id}}'>{{$diag->name}}</option>
-               @endforeach
-               </select>
-         </div>
-         <?php } if ($dependantdays >='28') { ?>
-         <div class="form-group">
-             <label for="tag_list" class="">Diagnosis:</label>
-                  <select class="test-multiple" name="disease"  style="width: 100%" >
-                    <?php $diagnoses=DB::table('diagnoses')->where(function($query)
-             {
-                 $query->where('target', '=','29 ')
-                       ->orWhere('target', '=','28-29');
-             })
-             ->get();
-               ?>
-                      <option value=''>Choose one</option>
-                    @foreach($diagnoses as $diag)
-                           <option value='{{$diag->id}}'>{{$diag->name}}</option>
-                    @endforeach
-                    </select>
-              </div>
-              <?php }  ?>
-              <div class="form-group">
-                  <label for="tag_list" class="">Type of Diagnosis:</label>
-                       <select class="test-multiple" name="level"  style="width: 100%" >
-                         <option value=''>Choose one</option>
-                           <option value='Primary'>Primary</option>
-                           <option value='Secondary'>Secondary</option>
-                         </select>
-                     </div>
-                     <div class="form-group">
-                         <label for="tag_list" class="">Chronic:</label>
-                              <select class="test-multiple" name="chronic"  style="width: 100%" >
-                                <option value=''>Choose one</option>
-                                  <option value='Y'>YES</option>
-                                  <option value='N'>No</option>
-                                </select>
-                         </div>
-                     <div class="form-group">
-                         <label for="tag_list" class="">Level of Severity:</label>
-                              <select class="test-multiple" name="severity"  style="width: 100%" >
-                                <?php $severeity=DB::table('severity')->get();
-                           ?>
-                      <option value=''>Choose one</option>
-                                @foreach($severeity as $diag)
-                    <option value='{{$diag->id}}'>{{$diag->name}}</option>
-                                @endforeach
-                                </select>
-                             </div>
-
-
-
-
-
-                   </div>
-                   <div class="col-sm-6">
-                     <div class="form-group">
-                       <label for="tag_list" class="">Supportive Care:</label>
-                            <select class="test-multiple" name="care"  style="width: 100%" >
-                              <?php $scare=DB::table('supportive_care')->get();
-                              ?>
-                              <option value=''>Choose one</option>
-                              @foreach($scare as $sup)
-                                     <option value='{{$sup->name}}'>{{$sup->name}}</option>
-                              @endforeach
-                              </select>
-                        </div>
-                           {{ Form::hidden('state','Normal', array('class' => 'form-control')) }}
-                           {{ Form::hidden('appointment_id',$app_id, array('class' => 'form-control')) }}
-                        </div>
-               </div>
-
-  <div class="col-lg-offset-5">
-    <button class=" mtop btn btn-sm btn-primary  m-t-n-xs" type="submit"><strong>Submit</strong></button>
-
+   </table>
   </div>
-
-
-  {{ Form::close() }}
 </div>
-</div><!-- tabs-container -->
-      </div><!-- col md 12" -->
+
+
+</div><!-- div id="testR" -->
+ </div><!-- tabs-container -->
+  </div><!-- col md 12" -->
    </div><!-- emargis" -->
 
 @endsection

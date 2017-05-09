@@ -140,7 +140,9 @@ return redirect()->route('doctor.index')
 
     public function Admitted()
     {
+      $today = Carbon::today();
       $patients = DB::table('appointments')
+      ->leftJoin('patient_admitted', 'appointments.id', '=', 'patient_admitted.appointment_id')
       ->leftJoin('afya_users', 'appointments.afya_user_id', '=', 'afya_users.id')
        ->leftJoin('triage_details', 'appointments.id', '=', 'triage_details.appointment_id')
        ->leftJoin('triage_infants', 'appointments.id', '=', 'triage_infants.appointment_id')
@@ -155,7 +157,12 @@ return redirect()->route('doctor.index')
          'dependant.firstName as Infname','dependant.secondName as InfName','dependant.gender as Infgender','dependant.blood_type as Infblood_type',
          'dependant.dob as Infdob','dependant.pob as Infpob'
        )
-   ->where('appointments.status', '=', 4)
+   ->where
+   ([
+                   ['appointments.created_at','>=',$today],
+                   ['appointments.status', '=', 2],
+                   ['patient_admitted.condition', '=','Admitted'],
+                  ])
         ->get();
 
       return view('doctor.patientadmitted')->with('patients',$patients);

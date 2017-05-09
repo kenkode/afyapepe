@@ -66,25 +66,29 @@
                       <li class="btn btn-primary"><a href="{{route('endvisit',$app_id)}}">End Visit</a></li>
                   <?php } ?>
                 </ul>
-        <div class="col-sm-3 b-r">
+        <div class="col-sm-4 b-r">
           <div class="table-responsive ibox-content">
             <table class="table table-striped table-bordered table-hover " >
              <thead>
-          <tr>
-            <th>Diagnosis</th>
-        </tr>
-          </thead>
-          <tbody>
-@foreach($Pdiagnosis as $tstdn)
-            <tr>
-            <td>{{$tstdn->name}}</td>
-           </tr>
+               <tr>
+                 <th>Diagnosis</th>
+                 <th>Level</th>
+                 <th>Severity</th>
+             </tr>
+               </thead>
+               <tbody>
+       @foreach($Pdiagnosis as $tstdn)
+                 <tr>
+                 <td>{{$tstdn->name}}</td>
+                 <td>{{$tstdn->level}}</td>
+                 <td>{{$tstdn->severity}}</td>
+                </tr>
           @endforeach
          </tbody>
         </table>
              </div>
           </div>
-                  <div class="col-sm-9 ">
+                  <div class="col-sm-8 ">
                     <div class="ibox float-e-margins ibox-content">
                     <br />
                     {{ Form::open(array('route' => array('prescription.store'),'method'=>'POST')) }}
@@ -148,10 +152,11 @@
                                             @endforeach
                                          </select>
                                       </div>
-                                       {{ Form::hidden('state','Discharge', array('class' => 'form-control')) }}
+                                       {{ Form::hidden('state','Normal', array('class' => 'form-control')) }}
                                       {{ Form::hidden('appointment_id',$app_id, array('class' => 'form-control')) }}
                                       {{ Form::hidden('doc_id',$doc_id, array('class' => 'form-control')) }}
-
+                                      {{ Form::hidden('afya_user_id',$afyauserId, array('class' => 'form-control')) }}
+                                      {{ Form::hidden('dependant_id',$dependantId, array('class' => 'form-control')) }}
 
 
                                               <div class="form-group  text-center">
@@ -163,37 +168,22 @@
                                             </div>
 <?php $i =1;
 
-if ($dependantdays <='28') {
-  $tstdone = DB::table('appointments')
-  ->leftJoin('prescriptions', 'appointments.id', '=', 'prescriptions.appointment_id')
-  ->leftJoin('prescription_details', 'prescriptions.id', '=', 'prescription_details.presc_id')
-  ->leftJoin('diagnoses', 'prescription_details.diagnosis', '=', 'diagnoses.id')
-  ->leftJoin('druglists', 'prescription_details.drug_id', '=', 'druglists.id')
-  ->leftJoin('frequency', 'prescription_details.frequency', '=', 'frequency.id')
-  ->leftJoin('route', 'prescription_details.routes', '=', 'route.id')
-  ->leftJoin('prescription_filled_status', 'prescription_details.id', '=', 'prescription_filled_status.presc_details_id')
-  ->select('diagnoses.name','druglists.drugname','frequency.name as frequency','prescriptions.created_at',
-  'route.name as route','prescription_filled_status.start_date','prescription_filled_status.end_date')
-  ->where('appointments.persontreated', '=',$dependantId)
-  ->orderBy('created_at', 'desc')
-  ->get();
+$tstdone = DB::table('prescription_details')
 
-}if ($dependantId =='Self') {
-$tstdone = DB::table('appointments')
-->leftJoin('prescriptions', 'appointments.id', '=', 'prescriptions.appointment_id')
-->leftJoin('prescription_details', 'prescriptions.id', '=', 'prescription_details.presc_id')
 ->leftJoin('diagnoses', 'prescription_details.diagnosis', '=', 'diagnoses.id')
 ->leftJoin('druglists', 'prescription_details.drug_id', '=', 'druglists.id')
 ->leftJoin('frequency', 'prescription_details.frequency', '=', 'frequency.id')
 ->leftJoin('route', 'prescription_details.routes', '=', 'route.id')
 ->leftJoin('prescription_filled_status', 'prescription_details.id', '=', 'prescription_filled_status.presc_details_id')
-->select('diagnoses.name','druglists.drugname','frequency.name as frequency','prescriptions.created_at',
+->select('diagnoses.name','druglists.drugname','frequency.name as frequency','prescription_details.created_at',
 'route.name as route','prescription_filled_status.start_date','prescription_filled_status.end_date')
-->where('appointments.afya_user_id', '=',$afyauserId)
+
+->where('prescription_details.afya_user_id', '=',$afyauserId)
+   ->orWhere('prescription_details.dependant_id', '=',$dependantId)
 ->orderBy('created_at', 'desc')
 ->get();
 
-}
+
 ?>
 
                                               <div class="col-lg-12">

@@ -107,45 +107,62 @@
                         <form class="form-horizontal">
 
 
+<?php if ($pdetails->fever !== 'No_fevers') { ?>
+  <div class="form-group"><label class="col-lg-4 control-label">Fever</label>
+     <div class="col-lg-8"><input type="text" value="{{ $pdetails->fever}}" class="form-control" readonly="readonly" > </div>
+   </div>
+   <div class="form-group"><label class="col-lg-4 control-label">Fever No of Days</label>
+      <div class="col-lg-8"><input type="text" value="{{ $pdetails->fever_days}}" class="form-control" readonly="readonly" > </div>
+    </div>
+<?php } ?>
 
-                   <div class="form-group"><label class="col-lg-4 control-label">Fever No of Days</label>
-                      <div class="col-lg-8"><input type="text" value="{{ $pdetails->fever_days}}" class="form-control" readonly="readonly" > </div>
-                    </div>
+
+
                     <div class="form-group"><label class="col-lg-4 control-label">Difficult Breathing</label>
                        <div class="col-lg-8"><input type="text" value="{{ $pdetails->difficult_breathing}}" class="form-control" readonly="readonly" > </div>
                      </div>
                      <div class="form-group"><label class="col-lg-4 control-label">Difficult Feeding</label>
                         <div class="col-lg-8"><input type="text" value="{{ $pdetails->difficult_feeding}}" class="form-control" readonly="readonly" > </div>
                       </div>
-
+<?php if ($pdetails->diarrhoea !== 'No_diarrhoea') { ?>
                 <div class="form-group"><label class="col-lg-4 control-label">Diarrhoea<small>days</small></label>
                   <div class="col-lg-8"><input type="text" value="{{ $pdetails->diarrhoea_day}}" class="form-control" readonly="readonly" > </div>
                 </div>
+                <div class="form-group"><label class="col-lg-4 control-label">Diarrhoea bloody</label>
+                   <div class="col-lg-8"><input type="text" value="{{ $pdetails->diarrhoea_bloody}}" class="form-control" readonly="readonly" > </div>
+                </div>
 
-
+<?php } ?>
              </form>
           </div>
                       <div class="col-sm-6">
                         <form role="form" class="form-horizontal">
-                          <div class="form-group"><label class="col-lg-4 control-label">Diarrhoea bloody</label>
-                             <div class="col-lg-8"><input type="text" value="{{ $pdetails->diarrhoea_bloody}}" class="form-control" readonly="readonly" > </div>
-                          </div>
+
+
+
+            <?php  if ($pdetails->vomiting !== 'No_vomiting') { ?>
                           <div class="form-group"><label class="col-lg-4 control-label">Vomit Hours</label>
                              <div class="col-lg-8"><input type="text" value="{{ $pdetails->vomiting_hours}}" class="form-control" readonly="readonly" > </div>
                            </div>
                           <div class="form-group"><label class="col-lg-4 control-label">Vomits everything</label>
                               <div class="col-lg-8"><input type="text" value="{{ $pdetails->vomiting_everything}}" class="form-control" readonly="readonly" > </div>
                       </div>
+            <?php } if ($pdetails->convulsion !== 'No_convulsion') { ?>
                           <div class="form-group"><label class="col-lg-4 control-label">Convulsion <small>Hrs</small></label>
-                             <div class="col-lg-8"><input type="text" value="{{ $pdetails->Infcompliant}}" class="form-control" readonly="readonly" > </div>
+                             <div class="col-lg-8"><input type="text" value="{{ $pdetails->convulsion}}" class="form-control" readonly="readonly" > </div>
                            </div>
-                           <div class="form-group"><label class="col-lg-4 control-label">Partial/focal fits</label>
+                           <div class="form-group"><label class="col-lg-4 control-label">Convulsion <small>Hrs</small></label>
                               <div class="col-lg-8"><input type="text" value="{{ $pdetails->convulsion_hours}}" class="form-control" readonly="readonly" > </div>
                             </div>
+          <?php } if ($pdetails->fits !== 'No') { ?>
+                           <div class="form-group"><label class="col-lg-4 control-label">Partial/focal fits</label>
+                              <div class="col-lg-8"><input type="text" value="{{ $pdetails->fits}}" class="form-control" readonly="readonly" > </div>
+                            </div>
+            <?php } if ($pdetails->aponea !== 'No') { ?>
                             <div class="form-group"><label class="col-lg-4 control-label">Apnoea</label>
                                <div class="col-lg-8"><input type="text" value="{{ $pdetails->aponea}}" class="form-control" readonly="readonly" > </div>
                              </div>
-
+            <?php } ?>
 
                         </form>
 
@@ -290,9 +307,7 @@
 
                           <div class="col-lg-8"><input type="text" value="{{$age}}" class="form-control" readonly="readonly" > </div>
                         </div>
-                        <div class="form-group"><label class="col-lg-4 control-label">Constituency</label>
-                           <div class="col-lg-8"><input type="text" value="{{$mother->const}}" class="form-control" readonly="readonly" > </div>
-                         </div>
+                      
                          <div class="form-group"><label class="col-lg-4 control-label">Gravity</label>
                             <div class="col-lg-8"><input type="text" value="{{$mother->gravity}}" class="form-control" readonly="readonly" > </div>
                           </div>

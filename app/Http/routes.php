@@ -139,6 +139,8 @@ Route::Post('admitts', [ 'as' => 'admitting', 'uses' => 'TagController@admitts']
  Route::Post('testpost', [ 'as' => 'patienttest', 'uses' => 'PatientTestController@store']);
 	 Route::get('test/{id}', [ 'as' => 'testes', 'uses' => 'PatientTestController@testdata']);
 	 Route::get('diagnosis/{id}', [ 'as' => 'diagnoses', 'uses' => 'PatientTestController@diagnoses']);
+	  Route::Post('diagnosisconfirm', [ 'as' => 'diaconf', 'uses' => 'PatientTestController@diagnosesconf']);
+
    Route::Post('diagnosis', [ 'as' => 'confdiag', 'uses' => 'PrescriptionController@diagnoses']);
    Route::get('prescriptions/{id}', [ 'as' => 'medicines', 'uses' => 'PrescriptionController@prescriptions']);
    Route::get('history/{id}', [ 'as' => 'patienthistory', 'uses' => 'PatientController@history']);

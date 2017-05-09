@@ -71,7 +71,7 @@ class RegistrarController extends Controller
 $newDate = date("Y-m-d", strtotime($dob));
 
       $parent=DB::table('afya_users')->where('id',$id)->first();
-      $name=$parent->firstname.$parent->secondName;
+      $name=$parent->firstname.''.$parent->secondName;
       $parentgender=$parent->gender;
       $phone=$parent->msisdn;
 
@@ -261,6 +261,7 @@ public function dependantTriage($id){
    return redirect()->action('RegistrarController@index');
     }
  public function Dependentconsultationfee(Request $request){
+   $today = date('Y-m-d');
       $id=$request->id;
         $type=$request->type;
         $afyauser=$request->afya_user;
@@ -279,10 +280,9 @@ public function dependantTriage($id){
 
   ]);
   $phone=DB::Table('afya_users')->where('id',$user)->select('msisdn')->first();
-  DB::table('afyamessages')->where('msisdn',$phone->msisdn)->
+  DB::table('afyamessages')->where('msisdn',$phone->msisdn)->where('created_at','>=',$today)->
   update([
  'status' => 1,
- 'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
  'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
 
    DB::table('consultation_fees')->insert(

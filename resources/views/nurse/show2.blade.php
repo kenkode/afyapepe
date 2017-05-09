@@ -1,9 +1,36 @@
-@extends('layouts.nurse')
-@section('title', 'Patient Details')
-@section('content')
-<div class="wrapper wrapper-content animated fadeInRight">
-    
-    <div class="row">
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Afyapepe- Show Dependent </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('font-awesome/css/font-awesome.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/plugins/iCheck/custom.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/plugins/steps/jquery.steps.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/animate.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+@include('includes.nurse_inc.leftmenu')
+
+        <div id="page-wrapper" class="gray-bg dashbard-1">
+
+    @include('includes.nurse_inc.headbar')
+
+     <div class="row">
     <div class="col-lg-6 ">
         <div class="ibox float-e-margins">
             <div class="ibox-title">
@@ -157,132 +184,43 @@
   </div>
   </div>
   </div>
-  </form>
 
-
-
-
- <div class="col-lg-12">
-            <div class="tabs-container">
-              <!-- <div class="col-lg-12 tbg"> -->
-                <ul class="nav nav-tabs">
-
-                     <li class="active"><a data-toggle="tab" href="#tab-7">Baby Details</a></li>
-                      <li class=""><a data-toggle="tab" href="#tab-8">Mother Details</a></li>
-                      <li class=""><a data-toggle="tab" href="#tab-6">Allergies</a></li>
-                       <li class=""><a data-toggle="tab" href="#tab-2">Growth</a></li>
-                   
-                     <li class=""><a data-toggle="tab" href="#tab-9">Disabilities & Abnormalities</a></li>
-                      
-                      <li class=""><a data-toggle="tab" href="#tab-1">Immunination Chart</a></li>
-                      
-                   
-                    
-                  
-                    
-                   
-                </ul>
-    <div class="tab-content">
-    <div id="tab-7" class="tab-pane active">
-                        <div class="panel-body">
-  <table class="table table-small-font table-bordered table-striped">
- <thead>
-    <tr>
-   <th>No</th>
-  <th>Admission Date</th>
-  <th>Ip No</th>
-  <th>Gestation</th>
-   <th>Temperature</th>               
-    <th>Apgar</th>
-   <th>Birth Weight</th>
-  <th>Weight Now</th>
-   <th>BBA</th>
-   <th>Born Where</th>
-   <th>Delivery</th>
-   <th>Resuscitiation</th>
-   <th>View</th>
-   
-    </tr>
-    <?php 
-    $i=1; $details=DB::table('infant_details')->where('dependant_id',$id)->get();?>
-    </thead>
-    @foreach($details as $detail)
-    <tbody>
-     <tr>
-     <td>{{$i}}</td>
-     <td>{{$detail->admission_date}}</td>
-     <td>{{$detail->ipno}}</td>
-     <td>{{$detail->gestation}}</td>
-     <td>{{$detail->temperature}}</td>
-     <td>{{$detail->apgar}}</td>
-     <td>{{$detail->birthweight}}</td>
-     <td>{{$detail->weightnow}}</td>
-     <td>{{$detail->bba}}</td>
-     <td>{{$detail->bba_where}}</td>
-     <td>{{$detail->delivery}}</td>
-      <td>{{$detail->resuscitation}}</td>
-      <td><a data-toggle="modal" class="btn btn-primary" href="#modal-form1">
-
-<i class="fa fa-search" aria-hidden="true"></i>
-</a>
+    
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox">
+                        <div class="ibox-title">
+                            <h5>Dependant information</h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                    <i class="fa fa-wrench"></i>
+                                </a>
+                                <ul class="dropdown-menu dropdown-user">
+                                    <li><a href="#">Config option 1</a>
+                                    </li>
+                                    <li><a href="#">Config option 2</a>
+                                    </li>
+                                </ul>
+                                <a class="close-link">
+                                    <i class="fa fa-times"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
                             
-                            <div id="modal-form1" class="modal fade" aria-hidden="false">
-                           
-                            <div class="modal-body">
-                            <br>
-          <div class="row">
-        <div class="col-lg-6 col-lg-offset-2">
-  
-  <table class="table table-small-font table-bordered table-striped">
-  <tr>
-    <th>ROM</th>
-    <th>Given Vitamen K </th>
-    <th>Given Eye Prophylaxis</th>
-    <th>Babies Presenting Problems</th>
-    <th>Revelant Drugs( Pre Admission)</th>
-    </tr>
-    <tbody>
-      <tr>
-      <td>{{$detail->rom}}</td>
-      <td>{{$detail->vitamen}}</td>
-      <td>{{$detail->prophylaxis}}</td>
-       <td>{{$detail->babyproblem}}</td>
-        <td>{{$detail->revelantdrugs}}</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
 
-</div>
-</div>
-</div>
-  </td>
-     </tr>
-     </tbody>
-     @endforeach
-     <?php  $i++;?>
-     </table>
-                   
-                                                               
-  <a data-toggle="modal" class="btn btn-primary" href="#modal-form">Add</a>
-                            
-                            <div id="modal-form" class="modal fade" aria-hidden="true">
-                            <div class="modal-dialog">
-                            <div class="modal-content">
-                            <div class="modal-body">
-          <div class="row">
-      <div class="col-lg-6">
-  <div class="ibox float-e-margins">
-   <h4><label><u>Baby Details</u></label></h4>
-           
-  <div class="ibox-content">
-                                            
-  
-     <form class="form-horizontal" role="form" method="POST" action="/babydetails" novalidate>
-    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-    <input type="hidden" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{$dependant->id}}" name="id"  required>
-   
-   <div class="form-group" id="data_1">
+                            <form id="form" action="{{ url('babytriage') }}" method="post" class="wizard-big">
+                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                            <input type="hidden" name="id" value="{{$dependant->id}}">
+                                <h1>Baby Details</h1>
+                                <fieldset>
+                                    
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                         <div class="form-group" id="data_1">
                  <label for="exampleInputPassword1">Admission Date</label>
                  <div class="input-group date">
                      <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
@@ -346,27 +284,20 @@
             <input type="number" class="form-control" name="weightnow">
     </div>
     </div>
-    
-    </div>
-    </div>
-
-<div class="col-lg-6">
-
- @if(!empty($details))
+    <div class="col-sm-6">
+   
+    @if(!empty($details))
  @else
 
-       <div class="form-group">
+    <div class="form-group">
    <label for="exampleInputEmail1">BBA</label>
    No <input type="checkbox" value="No"  name="bba" />
    Yes <input type="checkbox" value="yes"  name="bba"  />
-    
-
 <div class="yes"  style="display: none">
     <label>Born Where</label>
   Home  <input type="checkbox" value="Home"  name="bba_where"/>
   Clinic  <input type="checkbox" value="Clinic"  name="bba_where" />
-  Other Hospitals <input type="checkbox" value="Other"  name="bba_where" />
-    
+  Other Hospitals <input type="checkbox" value="Other"  name="bba_where" /> 
 </div>
 </div>
 <div class="form-group">
@@ -398,136 +329,32 @@
    No <input type="checkbox" name="vitamen" value="No">
      
    </div>
-
    <div class="form-group">
      <label>Given Eye Prophylaxis</label>
       Yes <input type="checkbox" name="prophylaxis" value="Yes">
    No <input type="checkbox" name="prophylaxis" value="No">
    </div>
-
-   <div class="form-group">
+   <br>
+<div class="form-group">
 <label>Babies Presenting Problems</label>
 <textarea name="babyproblem" class="form-control"></textarea>
-  
-</div>
+  </div>
 <div class="form-group">
 <label>Revelant Drugs( Pre Admission)</label>
 <textarea name="revelantdrugs" class="form-control"></textarea>
   
 </div>
-   </div>
+                                           
+                                       
+                                    </div>
 
-   <button type="submit" class="btn btn-primary">Save</button>
-     {!! Form::close() !!}
-  
-   </div>
-   </form>
-   </div>
-   </div>
-   </div>
-   </div>
-   </div>
-      </div> 
-      
-
-      <div id="tab-8" class="tab-pane">
-                        <div class="panel-body">
-
-<table class="table table-small-font table-bordered table-striped">
- <thead>
-    <tr>
-   <th>No</th>
-  <th>Gravidity</th>
-  <th>Parity</th>
-   <th>Hiv</th>
-  <th>ARV's</th>
-   <th>Vdrl</th>
-   <th>Fever</th>
-   <th>Antibiotics</th>
-   <th>Diabetes</th>
-   <th>View</th>
-   
-    </tr>
-    <?php 
-    $i=1; $mothers=DB::table('mother_details')->where('dependant_id',$id)->get();?>
-    </thead>
-    @foreach($mothers as $mother)
-    <tbody>
-     <tr>
-     <td>{{$i}}</td>
-     <td>{{$mother->gravity or ''}}</td>
-     <td>{{$mother->parity or ''}}</td>
-     <td>{{$mother->hiv or ''}}</td>
-     <td>{{$mother->arvs or ''}}</td>
-     <td>{{$mother->vdrl or ''}}</td>
-     <td>{{$mother->fever or ''}}</td>
-     <td>{{$mother->antibioties or ''}}</td>
-      <td>{{$mother->diabetes or ''}}</td>
-      <td><a data-toggle="modal" class="btn btn-primary" href="#modal-form3">
-
-<i class="fa fa-search" aria-hidden="true"></i>
-</a>
-                            
-                            <div id="modal-form3" class="modal fade" aria-hidden="false">
-                           
-                            <div class="modal-body">
-                            <br>
-          <div class="row">
-        <div class="col-lg-6 col-lg-offset-2">
-  
-  <table class="table table-small-font table-bordered table-striped">
-  <tr>
-    <th>Tb</th>
-    <th>Tb Type</th>
-    <th>Tb Treatment</th>
-    <th>Labour 1</th>
-    <th>Labour 2</th>
-    <th>Hypertension</th>
-    <th>Aph</th>
-    <th>Mother Problem</th>
-    <th>Revelant Drugs</th>
-    </tr>
-    <tbody>
-      <tr>
-      <td>{{$mother->tb or ''}}</td>
-      <td>{{$mother->tb_type or ''}}</td>
-      <td>{{$mother->tb_treatment or ''}}</td>
-       <td>{{$mother->labour1 or ''}}</td>
-        <td>{{$mother->labour2 or ''}}</td>
-        <td>{{$mother->hypertension or ''}}</td>
-        <td>{{$mother->aph or ''}}</td>
-         <td>{{$mother->motherproblem or ''}}</td>
-          <td>{{$mother->revelantdrugs or ''}}</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
-</div>
-</div>
-</div>
-  </td>
-     </tr>
-     </tbody>
-     @endforeach
-     <?php  $i++;?>
-     </table>
-                   
-                                                               
-  <a data-toggle="modal" class="btn btn-primary" href="#modal-form2">Add</a>
-  <div id="modal-form2" class="modal fade" aria-hidden="true">
-                            <div class="modal-dialog">
-                            <div class="modal-content">
-                            <div class="modal-body">
-  <div class="wrapper wrapper-content">
-          <div class="row animated fadeInRight">
-
-          <div class="row"> 
-          <div class="col-lg-6">
- <form class="form-horizontal" data-parsley-validate="" role="form" method="POST" action="/motherdetails" novalidate>
-    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-    <input type="hidden" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{$dependant->id}}" name="id"  required>
- @if(!empty($mothers))
+                                </fieldset>
+                                <h1>Mother Details</h1>
+                                <fieldset>
+                                   
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            @if(!empty($mothers))
  @else
   <div class="form-group" id="data_1">
                  <label for="exampleInputPassword1">Date of Birth</label>
@@ -606,9 +433,9 @@ Yes <input type="checkbox" name="tb_treatment" value="Yes" />
 No <input type="checkbox" name="tb_treatment" value="No" />
   
 </div>
-</div>
-<div class="col-lg-6">
-@if(is_null($mothers))
+                                        </div>
+                                        <div class="col-lg-6">
+                                            @if(!empty($mothers))
 <div class="form-group">
 <label>Labour</label><br>
 1 stage <input type="text" name="labour1" class="form-control" placeholder="Enter Hours"/>
@@ -638,46 +465,185 @@ No <input type="checkbox" name="aph" value="No" />
 <textarea name="revelantdrugs" class="form-control"></textarea>
   
 </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            <h1>Allergies</h1>
+                                <fieldset>
+                                    
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                           <div class="form-group">
 
-<button type="submit" class="btn btn-primary">Save</button>
-     {!! Form::close() !!}
+ Drug Allergy <input type="checkbox" value="drug"  name="drug" />
+ <div class="drug"  style="display: none">
+    <label>Drug Name</label><br>
+ <select multiple="multiple" class="form-control" name="drugs[]">
+    <?php $druglists = DB::table('allergies_type')->where('allergies_id',1)->get();?>
+                  @foreach($druglists as $druglist)
+                   <option value="{{$druglist->id}}">{{$druglist->name}}</option>
+                 @endforeach
+                </select>
+    </div>
 
-      </div> 
-      </div>
-      </div> 
-      </div> 
-      </div>
-      </div>
-      </div>
-      </div>
-      </div>
-      </div>
-      
-                      <div id="tab-1" class="tab-pane">
-                        <div class="panel-body">
+ Food Allergy <input type="checkbox" value="food"  name="food" />
+ <div class="food"  style="display: none">
+    <label>Allergy Name</label><br>
+ <select multiple="multiple" class="form-control" name="foods[]"  >
+    <?php $foods = DB::table('allergies_type')->where('allergies_id',2)->get();?>
+                  @foreach($foods as $food)
+                   <option value="{{$food->id}}">{{$food->name}}</option>
+                 @endforeach
+                </select>
+  </div>
+  Latex Allergy <input type="checkbox" value="latex"  name="latex" />
+ <div class="latex"  style="display: none">
+    <label>Allergy Name</label><br>
+ <select multiple="multiple" class="form-control" name="latexs[]"  >
+    <?php $foods = DB::table('allergies_type')->where('allergies_id',3)->get();?>
+                  @foreach($foods as $food)
+                   <option value="{{$food->id}}">{{$food->name}}</option>
+                 @endforeach
+                </select>
+  </div>
+  Mold Allergy <input type="checkbox" value="mold"  name="molds" />
+ <div class="mold"  style="display: none">
+    <label>Allergy Name</label><br>
+ <select multiple="multiple" class="form-control" name="molds[]"  >
+    <?php $foods = DB::table('allergies_type')->where('allergies_id',4)->get();?>
+                  @foreach($foods as $food)
+                   <option value="{{$food->id}}">{{$food->name}}</option>
+                 @endforeach
+                </select>
+  </div>
+  Pet Allergy <input type="checkbox" value="pet"  name="pets" />
+ <div class="pet"  style="display: none">
+    <label>Allergy Name</label><br>
+ <select multiple="multiple" class="form-control" name="pets[]"  >
+    <?php $foods =  DB::table('allergies_type')->where('allergies_id',5)->get();?>
+                  @foreach($foods as $food)
+                   <option value="{{$food->id}}">{{$food->name}}</option>
+                 @endforeach
+                </select>
+  </div>
+  Pollen Allergy <input type="checkbox" value="pollen"  name="pollens" />
+ <div class="pollen"  style="display: none">
+    <label>Allergy Name</label><br>
+ <select multiple="multiple" class="form-control" name="pollens[]"  >
+    <?php $foods = DB::table('allergies_type')->where('allergies_id',6)->get();?>
+                  @foreach($foods as $food)
+                   <option value="{{$food->id}}">{{$food->name}}</option>
+                 @endforeach
+                </select>
+  </div>
+  Insect Allergy <input type="checkbox" value="insect"  name="insects" />
+ <div class="insect"  style="display: none">
+    <label>Allergy Name</label><br>
+ <select multiple="multiple" class="form-control" name="insects[]"  >
+    <?php $foods = DB::table('allergies_type')->where('allergies_id',7)->get();?>
+                  @foreach($foods as $food)
+                   <option value="{{$food->id}}">{{$food->name}}</option>
+                 @endforeach
+                </select>
+  </div>
+                                        </div>
+                                        
+                                    </div>
+                                </fieldset>
+                                <h1>Disablility and Abnormalities</h1>
+                                <fieldset>
+                                     <div class="row">
+                                        <div class="col-sm-6">
+                                             <div class="form-group">
+<label>Can suck/breastfeed</label>
+Yes <input type="checkbox" name="breastfeed" value="Yes" />
+No <input type="checkbox" name="breastfeed" value="No" />
+  
+</div>
 
-  <div class="wrapper wrapper-content">
-          <div class="row animated fadeInRight">
+<div class="form-group">
+<label>Stiff neck</label>
+Yes <input type="checkbox" name="neck" value="Yes" />
+No <input type="checkbox" name="neck" value="No" />
+  
+</div>
+<div class="form-group">
+<label>Bulging fontanelle</label>
+Yes <input type="checkbox" name="fontanelle" value="Yes" />
+No <input type="checkbox" name="fontanelle" value="No" />
+  
+</div>
+<div class="form-group">
+<label>Irritable</label>
+Yes <input type="checkbox" name="irritable" value="Yes" />
+No <input type="checkbox" name="irritable" value="No" />
+  
+</div>
 
-           <div class="col-lg-10 col-lg-offset-1">
-                <div class="ibox float-e-margins">
-                    <div class="ibox-title">
-                        <h5>Immunination Chart</h5>
-                        <div class="ibox-tools">
-                            <a class="collapse-link">
-                                <i class="fa fa-chevron-up"></i>
-                            </a>
 
-                            <a class="close-link">
-                                <i class="fa fa-times"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="ibox-content">
-                   
+<div class="form-group">
+<label>Reduced movement/tone</label>
+Yes <input type="checkbox" name="tone" value="Yes" />
+No <input type="checkbox" name="tone" value="No" />
+  </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            Skull <input type="checkbox" value="skull"  name="skull" />
+ <div class="skull"  style="display: none">
+ <label>Describe</label>
+    <textarea name="skull_descr" class="form-control"></textarea>
+  </div>
 
-
-                                                                 <table class="table table-small-font table-bordered table-striped">
+  Limbs <input type="checkbox" value="limbs"  name="limbs" />
+ <div class="limbs"  style="display: none">
+ <label>Describe</label>
+    <textarea name="limbs_descr" class="form-control"></textarea>
+  </div>
+  Spine <input type="checkbox" value="spine"  name="spine" />
+ <div class="spine"  style="display: none">
+ <label>Describe</label>
+    <textarea name="spine_descr" class="form-control"></textarea>
+  </div>
+  Palate <input type="checkbox" value="palate"  name="palate" />
+ <div class="palate"  style="display: none">
+ <label>Describe</label>
+    <textarea name="palate_descr" class="form-control"></textarea>
+  </div>
+  Face <input type="checkbox" value="face"  name="face" />
+ <div class="face"  style="display: none">
+ <label>Describe</label>
+    <textarea name="face_descr" class="form-control"></textarea>
+  </div>
+  Anus <input type="checkbox" value="anus"  name="anus" />
+ <div class="anus"  style="display: none">
+ <label>Describe</label>
+    <textarea name="anus_descr" class="form-control"></textarea>
+  </div>
+  Dysmorphic <input type="checkbox" value="dysmorphic"  name="dysmorphic" />
+ <div class="dysmorphic"  style="display: none">
+ <label>Describe</label>
+    <textarea name="dysmorphic_descr" class="form-control"></textarea>
+  </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <h1>Growth</h1>
+                                <fieldset>
+                                     <div class="row">
+                                        <div class="col-sm-6">
+                                             <div class="form-group">
+    <label for="exampleInputEmail1">MUAC Reading</label>
+    <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder=" in mm" name="muac"  required>
+    </div>
+                                        </div>
+                                       
+                                    </div>
+                                </fieldset>
+                                <h1>Immunination Chart</h1>
+                                <fieldset>
+                                      <div class="row">
+                                        <div class="col-sm-12">
+                                              <table class="table table-small-font table-bordered table-striped">
                                                               <thead>
                                                                   <tr>
                                                                      
@@ -728,48 +694,16 @@ No <input type="checkbox" name="aph" value="No" />
 
                                                       
                                                              </table>
-
-                                                               
-
-
-
-                    </div>
-         
-                </div>
-            </div>
-      </div> 
-      </div> 
-      </div> 
-      </div>   
-
-<div id="tab-5" class="tab-pane">
-                        <div class="panel-body">
-
-  <div class="wrapper wrapper-content">
-          <div class="row animated fadeInRight">
-    <?php $infants=DB::table('infant_details')->where('dependant_id',$dependant->id)->get(); 
-    $abs=DB::table('infant_abnormalities')->where('dependant_id',$dependant->id)->get(); 
-    ?>
-
-      <div class="row">
-      <div class="col-lg-6">
-<h4><label><u>Vitals</u></label></h4>
-<form class="form-horizontal" role="form" method="POST" action="/vitaldetails" novalidate>
-    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-    <input type="hidden" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{$dependant->id}}" name="id"  required>
- <div class="form-group">
-   <label for="exampleInputEmail1">Fever</label>
-   No<input type="checkbox" value="No_fevers"  name="fevers" />
-   Yes <input type="checkbox" value="Yes_fevers"  name="fevers"  />
-
-<div class="Yes_fevers"  style="display: none">
-    <label>Number of days</label>
-  <input type="number" value="No"  name="days"/>
-  
-     
-</div>
-</div>
-<div class="form-group">
+                                        </div>
+                                        
+                                    </div>
+                                </fieldset>
+                                <h1>Baby Vitals</h1>
+                                <fieldset>
+                                   
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
 <label>Difficulty Breathing</label>
  No  <input type="checkbox" value="No"  name="difficulty_breathing" />
  Yes <input type="checkbox" value="Yes"  name="difficulty_breathing"  />
@@ -915,8 +849,8 @@ Shoulder <input type="checkbox" name="skincold" value="Shoulder" />
     
   </div>
 
-<div class="col-lg-6">
-   <h4> <label><u>Airways & Breathing</u></label></h4>
+                                        <div class="col-lg-6">
+                                            <h4> <label><u>Airways & Breathing</u></label></h4>
 
     <div class="form-group">
     <label for="exampleInputPassword1">Stridor</label>
@@ -1037,528 +971,283 @@ Shoulder <input type="checkbox" name="skincold" value="Shoulder" />
                  @endforeach
                 </select>
     </div>
-    
-
-   <button type="submit" class="btn btn-primary">Save</button>
-     {!! Form::close() !!}
-
- 
-  
-
-</div>
-            
- 
-  
-  
-
-
-
-  </div>
-  </div>
-      
-      </div> 
-      </div> 
-      </div> 
-      
- <div id="tab-6" class="tab-pane ">
-                        <div class="panel-body">
-
-  <div class="wrapper wrapper-content">
-          <div class="row animated fadeInRight">
-      
- <div class="col-lg-10">
-    <div class="ibox float-e-margins">
-     
-      <div class="ibox-content">
-<table class="table table-small-font table-bordered table-striped">
- <thead>
-    <tr>
-   <th>No</th>
-  <th>Allery Type</th>
-  <th>Allery Name</th>
-  </tr>
-  </thead>
-    </tr>
-    <?php $i=1;?>
-    <?php  $allergies=DB::table('patient_allergy')
-    ->Join('allergies_type','allergies_type.id','=','patient_allergy.allergy_id')
-    ->Join('allergies','allergies.id','=','allergies_type.allergies_id')
-    ->Select('allergies_type.name','allergies.name as Allergy')
-    ->Where('patient_allergy.dependant_id','=',$dependant->id)
-    ->get(); ?>
-    @foreach($allergies as $allergy)
-    <tbody>
-      <tr>
-      <td>{{$i}}</td>
-       <td>{{$allergy->Allergy}}</td>
-      <td>{{$allergy->name}}</td>
-     
-      
-        
-      </tr>
-    </tbody>
-    <?php $i++; ?>
-    @endforeach
-    </table>
-     <a data-toggle="modal" class="btn btn-primary" href="#modal-form6">Add</a>
-     <div id="modal-form6" class="modal fade" aria-hidden="true">
-                            <div class="modal-dialog">
-                            <div class="modal-content">
-                            <div class="modal-body">
-    <form class="form-horizontal" role="form" method="POST" action="/allergies" novalidate>
-    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-    <input type="hidden" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{$dependant->id}}" name="id"  required>
-
-<div class="form-group">
-
- Drug Allergy <input type="checkbox" value="drug"  name="drug" />
- <div class="drug"  style="display: none">
-    <label>Drug Name</label><br>
- <select multiple="multiple" class="form-control" name="drugs[]">
-    <?php $druglists = DB::table('allergies_type')->where('allergies_id',1)->get();?>
-                  @foreach($druglists as $druglist)
-                   <option value="{{$druglist->id}}">{{$druglist->name}}</option>
-                 @endforeach
-                </select>
-    </div>
-
- Food Allergy <input type="checkbox" value="food"  name="food" />
- <div class="food"  style="display: none">
-    <label>Allergy Name</label><br>
- <select multiple="multiple" class="form-control" name="foods[]"  >
-    <?php $foods = DB::table('allergies_type')->where('allergies_id',2)->get();?>
-                  @foreach($foods as $food)
-                   <option value="{{$food->id}}">{{$food->name}}</option>
-                 @endforeach
-                </select>
-  </div>
-  Latex Allergy <input type="checkbox" value="latex"  name="latex" />
- <div class="latex"  style="display: none">
-    <label>Allergy Name</label><br>
- <select multiple="multiple" class="form-control" name="latexs[]"  >
-    <?php $foods = DB::table('allergies_type')->where('allergies_id',3)->get();?>
-                  @foreach($foods as $food)
-                   <option value="{{$food->id}}">{{$food->name}}</option>
-                 @endforeach
-                </select>
-  </div>
-  Mold Allergy <input type="checkbox" value="mold"  name="molds" />
- <div class="mold"  style="display: none">
-    <label>Allergy Name</label><br>
- <select multiple="multiple" class="form-control" name="molds[]"  >
-    <?php $foods = DB::table('allergies_type')->where('allergies_id',4)->get();?>
-                  @foreach($foods as $food)
-                   <option value="{{$food->id}}">{{$food->name}}</option>
-                 @endforeach
-                </select>
-  </div>
-  Pet Allergy <input type="checkbox" value="pet"  name="pets" />
- <div class="pet"  style="display: none">
-    <label>Allergy Name</label><br>
- <select multiple="multiple" class="form-control" name="pets[]"  >
-    <?php $foods =  DB::table('allergies_type')->where('allergies_id',5)->get();?>
-                  @foreach($foods as $food)
-                   <option value="{{$food->id}}">{{$food->name}}</option>
-                 @endforeach
-                </select>
-  </div>
-  Pollen Allergy <input type="checkbox" value="pollen"  name="pollens" />
- <div class="pollen"  style="display: none">
-    <label>Allergy Name</label><br>
- <select multiple="multiple" class="form-control" name="pollens[]"  >
-    <?php $foods = DB::table('allergies_type')->where('allergies_id',6)->get();?>
-                  @foreach($foods as $food)
-                   <option value="{{$food->id}}">{{$food->name}}</option>
-                 @endforeach
-                </select>
-  </div>
-  Insect Allergy <input type="checkbox" value="insect"  name="insects" />
- <div class="insect"  style="display: none">
-    <label>Allergy Name</label><br>
- <select multiple="multiple" class="form-control" name="insects[]"  >
-    <?php $foods = DB::table('allergies_type')->where('allergies_id',7)->get();?>
-                  @foreach($foods as $food)
-                   <option value="{{$food->id}}">{{$food->name}}</option>
-                 @endforeach
-                </select>
-  </div>
-
- 
-<br><br>
-  <button type="submit" class="btn btn-primary">Save</button>
-
-</div>
-</form>
-</div>
-</div>
-</div>
-</div>
-</div> 
-      </div> 
-      </div> 
-      </div> 
-</div>
-</div>
-</div>
-<div id="tab-2" class="tab-pane">
-                        <div class="panel-body">
-
-  <div class="wrapper wrapper-content">
-          <div class="row animated fadeInRight">
- <div class="col-lg-10 col-lg-offset-1">
-                        <div class="ibox float-e-margins">
-                            <div class="ibox-title">
-                              <h4>Measures of  Growth & Weight</h4>
-                                <div class="ibox-tools">
-                                    <a class="collapse-link">
-                                        <i class="fa fa-chevron-up"></i>
-                                    </a>
-
-                                    <a class="close-link">
-                                        <i class="fa fa-times"></i>
-                                    </a>
-                                </div>
-                            </div>
-
-
-        <div class="ibox-content">
-        <div class="table-responsive">
-      <table class="table table-striped table-bordered table-hover dataTables-example" >
-      <thead>
-       <tr>
-           <th>No</th>
-            <th>Date</th>
-           <th>Weight</th>
-           <th>Height</th>
-           <th>Head Measurement</th>
-           
-
-      </tr>
-      </thead>
-       <?php 
-    $i=1; $mothers=DB::table('triage_infants')->where('dependant_id',$id)->get();?>
-   
-    @foreach($mothers as $mother)
-
-      <tbody>
-
-      <td>{{$i}}</td>
-       <td>{{$mother->updated_at}}</td>
-        <td>{{$mother->weight}}</td>
-         <td>{{$mother->height}}</td>
-          <td>{{$mother->head_circum}}</td>
-     
-     </tbody>
-   <?php $i++;?>
-   @endforeach
-        
-      </table>
-      
-   </div>
-
-      </div> 
-      </div> 
-      </div> 
- <div class="col-lg-10 col-lg-offset-1">
-                        <div class="ibox float-e-margins">
-                            <div class="ibox-title">
-                              <h4>MUAC/Nutrition Test</h4>
-                                <div class="ibox-tools">
-                                    <a class="collapse-link">
-                                        <i class="fa fa-chevron-up"></i>
-                                    </a>
-
-                                    <a class="close-link">
-                                        <i class="fa fa-times"></i>
-                                    </a>
-                                </div>
-                            </div>
-
-
-        <div class="ibox-content">
-        <div class="table-responsive">
-      <table class="table table-striped table-bordered table-hover dataTables-example" >
-      <thead>
-       <tr>
-           <th>No</th>
-            <th>Date</th>
-           <th>Time</th>
-           <th>MUAC</th>
-           <th>Score</th> 
-           
-           
-
-      </tr>
-      </thead>
-
-<?php $i=1;  $nutritions=DB::table('dependant_nutrition_test')->where('dependent_id',$id)->get();?>
-@foreach($nutritions as $nutrition)
-      <tbody>
-      <tr>
-<td>{{$i}}</td> 
-<td>{{ date('d -m- Y', strtotime($nutrition->created_at))}}</td>     
-<td>{{ date('H:i:s', strtotime($nutrition->created_at))}}</td>     
- <td>{{$nutrition->score}}</td>
- <td><?php $score=$nutrition->score;
- if ($score<=110) {
-   echo '<div style="color:red">Severe Acute Malnutrition (SAM)</div>';
- }
-elseif($score>111 & $score<=125){
-  echo '<div style="color:orange">Moderate Acute Malnutrition (MAM)</div>';
-}
-elseif($score>126 & $score<=135){
-  echo '<div style="color:yellow"><b>Growth Promotion and Monitoring (GPM)</b></div>';
-}
-else{
-  echo ' <div style="color:green">Well Nourished.</div>';
-}
-  ?></td>
-
-
-</tr>
-        </tbody>
-        <?php $i++; ?>
-@endforeach
-      </table>
-      
-              <a data-toggle="modal" class="btn btn-primary" href="#modal-form10">Add</a>
-                            
-                            <div id="modal-form10" class="modal fade" aria-hidden="true">
-                            <div class="modal-dialog">
-                            <div class="modal-content">
-                            <div class="modal-body">
-                            <div class="row">
-                            <div class="col-sm-6">
-                               {!! Form::open(array('url' => 'nurse.nutrition','method'=>'POST')) !!}
-                              <input type="hidden" name="patient_id" value="{{$dependant->id}}">
-                               <div class="form-group">
-    <label for="exampleInputEmail1">MUAC Reading</label>
-    <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder=" in mm" name="muac"  required>
-    </div>
-                               
-                                      <button class="btn btn-sm btn-primary" type="submit"><strong>Submit</strong></button>
-                                  </div>
-                              {{ Form::close() }}
-                                </div>
                                         </div>
                                     </div>
-                                    </div>
-                                </div>
-                       
+                                </fieldset>
 
-      </div> 
-      </div> 
-      </div> 
-      </div>
-      </div> 
-      </div>
-      </div>
-      </div>
-    
 
-<div id="tab-9" class="tab-pane">
-                        <div class="panel-body">
 
-  <div class="wrapper wrapper-content">
-          <div class="row animated fadeInRight">
-          <div class="row">
-          <div class="col-lg-10 col-lg-offset-1">
-<table class="table table-small-font table-bordered table-striped">
- <thead>
-    <tr>
-   <th>No</th>
-    <th>Disability Name</th>
-    <th>Date</th>
-  </tr>
-  </thead>
-    </tr>
-    <?php $i=1;?>
-    <?php  $allergies=DB::table('patient_disabilities')
-        ->Where('patient_disabilities.dependant_id','=',$dependant->id)
-    ->get(); ?>
-    @foreach($allergies as $allergy)
-    <tbody>
-      <tr>
-      <td>{{$i}}</td>
+                                
+                            </form>
+                        </div>
+                    </div>
+                    </div>
+
+                </div>
+           
+        <div class="footer">
+    <div class="pull-right">
+        Afyapepe <strong>Health</strong> Platform.
+    </div>
+    <div>
+        <strong>Copyright</strong> afyapepe.co.ke &copy; 2016-2017
+    </div>
+</div>
+</div>
+</div>
        
-      <td>{{$allergy->name}}</td>
-      <td>{{ date('d -m- Y', strtotime($allergy->created_at))}}</td>
-     
-      
-        
-      </tr>
-    </tbody>
-    <?php $i++; ?>
-    @endforeach
-    </table>
-     <a data-toggle="modal" class="btn btn-primary" href="#modal-form11">Add</a>
-     <div id="modal-form11" class="modal fade" aria-hidden="true">
-                            <div class="modal-dialog">
-                            <div class="modal-content">
-                            <div class="modal-body">
+
+
+
+    <!-- Mainly scripts -->
+   <script src="{{ asset('js/app.js') }}" type="text/javascript"></script>
+    <!-- Mainly scripts -->
+    <script src="{{ asset('js/jquery-3.1.1.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/plugins/metisMenu/jquery.metisMenu.js') }}" type="text/javascript"></script>
+   <script src="{{ asset('js/plugins/steps/jquery.steps.min.js') }}"></script>
+<script src="{{ asset('js/plugins/validate/jquery.validate.min.js') }}"></script>
+<script src="{{ asset('js/plugins/datapicker/bootstrap-datepicker.js') }}" type="text/javascript"></script>
+
  
- 
+
+ <script src="{{ asset('js/plugins/datapicker/bootstrap-datepicker.js') }}" type="text/javascript"></script>
+
+    <!-- Custom and plugin javascript -->
+
+
+
+
+    <!-- Custom and plugin javascript -->
+<script src="{{ asset('js/plugins/pace/pace.min.js') }}" type="text/javascript"></script>
+  <script src="{{ asset('js/custom.js') }}" type="text/javascript"></script>
+
+    <!--  <script src="{{ asset('js/inspinia.js') }}" type="text/javascript"></script>-->
+  <script>
+   $('input[type="checkbox"]').on('change', function() {
+    $('input[name="' + this.name + '"]').not(this).prop('checked', true);
+});
+</script>  
+   
+    <script>
+
+
+    $('#data_1 .input-group.date').datepicker({
+                todayBtn: "linked",
+                keyboardNavigation: false,
+                forceParse: false,
+                calendarWeeks: true,
+                autoclose: true
+            });
+
+            $(document).ready(function(){
+                $("button").click(function(){
+                    $("#testR").toggle();
+                });
+            });
+    </script>
+
+    <!-- Page-Level Scripts -->
     
-    <h2> <label><u>Disability</u></label></h2>
-     <form class="form-horizontal" role="form" method="POST" action="/disability" novalidate>
-    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-    <input type="hidden" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{$dependant->id}}" name="id"  required>
-    <div class="form-group">
-<label>Can suck/breastfeed</label>
-Yes <input type="checkbox" name="breastfeed" value="Yes" />
-No <input type="checkbox" name="breastfeed" value="No" />
-  
-</div>
+   
+    <script type="text/javascript">
+           $(document).ready(function(){
+           $('.multi-field-wrapper').each(function() {
+               var $wrapper = $('.multi-fields', this);
 
-<div class="form-group">
-<label>Stiff neck</label>
-Yes <input type="checkbox" name="neck" value="Yes" />
-No <input type="checkbox" name="neck" value="No" />
-  
-</div>
-<div class="form-group">
-<label>Bulging fontanelle</label>
-Yes <input type="checkbox" name="fontanelle" value="Yes" />
-No <input type="checkbox" name="fontanelle" value="No" />
-  
-</div>
-<div class="form-group">
-<label>Irritable</label>
-Yes <input type="checkbox" name="irritable" value="Yes" />
-No <input type="checkbox" name="irritable" value="No" />
-  
-</div>
+               $(".add-field", $(this)).click(function(e) {
+                   $('.multi-field:first-child', $wrapper).clone(true).appendTo($wrapper).find('input').val('').focus();
 
 
-<div class="form-group">
-<label>Reduced movement/tone</label>
-Yes <input type="checkbox" name="tone" value="Yes" />
-No <input type="checkbox" name="tone" value="No" />
-  </div>
-  <button type="submit" class="btn btn-primary">Save</button>
-     {!! Form::close() !!}
-    </div>
-    </div>
-    </div>
-    </div>
-    <br> <br> 
-    <table class="table table-small-font table-bordered table-striped">
- <thead>
-    <tr>
-   <th>No</th>
-    <th>Abnormalities</th>
-    <th>Abnormalities Details</th>
-    <th>Date</th>
-  </tr>
-  </thead>
-    </tr>
-    <?php $i=1;?>
-    <?php  $allergies=DB::table('patient_abnormalities')
-        ->Where('dependant_id','=',$dependant->id)
-    ->get(); ?>
-    @foreach($allergies as $allergy)
-    <tbody>
-      <tr>
-      <td>{{$i}}</td>
-       
-      <td>{{$allergy->name}}</td>
-      <td>{{$allergy->notes}}</td>
-      <td>{{ date('d -m- Y', strtotime($allergy->created_at))}}</td>
-     
-      
-        
-      </tr>
-    </tbody>
-    <?php $i++; ?>
-    @endforeach
-    </table>
-     <a data-toggle="modal" class="btn btn-primary" href="#modal-formab">Add</a>
-     <div id="modal-formab" class="modal fade" aria-hidden="true">
-                            <div class="modal-dialog">
-                            <div class="modal-content">
-                            <div class="modal-body">
- 
- 
+               });
+               $('.multi-field .remove-field', $wrapper).click(function() {
+                   if ($('.multi-field', $wrapper).length > 1)
+                       $(this).parent('.multi-field').remove();
+               });
+           });
+           });
+           </script>
+<script type="text/javascript">
+       $(document).ready(function(){
+             $("#embedcode").hide();
+             $("input[name='type']").change(function () {
+                  if($(this).val() == "yes")
+                       $("#embedcode").show();
+                  else
+                       $("#embedcode").hide();
+             });
+       });
+   </script>
+   </script>
     
-    <h2> <label><u>Abnormalities</u></label></h2>
-   <div class="row animated fadeInRight">
- <form class="form-horizontal" role="form" method="POST" action="/abnormalities" novalidate>
-    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-    <input type="hidden" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{$dependant->id}}" name="id"  required> 
- Skull <input type="checkbox" value="skull"  name="skull" />
- <div class="skull"  style="display: none">
- <label>Describe</label>
-    <textarea name="skull_descr" class="form-control"></textarea>
-  </div>
+   </script>
 
-  Limbs <input type="checkbox" value="limbs"  name="limbs" />
- <div class="limbs"  style="display: none">
- <label>Describe</label>
-    <textarea name="limbs_descr" class="form-control"></textarea>
-  </div>
-  Spine <input type="checkbox" value="spine"  name="spine" />
- <div class="spine"  style="display: none">
- <label>Describe</label>
-    <textarea name="spine_descr" class="form-control"></textarea>
-  </div>
-  Palate <input type="checkbox" value="palate"  name="palate" />
- <div class="palate"  style="display: none">
- <label>Describe</label>
-    <textarea name="palate_descr" class="form-control"></textarea>
-  </div>
-  Face <input type="checkbox" value="face"  name="face" />
- <div class="face"  style="display: none">
- <label>Describe</label>
-    <textarea name="face_descr" class="form-control"></textarea>
-  </div>
-  Anus <input type="checkbox" value="anus"  name="anus" />
- <div class="anus"  style="display: none">
- <label>Describe</label>
-    <textarea name="anus_descr" class="form-control"></textarea>
-  </div>
-  Dysmorphic <input type="checkbox" value="dysmorphic"  name="dysmorphic" />
- <div class="dysmorphic"  style="display: none">
- <label>Describe</label>
-    <textarea name="dysmorphic_descr" class="form-control"></textarea>
-  </div>
-  <br>
-  <button type="submit" class="btn btn-primary">Save</button>
-     {!! Form::close() !!}
-    </div>
-    </div>
-    </div>
-    </div>
-    </div>
-    </div>
-    
-      </div> 
-      </div> 
-      </div> 
-      </div>
-<div id="tab-4" class="tab-pane">
-                        <div class="panel-body">
+   <script>
 
-  <div class="wrapper wrapper-content">
-          <div class="row animated fadeInRight">
-      </div> 
-      </div> 
-      </div> 
-      </div> 
+       $(document).ready(function() {
 
-      </div> 
+               $('.i-checks').iCheck({
+                   checkboxClass: 'icheckbox_square-green',
+                   radioClass: 'iradio_square-green'
+               });
 
-</div><!--3tabs-->
-</div>
-</div>
-</div>
+           /* initialize the external events
+            -----------------------------------------------------------------*/
 
-<br><br>
 
- 
- @include('includes.default.footer')
+           $('#external-events div.external-event').each(function() {
 
-        </div>
-    
-      </div><!--content page-->
+               // store data so the calendar knows to render an event upon drop
+               $(this).data('event', {
+                   title: $.trim($(this).text()), // use the element's text as the event title
+                   stick: true // maintain when user navigates (see docs on the renderEvent method)
+               });
 
-@endsection
+               // make the event draggable using jQuery UI
+               $(this).draggable({
+                   zIndex: 1111999,
+                   revert: true,      // will cause the event to go back to its
+                   revertDuration: 0  //  original position after the drag
+               });
+
+           });
+
+
+           /* initialize the calendar
+            -----------------------------------------------------------------*/
+           var date = new Date();
+           var d = date.getDate();
+           var m = date.getMonth();
+           var y = date.getFullYear();
+
+           $('#calendar').fullCalendar({
+               header: {
+                   left: 'prev,next today',
+                   center: 'title',
+                   right: 'month,agendaWeek,agendaDay'
+               },
+               editable: true,
+               droppable: true, // this allows things to be dropped onto the calendar
+               drop: function() {
+                   // is the "remove after drop" checkbox checked?
+                   if ($('#drop-remove').is(':checked')) {
+                       // if so, remove the element from the "Draggable Events" list
+                       $(this).remove();
+                   }
+               },
+               events: [
+                   {
+                       title: 'All Day Event',
+                       start: new Date(y, m, 1)
+                   },
+                   {
+                       title: 'Long Event',
+                       start: new Date(y, m, d-5),
+                       end: new Date(y, m, d-2)
+                   },
+                   {
+                       id: 999,
+                       title: 'Repeating Event',
+                       start: new Date(y, m, d-3, 16, 0),
+                       allDay: false
+                   },
+                   {
+                       id: 999,
+                       title: 'Repeating Event',
+                       start: new Date(y, m, d+4, 16, 0),
+                       allDay: false
+                   },
+                   {
+                       title: 'Meeting',
+                       start: new Date(y, m, d, 10, 30),
+                       allDay: false
+                   },
+                   {
+                       title: 'Lunch',
+                       start: new Date(y, m, d, 12, 0),
+                       end: new Date(y, m, d, 14, 0),
+                       allDay: false
+                   },
+                   {
+                       title: 'Birthday Party',
+                       start: new Date(y, m, d+1, 19, 0),
+                       end: new Date(y, m, d+1, 22, 30),
+                       allDay: false
+                   },
+                   {
+                       title: 'Click for Google',
+                       start: new Date(y, m, 28),
+                       end: new Date(y, m, 29),
+                       url: 'http://google.com/'
+                   }
+               ]
+           });
+
+
+       });
+
+
+   </script>
+   <script>
+        $(document).ready(function(){
+            $("#wizard").steps();
+            $("#form").steps({
+                bodyTag: "fieldset",
+                onStepChanging: function (event, currentIndex, newIndex)
+                {
+                    // Always allow going backward even if the current step contains invalid fields!
+                    if (currentIndex > newIndex)
+                    {
+                        return true;
+                    }
+
+                    // Forbid suppressing "Warning" step if the user is to young
+                    if (newIndex === 3 && Number($("#age").val()) < 18)
+                    {
+                        return false;
+                    }
+
+                    var form = $(this);
+
+                    // Clean up if user went backward before
+                    if (currentIndex < newIndex)
+                    {
+                        // To remove error styles
+                        $(".body:eq(" + newIndex + ") label.error", form).remove();
+                        $(".body:eq(" + newIndex + ") .error", form).removeClass("error");
+                    }
+
+                    // Disable validation on fields that are disabled or hidden.
+                    form.validate().settings.ignore = ":disabled,:hidden";
+
+                    // Start validation; Prevent going forward if false
+                    return form.valid();
+                },
+               
+                onFinishing: function (event, currentIndex)
+                {
+                    var form = $(this);
+
+                    // Disable validation on fields that are disabled.
+                    // At this point it's recommended to do an overall check (mean ignoring only disabled fields)
+                    form.validate().settings.ignore = ":disabled";
+
+                    // Start validation; Prevent form submission if false
+                    return form.valid();
+                },
+                onFinished: function (event, currentIndex)
+                {
+                    var form = $(this);
+
+                    // Submit form input
+                    form.submit();
+                }
+            });
+       });
+    </script>
+
+
+
+
+</body>
+</html>

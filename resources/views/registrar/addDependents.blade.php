@@ -5,7 +5,7 @@
 
 
 
-  <div class="col-lg-6  col-lg-offset-2">                     
+  <div class="col-sm-6  col-sm-offset-2" style="text-align:left;">                     
   <div class="ibox-title">
       <h5>Dependant Details</h5>
 
@@ -13,15 +13,15 @@
          <div class="ibox-content">
                <form class="form-horizontal" role="form" method="POST" action="/createdependent" novalidate>
               <input type="hidden" name="_token" value="{{ csrf_token() }}">
-              <input type="hidden" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{$id}}" name="id"  required>
+              <input type="hidden" class="form-control" id="exampleInputEmail1"  value="{{$id}}" name="id"  required>
                <div class="form-group">
-              <label for="exampleInputEmail1">First Name</label>
-              <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" name="first"  value="
-               "  >
+              <label for="exampleInputPassword1">First Name</label>
+              <input type="name" class="form-control" id="exampleInputPassword1"  placeholder="" name="first" >
               </div>
+
               <div class="form-group">
-             <label for="exampleInputEmail1">Second Name</label>
-             <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" name="second"  value="
+             <label for="exampleInputPassword1">Second Name</label>
+             <input type="name" class="form-control" id="exampleInputPassword1"  placeholder="" name="second"  value="
               "  >
              </div>
              <div class="form-group">

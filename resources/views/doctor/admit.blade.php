@@ -13,6 +13,7 @@ $RegNo = $Docdata->regno;
 $RegDate = $Docdata->regdate;
 $Speciality = $Docdata->speciality;
 $Sub_Speciality = $Docdata->subspeciality;
+$Duser = $Docdata->user_id;
 
 
 }
@@ -124,7 +125,9 @@ elseif ($stat = 6) {
                                   {{ Form::hidden('appointment_status',4, array('class' => 'form-control')) }}
                                  {{ Form::hidden('appointment_id',$app_id, array('class' => 'form-control')) }}
                                   {{ Form::hidden('doc_id',$doc_id, array('class' => 'form-control')) }}
-
+                                  {{ Form::hidden('docr',$Duser, array('class' => 'form-control')) }}
+                                  {{ Form::hidden('afyaUser',$afyauserId, array('class' => 'form-control')) }}
+                                  {{ Form::hidden('dependt',$dependantId, array('class' => 'form-control')) }}
 
                       <div class="form-group col-md-8 col-md-offset-1">
                        <label for="role" class="control-label">Doctor note</label>

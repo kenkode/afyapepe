@@ -76,6 +76,7 @@ $Duser = $Docdata->user_id;
      <?php if ($stat==2) { ?>
          <li class="btn btn-primary"><a href="{{route('endvisit',$app_id)}}">End Visit</a></li>
      <?php } ?>
+     <li class="btn btn-primary"><a href="{{ url('doctor') }}">End Visit</a></li>
    </ul>
 <div class="col-md-8">
    <div class="tabs-container">

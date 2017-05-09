@@ -215,11 +215,12 @@ $aph=$request->aph;
 $motherproblem=$request->motherproblem;
 $revelantdrugs=$request->revelantdrugs;
 
-$afyaid=DB::table('dependant')->where('id',$id)->first();
+$afyaid=DB::table('dependant_parent')->where('dependant_id',$id)->where('relationship','=','Mother')->
+join('afya_users','afya_users.msisdn','=','dependant_parent.phone')->select('afya_users.id as afya_id')->first();
 
  DB::table('mother_details')->insert(
     ['dependant_id' => $id,
-    'afya_user_id'=>$afyaid->afya_user_id,
+    'afya_user_id'=>$afyaid->afya_id,
     'gravity'=>$gravidity,
     'parity'=>$parity,
     'labour1'=>$labour1,
@@ -699,6 +700,28 @@ return redirect()->action('NurseController@showDependents', [$id]);
      $id=$request->id;
      $father_name=$request->father_name;
      $father_phone=$request->father_phone;
+
+     $userid= DB::table('users')->insertGetId([
+    'name'=>$father_name,
+    'role'=>'Patient',
+    'email'=>$father_phone,
+    'password'=>bcrypt(123456),
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
+    ]);
+     DB::table('role_user')->insert(
+    ['user_id'=>$userid,
+     'role_id'=>8
+    ]);
+ DB::table('afya_users')->insert(
+    [
+    'users_id'=>$userid,
+    'firstname' => $father_name,
+     'msisdn'=> $father_phone,
+    'gender'=>1,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
+);
       DB::table('dependant_parent')->insert(
     ['name' => $father_name,
     'relationship' => 'Father',
@@ -720,7 +743,27 @@ return redirect()->action('NurseController@showDependents', [$id]);
      $birth=$request->birth;
      $dob=$request->dob;
       
- 
+$userid= DB::table('users')->insertGetId([
+    'name'=>$mother_name,
+    'role'=>'Patient',
+    'email'=>$mother_phone,
+    'password'=>bcrypt(123456),
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
+    ]);
+DB::table('role_user')->insert(
+    ['user_id'=>$userid,
+     'role_id'=>8
+    ]);
+ DB::table('afya_users')->insert(
+    [
+    'users_id'=>$userid,
+    'firstname' => $mother_name,
+     'msisdn'=> $mother_phone,
+    'gender'=>2,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
+);
    
  DB::table('dependant_parent')->insert(
     ['name' => $mother_name,
@@ -797,7 +840,7 @@ return Redirect::route('nurse.show', [$id]);
         $now = Carbon::now();
         $length = $end->diffInDays($now);
 
-        return view('nurse.showdependent')->with('id',$id)->with('length',$length)->with('details',$details)->with('observations',$observations)->with('symptoms',$symptoms);
+        return view('nurse.show2')->with('id',$id)->with('length',$length)->with('details',$details)->with('observations',$observations)->with('symptoms',$symptoms);
     }
 
 
@@ -896,7 +939,319 @@ return Redirect::route('nurse.show', [$id]);
         return view('nurse.create_infact_triage')->with('id',$id)->with('observations',$observations)->with('symptoms',$symptoms);
 
     }
+   
+   public function addBaby(Request $request){
+    $id=$request->id;
+    $dob=$request->admission_date;
+    $ipno=$request->ipno;
+    $gestation=$request->gestation;
+    $temperature=$request->temperature;
+    $apgar=$request->apgar;
+    $birthweight=$request->birthweight;
+    $weightnow=$request->weightnow;
+    $bba=$request->bba;
+    $bba_where=$request->bba_where;
+    $delivery=$request->delivery;
+    $resuscitation=$request->resuscitation;
+    $rom=$request->rom;
+    $vitamen=$request->vitamen;
+    $prophylaxis=$request->prophylaxis;
+    $babyproblem=$request->babyproblem;
+    $revelantdrugs=$request->revelantdrugs;
+    $dob=$request->dob;
+$gravidity=$request->gravidity;
+$parity=$request->parity;
+$blood_type=$request->blood_type;
+$sublocation=$request->sublocation;
+$hiv=$request->hiv;
+$arvs=$request->arvs;
+$vdrl=$request->vdrl;
+$fever=$request->fever;
+$antibiotics=$request->antibiotics;
+$diabetes=$request->diabetes;
+$tb=$request->tb;
+$tb_type=$request->tb_type;
+$tb_treatment=$request->tb_treatment;
+$labour1=$request->labour1;
+$labour2=$request->labour2;
+$hypertention=$request->hypertention;
+$aph=$request->aph;
+$motherproblem=$request->motherproblem;
+$revelantdrugs=$request->revelantdrugs;
+$cir=$request->cir;
+$skin=$request->skin;
+$jaundice=$request->jaundice;
+$gest_size=$request->gest_size;
+$umbilicus=$request->umbilicus;
+$fever=$request->fevers;
+$days=$request->days;
+$difficultybreathing=$request->difficulty_breathing;
+$diarrhoea=$request->diarrhoea;
+$diarrhoeadays=$request->diarrhoea_days;
+$diarrhoeabloody=$request->diarrhoea_bloody;
+$vomiting=$request->vomiting;
+$vomitinghours=$request->vomiting_hours;
+$vomitseveything=$request->vomits_eveything;
+$feedingdifficult=$request->feeding_difficult;
+$convulsion=$request->convulsion;
+$convulsionhours=$request->convulsion_hours;
+$fits=$request->fits;
+$apnoea=$request->apnoea;
+$femoral=$request->femoral_pulse;
+$refill=$request->refill;
+$seconds=$request->seconds;
+$murmur=$request->Murmur;
+$murmuryes=$request->murmur_yes;
+$pallor=$request->pallor;
+$skincold=$request->skincold;
+$stridor=$request->stridor;
+$oxygen=$request->oxygen_saturation;
+$cyanosis=$request->cyanosis;
+$indrawing=$request->indrawing;
+$grunting=$request->grunting;
+$airentry=$request->air_entry;
+$crackles=$request->crackles;
+$cry=$request->cry;
+ $weight=$request->weight;
+        $heightS=$request->current_height;
+        $temperature=$request->temperature;
+        $systolic=$request->systolic;
+        $diastolic=$request->diastolic;
+        
+        $chiefcompliant=$request->chiefcompliants;
+        $observation=$request->observations;
+        $symptoms=$request->symptoms;
+        $nurse=$request->nurse;
+        $doctor=$request->doctor;
 
+        $chiefcompliant=implode(',', $chiefcompliant);
+        $observation=implode(',',$observation );
+        $symptoms=implode(',', $symptoms);
+         $score=$request->muac;
+         $id=$request->id;
+    $breastfeed=$request->breastfeed;
+    $neck=$request->neck;
+    $fontanelle=$request->fontanelle;
+    $irritable=$request->irritable;
+    $tone=$request->tone;
+     $drugs=$request->drugs;
+if($drugs){
+foreach($drugs as $key =>$drug) {
+     DB::table('patient_allergy')->insert([
+    'dependant_id'=>$id,
+    'allergy_id'=>$drug,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
+}
+}
+ $foods=$request->foods;
+ if($foods){
+foreach($foods as $key) {
+    DB::table('patient_allergy')->insert([
+    'dependant_id'=>$id,
+    'allergy_id'=>$key,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
+}
+}
+ $latexs=$request->latexs;
+ if($latexs){
+foreach($latexs as $key) {
+   DB::table('patient_allergy')->insert([
+    'dependant_id'=>$id,
+    'allergy_id'=>$key,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
+}}
+
+
+ $molds=$request->molds;
+ if($molds){{
+   DB::table('patient_allergy')->insert([
+    'dependant_id'=>$id,
+    'allergy_id'=>$molds,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
+}}
+$pets=$request->pets;
+if($pets){
+
+foreach($pets as $key) {
+    DB::table('patient_allergy')->insert([
+   'dependant_id'=>$id,
+    'allergy_id'=>$key,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
+
+}}
+
+$pollens=$request->pollens;
+if($pollens) {   
+   DB::table('patient_allergy')->insert([
+    'dependant_id'=>$id,
+    'allergy_id'=>$pollens,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
+}
+
+$insects=$request->insects;
+if($insects)
+
+foreach($insects as $key) {
+    DB::table('patient_allergy')->insert([
+   'dependant_id'=>$id,
+    'allergy_id'=>$key,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
+}
+
+    if($breastfeed=="No"){
+
+          DB::table('patient_disabilities')->insert(
+    ['dependant_id' => $id,
+    'name' =>'breastfeed',
+    'notes'=> 'cant suck',
+     'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
+);
+
+    }
+
+    if($fontanelle=="Yes"){
+        DB::table('patient_disabilities')->insert(
+    ['dependant_id' => $id,
+    'name' =>'Bulging fontanelle',
+     'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
+);
+    }
+    if($irritable=="Yes"){
+        DB::table('patient_disabilities')->insert(
+    ['dependant_id' => $id,
+    'name' =>'Irritable',
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
+);
+    }
+    if($tone=="Yes"){
+        DB::table('patient_disabilities')->insert(
+    ['dependant_id' => $id,
+    'name' =>'Reduced movement',
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
+);
+    }
+    if($neck=="Yes"){
+        DB::table('patient_disabilities')->insert(
+    ['dependant_id' => $id,
+    'name' =>'Stiff neck',
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
+);
+    }
+
+     DB::table('dependant_nutrition_test')->insert(
+    ['dependent_id' => $id,
+    'score' =>$score,
+     'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
+);
+        
+$afyaid=DB::table('dependant_parent')->where('dependant_id',$id)->where('relationship','=','Mother')->
+join('afya_users','afya_users.msisdn','=','dependant_parent.phone')->select('afya_users.id as afya_id')->first();
+
+ DB::table('mother_details')->insert(
+    ['dependant_id' => $id,
+    'afya_user_id'=>$afyaid->afya_id,
+    'gravity'=>$gravidity,
+    'parity'=>$parity,
+    'labour1'=>$labour1,
+    'labour2'=>$labour2,
+    'aph'=>$aph,
+    'motherproblem'=>$motherproblem,
+    'revelantdrugs'=>$revelantdrugs,
+     'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
+);
+    DB::table('infant_details')->insert(
+    ['dependant_id' => $id,
+     'admission_date'=>$dob,
+     'ipno'=>$ipno,
+     'gestation'=>$gestation,
+     'temperature'=>$temperature,
+     'apgar'=>$apgar,
+     'birthweight'=>$birthweight,
+     'weightnow'=>$weightnow,
+     'bba'=>$bba,
+     'bba_where'=>$bba_where,
+     'delivery'=>$delivery,
+     'resuscitation'=>$resuscitation,
+     'rom'=>$rom,
+     'vitamen'=>$vitamen,
+     'prophylaxis'=>$prophylaxis,
+     'babyproblem'=>$babyproblem,
+     'revelantdrugs'=>$revelantdrugs,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
+    $appointment=DB::table('appointments')->where('persontreated', $id)->orderBy('created_at', 'desc')->first();
+DB::table('triage_infants')->insert(
+    ['appointment_id' => $appointment->id,
+    'dependant_id'=>$id,
+      'skin'=>$skin,
+      'jaundice'=>$jaundice,
+      'gest_size'=>$gest_size,
+      'umbilicus'=>$umbilicus,
+      'head_circum'=>$cir,
+    'weight'=> $weight,
+    'height'=>$heightS,
+    'temperature'=>$temperature,
+    'systolic_bp'=>$systolic,
+    'diastolic_bp'=>$diastolic,
+    'chief_compliant'=>$chiefcompliant,
+    'observation'=>$observation,
+    'symptoms'=>$symptoms,
+    'nurse_notes'=>$nurse,
+    'Doctor_notes'=>'',
+     'fever'=>$fever,
+    'fever_days'=>$days,
+    'difficult_breathing'=>$difficultybreathing,
+    'diarrhoea'=>$diarrhoea,
+    'diarrhoea_day'=>$diarrhoeadays,
+    'diarrhoea_bloody'=>$diarrhoeabloody,
+    'vomiting'=>$vomiting,
+    'vomiting_hours'=>$vomitinghours,
+    'vomiting_everything'=>$vomitseveything,
+    'difficult_feeding'=>$feedingdifficult,
+    'convulsion'=>$convulsion,
+    'convulsion_hours'=>$convulsionhours,
+    'fits'=>$fits,
+    'aponea'=>$apnoea,
+    'femoral_pulse'=>$femoral,
+    'refill'=>$refill,
+    'seconds'=>$seconds,
+    'murmur'=>$murmur,
+    'murmur_yes'=>$murmuryes,
+    'pallar'=>$pallor,
+    'skincold'=>$skincold,
+    'stridor'=>$stridor,
+    'oxygen_saturation'=>$oxygen,
+    'cynanosis'=>$cyanosis,
+    'indrawing'=>$indrawing,
+    'grunting'=>$grunting,
+    'air_entry'=>$airentry,
+    'crackles'=>$crackles,
+    'cry'=>$cry,
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
+   DB::table('appointments')->where('id',$appointment->id)->update([
+    'status'=>2]);
+
+
+        return redirect()->action('NurseController@index');
+    
+
+   }
+    
+   
     public function createinfantDetails (Request $request){
        $id=$request->id;
         $weight=$request->weight;

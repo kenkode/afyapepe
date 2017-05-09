@@ -93,7 +93,7 @@ Route::group(['middleware' => ['auth','role:Admin|Nurse']], function() {
   Route::post('abnormalities','NurseController@abnormalities');
   Route::post('addfather','NurseController@addfather');
   Route::post('addmother','NurseController@addmother');
-
+ Route::post('babytriage','NurseController@addBaby');
 
 Route::get('/ajax-subcat',function(){
 	$cat_id= Input::get('cat_id');
@@ -139,6 +139,8 @@ Route::Post('admitts', [ 'as' => 'admitting', 'uses' => 'TagController@admitts']
  Route::Post('testpost', [ 'as' => 'patienttest', 'uses' => 'PatientTestController@store']);
 	 Route::get('test/{id}', [ 'as' => 'testes', 'uses' => 'PatientTestController@testdata']);
 	 Route::get('diagnosis/{id}', [ 'as' => 'diagnoses', 'uses' => 'PatientTestController@diagnoses']);
+	  Route::Post('diagnosisconfirm', [ 'as' => 'diaconf', 'uses' => 'PatientTestController@diagnosesconf']);
+
    Route::Post('diagnosis', [ 'as' => 'confdiag', 'uses' => 'PrescriptionController@diagnoses']);
    Route::get('prescriptions/{id}', [ 'as' => 'medicines', 'uses' => 'PrescriptionController@prescriptions']);
    Route::get('history/{id}', [ 'as' => 'patienthistory', 'uses' => 'PatientController@history']);

@@ -29,6 +29,9 @@
         <div id="page-wrapper" class="gray-bg dashbard-1">
 
     @include('includes.nurse_inc.headbar')
+           <?php 
+    $mothers=DB::table('triage_infants')->where('dependant_id',$id)->get();
+    $details=DB::table('infant_details')->where('dependant_id',$id)->get();?>
 
      <div class="row">
     <div class="col-lg-6 ">
@@ -461,10 +464,10 @@ No <input type="checkbox" name="aph" value="No" />
   
 </div>
 <div class="form-group">
-<label>Revelant Drugs( Pre Admission)</label>
-<textarea name="revelantdrugs" class="form-control"></textarea>
-  
-</div>
+                     <label >Revelant Drugs( Pre Admission):</label>
+                     <textarea name="revelantdrugs" class="form-control presc1" style="width:50%"></textarea>
+                 </div>
+
                                         </div>
                                     </div>
                                 </fieldset>
@@ -703,6 +706,64 @@ No <input type="checkbox" name="tone" value="No" />
                                    
                                     <div class="row">
                                         <div class="col-sm-6">
+  <h4> <label><u>Other Vitals</u></label></h4>
+    <div class="form-group">
+    <label for="exampleInputEmail1">Weight</label>
+    <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Weight" name="weight"  required>
+    </div>
+    <div class="form-group">
+    <label for="exampleInputEmail1">Height</label>
+    <input type="name" class="form-control" placeholder="Height in Metres" name="current_height"
+     required>
+    </div>
+     <div class="form-group">
+    <label for="exampleInputEmail1">Head Head Measurement</label>
+    <input type="name" class="form-control" placeholder="" name="cir">
+    </div>
+   <div class="form-group">
+    <label for="exampleInputPassword1">Temperature</label>
+    <input type="name" class="form-control" id="exampleInputPassword1" placeholder="Temperature" name="temperature"  required>
+   </div>
+
+    <div class="form-group">
+    <label for="exampleInputPassword1">Systolic BP</label>
+    <input type="name" class="form-control" id="exampleInputPassword1" placeholder="Systolic BP" name="systolic"  required>
+    </div>
+    <div class="form-group">
+    <label for="exampleInputEmail1">Diastolic BP</label>
+    <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Diastolic BP" name="diastolic"  required>
+    </div>
+ 
+  
+
+     <div class="form-group">
+    <label for="exampleInputPassword1">Chief Complaint/Reason for visit</label>
+    <select multiple="multiple" class="form-control" name="chiefcompliants[]"  >
+    <?php $chiefs = DB::table('chief_compliant_table')->get();?>
+                  @foreach($chiefs as $chief)
+                   <option value="{{$chief->name}}">{{$chief->name}}</option>
+                 @endforeach
+                </select>
+    </div>
+    <div class="form-group">
+    <label for="exampleInputPassword1">Observation</label>
+    <select  multiple="multiple"  class="form-control" name="observations[]" id="observation" >
+    
+                  @foreach($observations as $observation)
+                   <option value="{{$observation->name}}">{{$observation->name}}</option>
+                 @endforeach
+                </select>
+    </div>
+    <div class="form-group">
+    <label for="exampleInputPassword1">symptoms</label>
+    <select multiple="multiple" class="form-control" name="symptoms[]" id="symptoms">
+     @foreach($symptoms as  $symptom)
+                   <option value="{{$symptom->name}}">{{$symptom->name}}</option>
+                 @endforeach
+    
+                </select>
+    </div>
+    
                                             <div class="form-group">
 <label>Difficulty Breathing</label>
  No  <input type="checkbox" value="No"  name="difficulty_breathing" />
@@ -776,7 +837,12 @@ No  <input type="checkbox" value="No_convulsion"  name="convulsion" />
  Yes <input type="checkbox" value="Yes"  name="apnoea"  />
   
 </div>
-<h4> <label><U>Circulation</U></label></h4>
+
+    
+  </div>
+
+                                        <div class="col-lg-6">
+                                        <h4> <label><U>Circulation</U></label></h4>
     <div class="form-group">
     <label>Femoral Pulse</label>
     Normal <input type="checkbox" value="Normal"  name="femoral_pulse"/>
@@ -846,10 +912,6 @@ Shoulder <input type="checkbox" name="skincold" value="Shoulder" />
     Local Pus <input type="checkbox" value="LocalPus"  name="umbilicus"/>
     Pus + red skin  <input type="checkbox" value="Pus red skin "  name="umbilicus"/>
     </div>
-    
-  </div>
-
-                                        <div class="col-lg-6">
                                             <h4> <label><u>Airways & Breathing</u></label></h4>
 
     <div class="form-group">
@@ -897,63 +959,6 @@ Shoulder <input type="checkbox" name="skincold" value="Shoulder" />
     </div>
 
 
-     <h4> <label><u>Other Vitals</u></label></h4>
-    <div class="form-group">
-    <label for="exampleInputEmail1">Weight</label>
-    <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Weight" name="weight"  required>
-    </div>
-    <div class="form-group">
-    <label for="exampleInputEmail1">Height</label>
-    <input type="name" class="form-control" placeholder="Height in Metres" name="current_height"
-     required>
-    </div>
-     <div class="form-group">
-    <label for="exampleInputEmail1">Head Head Measurement</label>
-    <input type="name" class="form-control" placeholder="" name="cir">
-    </div>
-   <div class="form-group">
-    <label for="exampleInputPassword1">Temperature</label>
-    <input type="name" class="form-control" id="exampleInputPassword1" placeholder="Temperature" name="temperature"  required>
-   </div>
-
-    <div class="form-group">
-    <label for="exampleInputPassword1">Systolic BP</label>
-    <input type="name" class="form-control" id="exampleInputPassword1" placeholder="Systolic BP" name="systolic"  required>
-    </div>
-    <div class="form-group">
-    <label for="exampleInputEmail1">Diastolic BP</label>
-    <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Diastolic BP" name="diastolic"  required>
-    </div>
- 
-  
-
-     <div class="form-group">
-    <label for="exampleInputPassword1">Chief Complaint/Reason for visit</label>
-    <select multiple="multiple" class="form-control" name="chiefcompliants[]"  >
-    <?php $chiefs = DB::table('chief_compliant_table')->get();?>
-                  @foreach($chiefs as $chief)
-                   <option value="{{$chief->name}}">{{$chief->name}}</option>
-                 @endforeach
-                </select>
-    </div>
-    <div class="form-group">
-    <label for="exampleInputPassword1">Observation</label>
-    <select  multiple="multiple"  class="form-control" name="observations[]" id="observation" >
-    
-                  @foreach($observations as $observation)
-                   <option value="{{$observation->name}}">{{$observation->name}}</option>
-                 @endforeach
-                </select>
-    </div>
-    <div class="form-group">
-    <label for="exampleInputPassword1">symptoms</label>
-    <select multiple="multiple" class="form-control" name="symptoms[]" id="symptoms">
-     @foreach($symptoms as  $symptom)
-                   <option value="{{$symptom->name}}">{{$symptom->name}}</option>
-                 @endforeach
-    
-                </select>
-    </div>
     
 
     <div class="form-group">

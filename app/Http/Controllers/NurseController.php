@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
+use App\Druglist;
 use App\Observation;
 use App\Symptom;
 use Redirect;
@@ -32,6 +33,20 @@ class NurseController extends Controller
         ->get();
         return view('nurse.newpatient')->with('patients',$patients);
     }
+    public function fdrugs(Request $request)
+     {
+         $term = trim($request->q);
+      if (empty($term)) {
+           return \Response::json([]);
+         }
+       $drugs = Druglist::search($term)->limit(20)->get();
+         $formatted_drugs = [];
+          foreach ($drugs as $drug) {
+             $formatted_drugs[] = ['id' => $drug->id, 'text' => $drug->drugname];
+         }
+     return \Response::json($formatted_drugs);
+     }
+
     public function users()
     {
       $patients=DB::table('afya_users')->get();

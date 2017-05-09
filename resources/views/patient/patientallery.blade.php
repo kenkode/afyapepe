@@ -331,7 +331,7 @@
                                       <th>Test</th>
                                       <th>Doctor Name</th>
                                       <th>Status</th>
-                                      <th>Cost</th>
+                                     
 
                                       <!-- <th>Constituency of Residence</th> -->
 
@@ -347,6 +347,13 @@
                               @foreach($tests as $test)
                               <tr>
                               <td>{{$i}}</td>
+                              <td>{{$test->created_at}}</td>
+                                <td><?php $labtest=DB::table('lab_test')->where('id',$test->tests_reccommended)->first();
+                               $testname=DB::table('test_type')->where('id',$labtest->test_type_id)->first();?>{{$testname->test_category}}</td>
+                              <td>{{$labtest->name}}</td>
+                              <td><?php $user=DB::table('users')->where('id',$test->doc_id)->first(); ?>{{$user->name}}</td>
+                              <td><?php $status=$test->done; if($status==0){ echo "Not Done";} else { echo "Done";}?></td>
+                           
                               </tr>
 
                                <?php $i++ ?>

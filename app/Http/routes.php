@@ -93,7 +93,7 @@ Route::group(['middleware' => ['auth','role:Admin|Nurse']], function() {
   Route::post('abnormalities','NurseController@abnormalities');
   Route::post('addfather','NurseController@addfather');
   Route::post('addmother','NurseController@addmother');
-
+ Route::post('babytriage','NurseController@addBaby');
 
 Route::get('/ajax-subcat',function(){
 	$cat_id= Input::get('cat_id');

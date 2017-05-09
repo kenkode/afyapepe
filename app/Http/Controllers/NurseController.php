@@ -215,11 +215,12 @@ $aph=$request->aph;
 $motherproblem=$request->motherproblem;
 $revelantdrugs=$request->revelantdrugs;
 
-$afyaid=DB::table('dependant')->where('id',$id)->first();
+$afyaid=DB::table('dependant_parent')->where('dependant_id',$id)->where('relationship','=','Mother')->
+join('afya_users','afya_users.msisdn','=','dependant_parent.phone')->select('afya_users.id as afya_id')->first();
 
  DB::table('mother_details')->insert(
     ['dependant_id' => $id,
-    'afya_user_id'=>$afyaid->afya_user_id,
+    'afya_user_id'=>$afyaid->afya_id,
     'gravity'=>$gravidity,
     'parity'=>$parity,
     'labour1'=>$labour1,

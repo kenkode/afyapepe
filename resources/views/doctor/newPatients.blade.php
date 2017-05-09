@@ -17,7 +17,7 @@
 
   <div class="wrapper wrapper-content animated fadeInRight">
             <div class="row">
-                <div class="col-lg-11">
+                <div class="col-lg-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <h5>Patients List</h5>
@@ -44,7 +44,7 @@
                             </a>
                         </div>
                     </div>
-                    <div class="ibox-content">
+                    <div class="ibox-content ">
                        <div class="table-responsive">
                     <table class="table table-striped table-bordered table-hover dataTables-main" >
                     <thead>
@@ -74,8 +74,8 @@
 
                             <td><a href="{{route('showPatient',$apatient->appid)}}">{{$i}}</a></td>
                             <td><a href="{{route('showPatient',$apatient->appid)}}">
-                              <?php if ($apatient->persontreated=='Self') {echo $apatient->firstname ;  echo $apatient->secondName;}
-                              else {echo $apatient->Infname; echo $apatient->InfName;}
+                              <?php if ($apatient->persontreated=='Self') {echo $apatient->firstname." ".$apatient->secondName;}
+                              else {echo $apatient->Infname." ".$apatient->InfName;}
                              ?></a></td>
 
                              <td> <?php if ($apatient->appointment_made=='Y'){ ?>

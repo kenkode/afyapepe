@@ -1,7 +1,5 @@
 
 <div class="wrapper wrapper-content">
-
-
   <div class="row">
          <div class="ibox float-e-margins">
             <div class="table-responsive ibox-content">
@@ -30,7 +28,7 @@
                 <td>{{ +$i }}</td>
                <td>{{$pdetails->current_weight}} </td>
                 <td>{{ $pdetails->current_height}}</td>
-                <td>{{  $pdetails->temperature}}</td>
+                <td>{{ $pdetails->temperature}}</td>
                 <td>{{ $pdetails->systolic_bp}}</td>
                  <td>{{ $pdetails->diastolic_bp}}</td>
                  <td>
@@ -54,10 +52,4 @@
              </div>
 
            </div>
-
-
-
-
-
-
- </div>
+</div>

@@ -699,6 +699,28 @@ return redirect()->action('NurseController@showDependents', [$id]);
      $id=$request->id;
      $father_name=$request->father_name;
      $father_phone=$request->father_phone;
+
+     $userid= DB::table('users')->insertGetId([
+    'name'=>$father_name,
+    'role'=>'Patient',
+    'email'=>$father_phone,
+    'password'=>bcrypt(123456),
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
+    ]);
+     DB::table('role_user')->insert(
+    ['user_id'=>$userid,
+     'role_id'=>8
+    ]);
+ DB::table('afya_users')->insert(
+    [
+    'users_id'=>$userid,
+    'firstname' => $father_name,
+     'msisdn'=> $father_phone,
+    'gender'=>1,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
+);
       DB::table('dependant_parent')->insert(
     ['name' => $father_name,
     'relationship' => 'Father',
@@ -720,7 +742,27 @@ return redirect()->action('NurseController@showDependents', [$id]);
      $birth=$request->birth;
      $dob=$request->dob;
       
- 
+$userid= DB::table('users')->insertGetId([
+    'name'=>$mother_name,
+    'role'=>'Patient',
+    'email'=>$mother_phone,
+    'password'=>bcrypt(123456),
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
+    ]);
+DB::table('role_user')->insert(
+    ['user_id'=>$userid,
+     'role_id'=>8
+    ]);
+ DB::table('afya_users')->insert(
+    [
+    'users_id'=>$userid,
+    'firstname' => $mother_name,
+     'msisdn'=> $mother_phone,
+    'gender'=>2,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
+);
    
  DB::table('dependant_parent')->insert(
     ['name' => $mother_name,

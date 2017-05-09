@@ -55,17 +55,10 @@
                 </div>
             </div>
             <div class="ibox-content">
-   <div class="form-group">
             <?php $father=DB::table('dependant_parent')->where('dependant_id',$id)->where('relationship','=','Father')->first();?>
-            <label for="exampleInputPassword1">Father Name</label>
-            <input type="text" class="form-control" id="exampleInputPassword1"  name="phone" value="{{$father->name or ''}}" readonly  >
-            </div>
-             <div class="form-group">
-            <label for="exampleInputPassword1">Father Phone</label>
-             <input type="text" class="form-control" id="exampleInputPassword1"  name="phone" value="{{$father->phone or ''}}" readonly  >
-            </div>
+  
             @if(is_null($father))
-            <a data-toggle="modal" class="btn btn-primary" href="#modal-formf">Add</a>
+            <a data-toggle="modal" class="btn btn-primary" href="#modal-formf">Add Father</a>
                             
                             <div id="modal-formf" class="modal fade" aria-hidden="true">
                             <div class="modal-dialog">
@@ -93,19 +86,22 @@
                             </div>
                             </div>
                             </div>
+                            @else
+                             <div class="form-group">
+            
+            <label for="exampleInputPassword1">Father Name</label>
+            <input type="text" class="form-control" id="exampleInputPassword1"  name="phone" value="{{$father->name or ''}}" readonly  >
+            </div>
+             <div class="form-group">
+            <label for="exampleInputPassword1">Father Phone</label>
+             <input type="text" class="form-control" id="exampleInputPassword1"  name="phone" value="{{$father->phone or ''}}" readonly  >
+            </div>
             @endif
              <?php $mother=DB::table('dependant_parent')->where('dependant_id',$id)->where('relationship','=','Mother')->first();?>
-             <div class="form-group">
-            <label for="exampleInputPassword1">Mother Name</label>
-            <input type="text" class="form-control" id="exampleInputPassword1" name="phone" value="{{$mother->name or ''}}" readonly  >
-            </div>
-             <div class="form-group">
-            <label for="exampleInputPassword1">Mother Phone</label>
-             <input type="text" class="form-control" id="exampleInputPassword1"  name="phone" value="{{$mother->phone or ''}}" readonly  >
-            </div>
+             
    @if(is_null($mother))
             
-             <a data-toggle="modal" class="btn btn-primary" href="#modal-formp">Add</a>
+             <a data-toggle="modal" class="btn btn-primary" href="#modal-formp">Add Mother</a>
                             
                             <div id="modal-formp" class="modal fade" aria-hidden="true">
                             <div class="modal-dialog">
@@ -147,6 +143,15 @@
                             </div>
                             </div>
                             </div>
+            @else
+            <div class="form-group">
+            <label for="exampleInputPassword1">Mother Name</label>
+            <input type="text" class="form-control" id="exampleInputPassword1" name="phone" value="{{$mother->name or ''}}" readonly  >
+            </div>
+             <div class="form-group">
+            <label for="exampleInputPassword1">Mother Phone</label>
+             <input type="text" class="form-control" id="exampleInputPassword1"  name="phone" value="{{$mother->phone or ''}}" readonly  >
+            </div>
             @endif
             
   </div>
@@ -325,7 +330,9 @@
    5m <input type="checkbox" value="5m"  name="apgar"/>
    10m <input type="checkbox" value="10m"  name="apgar"/>
    </div>
-    @if(is_null($details))
+     @if(!empty($details))
+ @else
+
    <div class="form-group">
                  <label for="exampleInputPassword1">Birth Weight</label>
             <input type="number" class="form-control" name="birthweight">
@@ -341,7 +348,10 @@
     </div>
 
 <div class="col-lg-6">
-@if(is_null($details))
+
+ @if(!empty($details))
+ @else
+
        <div class="form-group">
    <label for="exampleInputEmail1">BBA</label>
    No <input type="checkbox" value="No"  name="bba" />
@@ -514,7 +524,8 @@
  <form class="form-horizontal" role="form" method="POST" action="/motherdetails" novalidate>
     <input type="hidden" name="_token" value="{{ csrf_token() }}">
     <input type="hidden" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{$dependant->id}}" name="id"  required>
- @if(is_null($mothers))
+ @if(!empty($mothers))
+ @else
   <div class="form-group" id="data_1">
                  <label for="exampleInputPassword1">Date of Birth</label>
                  <div class="input-group date">
@@ -522,6 +533,7 @@
                      <input type="text" class="form-control" name="dob" value="">
                  </div>
                  </div>
+  
   @endif
   <div class="form-group">
   <label>Gravidity</label><br>

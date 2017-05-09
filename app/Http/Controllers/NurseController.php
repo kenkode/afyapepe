@@ -1487,8 +1487,7 @@ DB::table('appointments')->where('id',$appointment->id)->update([
         $symptoms=$request->symptoms;
         $nurse=$request->nurse;
         $doctor=$request->doctor;
-        
-       
+            
       
        
 

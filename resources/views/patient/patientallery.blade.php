@@ -100,22 +100,37 @@
 
                         <div class="table-responsive">
                      <table class="table table-striped table-bordered table-hover dataTables-example" >
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Name</th>
-                            <th>Description </th>
+      <thead>
+       <tr>
+      <th>No</th>
+  <th>Allery Type</th>
+  <th>Allery Name</th>
+   <th>Date </th>
+  </tr>
+      </thead>
 
-                            
+      <?php $i =1;  $allergies=DB::table('afya_users_allergy')
+    ->Join('allergies_type','allergies_type.id','=','afya_users_allergy.allergies_type_id')
+    ->Join('allergies','allergies.id','=','allergies_type.allergies_id')
+    ->Select('allergies_type.name','allergies.name as Allergy','afya_users_allergy.created_at')
+    ->Where('afya_users_allergy.afya_user_id','=',$patient->id)
+    ->get(); ?>
+     <tbody>
+       @foreach($allergies as $allergy)
+   
+      <tr>
+      <td>{{$i}}</td>
+       <td>{{$allergy->Allergy}}</td>
+      <td>{{$allergy->name}}</td>   
+       <td>{{$allergy->created_at}}</td>      
+      </tr>
+  
+       <?php $i++; ?>
 
-                      </tr>
-                    </thead>
+      @endforeach
 
-                    <tbody>
-
-
-                     </tbody>
-                   </table>
+        </tbody>
+      </table>
                        </div>
 
                    </div>

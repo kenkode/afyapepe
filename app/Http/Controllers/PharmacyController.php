@@ -141,7 +141,7 @@ class PharmacyController extends Controller
 
         if($person_treated === 'Self')
         {
-          
+
         $afya_user_id = $results->afya_user_id;
 
         $drugs = DB::table('prescriptions')
@@ -187,7 +187,7 @@ class PharmacyController extends Controller
         if($person_treated === 'Self')
         {
 
-        $afya_user_id = $results->user_id;
+        $afya_user_id = $results->afya_user_id;
 
         $diseases = DB::table('patient_chronic')
                   ->join('chronic_illnesses', 'chronic_illnesses.id', '=', 'patient_chronic.disease_id')

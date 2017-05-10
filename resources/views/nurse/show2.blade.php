@@ -299,7 +299,7 @@
  @else
   <div class="form-group">
 <label class="exampleInputPassword1" for="name">BBA</label><br>
-No<input type="radio" value="No"  name="bba"/>Yes<input type="radio" value="Yes"  name="bba"/>
+No<input type="checkbox" value="No"  name="bba"/>Yes<input type="checkbox" value="Yes"  name="bba"/>
 
   <div id="embedcode">
     <label>Born Where</label>
@@ -359,11 +359,16 @@ No<input type="radio" value="No"  name="bba"/>Yes<input type="radio" value="Yes"
 <label>Babies Presenting Problems</label>
 <textarea name="babyproblem" class="form-control"></textarea>
   </div>
+
 <div class="form-group">
-<label>Revelant Drugs( Pre Admission)</label>
-<textarea name="revelantdrugs" class="form-control"></textarea>
-  
-</div>
+    <label for="exampleInputPassword1">Revelant Drugs( Pre Admission)</label>
+    <select multiple="multiple" class="form-control" name="brevelantdrugs[]"  >
+    <?php $chiefs = DB::table('druglists')->get();?>
+                  @foreach($chiefs as $chief)
+                   <option value="{{$chief->drugname}}">{{$chief->drugname}}</option>
+                 @endforeach
+                </select>
+    </div>
 
                                            
                                        
@@ -480,10 +485,17 @@ No <input type="checkbox" name="aph" value="No" />
 <textarea name="motherproblem" class="form-control"></textarea>
   
 </div>
+
 <div class="form-group">
-                     <label >Revelant Drugs( Pre Admission):</label>
-                     <textarea name="revelantdrugs" class="form-control presc1" style="width:50%"></textarea>
-                 </div>
+    <label for="exampleInputPassword1">Revelant Drugs( Pre Admission)</label>
+    <select multiple="multiple" class="form-control" name="mrevelantdrugs[]"  >
+    <?php $chiefs = DB::table('druglists')->get();?>
+                  @foreach($chiefs as $chief)
+                   <option value="{{$chief->drugname}}">{{$chief->drugname}}</option>
+                 @endforeach
+                </select>
+    </div>
+
 
                                         </div>
                                     </div>
@@ -676,13 +688,15 @@ No <input type="checkbox" name="tone" value="No" />
 
                                                                       <th>Status</th>
                                                                       <th>Vaccination Date</th>
+                                                                      <th></th>
                                                                      
 
                                                                 </tr>
                                                               </thead>
                                                               
                                                         <?php  $vaccines=DB::table('vaccine')->join('dependant_vaccination','dependant_vaccination.vaccine_id','=','vaccine.id')->distinct()->select('vaccine.*','dependant_vaccination.*','dependant_vaccination.id as userid')
-                                                         ->where('vaccine.age','=>',$length)->get(); ?>
+                                                         ->where('vaccine.age','=>',$length)
+                                                         ->where('dependant_vaccination.dependent_id','=',$id)->get(); ?>
                                                           <?php $i=1; ?>
                                                         @foreach($vaccines as $vaccine)
                                                           
@@ -690,8 +704,8 @@ No <input type="checkbox" name="tone" value="No" />
                                                       
                                                            <tr>
                                                          
-                                                         <td><a href="{{url('immunination',$vaccine->userid)}}">{{$vaccine->disease}}</a></td>
-                                                         <td><a href="{{url('immunination',$vaccine->userid)}}">{{$vaccine->antigen}}</a></td>
+                                                         <td>{{$vaccine->disease}}</td>
+                                                         <td>{{$vaccine->antigen}}</a></td>
                                                         
                                                          <td><?php $age=$vaccine->age; 
                                                          if($age==0){echo("Birth");}
@@ -703,10 +717,14 @@ No <input type="checkbox" name="tone" value="No" />
                                                          else if($age==335){echo("11 months");}
                                                          else if($age==456){echo("15 months");}
                                                          else if($age==730){echo("2 Years");}?></td>
-                                                         <td>{{$vaccine->date_guideline or ''}}</td>
+                                                         <td>{{date('d -m- Y', strtotime($vaccine->date_guideline))}}</td>
                                                           <td>{{$vaccine->status or ''}}</td>
+
                                                           <td>{{$vaccine->status_date or ''}}</td>
-                                                          
+                                                          <td><?php if(is_null($vaccine->status)){
+                                                            echo "<select name='test[]'><option value='Done'>Done</option><option value='Not Done'>Not Done</option></>";
+                                                            } ?></td>
+                                                            {{$vaccine->userid}}
                                                              </tr>
                                                                </tbody>
                                                            <?php $i++ ?>

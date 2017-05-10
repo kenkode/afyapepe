@@ -972,7 +972,8 @@ return Redirect::route('nurse.show', [$id]);
     $vitamen=$request->vitamen;
     $prophylaxis=$request->prophylaxis;
     $babyproblem=$request->babyproblem;
-    $revelantdrugs=$request->revelantdrugs;
+    $mrevelantdrugs=$request->mrevelantdrugs;
+     $brevelantdrugs=$request->brevelantdrugs;
     $dob=$request->dob;
     $doctor=$request->doctor;
 $gravidity=$request->gravidity;
@@ -993,7 +994,6 @@ $labour2=$request->labour2;
 $hypertention=$request->hypertention;
 $aph=$request->aph;
 $motherproblem=$request->motherproblem;
-$revelantdrugs=$request->revelantdrugs;
 $cir=$request->cir;
 $skin=$request->skin;
 $jaundice=$request->jaundice;
@@ -1043,7 +1043,10 @@ $cry=$request->cry;
         $chiefcompliant=implode(',', $chiefcompliant);
         $observation=implode(',',$observation );
         $symptoms=implode(',', $symptoms);
-         $score=$request->muac;
+        $mdrug=implode(',', $mrevelantdrugs);
+         $bdrug=implode(',', $brevelantdrugs);
+
+          $score=$request->muac;
          $id=$request->id;
     $breastfeed=$request->breastfeed;
     $neck=$request->neck;
@@ -1051,6 +1054,9 @@ $cry=$request->cry;
     $irritable=$request->irritable;
     $tone=$request->tone;
      $drugs=$request->drugs;
+
+
+
 if($drugs){
 foreach($drugs as $key =>$drug) {
      DB::table('patient_allergy')->insert([
@@ -1185,7 +1191,7 @@ join('afya_users','afya_users.msisdn','=','dependant_parent.phone')->select('afy
     'labour2'=>$labour2,
     'aph'=>$aph,
     'motherproblem'=>$motherproblem,
-    'revelantdrugs'=>$revelantdrugs,
+    'revelantdrugs'=>$mdrug,
      'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
     'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
 );
@@ -1206,7 +1212,7 @@ join('afya_users','afya_users.msisdn','=','dependant_parent.phone')->select('afy
      'vitamen'=>$vitamen,
      'prophylaxis'=>$prophylaxis,
      'babyproblem'=>$babyproblem,
-     'revelantdrugs'=>$revelantdrugs,
+     'revelantdrugs'=>$bdrug,
     'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
     'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
     $appointment=DB::table('appointments')->where('persontreated', $id)->orderBy('created_at', 'desc')->first();

@@ -103,10 +103,14 @@
                 <option value="AB -">AB -</option>
                 </select>
                 </div>
-                 <div class="form-group">
-                  <label for="exampleInputPassword1">Place of Birth</label>
-                  <input type="text" class="form-control" id="exampleInputPassword1" placeholder="" name="pob" value=""  >
-                  </div>
+                  <div class="form-group">
+                
+              
+  <div class="ui-widget">
+  <label for="pod">Place of Birth: </label>
+  <input type="text" id="tags" class="form-control" name="pob">
+</div>
+</div>
                   <div class="form-group" id="data_1">
                    <label for="exampleInputPassword1">Date of Birth</label>
                    <div class="input-group date">

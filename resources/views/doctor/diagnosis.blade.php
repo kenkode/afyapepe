@@ -68,8 +68,15 @@ $dependantdays= floor($datediff / (60 * 60 * 24));
       ->leftJoin('lab_test', 'patient_test_details.tests_reccommended', '=', 'lab_test.id')
       ->leftJoin('diagnoses', 'patient_test_details.conditional_diag_id', '=', 'diagnoses.id')
       ->select('patient_test_details.*','patient_test_details.id as ptdid','facilities.*','lab_test.name','diagnoses.name as diagnoses')
-      ->where('patient_test_details.afya_user_id', '=',$afyauserId)
-          ->orWhere('patient_test_details.dependant_id', '=',$dependantId)
+      ->where([
+        ['patient_test_details.afya_user_id', '=',$afyauserId],
+        ['patient_test_details.confirm', '=','N'],
+       ])
+          ->orWhere([
+            ['patient_test_details.dependant_id', '=',$dependantId],
+            ['patient_test_details.confirm', '=','N'],
+           ])
+
        ->orderBy('created_at', 'desc')
        ->get();
        ?>

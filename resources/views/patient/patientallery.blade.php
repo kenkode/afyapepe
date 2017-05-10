@@ -100,22 +100,37 @@
 
                         <div class="table-responsive">
                      <table class="table table-striped table-bordered table-hover dataTables-example" >
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Name</th>
-                            <th>Description </th>
+      <thead>
+       <tr>
+      <th>No</th>
+  <th>Allery Type</th>
+  <th>Allery Name</th>
+   <th>Date </th>
+  </tr>
+      </thead>
 
-                            
+      <?php $i =1;  $allergies=DB::table('afya_users_allergy')
+    ->Join('allergies_type','allergies_type.id','=','afya_users_allergy.allergies_type_id')
+    ->Join('allergies','allergies.id','=','allergies_type.allergies_id')
+    ->Select('allergies_type.name','allergies.name as Allergy','afya_users_allergy.created_at')
+    ->Where('afya_users_allergy.afya_user_id','=',$patient->id)
+    ->get(); ?>
+     <tbody>
+       @foreach($allergies as $allergy)
+   
+      <tr>
+      <td>{{$i}}</td>
+       <td>{{$allergy->Allergy}}</td>
+      <td>{{$allergy->name}}</td>   
+       <td>{{$allergy->created_at}}</td>      
+      </tr>
+  
+       <?php $i++; ?>
 
-                      </tr>
-                    </thead>
+      @endforeach
 
-                    <tbody>
-
-
-                     </tbody>
-                   </table>
+        </tbody>
+      </table>
                        </div>
 
                    </div>
@@ -331,7 +346,7 @@
                                       <th>Test</th>
                                       <th>Doctor Name</th>
                                       <th>Status</th>
-                                      <th>Cost</th>
+                                     
 
                                       <!-- <th>Constituency of Residence</th> -->
 
@@ -347,6 +362,13 @@
                               @foreach($tests as $test)
                               <tr>
                               <td>{{$i}}</td>
+                              <td>{{$test->created_at}}</td>
+                                <td><?php $labtest=DB::table('lab_test')->where('id',$test->tests_reccommended)->first();
+                               $testname=DB::table('test_type')->where('id',$labtest->test_type_id)->first();?>{{$testname->test_category}}</td>
+                              <td>{{$labtest->name}}</td>
+                              <td><?php $user=DB::table('users')->where('id',$test->doc_id)->first(); ?>{{$user->name}}</td>
+                              <td><?php $status=$test->done; if($status==0){ echo "Not Done";} else { echo "Done";}?></td>
+                           
                               </tr>
 
                                <?php $i++ ?>

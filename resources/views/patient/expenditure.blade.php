@@ -102,7 +102,7 @@
                             <th>Date</th>
                             <th>Time</th>
                             <th>Facility</th>
-                            <th>Person Treated</th>
+                            <th>Patient Name</th>
                             <th>Amount(Kshs)</th>
                           
 
@@ -129,7 +129,11 @@
                        <td>{{ date('d -m- Y', strtotime($exp->created_at)) }}</td>
             <td>{{ date('H:i:s', strtotime($exp->created_at)) }}</td>
                       <td>St Jude's Huruma Community Health Services</td>
-                        <td>{{$exp->person_treated}}</td>
+                        <td><?php $person=$exp->person_treated; if($person=='Dependent'){
+                          $user=DB::table('dependant')->where('id',$exp->dependent_id)->first();
+                          echo $user->firstName." ".$user->secondName; }
+                          else{ echo "Primary";
+                            }?></td>
                       <td>{{$exp->amount}}</td>
                       </tr>
                       <?php $i++ ?>
@@ -188,7 +192,7 @@
                             <th>Date</th>
                             <th>Time</th>
                             <th>Facility</th>
-                            <th>Person Treated</th>
+                            <th>Patient Name</th>
                             
                             <th>Amount(Kshs)</th>
                           
@@ -212,7 +216,9 @@
                        <td>{{ date('d -m- Y', strtotime($mexp->created_at)) }}</td>
             <td>{{ date('H:i:s', strtotime($mexp->created_at)) }}</td>
                       <td>St Jude's Huruma Community Health Services</td>
-                      <td>{{$mexp->person_treated}}</td>
+                      <td><?php $mperson=$mexp->person_treated; if($mperson=='Dependent'){
+                          $userm=DB::table('dependant')->where('id',$mexp->dependent_id)->first();
+                         echo $userm->firstName." ".$userm->secondName;} else{ echo "Primary";}?></td>
                       <td>{{$mexp->amount}}</td>
                       </tr>
                       <?php $i++ ?>
@@ -271,7 +277,7 @@
                             <th>Date</th>
                             <th>Time</th>
                             <th>Facility</th>
-                            <th>Person Treated</th>
+                            <th>Patient Name</th>
                             <th>Amount(Kshs)</th>
                           
 
@@ -292,7 +298,11 @@
                        <td>{{ date('d -m- Y', strtotime($yexp->created_at)) }}</td>
             <td>{{ date('H:i:s', strtotime($yexp->created_at)) }}</td>
                       <td>St Jude's Huruma Community Health Services</td>
-                       <td>{{$yexp->person_treated}}</td>
+                       <td><?php $yperson=$yexp->person_treated; if($yperson=='Dependent'){
+                          $usery=DB::table('dependant')->where('id',$yexp->dependent_id)->first();
+                          echo $usery->firstName." ".$usery->secondName;} else{
+                            echo "Primary";
+                            }?></td>
                       <td>{{$yexp->amount}}</td>
                       </tr>
                       <?php $i++ ?>

@@ -176,12 +176,12 @@
     <div class="form-group">
     <label for="exampleInputEmail1">Consulting Physician</label>
     <select class="form-control" name="doctor" >
-    <?php $doctors = DB::table('users')->Where('role', '=','Doctor')->get();?>
+    <?php $doctors = DB::table('users')->
+                    join('doctors','doctors.user_id','=','users.id')->select('doctors.*')->Where('role', '=','Doctor')->get();?>
                   @foreach($doctors as $doctor)
-                   <option value="{{$doctor->id}}">{{$doctor->name}}</option>
+                   <option value="{{$doctor->doc_id}}">{{$doctor->name}}</option>
                  @endforeach
                 </select>
-    </div>
 
     <button type="submit" class="btn btn-primary">Save</button>
      {!! Form::close() !!}

@@ -974,6 +974,7 @@ return Redirect::route('nurse.show', [$id]);
     $babyproblem=$request->babyproblem;
     $revelantdrugs=$request->revelantdrugs;
     $dob=$request->dob;
+    $doctor=$request->doctor;
 $gravidity=$request->gravidity;
 $parity=$request->parity;
 $blood_type=$request->blood_type;
@@ -1258,7 +1259,8 @@ DB::table('triage_infants')->insert(
     'cry'=>$cry,
     'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
    DB::table('appointments')->where('id',$appointment->id)->update([
-    'status'=>2]);
+    'status'=>2,
+    'doc_id'=>$doctor]);
 
 
         return redirect()->action('NurseController@index');
@@ -1487,8 +1489,7 @@ DB::table('appointments')->where('id',$appointment->id)->update([
         $symptoms=$request->symptoms;
         $nurse=$request->nurse;
         $doctor=$request->doctor;
-        
-       
+            
       
        
 
@@ -1595,9 +1596,10 @@ $appointment=DB::table('appointments')->where('afya_user_id', $id)->orderBy('cre
     'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
 
 );
+ DB::table('appointments')->where('id',$appointment->id)->update([
+    'status'=>2,
+    'doc_id'=>$doctor]);
 
-DB::table('appointments')->where('id',$appointment->id)->update([
-    'status'=>2]);
 
 
         return redirect()->action('NurseController@index');

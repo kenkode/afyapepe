@@ -364,10 +364,7 @@ No<input type="radio" value="No"  name="bba"/>Yes<input type="radio" value="Yes"
 <textarea name="revelantdrugs" class="form-control"></textarea>
   
 </div>
-<div class="form-group">
-                     <label >Prescription:</label>
-                     <select id="presc1" name="prescription" class="form-control presc1" style="width:50%"></select>
-                 </div>
+
                                            
                                        
                                     </div>
@@ -987,9 +984,10 @@ Shoulder <input type="checkbox" name="skincold" value="Shoulder" />
     <div class="form-group">
     <label for="exampleInputEmail1">Consulting Physician</label>
     <select class="form-control" name="doctor" >
-    <?php $doctors = DB::table('users')->Where('role', '=','Doctor')->get();?>
+    <?php $doctors = DB::table('users')->
+                    join('doctors','doctors.user_id','=','users.id')->select('doctors.*')->Where('role', '=','Doctor')->get();?>
                   @foreach($doctors as $doctor)
-                   <option value="{{$doctor->id}}">{{$doctor->name}}</option>
+                   <option value="{{$doctor->doc_id}}">{{$doctor->name}}</option>
                  @endforeach
                 </select>
     </div>

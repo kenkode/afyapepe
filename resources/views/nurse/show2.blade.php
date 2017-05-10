@@ -11,6 +11,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="_token" content="{!! csrf_token() !!}" />
 
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('font-awesome/css/font-awesome.css') }}" rel="stylesheet">
@@ -363,6 +364,10 @@ No<input type="radio" value="No"  name="bba"/>Yes<input type="radio" value="Yes"
 <textarea name="revelantdrugs" class="form-control"></textarea>
   
 </div>
+<div class="form-group">
+                     <label >Prescription:</label>
+                     <select id="presc1" name="prescription" class="form-control presc1" style="width:50%"></select>
+                 </div>
                                            
                                        
                                     </div>
@@ -1017,6 +1022,9 @@ Shoulder <input type="checkbox" name="skincold" value="Shoulder" />
 
 
     <!-- Mainly scripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="{{asset('js/ajaxscript.js')}}"></script>
    <script src="{{ asset('js/app.js') }}" type="text/javascript"></script>
     <!-- Mainly scripts -->
     <script src="{{ asset('js/jquery-3.1.1.min.js') }}" type="text/javascript"></script>
@@ -1043,23 +1051,7 @@ Shoulder <input type="checkbox" name="skincold" value="Shoulder" />
 
  
    
-    <script>
-
-
-    $('#data_1  .input-group.date').datepicker({
-                todayBtn: "linked",
-                keyboardNavigation: false,
-                forceParse: false,
-                calendarWeeks: true,
-                autoclose: true
-            });
-
-            $(document).ready(function(){
-                $("button").click(function(){
-                    $("#testR").toggle();
-                });
-            });
-    </script>
+    
 
     <!-- Page-Level Scripts -->
     
@@ -1309,6 +1301,7 @@ $('#data_1 .input-group.date').datepicker({
                 });
             });
        });
+
            
    </script>
 

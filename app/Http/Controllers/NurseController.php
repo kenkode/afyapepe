@@ -1596,9 +1596,10 @@ $appointment=DB::table('appointments')->where('afya_user_id', $id)->orderBy('cre
     'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
 
 );
+ DB::table('appointments')->where('id',$appointment->id)->update([
+    'status'=>2,
+    'doc_id'=>$doctor]);
 
-DB::table('appointments')->where('id',$appointment->id)->update([
-    'status'=>2]);
 
 
         return redirect()->action('NurseController@index');

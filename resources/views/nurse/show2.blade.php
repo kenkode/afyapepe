@@ -32,6 +32,7 @@
            <?php 
     $mothers=DB::table('triage_infants')->where('dependant_id',$id)->get();
     $details=DB::table('infant_details')->where('dependant_id',$id)->get();?>
+    
 
      <div class="row">
     <div class="col-lg-6 ">
@@ -188,6 +189,9 @@
   </div>
   </div>
 
+
+            
+
     
             <div class="row">
                 <div class="col-lg-12">
@@ -223,13 +227,14 @@
                                     
                                     <div class="row">
                                         <div class="col-sm-6">
-                                         <div class="form-group" id="data_1">
+                                               <div class="form-group" id="data_1">
                  <label for="exampleInputPassword1">Admission Date</label>
                  <div class="input-group date">
                      <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                     <input type="text" class="form-control" name="admission_date" value="">
+                     <input type="text" class="form-control" name="admission_date">
                  </div>
                  </div>
+                
     <div class="form-group">
                  <label for="exampleInputPassword1">IP No</label>
             <input type="text" class="form-control" name="ipno">
@@ -291,18 +296,29 @@
    
     @if(!empty($details))
  @else
+  <div class="form-group">
+<label class="exampleInputPassword1" for="name">BBA</label><br>
+No<input type="radio" value="No"  name="bba"/>Yes<input type="radio" value="Yes"  name="bba"/>
 
-    <div class="form-group">
+  <div id="embedcode">
+    <label>Born Where</label>
+  Home  <input type="checkbox" value="Home"  name="bba_where"/>
+  Clinic  <input type="checkbox" value="Clinic"  name="bba_where" />
+  Other Hospitals <input type="checkbox" value="Other"  name="bba_where" />
+    </div>
+  </div>
+
+    <!--<div class="form-group">
    <label for="exampleInputEmail1">BBA</label>
-   No <input type="checkbox" value="No"  name="bba" />
-   Yes <input type="checkbox" value="yes"  name="bba"  />
-<div class="yes"  style="display: none">
+   No <input type="checkbox" value="No" id="type" name="bba" />
+   Yes <input type="checkbox" value="Yes" id="type"  name="bba"  />
+ <div id="embedcode">
     <label>Born Where</label>
   Home  <input type="checkbox" value="Home"  name="bba_where"/>
   Clinic  <input type="checkbox" value="Clinic"  name="bba_where" />
   Other Hospitals <input type="checkbox" value="Other"  name="bba_where" /> 
 </div>
-</div>
+</div>-->
 <div class="form-group">
     <label for="exampleInputEmail1">Delivery</label>
    SDV <input type="checkbox" value="SDV"  name="delivery"/>
@@ -370,12 +386,12 @@
   @endif
   <div class="form-group">
   <label>Gravidity</label><br>
-  <input type="text" name="gravidity" id="gravidity" maxlength="6" autocomplete="off" placeholder="mother gravidity" class="form-control" />
+  <input type="number" name="gravidity" id="gravidity" maxlength="6" autocomplete="off" placeholder="mother gravidity" class="form-control" />
     
   </div>
   <div class="form-group">
   <label>Parity</label><br>
-  <input type="text" name="parity" class="form-control" placeholder="mother parity" />
+  <input type="number" name="parity" class="form-control" placeholder="mother parity" />
     
   </div>
  
@@ -383,11 +399,10 @@
    <label for="exampleInputEmail1">Hiv status</label>
    Negative <input type="checkbox" value="Negative"  name="hiv" />
    Positive <input type="checkbox" value="Positive"  name="hiv"  />
-
-<div class="Positive"  style="display: none">
+<div id="hiv">
     <label>ARV's</label>
-  No  <input type="checkbox" value="No"  name="arvs"/>
-  Yes  <input type="checkbox" value="Yes"  name="arvs" />
+  No  <input type="checkbox"  value="No"  name="arvs"/>
+  Yes  <input type="checkbox"   value="Yes"  name="arvs" />
      
 </div>
 </div>
@@ -422,23 +437,23 @@ No <input type="checkbox" name="diabetes" value="No" />
 
 Yes <input type="checkbox" name="tb" value="Yes" />
 No <input type="checkbox" name="tb" value="No" />
-<div class="Yes"  style="display: none">
+<div id="tb">
     <label>TB Type </label>
   Latent TB  <input type="checkbox" value="Latent TB"  name="tb_type"/>
-  TB Disease  <input type="checkbox" value="TB Disease"  name="tb_type" />
+  TB Disease  <input type="checkbox"value="TB Disease"  name="tb_type" />
+  <br>
+  <label>TB Treatment</label>
+Yes <input type="checkbox" name="tb_treatment" value="Yes" />
+No <input type="checkbox" name="tb_treatment" value="No" />
      
 </div>
   
 </div>
-<div class="form-group">
-<label>TB Treatment</label>
-Yes <input type="checkbox" name="tb_treatment" value="Yes" />
-No <input type="checkbox" name="tb_treatment" value="No" />
-  
-</div>
+
                                         </div>
                                         <div class="col-lg-6">
                                             @if(!empty($mothers))
+                                            @else
 <div class="form-group">
 <label>Labour</label><br>
 1 stage <input type="text" name="labour1" class="form-control" placeholder="Enter Hours"/>
@@ -479,7 +494,7 @@ No <input type="checkbox" name="aph" value="No" />
                                            <div class="form-group">
 
  Drug Allergy <input type="checkbox" value="drug"  name="drug" />
- <div class="drug"  style="display: none">
+ <div id="drug">
     <label>Drug Name</label><br>
  <select multiple="multiple" class="form-control" name="drugs[]">
     <?php $druglists = DB::table('allergies_type')->where('allergies_id',1)->get();?>
@@ -490,7 +505,7 @@ No <input type="checkbox" name="aph" value="No" />
     </div>
 
  Food Allergy <input type="checkbox" value="food"  name="food" />
- <div class="food"  style="display: none">
+ <div id="food">
     <label>Allergy Name</label><br>
  <select multiple="multiple" class="form-control" name="foods[]"  >
     <?php $foods = DB::table('allergies_type')->where('allergies_id',2)->get();?>
@@ -500,7 +515,7 @@ No <input type="checkbox" name="aph" value="No" />
                 </select>
   </div>
   Latex Allergy <input type="checkbox" value="latex"  name="latex" />
- <div class="latex"  style="display: none">
+ <div id="latex">
     <label>Allergy Name</label><br>
  <select multiple="multiple" class="form-control" name="latexs[]"  >
     <?php $foods = DB::table('allergies_type')->where('allergies_id',3)->get();?>
@@ -510,7 +525,7 @@ No <input type="checkbox" name="aph" value="No" />
                 </select>
   </div>
   Mold Allergy <input type="checkbox" value="mold"  name="molds" />
- <div class="mold"  style="display: none">
+ <div id="mold">
     <label>Allergy Name</label><br>
  <select multiple="multiple" class="form-control" name="molds[]"  >
     <?php $foods = DB::table('allergies_type')->where('allergies_id',4)->get();?>
@@ -520,7 +535,7 @@ No <input type="checkbox" name="aph" value="No" />
                 </select>
   </div>
   Pet Allergy <input type="checkbox" value="pet"  name="pets" />
- <div class="pet"  style="display: none">
+ <div id="pet">
     <label>Allergy Name</label><br>
  <select multiple="multiple" class="form-control" name="pets[]"  >
     <?php $foods =  DB::table('allergies_type')->where('allergies_id',5)->get();?>
@@ -530,7 +545,7 @@ No <input type="checkbox" name="aph" value="No" />
                 </select>
   </div>
   Pollen Allergy <input type="checkbox" value="pollen"  name="pollens" />
- <div class="pollen"  style="display: none">
+ <div id="pollen">
     <label>Allergy Name</label><br>
  <select multiple="multiple" class="form-control" name="pollens[]"  >
     <?php $foods = DB::table('allergies_type')->where('allergies_id',6)->get();?>
@@ -540,7 +555,7 @@ No <input type="checkbox" name="aph" value="No" />
                 </select>
   </div>
   Insect Allergy <input type="checkbox" value="insect"  name="insects" />
- <div class="insect"  style="display: none">
+ <div id="insect">
     <label>Allergy Name</label><br>
  <select multiple="multiple" class="form-control" name="insects[]"  >
     <?php $foods = DB::table('allergies_type')->where('allergies_id',7)->get();?>
@@ -592,38 +607,38 @@ No <input type="checkbox" name="tone" value="No" />
                                         </div>
                                         <div class="col-lg-6">
                                             Skull <input type="checkbox" value="skull"  name="skull" />
- <div class="skull"  style="display: none">
+ <div id="skull">
  <label>Describe</label>
     <textarea name="skull_descr" class="form-control"></textarea>
   </div>
 
   Limbs <input type="checkbox" value="limbs"  name="limbs" />
- <div class="limbs"  style="display: none">
+ <div id="limbs">
  <label>Describe</label>
     <textarea name="limbs_descr" class="form-control"></textarea>
   </div>
   Spine <input type="checkbox" value="spine"  name="spine" />
- <div class="spine"  style="display: none">
+ <div id="spine">
  <label>Describe</label>
     <textarea name="spine_descr" class="form-control"></textarea>
   </div>
   Palate <input type="checkbox" value="palate"  name="palate" />
- <div class="palate"  style="display: none">
+ <div id="palate">
  <label>Describe</label>
     <textarea name="palate_descr" class="form-control"></textarea>
   </div>
   Face <input type="checkbox" value="face"  name="face" />
- <div class="face"  style="display: none">
+ <div id="face">
  <label>Describe</label>
     <textarea name="face_descr" class="form-control"></textarea>
   </div>
   Anus <input type="checkbox" value="anus"  name="anus" />
- <div class="anus"  style="display: none">
+ <div id="anus">
  <label>Describe</label>
     <textarea name="anus_descr" class="form-control"></textarea>
   </div>
   Dysmorphic <input type="checkbox" value="dysmorphic"  name="dysmorphic" />
- <div class="dysmorphic"  style="display: none">
+ <div id="dysmorphic">
  <label>Describe</label>
     <textarea name="dysmorphic_descr" class="form-control"></textarea>
   </div>
@@ -776,36 +791,33 @@ No <input type="checkbox" name="tone" value="No" />
    No<input type="checkbox" value="No_diarrhoea"  name="diarrhoea" />
    Yes <input type="checkbox" value="Yes_diarrhoea"  name="diarrhoea"  />
 
-<div class="Yes_diarrhoea"  style="display: none">
+<div id="diarrhoea">
     <label>Number of days</label>
   <input type="number" value="No"  name="diarrhoea_days"/>
+  <br>
+  <label>Diarrhoea-Bloody</label>
+ No  <input type="checkbox" value="No"  name="diarrhoea_bloody" />
+ Yes <input type="checkbox" value="Yes"  name="diarrhoea_bloody"  />
+  
   
      
 </div>
 </div>
-<div class="form-group">
-<label>Diarrhoea-Bloody</label>
- No  <input type="checkbox" value="No"  name="diarrhoea_bloody" />
- Yes <input type="checkbox" value="Yes"  name="diarrhoea_bloody"  />
-  
-</div>
 
 <div class="form-group">
-<label>Vomiting Yes/No?</label>
+<label>Vomiting ?</label>
  No  <input type="checkbox" value="No_vomiting"  name="vomiting" />
  Yes <input type="checkbox" value="Yes_vomiting"  name="vomiting"  />
- <div class="Yes_vomiting"  style="display: none">
+ <div id="vomiting">
     <label>number per 24 hours</label>
-  <input type="number"  name="vomiting_hours"/>
+  <input type="number"  name="vomiting_hours"/><br>
+  <label>Vomits Everything?</label>
+ No  <input type="checkbox" value="No"  name="vomits_eveything" />
+ Yes <input type="checkbox" value="Yes"  name="vomits_eveything"  />
+
   </div>
 </div>
 
-<div class="form-group">
-<label>Vomits Everything?</label>
- No  <input type="checkbox" value="No"  name="vomits_eveything" />
- Yes <input type="checkbox" value="Yes"  name="vomits_eveything"  />
-  
-</div>
 
 <div class="form-group">
 <label>Difficult Feeding?</label>
@@ -852,7 +864,7 @@ No  <input type="checkbox" value="No_convulsion"  name="convulsion" />
     <label>Cap Refill</label>
     Possible <input type="checkbox" name="refill" value="possible" />
     Not Possible <input type="checkbox" name="refill" value="notpossible">
-    <div class="possible"  style="display: none">
+    <div id="refill">
     <label>In Seconds</label>
   <input type="number" name="Seconds">
     
@@ -863,7 +875,7 @@ No  <input type="checkbox" value="No_convulsion"  name="convulsion" />
     <label>Murmur</label>
     Yes <input type="checkbox" name="Murmur" value="Murmur_Yes" />
     No <input type="checkbox" name="Murmur" value="Murmur_No">
-    <div class="possible"  style="display: none">
+    <div id="Murmur">
     <label>Yes?</label>
   <input type="text" name="murmur_yes">
     
@@ -1025,19 +1037,16 @@ Shoulder <input type="checkbox" name="skincold" value="Shoulder" />
 
     <!-- Custom and plugin javascript -->
 <script src="{{ asset('js/plugins/pace/pace.min.js') }}" type="text/javascript"></script>
-  <script src="{{ asset('js/custom.js') }}" type="text/javascript"></script>
+
 
     <!--  <script src="{{ asset('js/inspinia.js') }}" type="text/javascript"></script>-->
-  <script>
-   $('input[type="checkbox"]').on('change', function() {
-    $('input[name="' + this.name + '"]').not(this).prop('checked', true);
-});
-</script>  
+
+ 
    
     <script>
 
 
-    $('#data_1 .input-group.date').datepicker({
+    $('#data_1  .input-group.date').datepicker({
                 todayBtn: "linked",
                 keyboardNavigation: false,
                 forceParse: false,
@@ -1072,127 +1081,9 @@ Shoulder <input type="checkbox" name="skincold" value="Shoulder" />
            });
            });
            </script>
-<script type="text/javascript">
-       $(document).ready(function(){
-             $("#embedcode").hide();
-             $("input[name='type']").change(function () {
-                  if($(this).val() == "yes")
-                       $("#embedcode").show();
-                  else
-                       $("#embedcode").hide();
-             });
-       });
-   </script>
-   </script>
-    
-   </script>
 
-   <script>
-
-       $(document).ready(function() {
-
-               $('.i-checks').iCheck({
-                   checkboxClass: 'icheckbox_square-green',
-                   radioClass: 'iradio_square-green'
-               });
-
-           /* initialize the external events
-            -----------------------------------------------------------------*/
-
-
-           $('#external-events div.external-event').each(function() {
-
-               // store data so the calendar knows to render an event upon drop
-               $(this).data('event', {
-                   title: $.trim($(this).text()), // use the element's text as the event title
-                   stick: true // maintain when user navigates (see docs on the renderEvent method)
-               });
-
-               // make the event draggable using jQuery UI
-               $(this).draggable({
-                   zIndex: 1111999,
-                   revert: true,      // will cause the event to go back to its
-                   revertDuration: 0  //  original position after the drag
-               });
-
-           });
-
-
-           /* initialize the calendar
-            -----------------------------------------------------------------*/
-           var date = new Date();
-           var d = date.getDate();
-           var m = date.getMonth();
-           var y = date.getFullYear();
-
-           $('#calendar').fullCalendar({
-               header: {
-                   left: 'prev,next today',
-                   center: 'title',
-                   right: 'month,agendaWeek,agendaDay'
-               },
-               editable: true,
-               droppable: true, // this allows things to be dropped onto the calendar
-               drop: function() {
-                   // is the "remove after drop" checkbox checked?
-                   if ($('#drop-remove').is(':checked')) {
-                       // if so, remove the element from the "Draggable Events" list
-                       $(this).remove();
-                   }
-               },
-               events: [
-                   {
-                       title: 'All Day Event',
-                       start: new Date(y, m, 1)
-                   },
-                   {
-                       title: 'Long Event',
-                       start: new Date(y, m, d-5),
-                       end: new Date(y, m, d-2)
-                   },
-                   {
-                       id: 999,
-                       title: 'Repeating Event',
-                       start: new Date(y, m, d-3, 16, 0),
-                       allDay: false
-                   },
-                   {
-                       id: 999,
-                       title: 'Repeating Event',
-                       start: new Date(y, m, d+4, 16, 0),
-                       allDay: false
-                   },
-                   {
-                       title: 'Meeting',
-                       start: new Date(y, m, d, 10, 30),
-                       allDay: false
-                   },
-                   {
-                       title: 'Lunch',
-                       start: new Date(y, m, d, 12, 0),
-                       end: new Date(y, m, d, 14, 0),
-                       allDay: false
-                   },
-                   {
-                       title: 'Birthday Party',
-                       start: new Date(y, m, d+1, 19, 0),
-                       end: new Date(y, m, d+1, 22, 30),
-                       allDay: false
-                   },
-                   {
-                       title: 'Click for Google',
-                       start: new Date(y, m, 28),
-                       end: new Date(y, m, 29),
-                       url: 'http://google.com/'
-                   }
-               ]
-           });
-
-
-       });
-
-
-   </script>
+   
+   
    <script>
         $(document).ready(function(){
             $("#wizard").steps();
@@ -1209,7 +1100,7 @@ Shoulder <input type="checkbox" name="skincold" value="Shoulder" />
                     // Forbid suppressing "Warning" step if the user is to young
                     if (newIndex === 3 && Number($("#age").val()) < 18)
                     {
-                        return false;
+                        return true;
                     }
 
                     var form = $(this);
@@ -1250,6 +1141,176 @@ Shoulder <input type="checkbox" name="skincold" value="Shoulder" />
             });
        });
     </script>
+    <script type="text/javascript">
+       $(document).ready(function(){
+             $("#embedcode").hide();
+             $("#hiv").hide();
+             $("#tb").hide();
+              $("#drug").hide();
+               $("#food").hide();
+                $("#latex").hide();
+                 $("#mold").hide();
+                  $("#pet").hide();
+                   $("#pollen").hide();
+                    $("#insect").hide();
+                     $("#skull").hide();
+                      $("#limbs").hide();
+                       $("#spine").hide();
+                        $("#palate").hide();
+                         $("#face").hide();
+                          $("#anus").hide();
+                           $("#dysmorphic").hide();
+                            $("#diarrhoea").hide();
+                             $("#vomiting").hide();
+                             $("#refill").hide();
+                            $("#Murmur").hide();
+
+             $("input[name='bba']").change(function () {
+                  if($(this).val() == "Yes")
+                       $("#embedcode").show();
+                  else
+                       $("#embedcode").hide();
+             });
+             $("input[name='hiv']").change(function () {
+                  if($(this).val() == "Positive")
+                       $("#hiv").show();
+                  else
+                       $("#hiv").hide();
+             });
+             $("input[name='tb']").change(function () {
+                  if($(this).val() == "Yes")
+                       $("#tb").show();
+                  else
+                       $("#tb").hide();
+             });
+              $("input[name='drug']").change(function () {
+                  if($(this).val() == "drug")
+                       $("#drug").show();
+                  else
+                       $("#drug").hide();
+             });
+            $("input[name='food']").change(function () {
+                  if($(this).val() == "food")
+                       $("#food").show();
+                  else
+                       $("#food").hide();
+             });
+            $("input[name='latex']").change(function () {
+                  if($(this).val() == "latex")
+                       $("#latex").show();
+                  else
+                       $("#latex").hide();
+             });
+            $("input[name='molds']").change(function () {
+                  if($(this).val() == "mold")
+                       $("#mold").show();
+                  else
+                       $("#mold").hide();
+             });
+            $("input[name='pets']").change(function () {
+                  if($(this).val() == "pet")
+                       $("#pet").show();
+                  else
+                       $("#pet").hide();
+             });
+            $("input[name='pollens']").change(function () {
+                  if($(this).val() == "pollen")
+                       $("#pollen").show();
+                  else
+                       $("#pollen").hide();
+             });
+            $("input[name='insects']").change(function () {
+                  if($(this).val() == "insect")
+                       $("#insect").show();
+                  else
+                       $("#insect").hide();
+             });
+            $("input[name='skull']").change(function () {
+                  if($(this).val() == "skull")
+                       $("#skull").show();
+                  else
+                       $("#skull").hide();
+             });
+
+             $("input[name='limbs']").change(function () {
+                  if($(this).val() == "limbs")
+                       $("#limbs").show();
+                  else
+                       $("#limbs").hide();
+             });
+              $("input[name='spine']").change(function () {
+                  if($(this).val() == "spine")
+                       $("#spine").show();
+                  else
+                       $("#spine").hide();
+             });
+               $("input[name='palate']").change(function () {
+                  if($(this).val() == "palate")
+                       $("#palate").show();
+                  else
+                       $("#palate").hide();
+             });
+                $("input[name='face']").change(function () {
+                  if($(this).val() == "face")
+                       $("#face").show();
+                  else
+                       $("#face").hide();
+             });
+                 $("input[name='anus']").change(function () {
+                  if($(this).val() == "anus")
+                       $("#anus").show();
+                  else
+                       $("#anus").hide();
+             });
+                  $("input[name='dysmorphic']").change(function () {
+                  if($(this).val() == "dysmorphic")
+                       $("#dysmorphic").show();
+                  else
+                       $("#dysmorphic").hide();
+             });
+                   $("input[name='diarrhoea']").change(function () {
+                  if($(this).val() == "Yes_diarrhoea")
+                       $("#diarrhoea").show();
+                  else
+                       $("#diarrhoea").hide();
+             });
+                    $("input[name='vomiting']").change(function () {
+                  if($(this).val() == "Yes_vomiting")
+                       $("#vomiting").show();
+                  else
+                       $("#vomiting").hide();
+             });
+                    $("input[name='refill']").change(function () {
+                  if($(this).val() == "possible")
+                       $("#refill").show();
+                  else
+                       $("#refill").hide();
+             });
+                    $("input[name='Murmur']").change(function () {
+                  if($(this).val() == "Murmur_Yes")
+                       $("#Murmur").show();
+                  else
+                       $("#Murmur").hide();
+             });
+                    $('input[type="checkbox"]').on('change', function() {
+    $('input[name="' + this.name + '"]').not(this).prop('checked', false);
+});
+$('#data_1 .input-group.date').datepicker({
+                todayBtn: "linked",
+                keyboardNavigation: false,
+                forceParse: false,
+                calendarWeeks: true,
+                autoclose: true
+            });
+
+            $(document).ready(function(){
+                $("button").click(function(){
+                    $("#testR").toggle();
+                });
+            });
+       });
+           
+   </script>
 
 
 

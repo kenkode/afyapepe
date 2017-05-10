@@ -195,11 +195,6 @@
 
               {!! Form::open(array('route' => 'pharmacy.store','method'=>'POST','class'=>'form-horizontal')) !!}
 
-            <!-- <div class="form-group">
-                <label >Prescription::</label>
-               <select class="presc1 form-control" style="width:500px;" name="itemName"></select>
-            </div> -->
-
 
             <input type="hidden" name="p_id" value="<?php echo $results->the_id; ?>" />
             <input type="hidden" name="presc_id" value="<?php echo $results->presc_id; ?>" />
@@ -221,22 +216,23 @@
            <div class="form-group"><label>Strength</label> <input type="text" id="gg" value="{{$final}}"  class="form-control" readonly></div>
            <div class="form-group">
                <label>Is the drug prescribed issued as written?</label>
-           </div>
-           <div class="radio radio-danger">
-          <input type="radio" checked="" name="availability" value="Yes" id="yeah" >
+
+           <div class="radio radio-info radio-inline">
+          <input type="radio" name="availability" value="Yes" id="yeah" >
           <label for="radio3">
               Yes
           </label>
                 </div>
-          <div class="radio radio-danger">
+          <div class="radio radio-info radio-inline">
               <input type="radio" name="availability" value="No" id="nah" >
               <label for="radio4">
                   No
               </label>
           </div>
+          </div>
 
               <script type="text/javascript">
-                     $('input[type="radio"]').on( "change", function(){
+                     $('input[type="radio"]').attr('checked', 'checked').on( "change", function(){
                          if($(this).attr("value")=="No")
                          {
                              $(".Box1").show('slow');

@@ -141,7 +141,8 @@ class PharmacyController extends Controller
 
         if($person_treated === 'Self')
         {
-        $afya_user_id = $results->user_id;
+          
+        $afya_user_id = $results->afya_user_id;
 
         $drugs = DB::table('prescriptions')
           ->join('appointments', 'prescriptions.appointment_id', '=', 'appointments.id')

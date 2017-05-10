@@ -212,7 +212,7 @@ class PharmacyController extends Controller
         if($person_treated === 'Self')
         {
 
-        $afya_user_id = $results->user_id;
+        $afya_user_id = $results->afya_user_id;
 
         $allergies = DB::table('allergies')
                   ->join('allergies_type', 'allergies.id', '=', 'allergies_type.allergies_id')

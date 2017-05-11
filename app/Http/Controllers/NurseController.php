@@ -46,7 +46,31 @@ class NurseController extends Controller
          }
      return \Response::json($formatted_drugs);
      }
-
+    
+     public function fobservation(Request $request){
+         $term = trim($request->q);
+      if (empty($term)) {
+           return \Response::json([]);
+         }
+       $drugs = Observation::search($term)->limit(20)->get();
+         $formatted_drugs = [];
+          foreach ($drugs as $drug) {
+             $formatted_drugs[] = ['id' => $drug->name, 'text' => $drug->name];
+         }
+     return \Response::json($formatted_drugs);
+     }
+      public function fsymptom(Request $request){
+         $term = trim($request->q);
+      if (empty($term)) {
+           return \Response::json([]);
+         }
+       $drugs = Symptom::search($term)->limit(20)->get();
+         $formatted_drugs = [];
+          foreach ($drugs as $drug) {
+             $formatted_drugs[] = ['id' => $drug->name, 'text' => $drug->name];
+         }
+     return \Response::json($formatted_drugs);
+     }
     public function users()
     {
       $patients=DB::table('afya_users')->get();

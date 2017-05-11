@@ -788,7 +788,7 @@ No <input type="checkbox" name="tone" value="No" />
                  @endforeach
                 </select>
     </div>
-    <div class="form-group">
+    <!--<div class="form-group">
     <label for="exampleInputPassword1">Observation</label>
     <select  multiple="multiple"  class="form-control" name="observations[]" id="observation" >
     
@@ -796,16 +796,16 @@ No <input type="checkbox" name="tone" value="No" />
                    <option value="{{$observation->name}}">{{$observation->name}}</option>
                  @endforeach
                 </select>
-    </div>
-    <div class="form-group">
-    <label for="exampleInputPassword1">symptoms</label>
-    <select multiple="multiple" class="form-control" name="symptoms[]" id="symptoms">
-     @foreach($symptoms as  $symptom)
-                   <option value="{{$symptom->name}}">{{$symptom->name}}</option>
-                 @endforeach
+    </div>-->
+      <div class="form-group">
+                     <label >Observation:</label>
+                     <select multiple="multiple" id="observation" name="observations[]" class="form-control observation" style="width:50%"></select>
+                 </div>
+      <div class="form-group">
+                     <label >Symptom:</label>
+                     <select multiple="multiple" id="symptom" name="symptoms[]" class="form-control symptom" style="width:50%"></select>
+                 </div>
     
-                </select>
-    </div>
     
                                             <div class="form-group">
 <label>Difficulty Breathing</label>
@@ -1179,7 +1179,44 @@ Shoulder <input type="checkbox" name="skincold" value="Shoulder" />
               cache: true
           }
       });
-
+      $(".observation").select2({
+          placeholder: "Select observations...",
+          minimumInputLength: 2,
+          ajax: {
+              url: '/tag/observation',
+              dataType: 'json',
+              data: function (params) {
+                  return {
+                      q: $.trim(params.term)
+                  };
+              },
+              processResults: function (data) {
+                  return {
+                      results: data
+                  };
+              },
+              cache: true
+          }
+      });
+      $(".symptom").select2({
+          placeholder: "Select symptom...",
+          minimumInputLength: 2,
+          ajax: {
+              url: '/tag/symptom',
+              dataType: 'json',
+              data: function (params) {
+                  return {
+                      q: $.trim(params.term)
+                  };
+              },
+              processResults: function (data) {
+                  return {
+                      results: data
+                  };
+              },
+              cache: true
+          }
+      });
        });
     </script>
     <script type="text/javascript">

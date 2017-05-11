@@ -3,8 +3,10 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Sofa\Eloquence\Eloquence;
 
 class Symptom extends Model
 {
-    protected $fillable = ['name','observation_id'];
+      use Eloquence;
+protected $searchableColumns = ['name'];
 }

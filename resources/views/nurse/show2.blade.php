@@ -779,15 +779,11 @@ No <input type="checkbox" name="tone" value="No" />
  
   
 
+     
      <div class="form-group">
-    <label for="exampleInputPassword1">Chief Complaint/Reason for visit</label>
-    <select multiple="multiple" class="form-control" name="chiefcompliants[]"  >
-    <?php $chiefs = DB::table('chief_compliant_table')->get();?>
-                  @foreach($chiefs as $chief)
-                   <option value="{{$chief->name}}">{{$chief->name}}</option>
-                 @endforeach
-                </select>
-    </div>
+                     <label >Chief Complaint/Reason for visit:</label>
+                     <select multiple="multiple" id="chief" name="chiefcompliants[]" class="form-control chief" style="width:50%"></select>
+                 </div>
     <!--<div class="form-group">
     <label for="exampleInputPassword1">Observation</label>
     <select  multiple="multiple"  class="form-control" name="observations[]" id="observation" >
@@ -1030,8 +1026,7 @@ Shoulder <input type="checkbox" name="skincold" value="Shoulder" />
                     </div>
 
                 </div>
-           
-        <div class="footer">
+     <div class="footer">
     <div class="pull-right">
         Afyapepe <strong>Health</strong> Platform.
     </div>
@@ -1203,6 +1198,25 @@ Shoulder <input type="checkbox" name="skincold" value="Shoulder" />
           minimumInputLength: 2,
           ajax: {
               url: '/tag/symptom',
+              dataType: 'json',
+              data: function (params) {
+                  return {
+                      q: $.trim(params.term)
+                  };
+              },
+              processResults: function (data) {
+                  return {
+                      results: data
+                  };
+              },
+              cache: true
+          }
+      });
+      $(".chief").select2({
+          placeholder: "Select chief compliant...",
+          minimumInputLength: 2,
+          ajax: {
+              url: '/tag/chief',
               dataType: 'json',
               data: function (params) {
                   return {

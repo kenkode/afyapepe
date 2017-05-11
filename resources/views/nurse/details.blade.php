@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+<div class="row">
 <div class="col-lg-6">
     <div class="ibox float-e-margins">
       <div class="ibox-title">
@@ -56,7 +57,7 @@
     <div class="form-group">
 
  Drug Allergy <input type="checkbox" value="drug"  name="drug" />
- <div class="drug"  style="display: none">
+ <div id="drug">
     <label>Drug Name</label><br>
  <select multiple="multiple" class="form-control" name="drugs[]">
     <?php $druglists = DB::table('allergies_type')->where('allergies_id',1)->get();?>
@@ -67,7 +68,7 @@
     </div>
 
  Food Allergy <input type="checkbox" value="food"  name="food" />
- <div class="food"  style="display: none">
+ <div id="food">
     <label>Allergy Name</label><br>
  <select multiple="multiple" class="form-control" name="foods[]"  >
     <?php $foods = DB::table('allergies_type')->where('allergies_id',2)->get();?>
@@ -77,7 +78,7 @@
                 </select>
   </div>
   Latex Allergy <input type="checkbox" value="latex"  name="latex" />
- <div class="latex"  style="display: none">
+ <div id="latex">
     <label>Allergy Name</label><br>
  <select multiple="multiple" class="form-control" name="latexs[]"  >
     <?php $foods = DB::table('allergies_type')->where('allergies_id',3)->get();?>
@@ -87,7 +88,7 @@
                 </select>
   </div>
   Mold Allergy <input type="checkbox" value="mold"  name="molds" />
- <div class="mold"  style="display: none">
+ <div id="mold">
     <label>Allergy Name</label><br>
  <select multiple="multiple" class="form-control" name="molds[]"  >
     <?php $foods = DB::table('allergies_type')->where('allergies_id',4)->get();?>
@@ -97,7 +98,7 @@
                 </select>
   </div>
   Pet Allergy <input type="checkbox" value="pet"  name="pets" />
- <div class="pet"  style="display: none">
+ <div id="pet">
     <label>Allergy Name</label><br>
  <select multiple="multiple" class="form-control" name="pets[]"  >
     <?php $foods =  DB::table('allergies_type')->where('allergies_id',5)->get();?>
@@ -107,7 +108,7 @@
                 </select>
   </div>
   Pollen Allergy <input type="checkbox" value="pollen"  name="pollens" />
- <div class="pollen"  style="display: none">
+ <div id="pollen">
     <label>Allergy Name</label><br>
  <select multiple="multiple" class="form-control" name="pollens[]"  >
     <?php $foods = DB::table('allergies_type')->where('allergies_id',6)->get();?>
@@ -117,7 +118,7 @@
                 </select>
   </div>
   Insect Allergy <input type="checkbox" value="insect"  name="insects" />
- <div class="insect"  style="display: none">
+ <div id="insect">
     <label>Allergy Name</label><br>
  <select multiple="multiple" class="form-control" name="insects[]"  >
     <?php $foods = DB::table('allergies_type')->where('allergies_id',7)->get();?>
@@ -129,31 +130,20 @@
  
     
     
+   
+    <div class="form-group">
+                     <label >Chief Complaint/Reason for visit:</label>
+                     <select multiple="multiple" id="chief" name="chiefcompliant[]" class="form-control chief" style="width:50%"></select>
+                 </div>
      <div class="form-group">
-    <label for="exampleInputPassword1">Chief Complaint/Reason for visit</label>
-    <select multiple="multiple" class="form-control" name="chiefcompliant[]"  >
-    <?php $chiefs = DB::table('chief_compliant_table')->get();?>
-                  @foreach($chiefs as $chief)
-                   <option value="{{$chief->name}}">{{$chief->name}}</option>
-                 @endforeach
-                </select>
-    </div>
+                     <label >Observation:</label>
+                     <select multiple="multiple" id="observation" name="observation[]" class="form-control observation" style="width:50%"></select>
+                 </div>
     <div class="form-group">
-    <label for="exampleInputPassword1">Observation</label>
-    <select multiple="multiple" class="form-control" name="observation[]">
-          @foreach($observations as $observation)
-                   <option value="{{$observation->name}}">{{$observation->name}}</option>
-                 @endforeach
-                </select>
-    </div>
-    <div class="form-group">
-    <label for="exampleInputPassword1">symptoms</label>
-    <select multiple="multiple" class="form-control" name="symptoms[]">
-     @foreach($symptoms as  $symptom)
-                   <option value="{{$symptom->name}}">{{$symptom->name}}</option>
-                 @endforeach
-    </select>
-    </div>
+                     <label >Symptom:</label>
+                     <select multiple="multiple" id="symptom" name="symptoms[]" class="form-control symptom" style="width:50%"></select>
+                 </div>
+    
     
 
     <div class="form-group">
@@ -188,6 +178,10 @@
     </div>
 </div>
     </div>
+    </div>
+    </div>
+    </div>
+
   @include('includes.default.footer')
 
 

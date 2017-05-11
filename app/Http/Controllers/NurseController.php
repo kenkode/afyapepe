@@ -7,6 +7,7 @@ use DB;
 use App\Druglist;
 use App\Observation;
 use App\Symptom;
+use App\Chief;
 use Redirect;
 use Carbon\Carbon;
 use App\Http\Requests;
@@ -42,7 +43,7 @@ class NurseController extends Controller
        $drugs = Druglist::search($term)->limit(20)->get();
          $formatted_drugs = [];
           foreach ($drugs as $drug) {
-             $formatted_drugs[] = ['id' => $drug->id, 'text' => $drug->drugname];
+             $formatted_drugs[] = ['id' => $drug->drugname, 'text' => $drug->drugname];
          }
      return \Response::json($formatted_drugs);
      }
@@ -65,6 +66,18 @@ class NurseController extends Controller
            return \Response::json([]);
          }
        $drugs = Symptom::search($term)->limit(20)->get();
+         $formatted_drugs = [];
+          foreach ($drugs as $drug) {
+             $formatted_drugs[] = ['id' => $drug->name, 'text' => $drug->name];
+         }
+     return \Response::json($formatted_drugs);
+     }
+     public function fchief(Request $request){
+         $term = trim($request->q);
+      if (empty($term)) {
+           return \Response::json([]);
+         }
+       $drugs = Chief::search($term)->limit(20)->get();
          $formatted_drugs = [];
           foreach ($drugs as $drug) {
              $formatted_drugs[] = ['id' => $drug->name, 'text' => $drug->name];

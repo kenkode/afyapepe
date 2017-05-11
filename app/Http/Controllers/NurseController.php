@@ -955,7 +955,7 @@ return Redirect::route('nurse.show', [$id]);
 
     }
    
-   public function addBaby(Request $request){
+   public function addBaby(Request $request){ 
     $id=$request->id;
     $dob=$request->admission_date;
     $ipno=$request->ipno;

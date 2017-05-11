@@ -12,6 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="_token" content="{!! csrf_token() !!}" />
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/base/minified/jquery-ui.min.css" type="text/css" />
 
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('font-awesome/css/font-awesome.css') }}" rel="stylesheet">
@@ -19,6 +20,12 @@
     <link href="{{ asset('css/plugins/steps/jquery.steps.css') }}" rel="stylesheet">
     <link href="{{ asset('css/animate.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+       <link href="{!! asset('css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css') !!}" rel="stylesheet">
+    <link href="{!! asset('css/plugins/iCheck/custom.css') !!}" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{asset('select/select2.min.css') }}" />
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+      <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 </head>
 
@@ -360,15 +367,19 @@ No<input type="checkbox" value="No"  name="bba"/>Yes<input type="checkbox" value
 <textarea name="babyproblem" class="form-control"></textarea>
   </div>
 
-<div class="form-group">
+<!--<div class="form-group">
     <label for="exampleInputPassword1">Revelant Drugs( Pre Admission)</label>
-    <select multiple="multiple" class="form-control" name="brevelantdrugs[]"  >
+    <select multiple="multiple" class="select2" name="brevelantdrugs[]"  >
     <?php $chiefs = DB::table('druglists')->get();?>
                   @foreach($chiefs as $chief)
                    <option value="{{$chief->drugname}}">{{$chief->drugname}}</option>
                  @endforeach
                 </select>
-    </div>
+    </div>-->
+    <div class="form-group">
+                     <label >Revelant Drugs:</label>
+                     <select multiple="multiple" id="presc1" name="brevelantdrugs[]" class="form-control presc1" style="width:50%"></select>
+                 </div>
 
                                            
                                        
@@ -486,15 +497,10 @@ No <input type="checkbox" name="aph" value="No" />
   
 </div>
 
-<div class="form-group">
-    <label for="exampleInputPassword1">Revelant Drugs( Pre Admission)</label>
-    <select multiple="multiple" class="form-control" name="mrevelantdrugs[]"  >
-    <?php $chiefs = DB::table('druglists')->get();?>
-                  @foreach($chiefs as $chief)
-                   <option value="{{$chief->drugname}}">{{$chief->drugname}}</option>
-                 @endforeach
-                </select>
-    </div>
+  <div class="form-group">
+                     <label >Revelant Drugs:</label>
+                     <select multiple="multiple" id="presc1" name="mrevelantdrugs[]" class="form-control presc1" style="width:50%"></select>
+                 </div>
 
 
                                         </div>
@@ -722,9 +728,11 @@ No <input type="checkbox" name="tone" value="No" />
 
                                                           <td>{{$vaccine->status_date or ''}}</td>
                                                           <td><?php if(is_null($vaccine->status)){
-                                                            echo "<select name='test[]'><option value='Done'>Done</option><option value='Not Done'>Not Done</option></>";
+                                                            echo "<select name='test[]'>
+                                                            <option></option>
+                                                            <option value='<?php echo $vaccine->userid;?>'>Done</option>";
                                                             } ?></td>
-                                                            {{$vaccine->userid}}
+                                                           
                                                              </tr>
                                                                </tbody>
                                                            <?php $i++ ?>
@@ -1053,6 +1061,7 @@ Shoulder <input type="checkbox" name="skincold" value="Shoulder" />
  
 
  <script src="{{ asset('js/plugins/datapicker/bootstrap-datepicker.js') }}" type="text/javascript"></script>
+<script src="{{asset('js/ajaxscript.js')}}"></script>
 
     <!-- Custom and plugin javascript -->
 
@@ -1061,6 +1070,7 @@ Shoulder <input type="checkbox" name="skincold" value="Shoulder" />
 
     <!-- Custom and plugin javascript -->
 <script src="{{ asset('js/plugins/pace/pace.min.js') }}" type="text/javascript"></script>
+ <script src="{{ asset('select/select2.min.js') }}" type="text/javascript"></script>
 
 
     <!--  <script src="{{ asset('js/inspinia.js') }}" type="text/javascript"></script>-->
@@ -1095,7 +1105,7 @@ Shoulder <input type="checkbox" name="skincold" value="Shoulder" />
    <script>
         $(document).ready(function(){
             $("#wizard").steps();
-            $("#form").steps({
+              $("#form").steps({
                 bodyTag: "fieldset",
                 onStepChanging: function (event, currentIndex, newIndex)
                 {
@@ -1147,6 +1157,29 @@ Shoulder <input type="checkbox" name="skincold" value="Shoulder" />
                     form.submit();
                 }
             });
+            $.ajaxSetup({
+ headers: { 'X-CSRF-Token' : $('meta[name=_token]').attr('content') }
+});
+              $(".presc1").select2({
+          placeholder: "Select revelant drugs...",
+          minimumInputLength: 2,
+          ajax: {
+              url: '/tag/drugs',
+              dataType: 'json',
+              data: function (params) {
+                  return {
+                      q: $.trim(params.term)
+                  };
+              },
+              processResults: function (data) {
+                  return {
+                      results: data
+                  };
+              },
+              cache: true
+          }
+      });
+
        });
     </script>
     <script type="text/javascript">
@@ -1317,10 +1350,14 @@ $('#data_1 .input-group.date').datepicker({
                 });
             });
        });
+  
 
            
    </script>
 
+
+    
+</script>
 
 
 

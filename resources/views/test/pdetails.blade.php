@@ -21,7 +21,13 @@
 											<table class="table table-striped table-bordered table-hover dataTables-conditional" >
 												 <thead>
 											<tr>
-											 <th></th>
+												@foreach($triage as $pdetails)
+              <?php
+
+							$dependantId = $pdetails->persontreated;
+              $afyauserId = $pdetails->afya_user_id;
+
+							if ($dependantId =='Self') {  ?>
 												 <th>Weight </th>
 												 <th>Height</th>
 												 <th>Temperature</th>
@@ -32,17 +38,26 @@
 												 <th>Observations</th>
 												 <th>Symptoms</th>
 												 <th>Nurse Notes</th>
-
-
+  <?php  } else {  ?>
+		<th>Weight </th>
+ 	 <th>Height</th>
+ 	 <th>Temperature</th>
+ 	 <th>Systolic BP</th>
+ 	 <th>Diastolic BP</th>
+ 	  <th>Chief Compliant</th>
+ 	 <th>Observations</th>
+ 	 <th>Symptoms</th>
+ 	 <th>Nurse Notes</th>
+	   <?php  } ?>
 											</tr>
 											</thead>
 
 											<tbody>
-											<?php $i =1; ?>
 
-											@foreach($tsts as $pdetails)
+											<?php   if ($dependantId =='Self') { ?>
 												<tr>
-												<td>{{ +$i }}</td>
+												 <td>
+											 </td>
 											 <td>{{$pdetails->current_weight}}</td>
 												<td>{{$pdetails->current_height}}</td>
 												<td>{{$pdetails->temperature}}</td>
@@ -56,10 +71,23 @@
 												 <td>{{$pdetails->observation}}</td>
 												 <td>{{$pdetails->symptoms}}</td>
 												 <td>{{$pdetails->nurse_notes}}</td>
+                        </tr>
+											<?php }  else { ?>
+													<tr>
+
+												 <td>{{$pdetails->weight}}</td>
+													<td>{{$pdetails->height}}</td>
+													<td>{{$pdetails->temperature}}</td>
+													<td>{{$pdetails->systolic_bp}}</td>
+													 <td>{{$pdetails->diastolic_bp}}</td>
+                           <td>{{$pdetails->chief_compliant}}</td>
+													 <td>{{$pdetails->observation}}</td>
+													 <td>{{$pdetails->symptoms}}</td>
+													 <td>{{$pdetails->nurse_notes}}</td>
+	                        </tr>
+													<?php  } ?>
 
 
-											</tr>
-											<?php $i++; ?>
 
 											@endforeach
 
@@ -142,9 +170,60 @@
 
 																									@endforeach
 																								 </tbody>
+                             <li class="btn btn-primary"><a href="{{ url('test') }}">GO BACK</a></li>
 
-																							 </table>
-																							 <div class="ibox-content">
+								</table>
+								<?php if ($dependantId =='Self') { ?>
+
+								  <div class="col-sm-6">
+								      <label>Patient Allergy To:</label>
+								      <?php $allergy=DB::table('afya_users_allergy')
+								      ->Join('allergies_type', 'afya_users_allergy.allergies_type_id',  '=', 'allergies_type.id')
+								      ->where('afya_user_id', '=',$afyauserId)->distinct()->get(['name']); ?>
+
+								      @foreach($allergy as $micrtest)
+								           <input type="text" value="{{$micrtest->name}}" class="form-control" readonly="readonly">
+								      @endforeach
+
+								      <label>Patient Chronic Disease:</label>
+								      <?php $chronic=DB::table('appointments')
+								      ->Join('patient_diagnosis', 'appointments.id',  '=', 'patient_diagnosis.appointment_id')
+								      ->Join('diseases', 'patient_diagnosis.disease_id',  '=', 'diseases.id')
+								      ->where('appointments.afya_user_id', '=',$afyauserId)->distinct()->get(['name']); ?>
+
+
+								      @foreach($chronic as $micrtest)
+								           <input type="text" value="{{$micrtest->name}}" class="form-control" readonly="readonly">
+								      @endforeach
+
+								  </div>
+								<?php }
+								else { ?>
+
+
+								  <div class="col-sm-6">
+								      <label>Patient Allergy To:</label>
+								      <?php $allergy=DB::table('afya_users_allergy')
+								      ->Join('allergies_type', 'afya_users_allergy.allergies_type_id',  '=', 'allergies_type.id')
+								      ->where('dependant_id', '=',$dependantId)->distinct()->get(['name']); ?>
+
+								      @foreach($allergy as $micrtest)
+								           <input type="text" value="{{$micrtest->name}}" class="form-control" readonly="readonly">
+								      @endforeach
+
+								      <label>Patient Chronic Disease:</label>
+								      <?php $allergy=DB::table('appointments')
+								        ->Join('patient_diagnosis', 'appointments.id',  '=', 'patient_diagnosis.appointment_id')
+								      ->Join('diagnoses', 'patient_diagnosis.disease_id',  '=', 'diagnoses.id')
+								      ->where([ ['appointments.persontreated', '=',$dependantId],['patient_diagnosis.chronic', '=','Y'],])->distinct()->get(['name']); ?>
+
+								      @foreach($allergy as $micrtest)
+								           <input type="text" value="{{$micrtest->name}}" class="form-control" readonly="readonly">
+								      @endforeach
+
+								  </div>
+								<?php } ?>
+							<div class="ibox-content">
 
                          <div id="edit-modal" class="modal fade" aria-hidden="true">
                              <div class="modal-dialog">

@@ -17,73 +17,83 @@ $Sub_Speciality = $Docdata->subspeciality;
 
 }
 
-
-if ( empty ($Name ) ) {
-// return view('doctor.create');
-
-return redirect('doctor.create');
-
-}
 ?>
 
 <?php
-      foreach ($patientdetails as $pdetails) {
-         $pname = $pdetails->firstname;
-         $lname = $pdetails->secondName;
-         $facilty = $pdetails->FacilityName;
-        $faciltyid = $pdetails->FacilityCode;
-         $phone = $pdetails->msisdn;
-         $stat= $pdetails->appstatus;
-         $afyauserId= $pdetails->afyaId;
+foreach ($patientdetails as $pdetails) {
+  // $patientid = $pdetails->pat_id;
+  //  $facilty = $pdetails->FacilityName;
+   $stat= $pdetails->status;
+   $afyauserId= $pdetails->afya_user_id;
+    $dependantId= $pdetails->persontreated;
+    $app_id= $pdetails->id;
+    $doc_id= $pdetails->doc_id;
+    $fac_id= $pdetails->facility_id;
+    $dependantAge = $pdetails->depdob;
+    $AfyaUserAge = $pdetails->dob;
+    $name= $pdetails->firstname;
 
-          $dependantId= $pdetails->Infid;
-          $app_id= $pdetails->app_id;
-          $pname = $pdetails->Infname;
-          $lname = $pdetails->InfName;
-          $facilty = $pdetails->FacilityName;
-          $phone = $pdetails->msisdn;
-
-          $dependantAge= $pdetails->Infdob;
-
-           $interval = date_diff(date_create(), date_create($dependantAge));
-           $dependantage= $interval->format(" %Y Year, %M Months, %d Days Old");
+$now = time(); // or your date as well
+$your_date = strtotime($dependantAge);
+$datediff = $now - $your_date;
+$dependantdays= floor($datediff / (60 * 60 * 24));
 
 
- $now = time(); // or your date as well
- $your_date = strtotime($dependantAge);
- $datediff = $now - $your_date;
+if ($dependantId =='Self') {
+      $dob=$AfyaUserAge;
+      $gender=$pdetails->gender;
+    $firstName = $pdetails->firstname;
+    $secondName = $pdetails->secondName;
+    $name =$firstName." ".$secondName;
+}
 
- $dependantdays= floor($datediff / (60 * 60 * 24));
+else {
+     $dob=$dependantAge;
+     $gender=$pdetails->depgender;
+     $firstName = $pdetails->dep1name;
+     $secondName = $pdetails->dep2name;
+     $name =$firstName." ".$secondName;
+}
 
- $appStatue=$stat;
+
+$interval = date_diff(date_create(), date_create($dob));
+$age= $interval->format(" %Y Year, %M Months, %d Days Old");
+
+
+$appStatue=$stat;
 if ($appStatue == 2) {
-  $appStatue ='ACTIVE';
+$appStatue ='ACTIVE';
 } elseif ($stat == 3) {
-  $appStatue='Discharged Outpatient';
+$appStatue='Discharged Outpatient';
 } elseif ($stat == 4) {
-  $appStatue='Admitted';
+$appStatue='Admitted';
 } elseif ($stat == 5) {
-  $appStatue='Refered';
+$appStatue='Refered';
 }
 elseif ($stat == 6) {
-  $appStatue='Discharged Intpatient';
+$appStatue='Discharged Intpatient';
 }
-
-
 
 }
 ?>
-
-    <div class="ibox-title">
-        <h5>{{$pname }}{{$lname}}</h5>
-        <div class="ibox-tools">
-            <button type="btn" class="btn btn-primary">{{$appStatue}}</button>
-
-            <a class="collapse-link">{{$facilty}}  </a>
-        </div>
-      </div>
-
-
+<div class="row wrapper border-bottom white-bg page-heading">
+              <div class="col-lg-6">
+                  <h2>{{$name }}</h2>
+                  <ol class="breadcrumb">
+                      <li><a>@if($gender==1){{"Male"}}@else{{"Female"}}@endif</a></li>
+                      <li><a>{{$age}}</a> </li>
+                      <li>
+                          <strong> <button type="btn" class="btn btn-primary">{{$appStatue}}</button></strong>
+                      </li>
+                  </ol>
+              </div>
+              <div class="col-lg-6">
+                  <h2>{{$pdetails->FacilityName}} </h2>
+                  <ol class="breadcrumb">
+                    <li class="active"><strong>{{$Name}} </strong></li>
+                  </ol>
+              </div>
+          </div>
 <!--tabs-->
         <div class="col-lg-12">
             <div class="tabs-container">
@@ -134,105 +144,9 @@ elseif ($stat == 6) {
 
 
 
-  <!--tabs5 Admit-->
-<div id="tab-5" class="tab-pane">
 
 
 
-                            <div class="panel-body">
-                                    {{ Form::open(array('route' => array('admitting'),'method'=>'POST')) }}
-
-                                    <div class="form-group col-md-8 col-md-offset-1">
-                                        <label for="presc" class="col-md-6">Facility:</label>
-                                          <!-- <input type="text" class="form-control" name="next_appointment" value="{{$facilty}}"> -->
-
-                                        <select id="facility" name="facility" class="form-control facility1" style="width: 100%"></select>
-                                    </div>
-                                      <div class="form-group col-md-8 col-md-offset-1" id="data_1">
-                                          <label class="font-normal">Next Doctor Visit</label>
-                                          <div class="input-group date">
-                                              <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                              <input type="text" class="form-control" name="next_appointment" value="">
-                                          </div>
-                                      </div>
-                                  {{ Form::hidden('appointment_status',4, array('class' => 'form-control')) }}
-                                 {{ Form::hidden('appointment_id',$pdetails->app_id, array('class' => 'form-control')) }}
-                                  {{ Form::hidden('doc_id',$Docdata->doc_id, array('class' => 'form-control')) }}
-
-
-                      <div class="form-group col-md-8 col-md-offset-1">
-                       <label for="role" class="control-label">Doctor note</label>
-                        {{ Form::textarea('doc_note', null, array('placeholder' => 'note..','class' => 'form-control col-lg-8')) }}
-                    </div>
-
-
-                    <div class="form-group  col-md-8 col-md-offset-1">
-                    <button type="submit" class="btn btn-primary">Submit</button>  </td>
-                    </div>
-                  {{ Form::close() }}
-                        </div><!--panel body-->
-                    </div><!--5 tabs Admit-->
-
-                    <!--tabs6 Discharge-->
-                    <div id="tab-6" class="tab-pane">
-                            <div class="panel-body">
-                                    {{ Form::open(array('route' => array('discharging'),'method'=>'POST')) }}
-
-
-                                      <div class="form-group col-md-8 col-md-offset-1" id="data_1">
-                                          <label class="font-normal">Next Appointment Date</label>
-                                          <div class="input-group date">
-                                              <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                              <input type="text" class="form-control" name="next_visit" value="">
-                                          </div>
-                                      </div>
-                                  {{ Form::hidden('appointment_status',3, array('class' => 'form-control')) }}
-                                  {{ Form::hidden('appointment_id',$pdetails->app_id, array('class' => 'form-control')) }}
-                                  {{ Form::hidden('doc_id',$Docdata->doc_id, array('class' => 'form-control')) }}
-
-
-                      <div class="form-group col-md-8 col-md-offset-1">
-                       <label for="role" class="control-label">Doctor note</label>
-                        {{ Form::textarea('doc_note', null, array('placeholder' => 'note..','class' => 'form-control col-lg-8')) }}
-                    </div>
-
-
-                    <div class="form-group  col-md-8 col-md-offset-1">
-                    <button type="submit" class="btn btn-primary">Submit</button>  </td>
-                    </div>
-                  {{ Form::close() }}
-
-
-                          </div><!--panel body-->
-                    </div><!--6tabs Discharged-->
-                    <!--tabs7 Transfer-->
-                    <div id="tab-7" class="tab-pane">
-                            <div class="panel-body">
-                                    {{ Form::open(array('route' => array('transfer'),'method'=>'POST')) }}
-                                    <div class="form-group col-md-8 col-md-offset-1">
-                                        <label for="presc" class="col-md-6">Facility:</label>
-                                        <select id="facility" name="facility_to" class="form-control facility1" style="width: 100%"></select>
-                                    </div>
-
-                                   {{ Form::hidden('facility_from',$faciltyid, array('class' => 'form-control')) }}
-                                   {{ Form::hidden('appointment_status',5, array('class' => 'form-control')) }}
-                                   {{ Form::hidden('appointment_id',$pdetails->app_id, array('class' => 'form-control')) }}
-                                   {{ Form::hidden('doc_id',$Docdata->doc_id, array('class' => 'form-control')) }}
-
-
-                      <div class="form-group col-md-8 col-md-offset-1">
-                       <label for="role" class="control-label">Doctor note</label>
-                        {{ Form::textarea('doc_note', null, array('placeholder' => 'note..','class' => 'form-control col-lg-8')) }}
-                    </div>
-
-
-                    <div class="form-group  col-md-8 col-md-offset-1">
-                    <button type="submit" class="btn btn-primary">Submit</button>  </td>
-                    </div>
-                  {{ Form::close() }}
-
-                          </div><!--panel body-->
-                    </div><!--7tabs-->
 
 
               </div><!--tabcontent-->

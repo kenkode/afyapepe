@@ -23,7 +23,7 @@ class PatientTestController extends Controller
       ->leftjoin('afya_users','appointments.afya_user_id','=','afya_users.id')
       ->leftjoin('dependant','appointments.persontreated','=','dependant.id')
       ->leftjoin('facilities','appointments.facility_id','=','facilities.FacilityCode')
-      ->select('appointments.*','afya_users.firstname','afya_users.secondName','afya_users.gender',
+      ->select('appointments.*','afya_users.dob','afya_users.firstname','afya_users.secondName','afya_users.gender',
         'dependant.firstName as dep1name','dependant.secondName as dep2name','dependant.gender as depgender',
         'dependant.dob as depdob','facilities.FacilityName')
       ->where('appointments.id',$id)
@@ -38,7 +38,7 @@ public function diagnoses($id)
   ->leftjoin('afya_users','appointments.afya_user_id','=','afya_users.id')
   ->leftjoin('dependant','appointments.persontreated','=','dependant.id')
   ->leftjoin('facilities','appointments.facility_id','=','facilities.FacilityCode')
-  ->select('appointments.*','afya_users.firstname','afya_users.secondName','afya_users.gender',
+  ->select('appointments.*','afya_users.firstname','afya_users.dob','afya_users.secondName','afya_users.gender',
     'dependant.firstName as dep1name','dependant.secondName as dep2name','dependant.gender as depgender',
     'dependant.dob as depdob','facilities.FacilityName')
   ->where('appointments.id',$id)
@@ -75,7 +75,7 @@ public function discharges($id)
   ->leftjoin('afya_users','appointments.afya_user_id','=','afya_users.id')
   ->leftjoin('dependant','appointments.persontreated','=','dependant.id')
   ->leftjoin('facilities','appointments.facility_id','=','facilities.FacilityCode')
-  ->select('appointments.*','afya_users.firstname','afya_users.secondName','afya_users.gender',
+  ->select('appointments.*','afya_users.firstname','afya_users.dob','afya_users.secondName','afya_users.gender',
     'dependant.firstName as dep1name','dependant.secondName as dep2name','dependant.gender as depgender',
     'dependant.dob as depdob','facilities.FacilityName')
   ->where('appointments.id',$id)
@@ -90,7 +90,7 @@ public function admit($id)
   ->leftjoin('afya_users','appointments.afya_user_id','=','afya_users.id')
   ->leftjoin('dependant','appointments.persontreated','=','dependant.id')
   ->leftjoin('facilities','appointments.facility_id','=','facilities.FacilityCode')
-  ->select('appointments.*','afya_users.firstname','afya_users.secondName','afya_users.gender',
+  ->select('appointments.*','afya_users.firstname','afya_users.dob','afya_users.secondName','afya_users.gender',
     'dependant.firstName as dep1name','dependant.secondName as dep2name','dependant.gender as depgender',
     'dependant.dob as depdob','facilities.FacilityName')
   ->where('appointments.id',$id)
@@ -105,7 +105,7 @@ public function transfer($id)
   ->leftjoin('afya_users','appointments.afya_user_id','=','afya_users.id')
   ->leftjoin('dependant','appointments.persontreated','=','dependant.id')
   ->leftjoin('facilities','appointments.facility_id','=','facilities.FacilityCode')
-  ->select('appointments.*','afya_users.firstname','afya_users.secondName','afya_users.gender',
+  ->select('appointments.*','afya_users.firstname','afya_users.dob','afya_users.secondName','afya_users.gender',
     'dependant.firstName as dep1name','dependant.secondName as dep2name','dependant.gender as depgender',
     'dependant.dob as depdob','facilities.FacilityName')
   ->where('appointments.id',$id)
@@ -118,7 +118,7 @@ public function disdiagnosis($id)
   ->leftjoin('afya_users','appointments.afya_user_id','=','afya_users.id')
   ->leftjoin('dependant','appointments.persontreated','=','dependant.id')
   ->leftjoin('facilities','appointments.facility_id','=','facilities.FacilityCode')
-  ->select('appointments.*','afya_users.firstname','afya_users.secondName','afya_users.gender',
+  ->select('appointments.*','afya_users.firstname','afya_users.dob','afya_users.secondName','afya_users.gender',
     'dependant.firstName as dep1name','dependant.secondName as dep2name','dependant.gender as depgender',
     'dependant.dob as depdob','facilities.FacilityName')
   ->where('appointments.id',$id)
@@ -132,7 +132,7 @@ public function disprescription($id)
   ->leftjoin('afya_users','appointments.afya_user_id','=','afya_users.id')
   ->leftjoin('dependant','appointments.persontreated','=','dependant.id')
   ->leftjoin('facilities','appointments.facility_id','=','facilities.FacilityCode')
-  ->select('appointments.*','afya_users.firstname','afya_users.secondName','afya_users.gender',
+  ->select('appointments.*','afya_users.firstname','afya_users.dob','afya_users.secondName','afya_users.gender',
     'dependant.firstName as dep1name','dependant.secondName as dep2name','dependant.gender as depgender',
     'dependant.dob as depdob','facilities.FacilityName')
   ->where('appointments.id',$id)

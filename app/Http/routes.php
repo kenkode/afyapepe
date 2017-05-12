@@ -32,7 +32,6 @@ Route::get('roles/create',['as'=>'roles.create','uses'=>'RoleController@create']
 Route::post('roles/create',['as'=>'roles.store','uses'=>'RoleController@store']);
 Route::get('roles/{id}',['as'=>'roles.show','uses'=>'RoleController@show']);
 Route::get('roles/{id}/edit',['as'=>'roles.edit','uses'=>'RoleController@edit']);
-
 	Route::patch('roles/{id}',['as'=>'roles.update','uses'=>'RoleController@update']);
   Route::delete('roles/{id}',['as'=>'roles.destroy','uses'=>'RoleController@destroy']);
 

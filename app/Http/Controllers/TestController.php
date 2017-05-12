@@ -34,12 +34,11 @@ class TestController extends Controller
       ->leftJoin('appointments', 'patient_test.appointment_id', '=', 'appointments.id')
       ->leftJoin('afya_users', 'appointments.afya_user_id', '=', 'afya_users.id')
       ->leftJoin('dependant', 'appointments.persontreated', '=', 'dependant.id')
-      ->leftJoin('patient_test_details', 'patient_test.id', '=', 'patient_test_details.patient_test_id')
-     ->select('afya_users.*','patient_test.id as tid','patient_test_details.created_at as date',
+      ->select('afya_users.*','patient_test.id as tid','patient_test.created_at as date',
       'patient_test.test_status','appointments.persontreated','dependant.firstName as depname',
       'dependant.firstName as depname','dependant.secondName as depname2','dependant.gender as depgender',
       'dependant.dob as depdob')
-      ->where('patient_test_details.done', '=',0)
+      ->where('patient_test.test_status', '=',0)
 
       ->get();
 
@@ -47,6 +46,18 @@ class TestController extends Controller
     }
 
 public function testdetails($id){
+
+  $triage = DB::table('patient_test')
+  ->Join('appointments', 'patient_test.appointment_id', '=', 'appointments.id')
+  ->Join('triage_details', 'patient_test.appointment_id', '=', 'triage_details.appointment_id')
+  ->Join('triage_infants', 'patient_test.appointment_id', '=', 'triage_infants.appointment_id')
+  ->select('triage_details.*','appointments.*','triage_infants.*')
+  ->where('patient_test.id', '=',$id)
+  ->get();
+
+
+
+
   $tsts = DB::table('patient_test')
   ->Join('appointments', 'patient_test.appointment_id', '=', 'appointments.id')
   ->Join('afya_users', 'appointments.afya_user_id', '=', 'afya_users.id')
@@ -64,7 +75,7 @@ public function testdetails($id){
                ])
   ->get();
 
-return view('test.pdetails')->with('tsts',$tsts);
+return view('test.pdetails')->with('tsts',$tsts)->with('triage',$triage);
 }
 
     public function testSales(){

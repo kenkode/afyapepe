@@ -5,10 +5,7 @@
 
 		<div class="content">
 				<div class="container">
-
-
-
-					<div class="wrapper wrapper-content animated fadeInRight">
+         	<div class="wrapper wrapper-content animated fadeInRight">
 										<div class="row">
 												<div class="col-lg-11">
 												<div class="ibox float-e-margins">
@@ -82,8 +79,8 @@
 																									  <tr>
 																									  <td><a href="{{route('patientTest',$tst->tid)}}">{{$i}}</a></td>
 																									 <td><a href="{{route('patientTest',$tst->tid)}}">
-																									 <?php if ($tst->persontreated=='Self') {echo $tst->firstname ;  echo $tst->secondName;}
-																									 else {echo $tst->depname; echo $tst->depame2;}
+																									 <?php if ($tst->persontreated=='Self') {echo $tst->firstname." ".$tst->secondName;}
+																									 else {echo $tst->depname." ".$tst->depname2;}
 																									 ?></a></td>
 
 

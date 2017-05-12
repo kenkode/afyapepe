@@ -6,7 +6,7 @@
               <div class="container">
 <div class="row">
 <h1> Sales</h1>   
-<br>             <div class="col-lg-12">
+            <div class="col-lg-12">
                     <div class="tabs-container">
                         <ul class="nav nav-tabs">
                             <li class="active"><a data-toggle="tab" href="#tab-1">By Drug</a></li>
@@ -1140,15 +1140,18 @@
                                 </div>
                             </div>
                             </div>
+                                                       
                             </div>
-                            </div>
-                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
                
             </div>
-            </div>
-           <br><br>
              @include('includes.default.footer')
                    </div><!--container-->
                 </div><!--content -->
             </div><!--content page-->
 @endsection
+

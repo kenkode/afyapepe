@@ -32,6 +32,10 @@ class ManufacturerController extends Controller
         return view('manufacturer.home');
     }
 
+    public function Trends(){
+      return view ('manufacturer.trends');
+    }
+
    
    public function todaysales(){
 

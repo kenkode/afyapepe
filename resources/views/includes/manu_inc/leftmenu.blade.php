@@ -26,11 +26,15 @@
             </li>
 
 
-          <li><a href="{{ URL::to('Drugsales') }}"><i class="fa fa-money"></i> <span>Today's Sales</span> </a></li>
+          <li><a href="{{ URL::to('Drugsales') }}"><i class="fa fa-money"></i> <span>Sales</span> </a></li>
           <li><a href="{{ URL::to('DrugSubstitution') }}"><i class="fa fa-pie-chart"></i><span>  Drug Substitutions</span></a></li>
           <li> <a href="{{ URL::to('manustock')}}"> <i class="glyphicon glyphicon-dashboard "></i> <span>Stock Level</span></a></li>
                              <li> <a href="{{ URL::to('competition')}}">
                               <i class="glyphicon glyphicon-dashboard "></i> <span>Competition Analysis</span>   
+
+                            </a></li>
+                             <li> <a href="{{ URL::to('Trends')}}">
+                              <i class="glyphicon glyphicon-stats "></i> <span>Trends</span>   
 
                             </a></li>
                             <li> <a href="{{ URL::to('#')}}">  <i class="fa fa-envelope "></i> <span>Email</span></a></li>

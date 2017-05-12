@@ -44,11 +44,13 @@
                                                       <tr>
                                                           <th>No</th>
                                                      <th>Drug Name</th>
-                                                          <th>Dosage</th>
-                                                          <th>Dosage form</th>
+                                                          
                                                           <th>Prescribing Doctor</th>
-                                                          <th>Facility</th>
+                                                           <th>Facility</th>
+                                                          <th>Pharmacy  name</th>
                                                          <th> Quantity</th>
+                                                         <th>Dosage</th>
+                                                          <th>Dosage form</th>
                                                          <th>Unit Cost</th>
                                                          <th>Total  </th>
                                                          </tr>

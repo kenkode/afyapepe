@@ -28,6 +28,8 @@
       <script type="text/javascript" src="{{ asset('js/modernizr.js') }}"></script>
 
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
 
 
 </head>
@@ -112,6 +114,62 @@
     <!-- Custom and plugin javascript -->
 <script src="{{ asset('js/plugins/pace/pace.min.js') }}" type="text/javascript"></script>
     <!--  <script src="{{ asset('js/inspinia.js') }}" type="text/javascript"></script>-->
+      <script>
+  $( function() {
+    var availableTags = [
+   "Mombasa",
+"Kwale",
+"Kilifi",
+"Tana River",
+"Lamu",
+"Taita Taveta",
+"Garissa",
+"Wajir",
+"Mandera",
+"Marsabit",
+"Isiolo",
+"Meru",
+"Tharaka Nithi",
+"Embu",
+"Kitui",
+"Machakos",
+"Makueni",
+"Nyandarua",
+"Nyeri",
+"Kirinyaga",
+"Muranga",
+"Kiambu",
+"Turkana",
+"West Pokot",
+"Uasin Gishu",
+"Trans-Nzoia",
+"Samburu",
+"Nandi",
+"Elgeyo-Marakwet",
+"Baringo",
+"Laikipia",
+"Nakuru",
+"Narok",
+"Kajiado",
+"kericho",
+"Bomet",
+"Kakamega",
+"Vihiga",
+"Bungoma",
+"Busia",
+"Siaya",
+"Kisumu",
+"Homa Bay",
+"Migori",
+"Kisii",
+"Nyamira",
+"Nairobi"
+    ];
+    $( "#tags" ).autocomplete({
+      source: availableTags
+    });
+  } );
+  </script>
 
     <script>
 

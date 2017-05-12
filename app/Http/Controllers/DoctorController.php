@@ -27,6 +27,7 @@ class DoctorController extends Controller
       *
       * @return \Illuminate\Http\Response
       */
+
      public function index()
 
      {
@@ -35,6 +36,7 @@ class DoctorController extends Controller
        $patients = DB::table('appointments')
        ->leftJoin('afya_users', 'appointments.afya_user_id', '=', 'afya_users.id')
         ->leftJoin('triage_details', 'appointments.id', '=', 'triage_details.appointment_id')
+          ->leftJoin('doctors', 'appointments.doc_id', '=', 'doctors.doc_id')
         ->leftJoin('triage_infants', 'appointments.id', '=', 'triage_infants.appointment_id')
         ->leftJoin('dependant', 'triage_infants.dependant_id', '=', 'dependant.id')
          ->leftJoin('constituency', 'afya_users.constituency', '=', 'constituency.const_id')
@@ -55,12 +57,12 @@ class DoctorController extends Controller
                    $query->where([
                                  ['appointments.created_at','>=',$today],
                                  ['appointments.status', '=', 2],
-                                 ['appointments.doc_id', '=',Auth::user()->id],
+                                 ['doctors.user_id', '=',Auth::user()->id],
                                 ])
                          ->orWhere([
                                        ['appointments.date_present','>=',$today],
                                        ['appointments.status', '=', 2],
-                                       ['appointments.doc_id', '=',Auth::user()->id],
+                                       ['doctors.user_id', '=',Auth::user()->id],
                                      ]);
                })
          ->get();
@@ -75,6 +77,7 @@ public function dependant()
 
   $patients = DB::table('appointments')
   ->leftJoin('dependant', 'appointments.persontreated', '=', 'dependant.id')
+  ->leftJoin('doctors', 'appointments.doc_id', '=', 'doctors.doc_id')
   ->leftJoin('triage_infants', 'appointments.id', '=', 'triage_infants.appointment_id')
   ->leftJoin('afya_users', 'dependant.afya_user_id', '=', 'afya_users.id')
   ->leftJoin('constituency', 'afya_users.constituency', '=', 'constituency.const_id')
@@ -83,7 +86,7 @@ public function dependant()
   ->where([
                   ['appointments.created_at','>=',$today],
                   ['appointments.status', '=', 2],
-                  ['appointments.doc_id', '=',Auth::user()->id],
+                  ['doctors.user_id', '=',Auth::user()->id],
                  ])
     ->get();
 
@@ -144,6 +147,7 @@ return redirect()->route('doctor.index')
       $patients = DB::table('appointments')
       ->leftJoin('patient_admitted', 'appointments.id', '=', 'patient_admitted.appointment_id')
       ->leftJoin('afya_users', 'appointments.afya_user_id', '=', 'afya_users.id')
+      ->leftJoin('doctors', 'appointments.doc_id', '=', 'doctors.doc_id')
        ->leftJoin('triage_details', 'appointments.id', '=', 'triage_details.appointment_id')
        ->leftJoin('triage_infants', 'appointments.id', '=', 'triage_infants.appointment_id')
        ->leftJoin('dependant', 'triage_infants.dependant_id', '=', 'dependant.id')
@@ -162,6 +166,7 @@ return redirect()->route('doctor.index')
                    ['appointments.created_at','>=',$today],
                    ['appointments.status', '=', 2],
                    ['patient_admitted.condition', '=','Admitted'],
+                   ['doctors.user_id', '=',Auth::user()->id],
                   ])
         ->get();
 
@@ -175,6 +180,7 @@ return redirect()->route('doctor.index')
        ->leftJoin('triage_details', 'appointments.id', '=', 'triage_details.appointment_id')
        ->leftJoin('triage_infants', 'appointments.id', '=', 'triage_infants.appointment_id')
        ->leftJoin('dependant', 'triage_infants.dependant_id', '=', 'dependant.id')
+       ->leftJoin('doctors', 'appointments.doc_id', '=', 'doctors.doc_id')
         ->leftJoin('constituency', 'afya_users.constituency', '=', 'constituency.const_id')
         ->select('afya_users.*','triage_details.*','triage_infants.*','appointments.id as appid',
          'appointments.created_at','appointments.facility_id','constituency.Constituency',
@@ -189,6 +195,7 @@ return redirect()->route('doctor.index')
              ['appointments.appointment_date','>=',$today],
              ['appointments.status', '=', 2],
              ['appointments.appointment_made', '=','Y'],
+             ['doctors.user_id', '=',Auth::user()->id],
           ])
 
         ->get();

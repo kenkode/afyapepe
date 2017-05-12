@@ -7,6 +7,7 @@ use DB;
 use App\Druglist;
 use App\Observation;
 use App\Symptom;
+use App\Chief;
 use Redirect;
 use Carbon\Carbon;
 use App\Http\Requests;
@@ -42,11 +43,47 @@ class NurseController extends Controller
        $drugs = Druglist::search($term)->limit(20)->get();
          $formatted_drugs = [];
           foreach ($drugs as $drug) {
-             $formatted_drugs[] = ['id' => $drug->id, 'text' => $drug->drugname];
+             $formatted_drugs[] = ['id' => $drug->drugname, 'text' => $drug->drugname];
          }
      return \Response::json($formatted_drugs);
      }
-
+    
+     public function fobservation(Request $request){
+         $term = trim($request->q);
+      if (empty($term)) {
+           return \Response::json([]);
+         }
+       $drugs = Observation::search($term)->limit(20)->get();
+         $formatted_drugs = [];
+          foreach ($drugs as $drug) {
+             $formatted_drugs[] = ['id' => $drug->name, 'text' => $drug->name];
+         }
+     return \Response::json($formatted_drugs);
+     }
+      public function fsymptom(Request $request){
+         $term = trim($request->q);
+      if (empty($term)) {
+           return \Response::json([]);
+         }
+       $drugs = Symptom::search($term)->limit(20)->get();
+         $formatted_drugs = [];
+          foreach ($drugs as $drug) {
+             $formatted_drugs[] = ['id' => $drug->name, 'text' => $drug->name];
+         }
+     return \Response::json($formatted_drugs);
+     }
+     public function fchief(Request $request){
+         $term = trim($request->q);
+      if (empty($term)) {
+           return \Response::json([]);
+         }
+       $drugs = Chief::search($term)->limit(20)->get();
+         $formatted_drugs = [];
+          foreach ($drugs as $drug) {
+             $formatted_drugs[] = ['id' => $drug->name, 'text' => $drug->name];
+         }
+     return \Response::json($formatted_drugs);
+     }
     public function users()
     {
       $patients=DB::table('afya_users')->get();
@@ -955,7 +992,7 @@ return Redirect::route('nurse.show', [$id]);
 
     }
    
-   public function addBaby(Request $request){
+   public function addBaby(Request $request){ 
     $id=$request->id;
     $dob=$request->admission_date;
     $ipno=$request->ipno;
@@ -972,7 +1009,8 @@ return Redirect::route('nurse.show', [$id]);
     $vitamen=$request->vitamen;
     $prophylaxis=$request->prophylaxis;
     $babyproblem=$request->babyproblem;
-    $revelantdrugs=$request->revelantdrugs;
+    $mrevelantdrugs=$request->mrevelantdrugs;
+     $brevelantdrugs=$request->brevelantdrugs;
     $dob=$request->dob;
     $doctor=$request->doctor;
 $gravidity=$request->gravidity;
@@ -993,7 +1031,6 @@ $labour2=$request->labour2;
 $hypertention=$request->hypertention;
 $aph=$request->aph;
 $motherproblem=$request->motherproblem;
-$revelantdrugs=$request->revelantdrugs;
 $cir=$request->cir;
 $skin=$request->skin;
 $jaundice=$request->jaundice;
@@ -1043,7 +1080,10 @@ $cry=$request->cry;
         $chiefcompliant=implode(',', $chiefcompliant);
         $observation=implode(',',$observation );
         $symptoms=implode(',', $symptoms);
-         $score=$request->muac;
+        $mdrug=implode(',', $mrevelantdrugs);
+         $bdrug=implode(',', $brevelantdrugs);
+
+          $score=$request->muac;
          $id=$request->id;
     $breastfeed=$request->breastfeed;
     $neck=$request->neck;
@@ -1051,6 +1091,9 @@ $cry=$request->cry;
     $irritable=$request->irritable;
     $tone=$request->tone;
      $drugs=$request->drugs;
+
+
+
 if($drugs){
 foreach($drugs as $key =>$drug) {
      DB::table('patient_allergy')->insert([
@@ -1185,7 +1228,7 @@ join('afya_users','afya_users.msisdn','=','dependant_parent.phone')->select('afy
     'labour2'=>$labour2,
     'aph'=>$aph,
     'motherproblem'=>$motherproblem,
-    'revelantdrugs'=>$revelantdrugs,
+    'revelantdrugs'=>$mdrug,
      'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
     'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
 );
@@ -1206,7 +1249,7 @@ join('afya_users','afya_users.msisdn','=','dependant_parent.phone')->select('afy
      'vitamen'=>$vitamen,
      'prophylaxis'=>$prophylaxis,
      'babyproblem'=>$babyproblem,
-     'revelantdrugs'=>$revelantdrugs,
+     'revelantdrugs'=>$bdrug,
     'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
     'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
     $appointment=DB::table('appointments')->where('persontreated', $id)->orderBy('created_at', 'desc')->first();

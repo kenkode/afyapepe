@@ -74,6 +74,8 @@
 
     <!-- ChartJS-->
     <script src="{{ asset('js/plugins/chartJs/Chart.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/demo/chartjs-demo.js') }}"></script>
+
 
 
     <!-- Toastr -->

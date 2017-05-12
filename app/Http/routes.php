@@ -94,8 +94,10 @@ Route::group(['middleware' => ['auth','role:Admin|Nurse']], function() {
   Route::post('addfather','NurseController@addfather');
   Route::post('addmother','NurseController@addmother');
  Route::post('babytriage','NurseController@addBaby');
- Route::get('/tag/drug', 'NurseController@fdrugs');
-
+ Route::get('/tag/drugs', 'NurseController@fdrugs');
+ Route::get('/tag/observation','NurseController@fobservation');
+Route::get('/tag/symptom','NurseController@fsymptom');
+Route::get('/tag/chief','NurseController@fchief');
 Route::get('/ajax-subcat',function(){
 	$cat_id= Input::get('cat_id');
 	$symptoms= Symptom::where('observation_id','=',$cat_id)->get();

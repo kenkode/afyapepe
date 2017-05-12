@@ -47,6 +47,8 @@
                                                           <th> Dosage</th>
                                                           <th>Dosage form</th>
                                                           <th>Quantity</th>
+                                                          <th>Rate of Sales(Per Week)</th>
+                                                          <th>Run of Rate</th>
                                                           
                                                          </tr>
                                                     </tr>

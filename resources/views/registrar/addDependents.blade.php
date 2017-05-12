@@ -16,12 +16,12 @@
               <input type="hidden" class="form-control" id="exampleInputEmail1"  value="{{$id}}" name="id"  required>
                <div class="form-group">
               <label for="exampleInputPassword1">First Name</label>
-              <input type="name" class="form-control" id="exampleInputPassword1"  placeholder="" name="first" >
+              <input type="name" class="form-control" id="exampleInputEmail1"  placeholder="" name="first" >
               </div>
 
               <div class="form-group">
              <label for="exampleInputPassword1">Second Name</label>
-             <input type="name" class="form-control" id="exampleInputPassword1"  placeholder="" name="second"  value="
+             <input type="name" class="form-control" id="exampleInputEmail1"  placeholder="" name="second"  value="
               "  >
              </div>
              <div class="form-group">
@@ -57,9 +57,13 @@
               </select>
               </div>
                <div class="form-group">
-                <label for="exampleInputPassword1">Place of Birth</label>
-                <input type="text" class="form-control" id="exampleInputPassword1" placeholder="" name="pob" value=""  >
-                </div>
+                
+              
+  <div class="ui-widget">
+  <label for="pod">Place of Birth: </label>
+  <input type="text" id="tags" class="form-control" name="pob">
+</div>
+</div>
                 <div class="form-group" id="data_1">
                  <label for="exampleInputPassword1">Date of Birth</label>
                  <div class="input-group date">

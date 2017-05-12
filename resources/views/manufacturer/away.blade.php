@@ -44,6 +44,9 @@
                                                       <tr>
                                                           <th>No</th>
                                                      <th>Prescribed Drug</th>
+                                                     <th> Dosage</th>
+                                                          <th>Dosage form</th>
+                                                          <th>Pharmacy  name</th>
                                                           <th> Prescribing Doctor</th>
                                                           <th>Substituted Drug</th>
                                                           <th>Facility Name</th>

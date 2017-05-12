@@ -12,6 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="_token" content="{!! csrf_token() !!}" />
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/base/minified/jquery-ui.min.css" type="text/css" />
 
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('font-awesome/css/font-awesome.css') }}" rel="stylesheet">
@@ -19,6 +20,12 @@
     <link href="{{ asset('css/plugins/steps/jquery.steps.css') }}" rel="stylesheet">
     <link href="{{ asset('css/animate.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+       <link href="{!! asset('css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css') !!}" rel="stylesheet">
+    <link href="{!! asset('css/plugins/iCheck/custom.css') !!}" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{asset('select/select2.min.css') }}" />
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+      <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 </head>
 
@@ -299,7 +306,7 @@
  @else
   <div class="form-group">
 <label class="exampleInputPassword1" for="name">BBA</label><br>
-No<input type="radio" value="No"  name="bba"/>Yes<input type="radio" value="Yes"  name="bba"/>
+No<input type="checkbox" value="No"  name="bba"/>Yes<input type="checkbox" value="Yes"  name="bba"/>
 
   <div id="embedcode">
     <label>Born Where</label>
@@ -359,11 +366,20 @@ No<input type="radio" value="No"  name="bba"/>Yes<input type="radio" value="Yes"
 <label>Babies Presenting Problems</label>
 <textarea name="babyproblem" class="form-control"></textarea>
   </div>
-<div class="form-group">
-<label>Revelant Drugs( Pre Admission)</label>
-<textarea name="revelantdrugs" class="form-control"></textarea>
-  
-</div>
+
+<!--<div class="form-group">
+    <label for="exampleInputPassword1">Revelant Drugs( Pre Admission)</label>
+    <select multiple="multiple" class="select2" name="brevelantdrugs[]"  >
+    <?php $chiefs = DB::table('druglists')->get();?>
+                  @foreach($chiefs as $chief)
+                   <option value="{{$chief->drugname}}">{{$chief->drugname}}</option>
+                 @endforeach
+                </select>
+    </div>-->
+    <div class="form-group">
+                     <label >Revelant Drugs:</label>
+                     <select multiple="multiple" id="presc1" name="brevelantdrugs[]" class="form-control presc1" style="width:50%"></select>
+                 </div>
 
                                            
                                        
@@ -480,10 +496,12 @@ No <input type="checkbox" name="aph" value="No" />
 <textarea name="motherproblem" class="form-control"></textarea>
   
 </div>
-<div class="form-group">
-                     <label >Revelant Drugs( Pre Admission):</label>
-                     <textarea name="revelantdrugs" class="form-control presc1" style="width:50%"></textarea>
+
+  <div class="form-group">
+                     <label >Revelant Drugs:</label>
+                     <select multiple="multiple" id="presc1" name="mrevelantdrugs[]" class="form-control presc1" style="width:50%"></select>
                  </div>
+
 
                                         </div>
                                     </div>
@@ -676,13 +694,15 @@ No <input type="checkbox" name="tone" value="No" />
 
                                                                       <th>Status</th>
                                                                       <th>Vaccination Date</th>
+                                                                      <th></th>
                                                                      
 
                                                                 </tr>
                                                               </thead>
                                                               
                                                         <?php  $vaccines=DB::table('vaccine')->join('dependant_vaccination','dependant_vaccination.vaccine_id','=','vaccine.id')->distinct()->select('vaccine.*','dependant_vaccination.*','dependant_vaccination.id as userid')
-                                                         ->where('vaccine.age','=>',$length)->get(); ?>
+                                                         ->where('vaccine.age','=>',$length)
+                                                         ->where('dependant_vaccination.dependent_id','=',$id)->get(); ?>
                                                           <?php $i=1; ?>
                                                         @foreach($vaccines as $vaccine)
                                                           
@@ -690,8 +710,8 @@ No <input type="checkbox" name="tone" value="No" />
                                                       
                                                            <tr>
                                                          
-                                                         <td><a href="{{url('immunination',$vaccine->userid)}}">{{$vaccine->disease}}</a></td>
-                                                         <td><a href="{{url('immunination',$vaccine->userid)}}">{{$vaccine->antigen}}</a></td>
+                                                         <td>{{$vaccine->disease}}</td>
+                                                         <td>{{$vaccine->antigen}}</a></td>
                                                         
                                                          <td><?php $age=$vaccine->age; 
                                                          if($age==0){echo("Birth");}
@@ -703,10 +723,16 @@ No <input type="checkbox" name="tone" value="No" />
                                                          else if($age==335){echo("11 months");}
                                                          else if($age==456){echo("15 months");}
                                                          else if($age==730){echo("2 Years");}?></td>
-                                                         <td>{{$vaccine->date_guideline or ''}}</td>
+                                                         <td>{{date('d -m- Y', strtotime($vaccine->date_guideline))}}</td>
                                                           <td>{{$vaccine->status or ''}}</td>
+
                                                           <td>{{$vaccine->status_date or ''}}</td>
-                                                          
+                                                          <td><?php if(is_null($vaccine->status)){
+                                                            echo "<select name='test[]'>
+                                                            <option></option>
+                                                            <option value='<?php echo $vaccine->userid;?>'>Done</option>";
+                                                            } ?></td>
+                                                           
                                                              </tr>
                                                                </tbody>
                                                            <?php $i++ ?>
@@ -753,16 +779,12 @@ No <input type="checkbox" name="tone" value="No" />
  
   
 
+     
      <div class="form-group">
-    <label for="exampleInputPassword1">Chief Complaint/Reason for visit</label>
-    <select multiple="multiple" class="form-control" name="chiefcompliants[]"  >
-    <?php $chiefs = DB::table('chief_compliant_table')->get();?>
-                  @foreach($chiefs as $chief)
-                   <option value="{{$chief->name}}">{{$chief->name}}</option>
-                 @endforeach
-                </select>
-    </div>
-    <div class="form-group">
+                     <label >Chief Complaint/Reason for visit:</label>
+                     <select multiple="multiple" id="chief" name="chiefcompliants[]" class="form-control chief" style="width:50%"></select>
+                 </div>
+    <!--<div class="form-group">
     <label for="exampleInputPassword1">Observation</label>
     <select  multiple="multiple"  class="form-control" name="observations[]" id="observation" >
     
@@ -770,16 +792,16 @@ No <input type="checkbox" name="tone" value="No" />
                    <option value="{{$observation->name}}">{{$observation->name}}</option>
                  @endforeach
                 </select>
-    </div>
-    <div class="form-group">
-    <label for="exampleInputPassword1">symptoms</label>
-    <select multiple="multiple" class="form-control" name="symptoms[]" id="symptoms">
-     @foreach($symptoms as  $symptom)
-                   <option value="{{$symptom->name}}">{{$symptom->name}}</option>
-                 @endforeach
+    </div>-->
+      <div class="form-group">
+                     <label >Observation:</label>
+                     <select multiple="multiple" id="observation" name="observations[]" class="form-control observation" style="width:50%"></select>
+                 </div>
+      <div class="form-group">
+                     <label >Symptom:</label>
+                     <select multiple="multiple" id="symptom" name="symptoms[]" class="form-control symptom" style="width:50%"></select>
+                 </div>
     
-                </select>
-    </div>
     
                                             <div class="form-group">
 <label>Difficulty Breathing</label>
@@ -1004,8 +1026,7 @@ Shoulder <input type="checkbox" name="skincold" value="Shoulder" />
                     </div>
 
                 </div>
-           
-        <div class="footer">
+     <div class="footer">
     <div class="pull-right">
         Afyapepe <strong>Health</strong> Platform.
     </div>
@@ -1035,6 +1056,7 @@ Shoulder <input type="checkbox" name="skincold" value="Shoulder" />
  
 
  <script src="{{ asset('js/plugins/datapicker/bootstrap-datepicker.js') }}" type="text/javascript"></script>
+<script src="{{asset('js/ajaxscript.js')}}"></script>
 
     <!-- Custom and plugin javascript -->
 
@@ -1043,6 +1065,7 @@ Shoulder <input type="checkbox" name="skincold" value="Shoulder" />
 
     <!-- Custom and plugin javascript -->
 <script src="{{ asset('js/plugins/pace/pace.min.js') }}" type="text/javascript"></script>
+ <script src="{{ asset('select/select2.min.js') }}" type="text/javascript"></script>
 
 
     <!--  <script src="{{ asset('js/inspinia.js') }}" type="text/javascript"></script>-->
@@ -1077,7 +1100,7 @@ Shoulder <input type="checkbox" name="skincold" value="Shoulder" />
    <script>
         $(document).ready(function(){
             $("#wizard").steps();
-            $("#form").steps({
+              $("#form").steps({
                 bodyTag: "fieldset",
                 onStepChanging: function (event, currentIndex, newIndex)
                 {
@@ -1129,6 +1152,85 @@ Shoulder <input type="checkbox" name="skincold" value="Shoulder" />
                     form.submit();
                 }
             });
+            $.ajaxSetup({
+ headers: { 'X-CSRF-Token' : $('meta[name=_token]').attr('content') }
+});
+              $(".presc1").select2({
+          placeholder: "Select revelant drugs...",
+          minimumInputLength: 2,
+          ajax: {
+              url: '/tag/drugs',
+              dataType: 'json',
+              data: function (params) {
+                  return {
+                      q: $.trim(params.term)
+                  };
+              },
+              processResults: function (data) {
+                  return {
+                      results: data
+                  };
+              },
+              cache: true
+          }
+      });
+      $(".observation").select2({
+          placeholder: "Select observations...",
+          minimumInputLength: 2,
+          ajax: {
+              url: '/tag/observation',
+              dataType: 'json',
+              data: function (params) {
+                  return {
+                      q: $.trim(params.term)
+                  };
+              },
+              processResults: function (data) {
+                  return {
+                      results: data
+                  };
+              },
+              cache: true
+          }
+      });
+      $(".symptom").select2({
+          placeholder: "Select symptom...",
+          minimumInputLength: 2,
+          ajax: {
+              url: '/tag/symptom',
+              dataType: 'json',
+              data: function (params) {
+                  return {
+                      q: $.trim(params.term)
+                  };
+              },
+              processResults: function (data) {
+                  return {
+                      results: data
+                  };
+              },
+              cache: true
+          }
+      });
+      $(".chief").select2({
+          placeholder: "Select chief compliant...",
+          minimumInputLength: 2,
+          ajax: {
+              url: '/tag/chief',
+              dataType: 'json',
+              data: function (params) {
+                  return {
+                      q: $.trim(params.term)
+                  };
+              },
+              processResults: function (data) {
+                  return {
+                      results: data
+                  };
+              },
+              cache: true
+          }
+      });
        });
     </script>
     <script type="text/javascript">
@@ -1299,10 +1401,14 @@ $('#data_1 .input-group.date').datepicker({
                 });
             });
        });
+  
 
            
    </script>
 
+
+    
+</script>
 
 
 

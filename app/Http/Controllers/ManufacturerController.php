@@ -32,8 +32,37 @@ class ManufacturerController extends Controller
         return view('manufacturer.home');
     }
 
-   
+
    public function todaysales(){
+     return view('manufacturer.manufacturedrug')->with('drugs',$drugs);
+
+  }
+    public function manuDrug(){
+
+      $drugs = DB::table('prescriptions')
+      ->Join('prescription_details', 'prescriptions.id', '=', 'prescription_details.presc_id')
+      ->Join('prescription_filled_status', 'prescription_details.id', '=', 'prescription_filled_status.presc_details_id')
+      ->Join('pharmacy', 'prescription_filled_status.outlet_id', '=', 'pharmacy.id')
+      ->Join('facilities', 'prescriptions.facility_id', '=', 'facilities.FacilityCode')
+      ->Join('doctors', 'prescriptions.doc_id', '=', 'doctors.doc_id')
+  ->Join('druglists', 'prescription_details.drug_id', '=', 'druglists.id')
+      ->leftJoin('substitute_presc_details', 'prescription_filled_status.substitute_presc_id', '=', 'substitute_presc_details.id')
+//->Join('substitute_presc_details', 'substitute_presc_details.drug_id', '=', 'druglists.id')
+      ->select('prescription_filled_status.*','facilities.FacilityName','doctors.name','druglists.drugname','pharmacy.name as pharmacy',
+      'prescription_details.doseform',
+      'prescription_filled_status.substitute_presc_id')
+    ->where('druglists.Manufacturer','like', '%' . 'MERCK' . '%')
+
+    //  ->orwhereNull('prescription_filled_status.substitute_presc_id')
+    ->get();
+
+
+       return view('manufacturer.manufacturedrug')->with('drugs',$drugs);
+
+    }
+    public function manuDoctor(){
+       return view('manufacturer.manudoctor');
+
 
     return view ('manufacturer.todaysales');
    }
@@ -46,7 +75,7 @@ class ManufacturerController extends Controller
        return view('manufacturer.manufacturedrug');
 
     }
-   
+
     public function manuStock(){
       return view('manufacturer.manustock');
 

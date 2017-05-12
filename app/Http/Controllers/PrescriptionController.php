@@ -118,8 +118,10 @@ return redirect()->route('diagnoses', ['id' => $appointment]);
       //  - add new
       $Prescription=Prescription::create([
            'appointment_id' => $request['appointment_id'],
+           'facility_id' => $request['facility_id'],
            'doc_id' => $request['doc_id'],
            'filled_status' => 0,
+
       ]);
       $id=$Prescription->id;
       } else {

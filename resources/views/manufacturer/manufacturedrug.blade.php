@@ -2,7 +2,7 @@
 @section('title', 'Manufacturer')
 @section('content')
   <div class="content-page  equal-height">
-      
+
       <div class="content">
           <div class="container">
 
@@ -39,29 +39,57 @@
                                   <div class="table-responsive">
                               <table class="table table-striped table-bordered table-hover dataTables-example" >
                               <thead>
-                                                                           
-        
+
+
                                                       <tr>
                                                           <th>No</th>
-                                                     <th>Drug Name</th>
-                                                          
-                                                          <th>Prescribing Doctor</th>
-                                                           <th>Facility</th>
+                                                         <th>Drug Name</th>
+                                                         <th>Prescribing Doctor</th>
+                                                          <th>Facility</th>
                                                           <th>Pharmacy  name</th>
                                                          <th> Quantity</th>
                                                          <th>Dosage</th>
                                                           <th>Dosage form</th>
                                                          <th>Unit Cost</th>
-                                                         <th>Total  </th>
+                                                         <th>Total</th>
                                                          </tr>
                                                  
                                                   </thead>
 
                                                   <tbody>
-                                                    
+                                                    <?php $i =1; ?>
+                                                 @foreach($drugs as $mandrug)
+                                                 <?php $total= ($mandrug->quantity * $mandrug->price);
 
-                                                   </tbody>
-                                                 
+                                                 ?>
+                                                      <tr>
+                                                          <td>{{$i}}</td>
+                                                          <td> <?php if($mandrug->substitute_presc_id){
+                                                              $drugs = DB::table('substitute_presc_details')
+                                                              ->Join('druglists', 'substitute_presc_details.drug_id', '=', 'druglists.id')
+                                                              ->select('druglists.drugname as subdrugname','substitute_presc_details.doseform as subdoseform')
+                                                              ->where('druglists.Manufacturer','like', '%' . 'MERCK' . '%')
+                                                              ->first();
+                                                              echo $drugs->subdrugname;
+                                                          }
+                                                            else{ echo $mandrug->drugname;   } ?>
+
+                                                            </td>
+                                                          <td>{{$mandrug->name}}</td>
+                                                          <td>{{$mandrug->FacilityName}}</td>
+                                                          <td>{{$mandrug->pharmacy}}</td>
+                                                          <td>{{$mandrug->quantity}}</td>
+                                                          <td>{{$mandrug->dose_given}}</td>
+                                                          <td><?php if($mandrug->substitute_presc_id){  echo $drugs->subdoseform;}
+                                                          else { echo $mandrug->doseform; }?> </td>
+                                                          <td>{{$mandrug->price}}</td>
+                                                          <td>{{$total}}</td>
+                                                        </tr>
+                                                          <?php $i++;  ?>
+                                                        @endforeach
+
+                                                     </tbody>
+
                                                  </table>
                                                      </div>
 

@@ -56,7 +56,7 @@ class ManufacturerController extends Controller
 
     //  ->orwhereNull('prescription_filled_status.substitute_presc_id')
     ->get();
-     return view('manufacturer.manufacturedrug')->with('drugs',$drugs);
+     return view('manufacturer.todaysales')->with('drugs',$drugs);
 
   }
     public function manuDrug(){

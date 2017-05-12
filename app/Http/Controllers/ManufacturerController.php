@@ -37,7 +37,7 @@ class ManufacturerController extends Controller
       return view ('manufacturer.trends');
     }
 
-   
+
 
    public function todaysales(){
      $drugs = DB::table('prescriptions')
@@ -93,7 +93,7 @@ class ManufacturerController extends Controller
 
   return view('manufacturer.drugsubstitutions');
  }
-    
+
 
     public function manuStock(){
       return view('manufacturer.manustock');

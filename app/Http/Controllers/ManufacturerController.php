@@ -32,23 +32,21 @@ class ManufacturerController extends Controller
         return view('manufacturer.home');
     }
 
+   
+   public function todaysales(){
+
+    return view ('manufacturer.todaysales');
+   }
+
+ public function drugsubstitution(){
+
+  return view('manufacturer.drugsubstitutions');
+ }
     public function manuDrug(){
        return view('manufacturer.manufacturedrug');
 
     }
-    public function manuDoctor(){
-       return view('manufacturer.manudoctor');
-
-    }
-    public function Region(){
-       return view('manufacturer.region');
-
-    }
-
-    public function awayCompany(){
-      return view('manufacturer.away');
-
-    }
+   
     public function manuStock(){
       return view('manufacturer.manustock');
 

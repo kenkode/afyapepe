@@ -54,7 +54,7 @@
                                                          <th>Unit Cost</th>
                                                          <th>Total  </th>
                                                          </tr>
-                                                    </tr>
+                                                 
                                                   </thead>
 
                                                   <tbody>

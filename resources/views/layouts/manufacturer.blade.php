@@ -56,6 +56,12 @@
     <script src="{{ asset('js/plugins/flot/jquery.flot.resize.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/plugins/flot/jquery.flot.pie.js') }}" type="text/javascript"></script>
 
+    <script src="{{ asset('js/plugins/flot/jquery.flot.time.js') }}"></script>
+
+ 
+
+    <script src="{{ asset('js/demo/flot-demo.js') }}"></script>
+
 
     <!-- Peity -->
     <script src="{{ asset('js/plugins/peity/jquery.peity.min.js') }}" type="text/javascript"></script>

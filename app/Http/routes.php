@@ -158,7 +158,7 @@ Route::get('disprescription/{id}', [ 'as' => 'disprescription', 'uses' => 'Patie
 Route::group(['middleware' => ['auth','role:Admin|Manufacturer']], function() {
 Route::resource('manufacturer','ManufacturerController');
 Route::get('DrugSubstitution','ManufacturerController@drugsubstitution');
-Route::get('Todaysales','ManufacturerController@todaysales');
+Route::get('Drugsales','ManufacturerController@todaysales');
 Route::get('druglist', 'ManufacturerController@show');
 Route::get('manudrug', 'ManufacturerController@manuDrug');
 Route::get('manudoctor', 'ManufacturerController@manuDoctor');

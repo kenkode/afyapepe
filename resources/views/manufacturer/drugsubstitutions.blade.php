@@ -5,6 +5,7 @@
           <div class="content">
               <div class="container">
 <div class="row">
+<h1> Drug Substitutions</h1>  
               <div class="col-lg-12">
                     <div class="tabs-container">
                         <ul class="nav nav-tabs">

@@ -26,7 +26,7 @@
             </li>
 
 
-          <li><a href="{{ URL::to('Todaysales') }}"><i class="fa fa-money"></i> <span>Today's Sales</span> </a></li>
+          <li><a href="{{ URL::to('Drugsales') }}"><i class="fa fa-money"></i> <span>Today's Sales</span> </a></li>
           <li><a href="{{ URL::to('DrugSubstitution') }}"><i class="fa fa-pie-chart"></i><span>  Drug Substitutions</span></a></li>
           <li> <a href="{{ URL::to('manustock')}}"> <i class="glyphicon glyphicon-dashboard "></i> <span>Stock Level</span></a></li>
                              <li> <a href="{{ URL::to('competition')}}">

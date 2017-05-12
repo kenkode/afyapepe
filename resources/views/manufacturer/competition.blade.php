@@ -12,7 +12,7 @@
                             <li class="active"><a data-toggle="tab" href="#tab-1">By Sales</a></li>
                             <li class=""><a data-toggle="tab" href="#tab-2">By Region</a></li>
                              <li class=""><a data-toggle="tab" href="#tab-3">By Doctors</a></li>
-                            <li class=""><a data-toggle="tab" href="#tab-4">By Prescriptions</a></li>
+                            <li class=""><a data-toggle="tab" href="#tab-4">By Drug</a></li>
 
                             
                         </ul>
@@ -65,15 +65,11 @@
                                                       
                                                       <tr>
                                                           <th>No</th>
-                                                     <th>Prescribed Drug</th>
-                                                     <th> Dosage</th>
-                                                          <th>Dosage form</th>
-                                                          <th>Pharmacy  name</th>
-                                                          <th> Prescribing Doctor</th>
-                                                          <th>Substituted Drug</th>
-                                                          <th>Facility Name</th>
-                                                          <th>Reason</th>
-                                                         <th> Value</th>
+                                                     <th>Company Name</th>
+                                                     <th>Sales (Units)</th>
+                                                          <th>Total Sales</th>
+                                                         
+                                                     
 
                                                          </tr>
                                                  
@@ -125,16 +121,11 @@
         
                                                       
                                                       <tr>
-                                                          <th>No</th>
-                                                     <th>Prescribed Drug</th>
-                                                     <th> Dosage</th>
-                                                          <th>Dosage form</th>
-                                                          <th>Pharmacy  name</th>
-                                                          <th> Prescribing Doctor</th>
-                                                          <th>Substituted Drug</th>
-                                                          <th>Facility Name</th>
-                                                          <th>Reason</th>
-                                                         <th> Value</th>
+                                                      <th>No</th>
+                                                     <th>Company Name</th>
+                                                     <th>Sales (Units)</th>
+                                                          <th>Total Sales</th>
+                                                          
 
                                                          </tr>
                                                  
@@ -184,18 +175,12 @@
                               <thead>
                                                                            
         
-                                                      
-                                                      <tr>
-                                                          <th>No</th>
-                                                     <th>Prescribed Drug</th>
-                                                     <th> Dosage</th>
-                                                          <th>Dosage form</th>
-                                                          <th>Pharmacy  name</th>
-                                                          <th> Prescribing Doctor</th>
-                                                          <th>Substituted Drug</th>
-                                                          <th>Facility Name</th>
-                                                          <th>Reason</th>
-                                                         <th> Value</th>
+                                                     <tr>
+                                                      <th>No</th>
+                                                     <th>Company Name</th>
+                                                     <th>Sales (Units)</th>
+                                                          <th>Total Sales</th>
+                                                         
 
                                                          </tr>
                                                  
@@ -247,16 +232,11 @@
         
                                                       
                                                       <tr>
-                                                          <th>No</th>
-                                                     <th>Prescribed Drug</th>
-                                                     <th> Dosage</th>
-                                                          <th>Dosage form</th>
-                                                          <th>Pharmacy  name</th>
-                                                          <th> Prescribing Doctor</th>
-                                                          <th>Substituted Drug</th>
-                                                          <th>Facility Name</th>
-                                                          <th>Reason</th>
-                                                         <th> Value</th>
+                                                      <th>No</th>
+                                                     <th>Company Name</th>
+                                                     <th>Sales (Units)</th>
+                                                          <th>Total Sales</th>
+                                                         
 
                                                          </tr>
                                                  
@@ -308,16 +288,11 @@
         
                                                       
                                                       <tr>
-                                                          <th>No</th>
-                                                     <th>Prescribed Drug</th>
-                                                     <th> Dosage</th>
-                                                          <th>Dosage form</th>
-                                                          <th>Pharmacy  name</th>
-                                                          <th> Prescribing Doctor</th>
-                                                          <th>Substituted Drug</th>
-                                                          <th>Facility Name</th>
-                                                          <th>Reason</th>
-                                                         <th> Value</th>
+                                                      <th>No</th>
+                                                     <th>Company Name</th>
+                                                     <th>Sales (Units)</th>
+                                                          <th>Total Sales</th>
+                                                          
 
                                                          </tr>
                                                  
@@ -369,16 +344,11 @@
         
                                                       
                                                       <tr>
-                                                          <th>No</th>
-                                                     <th>Prescribed Drug</th>
-                                                     <th> Dosage</th>
-                                                          <th>Dosage form</th>
-                                                          <th>Pharmacy  name</th>
-                                                          <th> Prescribing Doctor</th>
-                                                          <th>Substituted Drug</th>
-                                                          <th>Facility Name</th>
-                                                          <th>Reason</th>
-                                                         <th> Value</th>
+                                                      <th>No</th>
+                                                     <th>Company Name</th>
+                                                     <th>Sales (Units)</th>
+                                                          <th>Total Sales</th>
+
 
                                                          </tr>
                                                  
@@ -443,17 +413,11 @@
         
                                                       
                                                       <tr>
-                                                          <th>No</th>
-                                                     <th>Prescribed Drug</th>
-                                                     <th> Dosage</th>
-                                                          <th>Dosage form</th>
-                                                          <th>Pharmacy  name</th>
-                                                          <th> Prescribing Doctor</th>
-                                                          <th>Substituted Drug</th>
-                                                          <th>Facility Name</th>
-                                                          <th>Reason</th>
-                                                         <th> Value</th>
-
+                                                      <th>No</th>
+                                                     <th>County</th>
+                                                     <th>Sales (Units)</th>
+                                                          <th>Total Sales</th>
+                                                          
                                                          </tr>
                                                  
                                                   </thead>
@@ -504,16 +468,11 @@
         
                                                       
                                                       <tr>
-                                                          <th>No</th>
-                                                     <th>Prescribed Drug</th>
-                                                     <th> Dosage</th>
-                                                          <th>Dosage form</th>
-                                                          <th>Pharmacy  name</th>
-                                                          <th> Prescribing Doctor</th>
-                                                          <th>Substituted Drug</th>
-                                                          <th>Facility Name</th>
-                                                          <th>Reason</th>
-                                                         <th> Value</th>
+                                                      <th>No</th>
+                                                     <th>County</th>
+                                                     <th>Sales (Units)</th>
+                                                          <th>Total Sales</th>
+                                                          
 
                                                          </tr>
                                                  
@@ -565,19 +524,13 @@
         
                                                       
                                                       <tr>
-                                                          <th>No</th>
-                                                     <th>Prescribed Drug</th>
-                                                     <th> Dosage</th>
-                                                          <th>Dosage form</th>
-                                                          <th>Pharmacy  name</th>
-                                                          <th> Prescribing Doctor</th>
-                                                          <th>Substituted Drug</th>
-                                                          <th>Facility Name</th>
-                                                          <th>Reason</th>
-                                                         <th> Value</th>
+                                                      <th>No</th>
+                                                     <th>County</th>
+                                                     <th>Sales (Units)</th>
+                                                          <th>Total Sales</th>
+                                                          
 
                                                          </tr>
-                                                 
                                                   </thead>
 
                                                   <tbody>
@@ -625,17 +578,12 @@
                                                                            
         
                                                       
-                                                      <tr>
-                                                          <th>No</th>
-                                                     <th>Prescribed Drug</th>
-                                                     <th> Dosage</th>
-                                                          <th>Dosage form</th>
-                                                          <th>Pharmacy  name</th>
-                                                          <th> Prescribing Doctor</th>
-                                                          <th>Substituted Drug</th>
-                                                          <th>Facility Name</th>
-                                                          <th>Reason</th>
-                                                         <th> Value</th>
+                                                     <tr>
+                                                      <th>No</th>
+                                                     <th>County</th>
+                                                     <th>Sales (Units)</th>
+                                                          <th>Total Sales</th>
+                                                          
 
                                                          </tr>
                                                  
@@ -685,18 +633,12 @@
                               <thead>
                                                                            
         
-                                                      
                                                       <tr>
-                                                          <th>No</th>
-                                                     <th>Prescribed Drug</th>
-                                                     <th> Dosage</th>
-                                                          <th>Dosage form</th>
-                                                          <th>Pharmacy  name</th>
-                                                          <th> Prescribing Doctor</th>
-                                                          <th>Substituted Drug</th>
-                                                          <th>Facility Name</th>
-                                                          <th>Reason</th>
-                                                         <th> Value</th>
+                                                      <th>No</th>
+                                                     <th>County</th>
+                                                     <th>Sales (Units)</th>
+                                                          <th>Total Sales</th>
+                                                          
 
                                                          </tr>
                                                  
@@ -748,16 +690,11 @@
         
                                                       
                                                       <tr>
-                                                          <th>No</th>
-                                                     <th>Prescribed Drug</th>
-                                                     <th> Dosage</th>
-                                                          <th>Dosage form</th>
-                                                          <th>Pharmacy  name</th>
-                                                          <th> Prescribing Doctor</th>
-                                                          <th>Substituted Drug</th>
-                                                          <th>Facility Name</th>
-                                                          <th>Reason</th>
-                                                         <th> Value</th>
+                                                      <th>No</th>
+                                                     <th>County</th>
+                                                     <th>Sales (Units)</th>
+                                                          <th>Total Sales</th>
+
 
                                                          </tr>
                                                  
@@ -822,16 +759,11 @@
         
                                                       
                                                       <tr>
-                                                          <th>No</th>
-                                                     <th>Prescribed Drug</th>
-                                                     <th> Dosage</th>
-                                                          <th>Dosage form</th>
-                                                          <th>Pharmacy  name</th>
-                                                          <th> Prescribing Doctor</th>
-                                                          <th>Substituted Drug</th>
-                                                          <th>Facility Name</th>
-                                                          <th>Reason</th>
-                                                         <th> Value</th>
+                                                      <th>No</th>
+                                                     <th>Doctor Name</th>
+                                                     <th>Sales (Units)</th>
+                                                          <th>Total Sales</th>
+                                                          
 
                                                          </tr>
                                                  
@@ -882,20 +814,14 @@
                                                                            
         
                                                       
-                                                      <tr>
-                                                          <th>No</th>
-                                                     <th>Prescribed Drug</th>
-                                                     <th> Dosage</th>
-                                                          <th>Dosage form</th>
-                                                          <th>Pharmacy  name</th>
-                                                          <th> Prescribing Doctor</th>
-                                                          <th>Substituted Drug</th>
-                                                          <th>Facility Name</th>
-                                                          <th>Reason</th>
-                                                         <th> Value</th>
+                                                       <tr>
+                                                      <th>No</th>
+                                                     <th>Doctor Name</th>
+                                                     <th>Sales (Units)</th>
+                                                          <th>Total Sales</th>
+                                                          
 
                                                          </tr>
-                                                 
                                                   </thead>
 
                                                   <tbody>
@@ -943,17 +869,12 @@
                                                                            
         
                                                       
-                                                      <tr>
-                                                          <th>No</th>
-                                                     <th>Prescribed Drug</th>
-                                                     <th> Dosage</th>
-                                                          <th>Dosage form</th>
-                                                          <th>Pharmacy  name</th>
-                                                          <th> Prescribing Doctor</th>
-                                                          <th>Substituted Drug</th>
-                                                          <th>Facility Name</th>
-                                                          <th>Reason</th>
-                                                         <th> Value</th>
+                                                       <tr>
+                                                      <th>No</th>
+                                                     <th>Doctor Name</th>
+                                                     <th>Sales (Units)</th>
+                                                          <th>Total Sales</th>
+                                                         
 
                                                          </tr>
                                                  
@@ -1005,19 +926,13 @@
         
                                                       
                                                       <tr>
-                                                          <th>No</th>
-                                                     <th>Prescribed Drug</th>
-                                                     <th> Dosage</th>
-                                                          <th>Dosage form</th>
-                                                          <th>Pharmacy  name</th>
-                                                          <th> Prescribing Doctor</th>
-                                                          <th>Substituted Drug</th>
-                                                          <th>Facility Name</th>
-                                                          <th>Reason</th>
-                                                         <th> Value</th>
+                                                      <th>No</th>
+                                                     <th>Doctor Name</th>
+                                                     <th>Sales (Units)</th>
+                                                          <th>Total Sales</th>
+                                                          
 
                                                          </tr>
-                                                 
                                                   </thead>
 
                                                   <tbody>
@@ -1066,16 +981,11 @@
         
                                                       
                                                       <tr>
-                                                          <th>No</th>
-                                                     <th>Prescribed Drug</th>
-                                                     <th> Dosage</th>
-                                                          <th>Dosage form</th>
-                                                          <th>Pharmacy  name</th>
-                                                          <th> Prescribing Doctor</th>
-                                                          <th>Substituted Drug</th>
-                                                          <th>Facility Name</th>
-                                                          <th>Reason</th>
-                                                         <th> Value</th>
+                                                      <th>No</th>
+                                                     <th>Doctor Name</th>
+                                                     <th>Sales (Units)</th>
+                                                          <th>Total Sales</th>
+                                                         
 
                                                          </tr>
                                                  
@@ -1126,17 +1036,12 @@
                                                                            
         
                                                       
-                                                      <tr>
-                                                          <th>No</th>
-                                                     <th>Prescribed Drug</th>
-                                                     <th> Dosage</th>
-                                                          <th>Dosage form</th>
-                                                          <th>Pharmacy  name</th>
-                                                          <th> Prescribing Doctor</th>
-                                                          <th>Substituted Drug</th>
-                                                          <th>Facility Name</th>
-                                                          <th>Reason</th>
-                                                         <th> Value</th>
+                                                       <tr>
+                                                      <th>No</th>
+                                                     <th>Doctor Name</th>
+                                                     <th>Sales (Units)</th>
+                                                          <th>Total Sales</th>
+
 
                                                          </tr>
                                                  
@@ -1201,17 +1106,12 @@
                                                                            
         
                                                       
-                                                      <tr>
-                                                          <th>No</th>
-                                                     <th>Prescribed Drug</th>
-                                                     <th> Dosage</th>
-                                                          <th>Dosage form</th>
-                                                          <th>Pharmacy  name</th>
-                                                          <th> Prescribing Doctor</th>
-                                                          <th>Substituted Drug</th>
-                                                          <th>Facility Name</th>
-                                                          <th>Reason</th>
-                                                         <th> Value</th>
+                                                       <tr>
+                                                      <th>No</th>
+                                                     <th>Drug Name</th>
+                                                     <th>Sales (Units)</th>
+                                                          <th>Total Sales</th>
+                                                          
 
                                                          </tr>
                                                  
@@ -1263,16 +1163,11 @@
         
                                                       
                                                       <tr>
-                                                          <th>No</th>
-                                                     <th>Prescribed Drug</th>
-                                                     <th> Dosage</th>
-                                                          <th>Dosage form</th>
-                                                          <th>Pharmacy  name</th>
-                                                          <th> Prescribing Doctor</th>
-                                                          <th>Substituted Drug</th>
-                                                          <th>Facility Name</th>
-                                                          <th>Reason</th>
-                                                         <th> Value</th>
+                                                      <th>No</th>
+                                                     <th>Drug Name</th>
+                                                     <th>Sales (Units)</th>
+                                                          <th>Total Sales</th>
+                                                          
 
                                                          </tr>
                                                  
@@ -1324,16 +1219,11 @@
         
                                                       
                                                       <tr>
-                                                          <th>No</th>
-                                                     <th>Prescribed Drug</th>
-                                                     <th> Dosage</th>
-                                                          <th>Dosage form</th>
-                                                          <th>Pharmacy  name</th>
-                                                          <th> Prescribing Doctor</th>
-                                                          <th>Substituted Drug</th>
-                                                          <th>Facility Name</th>
-                                                          <th>Reason</th>
-                                                         <th> Value</th>
+                                                      <th>No</th>
+                                                     <th>Drug Name</th>
+                                                     <th>Sales (Units)</th>
+                                                          <th>Total Sales</th>
+                                                          
 
                                                          </tr>
                                                  
@@ -1385,16 +1275,11 @@
         
                                                       
                                                       <tr>
-                                                          <th>No</th>
-                                                     <th>Prescribed Drug</th>
-                                                     <th> Dosage</th>
-                                                          <th>Dosage form</th>
-                                                          <th>Pharmacy  name</th>
-                                                          <th> Prescribing Doctor</th>
-                                                          <th>Substituted Drug</th>
-                                                          <th>Facility Name</th>
-                                                          <th>Reason</th>
-                                                         <th> Value</th>
+                                                      <th>No</th>
+                                                     <th>Drug Name</th>
+                                                     <th>Sales (Units)</th>
+                                                          <th>Total Sales</th>
+                                                          
 
                                                          </tr>
                                                  
@@ -1445,17 +1330,12 @@
                                                                            
         
                                                       
-                                                      <tr>
-                                                          <th>No</th>
-                                                     <th>Prescribed Drug</th>
-                                                     <th> Dosage</th>
-                                                          <th>Dosage form</th>
-                                                          <th>Pharmacy  name</th>
-                                                          <th> Prescribing Doctor</th>
-                                                          <th>Substituted Drug</th>
-                                                          <th>Facility Name</th>
-                                                          <th>Reason</th>
-                                                         <th> Value</th>
+                                                     <tr>
+                                                      <th>No</th>
+                                                     <th>Drug Name</th>
+                                                     <th>Sales (Units)</th>
+                                                          <th>Total Sales</th>
+                                                          
 
                                                          </tr>
                                                  
@@ -1507,16 +1387,11 @@
         
                                                       
                                                       <tr>
-                                                          <th>No</th>
-                                                     <th>Prescribed Drug</th>
-                                                     <th> Dosage</th>
-                                                          <th>Dosage form</th>
-                                                          <th>Pharmacy  name</th>
-                                                          <th> Prescribing Doctor</th>
-                                                          <th>Substituted Drug</th>
-                                                          <th>Facility Name</th>
-                                                          <th>Reason</th>
-                                                         <th> Value</th>
+                                                      <th>No</th>
+                                                     <th>Drug Name</th>
+                                                     <th>Sales (Units)</th>
+                                                          <th>Total Sales</th>
+                                                          
 
                                                          </tr>
                                                  

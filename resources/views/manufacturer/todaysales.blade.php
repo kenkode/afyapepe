@@ -5,12 +5,12 @@
           <div class="content">
               <div class="container">
 <div class="row">
-<h1> Sales</h1>   
+<h1> Sales</h1>
             <div class="col-lg-12">
                     <div class="tabs-container">
                         <ul class="nav nav-tabs">
                             <li class="active"><a data-toggle="tab" href="#tab-1">By Drug</a></li>
-                            <li class=""><a data-toggle="tab" href="#tab-2">By Prescribing Doctor</a></li>
+                            <li clas,s=""><a data-toggle="tab" href="#tab-2">By Prescribing Doctor</a></li>
                              <li class=""><a data-toggle="tab" href="#tab-3">By Region</a></li>
                         </ul>
                         <br>
@@ -51,17 +51,17 @@
                                       </a>
                                   </div>
                               </div>
+                              <!-- sales Today -->
                               <div class="ibox-content">
-
                                   <div class="table-responsive">
                               <table class="table table-striped table-bordered table-hover dataTables-example" >
                               <thead>
-                                                                           
-        
+
+
                                                       <tr>
                                                           <th>No</th>
                                                      <th>Drug Name</th>
-                                                          
+
                                                           <th>Prescribing Doctor</th>
                                                            <th>Facility</th>
                                                           <th>Pharmacy  name</th>
@@ -71,19 +71,49 @@
                                                          <th>Unit Cost</th>
                                                          <th>Total </th>
                                                          </tr>
-                                                 
+
                                                   </thead>
 
                                                   <tbody>
-                                                    
+                                                    <?php $i =1; ?>
+                                                 @foreach($drugs as $mandrug)
+                                                 <?php $total= ($mandrug->quantity * $mandrug->price);
 
-                                                   </tbody>
-                                                 
+                                                 ?>
+                                                      <tr>
+                                                          <td>{{$i}}</td>
+                                                          <td> <?php if($mandrug->substitute_presc_id){
+                                                              $drugs = DB::table('substitute_presc_details')
+                                                              ->Join('druglists', 'substitute_presc_details.drug_id', '=', 'druglists.id')
+                                                              ->select('druglists.drugname as subdrugname','substitute_presc_details.doseform as subdoseform')
+                                                              ->where([ ['druglists.Manufacturer','like', '%' . 'MERCK' . '%'],
+                                                                      ['substitute_presc_details.id','=',$mandrug->substitute_presc_id],
+                                                                    ])
+                                                              ->first();
+                                                              echo $drugs->subdrugname;
+                                                          }
+                                                            else{ echo $mandrug->drugname;   } ?>
+
+                                                            </td>
+                                                          <td>{{$mandrug->name}}</td>
+                                                          <td>{{$mandrug->FacilityName}}</td>
+                                                          <td>{{$mandrug->pharmacy}}</td>
+                                                          <td>{{$mandrug->quantity}}</td>
+                                                          <td>{{$mandrug->dose_given}}</td>
+                                                          <td><?php if($mandrug->substitute_presc_id){  echo $drugs->subdoseform;}
+                                                          else { echo $mandrug->doseform; }?> </td>
+                                                          <td>{{$mandrug->price}}</td>
+                                                          <td>{{$total}}</td>
+                                                        </tr>
+                                                          <?php $i++;  ?>
+                                                        @endforeach
+
+                                                     </tbody>
                                                  </table>
                                                  </div>
                                                  </div>
                                                  </div>
-                                    
+
                                 </div>
                                 </div>
                          <div id="tab-2a" class="tab-pane ">
@@ -112,16 +142,16 @@
                                   </div>
                               </div>
                               <div class="ibox-content">
-
+    <!-- sales This week -->
                                   <div class="table-responsive">
                               <table class="table table-striped table-bordered table-hover dataTables-example" >
                               <thead>
-                                                                           
-        
+
+
                                                       <tr>
                                                           <th>No</th>
                                                      <th>Drug Name</th>
-                                                          
+
                                                           <th>Prescribing Doctor</th>
                                                            <th>Facility</th>
                                                           <th>Pharmacy  name</th>
@@ -131,19 +161,49 @@
                                                          <th>Unit Cost</th>
                                                          <th>Total  </th>
                                                          </tr>
-                                                 
+
                                                   </thead>
 
                                                   <tbody>
-                                                    
+                                                    <?php $i =1; ?>
+                                                 @foreach($drugw as $mandrug)
+                                                 <?php $total= ($mandrug->quantity * $mandrug->price);
 
-                                                   </tbody>
-                                                 
-                                                 </table>
+                                                 ?>
+                                                      <tr>
+                                                          <td>{{$i}}</td>
+                                                          <td> <?php if($mandrug->substitute_presc_id){
+                                                              $drugs = DB::table('substitute_presc_details')
+                                                              ->Join('druglists', 'substitute_presc_details.drug_id', '=', 'druglists.id')
+                                                              ->select('druglists.drugname as subdrugname','substitute_presc_details.doseform as subdoseform')
+                                                              ->where([ ['druglists.Manufacturer','like', '%' . 'MERCK' . '%'],
+                                                                      ['substitute_presc_details.id','=',$mandrug->substitute_presc_id],
+                                                                    ])
+                                                              ->first();
+                                                              echo $drugs->subdrugname;
+                                                          }
+                                                            else{ echo $mandrug->drugname;   } ?>
+
+                                                            </td>
+                                                          <td>{{$mandrug->name}}</td>
+                                                          <td>{{$mandrug->FacilityName}}</td>
+                                                          <td>{{$mandrug->pharmacy}}</td>
+                                                          <td>{{$mandrug->quantity}}</td>
+                                                          <td>{{$mandrug->dose_given}}</td>
+                                                          <td><?php if($mandrug->substitute_presc_id){  echo $drugs->subdoseform;}
+                                                          else { echo $mandrug->doseform; }?> </td>
+                                                          <td>{{$mandrug->price}}</td>
+                                                          <td>{{$total}}</td>
+                                                        </tr>
+                                                          <?php $i++;  ?>
+                                                        @endforeach
+
+                                                     </tbody>
+                                                   </table>
                                                  </div>
                                                  </div>
                                                  </div>
-                                    
+
                                 </div>
                                 </div>
                                 <div id="tab-3a" class="tab-pane ">
@@ -172,16 +232,16 @@
                                   </div>
                               </div>
                               <div class="ibox-content">
-
+    <!-- sales This Month -->
                                   <div class="table-responsive">
                               <table class="table table-striped table-bordered table-hover dataTables-example" >
                               <thead>
-                                                                           
-        
+
+
                                                       <tr>
                                                           <th>No</th>
                                                      <th>Drug Name</th>
-                                                          
+
                                                           <th>Prescribing Doctor</th>
                                                            <th>Facility</th>
                                                           <th>Pharmacy  name</th>
@@ -191,19 +251,73 @@
                                                          <th>Unit Cost</th>
                                                          <th>Total  </th>
                                                          </tr>
-                                                 
+
                                                   </thead>
 
                                                   <tbody>
-                                                    
+                                                    <?php $i =1;
+                                                    use Carbon\Carbon;
+                                                    $yesterday = Carbon::now();
+                                                    $one_week_ago = Carbon::now()->subMonths(1);
+                                                    $drugM = DB::table('prescriptions')
+                                                     ->Join('prescription_details', 'prescriptions.id', '=', 'prescription_details.presc_id')
+                                                     ->Join('prescription_filled_status', 'prescription_details.id', '=', 'prescription_filled_status.presc_details_id')
+                                                     ->Join('pharmacy', 'prescription_filled_status.outlet_id', '=', 'pharmacy.id')
+                                                     ->Join('facilities', 'prescriptions.facility_id', '=', 'facilities.FacilityCode')
+                                                     ->Join('doctors', 'prescriptions.doc_id', '=', 'doctors.doc_id')
+                                                     ->Join('druglists', 'prescription_details.drug_id', '=', 'druglists.id')
+                                                     ->leftJoin('substitute_presc_details', 'prescription_filled_status.substitute_presc_id', '=', 'substitute_presc_details.id')
+                                                     ->select('prescription_filled_status.*','facilities.FacilityName','doctors.name','druglists.drugname','pharmacy.name as pharmacy',
+                                                     'prescription_details.doseform',
+                                                     'prescription_filled_status.substitute_presc_id')
+                                                   ->where([ ['druglists.Manufacturer','like', '%' . 'MERCK' . '%'],
+                                                           ['prescription_filled_status.created_at','>=',$one_week_ago],
+                                                           ['prescription_filled_status.created_at','<=',$yesterday],
+                                                         ])
 
-                                                   </tbody>
-                                                 
+                                                   ->get();
+
+
+                                                    ?>
+                                                 @foreach($drugM as $mandrug)
+                                                 <?php $total= ($mandrug->quantity * $mandrug->price);
+
+                                                 ?>
+                                                      <tr>
+                                                          <td>{{$i}}</td>
+                                                          <td> <?php if($mandrug->substitute_presc_id){
+                                                              $drugs = DB::table('substitute_presc_details')
+                                                              ->Join('druglists', 'substitute_presc_details.drug_id', '=', 'druglists.id')
+                                                              ->select('druglists.drugname as subdrugname','substitute_presc_details.doseform as subdoseform')
+                                                              ->where([ ['druglists.Manufacturer','like', '%' . 'MERCK' . '%'],
+                                                                      ['substitute_presc_details.id','=',$mandrug->substitute_presc_id],
+                                                                    ])
+                                                              ->first();
+                                                              echo $drugs->subdrugname;
+                                                          }
+                                                            else{ echo $mandrug->drugname;   } ?>
+
+                                                            </td>
+                                                          <td>{{$mandrug->name}}</td>
+                                                          <td>{{$mandrug->FacilityName}}</td>
+                                                          <td>{{$mandrug->pharmacy}}</td>
+                                                          <td>{{$mandrug->quantity}}</td>
+                                                          <td>{{$mandrug->dose_given}}</td>
+                                                          <td><?php if($mandrug->substitute_presc_id){  echo $drugs->subdoseform;}
+                                                          else { echo $mandrug->doseform; }?> </td>
+                                                          <td>{{$mandrug->price}}</td>
+                                                          <td>{{$total}}</td>
+                                                        </tr>
+                                                          <?php $i++;  ?>
+                                                        @endforeach
+
+                                                     </tbody>
+
                                                  </table>
                                                  </div>
                                                  </div>
                                                  </div>
-                                    
+
                                 </div>
                                 </div>
                          <div id="tab-4a" class="tab-pane">
@@ -232,16 +346,16 @@
                                   </div>
                               </div>
                               <div class="ibox-content">
-
+  <!-- sales This Year -->
                                   <div class="table-responsive">
                               <table class="table table-striped table-bordered table-hover dataTables-example" >
                               <thead>
-                                                                           
-        
+
+
                                                       <tr>
                                                           <th>No</th>
                                                      <th>Drug Name</th>
-                                                          
+
                                                           <th>Prescribing Doctor</th>
                                                            <th>Facility</th>
                                                           <th>Pharmacy  name</th>
@@ -251,19 +365,73 @@
                                                          <th>Unit Cost</th>
                                                          <th>Total  </th>
                                                          </tr>
-                                                 
+
                                                   </thead>
 
                                                   <tbody>
-                                                    
+                                                    <?php $i =1;
+                                                    // use Carbon\Carbon;
+                                                    $yesterday = Carbon::now();
+                                                    $one_week_ago = Carbon::now()->subYears(1);
+                                                    $drugY = DB::table('prescriptions')
+                                                     ->Join('prescription_details', 'prescriptions.id', '=', 'prescription_details.presc_id')
+                                                     ->Join('prescription_filled_status', 'prescription_details.id', '=', 'prescription_filled_status.presc_details_id')
+                                                     ->Join('pharmacy', 'prescription_filled_status.outlet_id', '=', 'pharmacy.id')
+                                                     ->Join('facilities', 'prescriptions.facility_id', '=', 'facilities.FacilityCode')
+                                                     ->Join('doctors', 'prescriptions.doc_id', '=', 'doctors.doc_id')
+                                                     ->Join('druglists', 'prescription_details.drug_id', '=', 'druglists.id')
+                                                     ->leftJoin('substitute_presc_details', 'prescription_filled_status.substitute_presc_id', '=', 'substitute_presc_details.id')
+                                                     ->select('prescription_filled_status.*','facilities.FacilityName','doctors.name','druglists.drugname','pharmacy.name as pharmacy',
+                                                     'prescription_details.doseform',
+                                                     'prescription_filled_status.substitute_presc_id')
+                                                   ->where([ ['druglists.Manufacturer','like', '%' . 'MERCK' . '%'],
+                                                           ['prescription_filled_status.created_at','>=',$one_week_ago],
+                                                           ['prescription_filled_status.created_at','<=',$yesterday],
+                                                         ])
 
-                                                   </tbody>
-                                                 
+                                                   ->get();
+
+
+                                                    ?>
+                                                 @foreach($drugY as $mandrug)
+                                                 <?php $total= ($mandrug->quantity * $mandrug->price);
+
+                                                 ?>
+                                                      <tr>
+                                                          <td>{{$i}}</td>
+                                                          <td> <?php if($mandrug->substitute_presc_id){
+                                                              $drugs = DB::table('substitute_presc_details')
+                                                              ->Join('druglists', 'substitute_presc_details.drug_id', '=', 'druglists.id')
+                                                              ->select('druglists.drugname as subdrugname','substitute_presc_details.doseform as subdoseform')
+                                                              ->where([ ['druglists.Manufacturer','like', '%' . 'MERCK' . '%'],
+                                                                      ['substitute_presc_details.id','=',$mandrug->substitute_presc_id],
+                                                                    ])
+                                                              ->first();
+                                                              echo $drugs->subdrugname;
+                                                          }
+                                                            else{ echo $mandrug->drugname;   } ?>
+
+                                                            </td>
+                                                          <td>{{$mandrug->name}}</td>
+                                                          <td>{{$mandrug->FacilityName}}</td>
+                                                          <td>{{$mandrug->pharmacy}}</td>
+                                                          <td>{{$mandrug->quantity}}</td>
+                                                          <td>{{$mandrug->dose_given}}</td>
+                                                          <td><?php if($mandrug->substitute_presc_id){  echo $drugs->subdoseform;}
+                                                          else { echo $mandrug->doseform; }?> </td>
+                                                          <td>{{$mandrug->price}}</td>
+                                                          <td>{{$total}}</td>
+                                                        </tr>
+                                                          <?php $i++;  ?>
+                                                        @endforeach
+
+                                                     </tbody>
+
                                                  </table>
                                                  </div>
                                                  </div>
                                                  </div>
-                                    
+
                                 </div>
                                 </div>
                          <div id="tab-5a" class="tab-pane">
@@ -292,16 +460,16 @@
                                   </div>
                               </div>
                               <div class="ibox-content">
-
+               <!-- sales All times-->
                                   <div class="table-responsive">
                               <table class="table table-striped table-bordered table-hover dataTables-example" >
                               <thead>
-                                                                           
-        
+
+
                                                       <tr>
                                                           <th>No</th>
                                                      <th>Drug Name</th>
-                                                          
+
                                                           <th>Prescribing Doctor</th>
                                                            <th>Facility</th>
                                                           <th>Pharmacy  name</th>
@@ -311,19 +479,71 @@
                                                          <th>Unit Cost</th>
                                                          <th>Total  </th>
                                                          </tr>
-                                                 
+
                                                   </thead>
 
                                                   <tbody>
-                                                    
+                                                    <?php $i =1;
+                                                    // use Carbon\Carbon;
 
-                                                   </tbody>
-                                                 
+                                                    $drugall = DB::table('prescriptions')
+                                                     ->Join('prescription_details', 'prescriptions.id', '=', 'prescription_details.presc_id')
+                                                     ->Join('prescription_filled_status', 'prescription_details.id', '=', 'prescription_filled_status.presc_details_id')
+                                                     ->Join('pharmacy', 'prescription_filled_status.outlet_id', '=', 'pharmacy.id')
+                                                     ->Join('facilities', 'prescriptions.facility_id', '=', 'facilities.FacilityCode')
+                                                     ->Join('doctors', 'prescriptions.doc_id', '=', 'doctors.doc_id')
+                                                     ->Join('druglists', 'prescription_details.drug_id', '=', 'druglists.id')
+                                                     ->leftJoin('substitute_presc_details', 'prescription_filled_status.substitute_presc_id', '=', 'substitute_presc_details.id')
+                                                     ->select('prescription_filled_status.*','facilities.FacilityName','doctors.name','druglists.drugname','pharmacy.name as pharmacy',
+                                                     'prescription_details.doseform',
+                                                     'prescription_filled_status.substitute_presc_id')
+                                                   ->where([ ['druglists.Manufacturer','like', '%' . 'MERCK' . '%'],
+
+                                                         ])
+
+                                                   ->get();
+
+
+                                                    ?>
+                                                 @foreach($drugall as $mandrug)
+                                                 <?php $total= ($mandrug->quantity * $mandrug->price);
+
+                                                 ?>
+                                                      <tr>
+                                                          <td>{{$i}}</td>
+                                                          <td> <?php if($mandrug->substitute_presc_id){
+                                                              $drugs = DB::table('substitute_presc_details')
+                                                              ->Join('druglists', 'substitute_presc_details.drug_id', '=', 'druglists.id')
+                                                              ->select('druglists.drugname as subdrugname','substitute_presc_details.doseform as subdoseform')
+                                                              ->where([ ['druglists.Manufacturer','like', '%' . 'MERCK' . '%'],
+                                                                      ['substitute_presc_details.id','=',$mandrug->substitute_presc_id],
+                                                                    ])
+                                                              ->first();
+                                                              echo $drugs->subdrugname;
+                                                          }
+                                                            else{ echo $mandrug->drugname;   } ?>
+
+                                                            </td>
+                                                          <td>{{$mandrug->name}}</td>
+                                                          <td>{{$mandrug->FacilityName}}</td>
+                                                          <td>{{$mandrug->pharmacy}}</td>
+                                                          <td>{{$mandrug->quantity}}</td>
+                                                          <td>{{$mandrug->dose_given}}</td>
+                                                          <td><?php if($mandrug->substitute_presc_id){  echo $drugs->subdoseform;}
+                                                          else { echo $mandrug->doseform; }?> </td>
+                                                          <td>{{$mandrug->price}}</td>
+                                                          <td>{{$total}}</td>
+                                                        </tr>
+                                                          <?php $i++;  ?>
+                                                        @endforeach
+
+                                                     </tbody>
+
                                                  </table>
                                                  </div>
                                                  </div>
                                                  </div>
-                                    
+
                                 </div>
                                 </div>
                          <div id="tab-6a" class="tab-pane">
@@ -352,16 +572,16 @@
                                   </div>
                               </div>
                               <div class="ibox-content">
-
+                   <!-- sales All Custom-->
                                   <div class="table-responsive">
                               <table class="table table-striped table-bordered table-hover dataTables-example" >
                               <thead>
-                                                                           
-        
+
+
                                                       <tr>
                                                           <th>No</th>
                                                      <th>Drug Name</th>
-                                                          
+
                                                           <th>Prescribing Doctor</th>
                                                            <th>Facility</th>
                                                           <th>Pharmacy  name</th>
@@ -371,787 +591,43 @@
                                                          <th>Unit Cost</th>
                                                          <th>Total  </th>
                                                          </tr>
-                                                 
+
                                                   </thead>
 
                                                   <tbody>
-                                                    
+
 
                                                    </tbody>
-                                                 
+
                                                  </table>
                                                  </div>
                                                  </div>
                                                  </div>
-                                    
+
                                 </div>
                                 </div>
                             </div>
                             </div>
-                            <div id="tab-2" class="tab-pane">
-                             <ul class="nav nav-tabs">
-                            <li class="active"><a data-toggle="tab" href="#tab-21a">Today</a></li>
-                            <li class=""><a data-toggle="tab" href="#tab-22a">This Week</a></li>
-                             <li class=""><a data-toggle="tab" href="#tab-23a">This Month</a></li>
-                          <li class=""><a data-toggle="tab" href="#tab-24a">This Year</a></li>
-                            <li class=""><a data-toggle="tab" href="#tab-25a">Max</a></li>
-                             <li class=""><a data-toggle="tab" href="#tab-26a">Custom</a></li>
-                        </ul>
-                        <br>
-                        <div class="tab-content">
-                                <div id="tab-21a" class="tab-pane active">
-                                <div class="panel-body">
-                                <div class="ibox float-e-margins">
-                              <div class="ibox-title">
+                             <!-- End drug-->
+            <!-- Sales by doctor-->
+            @include('manufacturer.todaysalesdoctor')
+            <!--sales by doctor  end-->
+                <!--sales by region-->
+            @include('manufacturer.todaysalesregion')
+              <!--sales by region  end-->
 
-                                  <div class="ibox-tools">
 
-                                      <a class="collapse-link">
-                                          <i class="fa fa-chevron-up"></i>
-                                      </a>
-                                      <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                          <i class="fa fa-wrench"></i>
-                                      </a>
-                                      <ul class="dropdown-menu dropdown-user">
 
-                                          <li><a href="#">Config option 1</a>
-                                          </li>
-                                          <li><a href="#">Config option 2</a>
-                                          </li>
-                                      </ul>
-                                      <a class="close-link">
-                                          <i class="fa fa-times"></i>
-                                      </a>
-                                  </div>
-                              </div>
-                              <div class="ibox-content">
-
-                                  <div class="table-responsive">
-                              <table class="table table-striped table-bordered table-hover dataTables-example" >
-                              <thead>
-                                                                           
-        
-                                                      <tr>
-                                                          <th>No</th>
-                                                     <th>Drug Name</th>
-                                                          
-                                                          <th>Prescribing Doctor</th>
-                                                           <th>Facility</th>
-                                                          <th>Pharmacy  name</th>
-                                                         <th> Quantity</th>
-                                                         <th>Dosage</th>
-                                                          <th>Dosage form</th>
-                                                         <th>Unit Cost</th>
-                                                         <th>Total </th>
-                                                         </tr>
-                                                 
-                                                  </thead>
-
-                                                  <tbody>
-                                                    
-
-                                                   </tbody>
-                                                 
-                                                 </table>
-                                                 </div>
-                                                 </div>
-                                                 </div>
-                                    
-                                </div>
-                                </div>
-                         <div id="tab-22a" class="tab-pane ">
-                                <div class="panel-body">
-                                <div class="ibox float-e-margins">
-                              <div class="ibox-title">
-
-                                  <div class="ibox-tools">
-
-                                      <a class="collapse-link">
-                                          <i class="fa fa-chevron-up"></i>
-                                      </a>
-                                      <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                          <i class="fa fa-wrench"></i>
-                                      </a>
-                                      <ul class="dropdown-menu dropdown-user">
-
-                                          <li><a href="#">Config option 1</a>
-                                          </li>
-                                          <li><a href="#">Config option 2</a>
-                                          </li>
-                                      </ul>
-                                      <a class="close-link">
-                                          <i class="fa fa-times"></i>
-                                      </a>
-                                  </div>
-                              </div>
-                              <div class="ibox-content">
-
-                                  <div class="table-responsive">
-                              <table class="table table-striped table-bordered table-hover dataTables-example" >
-                              <thead>
-                                                                           
-        
-                                                      <tr>
-                                                          <th>No</th>
-                                                     <th>Drug Name</th>
-                                                          
-                                                          <th>Prescribing Doctor</th>
-                                                           <th>Facility</th>
-                                                          <th>Pharmacy  name</th>
-                                                         <th> Quantity</th>
-                                                         <th>Dosage</th>
-                                                          <th>Dosage form</th>
-                                                         <th>Unit Cost</th>
-                                                         <th>Total  </th>
-                                                         </tr>
-                                                 
-                                                  </thead>
-
-                                                  <tbody>
-                                                    
-
-                                                   </tbody>
-                                                 
-                                                 </table>
-                                                 </div>
-                                                 </div>
-                                                 </div>
-                                    
-                                </div>
-                                </div>
-                                <div id="tab-23a" class="tab-pane ">
-                                <div class="panel-body">
-                                <div class="ibox float-e-margins">
-                              <div class="ibox-title">
-
-                                  <div class="ibox-tools">
-
-                                      <a class="collapse-link">
-                                          <i class="fa fa-chevron-up"></i>
-                                      </a>
-                                      <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                          <i class="fa fa-wrench"></i>
-                                      </a>
-                                      <ul class="dropdown-menu dropdown-user">
-
-                                          <li><a href="#">Config option 1</a>
-                                          </li>
-                                          <li><a href="#">Config option 2</a>
-                                          </li>
-                                      </ul>
-                                      <a class="close-link">
-                                          <i class="fa fa-times"></i>
-                                      </a>
-                                  </div>
-                              </div>
-                              <div class="ibox-content">
-
-                                  <div class="table-responsive">
-                              <table class="table table-striped table-bordered table-hover dataTables-example" >
-                              <thead>
-                                                                           
-        
-                                                      <tr>
-                                                          <th>No</th>
-                                                     <th>Drug Name</th>
-                                                          
-                                                          <th>Prescribing Doctor</th>
-                                                           <th>Facility</th>
-                                                          <th>Pharmacy  name</th>
-                                                         <th> Quantity</th>
-                                                         <th>Dosage</th>
-                                                          <th>Dosage form</th>
-                                                         <th>Unit Cost</th>
-                                                         <th>Total  </th>
-                                                         </tr>
-                                                 
-                                                  </thead>
-
-                                                  <tbody>
-                                                    
-
-                                                   </tbody>
-                                                 
-                                                 </table>
-                                                 </div>
-                                                 </div>
-                                                 </div>
-                                    
-                                </div>
-                                </div>
-                         <div id="tab-24a" class="tab-pane">
-                                <div class="panel-body">
-                                <div class="ibox float-e-margins">
-                              <div class="ibox-title">
-
-                                  <div class="ibox-tools">
-
-                                      <a class="collapse-link">
-                                          <i class="fa fa-chevron-up"></i>
-                                      </a>
-                                      <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                          <i class="fa fa-wrench"></i>
-                                      </a>
-                                      <ul class="dropdown-menu dropdown-user">
-
-                                          <li><a href="#">Config option 1</a>
-                                          </li>
-                                          <li><a href="#">Config option 2</a>
-                                          </li>
-                                      </ul>
-                                      <a class="close-link">
-                                          <i class="fa fa-times"></i>
-                                      </a>
-                                  </div>
-                              </div>
-                              <div class="ibox-content">
-
-                                  <div class="table-responsive">
-                              <table class="table table-striped table-bordered table-hover dataTables-example" >
-                              <thead>
-                                                                           
-        
-                                                      <tr>
-                                                          <th>No</th>
-                                                     <th>Drug Name</th>
-                                                          
-                                                          <th>Prescribing Doctor</th>
-                                                           <th>Facility</th>
-                                                          <th>Pharmacy  name</th>
-                                                         <th> Quantity</th>
-                                                         <th>Dosage</th>
-                                                          <th>Dosage form</th>
-                                                         <th>Unit Cost</th>
-                                                         <th>Total  </th>
-                                                         </tr>
-                                                 
-                                                  </thead>
-
-                                                  <tbody>
-                                                    
-
-                                                   </tbody>
-                                                 
-                                                 </table>
-                                                 </div>
-                                                 </div>
-                                                 </div>
-                                    
-                                </div>
-                                </div>
-                         <div id="tab-25a" class="tab-pane">
-                                <div class="panel-body">
-                                <div class="ibox float-e-margins">
-                              <div class="ibox-title">
-
-                                  <div class="ibox-tools">
-
-                                      <a class="collapse-link">
-                                          <i class="fa fa-chevron-up"></i>
-                                      </a>
-                                      <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                          <i class="fa fa-wrench"></i>
-                                      </a>
-                                      <ul class="dropdown-menu dropdown-user">
-
-                                          <li><a href="#">Config option 1</a>
-                                          </li>
-                                          <li><a href="#">Config option 2</a>
-                                          </li>
-                                      </ul>
-                                      <a class="close-link">
-                                          <i class="fa fa-times"></i>
-                                      </a>
-                                  </div>
-                              </div>
-                              <div class="ibox-content">
-
-                                  <div class="table-responsive">
-                              <table class="table table-striped table-bordered table-hover dataTables-example" >
-                              <thead>
-                                                                           
-        
-                                                      <tr>
-                                                          <th>No</th>
-                                                     <th>Drug Name</th>
-                                                          
-                                                          <th>Prescribing Doctor</th>
-                                                           <th>Facility</th>
-                                                          <th>Pharmacy  name</th>
-                                                         <th> Quantity</th>
-                                                         <th>Dosage</th>
-                                                          <th>Dosage form</th>
-                                                         <th>Unit Cost</th>
-                                                         <th>Total  </th>
-                                                         </tr>
-                                                 
-                                                  </thead>
-
-                                                  <tbody>
-                                                    
-
-                                                   </tbody>
-                                                 
-                                                 </table>
-                                                 </div>
-                                                 </div>
-                                                 </div>
-                                    
-                                </div>
-                                </div>
-                         <div id="tab-26a" class="tab-pane">
-                                <div class="panel-body">
-                                <div class="ibox float-e-margins">
-                              <div class="ibox-title">
-
-                                  <div class="ibox-tools">
-
-                                      <a class="collapse-link">
-                                          <i class="fa fa-chevron-up"></i>
-                                      </a>
-                                      <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                          <i class="fa fa-wrench"></i>
-                                      </a>
-                                      <ul class="dropdown-menu dropdown-user">
-
-                                          <li><a href="#">Config option 1</a>
-                                          </li>
-                                          <li><a href="#">Config option 2</a>
-                                          </li>
-                                      </ul>
-                                      <a class="close-link">
-                                          <i class="fa fa-times"></i>
-                                      </a>
-                                  </div>
-                              </div>
-                              <div class="ibox-content">
-
-                                  <div class="table-responsive">
-                              <table class="table table-striped table-bordered table-hover dataTables-example" >
-                              <thead>
-                                                                           
-        
-                                                      <tr>
-                                                          <th>No</th>
-                                                     <th>Drug Name</th>
-                                                          
-                                                          <th>Prescribing Doctor</th>
-                                                           <th>Facility</th>
-                                                          <th>Pharmacy  name</th>
-                                                         <th> Quantity</th>
-                                                         <th>Dosage</th>
-                                                          <th>Dosage form</th>
-                                                         <th>Unit Cost</th>
-                                                         <th>Total  </th>
-                                                         </tr>
-                                                 
-                                                  </thead>
-
-                                                  <tbody>
-                                                    
-
-                                                   </tbody>
-                                                 
-                                                 </table>
-                                                 </div>
-                                                 </div>
-                                                 </div>
-                                    
-                                </div>
-                                </div>
-                            </div>
-                            </div>
-                            <div id="tab-3" class="tab-pane">
-                             <ul class="nav nav-tabs">
-                            <li class="active"><a data-toggle="tab" href="#tab-31a">Today</a></li>
-                            <li class=""><a data-toggle="tab" href="#tab-32a">This Week</a></li>
-                             <li class=""><a data-toggle="tab" href="#tab-33a">This Month</a></li>
-                          <li class=""><a data-toggle="tab" href="#tab-34a">This Year</a></li>
-                            <li class=""><a data-toggle="tab" href="#tab-35a">Max</a></li>
-                             <li class=""><a data-toggle="tab" href="#tab-36a">Custom</a></li>
-                        </ul>
-                        <br>
-                        <div class="tab-content">
-                                <div id="tab-31a" class="tab-pane active">
-                                <div class="panel-body">
-                                <div class="ibox float-e-margins">
-                              <div class="ibox-title">
-
-                                  <div class="ibox-tools">
-
-                                      <a class="collapse-link">
-                                          <i class="fa fa-chevron-up"></i>
-                                      </a>
-                                      <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                          <i class="fa fa-wrench"></i>
-                                      </a>
-                                      <ul class="dropdown-menu dropdown-user">
-
-                                          <li><a href="#">Config option 1</a>
-                                          </li>
-                                          <li><a href="#">Config option 2</a>
-                                          </li>
-                                      </ul>
-                                      <a class="close-link">
-                                          <i class="fa fa-times"></i>
-                                      </a>
-                                  </div>
-                              </div>
-                              <div class="ibox-content">
-
-                                  <div class="table-responsive">
-                              <table class="table table-striped table-bordered table-hover dataTables-example" >
-                              <thead>
-                                                                           
-        
-                                                      <tr>
-                                                          <th>No</th>
-                                                          <th>County</th>
-                                                     <th>Drug Name</th>
-                                                          
-                                                          <th>Prescribing Doctor</th>
-                                                           <th>Facility</th>
-                                                          <th>Pharmacy  name</th>
-                                                         <th> Quantity</th>
-                                                         <th>Dosage</th>
-                                                          <th>Dosage form</th>
-                                                         <th>Unit Cost</th>
-                                                         <th>Total </th>
-                                                         </tr>
-                                                 
-                                                  </thead>
-
-                                                  <tbody>
-                                                    
-
-                                                   </tbody>
-                                                 
-                                                 </table>
-                                                 </div>
-                                                 </div>
-                                                 </div>
-                                    
-                                </div>
-                                </div>
-                         <div id="tab-32a" class="tab-pane ">
-                                <div class="panel-body">
-                                <div class="ibox float-e-margins">
-                              <div class="ibox-title">
-
-                                  <div class="ibox-tools">
-
-                                      <a class="collapse-link">
-                                          <i class="fa fa-chevron-up"></i>
-                                      </a>
-                                      <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                          <i class="fa fa-wrench"></i>
-                                      </a>
-                                      <ul class="dropdown-menu dropdown-user">
-
-                                          <li><a href="#">Config option 1</a>
-                                          </li>
-                                          <li><a href="#">Config option 2</a>
-                                          </li>
-                                      </ul>
-                                      <a class="close-link">
-                                          <i class="fa fa-times"></i>
-                                      </a>
-                                  </div>
-                              </div>
-                              <div class="ibox-content">
-
-                                  <div class="table-responsive">
-                              <table class="table table-striped table-bordered table-hover dataTables-example" >
-                              <thead>
-                                                                           
-        
-                                                      <tr>
-                                                          <th>No</th>
-                                                          <th>County</th>
-                                                     <th>Drug Name</th>
-                                                          
-                                                          <th>Prescribing Doctor</th>
-                                                           <th>Facility</th>
-                                                          <th>Pharmacy  name</th>
-                                                         <th> Quantity</th>
-                                                         <th>Dosage</th>
-                                                          <th>Dosage form</th>
-                                                         <th>Unit Cost</th>
-                                                         <th>Total  </th>
-                                                         </tr>
-                                                 
-                                                  </thead>
-
-                                                  <tbody>
-                                                    
-
-                                                   </tbody>
-                                                 
-                                                 </table>
-                                                 </div>
-                                                 </div>
-                                                 </div>
-                                    
-                                </div>
-                                </div>
-                                <div id="tab-33a" class="tab-pane ">
-                                <div class="panel-body">
-                                <div class="ibox float-e-margins">
-                              <div class="ibox-title">
-
-                                  <div class="ibox-tools">
-
-                                      <a class="collapse-link">
-                                          <i class="fa fa-chevron-up"></i>
-                                      </a>
-                                      <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                          <i class="fa fa-wrench"></i>
-                                      </a>
-                                      <ul class="dropdown-menu dropdown-user">
-
-                                          <li><a href="#">Config option 1</a>
-                                          </li>
-                                          <li><a href="#">Config option 2</a>
-                                          </li>
-                                      </ul>
-                                      <a class="close-link">
-                                          <i class="fa fa-times"></i>
-                                      </a>
-                                  </div>
-                              </div>
-                              <div class="ibox-content">
-
-                                  <div class="table-responsive">
-                              <table class="table table-striped table-bordered table-hover dataTables-example" >
-                              <thead>
-                                                                           
-        
-                                                      <tr>
-                                                          <th>No</th>
-                                                          <th>County</th>
-                                                     <th>Drug Name</th>
-                                                          
-                                                          <th>Prescribing Doctor</th>
-                                                           <th>Facility</th>
-                                                          <th>Pharmacy  name</th>
-                                                         <th> Quantity</th>
-                                                         <th>Dosage</th>
-                                                          <th>Dosage form</th>
-                                                         <th>Unit Cost</th>
-                                                         <th>Total  </th>
-                                                         </tr>
-                                                 
-                                                  </thead>
-
-                                                  <tbody>
-                                                    
-
-                                                   </tbody>
-                                                 
-                                                 </table>
-                                                 </div>
-                                                 </div>
-                                                 </div>
-                                    
-                                </div>
-                                </div>
-                         <div id="tab-34a" class="tab-pane">
-                                <div class="panel-body">
-                                <div class="ibox float-e-margins">
-                              <div class="ibox-title">
-
-                                  <div class="ibox-tools">
-
-                                      <a class="collapse-link">
-                                          <i class="fa fa-chevron-up"></i>
-                                      </a>
-                                      <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                          <i class="fa fa-wrench"></i>
-                                      </a>
-                                      <ul class="dropdown-menu dropdown-user">
-
-                                          <li><a href="#">Config option 1</a>
-                                          </li>
-                                          <li><a href="#">Config option 2</a>
-                                          </li>
-                                      </ul>
-                                      <a class="close-link">
-                                          <i class="fa fa-times"></i>
-                                      </a>
-                                  </div>
-                              </div>
-                              <div class="ibox-content">
-
-                                  <div class="table-responsive">
-                              <table class="table table-striped table-bordered table-hover dataTables-example" >
-                              <thead>
-                                                                           
-        
-                                                      <tr>
-                                                          <th>No</th>
-                                                          <th>County</th>
-                                                     <th>Drug Name</th>
-                                                          
-                                                          <th>Prescribing Doctor</th>
-                                                           <th>Facility</th>
-                                                          <th>Pharmacy  name</th>
-                                                         <th> Quantity</th>
-                                                         <th>Dosage</th>
-                                                          <th>Dosage form</th>
-                                                         <th>Unit Cost</th>
-                                                         <th>Total  </th>
-                                                         </tr>
-                                                 
-                                                  </thead>
-
-                                                  <tbody>
-                                                    
-
-                                                   </tbody>
-                                                 
-                                                 </table>
-                                                 </div>
-                                                 </div>
-                                                 </div>
-                                    
-                                </div>
-                                </div>
-                         <div id="tab-35a" class="tab-pane">
-                                <div class="panel-body">
-                                <div class="ibox float-e-margins">
-                              <div class="ibox-title">
-
-                                  <div class="ibox-tools">
-
-                                      <a class="collapse-link">
-                                          <i class="fa fa-chevron-up"></i>
-                                      </a>
-                                      <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                          <i class="fa fa-wrench"></i>
-                                      </a>
-                                      <ul class="dropdown-menu dropdown-user">
-
-                                          <li><a href="#">Config option 1</a>
-                                          </li>
-                                          <li><a href="#">Config option 2</a>
-                                          </li>
-                                      </ul>
-                                      <a class="close-link">
-                                          <i class="fa fa-times"></i>
-                                      </a>
-                                  </div>
-                              </div>
-                              <div class="ibox-content">
-
-                                  <div class="table-responsive">
-                              <table class="table table-striped table-bordered table-hover dataTables-example" >
-                              <thead>
-                                                                           
-        
-                                                      <tr>
-                                                          <th>No</th>
-                                                          <th>County</th>
-                                                     <th>Drug Name</th>
-                                                          
-                                                          <th>Prescribing Doctor</th>
-                                                           <th>Facility</th>
-                                                          <th>Pharmacy  name</th>
-                                                         <th> Quantity</th>
-                                                         <th>Dosage</th>
-                                                          <th>Dosage form</th>
-                                                         <th>Unit Cost</th>
-                                                         <th>Total  </th>
-                                                         </tr>
-                                                 
-                                                  </thead>
-
-                                                  <tbody>
-                                                    
-
-                                                   </tbody>
-                                                 
-                                                 </table>
-                                                 </div>
-                                                 </div>
-                                                 </div>
-                                    
-                                </div>
-                                </div>
-                         <div id="tab-36a" class="tab-pane">
-                                <div class="panel-body">
-                                <div class="ibox float-e-margins">
-                              <div class="ibox-title">
-
-                                  <div class="ibox-tools">
-
-                                      <a class="collapse-link">
-                                          <i class="fa fa-chevron-up"></i>
-                                      </a>
-                                      <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                          <i class="fa fa-wrench"></i>
-                                      </a>
-                                      <ul class="dropdown-menu dropdown-user">
-
-                                          <li><a href="#">Config option 1</a>
-                                          </li>
-                                          <li><a href="#">Config option 2</a>
-                                          </li>
-                                      </ul>
-                                      <a class="close-link">
-                                          <i class="fa fa-times"></i>
-                                      </a>
-                                  </div>
-                              </div>
-                              <div class="ibox-content">
-
-                                  <div class="table-responsive">
-                              <table class="table table-striped table-bordered table-hover dataTables-example" >
-                              <thead>
-                                                                           
-        
-                                                      <tr>
-                                                          <th>No</th>
-                                                          <th>County</th>
-                                                     <th>Drug Name</th>
-                                                          
-                                                          <th>Prescribing Doctor</th>
-                                                           <th>Facility</th>
-                                                          <th>Pharmacy  name</th>
-                                                         <th> Quantity</th>
-                                                         <th>Dosage</th>
-                                                          <th>Dosage form</th>
-                                                         <th>Unit Cost</th>
-                                                         <th>Total  </th>
-                                                         </tr>
-                                                 
-                                                  </thead>
-
-                                                  <tbody>
-                                                    
-
-                                                   </tbody>
-                                                 
-                                                 </table>
-                                                 </div>
-                                                 </div>
-                                                 </div>
-                                    
-                                </div>
-                                </div>
-                            </div>
-                            </div>
-                                                       
                             </div>
                         </div>
 
 
                     </div>
                 </div>
-               
+
             </div>
              @include('includes.default.footer')
                    </div><!--container-->
                 </div><!--content -->
             </div><!--content page-->
 @endsection
-

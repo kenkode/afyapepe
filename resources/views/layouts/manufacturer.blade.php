@@ -113,6 +113,51 @@
                 ]
 
             });
+            <?php  $from = date('Y-m-d' ." ". '08:00:00', time()); $to = date('Y-m-d' ." ". '09:59:59', time());
+                $from1 = date('Y-m-d' ." ". '10:00:00', time()); $to1 = date('Y-m-d' ." ". '12:59:59', time());
+                $from2 = date('Y-m-d' ." ". '13:00:00', time()); $to2 = date('Y-m-d' ." ". '15:59:59', time());
+            $from3 = date('Y-m-d' ." ". '16:00:00', time()); $to3 = date('Y-m-d' ." ". '18:59:59', time());
+            $from4 = date('Y-m-d' ." ". '19:00:00', time()); $to4 = date('Y-m-d' ." ". '21:59:59', time());
+            $from5 = date('Y-m-d' ." ". '22:00:00', time()); $to5 = date('Y-m-d' ." ". '00:59:59', time());
+            $from6 = date('Y-m-d' ." ". '01:00:00', time()); $to6 = date('Y-m-d' ." ". '03:59:59', time());
+            $from7 = date('Y-m-d' ." ". '05:00:00', time()); $to7 = date('Y-m-d' ." ". '07:59:59', time());
+           
+
+
+            $d1=DB::table('prescription_filled_status')->whereBetween('created_at', array($from, $to))->count();
+        $d2=DB::table('prescription_filled_status')->whereBetween('created_at', array($from1, $to1))->count();
+        $d3=DB::table('prescription_filled_status')->whereBetween('created_at', array($from2, $to2))->count();
+         $d4=DB::table('prescription_filled_status')->whereBetween('created_at', array($from3, $to3))->count();
+          $d5=DB::table('prescription_filled_status')->whereBetween('created_at', array($from4, $to4))->count();
+           $d6=DB::table('prescription_filled_status')->whereBetween('created_at', array($from5, $to5))->count();
+            $d7=DB::table('prescription_filled_status')->whereBetween('created_at', array($from6, $to6))->count();
+             $d8=DB::table('prescription_filled_status')->whereBetween('created_at', array($from7, $to7))->count();
+
+               ?>
+
+    var lineData = {
+        labels: ["8-9 am", "10-12 pm", "1-3 pm", "4-6 pm", "7-9 pm", "10-12 am", "1-3 am"
+        , "5-7 am"],
+        datasets: [
+
+            {
+                label: "Today Sales",
+                backgroundColor: 'rgba(26,179,148,0.5)',
+                borderColor: "rgba(26,179,148,0.7)",
+                pointBackgroundColor: "rgba(26,179,148,1)",
+                pointBorderColor: "#fff",
+                data: [<?php echo $d1; ?>,<?php echo $d2; ?>,<?php echo $d3; ?>,<?php echo $d4; ?>,<?php echo $d5; ?>, <?php echo $d6; ?>, <?php echo $d7; ?>,<?php echo $d8; ?>]
+            }
+        ]
+    };
+
+    var lineOptions = {
+        responsive: true
+    };
+
+
+    var ctx = document.getElementById("lineChart").getContext("2d");
+    new Chart(ctx, {type: 'line', data: lineData, options:lineOptions});
 
         });
 

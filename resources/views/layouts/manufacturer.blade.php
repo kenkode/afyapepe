@@ -159,6 +159,54 @@
     var ctx = document.getElementById("lineChart").getContext("2d");
     new Chart(ctx, {type: 'line', data: lineData, options:lineOptions});
 
+        
+         var lineDatas = {
+        labels: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"
+        ],
+        datasets: [
+
+            {
+                label: "Weekly Sales",
+                backgroundColor: 'rgba(26,179,148,0.5)',
+                borderColor: "rgba(26,179,148,0.7)",
+                pointBackgroundColor: "rgba(26,179,148,1)",
+                pointBorderColor: "#fff",
+                data: [<?php echo $d1; ?>,<?php echo $d2; ?>,<?php echo $d3; ?>,<?php echo $d4; ?>,<?php echo $d5; ?>, <?php echo $d6; ?>, <?php echo $d7; ?>]
+            }
+        ]
+    };
+
+    var lineOptions = {
+        responsive: true
+    };
+
+
+    var ctx = document.getElementById("lineCharts").getContext("2d");
+    new Chart(ctx, {type: 'line', data: lineDatas, options:lineOptions});
+
+  var lineDatam = {
+        labels: ["Week 1", "Week 2", "Week 3", "Week 4"],
+        datasets: [
+
+            {
+                label: "Weekly Sales",
+                backgroundColor: 'rgba(26,179,148,0.5)',
+                borderColor: "rgba(26,179,148,0.7)",
+                pointBackgroundColor: "rgba(26,179,148,1)",
+                pointBorderColor: "#fff",
+                data: [<?php echo $d1; ?>,<?php echo $d2; ?>,<?php echo $d3; ?>,<?php echo $d4; ?>]
+            }
+        ]
+    };
+
+    var lineOptions = {
+        responsive: true
+    };
+
+
+    var ctx = document.getElementById("lineChartm").getContext("2d");
+    new Chart(ctx, {type: 'line', data: lineDatam, options:lineOptions});
+
         });
 
     </script>

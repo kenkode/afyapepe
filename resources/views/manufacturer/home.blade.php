@@ -5,7 +5,21 @@
           <div class="content">
               <div class="container">
 <div class="row">
-<h1>Dashboard</h1>
+<div class="col-lg-6">
+</div>
+<div class="col-lg-3">
+<img src="{{URL::asset('/images/merck_logo_detail.png')}}" alt="profile Pic" height="110" width="250">
+</div>
+<div class="col-lg-3">
+<b>Merck (Pty) Limited <br/>
+3rd Floor <br/>
+197, Lenana Place, Lenana Road<br/>
+Nairobi | Kenya <br/>
+P.O.Box 38554-00100 <br/>
+Tel.: +254 20 2714 617</b>
+</div>
+</div>
+<div class="row">
        <div class="col-lg-12">
                     <div class="tabs-container">
                         <ul class="nav nav-tabs">
@@ -89,9 +103,9 @@
                               </div>
                               <div class="ibox-content">
     <!-- sales This week -->
-                                  <div class="table-responsive">
-                              
-                                                 </div>
+                                  <div>
+                                <canvas id="lineCharts" height="50"></canvas>
+                            </div>
                                                  </div>
                                                  </div>
 
@@ -461,6 +475,7 @@
                 </div>
 
             </div>
+            <br><br><br>
              @include('includes.default.footer')
                    </div><!--container-->
                 </div><!--content -->

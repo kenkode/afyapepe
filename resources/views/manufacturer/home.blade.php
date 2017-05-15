@@ -35,8 +35,7 @@ Tel.: +254 20 2714 617</b>
                             <li class=""><a data-toggle="tab" href="#tab-2a">This Week</a></li>
                              <li class=""><a data-toggle="tab" href="#tab-3a">This Month</a></li>
                           <li class=""><a data-toggle="tab" href="#tab-4a">This Year</a></li>
-                            <li class=""><a data-toggle="tab" href="#tab-5a">Max</a></li>
-                             <li class=""><a data-toggle="tab" href="#tab-6a">Custom</a></li>
+                           
                         </ul>
                         <br>
                         <div class="tab-content">
@@ -137,7 +136,9 @@ Tel.: +254 20 2714 617</b>
                                   </div>
                               </div>
                               <div class="ibox-content">
-    <!-- sales This Month -->
+    <!-- sales This Month --><div>
+                                <canvas id="lineChartm" height="50"></canvas>
+                            </div>
                                   
                                                  </div>
                                                  </div>
@@ -171,7 +172,10 @@ Tel.: +254 20 2714 617</b>
                                   </div>
                               </div>
                               <div class="ibox-content">
-  <!-- sales This Year -->
+  <!-- sales This Year --><div>
+                                <canvas id="lineCharty" height="50"></canvas>
+                            </div>
+
                                 
                                                  </div>
                                                  </div>
@@ -179,72 +183,9 @@ Tel.: +254 20 2714 617</b>
 
                                 </div>
                                
-                         <div id="tab-5a" class="tab-pane">
-                                <div class="panel-body">
-                                <div class="ibox float-e-margins">
-                              <div class="ibox-title">
-
-                                  <div class="ibox-tools">
-
-                                      <a class="collapse-link">
-                                          <i class="fa fa-chevron-up"></i>
-                                      </a>
-                                      <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                          <i class="fa fa-wrench"></i>
-                                      </a>
-                                      <ul class="dropdown-menu dropdown-user">
-
-                                          <li><a href="#">Config option 1</a>
-                                          </li>
-                                          <li><a href="#">Config option 2</a>
-                                          </li>
-                                      </ul>
-                                      <a class="close-link">
-                                          <i class="fa fa-times"></i>
-                                      </a>
-                                  </div>
-                              </div>
-                              <div class="ibox-content">
-               <!-- sales All times-->
-                                 
-                                                 </div>
-                                                 </div>
-                                                 </div>
-
-                                </div>
+                         
                              
-                         <div id="tab-6a" class="tab-pane">
-                                <div class="panel-body">
-                                <div class="ibox float-e-margins">
-                              <div class="ibox-title">
 
-                                  <div class="ibox-tools">
-
-                                      <a class="collapse-link">
-                                          <i class="fa fa-chevron-up"></i>
-                                      </a>
-                                      <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                          <i class="fa fa-wrench"></i>
-                                      </a>
-                                      <ul class="dropdown-menu dropdown-user">
-
-                                          <li><a href="#">Config option 1</a>
-                                          </li>
-                                          <li><a href="#">Config option 2</a>
-                                          </li>
-                                      </ul>
-                                      <a class="close-link">
-                                          <i class="fa fa-times"></i>
-                                      </a>
-                                  </div>
-                              </div>
-                              <div class="ibox-content">
-                  
-                                                 </div>
-                                                 </div>
-
-                                </div>
-                                </div>
                             </div>
                             </div>
                             <div id="tab-2" class="tab-pane">
@@ -253,8 +194,7 @@ Tel.: +254 20 2714 617</b>
                             <li class=""><a data-toggle="tab" href="#tab-22a">This Week</a></li>
                              <li class=""><a data-toggle="tab" href="#tab-23a">This Month</a></li>
                           <li class=""><a data-toggle="tab" href="#tab-24a">This Year</a></li>
-                            <li class=""><a data-toggle="tab" href="#tab-25a">Max</a></li>
-                             <li class=""><a data-toggle="tab" href="#tab-26a">Custom</a></li>
+                           
                         </ul>
                         <br>
                         <div class="tab-content">
@@ -285,7 +225,10 @@ Tel.: +254 20 2714 617</b>
                               </div>
                               <!-- sales Today -->
                               <div class="ibox-content">
-                                 
+                                 <div>
+                                <canvas id="lineChartp" height="50"></canvas>
+                            </div>
+
                                                  </div>
                                                  </div>
                                                  </div>
@@ -319,9 +262,10 @@ Tel.: +254 20 2714 617</b>
                               </div>
                               <div class="ibox-content">
     <!-- sales This week -->
-                                  <div class="table-responsive">
-                              
-                                                 </div>
+                                <div>
+                                <canvas id="lineChartsp" height="50"></canvas>
+                            </div>
+
                                                  </div>
                                                  </div>
 
@@ -353,7 +297,10 @@ Tel.: +254 20 2714 617</b>
                                   </div>
                               </div>
                               <div class="ibox-content">
-    <!-- sales This Month -->
+    <!-- sales This Month --><div>
+                                <canvas id="lineChartmp" height="50"></canvas>
+                            </div>
+
                                   
                                                  </div>
                                                  </div>
@@ -387,7 +334,10 @@ Tel.: +254 20 2714 617</b>
                                   </div>
                               </div>
                               <div class="ibox-content">
-  <!-- sales This Year -->
+  <!-- sales This Year --><div>
+                                <canvas id="lineChartyp" height="50"></canvas>
+                            </div>
+
                                 
                                                  </div>
                                                  </div>
@@ -395,72 +345,9 @@ Tel.: +254 20 2714 617</b>
 
                                 </div>
                                
-                         <div id="tab-25a" class="tab-pane">
-                                <div class="panel-body">
-                                <div class="ibox float-e-margins">
-                              <div class="ibox-title">
-
-                                  <div class="ibox-tools">
-
-                                      <a class="collapse-link">
-                                          <i class="fa fa-chevron-up"></i>
-                                      </a>
-                                      <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                          <i class="fa fa-wrench"></i>
-                                      </a>
-                                      <ul class="dropdown-menu dropdown-user">
-
-                                          <li><a href="#">Config option 1</a>
-                                          </li>
-                                          <li><a href="#">Config option 2</a>
-                                          </li>
-                                      </ul>
-                                      <a class="close-link">
-                                          <i class="fa fa-times"></i>
-                                      </a>
-                                  </div>
-                              </div>
-                              <div class="ibox-content">
-               <!-- sales All times-->
-                                 
-                                                 </div>
-                                                 </div>
-                                                 </div>
-
-                                </div>
+                       
                              
-                         <div id="tab-26a" class="tab-pane">
-                                <div class="panel-body">
-                                <div class="ibox float-e-margins">
-                              <div class="ibox-title">
-
-                                  <div class="ibox-tools">
-
-                                      <a class="collapse-link">
-                                          <i class="fa fa-chevron-up"></i>
-                                      </a>
-                                      <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                          <i class="fa fa-wrench"></i>
-                                      </a>
-                                      <ul class="dropdown-menu dropdown-user">
-
-                                          <li><a href="#">Config option 1</a>
-                                          </li>
-                                          <li><a href="#">Config option 2</a>
-                                          </li>
-                                      </ul>
-                                      <a class="close-link">
-                                          <i class="fa fa-times"></i>
-                                      </a>
-                                  </div>
-                              </div>
-                              <div class="ibox-content">
-                  
-                                                 </div>
-                                                 </div>
-
-                                </div>
-                                </div>
+                        
                             </div>
                             </div>
                             

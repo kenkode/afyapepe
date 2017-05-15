@@ -114,8 +114,8 @@
 
             });
             <?php  $from = date('Y-m-d' ." ". '08:00:00', time()); $to = date('Y-m-d' ." ". '09:59:59', time());
-                $from1 = date('Y-m-d' ." ". '10:00:00', time()); $to1 = date('Y-m-d' ." ". '12:59:59', time());
-                $from2 = date('Y-m-d' ." ". '13:00:00', time()); $to2 = date('Y-m-d' ." ". '15:59:59', time());
+            $from1 = date('Y-m-d' ." ". '10:00:00', time()); $to1 = date('Y-m-d' ." ". '12:59:59', time());
+            $from2 = date('Y-m-d' ." ". '13:00:00', time()); $to2 = date('Y-m-d' ." ". '15:59:59', time());
             $from3 = date('Y-m-d' ." ". '16:00:00', time()); $to3 = date('Y-m-d' ." ". '18:59:59', time());
             $from4 = date('Y-m-d' ." ". '19:00:00', time()); $to4 = date('Y-m-d' ." ". '21:59:59', time());
             $from5 = date('Y-m-d' ." ". '22:00:00', time()); $to5 = date('Y-m-d' ." ". '00:59:59', time());
@@ -166,7 +166,7 @@
         datasets: [
 
             {
-                label: "Weekly Sales",
+                label: "Sales This Week",
                 backgroundColor: 'rgba(26,179,148,0.5)',
                 borderColor: "rgba(26,179,148,0.7)",
                 pointBackgroundColor: "rgba(26,179,148,1)",
@@ -189,7 +189,7 @@
         datasets: [
 
             {
-                label: "Weekly Sales",
+                label: "Sales This Month",
                 backgroundColor: 'rgba(26,179,148,0.5)',
                 borderColor: "rgba(26,179,148,0.7)",
                 pointBackgroundColor: "rgba(26,179,148,1)",
@@ -206,6 +206,133 @@
 
     var ctx = document.getElementById("lineChartm").getContext("2d");
     new Chart(ctx, {type: 'line', data: lineDatam, options:lineOptions});
+
+    var ctx = document.getElementById("lineCharts").getContext("2d");
+    new Chart(ctx, {type: 'line', data: lineDatas, options:lineOptions});
+
+  var lineDatay = {
+        labels: ["January", "February", "March", "April"
+        , "May", "June", "July", "August", "September", "October", "November","December"],
+        datasets: [
+
+            {
+                label: "Sales This Year",
+                backgroundColor: 'rgba(26,179,148,0.5)',
+                borderColor: "rgba(26,179,148,0.7)",
+                pointBackgroundColor: "rgba(26,179,148,1)",
+                pointBorderColor: "#fff",
+                data: [<?php echo $d1; ?>,<?php echo $d2; ?>,<?php echo $d3; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>]
+            }
+        ]
+    };
+
+    var lineOptions = {
+        responsive: true
+    };
+
+
+    var ctx = document.getElementById("lineCharty").getContext("2d");
+    new Chart(ctx, {type: 'line', data: lineDatay, options:lineOptions});
+
+
+     var lineDatap = {
+        labels: ["8-9 am", "10-12 pm", "1-3 pm", "4-6 pm", "7-9 pm", "10-12 am", "1-3 am"
+        , "5-7 am"],
+        datasets: [
+
+            {
+                label: "Today Prescription",
+                backgroundColor: 'rgba(26,179,148,0.5)',
+                borderColor: "rgba(26,179,148,0.7)",
+                pointBackgroundColor: "rgba(26,179,148,1)",
+                pointBorderColor: "#fff",
+                data: [<?php echo $d1; ?>,<?php echo $d2; ?>,<?php echo $d3; ?>,<?php echo $d4; ?>,<?php echo $d5; ?>, <?php echo $d6; ?>, <?php echo $d7; ?>,<?php echo $d8; ?>]
+            }
+        ]
+    };
+
+    var lineOptions = {
+        responsive: true
+    };
+
+
+    var ctx = document.getElementById("lineChartp").getContext("2d");
+    new Chart(ctx, {type: 'line', data: lineDatap, options:lineOptions});
+
+        
+         var lineDatasp = {
+        labels: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"
+        ],
+        datasets: [
+
+            {
+                label: "Prescription This Week",
+                backgroundColor: 'rgba(26,179,148,0.5)',
+                borderColor: "rgba(26,179,148,0.7)",
+                pointBackgroundColor: "rgba(26,179,148,1)",
+                pointBorderColor: "#fff",
+                data: [<?php echo $d1; ?>,<?php echo $d2; ?>,<?php echo $d3; ?>,<?php echo $d4; ?>,<?php echo $d5; ?>, <?php echo $d6; ?>, <?php echo $d7; ?>]
+            }
+        ]
+    };
+
+    var lineOptions = {
+        responsive: true
+    };
+
+
+    var ctx = document.getElementById("lineChartsp").getContext("2d");
+    new Chart(ctx, {type: 'line', data: lineDatasp, options:lineOptions});
+
+  var lineDatamp = {
+        labels: ["Week 1", "Week 2", "Week 3", "Week 4"],
+        datasets: [
+
+            {
+                label: "Prescription This Month",
+                backgroundColor: 'rgba(26,179,148,0.5)',
+                borderColor: "rgba(26,179,148,0.7)",
+                pointBackgroundColor: "rgba(26,179,148,1)",
+                pointBorderColor: "#fff",
+                data: [<?php echo $d1; ?>,<?php echo $d2; ?>,<?php echo $d3; ?>,<?php echo $d4; ?>]
+            }
+        ]
+    };
+
+    var lineOptions = {
+        responsive: true
+    };
+
+
+    var ctx = document.getElementById("lineChartmp").getContext("2d");
+    new Chart(ctx, {type: 'line', data: lineDatamp, options:lineOptions});
+
+    
+
+  var lineDatayp = {
+        labels: ["January", "February", "March", "April"
+        , "May", "June", "July", "August", "September", "October", "November","December"],
+        datasets: [
+
+            {
+                label: "Prescription This Year",
+                backgroundColor: 'rgba(26,179,148,0.5)',
+                borderColor: "rgba(26,179,148,0.7)",
+                pointBackgroundColor: "rgba(26,179,148,1)",
+                pointBorderColor: "#fff",
+                data: [<?php echo $d1; ?>,<?php echo $d2; ?>,<?php echo $d3; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>]
+            }
+        ]
+    };
+
+    var lineOptions = {
+        responsive: true
+    };
+
+
+    var ctx = document.getElementById("lineChartyp").getContext("2d");
+    new Chart(ctx, {type: 'line', data: lineDatayp, options:lineOptions});
+
 
         });
 

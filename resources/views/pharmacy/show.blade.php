@@ -105,7 +105,7 @@
      <td>
     <div class="text-center">
     <!-- <a class="btn btn-success btn-rounded" data-toggle="modal" data-id="{{$patient->presc_id}}" data-target="#modal-form">Fill Prescription</a> -->
-    <a class="btn btn-success btn-rounded" href="{{ route('fillpresc',$patient->presc_id) }}" >Fill Prescription</a>
+    <a class="btn btn-primary btn-rounded" href="{{ route('fillpresc',$patient->presc_id) }}" >Fill Prescription</a>
 
     <!-- <a data-toggle="modal" class="btn btn-primary" href="#modal-form">Fill Prescription</a> -->
     </div>

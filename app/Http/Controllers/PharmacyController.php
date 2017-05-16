@@ -14,6 +14,7 @@ use Response;
 
 class PharmacyController extends Controller
 {
+
     /**
      * Create a new controller instance.
      *
@@ -22,6 +23,7 @@ class PharmacyController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $person_treated = ''; //Now it global
     }
 
     /**
@@ -106,13 +108,14 @@ class PharmacyController extends Controller
         ->groupBy('prescription_details.id')
         ->get();
 
-      //return response()->view('pharmacy.show')->with('patients',$patients)->header('Content-Type', $type);
+
       return view('pharmacy.show')->with('patients',$patients);
     }
 
 /**
 * Get prescription details from show.blade.php
 */
+
     public function fillPresc($id)
     {
 
@@ -234,9 +237,14 @@ class PharmacyController extends Controller
                   ->get();
         }
 
-
-
-      return view('pharmacy.fill_prescription')->with('results',$results)->with('drugs',$drugs)->with('diseases',$diseases)->with('allergies',$allergies);
+      if(empty($results))
+      {
+        return redirect()->route('pharmacy');
+      }
+      else
+      {
+        return view('pharmacy.fill_prescription')->with('results',$results)->with('drugs',$drugs)->with('diseases',$diseases)->with('allergies',$allergies);
+      }
     }
 
     public function FilledPresc()
@@ -490,20 +498,57 @@ class PharmacyController extends Controller
 
   if($count1 == $count2)
   {
-   DB::table('prescriptions')
-             ->where('id', $the_id)
-             ->update(
-               ['filled_status' => 1, 'updated_at'=> $now]
-             );
-  }
+    DB::table('prescription_details')
+              ->where('id', $id)
+              ->update(
+                ['is_filled' => 1, 'updated_at'=> $now]
+              );
 
+  $counter1 = DB::table('prescription_details')
+              ->select(DB::raw('count(is_filled) as count1'))
+              ->where('is_filled','=',2)
+              ->first();
+
+  $counter1 = $counter1->count1;
+
+    if($counter1 >= 0)
+    {
+      DB::table('prescriptions')
+                ->where('id', $the_id)
+                ->update(
+                  ['filled_status' => 2, 'updated_at'=> $now]
+                );
+    }
+
+    $counter2 = DB::table('prescription_details')
+                ->select(DB::raw('count(is_filled) as count1'))
+                ->where('is_filled','!=',2)
+                ->whereNotNull('is_filled')
+                ->first();
+
+      if($counter1 >= 0)
+      {
+        DB::table('prescriptions')
+                  ->where('id', $the_id)
+                  ->update(
+                    ['filled_status' => 1, 'updated_at'=> $now]
+                  );
+      }
+
+  }
   else
   {
-    DB::table('prescriptions')
-              ->where('id', $the_id)
+    DB::table('prescription_details')
+              ->where('id', $id)
               ->update(
-                ['filled_status' => 2, 'updated_at'=> $now]
+                ['is_filled' => 2, 'updated_at'=> $now]
               );
+
+    // DB::table('prescriptions')
+    //           ->where('id', $the_id)
+    //           ->update(
+    //             ['filled_status' => 2, 'updated_at'=> $now]
+    //           );
   }
 
   return redirect()->action('PharmacyController@show',[$the_id]);
@@ -523,15 +568,38 @@ class PharmacyController extends Controller
 
     public function fdrugs(Request $request)
      {
+      //  if($person_treated == 'Self')
+      //  {
+      //  $allergies = DB::table('allergies_type')
+      //            ->join('allergies', 'allergies.id', '=', 'allergies_type.allergies_id')
+      //            ->join('patient_allergy', 'patient_allergy.allergy_id', '=', 'allergies_type.id')
+      //            ->select('patient_allergy.created_at','allergies.name','allergies_type.name AS a_name')
+      //            ->where('patient_allergy.afya_user_id', '=' , $person_treated)
+      //            ->get();
+      //   }
+      //   else
+      //   {
+      //   $allergies = DB::table('allergies_type')
+      //             ->join('allergies', 'allergies.id', '=', 'allergies_type.allergies_id')
+      //             ->join('patient_allergy', 'patient_allergy.allergy_id', '=', 'allergies_type.id')
+      //             ->select('patient_allergy.created_at','allergies.name','allergies_type.name AS a_name')
+      //             ->where('patient_allergy.dependant_id', '=' , $person_treated)
+      //             ->get();
+       //
+      //   }
+      $person_treated = 2;
          $term = trim($request->q);
-      if (empty($term)) {
+      if (empty($term))
+        {
            return \Response::json([]);
          }
        $drugs = Druglist::search($term)->limit(20)->get();
+
          $formatted_drugs = [];
-          foreach ($drugs as $drug) {
+          foreach ($drugs as $drug)
+          {
              $formatted_drugs[] = ['id' => $drug->id, 'text' => $drug->drugname];
-         }
+          }
      return \Response::json($formatted_drugs);
      }
 
@@ -548,16 +616,6 @@ class PharmacyController extends Controller
         }
 
         return response()->json($data);
-     }
-
-     public function finalHope(Request $request)
-     {
-       $data = DB::table("druglists")
-           ->select("drugname")
-           ->where('drugname','LIKE',"%{$request->input('query')}%")
-           ->get();
-
-           return response()->json($data);
      }
 
      //SearchController.php

@@ -138,10 +138,10 @@ $('#diag_id').val(data_id);
 </script>
 
 <script>
- // $('#sub2').bind("input propertychange",function(){
- // if($(this).val()<document.getElementById('gg').value)
- // $('#subs').show();
- // else
- // $('#subs').hide();
- //   });
+ $('#weight,#quantity').keyup(function(){
+ if((document.getElementById('weight1').value * document.getElementById('quantity').value) <document.getElementById('strength22').value)
+ $('#subs').show();
+ else
+ $('#subs').hide();
+   });
  </script>

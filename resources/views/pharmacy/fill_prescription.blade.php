@@ -195,7 +195,6 @@
 
               {!! Form::open(array('route' => 'pharmacy.store','method'=>'POST','class'=>'form-horizontal')) !!}
 
-
             <input type="hidden" name="p_id" value="<?php echo $results->the_id; ?>" />
             <input type="hidden" name="presc_id" value="<?php echo $results->presc_id; ?>" />
             <?php
@@ -213,7 +212,7 @@
              ?>
 
            <div class="form-group"><label>Drug</label> <input type="text" name="drug" value="{{$results->drugname}}"  class="form-control" readonly></div>
-           <div class="form-group"><label>Strength</label> <input type="text" id="gg" value="{{$final}}"  class="form-control" readonly></div>
+           <div class="form-group"><label>Strength</label> <input type="text" id="strength22" value="{{$final}}"  class="form-control" readonly></div>
            <div class="form-group">
                <label>Is the drug prescribed issued as written?</label>
 
@@ -243,7 +242,6 @@
                          {
                              $(".Box").show('slow');
                              $(".Box1").hide('slow');
-
                          }
                      });
                   $('input[type="radio"]').trigger('click');
@@ -251,16 +249,6 @@
                </script>
 
                <div class="Box" style="display:none">
-
-               <div class="form-group" id="subs" style="display:none">
-                 <label>Reason</label>
-                  <select class="form-control" name="reason22" >
-                   <?php $reasons = DB::table('substitution_reason')->distinct()->get(['reason','id']); ?>
-                   @foreach($reasons as $reason)
-                          <option value='{{$reason->id}}'>{{$reason->reason}}</option>
-                   @endforeach
-                 </select>
-               </div>
 
                <div class="form-group">
                <label for="from">From</label>
@@ -271,6 +259,15 @@
                <div class="form-group"><label>Weight</label> <input type="number" id="weight1" name="weight1"  class="form-control" oninput="calc1()"></div>
                <div class="form-group"><label>Quantity</label> <input type="number" name="quantity" id="quantity" class="form-control" oninput="calculate();calc1();"></div>
                <div class="form-group"><label>Dose Given</label> <input type="number" id="sub2" name="dose_given1"  class="form-control" oninput="calc1()" readonly></div>
+               <div class="form-group" id="subs" style="display:none">
+                 <label>Reason</label>
+                  <select class="form-control" name="reason22" >
+                   <?php $reasons = DB::table('substitution_reason')->distinct()->get(['reason','id']); ?>
+                   @foreach($reasons as $reason)
+                          <option value='{{$reason->id}}'>{{$reason->reason}}</option>
+                   @endforeach
+                 </select>
+               </div>
                <div class="form-group"><label>Price</label> <input type="number" name="price" id="price" class="form-control" oninput="calculate()"></div>
                <div class="form-group"><label>Total</label> <input type="number" name="total" id="total" class="form-control" readonly oninput="calculate()"></div>
 
@@ -414,16 +411,6 @@
 
 
          </script>
-
-         <script>
-          document.getElementById("subs2").addEventListener("change", function()
-          {
-            if($(this).val()<document.getElementById('gg').value)
-            $('#subs').show();
-            else
-            $('#subs').hide();
-            });
-          </script>
 
 
          <p> </p>

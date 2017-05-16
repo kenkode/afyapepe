@@ -218,6 +218,7 @@ elseif ($stat == 6) {
                                       {{ Form::hidden('doc_id',$doc_id, array('class' => 'form-control')) }}
                                       {{ Form::hidden('afya_user_id',$afyauserId, array('class' => 'form-control')) }}
                                       {{ Form::hidden('dependant_id',$dependantId, array('class' => 'form-control')) }}
+                                      {{ Form::hidden('facility_id',$fac_id, array('class' => 'form-control')) }}
 
 
                                               <div class="form-group  text-center">
@@ -336,7 +337,6 @@ $tstdone = DB::table('prescription_details')
                          <div class="ibox float-e-margins">
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary">Save changes</button>
                                     </div>
                                 </div>
                             </div>

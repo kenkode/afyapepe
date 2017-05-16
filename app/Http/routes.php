@@ -32,7 +32,6 @@ Route::get('roles/create',['as'=>'roles.create','uses'=>'RoleController@create']
 Route::post('roles/create',['as'=>'roles.store','uses'=>'RoleController@store']);
 Route::get('roles/{id}',['as'=>'roles.show','uses'=>'RoleController@show']);
 Route::get('roles/{id}/edit',['as'=>'roles.edit','uses'=>'RoleController@edit']);
-
 	Route::patch('roles/{id}',['as'=>'roles.update','uses'=>'RoleController@update']);
   Route::delete('roles/{id}',['as'=>'roles.destroy','uses'=>'RoleController@destroy']);
 
@@ -157,14 +156,17 @@ Route::get('disprescription/{id}', [ 'as' => 'disprescription', 'uses' => 'Patie
 
 Route::group(['middleware' => ['auth','role:Admin|Manufacturer']], function() {
 Route::resource('manufacturer','ManufacturerController');
+Route::get('DrugSubstitution','ManufacturerController@drugsubstitution');
+Route::get('Drugsales','ManufacturerController@todaysales');
 Route::get('druglist', 'ManufacturerController@show');
-Route::get('manudrug', 'ManufacturerController@manuDrug');
+
 Route::get('manudoctor', 'ManufacturerController@manuDoctor');
 Route::get('region', 'ManufacturerController@Region');
 Route::get('awaycompany', 'ManufacturerController@awayCompany');
 Route::get('tocompany', 'ManufacturerController@toCompany');
 Route::get('manustock', 'ManufacturerController@manuStock');
 Route::get('competition', 'ManufacturerController@Competition');
+Route::get('Trends','ManufacturerController@Trends');
 
 });
 

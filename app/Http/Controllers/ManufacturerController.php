@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Manufacturer;
 use App\DruglistController;
 use DB;
+use Carbon\Carbon;
 
 
 class ManufacturerController extends Controller
@@ -32,23 +33,68 @@ class ManufacturerController extends Controller
         return view('manufacturer.home');
     }
 
-    public function manuDrug(){
-       return view('manufacturer.manufacturedrug');
 
+    public function Trends(){
+      return view ('manufacturer.trends');
     }
+
+
+
+   public function todaysales(){
+      $today = Carbon::today();
+
+     $drugs = DB::table('prescriptions')
+      ->Join('prescription_details', 'prescriptions.id', '=', 'prescription_details.presc_id')
+      ->Join('prescription_filled_status', 'prescription_details.id', '=', 'prescription_filled_status.presc_details_id')
+      ->Join('pharmacy', 'prescription_filled_status.outlet_id', '=', 'pharmacy.id')
+      ->Join('facilities', 'prescriptions.facility_id', '=', 'facilities.FacilityCode')
+      ->Join('doctors', 'prescriptions.doc_id', '=', 'doctors.doc_id')
+      ->Join('druglists', 'prescription_details.drug_id', '=', 'druglists.id')
+      ->leftJoin('substitute_presc_details', 'prescription_filled_status.substitute_presc_id', '=', 'substitute_presc_details.id')
+      ->select('prescription_filled_status.*','facilities.FacilityName','doctors.name','druglists.drugname','pharmacy.name as pharmacy',
+      'prescription_details.doseform',
+      'prescription_filled_status.substitute_presc_id')
+    ->where([ ['druglists.Manufacturer','like', '%' . 'MERCK' . '%'],
+            ['prescription_filled_status.created_at','>=',$today],
+          ])
+
+    ->get();
+    $yesterday = Carbon::now();
+    $one_week_ago = Carbon::now()->subWeeks(1);
+    $drugw = DB::table('prescriptions')
+     ->Join('prescription_details', 'prescriptions.id', '=', 'prescription_details.presc_id')
+     ->Join('prescription_filled_status', 'prescription_details.id', '=', 'prescription_filled_status.presc_details_id')
+     ->Join('pharmacy', 'prescription_filled_status.outlet_id', '=', 'pharmacy.id')
+     ->Join('facilities', 'prescriptions.facility_id', '=', 'facilities.FacilityCode')
+     ->Join('doctors', 'prescriptions.doc_id', '=', 'doctors.doc_id')
+     ->Join('druglists', 'prescription_details.drug_id', '=', 'druglists.id')
+     ->leftJoin('substitute_presc_details', 'prescription_filled_status.substitute_presc_id', '=', 'substitute_presc_details.id')
+     ->select('prescription_filled_status.*','facilities.FacilityName','doctors.name','druglists.drugname','pharmacy.name as pharmacy',
+     'prescription_details.doseform',
+     'prescription_filled_status.substitute_presc_id')
+   ->where([ ['druglists.Manufacturer','like', '%' . 'MERCK' . '%'],
+           ['prescription_filled_status.created_at','>=',$one_week_ago],
+           ['prescription_filled_status.created_at','<=',$yesterday],
+         ])
+
+   ->get();
+     return view('manufacturer.todaysales')->with('drugs',$drugs)->with('drugw',$drugw);
+
+  }
+
     public function manuDoctor(){
        return view('manufacturer.manudoctor');
 
-    }
-    public function Region(){
-       return view('manufacturer.region');
 
-    }
+    return view ('manufacturer.todaysales');
+   }
 
-    public function awayCompany(){
-      return view('manufacturer.away');
+ public function drugsubstitution(){
 
-    }
+  return view('manufacturer.drugsubstitutions');
+ }
+
+
     public function manuStock(){
       return view('manufacturer.manustock');
 

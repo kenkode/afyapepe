@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\User;
 use Validator;
+use DB;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
@@ -64,12 +65,50 @@ class AuthController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+         $user= User::create([
             'name' => $data['name'],
             'role' => $data['role'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
+         $role=$data['role'];
+         if($role=='Admin'){
+            DB::table('role_user')->insert(['user_id'=>$user->id,
+      'role_id'=>1]);
+
+         }
+          elseif($role=='Doctor'){
+              DB::table('role_user')->insert(['user_id'=>$user->id,
+      'role_id'=>2]);
+          }
+           elseif($role=='Nurse'){
+              DB::table('role_user')->insert(['user_id'=>$user->id,
+      'role_id'=>4]);
+           }
+             elseif($role=='Manufacturer'){
+                DB::table('role_user')->insert(['user_id'=>$user->id,
+      'role_id'=>5]);
+             }
+               elseif($role=='Pharmacy'){
+                  DB::table('role_user')->insert(['user_id'=>$user->id,
+      'role_id'=>6]);
+               }
+                 elseif($role=='Test'){
+                    DB::table('role_user')->insert(['user_id'=>$user->id,
+      'role_id'=>7]);
+                 }
+                   elseif($role=='Patient'){
+                      DB::table('role_user')->insert(['user_id'=>$user->id,
+      'role_id'=>8]);
+                   }
+                    else{
+                        DB::table('role_user')->insert(['user_id'=>$user->id,
+      'role_id'=>9]);
+                    }
+
+         
+
+       return $user;
 
     }
 

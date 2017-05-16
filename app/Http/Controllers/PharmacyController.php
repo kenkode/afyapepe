@@ -480,6 +480,8 @@ class PharmacyController extends Controller
           ->whereNotNull('substitute_presc_id')
           ->orWhere('available', '=', 'Yes')
           ->first();*/
+
+  /* Get total amount of that specific drug that has been given  */
   $query1 = DB::table('prescription_filled_status')
           ->select(DB::raw('SUM(dose_given) AS total_given'))
           ->where('presc_details_id','=',$id)
@@ -491,12 +493,13 @@ class PharmacyController extends Controller
           ->where('presc_id', '=', $the_id)
           ->first();*/
 
+  /* Get the prescribed strength of the drug($id) */
   $query2 = DB::table('prescription_details')
           ->where('id', '=', $id)
           ->first();
   $count2 = $query2->strength;
 
-  if($count1 == $count2)
+  if($count1 == $count2) //this means the dosage for this drug($id) has been given in full.
   {
     DB::table('prescription_details')
               ->where('id', $id)
@@ -506,12 +509,18 @@ class PharmacyController extends Controller
 
   $counter1 = DB::table('prescription_details')
               ->select(DB::raw('count(is_filled) as count1'))
-              ->where('is_filled','=',2)
+              ->where('presc_id', '=', $the_id)
+              ->whereIn('is_filled', [1,2])
+              ->orWhere(function ($query) {
+                $query->where('presc_id', '=', '$the_id')
+                      ->whereIn('is_filled', [1,2])
+                      ->whereNull('is_filled');
+            })
               ->first();
 
-  $counter1 = $counter1->count1;
+  $counter11 = $counter1->count1;
 
-    if($counter1 >= 0)
+    if($counter11 >= 0)  // There are both partially & fully filled drugs in the general prescription
     {
       DB::table('prescriptions')
                 ->where('id', $the_id)
@@ -520,14 +529,22 @@ class PharmacyController extends Controller
                 );
     }
 
-    $counter2 = DB::table('prescription_details')
-                ->select(DB::raw('count(is_filled) as count1'))
-                ->where('is_filled','!=',2)
-                ->whereNotNull('is_filled')
-                ->first();
+    else
+    {
 
-      if($counter1 >= 0)
-      {
+    // $counter2 = DB::table('prescription_details')
+    //             ->select(DB::raw('count(is_filled) as count2'))
+    //             ->where([
+    //               ['presc_id','=',$the_id],
+    //               ['is_filled','<>',2],
+    //             ])
+    //             ->whereNotNull('is_filled')
+    //             ->first();
+    //
+    // $counter22 = $counter2->count2;
+
+      // if($counter22 >= 0)  // column (is_filled) in prescription_details has not null or 2 for this prescription($the_id)
+      // {
         DB::table('prescriptions')
                   ->where('id', $the_id)
                   ->update(
@@ -549,6 +566,50 @@ class PharmacyController extends Controller
     //           ->update(
     //             ['filled_status' => 2, 'updated_at'=> $now]
     //           );
+
+    $counter1 = DB::table('prescription_details')
+                ->select(DB::raw('count(is_filled) as count1'))
+                ->where('presc_id', '=', $the_id)
+                ->whereIn('is_filled', [1,2])
+                ->orWhere(function ($query) {
+                  $query->where('presc_id', '=', '$the_id')
+                        ->whereIn('is_filled', [1,2])
+                        ->whereNull('is_filled');
+              })
+                ->first();
+
+    $counter11 = $counter1->count1;
+
+      if($counter11 >= 0)  // There are both partially & fully filled drugs in the general prescription
+      {
+        DB::table('prescriptions')
+                  ->where('id', $the_id)
+                  ->update(
+                    ['filled_status' => 2, 'updated_at'=> $now]
+                  );
+      }
+      else
+      {
+
+      // $counter2 = DB::table('prescription_details')
+      //             ->select(DB::raw('count(is_filled) as count2'))
+      //             ->where([
+      //               ['presc_id','=',$the_id],
+      //               ['is_filled','!=',2],
+      //             ])
+      //             ->whereNotNull('is_filled')
+      //             ->first();
+      //
+      // $counter22 = $counter2->count2;
+
+        // if($counter22 >= 0)  // column (is_filled) in prescription_details has not null or 2 for this prescription($the_id)
+        // {
+          DB::table('prescriptions')
+                    ->where('id', $the_id)
+                    ->update(
+                      ['filled_status' => 1, 'updated_at'=> $now]
+                    );
+        }
   }
 
   return redirect()->action('PharmacyController@show',[$the_id]);

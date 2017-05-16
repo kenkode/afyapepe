@@ -55,7 +55,7 @@
                                                      <th>Company</th>
 
                                                           <th>Total Sales</th>
-                                                           <th>Market Share</th>
+                                                           <th>Market Share(%)</th>
 
                                                          </tr>
 
@@ -69,7 +69,7 @@
                                                   ->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')
                                                   ->join('druglists','druglists.id','=','prescription_details.drug_id')
                                                  ->select('druglists.manufacturer as name')
-                                                 ->selectRaw('SUM(price * quantity) as total')->get();?>
+                                                 ->selectRaw('SUM(price * quantity) as total')->orderby('total','DESC')->limit(10)->get();?>
                                                   @foreach ($companies as $company)
                                                     <tr>
                                                     	<td>{{$i}}</td>

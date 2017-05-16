@@ -143,6 +143,35 @@
                                                   </thead>
 
                                                   <tbody>
+                                                  <?php 
+                                                  $i=1;
+                                                  
+                                                 $companies=DB::table('prescription_filled_status')
+                                                  ->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')
+                                                  ->join('druglists','druglists.id','=','prescription_details.drug_id')
+                                                 ->select('druglists.manufacturer as name','druglists.drugname as drugname')
+                                                 ->selectRaw('SUM(price * quantity) as total')->orderby('total','DESC')->limit(10)->get();?>
+                                                  @foreach ($companies as $company)
+                                                    <tr>
+                                                    	<td>{{$i}}</td>
+                                                    	<td>{{$company->drugname}}</td>
+                                                    	<td>{{$company->name}}</td>
+                                                    	<td>{{$company->total}}</td>
+                                                    	<td>
+                                                   <?php $sales=DB::table('prescription_filled_status')->selectRaw('SUM(price * quantity) as totals')->first();
+                                                       
+                                                       echo $company->total/$sales->totals * 100;
+                                                   ?>
+      
+                                                      
+
+                                                    	</td>
+                                                    	<td>{{$company->name}}</td>
+
+                                                    </tr>
+
+                                                     <?php $i++;  ?>
+                                                        @endforeach
 
 
                                                    </tbody>

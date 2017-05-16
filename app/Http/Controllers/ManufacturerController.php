@@ -39,7 +39,13 @@ class ManufacturerController extends Controller
     }
 
     public function SectorSummary(){
-      return view('manufacturer.sectorsummary');
+      $companies=DB::table('prescription_filled_status')
+                                                  ->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')
+                                                  ->join('druglists','druglists.id','=','prescription_details.drug_id')
+                                                 ->select('druglists.manufacturer as name','druglists.drugname as drugname','druglists.DosageForm as DosageForm','druglists.id as id')
+                                                 ->selectRaw('SUM(price * quantity) as total')->orderby('total','DESC')->limit(10)->get();
+
+      return view('manufacturer.sectorsummary')->with('companies',$companies);
     }
 
    public function todaysales(){

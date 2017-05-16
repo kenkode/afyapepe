@@ -586,7 +586,7 @@
                                                       
                                                       <tr>
                                                           <th>No</th>
-                                                     <th>Company Name</th>
+                                                     <th>Drug Name</th>
                                                      <th>Change</th>
                                                           <th>Sales</th>
                                                          
@@ -609,7 +609,7 @@
                                                       
                                                       <tr>
                                                           <th>No</th>
-                                                     <th>Company Name</th>
+                                                     <th>Drug Name</th>
                                                      <th>Change</th>
                                                           <th>Sales</th>
                                                          
@@ -670,7 +670,7 @@
                                                       
                                                       <tr>
                                                           <th>No</th>
-                                                     <th>Company Name</th>
+                                                     <th>Drug Name</th>
                                                      <th>Change</th>
                                                           <th>Sales</th>
                                                          
@@ -693,7 +693,7 @@
                                                       
                                                       <tr>
                                                           <th>No</th>
-                                                     <th>Company Name</th>
+                                                     <th>Drug Name</th>
                                                      <th>Change</th>
                                                           <th>Sales</th>
                                                          
@@ -754,7 +754,7 @@
                                                       
                                                       <tr>
                                                           <th>No</th>
-                                                     <th>Company Name</th>
+                                                      <th>Drug Name</th>
                                                      <th>Change</th>
                                                           <th>Sales</th>
                                                          
@@ -777,7 +777,7 @@
                                                       
                                                       <tr>
                                                           <th>No</th>
-                                                     <th>Company Name</th>
+                                                      <th>Drug Name</th>
                                                      <th>Change</th>
                                                           <th>Sales</th>
                                                          
@@ -837,7 +837,7 @@
                                                       
                                                       <tr>
                                                           <th>No</th>
-                                                     <th>Company Name</th>
+                                                      <th>Drug Name</th>
                                                      <th>Change</th>
                                                           <th>Sales</th>
                                                          
@@ -860,7 +860,7 @@
                                                       
                                                       <tr>
                                                           <th>No</th>
-                                                     <th>Company Name</th>
+                                                     <th>Drug Name</th>
                                                      <th>Change</th>
                                                           <th>Sales</th>
                                                          
@@ -920,7 +920,7 @@
                                                       
                                                       <tr>
                                                           <th>No</th>
-                                                     <th>Company Name</th>
+                                                      <th>Drug Name</th>
                                                      <th>Change</th>
                                                           <th>Sales</th>
                                                          
@@ -943,7 +943,7 @@
                                                       
                                                       <tr>
                                                           <th>No</th>
-                                                     <th>Company Name</th>
+                                                      <th>Drug Name</th>
                                                      <th>Change</th>
                                                           <th>Sales</th>
                                                          
@@ -1003,7 +1003,7 @@
                                                       
                                                       <tr>
                                                           <th>No</th>
-                                                     <th>Company Name</th>
+                                                      <th>Drug Name</th>
                                                      <th>Change</th>
                                                           <th>Sales</th>
                                                          
@@ -1026,7 +1026,7 @@
                                                       
                                                       <tr>
                                                           <th>No</th>
-                                                     <th>Company Name</th>
+                                                      <th>Drug Name</th>
                                                      <th>Change</th>
                                                           <th>Sales</th>
                                                          
@@ -1102,7 +1102,7 @@
                                                       
                                                       <tr>
                                                           <th>No</th>
-                                                     <th>Company Name</th>
+                                                     <th>County</th>
                                                      <th>Change</th>
                                                           <th>Sales</th>
                                                          
@@ -1125,7 +1125,7 @@
                                                       
                                                       <tr>
                                                           <th>No</th>
-                                                     <th>Company Name</th>
+                                                      <th>County</th>
                                                      <th>Change</th>
                                                           <th>Sales</th>
                                                          
@@ -1188,7 +1188,7 @@
                                                       
                                                       <tr>
                                                           <th>No</th>
-                                                     <th>Company Name</th>
+                                                     <th>County</th>
                                                      <th>Change</th>
                                                           <th>Sales</th>
                                                          
@@ -1211,7 +1211,7 @@
                                                       
                                                       <tr>
                                                           <th>No</th>
-                                                     <th>Company Name</th>
+                                                     <th>County</th>
                                                      <th>Change</th>
                                                           <th>Sales</th>
                                                          
@@ -1273,7 +1273,7 @@
                                                       
                                                       <tr>
                                                           <th>No</th>
-                                                     <th>Company Name</th>
+                                                      <th>County</th>
                                                      <th>Change</th>
                                                           <th>Sales</th>
                                                          
@@ -1296,7 +1296,7 @@
                                                       
                                                       <tr>
                                                           <th>No</th>
-                                                     <th>Company Name</th>
+                                                      <th>County</th>
                                                      <th>Change</th>
                                                           <th>Sales</th>
                                                          
@@ -1356,7 +1356,7 @@
                                                       
                                                       <tr>
                                                           <th>No</th>
-                                                     <th>Company Name</th>
+                                                      <th>County</th>
                                                      <th>Change</th>
                                                           <th>Sales</th>
                                                          
@@ -1379,7 +1379,7 @@
                                                       
                                                       <tr>
                                                           <th>No</th>
-                                                     <th>Company Name</th>
+                                                     <th>County</th>
                                                      <th>Change</th>
                                                           <th>Sales</th>
                                                          
@@ -1439,7 +1439,7 @@
                                                       
                                                       <tr>
                                                           <th>No</th>
-                                                     <th>Company Name</th>
+                                                     <th>County</th>
                                                      <th>Change</th>
                                                           <th>Sales</th>
                                                          
@@ -1462,8 +1462,7 @@
                                                       
                                                       <tr>
                                                           <th>No</th>
-                                                     <th>Company Name</th>
-                                                     <th>Change</th>
+                                                      <th>County</th>                                                     <th>Change</th>
                                                           <th>Sales</th>
                                                          
 
@@ -1522,7 +1521,7 @@
                                                       
                                                       <tr>
                                                           <th>No</th>
-                                                     <th>Company Name</th>
+                                                     <th>County</th>
                                                      <th>Change</th>
                                                           <th>Sales</th>
                                                          
@@ -1545,7 +1544,7 @@
                                                       
                                                       <tr>
                                                           <th>No</th>
-                                                     <th>Company Name</th>
+                                                     <th>County</th>
                                                      <th>Change</th>
                                                           <th>Sales</th>
                                                          
@@ -1619,7 +1618,7 @@
                                                       
                                                       <tr>
                                                           <th>No</th>
-                                                     <th>Company Name</th>
+                                                     <th>Drug Name</th>
                                                      <th>Change</th>
                                                           <th>Sales</th>
                                                          
@@ -1642,7 +1641,7 @@
                                                       
                                                       <tr>
                                                           <th>No</th>
-                                                     <th>Company Name</th>
+                                                     <th>Drug Name</th>
                                                      <th>Change</th>
                                                           <th>Sales</th>
                                                          
@@ -1703,7 +1702,7 @@
                                                       
                                                       <tr>
                                                           <th>No</th>
-                                                     <th>Company Name</th>
+                                                     <th>Drug Name</th>
                                                      <th>Change</th>
                                                           <th>Sales</th>
                                                          
@@ -1726,7 +1725,7 @@
                                                       
                                                       <tr>
                                                           <th>No</th>
-                                                     <th>Company Name</th>
+                                                    <th>Drug Name</th>
                                                      <th>Change</th>
                                                           <th>Sales</th>
                                                          
@@ -1787,7 +1786,7 @@
                                                       
                                                       <tr>
                                                           <th>No</th>
-                                                     <th>Company Name</th>
+                                                     <th>Drug Name</th>
                                                      <th>Change</th>
                                                           <th>Sales</th>
                                                          
@@ -1810,7 +1809,7 @@
                                                       
                                                       <tr>
                                                           <th>No</th>
-                                                     <th>Company Name</th>
+                                                    <th>Drug Name</th>
                                                      <th>Change</th>
                                                           <th>Sales</th>
                                                          
@@ -1870,7 +1869,7 @@
                                                       
                                                       <tr>
                                                           <th>No</th>
-                                                     <th>Company Name</th>
+                                                     <th>Drug Name</th>
                                                      <th>Change</th>
                                                           <th>Sales</th>
                                                          
@@ -1893,7 +1892,7 @@
                                                       
                                                       <tr>
                                                           <th>No</th>
-                                                     <th>Company Name</th>
+                                                    <th>Drug Name</th>
                                                      <th>Change</th>
                                                           <th>Sales</th>
                                                          
@@ -1953,7 +1952,7 @@
                                                       
                                                       <tr>
                                                           <th>No</th>
-                                                     <th>Company Name</th>
+                                                     <th>Drug Name</th>
                                                      <th>Change</th>
                                                           <th>Sales</th>
                                                          
@@ -1976,7 +1975,7 @@
                                                       
                                                       <tr>
                                                           <th>No</th>
-                                                     <th>Company Name</th>
+                                                    <th>Drug Name</th>
                                                      <th>Change</th>
                                                           <th>Sales</th>
                                                          
@@ -2036,7 +2035,7 @@
                                                       
                                                       <tr>
                                                           <th>No</th>
-                                                     <th>Company Name</th>
+                                                     <th>Drug Name</th>
                                                      <th>Change</th>
                                                           <th>Sales</th>
                                                          
@@ -2059,7 +2058,7 @@
                                                       
                                                       <tr>
                                                           <th>No</th>
-                                                     <th>Company Name</th>
+                                                    <th>Drug Name</th>
                                                      <th>Change</th>
                                                           <th>Sales</th>
                                                          

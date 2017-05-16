@@ -38,7 +38,9 @@ class ManufacturerController extends Controller
       return view ('manufacturer.trends');
     }
 
-
+    public function SectorSummary(){
+      return view('manufacturer.sectorsummary');
+    }
 
    public function todaysales(){
       $today = Carbon::today();

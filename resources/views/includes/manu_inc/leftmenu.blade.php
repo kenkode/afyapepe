@@ -37,6 +37,10 @@
                               <i class="glyphicon glyphicon-stats "></i> <span>Trends</span>   
 
                             </a></li>
+                            <li> <a href="{{ URL::to('SectorSummary')}}">
+                              <i class="fa fa-list-alt"></i> <span>Sector Summary</span>   
+
+                            </a></li>  
                             <li> <a href="{{ URL::to('#')}}">  <i class="fa fa-envelope "></i> <span>Email</span></a></li>
                         <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i><span>Logout</span></a></li>
 

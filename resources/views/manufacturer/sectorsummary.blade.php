@@ -227,13 +227,38 @@
                                                          <th>Dosage</th>
                                                           <th>Dosage form</th>
                                                          <th>Unit Cost</th>
-                                                         <th>Total  </th>
+                                                         <th>Total </th>
                                                          </tr>
 
                                                   </thead>
 
                                                   <tbody>
+                                                   <?php  $i=1;
+                                                    $companies=DB::table('prescription_filled_status')
+                                                  ->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')
+                                                  ->join('druglists','druglists.id','=','prescription_details.drug_id')
+                                                  ->join('pharmacy','pharmacy.id','=','prescription_filled_status.outlet_id')
+                                         ->join('prescriptions','prescriptions.id','=','prescription_details.presc_id')
+                                                  ->join('doctors','doctors.doc_id','=','prescriptions.doc_id')
+                                                  ->join('appointments','appointments.id','=','prescriptions.appointment_id')->select('druglists.manufacturer as name','druglists.drugname as drugname','druglists.DosageForm as DosageForm','druglists.id as id','prescription_filled_status.price as price','prescription_filled_status.quantity as quantity','prescription_filled_status.dose_given as dosage','pharmacy.name as pharmacy','doctors.name as doctors','appointments.facility_id as Facility')
+                                                 ->selectRaw('SUM(price * quantity) as total')->orderby('total','DESC')->limit(10)->get();?>
+                                                   @foreach($companies as $company)
+                                                   <tr>
+                                                   	<td>{{$i}}</td>
+                                                   	<td>{{$company->drugname}}</td>
+                                                   	<td>{{$company->doctors}}</td>
+             <td><?php   $fac=DB::table('facilities')->where('FacilityCode',$company->Facility)->first(); echo $fac->FacilityName;  ?></td>
+                                                   	 <td>{{$company->pharmacy}}</td>
+                                                   	 <td>{{$company->quantity}}</td>
+                                                   	 <td>{{$company->dosage}}</td>
+                                                   	  <td>{{$company->DosageForm}}</td>
+                                                   	 <td>{{$company->price}}</td>
+                                                   	 <td>{{$company->total}}</td>
+                                                   </tr>
 
+
+                                                   <?php $i++;  ?>
+                                                   @endforeach
 
                                                    </tbody>
 

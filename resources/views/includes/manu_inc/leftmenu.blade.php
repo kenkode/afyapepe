@@ -2,9 +2,12 @@
     <div class="sidebar-collapse">
         <ul class="nav metismenu" id="side-menu">
             <li class="nav-header">
+            <?php 
+$id=Auth::id();
+$manufacturer=DB::table('manufacturers')->where('auth_id', Auth::id())->first(); ?>
                 <div class="dropdown profile-element">
                    <span>
-                             <img src="/img/{{$manufacturer->logo}}" class="img-circle" style="width:150px; height:80px; border-square:50%;">
+                             <img src="/img/{{$manufacturer->logo or ''}}" class="img-circle" style="width:150px; height:80px; border-square:50%;">
                              </span>
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                     <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">{{ Auth::user()->name }}</strong>

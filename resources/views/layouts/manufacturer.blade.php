@@ -113,7 +113,19 @@
                 ]
 
             });
-            <?php  $from = date('Y-m-d' ." ". '08:00:00', time()); $to = date('Y-m-d' ." ". '09:59:59', time());
+
+            <?php  
+           
+$id=Auth::id();
+$manufacturer=DB::table('manufacturers')->where('auth_id', Auth::id())->first(); 
+            if($manufacturer==''){
+                $name = 'name';
+            }
+            else{
+                $name=$manufacturer->name;
+            }
+
+            $from = date('Y-m-d' ." ". '08:00:00', time()); $to = date('Y-m-d' ." ". '09:59:59', time());
             $from1 = date('Y-m-d' ." ". '10:00:00', time()); $to1 = date('Y-m-d' ." ". '12:59:59', time());
             $from2 = date('Y-m-d' ." ". '13:00:00', time()); $to2 = date('Y-m-d' ." ". '15:59:59', time());
             $from3 = date('Y-m-d' ." ". '16:00:00', time()); $to3 = date('Y-m-d' ." ". '18:59:59', time());
@@ -125,14 +137,21 @@
 
 
 $d1=DB::table('prescription_filled_status')->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')->join('druglists','druglists.id','=','prescription_details.drug_id')
-                ->where('druglists.Manufacturer','like', '%' .$manufacturer->name . '%')->whereBetween('prescription_filled_status.created_at', array($from, $to))->count();
-        $d2=DB::table('prescription_filled_status')->whereBetween('created_at', array($from1, $to1))->count();
-        $d3=DB::table('prescription_filled_status')->whereBetween('created_at', array($from2, $to2))->count();
-         $d4=DB::table('prescription_filled_status')->whereBetween('created_at', array($from3, $to3))->count();
-          $d5=DB::table('prescription_filled_status')->whereBetween('created_at', array($from4, $to4))->count();
-           $d6=DB::table('prescription_filled_status')->whereBetween('created_at', array($from5, $to5))->count();
-            $d7=DB::table('prescription_filled_status')->whereBetween('created_at', array($from6, $to6))->count();
-             $d8=DB::table('prescription_filled_status')->whereBetween('created_at', array($from7, $to7))->count();
+                ->where('druglists.Manufacturer','like', '%' .$name . '%')->whereBetween('prescription_filled_status.created_at', array($from, $to))->count();
+        $d2=DB::table('prescription_filled_status')->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')->join('druglists','druglists.id','=','prescription_details.drug_id')
+                ->where('druglists.Manufacturer','like', '%' .$name . '%')->whereBetween('prescription_filled_status.created_at', array($from1, $to1))->count();
+        $d3=DB::table('prescription_filled_status')->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')->join('druglists','druglists.id','=','prescription_details.drug_id')
+                ->where('druglists.Manufacturer','like', '%' .$name . '%')->whereBetween('prescription_filled_status.created_at', array($from2, $to2))->count();
+         $d4=DB::table('prescription_filled_status')->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')->join('druglists','druglists.id','=','prescription_details.drug_id')
+                ->where('druglists.Manufacturer','like', '%' .$name . '%')->whereBetween('prescription_filled_status.created_at', array($from3, $to3))->count();
+          $d5=DB::table('prescription_filled_status')->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')->join('druglists','druglists.id','=','prescription_details.drug_id')
+                ->where('druglists.Manufacturer','like', '%' .$name . '%')->whereBetween('prescription_filled_status.created_at', array($from4, $to4))->count();
+           $d6=DB::table('prescription_filled_status')->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')->join('druglists','druglists.id','=','prescription_details.drug_id')
+                ->where('druglists.Manufacturer','like', '%' .$name . '%')->whereBetween('prescription_filled_status.created_at', array($from5, $to5))->count();
+            $d7=DB::table('prescription_filled_status')->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')->join('druglists','druglists.id','=','prescription_details.drug_id')
+                ->where('druglists.Manufacturer','like', '%' .$name . '%')->whereBetween('prescription_filled_status.created_at', array($from6, $to6))->count();
+             $d8=DB::table('prescription_filled_status')->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')->join('druglists','druglists.id','=','prescription_details.drug_id')
+                ->where('druglists.Manufacturer','like', '%' .$name . '%')->whereBetween('prescription_filled_status.created_at', array($from7, $to7))->count();
 
                ?>
 

@@ -35,7 +35,7 @@ class ManufacturerController extends Controller
 
     public function addManu(Request $request){
              $this->validate($request, [
-      'auth_id'=>'required',
+      'user_id'=>'required',
         'name' => 'required',
         'location' => 'required',
         'address' => 'required',

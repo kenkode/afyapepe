@@ -125,7 +125,7 @@
            $Saturday=new Carbon('this saturday');
            $Sunday=new Carbon('this sunday');
 $id=Auth::id();
-$manufacturer=DB::table('manufacturers')->where('auth_id', Auth::id())->first(); 
+$manufacturer=DB::table('manufacturers')->where('user_id', Auth::id())->first(); 
             if($manufacturer==''){
                 $name = 'name';
             }

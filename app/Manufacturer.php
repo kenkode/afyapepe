@@ -13,7 +13,7 @@ class Manufacturer extends Authenticatable
      * @var array
      */
    protected $table = 'manufacturers';
-  public $fillable = ['auth_id','name','location','address','box','tel','logo'];
+  public $fillable = ['user_id','name','location','address','box','tel','logo'];
 
 
     /**

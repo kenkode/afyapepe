@@ -8,7 +8,7 @@
 <div class="row">
 <?php 
 $id=Auth::id();
-$manufacturer=DB::table('manufacturers')->where('auth_id', Auth::id())->first(); ?>
+$manufacturer=DB::table('manufacturers')->where('user_id', Auth::id())->first(); ?>
  @if(is_null($manufacturer))
 <div class="col-lg-6">
 
@@ -20,7 +20,7 @@ $manufacturer=DB::table('manufacturers')->where('auth_id', Auth::id())->first();
                             <div class="modal-body">
           <form class="form-horizontal" role="form" method="POST" action="/addmanu" enctype="multipart/form-data" novalidate>
              <input type="hidden" name="_token" value="{{ csrf_token() }}">
-             <input type="hidden" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{$id}}" name="auth_id"  required>
+             <input type="hidden" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{$id}}" name="user_id"  required>
               <div class="form-group">
              <label for="exampleInputEmail1"> Name</label>
              <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="name">

@@ -4,7 +4,7 @@
             <li class="nav-header">
             <?php 
 $id=Auth::id();
-$manufacturer=DB::table('manufacturers')->where('auth_id', Auth::id())->first(); ?>
+$manufacturer=DB::table('manufacturers')->where('user_id', Auth::id())->first(); ?>
                 <div class="dropdown profile-element">
                    <span>
                              <img src="/img/{{$manufacturer->logo or ''}}" class="img-circle" style="width:150px; height:80px; border-square:50%;">

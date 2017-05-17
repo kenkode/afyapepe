@@ -124,7 +124,8 @@
            
 
 
-            $d1=DB::table('prescription_filled_status')->whereBetween('created_at', array($from, $to))->count();
+$d1=DB::table('prescription_filled_status')->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')->join('druglists','druglists.id','=','prescription_details.drug_id')
+                ->where('druglists.Manufacturer','like', '%' .$manufacturer->name . '%')->whereBetween('prescription_filled_status.created_at', array($from, $to))->count();
         $d2=DB::table('prescription_filled_status')->whereBetween('created_at', array($from1, $to1))->count();
         $d3=DB::table('prescription_filled_status')->whereBetween('created_at', array($from2, $to2))->count();
          $d4=DB::table('prescription_filled_status')->whereBetween('created_at', array($from3, $to3))->count();

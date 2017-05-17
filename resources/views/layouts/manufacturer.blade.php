@@ -115,7 +115,15 @@
             });
 
             <?php  
-           
+           use Carbon\Carbon;
+           $Today= Carbon::now();
+           $monday = Carbon::now()->startOfWeek();
+           $Tuesday= new Carbon('this tuesday');
+           $Wednesday=new Carbon('this wednesday');
+           $Thursday=new Carbon('this thursday');
+           $Friday=new Carbon('this friday');
+           $Saturday=new Carbon('this saturday');
+           $Sunday=new Carbon('this sunday');
 $id=Auth::id();
 $manufacturer=DB::table('manufacturers')->where('auth_id', Auth::id())->first(); 
             if($manufacturer==''){
@@ -134,10 +142,10 @@ $manufacturer=DB::table('manufacturers')->where('auth_id', Auth::id())->first();
             $from6 = date('Y-m-d' ." ". '01:00:00', time()); $to6 = date('Y-m-d' ." ". '03:59:59', time());
             $from7 = date('Y-m-d' ." ". '05:00:00', time()); $to7 = date('Y-m-d' ." ". '07:59:59', time());
            
-
+//Today
 
 $d1=DB::table('prescription_filled_status')->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')->join('druglists','druglists.id','=','prescription_details.drug_id')
-                ->where('druglists.Manufacturer','like', '%' .$name . '%')->whereBetween('prescription_filled_status.created_at', array($from, $to))->count();
+                ->where('druglists.Manufacturer','like', '%' .$name . '%')->whereBetween('prescription_filled_status.created_at', array($from, $to))->selectRaw('SUM(price * quantity) as total')->first();
         $d2=DB::table('prescription_filled_status')->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')->join('druglists','druglists.id','=','prescription_details.drug_id')
                 ->where('druglists.Manufacturer','like', '%' .$name . '%')->whereBetween('prescription_filled_status.created_at', array($from1, $to1))->count();
         $d3=DB::table('prescription_filled_status')->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')->join('druglists','druglists.id','=','prescription_details.drug_id')
@@ -166,7 +174,7 @@ $d1=DB::table('prescription_filled_status')->join('prescription_details','prescr
                 borderColor: "rgba(26,179,148,0.7)",
                 pointBackgroundColor: "rgba(26,179,148,1)",
                 pointBorderColor: "#fff",
-                data: [<?php echo $d1; ?>,<?php echo $d2; ?>,<?php echo $d3; ?>,<?php echo $d4; ?>,<?php echo $d5; ?>, <?php echo $d6; ?>, <?php echo $d7; ?>,<?php echo $d8; ?>]
+                data: [<?php echo $d1->total; ?>,<?php echo $d2; ?>,<?php echo $d3; ?>,<?php echo $d4; ?>,<?php echo $d5; ?>, <?php echo $d6; ?>, <?php echo $d7; ?>,<?php echo $d8; ?>]
             }
         ]
     };
@@ -191,7 +199,7 @@ $d1=DB::table('prescription_filled_status')->join('prescription_details','prescr
                 borderColor: "rgba(26,179,148,0.7)",
                 pointBackgroundColor: "rgba(26,179,148,1)",
                 pointBorderColor: "#fff",
-                data: [<?php echo $d1; ?>,<?php echo $d2; ?>,<?php echo $d3; ?>,<?php echo $d4; ?>,<?php echo $d5; ?>, <?php echo $d6; ?>, <?php echo $d7; ?>]
+                data: [<?php echo $d1->total; ?>,<?php echo $d2; ?>,<?php echo $d3; ?>,<?php echo $d4; ?>,<?php echo $d5; ?>, <?php echo $d6; ?>, <?php echo $d7; ?>]
             }
         ]
     };
@@ -214,7 +222,7 @@ $d1=DB::table('prescription_filled_status')->join('prescription_details','prescr
                 borderColor: "rgba(26,179,148,0.7)",
                 pointBackgroundColor: "rgba(26,179,148,1)",
                 pointBorderColor: "#fff",
-                data: [<?php echo $d1; ?>,<?php echo $d2; ?>,<?php echo $d3; ?>,<?php echo $d4; ?>]
+                data: [<?php echo $d1->total; ?>,<?php echo $d2; ?>,<?php echo $d3; ?>,<?php echo $d4; ?>]
             }
         ]
     };
@@ -241,7 +249,7 @@ $d1=DB::table('prescription_filled_status')->join('prescription_details','prescr
                 borderColor: "rgba(26,179,148,0.7)",
                 pointBackgroundColor: "rgba(26,179,148,1)",
                 pointBorderColor: "#fff",
-                data: [<?php echo $d1; ?>,<?php echo $d2; ?>,<?php echo $d3; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>]
+                data: [<?php echo $d1->total; ?>,<?php echo $d2; ?>,<?php echo $d3; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>]
             }
         ]
     };
@@ -266,7 +274,7 @@ $d1=DB::table('prescription_filled_status')->join('prescription_details','prescr
                 borderColor: "rgba(26,179,148,0.7)",
                 pointBackgroundColor: "rgba(26,179,148,1)",
                 pointBorderColor: "#fff",
-                data: [<?php echo $d1; ?>,<?php echo $d2; ?>,<?php echo $d3; ?>,<?php echo $d4; ?>,<?php echo $d5; ?>, <?php echo $d6; ?>, <?php echo $d7; ?>,<?php echo $d8; ?>]
+                data: [<?php echo $d1->total; ?>,<?php echo $d2; ?>,<?php echo $d3; ?>,<?php echo $d4; ?>,<?php echo $d5; ?>, <?php echo $d6; ?>, <?php echo $d7; ?>,<?php echo $d8; ?>]
             }
         ]
     };
@@ -291,7 +299,7 @@ $d1=DB::table('prescription_filled_status')->join('prescription_details','prescr
                 borderColor: "rgba(26,179,148,0.7)",
                 pointBackgroundColor: "rgba(26,179,148,1)",
                 pointBorderColor: "#fff",
-                data: [<?php echo $d1; ?>,<?php echo $d2; ?>,<?php echo $d3; ?>,<?php echo $d4; ?>,<?php echo $d5; ?>, <?php echo $d6; ?>, <?php echo $d7; ?>]
+                data: [<?php echo $d1->total; ?>,<?php echo $d2; ?>,<?php echo $d3; ?>,<?php echo $d4; ?>,<?php echo $d5; ?>, <?php echo $d6; ?>, <?php echo $d7; ?>]
             }
         ]
     };
@@ -314,7 +322,7 @@ $d1=DB::table('prescription_filled_status')->join('prescription_details','prescr
                 borderColor: "rgba(26,179,148,0.7)",
                 pointBackgroundColor: "rgba(26,179,148,1)",
                 pointBorderColor: "#fff",
-                data: [<?php echo $d1; ?>,<?php echo $d2; ?>,<?php echo $d3; ?>,<?php echo $d4; ?>]
+                data: [<?php echo $d1->total; ?>,<?php echo $d2; ?>,<?php echo $d3; ?>,<?php echo $d4; ?>]
             }
         ]
     };
@@ -340,7 +348,7 @@ $d1=DB::table('prescription_filled_status')->join('prescription_details','prescr
                 borderColor: "rgba(26,179,148,0.7)",
                 pointBackgroundColor: "rgba(26,179,148,1)",
                 pointBorderColor: "#fff",
-                data: [<?php echo $d1; ?>,<?php echo $d2; ?>,<?php echo $d3; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>]
+                data: [<?php echo $d1->total; ?>,<?php echo $d2; ?>,<?php echo $d3; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>]
             }
         ]
     };

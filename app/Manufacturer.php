@@ -12,9 +12,9 @@ class Manufacturer extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = [
-        'name', 'email', 'password',
-    ];
+   protected $table = 'manufacturers';
+  public $fillable = ['auth_id','name','location','address','box','tel','logo'];
+
 
     /**
      * The attributes that should be hidden for arrays.

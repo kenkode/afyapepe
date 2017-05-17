@@ -33,6 +33,31 @@ class ManufacturerController extends Controller
         return view('manufacturer.home');
     }
 
+    public function addManu(Request $request){
+             $this->validate($request, [
+      'auth_id'=>'required',
+        'name' => 'required',
+        'location' => 'required',
+        'address' => 'required',
+        'box' => 'required',
+        'tel' => 'required',
+        'logo' => 'required',
+    ]);
+    $document = new Manufacturer($request->input()) ;
+
+     if($file = $request->hasFile('logo')) {
+
+        $file = $request->file('logo') ;
+
+        $fileName = $file->getClientOriginalName() ;
+        $destinationPath = public_path().'/img/' ;
+        $file->move($destinationPath,$fileName);
+        $document->logo = $fileName ;
+    }
+    $document->save() ;
+     return redirect()->action('ManufacturerController@index');
+
+    }
 
     public function Trends(){
       return view ('manufacturer.trends');

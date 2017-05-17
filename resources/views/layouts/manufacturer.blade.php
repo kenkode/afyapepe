@@ -19,6 +19,9 @@
     <link rel="stylesheet" href="{!! asset('font-awesome/css/font-awesome.css') !!}" />
     <link rel="stylesheet" href="{!! asset('css/plugins/dataTables/datatables.min.css') !!}" />
     <link rel="stylesheet" href="{!! asset('css/animate.css') !!}" />
+
+<link rel="stylesheet" href="{!! asset('css/plugins/datapicker/datepicker3.css') !!}" />
+
     <link rel="stylesheet" href="{!! asset('css/style.css') !!}" />
 
 </head>
@@ -47,8 +50,8 @@
     <script src="{{ asset('js/plugins/dataTables/datatables.min.js') }}" type="text/javascript"></script>
 
     <!-- Custom and plugin javascript -->
-    <script src="{{ asset('js/inspinia.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('js/plugins/pace/pace.min.js') }}" type="text/javascript"></script>
+    <!-- <script src="{{ asset('js/inspinia.js') }}" type="text/javascript"></script> -->
+    <!-- <script src="{{ asset('js/plugins/pace/pace.min.js') }}" type="text/javascript"></script> -->
   <!-- Flot -->
     <script src="{{ asset('js/plugins/flot/jquery.flot.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/plugins/flot/jquery.flot.tooltip.min.js') }}" type="text/javascript"></script>
@@ -58,7 +61,7 @@
 
     <script src="{{ asset('js/plugins/flot/jquery.flot.time.js') }}"></script>
 
- 
+
 
     <script src="{{ asset('js/demo/flot-demo.js') }}"></script>
 
@@ -81,13 +84,44 @@
     <!-- ChartJS-->
     <script src="{{ asset('js/plugins/chartJs/Chart.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/demo/chartjs-demo.js') }}"></script>
-
-
+    <!-- Data picker -->
+   <script src="{{ asset('js/plugins/datapicker/bootstrap-datepicker.js') }}"></script>
 
     <!-- Toastr -->
     <script src="{{ asset('js/plugins/toastr/toastr.min.js') }}" type="text/javascript"></script>
 
     <!-- Page-Level Scripts -->
+    <script>
+     $(document).ready(function(){
+          $.datepicker.setDefaults({
+               dateFormat: 'yy-mm-dd'
+          });
+          $(function(){
+               $("#from_date").datepicker();
+               $("#to_date").datepicker();
+          });
+          $('#filter').click(function(){
+               var from_date = $('#from_date').val();
+               var to_date = $('#to_date').val();
+               if(from_date != '' && to_date != '')
+               {
+                    $.ajax({
+                         url:"customsales.php",
+                         method:"POST",
+                         data:{from_date:from_date, to_date:to_date},
+                         success:function(data)
+                         {
+                              $('#order_table').html(data);
+                         }
+                    });
+               }
+               else
+               {
+                    alert("Please Select Date");
+               }
+          });
+     });
+</script>
     <script>
         $(document).ready(function(){
             $('.dataTables-example').DataTable({

@@ -48,6 +48,18 @@ $Mid = $manufacturer->id;
           <form class="form-horizontal" role="form" method="POST" action="/addcompany" enctype="multipart/form-data" novalidate>
           <input type="hidden" name="_token" value="{{ csrf_token() }}">
           <div class="form-group">
+             <label>Your Company:</label>
+                  <select class="drugs-single" name="manuco" multiple="multiple" style="width: 100%">
+                    <?php $manuco=DB::table('druglists')->select('id','Manufacturer')->groupBy('Manufacturer')->get(); ?>
+
+                      <option value=''>Please Choose one</option>
+                      @foreach($manuco as $comp)
+                           <option value='{{$comp->id}}'>{{$comp->Manufacturer}}</option>
+                    @endforeach
+                    </select>
+              </div>
+  <div class="hr-line-dashed"></div>
+          <div class="form-group">
              <label>Company NO 1:</label>
                   <select class="drugs-single" name="company1" multiple="multiple" style="width: 100%">
                     <?php $manuco=DB::table('druglists')->select('id','Manufacturer')->groupBy('Manufacturer')->get(); ?>
@@ -96,6 +108,7 @@ $Mid = $manufacturer->id;
                               </div>
                               <div class="text-center">
                               {{ Form::hidden('manu_id',$Mid, array('class' => 'form-control')) }}
+
                               <button class="btn btn-lg btn-primary  m-t-n-xs" type="submit"><strong>Submit</strong></button>
                               </form>
                               </div>

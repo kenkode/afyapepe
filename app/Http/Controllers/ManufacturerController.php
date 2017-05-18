@@ -246,26 +246,46 @@ public function addcompany(Request $request){
   $company3=$request->get('company3');
   $company4=$request->get('company4');
   $company5=$request->get('company5');
+  $manuco=$request->get('manuco');
+  $manuId=$request->get('manu_id');
+
   if ($company1) {
   $compedrugs = DB::table('compe_manufacturer')->insert([
                'competition' => $company1,
-               'company'=> $request->get('manu_id'),  ]);  }
+               'company'=> $manuId,  ]);  }
 if ($company2) {
 $compedrugs = DB::table('compe_manufacturer')->insert([
             'competition' => $company2,
-            'company'=> $request->get('manu_id'),  ]);  }
+            'company'=> $manuId,  ]);  }
 if ($company3) {
 $compedrugs = DB::table('compe_manufacturer')->insert([
            'competition' => $company3,
-           'company'=> $request->get('manu_id'),  ]);  }
+           'company'=> $manuId,  ]);  }
 if ($company4) {
 $compedrugs = DB::table('compe_manufacturer')->insert([
             'competition' => $company4,
-            'company'=> $request->get('manu_id'),  ]);  }
+            'company'=> $manuId,  ]);  }
 if ($company5) {
 $compedrugs = DB::table('compe_manufacturer')->insert([
            'competition' => $company5,
-           'company'=> $request->get('manu_id'),  ]);  }
+           'company'=> $manuId,  ]);  }
+
+
+
+$pttids= DB::table('compe_manufacturer')
+           ->select('competition')
+           ->where([
+                         ['competition',$manuco],
+                         ['company', '=',$manuId],
+            ])
+->first();
+if (is_null($pttids)) {
+ if ($manuco) {
+ $compedrugs = DB::table('compe_manufacturer')->insert([
+            'competition' => $manuco,
+            'company'=> $manuId,  ]);  }
+          }
+
 return view('manufacturer.settings');
 
 }

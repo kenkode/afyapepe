@@ -2,7 +2,7 @@
     <div class="sidebar-collapse">
         <ul class="nav metismenu" id="side-menu">
             <li class="nav-header">
-            <?php 
+            <?php
 $id=Auth::id();
 $manufacturer=DB::table('manufacturers')->where('user_id', Auth::id())->first(); ?>
                 <div class="dropdown profile-element">
@@ -25,27 +25,23 @@ $manufacturer=DB::table('manufacturers')->where('user_id', Auth::id())->first();
                     Afya+
                 </div>
             </li>
-            <li >
-            <a href="{{ URL::to('manufacturer')}}"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboards</span></a>
-
-            </li>
-
-
-          <li><a href="{{ URL::to('Drugsales') }}"><i class="fa fa-money"></i> <span>Sales</span> </a></li>
+            <li ><a href="{{ URL::to('manufacturer')}}"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboards</span></a></li>
+            <li ><a href="{{ URL::to('manufacturerconfig')}}"><i class="fa fa-th-large"></i> <span class="nav-label">Master Config</span></a></li>
+            <li><a href="{{ URL::to('Drugsales') }}"><i class="fa fa-money"></i> <span>Sales</span> </a></li>
           <li><a href="{{ URL::to('DrugSubstitution') }}"><i class="fa fa-pie-chart"></i><span>  Drug Substitutions</span></a></li>
           <li> <a href="{{ URL::to('manustock')}}"> <i class="glyphicon glyphicon-dashboard "></i> <span>Stock Level</span></a></li>
                              <li> <a href="{{ URL::to('competition')}}">
-                              <i class="glyphicon glyphicon-dashboard "></i> <span>Competition Analysis</span>   
+                              <i class="glyphicon glyphicon-dashboard "></i> <span>Competition Analysis</span>
 
                             </a></li>
                              <li> <a href="{{ URL::to('Trends')}}">
-                              <i class="glyphicon glyphicon-stats "></i> <span>Trends</span>   
+                              <i class="glyphicon glyphicon-stats "></i> <span>Trends</span>
 
                             </a></li>
                             <li> <a href="{{ URL::to('SectorSummary')}}">
-                              <i class="fa fa-list-alt"></i> <span>Sector Summary</span>   
+                              <i class="fa fa-list-alt"></i> <span>Sector Summary</span>
 
-                            </a></li>  
+                            </a></li>
                             <li> <a href="{{ URL::to('#')}}">  <i class="fa fa-envelope "></i> <span>Email</span></a></li>
                         <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i><span>Logout</span></a></li>
 

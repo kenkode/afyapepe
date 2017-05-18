@@ -14,8 +14,6 @@
     <link rel="stylesheet" href="{{asset('select/select2.min.css') }}" />
 
   <link rel="stylesheet" href="{{asset('css/plugins/chosen/bootstrap-chosen.css') }}" />
-    <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.css" rel="stylesheet" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.js"></script> -->
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- <link rel="stylesheet" href="{{asset('css/bootstrap.min.css') }}" /> -->

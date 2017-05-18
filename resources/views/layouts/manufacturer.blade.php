@@ -216,6 +216,14 @@ $week4=DB::table('prescription_filled_status')->join('prescription_details','pre
 
     var lineOptions = {
         responsive: true,
+        scales: {
+        yAxes: [{
+            ticks: {
+                beginAtZero: true,
+                 interval: 20
+            }
+        }]
+    }
 
     };
 
@@ -242,7 +250,14 @@ $week4=DB::table('prescription_filled_status')->join('prescription_details','pre
     };
 
     var lineOptions = {
-        responsive: true
+        responsive: true,
+        scales: {
+        yAxes: [{
+            ticks: {
+                beginAtZero: true
+            }
+        }]
+    }
     };
 
 
@@ -265,7 +280,14 @@ $week4=DB::table('prescription_filled_status')->join('prescription_details','pre
     };
 
     var lineOptions = {
-        responsive: true
+        responsive: true,
+        scales: {
+        yAxes: [{
+            ticks: {
+                beginAtZero: true
+            }
+        }]
+    }
     };
 
 
@@ -292,7 +314,14 @@ $week4=DB::table('prescription_filled_status')->join('prescription_details','pre
     };
 
     var lineOptions = {
-        responsive: true
+        responsive: true,
+        scales: {
+        yAxes: [{
+            ticks: {
+                beginAtZero: true
+            }
+        }]
+    }
     };
 
 
@@ -317,7 +346,14 @@ $week4=DB::table('prescription_filled_status')->join('prescription_details','pre
     };
 
     var lineOptions = {
-        responsive: true
+        responsive: true,
+        scales: {
+        yAxes: [{
+            ticks: {
+                beginAtZero: true
+            }
+        }]
+    }
     };
 
 
@@ -342,7 +378,14 @@ $week4=DB::table('prescription_filled_status')->join('prescription_details','pre
     };
 
     var lineOptions = {
-        responsive: true
+        responsive: true,
+        scales: {
+        yAxes: [{
+            ticks: {
+                beginAtZero: true
+            }
+        }]
+    }
     };
 
 
@@ -365,7 +408,14 @@ $week4=DB::table('prescription_filled_status')->join('prescription_details','pre
     };
 
     var lineOptions = {
-        responsive: true
+        responsive: true,
+        scales: {
+        yAxes: [{
+            ticks: {
+                beginAtZero: true
+            }
+        }]
+    }
     };
 
 
@@ -391,7 +441,14 @@ $week4=DB::table('prescription_filled_status')->join('prescription_details','pre
     };
 
     var lineOptions = {
-        responsive: true
+        responsive: true,
+        scales: {
+        yAxes: [{
+            ticks: {
+                beginAtZero: true
+            }
+        }]
+    }
     };
 
 

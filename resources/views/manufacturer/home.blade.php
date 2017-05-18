@@ -8,11 +8,7 @@
 <div class="row">
 
 <?php 
- use Carbon\Carbon;
-           $today= Carbon::now();
-           $monday = Carbon::now()->startOfWeek();
-           $tuesday=  $monday->addDays(0);
-           echo ''.$tuesday.'';
+ 
 $id=Auth::id();
 $manufacturer=DB::table('manufacturers')->where('user_id', Auth::id())->first(); ?>
  @if(is_null($manufacturer))

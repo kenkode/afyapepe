@@ -8,17 +8,18 @@
     </div>
 </div>
 
+<!-- Mainly scripts -->
+<script src="{{ asset('js/jquery-3.1.1.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('bootstrap/js/bootstrap.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('js/plugins/metisMenu/jquery.metisMenu.js') }}" type="text/javascript"></script>
+<script src="{{ asset('js/plugins/slimscroll/jquery.slimscroll.min.js') }}" type="text/javascript"></script>
+
 <!-- End wrapper-->
 <meta name="_token" content="{!! csrf_token() !!}" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <script src="{{asset('js/ajaxscript.js')}}"></script>
 
-<!-- Mainly scripts -->
-<script src="{{ asset('js/jquery-3.1.1.min.js') }}" type="text/javascript"></script>
-<script src="{{ asset('bootstrap/js/bootstrap.min.js') }}" type="text/javascript"></script>
-<script src="{{ asset('js/plugins/metisMenu/jquery.metisMenu.js') }}" type="text/javascript"></script>
-<script src="{{ asset('js/plugins/slimscroll/jquery.slimscroll.min.js') }}" type="text/javascript"></script>
 
 <!-- Data picker js https://jqueryui.com/datepicker/#date-range -->
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -144,4 +145,15 @@ $('#diag_id').val(data_id);
  else
  $('#subs').hide();
    });
+
+  //  $('#sub2').change(function ()
+  //  {
+  //    var total_value = document.getElementById('strength22').value;
+   //
+  //    if($(this).val > total_value)
+  //    {
+  //      alert("Dose given is more than prescribed dosage.");
+  //    }
+  //  }
+  //   );
  </script>

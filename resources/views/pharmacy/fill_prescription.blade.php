@@ -163,11 +163,12 @@
                  {
                    ?>
                <tr class="gradeX">
+               <td>{{$i}}</td>
                <td>{{$drug->drugname}}</td>
                <td>{{$drug->strength}}{{$drug->strength_unit}}</td>
                <td>{{$drug->dose_given}}{{$drug->strength_unit}}</td>
                <td>{{$drug->route_name}} </td>
-               <td>{{$drug->frequency}} </td>
+               <td>{{$drug->freq_name}} </td>
 
                </tr>
                <?php

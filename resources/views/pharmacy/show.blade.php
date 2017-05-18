@@ -79,6 +79,22 @@
        <?php $i =1;
        foreach ($patients as $patient)
        {
+         /* Get total amount of that specific drug that has been given  */
+         $id = $patient->presc_id;
+         $query1 = DB::table('prescription_filled_status')
+                 ->select(DB::raw('SUM(dose_given) AS total_given'))
+                 ->where('presc_details_id','=',$id)
+                 ->first();
+         $count1 = $query1->total_given;
+
+         /* Get the prescribed strength of the drug($id) */
+         $query2 = DB::table('prescription_details')
+                 ->where('id', '=', $id)
+                 ->first();
+         $count2 = $query2->strength;
+
+         $new_strength = $count2 - $count1;
+
          $person_treated = $patient->persontreated;
          ?>
      <tr class="gradeX">
@@ -98,10 +114,10 @@
       ?>
      <td>{{$patient->drugname}}</td>
      <td>{{$patient->doseform}}</td>
-     <td>{{$patient->strength}}</td>
+     <td>{{$new_strength}}</td>
      <td>{{$patient->strength_unit}}</td>
      <td>{{$patient->name}}</td>
-     <td>{{$patient->frequency}} </td>
+     <td>{{$patient->freq_name}} </td>
      <td>
     <div class="text-center">
     <!-- <a class="btn btn-success btn-rounded" data-toggle="modal" data-id="{{$patient->presc_id}}" data-target="#modal-form">Fill Prescription</a> -->

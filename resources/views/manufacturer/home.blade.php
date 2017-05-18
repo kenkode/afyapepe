@@ -7,6 +7,7 @@
               <br>
 <div class="row">
 <?php 
+           
  
 $id=Auth::id();
 $manufacturer=DB::table('manufacturers')->where('user_id', Auth::id())->first(); ?>

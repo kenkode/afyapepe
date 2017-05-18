@@ -169,6 +169,11 @@ Route::get('competition', 'ManufacturerController@Competition');
 Route::get('Trends','ManufacturerController@Trends');
 Route::get('SectorSummary','ManufacturerController@SectorSummary');
 Route::post('addmanu','ManufacturerController@addManu');
+Route::get('manufacturerconfig','ManufacturerController@manconfig');
+Route::get('/tags/drugs', 'TestController@fdrugs');
+Route::post('adddrugs','ManufacturerController@adddrugs');
+Route::post('addcompany','ManufacturerController@addcompany');
+
 });
 
 /**

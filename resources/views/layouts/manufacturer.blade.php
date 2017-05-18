@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="{!! asset('js/plugins/gritter/jquery.gritter.css') !!}" />
     <link rel="stylesheet" href="{!! asset('css/vendor.css') !!}" />
     <link rel="stylesheet" href="{!! asset('css/app.css') !!}" />
+    <link rel="stylesheet" href="{{asset('select/select2.min.css') }}" />
 
     <link rel="stylesheet" href="{!! asset('css/bootstrap.min.css') !!}" />
     <link rel="stylesheet" href="{!! asset('font-awesome/css/font-awesome.css') !!}" />
@@ -48,7 +49,7 @@
     <script src="{{ asset('js/plugins/metisMenu/jquery.metisMenu.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/plugins/slimscroll/jquery.slimscroll.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/plugins/dataTables/datatables.min.js') }}" type="text/javascript"></script>
-
+<script src="{{ asset('select/select2.min.js') }}" type="text/javascript"></script>
     <!-- Custom and plugin javascript -->
     <!-- <script src="{{ asset('js/inspinia.js') }}" type="text/javascript"></script> -->
     <!-- <script src="{{ asset('js/plugins/pace/pace.min.js') }}" type="text/javascript"></script> -->
@@ -91,6 +92,48 @@
     <script src="{{ asset('js/plugins/toastr/toastr.min.js') }}" type="text/javascript"></script>
 
     <!-- Page-Level Scripts -->
+    // select test
+    <script>
+    $(".drugs-single").select2();
+    </script>
+    <script>
+          $('.drugs1').select2({
+              placeholder: "Select a drug...",
+              minimumInputLength: 2,
+              ajax: {
+                  url: '/tags/drugs',
+                  dataType: 'json',
+                  data: function (params) {
+                      return {
+                          q: $.trim(params.term)
+                      };
+                  },
+                  processResults: function (data) {
+                      return {
+                          results: data
+                      };
+                  },
+                  cache: true
+              }
+          });
+      </script>
+        <script>
+      // show radio divs
+      $(document).ready(function () {
+       $('#drugs').hide();
+        $('#company').hide();
+
+      $('#button1').click(function () {
+        $('#drugs').hide();
+      $('#company').toggle('fast');
+                     });
+       $('#button2').click(function () {
+           $('#company').hide();
+          $('#drugs').toggle('fast');
+           });
+
+        });
+        </script>
     <script>
      $(document).ready(function(){
           $.datepicker.setDefaults({
@@ -148,7 +191,7 @@
 
             });
 
-            <?php  
+            <?php
            use Carbon\Carbon;
            $today= Carbon::now();
            $monday = Carbon::now()->startOfWeek();
@@ -160,7 +203,7 @@
            $sunday=$saturday->addDays(1);
           
 $id=Auth::id();
-$manufacturer=DB::table('manufacturers')->where('user_id', Auth::id())->first(); 
+$manufacturer=DB::table('manufacturers')->where('user_id', Auth::id())->first();
             if($manufacturer==''){
                 $name = 'name';
             }
@@ -176,7 +219,7 @@ $manufacturer=DB::table('manufacturers')->where('user_id', Auth::id())->first();
             $from5 = date('Y-m-d' ." ". '22:00:00', time()); $to5 = date('Y-m-d' ." ". '00:59:59', time());
             $from6 = date('Y-m-d' ." ". '01:00:00', time()); $to6 = date('Y-m-d' ." ". '03:59:59', time());
             $from7 = date('Y-m-d' ." ". '05:00:00', time()); $to7 = date('Y-m-d' ." ". '07:59:59', time());
-           
+
 //Today
 
 $d1=DB::table('prescription_filled_status')->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')->join('druglists','druglists.id','=','prescription_details.drug_id')
@@ -286,7 +329,7 @@ $week4=DB::table('prescription_filled_status')->join('prescription_details','pre
     var ctx = document.getElementById("lineChart").getContext("2d");
     new Chart(ctx, {type: 'line', data: lineData, options:lineOptions});
 
-        
+
          var lineDatas = {
         labels: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"
         ],
@@ -436,7 +479,7 @@ $week4=DB::table('prescription_filled_status')->join('prescription_details','pre
 
     ?>
 
-        
+
          var lineDatasp = {
         labels: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"
         ],
@@ -513,7 +556,7 @@ $wk4=DB::table('prescription_filled_status')->join('prescription_details','presc
     var ctx = document.getElementById("lineChartmp").getContext("2d");
     new Chart(ctx, {type: 'line', data: lineDatamp, options:lineOptions});
 
-    
+
 
   var lineDatayp = {
         labels: ["January", "February", "March", "April"

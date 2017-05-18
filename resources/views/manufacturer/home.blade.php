@@ -6,16 +6,16 @@
               <div class="container">
               <br>
 <div class="row">
+
 <?php 
-           
- 
+
 $id=Auth::id();
 $manufacturer=DB::table('manufacturers')->where('user_id', Auth::id())->first(); ?>
  @if(is_null($manufacturer))
 <div class="col-lg-6">
 
 <a data-toggle="modal" class="btn btn-primary" href="#modal-formf">Add Details</a>
-                            
+
                             <div id="modal-formf" class="modal fade" aria-hidden="true">
                             <div class="modal-dialog">
                             <div class="modal-content">
@@ -51,18 +51,17 @@ $manufacturer=DB::table('manufacturers')->where('user_id', Auth::id())->first();
     {!! Form::label('Logo') !!}
     {!! Form::file('logo', null) !!}
 </div>
-             <input type="submit" name="submit" value="Add" > 
+             <input type="submit" name="submit" value="Add" >
     </form>
-         
+
                             </div>
                             </div>
                             </div>
                             </div>
 </div>
 @else
- 
-
 @endif
+
 </div>
 <br>
 <div class="row">
@@ -71,7 +70,7 @@ $manufacturer=DB::table('manufacturers')->where('user_id', Auth::id())->first();
                         <ul class="nav nav-tabs">
                             <li class="active"><a data-toggle="tab" href="#tab-1">Sales</a></li>
                             <li class=""><a data-toggle="tab" href="#tab-2">By Prescription</a></li>
-                            
+
                         </ul>
                         <br>
                         <div class="tab-content">
@@ -81,7 +80,7 @@ $manufacturer=DB::table('manufacturers')->where('user_id', Auth::id())->first();
                             <li class=""><a data-toggle="tab" href="#tab-2a">This Week</a></li>
                              <li class=""><a data-toggle="tab" href="#tab-3a">This Month</a></li>
                           <li class=""><a data-toggle="tab" href="#tab-4a">This Year</a></li>
-                           
+
                         </ul>
                         <br>
                         <div class="tab-content">
@@ -115,7 +114,7 @@ $manufacturer=DB::table('manufacturers')->where('user_id', Auth::id())->first();
                               <div>
                                 <canvas id="lineChart" height="50"></canvas>
                             </div>
-                                 
+
                                                  </div>
                                                  </div>
                                                  </div>
@@ -185,13 +184,13 @@ $manufacturer=DB::table('manufacturers')->where('user_id', Auth::id())->first();
     <!-- sales This Month --><div>
                                 <canvas id="lineChartm" height="50"></canvas>
                             </div>
-                                  
+
                                                  </div>
                                                  </div>
                                                  </div>
 
                                 </div>
-                               
+
                          <div id="tab-4a" class="tab-pane">
                                 <div class="panel-body">
                                 <div class="ibox float-e-margins">
@@ -222,15 +221,15 @@ $manufacturer=DB::table('manufacturers')->where('user_id', Auth::id())->first();
                                 <canvas id="lineCharty" height="50"></canvas>
                             </div>
 
-                                
+
                                                  </div>
                                                  </div>
                                                  </div>
 
                                 </div>
-                               
-                         
-                             
+
+
+
 
                             </div>
                             </div>
@@ -240,7 +239,7 @@ $manufacturer=DB::table('manufacturers')->where('user_id', Auth::id())->first();
                             <li class=""><a data-toggle="tab" href="#tab-22a">This Week</a></li>
                              <li class=""><a data-toggle="tab" href="#tab-23a">This Month</a></li>
                           <li class=""><a data-toggle="tab" href="#tab-24a">This Year</a></li>
-                           
+
                         </ul>
                         <br>
                         <div class="tab-content">
@@ -280,7 +279,7 @@ $manufacturer=DB::table('manufacturers')->where('user_id', Auth::id())->first();
                                                  </div>
 
                                 </div>
-                               
+
                          <div id="tab-22a" class="tab-pane ">
                                 <div class="panel-body">
                                 <div class="ibox float-e-margins">
@@ -347,13 +346,13 @@ $manufacturer=DB::table('manufacturers')->where('user_id', Auth::id())->first();
                                 <canvas id="lineChartmp" height="50"></canvas>
                             </div>
 
-                                  
+
                                                  </div>
                                                  </div>
                                                  </div>
 
                                 </div>
-                               
+
                          <div id="tab-24a" class="tab-pane">
                                 <div class="panel-body">
                                 <div class="ibox float-e-margins">
@@ -384,19 +383,19 @@ $manufacturer=DB::table('manufacturers')->where('user_id', Auth::id())->first();
                                 <canvas id="lineChartyp" height="50"></canvas>
                             </div>
 
-                                
+
                                                  </div>
                                                  </div>
                                                  </div>
 
                                 </div>
-                               
-                       
-                             
-                        
+
+
+
+
                             </div>
                             </div>
-                            
+
 
 
 
@@ -407,7 +406,7 @@ $manufacturer=DB::table('manufacturers')->where('user_id', Auth::id())->first();
                     </div>
                 </div>
 
-            </div>
+
             <br><br><br>
              @include('includes.default.footer')
                    </div><!--container-->

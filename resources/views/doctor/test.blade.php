@@ -186,7 +186,7 @@ elseif ($stat == 6) {
 <div id="divtest" class="divtest">
 
 {{ Form::open(array('route' => array('patienttest'),'method'=>'POST')) }}
-<!-- {{ Form::open(array('id' => 'ptest')) }} -->
+
 
   <div class="col-sm-6 b-r ibox float-e-margins ibox-content">
   <?php  if ($dependantdays <='28') {

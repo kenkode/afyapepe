@@ -1,6 +1,6 @@
-<div id="tab-3" class="tab-pane active">
+<div id="tab-3" class="tab-pane">
  <ul class="nav nav-tabs">
-<li class="active"><a data-toggle="tab" href="#tab-3-1a">Today</a></li>
+<li class=" active"><a data-toggle="tab" href="#tab-3-1a">Today</a></li>
 <li class=""><a data-toggle="tab" href="#tab-3-2a">This Week</a></li>
  <li class=""><a data-toggle="tab" href="#tab-3-3a">This Month</a></li>
 <li class=""><a data-toggle="tab" href="#tab-3-4a">This Year</a></li>
@@ -59,29 +59,8 @@
 
                       <tbody>
                         <?php $i =1;
-                        use Carbon\Carbon;
-                        $today = Carbon::today();
-
-                       $Regionnow = DB::table('prescriptions')
-                        ->Join('prescription_details', 'prescriptions.id', '=', 'prescription_details.presc_id')
-                        ->Join('prescription_filled_status', 'prescription_details.id', '=', 'prescription_filled_status.presc_details_id')
-                        ->Join('pharmacy', 'prescription_filled_status.outlet_id', '=', 'pharmacy.id')
-                        ->Join('facilities', 'prescriptions.facility_id', '=', 'facilities.FacilityCode')
-                        ->Join('doctors', 'prescriptions.doc_id', '=', 'doctors.doc_id')
-                        ->Join('druglists', 'prescription_details.drug_id', '=', 'druglists.id')
-                        ->leftJoin('substitute_presc_details', 'prescription_filled_status.substitute_presc_id', '=', 'substitute_presc_details.id')
-                        ->select('prescription_filled_status.*','facilities.FacilityName','doctors.name','druglists.drugname','pharmacy.name as pharmacy',
-                        'pharmacy.county','prescription_details.doseform',
-                        'prescription_filled_status.substitute_presc_id')
-                      ->where([ ['druglists.Manufacturer','like', '%' . 'MERCK' . '%'],
-                              ['prescription_filled_status.created_at','>=',$today],
-                            ])
-
-                      ->get();
-
-
-                        ?>
-                     @foreach($Regionnow as $mandrug)
+                        use Carbon\Carbon;?>
+                     @foreach($Dsales as $mandrug)
                      <?php $total= ($mandrug->quantity * $mandrug->price);
 
                      ?>
@@ -89,25 +68,12 @@
                               <td>{{$i}}</td>
                                 <td>{{$mandrug->county}}</td>
                                <td>{{$mandrug->name}}</td>
-                              <td> <?php if($mandrug->substitute_presc_id){
-                                  $drugs = DB::table('substitute_presc_details')
-                                  ->Join('druglists', 'substitute_presc_details.drug_id', '=', 'druglists.id')
-                                  ->select('druglists.drugname as subdrugname','substitute_presc_details.doseform as subdoseform')
-                                  ->where([ ['druglists.Manufacturer','like', '%' . 'MERCK' . '%'],
-                                          ['substitute_presc_details.id','=',$mandrug->substitute_presc_id],
-                                        ])
-                                  ->first();
-                                  echo $drugs->subdrugname;
-                              }
-                                else{ echo $mandrug->drugname;   } ?>
-
-                                </td>
+                              <td> {{$mandrug->drugname}}</td>
                               <td>{{$mandrug->FacilityName}}</td>
                               <td>{{$mandrug->pharmacy}}</td>
                               <td>{{$mandrug->quantity}}</td>
                               <td>{{$mandrug->dose_given}}</td>
-                              <td><?php if($mandrug->substitute_presc_id){  echo $drugs->subdoseform;}
-                              else { echo $mandrug->doseform; }?> </td>
+                              <td>{{$mandrug->doseform}} </td>
                               <td>{{$mandrug->price}}</td>
                               <td>{{$total}}</td>
                             </tr>
@@ -171,28 +137,8 @@
                       </thead>
 
                       <tbody>
-                        <?php $i =1;
-                        $yesterday = Carbon::now();
-                        $one_week_ago = Carbon::now()->subWeeks(1);
-                        $Regionw = DB::table('prescriptions')
-                         ->Join('prescription_details', 'prescriptions.id', '=', 'prescription_details.presc_id')
-                         ->Join('prescription_filled_status', 'prescription_details.id', '=', 'prescription_filled_status.presc_details_id')
-                         ->Join('pharmacy', 'prescription_filled_status.outlet_id', '=', 'pharmacy.id')
-                         ->Join('facilities', 'prescriptions.facility_id', '=', 'facilities.FacilityCode')
-                         ->Join('doctors', 'prescriptions.doc_id', '=', 'doctors.doc_id')
-                         ->Join('druglists', 'prescription_details.drug_id', '=', 'druglists.id')
-                         ->leftJoin('substitute_presc_details', 'prescription_filled_status.substitute_presc_id', '=', 'substitute_presc_details.id')
-                         ->select('prescription_filled_status.*','facilities.FacilityName','doctors.name','druglists.drugname','pharmacy.name as pharmacy',
-                         'pharmacy.county','prescription_details.doseform',
-                         'prescription_filled_status.substitute_presc_id')
-                        ->where([ ['druglists.Manufacturer','like', '%' . 'MERCK' . '%'],
-                               ['prescription_filled_status.created_at','>=',$one_week_ago],
-                               ['prescription_filled_status.created_at','<=',$yesterday],
-                             ])
-
-                        ->get();
-                        ?>
-                     @foreach($Regionw as $mandrug)
+                        <?php $i =1;?>
+                       @foreach($drugw as $mandrug)
                      <?php $total= ($mandrug->quantity * $mandrug->price);
 
                      ?>
@@ -200,26 +146,12 @@
                               <td>{{$i}}</td>
                                 <td>{{$mandrug->county}}</td>
                               <td>{{$mandrug->name}}</td>
-                              <td> <?php if($mandrug->substitute_presc_id){
-                                  $drugs = DB::table('substitute_presc_details')
-                                  ->Join('druglists', 'substitute_presc_details.drug_id', '=', 'druglists.id')
-                                  ->select('druglists.drugname as subdrugname','substitute_presc_details.doseform as subdoseform')
-                                  ->where([ ['druglists.Manufacturer','like', '%' . 'MERCK' . '%'],
-                                          ['substitute_presc_details.id','=',$mandrug->substitute_presc_id],
-                                        ])
-                                  ->first();
-                                  echo $drugs->subdrugname;
-                              }
-                                else{ echo $mandrug->drugname;   } ?>
-
-                                </td>
-
+                              <td> {{$mandrug->drugname}}</td>
                               <td>{{$mandrug->FacilityName}}</td>
                               <td>{{$mandrug->pharmacy}}</td>
                               <td>{{$mandrug->quantity}}</td>
                               <td>{{$mandrug->dose_given}}</td>
-                              <td><?php if($mandrug->substitute_presc_id){  echo $drugs->subdoseform;}
-                              else { echo $mandrug->doseform; }?> </td>
+                          <td>{{$mandrug->doseform}}</td>
                               <td>{{$mandrug->price}}</td>
                               <td>{{$total}}</td>
                             </tr>
@@ -283,58 +215,20 @@
                       </thead>
 
                       <tbody>
-                        <?php $i =1;
-
-                        $yesterday = Carbon::now();
-                        $one_week_ago = Carbon::now()->subMonths(1);
-                        $drugM = DB::table('prescriptions')
-                         ->Join('prescription_details', 'prescriptions.id', '=', 'prescription_details.presc_id')
-                         ->Join('prescription_filled_status', 'prescription_details.id', '=', 'prescription_filled_status.presc_details_id')
-                         ->Join('pharmacy', 'prescription_filled_status.outlet_id', '=', 'pharmacy.id')
-                         ->Join('facilities', 'prescriptions.facility_id', '=', 'facilities.FacilityCode')
-                         ->Join('doctors', 'prescriptions.doc_id', '=', 'doctors.doc_id')
-                         ->Join('druglists', 'prescription_details.drug_id', '=', 'druglists.id')
-                         ->leftJoin('substitute_presc_details', 'prescription_filled_status.substitute_presc_id', '=', 'substitute_presc_details.id')
-                         ->select('prescription_filled_status.*','facilities.FacilityName','doctors.name','druglists.drugname','pharmacy.name as pharmacy',
-                         'pharmacy.county','prescription_details.doseform',
-                         'prescription_filled_status.substitute_presc_id')
-                       ->where([ ['druglists.Manufacturer','like', '%' . 'MERCK' . '%'],
-                               ['prescription_filled_status.created_at','>=',$one_week_ago],
-                               ['prescription_filled_status.created_at','<=',$yesterday],
-                             ])
-
-                       ->get();
-
-
-                        ?>
+                        <?php $i =1; ?>
                      @foreach($drugM as $mandrug)
                      <?php $total= ($mandrug->quantity * $mandrug->price);
 
                      ?>
                           <tr>
                               <td>{{$i}}</td>
-                                <td>{{$mandrug->county}}</td>
+                              <td>{{$mandrug->county}}</td>
                               <td>{{$mandrug->name}}</td>
-                              <td> <?php if($mandrug->substitute_presc_id){
-                                  $drugs = DB::table('substitute_presc_details')
-                                  ->Join('druglists', 'substitute_presc_details.drug_id', '=', 'druglists.id')
-                                  ->select('druglists.drugname as subdrugname','substitute_presc_details.doseform as subdoseform')
-                                  ->where([ ['druglists.Manufacturer','like', '%' . 'MERCK' . '%'],
-                                          ['substitute_presc_details.id','=',$mandrug->substitute_presc_id],
-                                        ])
-                                  ->first();
-                                  echo $drugs->subdrugname;
-                              }
-                                else{ echo $mandrug->drugname;   } ?>
-
-                                </td>
-
-                              <td>{{$mandrug->FacilityName}}</td>
+                              <td> {{$mandrug->drugname}}</td><td>{{$mandrug->FacilityName}}</td>
                               <td>{{$mandrug->pharmacy}}</td>
                               <td>{{$mandrug->quantity}}</td>
                               <td>{{$mandrug->dose_given}}</td>
-                              <td><?php if($mandrug->substitute_presc_id){  echo $drugs->subdoseform;}
-                              else { echo $mandrug->doseform; }?> </td>
+                              <td>{{$mandrug->doseform}}</td>
                               <td>{{$mandrug->price}}</td>
                               <td>{{$total}}</td>
                             </tr>
@@ -399,31 +293,8 @@
                       </thead>
 
                       <tbody>
-                        <?php $i =1;
-                        // use Carbon\Carbon;
-                        $yesterday = Carbon::now();
-                        $one_week_ago = Carbon::now()->subYears(1);
-                        $drugY = DB::table('prescriptions')
-                         ->Join('prescription_details', 'prescriptions.id', '=', 'prescription_details.presc_id')
-                         ->Join('prescription_filled_status', 'prescription_details.id', '=', 'prescription_filled_status.presc_details_id')
-                         ->Join('pharmacy', 'prescription_filled_status.outlet_id', '=', 'pharmacy.id')
-                         ->Join('facilities', 'prescriptions.facility_id', '=', 'facilities.FacilityCode')
-                         ->Join('doctors', 'prescriptions.doc_id', '=', 'doctors.doc_id')
-                         ->Join('druglists', 'prescription_details.drug_id', '=', 'druglists.id')
-                         ->leftJoin('substitute_presc_details', 'prescription_filled_status.substitute_presc_id', '=', 'substitute_presc_details.id')
-                         ->select('prescription_filled_status.*','facilities.FacilityName','doctors.name','druglists.drugname','pharmacy.name as pharmacy',
-                         'pharmacy.county','prescription_details.doseform',
-                         'prescription_filled_status.substitute_presc_id')
-                       ->where([ ['druglists.Manufacturer','like', '%' . 'MERCK' . '%'],
-                               ['prescription_filled_status.created_at','>=',$one_week_ago],
-                               ['prescription_filled_status.created_at','<=',$yesterday],
-                             ])
-
-                       ->get();
-
-
-                        ?>
-                     @foreach($drugY as $mandrug)
+                        <?php $i =1;   ?>
+                         @foreach($drugY as $mandrug)
                      <?php $total= ($mandrug->quantity * $mandrug->price);
 
                      ?>
@@ -431,26 +302,12 @@
                               <td>{{$i}}</td>
                                 <td>{{$mandrug->county}}</td>
                               <td>{{$mandrug->name}}</td>
-                              <td> <?php if($mandrug->substitute_presc_id){
-                                  $drugs = DB::table('substitute_presc_details')
-                                  ->Join('druglists', 'substitute_presc_details.drug_id', '=', 'druglists.id')
-                                  ->select('druglists.drugname as subdrugname','substitute_presc_details.doseform as subdoseform')
-                                  ->where([ ['druglists.Manufacturer','like', '%' . 'MERCK' . '%'],
-                                          ['substitute_presc_details.id','=',$mandrug->substitute_presc_id],
-                                        ])
-                                  ->first();
-                                  echo $drugs->subdrugname;
-                              }
-                                else{ echo $mandrug->drugname;   } ?>
-
-                                </td>
-
+                              <td> {{$mandrug->drugname}}</td>
                               <td>{{$mandrug->FacilityName}}</td>
                               <td>{{$mandrug->pharmacy}}</td>
                               <td>{{$mandrug->quantity}}</td>
                               <td>{{$mandrug->dose_given}}</td>
-                              <td><?php if($mandrug->substitute_presc_id){  echo $drugs->subdoseform;}
-                              else { echo $mandrug->doseform; }?> </td>
+                            <td>{{$mandrug->doseform}}</td>
                               <td>{{$mandrug->price}}</td>
                               <td>{{$total}}</td>
                             </tr>
@@ -515,29 +372,8 @@
                       </thead>
 
                       <tbody>
-                        <?php $i =1;
-                        // use Carbon\Carbon;
-
-                        $drugall = DB::table('prescriptions')
-                         ->Join('prescription_details', 'prescriptions.id', '=', 'prescription_details.presc_id')
-                         ->Join('prescription_filled_status', 'prescription_details.id', '=', 'prescription_filled_status.presc_details_id')
-                         ->Join('pharmacy', 'prescription_filled_status.outlet_id', '=', 'pharmacy.id')
-                         ->Join('facilities', 'prescriptions.facility_id', '=', 'facilities.FacilityCode')
-                         ->Join('doctors', 'prescriptions.doc_id', '=', 'doctors.doc_id')
-                         ->Join('druglists', 'prescription_details.drug_id', '=', 'druglists.id')
-                         ->leftJoin('substitute_presc_details', 'prescription_filled_status.substitute_presc_id', '=', 'substitute_presc_details.id')
-                         ->select('prescription_filled_status.*','facilities.FacilityName','doctors.name','druglists.drugname','pharmacy.name as pharmacy',
-                         'pharmacy.county','prescription_details.doseform',
-                         'prescription_filled_status.substitute_presc_id')
-                       ->where([ ['druglists.Manufacturer','like', '%' . 'MERCK' . '%'],
-
-                             ])
-
-                       ->get();
-
-
-                        ?>
-                     @foreach($drugall as $mandrug)
+                        <?php $i =1; ?>
+                            @foreach($drugall as $mandrug)
                      <?php $total= ($mandrug->quantity * $mandrug->price);
 
                      ?>
@@ -545,26 +381,12 @@
                               <td>{{$i}}</td>
                                 <td>{{$mandrug->county}}</td>
                               <td>{{$mandrug->name}}</td>
-                              <td> <?php if($mandrug->substitute_presc_id){
-                                  $drugs = DB::table('substitute_presc_details')
-                                  ->Join('druglists', 'substitute_presc_details.drug_id', '=', 'druglists.id')
-                                  ->select('druglists.drugname as subdrugname','substitute_presc_details.doseform as subdoseform')
-                                  ->where([ ['druglists.Manufacturer','like', '%' . 'MERCK' . '%'],
-                                          ['substitute_presc_details.id','=',$mandrug->substitute_presc_id],
-                                        ])
-                                  ->first();
-                                  echo $drugs->subdrugname;
-                              }
-                                else{ echo $mandrug->drugname;   } ?>
-
-                                </td>
-
+                            <td> {{$mandrug->drugname}}</td>
                               <td>{{$mandrug->FacilityName}}</td>
                               <td>{{$mandrug->pharmacy}}</td>
                               <td>{{$mandrug->quantity}}</td>
                               <td>{{$mandrug->dose_given}}</td>
-                              <td><?php if($mandrug->substitute_presc_id){  echo $drugs->subdoseform;}
-                              else { echo $mandrug->doseform; }?> </td>
+                            <td>{{$mandrug->doseform}}</td>
                               <td>{{$mandrug->price}}</td>
                               <td>{{$total}}</td>
                             </tr>

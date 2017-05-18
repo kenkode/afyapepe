@@ -19,6 +19,9 @@
     <link rel="stylesheet" href="{!! asset('font-awesome/css/font-awesome.css') !!}" />
     <link rel="stylesheet" href="{!! asset('css/plugins/dataTables/datatables.min.css') !!}" />
     <link rel="stylesheet" href="{!! asset('css/animate.css') !!}" />
+
+<link rel="stylesheet" href="{!! asset('css/plugins/datapicker/datepicker3.css') !!}" />
+
     <link rel="stylesheet" href="{!! asset('css/style.css') !!}" />
 
 </head>
@@ -47,8 +50,8 @@
     <script src="{{ asset('js/plugins/dataTables/datatables.min.js') }}" type="text/javascript"></script>
 
     <!-- Custom and plugin javascript -->
-    <script src="{{ asset('js/inspinia.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('js/plugins/pace/pace.min.js') }}" type="text/javascript"></script>
+    <!-- <script src="{{ asset('js/inspinia.js') }}" type="text/javascript"></script> -->
+    <!-- <script src="{{ asset('js/plugins/pace/pace.min.js') }}" type="text/javascript"></script> -->
   <!-- Flot -->
     <script src="{{ asset('js/plugins/flot/jquery.flot.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/plugins/flot/jquery.flot.tooltip.min.js') }}" type="text/javascript"></script>
@@ -58,7 +61,7 @@
 
     <script src="{{ asset('js/plugins/flot/jquery.flot.time.js') }}"></script>
 
- 
+
 
     <script src="{{ asset('js/demo/flot-demo.js') }}"></script>
 
@@ -81,13 +84,44 @@
     <!-- ChartJS-->
     <script src="{{ asset('js/plugins/chartJs/Chart.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/demo/chartjs-demo.js') }}"></script>
-
-
+    <!-- Data picker -->
+   <script src="{{ asset('js/plugins/datapicker/bootstrap-datepicker.js') }}"></script>
 
     <!-- Toastr -->
     <script src="{{ asset('js/plugins/toastr/toastr.min.js') }}" type="text/javascript"></script>
 
     <!-- Page-Level Scripts -->
+    <script>
+     $(document).ready(function(){
+          $.datepicker.setDefaults({
+               dateFormat: 'yy-mm-dd'
+          });
+          $(function(){
+               $("#from_date").datepicker();
+               $("#to_date").datepicker();
+          });
+          $('#filter').click(function(){
+               var from_date = $('#from_date').val();
+               var to_date = $('#to_date').val();
+               if(from_date != '' && to_date != '')
+               {
+                    $.ajax({
+                         url:"customsales.php",
+                         method:"POST",
+                         data:{from_date:from_date, to_date:to_date},
+                         success:function(data)
+                         {
+                              $('#order_table').html(data);
+                         }
+                    });
+               }
+               else
+               {
+                    alert("Please Select Date");
+               }
+          });
+     });
+</script>
     <script>
         $(document).ready(function(){
             $('.dataTables-example').DataTable({
@@ -113,7 +147,27 @@
                 ]
 
             });
-            <?php  $from = date('Y-m-d' ." ". '08:00:00', time()); $to = date('Y-m-d' ." ". '09:59:59', time());
+
+            <?php  
+           use Carbon\Carbon;
+           $Today= Carbon::now();
+           $monday = Carbon::now()->startOfWeek();
+           $Tuesday= new Carbon('this tuesday');
+           $Wednesday=new Carbon('this wednesday');
+           $Thursday=new Carbon('this thursday');
+           $Friday=new Carbon('this friday');
+           $Saturday=new Carbon('this saturday');
+           $Sunday=new Carbon('this sunday');
+$id=Auth::id();
+$manufacturer=DB::table('manufacturers')->where('user_id', Auth::id())->first(); 
+            if($manufacturer==''){
+                $name = 'name';
+            }
+            else{
+                $name=$manufacturer->name;
+            }
+
+            $from = date('Y-m-d' ." ". '08:00:00', time()); $to = date('Y-m-d' ." ". '09:59:59', time());
             $from1 = date('Y-m-d' ." ". '10:00:00', time()); $to1 = date('Y-m-d' ." ". '12:59:59', time());
             $from2 = date('Y-m-d' ." ". '13:00:00', time()); $to2 = date('Y-m-d' ." ". '15:59:59', time());
             $from3 = date('Y-m-d' ." ". '16:00:00', time()); $to3 = date('Y-m-d' ." ". '18:59:59', time());
@@ -122,16 +176,24 @@
             $from6 = date('Y-m-d' ." ". '01:00:00', time()); $to6 = date('Y-m-d' ." ". '03:59:59', time());
             $from7 = date('Y-m-d' ." ". '05:00:00', time()); $to7 = date('Y-m-d' ." ". '07:59:59', time());
            
+//Today
 
-
-            $d1=DB::table('prescription_filled_status')->whereBetween('created_at', array($from, $to))->count();
-        $d2=DB::table('prescription_filled_status')->whereBetween('created_at', array($from1, $to1))->count();
-        $d3=DB::table('prescription_filled_status')->whereBetween('created_at', array($from2, $to2))->count();
-         $d4=DB::table('prescription_filled_status')->whereBetween('created_at', array($from3, $to3))->count();
-          $d5=DB::table('prescription_filled_status')->whereBetween('created_at', array($from4, $to4))->count();
-           $d6=DB::table('prescription_filled_status')->whereBetween('created_at', array($from5, $to5))->count();
-            $d7=DB::table('prescription_filled_status')->whereBetween('created_at', array($from6, $to6))->count();
-             $d8=DB::table('prescription_filled_status')->whereBetween('created_at', array($from7, $to7))->count();
+$d1=DB::table('prescription_filled_status')->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')->join('druglists','druglists.id','=','prescription_details.drug_id')
+                ->where('druglists.Manufacturer','like', '%' .$name . '%')->whereBetween('prescription_filled_status.created_at', array($from, $to))->selectRaw('SUM(price * quantity) as total')->whereNull('prescription_filled_status.substitute_presc_id')->first();
+        $d2=DB::table('prescription_filled_status')->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')->join('druglists','druglists.id','=','prescription_details.drug_id')
+                ->where('druglists.Manufacturer','like', '%' .$name . '%')->whereBetween('prescription_filled_status.created_at', array($from1, $to1))->count();
+        $d3=DB::table('prescription_filled_status')->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')->join('druglists','druglists.id','=','prescription_details.drug_id')
+                ->where('druglists.Manufacturer','like', '%' .$name . '%')->whereBetween('prescription_filled_status.created_at', array($from2, $to2))->count();
+         $d4=DB::table('prescription_filled_status')->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')->join('druglists','druglists.id','=','prescription_details.drug_id')
+                ->where('druglists.Manufacturer','like', '%' .$name . '%')->whereBetween('prescription_filled_status.created_at', array($from3, $to3))->count();
+          $d5=DB::table('prescription_filled_status')->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')->join('druglists','druglists.id','=','prescription_details.drug_id')
+                ->where('druglists.Manufacturer','like', '%' .$name . '%')->whereBetween('prescription_filled_status.created_at', array($from4, $to4))->count();
+           $d6=DB::table('prescription_filled_status')->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')->join('druglists','druglists.id','=','prescription_details.drug_id')
+                ->where('druglists.Manufacturer','like', '%' .$name . '%')->whereBetween('prescription_filled_status.created_at', array($from5, $to5))->count();
+            $d7=DB::table('prescription_filled_status')->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')->join('druglists','druglists.id','=','prescription_details.drug_id')
+                ->where('druglists.Manufacturer','like', '%' .$name . '%')->whereBetween('prescription_filled_status.created_at', array($from6, $to6))->count();
+             $d8=DB::table('prescription_filled_status')->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')->join('druglists','druglists.id','=','prescription_details.drug_id')
+                ->where('druglists.Manufacturer','like', '%' .$name . '%')->whereBetween('prescription_filled_status.created_at', array($from7, $to7))->count();
 
                ?>
 
@@ -146,7 +208,7 @@
                 borderColor: "rgba(26,179,148,0.7)",
                 pointBackgroundColor: "rgba(26,179,148,1)",
                 pointBorderColor: "#fff",
-                data: [<?php echo $d1; ?>,<?php echo $d2; ?>,<?php echo $d3; ?>,<?php echo $d4; ?>,<?php echo $d5; ?>, <?php echo $d6; ?>, <?php echo $d7; ?>,<?php echo $d8; ?>]
+                data: [<?php echo $d1->total; ?>,<?php echo $d2; ?>,<?php echo $d3; ?>,<?php echo $d4; ?>,<?php echo $d5; ?>, <?php echo $d6; ?>, <?php echo $d7; ?>,<?php echo $d8; ?>]
             }
         ]
     };
@@ -171,7 +233,7 @@
                 borderColor: "rgba(26,179,148,0.7)",
                 pointBackgroundColor: "rgba(26,179,148,1)",
                 pointBorderColor: "#fff",
-                data: [<?php echo $d1; ?>,<?php echo $d2; ?>,<?php echo $d3; ?>,<?php echo $d4; ?>,<?php echo $d5; ?>, <?php echo $d6; ?>, <?php echo $d7; ?>]
+                data: [<?php echo $d1->total; ?>,<?php echo $d2; ?>,<?php echo $d3; ?>,<?php echo $d4; ?>,<?php echo $d5; ?>, <?php echo $d6; ?>, <?php echo $d7; ?>]
             }
         ]
     };
@@ -194,7 +256,7 @@
                 borderColor: "rgba(26,179,148,0.7)",
                 pointBackgroundColor: "rgba(26,179,148,1)",
                 pointBorderColor: "#fff",
-                data: [<?php echo $d1; ?>,<?php echo $d2; ?>,<?php echo $d3; ?>,<?php echo $d4; ?>]
+                data: [<?php echo $d1->total; ?>,<?php echo $d2; ?>,<?php echo $d3; ?>,<?php echo $d4; ?>]
             }
         ]
     };
@@ -221,7 +283,7 @@
                 borderColor: "rgba(26,179,148,0.7)",
                 pointBackgroundColor: "rgba(26,179,148,1)",
                 pointBorderColor: "#fff",
-                data: [<?php echo $d1; ?>,<?php echo $d2; ?>,<?php echo $d3; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>]
+                data: [<?php echo $d1->total; ?>,<?php echo $d2; ?>,<?php echo $d3; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>]
             }
         ]
     };
@@ -246,7 +308,7 @@
                 borderColor: "rgba(26,179,148,0.7)",
                 pointBackgroundColor: "rgba(26,179,148,1)",
                 pointBorderColor: "#fff",
-                data: [<?php echo $d1; ?>,<?php echo $d2; ?>,<?php echo $d3; ?>,<?php echo $d4; ?>,<?php echo $d5; ?>, <?php echo $d6; ?>, <?php echo $d7; ?>,<?php echo $d8; ?>]
+                data: [<?php echo $d1->total; ?>,<?php echo $d2; ?>,<?php echo $d3; ?>,<?php echo $d4; ?>,<?php echo $d5; ?>, <?php echo $d6; ?>, <?php echo $d7; ?>,<?php echo $d8; ?>]
             }
         ]
     };
@@ -271,7 +333,7 @@
                 borderColor: "rgba(26,179,148,0.7)",
                 pointBackgroundColor: "rgba(26,179,148,1)",
                 pointBorderColor: "#fff",
-                data: [<?php echo $d1; ?>,<?php echo $d2; ?>,<?php echo $d3; ?>,<?php echo $d4; ?>,<?php echo $d5; ?>, <?php echo $d6; ?>, <?php echo $d7; ?>]
+                data: [<?php echo $d1->total; ?>,<?php echo $d2; ?>,<?php echo $d3; ?>,<?php echo $d4; ?>,<?php echo $d5; ?>, <?php echo $d6; ?>, <?php echo $d7; ?>]
             }
         ]
     };
@@ -294,7 +356,7 @@
                 borderColor: "rgba(26,179,148,0.7)",
                 pointBackgroundColor: "rgba(26,179,148,1)",
                 pointBorderColor: "#fff",
-                data: [<?php echo $d1; ?>,<?php echo $d2; ?>,<?php echo $d3; ?>,<?php echo $d4; ?>]
+                data: [<?php echo $d1->total; ?>,<?php echo $d2; ?>,<?php echo $d3; ?>,<?php echo $d4; ?>]
             }
         ]
     };
@@ -320,7 +382,7 @@
                 borderColor: "rgba(26,179,148,0.7)",
                 pointBackgroundColor: "rgba(26,179,148,1)",
                 pointBorderColor: "#fff",
-                data: [<?php echo $d1; ?>,<?php echo $d2; ?>,<?php echo $d3; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>]
+                data: [<?php echo $d1->total; ?>,<?php echo $d2; ?>,<?php echo $d3; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>]
             }
         ]
     };

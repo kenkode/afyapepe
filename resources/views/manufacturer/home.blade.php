@@ -6,55 +6,63 @@
               <div class="container">
               <br>
 <div class="row">
-<div class="col-lg-6">
-</div>
-<div class="col-lg-3">
 <?php 
 $id=Auth::id();
-$manufacturer=DB::table('manufacturers')->where('auth_id', Auth::id())->first(); ?>
-@if(is_null($manufacturer))
-<a data-toggle="modal" class="btn btn-primary" href="#modal-formp">Add Details</a>
+$manufacturer=DB::table('manufacturers')->where('user_id', Auth::id())->first(); ?>
+ @if(is_null($manufacturer))
+<div class="col-lg-6">
+
+<a data-toggle="modal" class="btn btn-primary" href="#modal-formf">Add Details</a>
                             
-                            <div id="modal-formp" class="modal fade" aria-hidden="true">
+                            <div id="modal-formf" class="modal fade" aria-hidden="true">
                             <div class="modal-dialog">
                             <div class="modal-content">
                             <div class="modal-body">
-             <form class="form-horizontal" role="form" method="POST" action="/addmanufacturer" novalidate>
+          <form class="form-horizontal" role="form" method="POST" action="/addmanu" enctype="multipart/form-data" novalidate>
              <input type="hidden" name="_token" value="{{ csrf_token() }}">
-             <input type="hidden" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{$id}}" name="id"  required>
-                            <div class="form-group">
-            <label for="exampleInputPassword1">Mother Name</label>
-            <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Mother Name" name="mother_name">
-            </div>
+             <input type="hidden" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{$id}}" name="user_id"  required>
+              <div class="form-group">
+             <label for="exampleInputEmail1"> Name</label>
+             <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="name">
+             </div>
+              <div class="form-group">
+             <label for="exampleInputPassword1">Location</label>
+             <input type="text" class="form-control" id="exampleInputPassword1"  name="location">
+             </div>
+              <div class="form-group">
+             <label for="exampleInputPassword1">Address</label>
+             <input type="text" class="form-control" id="exampleInputPassword1"  name="address">
+             </div>
+              <div class="form-group">
+             <label for="exampleInputPassword1">P.O BOX</label>
+             <input type="text" class="form-control" id="exampleInputPassword1"  name="box">
+             </div>
+              <div class="form-group">
+             <label for="exampleInputPassword1">Tel</label>
+             <input type="text" class="form-control" id="exampleInputPassword1"  name="tel">
+             </div>
+              <div class="form-group">
+             <label for="exampleInputPassword1">Location</label>
+             <input type="text" class="form-control" id="exampleInputPassword1"  name="location">
+             </div>
              <div class="form-group">
-            <label for="exampleInputPassword1">Mother Phone</label>
-             <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Mother Phone" name="mother_phone" >
-            </div>
-            <div class="form-group">
-            <label for="exampleInputPassword1">Birth Number</label>
-             <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Birth Number" name="Birth_number" >
-            </div>
-           
-
-                <input type="submit" name="submit" value="Add">
+    {!! Form::label('Logo') !!}
+    {!! Form::file('logo', null) !!}
+</div>
+             <input type="submit" name="submit" value="Add" > 
     </form>
+         
                             </div>
                             </div>
                             </div>
                             </div>
+</div>
 @else
-<img src="{{URL::asset('/images/merck_logo_detail.png')}}" alt="profile Pic" height="110" width="250">
-</div>
-<div class="col-lg-3">
-<b>Merck (Pty) Limited <br/>
-3rd Floor <br/>
-197, Lenana Place, Lenana Road<br/>
-Nairobi | Kenya <br/>
-P.O.Box 38554-00100 <br/>
-Tel.: +254 20 2714 617</b>
-</div>
+ 
+
 @endif
 </div>
+<br>
 <div class="row">
        <div class="col-lg-12">
                     <div class="tabs-container">

@@ -168,6 +168,7 @@ Route::get('manustock', 'ManufacturerController@manuStock');
 Route::get('competition', 'ManufacturerController@Competition');
 Route::get('Trends','ManufacturerController@Trends');
 Route::get('SectorSummary','ManufacturerController@SectorSummary');
+Route::post('addmanu','ManufacturerController@addManu');
 });
 
 /**

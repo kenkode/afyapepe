@@ -93,18 +93,23 @@ class PharmacyController extends Controller
         ->join('afya_users', 'afya_users.id', '=', 'appointments.afya_user_id')
         ->join('dependant', 'dependant.afya_user_id', '=', 'afya_users.id')
         ->join('afyamessages', 'afyamessages.msisdn', '=', 'afya_users.msisdn')
+        ->join('frequency', 'frequency.id', '=', 'prescription_details.frequency')
         ->join('route', 'prescription_details.routes', '=', 'route.id')
         ->leftJoin('prescription_filled_status', 'prescription_details.id', '=', 'prescription_filled_status.presc_details_id')
         ->select('druglists.drugname', 'prescriptions.*','prescription_details.*',
         'afya_users.*', 'route.name','prescription_details.id AS presc_id','prescriptions.id AS the_id',
-        'appointments.persontreated','dependant.firstName AS fname', 'dependant.secondName AS sname')
+        'appointments.persontreated','dependant.firstName AS fname', 'dependant.secondName AS sname',
+        'frequency.name AS freq_name')
         ->where([
           ['prescriptions.id', '=', $id],
           ['afyamessages.facilityCode', '=', $facility],
-          ['afyamessages.created_at','>=',$today]
+          ['afyamessages.created_at', '>=', $today],
+          ['prescription_details.is_filled', '=', 2]
         ])
-        ->whereNull('prescription_filled_status.presc_details_id')
-        ->whereIn('prescriptions.filled_status', [0, 2])
+        ->orWhere(function ($query)
+        {
+        $query->whereNull('prescription_details.is_filled');
+        })
         ->groupBy('prescription_details.id')
         ->get();
 
@@ -152,10 +157,11 @@ class PharmacyController extends Controller
           ->join('afya_users', 'afya_users.id', '=', 'appointments.afya_user_id')
           ->join('prescription_details', 'prescription_details.presc_id', '=', 'prescriptions.id')
           ->join('druglists', 'prescription_details.drug_id', '=', 'druglists.id')
+          ->join('frequency', 'frequency.id', '=', 'prescription_details.frequency')
           ->join('route', 'prescription_details.routes', '=', 'route.id')
           ->leftJoin('prescription_filled_status', 'prescription_details.id', '=', 'prescription_filled_status.presc_details_id')
           ->select('druglists.drugname', 'prescription_filled_status.*','prescription_details.*',
-           'route.name AS route_name','prescription_details.id AS presc_id')
+           'route.name AS route_name','prescription_details.id AS presc_id','frequency.name AS freq_name')
           ->where([
             ['afya_users.id', '=', $afya_user_id],
             ['prescription_filled_status.end_date', '>=', $today],
@@ -173,11 +179,12 @@ class PharmacyController extends Controller
             ->join('afya_users', 'afya_users.id', '=', 'appointments.afya_user_id')
             ->join('dependant', 'dependant.afya_user_id', '=', 'afya_users.id')
             ->join('prescription_details', 'prescription_details.presc_id', '=', 'prescriptions.id')
+            ->join('frequency', 'frequency.id', '=', 'prescription_details.frequency')
             ->join('druglists', 'prescription_details.drug_id', '=', 'druglists.id')
             ->join('route', 'prescription_details.routes', '=', 'route.id')
             ->leftJoin('prescription_filled_status', 'prescription_details.id', '=', 'prescription_filled_status.presc_details_id')
             ->select('druglists.drugname', 'prescription_filled_status.*','prescription_details.*',
-             'route.name AS route_name','prescription_details.id AS presc_id')
+             'route.name AS route_name','prescription_details.id AS presc_id','frequency.name AS freq_name')
             ->where([
               ['dependant.id', '=', $afya_user_id],
               ['prescription_filled_status.end_date', '>=', $today],

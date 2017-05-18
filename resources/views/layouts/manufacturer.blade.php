@@ -116,14 +116,15 @@
 
             <?php  
            use Carbon\Carbon;
-           $Today= Carbon::now();
+           $today= Carbon::now();
            $monday = Carbon::now()->startOfWeek();
-           $Tuesday= new Carbon('this tuesday');
-           $Wednesday=new Carbon('this wednesday');
-           $Thursday=new Carbon('this thursday');
-           $Friday=new Carbon('this friday');
-           $Saturday=new Carbon('this saturday');
-           $Sunday=new Carbon('this sunday');
+           $tuesday=  $monday->addDays(1);
+           $wednesday= $tuesday->addDays(1);
+           $thursday=$wednesday->addDays(1);
+           $friday=$thursday->addDays(1);
+           $saturday=$friday->addDays(1);
+           $sunday=$saturday->addDays(1);
+          
 $id=Auth::id();
 $manufacturer=DB::table('manufacturers')->where('user_id', Auth::id())->first(); 
             if($manufacturer==''){
@@ -147,19 +148,53 @@ $manufacturer=DB::table('manufacturers')->where('user_id', Auth::id())->first();
 $d1=DB::table('prescription_filled_status')->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')->join('druglists','druglists.id','=','prescription_details.drug_id')
                 ->where('druglists.Manufacturer','like', '%' .$name . '%')->whereBetween('prescription_filled_status.created_at', array($from, $to))->selectRaw('SUM(price * quantity) as total')->whereNull('prescription_filled_status.substitute_presc_id')->first();
         $d2=DB::table('prescription_filled_status')->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')->join('druglists','druglists.id','=','prescription_details.drug_id')
-                ->where('druglists.Manufacturer','like', '%' .$name . '%')->whereBetween('prescription_filled_status.created_at', array($from1, $to1))->count();
+                ->where('druglists.Manufacturer','like', '%' .$name . '%')->whereBetween('prescription_filled_status.created_at', array($from1, $to1))->selectRaw('SUM(price * quantity) as total')->whereNull('prescription_filled_status.substitute_presc_id')->first();
         $d3=DB::table('prescription_filled_status')->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')->join('druglists','druglists.id','=','prescription_details.drug_id')
-                ->where('druglists.Manufacturer','like', '%' .$name . '%')->whereBetween('prescription_filled_status.created_at', array($from2, $to2))->count();
+                ->where('druglists.Manufacturer','like', '%' .$name . '%')->whereBetween('prescription_filled_status.created_at', array($from2, $to2))->selectRaw('SUM(price * quantity) as total')->whereNull('prescription_filled_status.substitute_presc_id')->first();
          $d4=DB::table('prescription_filled_status')->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')->join('druglists','druglists.id','=','prescription_details.drug_id')
-                ->where('druglists.Manufacturer','like', '%' .$name . '%')->whereBetween('prescription_filled_status.created_at', array($from3, $to3))->count();
+                ->where('druglists.Manufacturer','like', '%' .$name . '%')->whereBetween('prescription_filled_status.created_at', array($from3, $to3))->selectRaw('SUM(price * quantity) as total')->whereNull('prescription_filled_status.substitute_presc_id')->first();
           $d5=DB::table('prescription_filled_status')->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')->join('druglists','druglists.id','=','prescription_details.drug_id')
-                ->where('druglists.Manufacturer','like', '%' .$name . '%')->whereBetween('prescription_filled_status.created_at', array($from4, $to4))->count();
+                ->where('druglists.Manufacturer','like', '%' .$name . '%')->whereBetween('prescription_filled_status.created_at', array($from4, $to4))->selectRaw('SUM(price * quantity) as total')->whereNull('prescription_filled_status.substitute_presc_id')->first();
            $d6=DB::table('prescription_filled_status')->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')->join('druglists','druglists.id','=','prescription_details.drug_id')
-                ->where('druglists.Manufacturer','like', '%' .$name . '%')->whereBetween('prescription_filled_status.created_at', array($from5, $to5))->count();
+                ->where('druglists.Manufacturer','like', '%' .$name . '%')->whereBetween('prescription_filled_status.created_at', array($from5, $to5))->selectRaw('SUM(price * quantity) as total')->whereNull('prescription_filled_status.substitute_presc_id')->first();
             $d7=DB::table('prescription_filled_status')->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')->join('druglists','druglists.id','=','prescription_details.drug_id')
-                ->where('druglists.Manufacturer','like', '%' .$name . '%')->whereBetween('prescription_filled_status.created_at', array($from6, $to6))->count();
+                ->where('druglists.Manufacturer','like', '%' .$name . '%')->whereBetween('prescription_filled_status.created_at', array($from6, $to6))->selectRaw('SUM(price * quantity) as total')->whereNull('prescription_filled_status.substitute_presc_id')->first();
              $d8=DB::table('prescription_filled_status')->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')->join('druglists','druglists.id','=','prescription_details.drug_id')
-                ->where('druglists.Manufacturer','like', '%' .$name . '%')->whereBetween('prescription_filled_status.created_at', array($from7, $to7))->count();
+                ->where('druglists.Manufacturer','like', '%' .$name . '%')->whereBetween('prescription_filled_status.created_at', array($from7, $to7))->selectRaw('SUM(price * quantity) as total')->whereNull('prescription_filled_status.substitute_presc_id')->first();
+    //This week
+
+ $mon=DB::table('prescription_filled_status')->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')->join('druglists','druglists.id','=','prescription_details.drug_id')
+                ->where('druglists.Manufacturer','like', '%' .$name . '%')->where('prescription_filled_status.created_at','>=',$monday)->selectRaw('SUM(price * quantity) as total')->whereNull('prescription_filled_status.substitute_presc_id')->first();
+ $tue=DB::table('prescription_filled_status')->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')->join('druglists','druglists.id','=','prescription_details.drug_id')
+                ->where('druglists.Manufacturer','like', '%' .$name . '%')->where('prescription_filled_status.created_at','>=',$tuesday)->selectRaw('SUM(price * quantity) as total')->whereNull('prescription_filled_status.substitute_presc_id')->first();
+ $wed=DB::table('prescription_filled_status')->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')->join('druglists','druglists.id','=','prescription_details.drug_id')
+ ->where('druglists.Manufacturer','like', '%' .$name . '%')->where('prescription_filled_status.created_at','>=',$wednesday)->selectRaw('SUM(price * quantity) as total')->whereNull('prescription_filled_status.substitute_presc_id')->first();
+ $thur=DB::table('prescription_filled_status')->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')->join('druglists','druglists.id','=','prescription_details.drug_id')
+                ->where('druglists.Manufacturer','like', '%' .$name . '%')->where('prescription_filled_status.created_at','>=',$thursday)->selectRaw('SUM(price * quantity) as total')->whereNull('prescription_filled_status.substitute_presc_id')->first();
+ $fri=DB::table('prescription_filled_status')->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')->join('druglists','druglists.id','=','prescription_details.drug_id')
+                ->where('druglists.Manufacturer','like', '%' .$name . '%')->where('prescription_filled_status.created_at','>=',$friday)->selectRaw('SUM(price * quantity) as total')->whereNull('prescription_filled_status.substitute_presc_id')->first();
+ $sat=DB::table('prescription_filled_status')->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')->join('druglists','druglists.id','=','prescription_details.drug_id')
+                ->where('druglists.Manufacturer','like', '%' .$name . '%')->where('prescription_filled_status.created_at','>=',$saturday)->selectRaw('SUM(price * quantity) as total')->whereNull('prescription_filled_status.substitute_presc_id')->first();
+ $sun=DB::table('prescription_filled_status')->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')->join('druglists','druglists.id','=','prescription_details.drug_id')
+                ->where('druglists.Manufacturer','like', '%' .$name . '%')->where('prescription_filled_status.created_at','>=',$sunday)->selectRaw('SUM(price * quantity) as total')->whereNull('prescription_filled_status.substitute_presc_id')->first();
+
+
+//This Month
+          $monthstart = $today->startOfMonth();
+           $first= $monthstart->addDays(7);
+           $second=$first->addDays(7);
+           $third=$second->addDays(7);
+          $monthend = $today->endOfMonth();
+
+$week1=DB::table('prescription_filled_status')->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')->join('druglists','druglists.id','=','prescription_details.drug_id')
+                ->where('druglists.Manufacturer','like', '%' .$name . '%')->where('prescription_filled_status.created_at','>=',$monthstart)->where('prescription_filled_status.created_at','<=',$first)->selectRaw('SUM(price * quantity) as total')->whereNull('prescription_filled_status.substitute_presc_id')->first();
+$week2=DB::table('prescription_filled_status')->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')->join('druglists','druglists.id','=','prescription_details.drug_id')
+                ->where('prescription_filled_status.created_at','<=',$first)->where('prescription_filled_status.created_at','>=',$second)->selectRaw('SUM(price * quantity) as total')->whereNull('prescription_filled_status.substitute_presc_id')->first();
+$week3=DB::table('prescription_filled_status')->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')->join('druglists','druglists.id','=','prescription_details.drug_id')
+                ->where('druglists.Manufacturer','like', '%' .$name . '%')->where('prescription_filled_status.created_at','>=',$second)->where('prescription_filled_status.created_at','>=',$third)->selectRaw('SUM(price * quantity) as total')->whereNull('prescription_filled_status.substitute_presc_id')->first();
+$week4=DB::table('prescription_filled_status')->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')->join('druglists','druglists.id','=','prescription_details.drug_id')
+                ->where('druglists.Manufacturer','like', '%' .$name . '%')->where('prescription_filled_status.created_at','>=',$third)->where('prescription_filled_status.created_at','<=',$monthend)->selectRaw('SUM(price * quantity) as total')->whereNull('prescription_filled_status.substitute_presc_id')->first();
+
 
                ?>
 
@@ -174,14 +209,16 @@ $d1=DB::table('prescription_filled_status')->join('prescription_details','prescr
                 borderColor: "rgba(26,179,148,0.7)",
                 pointBackgroundColor: "rgba(26,179,148,1)",
                 pointBorderColor: "#fff",
-                data: [<?php echo $d1->total; ?>,<?php echo $d2; ?>,<?php echo $d3; ?>,<?php echo $d4; ?>,<?php echo $d5; ?>, <?php echo $d6; ?>, <?php echo $d7; ?>,<?php echo $d8; ?>]
+                data: [<?php echo $d1->total; ?>,<?php echo $d2->total; ?>,<?php echo $d3->total; ?>,<?php echo $d4->total; ?>,<?php echo $d5->total; ?>, <?php echo $d6->total; ?>, <?php echo $d7->total; ?>,<?php echo $d8->total; ?>]
             }
         ]
     };
 
     var lineOptions = {
-        responsive: true
+        responsive: true,
+
     };
+
 
 
     var ctx = document.getElementById("lineChart").getContext("2d");
@@ -199,7 +236,7 @@ $d1=DB::table('prescription_filled_status')->join('prescription_details','prescr
                 borderColor: "rgba(26,179,148,0.7)",
                 pointBackgroundColor: "rgba(26,179,148,1)",
                 pointBorderColor: "#fff",
-                data: [<?php echo $d1->total; ?>,<?php echo $d2; ?>,<?php echo $d3; ?>,<?php echo $d4; ?>,<?php echo $d5; ?>, <?php echo $d6; ?>, <?php echo $d7; ?>]
+                data: [<?php echo $mon->total; ?>,<?php echo $tue->total; ?>,<?php echo $wed->total; ?>,<?php echo $thur->total; ?>,<?php echo $fri->total; ?>, <?php echo $sat->total; ?>, <?php echo $sun->total; ?>]
             }
         ]
     };
@@ -222,7 +259,7 @@ $d1=DB::table('prescription_filled_status')->join('prescription_details','prescr
                 borderColor: "rgba(26,179,148,0.7)",
                 pointBackgroundColor: "rgba(26,179,148,1)",
                 pointBorderColor: "#fff",
-                data: [<?php echo $d1->total; ?>,<?php echo $d2; ?>,<?php echo $d3; ?>,<?php echo $d4; ?>]
+                data: [<?php echo $week1->total; ?>,<?php echo $week2->total; ?>,<?php echo $week3->total; ?>,<?php echo $week4->total; ?>]
             }
         ]
     };
@@ -249,7 +286,7 @@ $d1=DB::table('prescription_filled_status')->join('prescription_details','prescr
                 borderColor: "rgba(26,179,148,0.7)",
                 pointBackgroundColor: "rgba(26,179,148,1)",
                 pointBorderColor: "#fff",
-                data: [<?php echo $d1->total; ?>,<?php echo $d2; ?>,<?php echo $d3; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>]
+                data: [<?php echo $d1->total; ?>,<?php echo $d2->total; ?>,<?php echo $d3->total; ?>,<?php echo $d4->total; ?>,<?php echo $d4->total; ?>,<?php echo $d4->total; ?>,<?php echo $d4->total; ?>,<?php echo $d4->total; ?>,<?php echo $d4->total; ?>,<?php echo $d4->total; ?>,<?php echo $d4->total; ?>,<?php echo $d4->total; ?>]
             }
         ]
     };
@@ -274,7 +311,7 @@ $d1=DB::table('prescription_filled_status')->join('prescription_details','prescr
                 borderColor: "rgba(26,179,148,0.7)",
                 pointBackgroundColor: "rgba(26,179,148,1)",
                 pointBorderColor: "#fff",
-                data: [<?php echo $d1->total; ?>,<?php echo $d2; ?>,<?php echo $d3; ?>,<?php echo $d4; ?>,<?php echo $d5; ?>, <?php echo $d6; ?>, <?php echo $d7; ?>,<?php echo $d8; ?>]
+                data: [<?php echo $d1->total; ?>,<?php echo $d2->total; ?>,<?php echo $d3->total; ?>,<?php echo $d4->total; ?>,<?php echo $d5->total; ?>, <?php echo $d6->total; ?>, <?php echo $d7->total; ?>,<?php echo $d8->total; ?>]
             }
         ]
     };
@@ -299,7 +336,7 @@ $d1=DB::table('prescription_filled_status')->join('prescription_details','prescr
                 borderColor: "rgba(26,179,148,0.7)",
                 pointBackgroundColor: "rgba(26,179,148,1)",
                 pointBorderColor: "#fff",
-                data: [<?php echo $d1->total; ?>,<?php echo $d2; ?>,<?php echo $d3; ?>,<?php echo $d4; ?>,<?php echo $d5; ?>, <?php echo $d6; ?>, <?php echo $d7; ?>]
+                data: [<?php echo $d1->total; ?>,<?php echo $d2->total; ?>,<?php echo $d3->total; ?>,<?php echo $d4->total; ?>,<?php echo $d5->total; ?>, <?php echo $d6->total; ?>, <?php echo $d7->total; ?>]
             }
         ]
     };
@@ -322,7 +359,7 @@ $d1=DB::table('prescription_filled_status')->join('prescription_details','prescr
                 borderColor: "rgba(26,179,148,0.7)",
                 pointBackgroundColor: "rgba(26,179,148,1)",
                 pointBorderColor: "#fff",
-                data: [<?php echo $d1->total; ?>,<?php echo $d2; ?>,<?php echo $d3; ?>,<?php echo $d4; ?>]
+                data: [<?php echo $d1->total; ?>,<?php echo $d2->total; ?>,<?php echo $d3->total; ?>,<?php echo $d4->total; ?>]
             }
         ]
     };
@@ -348,7 +385,7 @@ $d1=DB::table('prescription_filled_status')->join('prescription_details','prescr
                 borderColor: "rgba(26,179,148,0.7)",
                 pointBackgroundColor: "rgba(26,179,148,1)",
                 pointBorderColor: "#fff",
-                data: [<?php echo $d1->total; ?>,<?php echo $d2; ?>,<?php echo $d3; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>,<?php echo $d4; ?>]
+                data: [<?php echo $d1->total; ?>,<?php echo $d2->total; ?>,<?php echo $d3->total; ?>,<?php echo $d4->total; ?>,<?php echo $d4->total; ?>,<?php echo $d4->total; ?>,<?php echo $d4->total; ?>,<?php echo $d4->total; ?>,<?php echo $d4->total; ?>,<?php echo $d4->total; ?>,<?php echo $d4->total; ?>,<?php echo $d4->total; ?>]
             }
         ]
     };

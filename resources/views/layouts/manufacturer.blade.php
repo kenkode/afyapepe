@@ -195,14 +195,14 @@
            use Carbon\Carbon;
            $today= Carbon::now();
            $monday = Carbon::now()->startOfWeek();
-           $mon=$tuesday->addDays(0);
+           $mon =Carbon::now()->startOfWeek();
            $tuesday=  $monday->addDays(1);
            $wednesday= $tuesday->addDays(1);
            $thursday=$wednesday->addDays(1);
            $friday=$thursday->addDays(1);
            $saturday=$friday->addDays(1);
            $sunday=$saturday->addDays(1);
-          
+
 $id=Auth::id();
 $manufacturer=DB::table('manufacturers')->where('user_id', Auth::id())->first();
             if($manufacturer==''){
@@ -220,7 +220,7 @@ $manufacturer=DB::table('manufacturers')->where('user_id', Auth::id())->first();
             $from5 = date('Y-m-d' ." ". '22:00:00', time()); $to5 = date('Y-m-d' ." ". '00:59:59', time());
             $from6 = date('Y-m-d' ." ". '01:00:00', time()); $to6 = date('Y-m-d' ." ". '03:59:59', time());
             $from7 = date('Y-m-d' ." ". '05:00:00', time()); $to7 = date('Y-m-d' ." ". '07:59:59', time());
-           
+
 //Today
 
 $d1=DB::table('prescription_filled_status')->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')->join('druglists','druglists.id','=','prescription_details.drug_id')
@@ -485,7 +485,7 @@ $dec=DB::table('prescription_filled_status')->join('prescription_details','presc
 
     var ctx = document.getElementById("lineChartp").getContext("2d");
     new Chart(ctx, {type: 'line', data: lineDatap, options:lineOptions});
-    <?php 
+    <?php
 
      $mn=DB::table('prescription_filled_status')->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')->join('druglists','druglists.id','=','prescription_details.drug_id')
                 ->where('druglists.Manufacturer','like', '%' .$name . '%')->where('prescription_filled_status.created_at','>=',$monday)->selectRaw('SUM(price * quantity) as total')->whereNull('prescription_filled_status.substitute_presc_id')->count();
@@ -539,7 +539,7 @@ $dec=DB::table('prescription_filled_status')->join('prescription_details','presc
 
     var ctx = document.getElementById("lineChartsp").getContext("2d");
     new Chart(ctx, {type: 'line', data: lineDatasp, options:lineOptions});
-    <?php 
+    <?php
     $wk1=DB::table('prescription_filled_status')->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')->join('druglists','druglists.id','=','prescription_details.drug_id')
                 ->where('druglists.Manufacturer','like', '%' .$name . '%')->where('prescription_filled_status.created_at','>=',$monthstart)->where('prescription_filled_status.created_at','<=',$first)->selectRaw('SUM(price * quantity) as total')->whereNull('prescription_filled_status.substitute_presc_id')->count();
 $wk2=DB::table('prescription_filled_status')->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')->join('druglists','druglists.id','=','prescription_details.drug_id')

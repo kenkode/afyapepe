@@ -352,7 +352,7 @@ $week4=DB::table('prescription_filled_status')->join('prescription_details','pre
 
 
     var ctx = document.getElementById("lineChart").getContext("2d");
-    new Chart(ctx, {type: 'line', data: lineData, options:lineOptions});
+    new Chart(ctx, {type: 'bar', data: lineData, options:lineOptions});
 
 
          var lineDatas = {
@@ -384,7 +384,7 @@ $week4=DB::table('prescription_filled_status')->join('prescription_details','pre
 
 
     var ctx = document.getElementById("lineCharts").getContext("2d");
-    new Chart(ctx, {type: 'line', data: lineDatas, options:lineOptions});
+    new Chart(ctx, {type: 'bar', data: lineDatas, options:lineOptions});
 
   var lineDatam = {
         labels: ["Week 1", "Week 2", "Week 3", "Week 4"],
@@ -414,10 +414,10 @@ $week4=DB::table('prescription_filled_status')->join('prescription_details','pre
 
 
     var ctx = document.getElementById("lineChartm").getContext("2d");
-    new Chart(ctx, {type: 'line', data: lineDatam, options:lineOptions});
+    new Chart(ctx, {type: 'bar', data: lineDatam, options:lineOptions});
 
     var ctx = document.getElementById("lineCharts").getContext("2d");
-    new Chart(ctx, {type: 'line', data: lineDatas, options:lineOptions});
+    new Chart(ctx, {type: 'bar', data: lineDatas, options:lineOptions});
     <?php
 
 $jan=DB::table('prescription_filled_status')->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')->join('druglists','druglists.id','=','prescription_details.drug_id')
@@ -476,7 +476,7 @@ $dec=DB::table('prescription_filled_status')->join('prescription_details','presc
 
 
     var ctx = document.getElementById("lineCharty").getContext("2d");
-    new Chart(ctx, {type: 'line', data: lineDatay, options:lineOptions});
+    new Chart(ctx, {type: 'bar', data: lineDatay, options:lineOptions});
 
 
      var lineDatap = {
@@ -508,7 +508,7 @@ $dec=DB::table('prescription_filled_status')->join('prescription_details','presc
 
 
     var ctx = document.getElementById("lineChartp").getContext("2d");
-    new Chart(ctx, {type: 'line', data: lineDatap, options:lineOptions});
+    new Chart(ctx, {type: 'bar', data: lineDatap, options:lineOptions});
     <?php 
 
      $mn=DB::table('prescription_filled_status')->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')->join('druglists','druglists.id','=','prescription_details.drug_id')
@@ -562,7 +562,7 @@ $dec=DB::table('prescription_filled_status')->join('prescription_details','presc
 
 
     var ctx = document.getElementById("lineChartsp").getContext("2d");
-    new Chart(ctx, {type: 'line', data: lineDatasp, options:lineOptions});
+    new Chart(ctx, {type: 'bar', data: lineDatasp, options:lineOptions});
     <?php 
     $wk1=DB::table('prescription_filled_status')->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')->join('druglists','druglists.id','=','prescription_details.drug_id')
                 ->where('druglists.Manufacturer','like', '%' .$name . '%')->whereDate('prescription_filled_status.created_at','>=','.$monthstart.')->whereDate('prescription_filled_status.created_at','<=','.$first.')->selectRaw('SUM(price * quantity) as total')->whereNull('prescription_filled_status.substitute_presc_id')->count();
@@ -607,7 +607,7 @@ $wk4=DB::table('prescription_filled_status')->join('prescription_details','presc
 
 
     var ctx = document.getElementById("lineChartmp").getContext("2d");
-    new Chart(ctx, {type: 'line', data: lineDatamp, options:lineOptions});
+    new Chart(ctx, {type: 'bar', data: lineDatamp, options:lineOptions});
 
     <?php
 
@@ -670,7 +670,7 @@ $decp=DB::table('prescription_filled_status')->join('prescription_details','pres
 
 
     var ctx = document.getElementById("lineChartyp").getContext("2d");
-    new Chart(ctx, {type: 'line', data: lineDatayp, options:lineOptions});
+    new Chart(ctx, {type: 'bar', data: lineDatayp, options:lineOptions});
 
 
         });

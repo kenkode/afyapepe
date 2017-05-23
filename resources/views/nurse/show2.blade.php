@@ -763,10 +763,7 @@ No <input type="checkbox" name="tone" value="No" />
     <label for="exampleInputEmail1">Head Head Measurement</label>
     <input type="name" class="form-control" placeholder="" name="cir">
     </div>
-   <div class="form-group">
-    <label for="exampleInputPassword1">Temperature</label>
-    <input type="name" class="form-control" id="exampleInputPassword1" placeholder="Temperature" name="temperature"  required>
-   </div>
+   
 
     <div class="form-group">
     <label for="exampleInputPassword1">Systolic BP</label>

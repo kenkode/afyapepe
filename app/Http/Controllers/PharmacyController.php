@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Http\Controllers;
 
 use App\Http\Requests;
@@ -709,6 +708,77 @@ return Response::json($results);
       return User::search($request->get('q'))->with('profile')->get();
   }
 
+  /**
+  *Inventory stuff
+  */
+  public function getManufacturer(Request $request)
+  {
+    $term = trim($request->q);
+ if (empty($term))
+   {
+      return \Response::json([]);
+    }
+  $manufacturers = Druglist::search($term)->limit(20)->get();
+
+    $manus = [];
+     foreach ($manufacturers as $manufacturer)
+     {
+        $manus[] = ['id' => $manufacturer->id, 'text' => $manufacturer->Manufacturer];
+     }
+     return \Response::json($manus);
+
+  }
+
+  /**
+  *Display all inventory
+  */
+  public function showInventory()
+  {
+    $inventory = DB::table('inventory')
+                ->join('druglists','druglists.id','=','inventory.drug_id')
+                ->join('strength','strength.strength','=','inventory.strength')
+                ->select('druglists.Manufacturer','druglists.drugname',
+                'druglists.id AS drug_id','strength.strength','inventory.*')
+                ->get();
+
+    return view('pharmacy.inventory')->with('inventory',$inventory);
+  }
+
+  /**
+  * Store new inventory
+  */
+  public function addStock(Request $request)
+  {
+    $user_id = Auth::user()->id;
+
+    $data = DB::table('pharmacists')
+              ->where('user_id', $user_id)
+              ->first();
+
+    $facility = $data->premiseid;
+
+    //$manufacturer = $request->manufacturer;
+
+    $drug = $request->prescription;
+    $strength = $request->strength;
+    $strength_unit = $request->strength_unit;
+    $quantity = $request->quantity;
+    $price = $request->price;
+
+    DB::table('inventory')->insert([
+      'drug_id'=>$drug,
+      'strength'=>$strength,
+      'strength_unit'=>$strength_unit,
+      'quantity'=>$quantity,
+      'price'=>$price,
+      'submitted_by'=>$user_id,
+      'outlet_id'=>$facility,
+      'created_at'=>Carbon::now(),
+      'updated_at'=>Carbon::now()
+    ]);
+
+    return redirect()->action('PharmacyController@showInventory');
+  }
 
 
     /**

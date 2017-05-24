@@ -1,30 +1,6 @@
 @extends('layouts.pharmacy')
 @section('content')
 
-<!-- <script type="text/javascript">
-       $(document).ready(function() {
-           $('.noCheck').click(function() {
-               $('td:nth-child(9),th:nth-child(9)').hide();
-               $('td:nth-child(10),th:nth-child(10)').hide();
-               $('td:nth-child(11),th:nth-child(11)').hide();
-               $('td:nth-child(12),th:nth-child(12)').hide();
-               $('td:nth-child(13),th:nth-child(13)').hide();
-               // if your table has header(th), use this
-               //$('td:nth-child(2),th:nth-child(2)').hide();
-           });
-
-     $('.yesCheck').click(function() {
-                $('td:nth-child(9),th:nth-child(9)').show();
-                $('td:nth-child(10),th:nth-child(10)').show();
-                $('td:nth-child(11),th:nth-child(11)').show();
-                $('td:nth-child(12),th:nth-child(12)').show();
-                $('td:nth-child(13),th:nth-child(13)').show();
-               // if your table has header(th), use this
-               //$('td:nth-child(2),th:nth-child(2)').hide();
-           });
-
-       });
-   </script> -->
 
 <div class="wrapper wrapper-content animated fadeInRight">
 

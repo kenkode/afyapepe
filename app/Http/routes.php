@@ -192,8 +192,16 @@ Route::get('/tag/drug', 'PharmacyController@fdrugs');
 Route::get('/select2', 'PharmacyController@trySomething');
 Route::get('autocomplete',array('as'=>'autocomplete','uses'=>'PharmacyController@autocomplete'));
 Route::get('search/autocomplete', 'PharmacyController@autocomplete');
-});
+Route::get('inventory', [ 'as' => 'inventory', 'uses' => 'PharmacyController@showInventory']);
+Route::get('new_stock', function()
+{
+	return view('pharmacy.new_stock');
+}
+);
+Route::post('add_stock', ['as' => 'add_stock', 'uses' => 'PharmacyController@addStock']);
+Route::get('/manus', 'PharmacyController@getManufacturer');
 
+});
 
 
 Route::group(['middleware' => ['auth','role:Admin|Test|Doctor']], function() {

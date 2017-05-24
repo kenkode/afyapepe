@@ -34,17 +34,13 @@
 <script src="{{ asset('js/custom.js') }}" type="text/javascript"></script>
 
 <script src="{{ asset('js/plugins/steps/jquery.steps.min.js') }}" type="text/javascript"></script>
-  <script src="{{ asset('js/plugins/validate/jquery.validate.min.js') }}" type="text/javascript"></script>
-
-
-
+<script src="{{ asset('js/plugins/validate/jquery.validate.min.js') }}" type="text/javascript"></script>
 
 <script type="text/javascript">
 $.ajaxSetup({
  headers: { 'X-CSRF-Token' : $('meta[name=_token]').attr('content') }
 });
 </script>
-
 
 <script>
       $('.presc1').select2({
@@ -67,6 +63,28 @@ $.ajaxSetup({
           }
       });
   </script>
+
+  <script>
+        $('.manufacturer1').select2({
+            placeholder: "Select manufacturer...",
+            minimumInputLength: 2,
+            ajax: {
+                url: '/manus',
+                dataType: 'json',
+                data: function (params) {
+                    return {
+                        q: $.trim(params.term)
+                    };
+                },
+                processResults: function (data) {
+                    return {
+                        results: data
+                    };
+                },
+                cache: true
+            }
+        });
+    </script>
 
 <script>
    $(document).ready(function(){

@@ -199,6 +199,96 @@ return view('manufacturer.drugsubstitutions')->with('drugsubst',$drugsubst);
  }
 
 
+    public function manconfig(){
+      return view('manufacturer.settings');
+
+    }
+public function adddrugs(Request $request){
+$base1=$request->get('base_drug_1');
+$base2=$request->get('base_drug_2');
+$base3=$request->get('base_drug_3');
+$base4=$request->get('base_drug_4');
+$base5=$request->get('base_drug_5');
+
+if ($base1) {
+$compedrugs = DB::table('compe_drugs')->insert([
+             'company' => $base1,
+             'manufacturer_id'=> $request->get('manu_id'),
+             'competition'=> $request->get('compe_drug_1'),  ]);  }
+if ($base2) {
+$compedrugs = DB::table('compe_drugs')->insert([
+            'company' => $base2,
+            'manufacturer_id'=> $request->get('manu_id'),
+            'competition'=> $request->get('compe_drug_2'),  ]);  }
+if ($base3) {
+$compedrugs = DB::table('compe_drugs')->insert([
+             'company' => $base3,
+             'manufacturer_id'=> $request->get('manu_id'),
+             'competition'=> $request->get('compe_drug_3'),  ]);  }
+if ($base4) {
+$compedrugs = DB::table('compe_drugs')->insert([
+            'company' => $base4,
+            'manufacturer_id'=> $request->get('manu_id'),
+            'competition'=> $request->get('compe_drug_4'),  ]);  }
+if ($base5) {
+$compedrugs = DB::table('compe_drugs')->insert([
+             'company' => $base5,
+             'manufacturer_id'=> $request->get('manu_id'),
+             'competition'=> $request->get('compe_drug_5'),  ]);  }
+
+
+return view('manufacturer.settings');
+}
+
+public function addcompany(Request $request){
+  $company1=$request->get('company1');
+  $company2=$request->get('company2');
+  $company3=$request->get('company3');
+  $company4=$request->get('company4');
+  $company5=$request->get('company5');
+  $manuco=$request->get('manuco');
+  $manuId=$request->get('manu_id');
+
+  if ($company1) {
+  $compedrugs = DB::table('compe_manufacturer')->insert([
+               'competition' => $company1,
+               'company'=> $manuId,  ]);  }
+if ($company2) {
+$compedrugs = DB::table('compe_manufacturer')->insert([
+            'competition' => $company2,
+            'company'=> $manuId,  ]);  }
+if ($company3) {
+$compedrugs = DB::table('compe_manufacturer')->insert([
+           'competition' => $company3,
+           'company'=> $manuId,  ]);  }
+if ($company4) {
+$compedrugs = DB::table('compe_manufacturer')->insert([
+            'competition' => $company4,
+            'company'=> $manuId,  ]);  }
+if ($company5) {
+$compedrugs = DB::table('compe_manufacturer')->insert([
+           'competition' => $company5,
+           'company'=> $manuId,  ]);  }
+
+
+
+$pttids= DB::table('compe_manufacturer')
+           ->select('competition')
+           ->where([
+                         ['competition',$manuco],
+                         ['company', '=',$manuId],
+            ])
+->first();
+if (is_null($pttids)) {
+ if ($manuco) {
+ $compedrugs = DB::table('compe_manufacturer')->insert([
+            'competition' => $manuco,
+            'company'=> $manuId,  ]);  }
+          }
+
+return view('manufacturer.settings');
+
+}
     public function manuStock(){
       return view('manufacturer.manustock');
 

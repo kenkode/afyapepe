@@ -378,7 +378,7 @@ No<input type="checkbox" value="No"  name="bba"/>Yes<input type="checkbox" value
     </div>-->
     <div class="form-group">
                      <label >Revelant Drugs:</label>
-                     <select multiple="multiple" id="presc1" name="brevelantdrugs[]" class="form-control presc1" style="width:50%"></select>
+                     <select multiple="multiple" id="presc1" name="brevelantdrugs[]" class="form-control presc1" style="width:50%" required></select>
                  </div>
 
                                            
@@ -499,7 +499,7 @@ No <input type="checkbox" name="aph" value="No" />
 
   <div class="form-group">
                      <label >Revelant Drugs:</label>
-                     <select multiple="multiple" id="presc1" name="mrevelantdrugs[]" class="form-control presc1" style="width:50%"></select>
+                     <select multiple="multiple" id="presc1" name="mrevelantdrugs[]" class="form-control presc1" style="width:50%" required></select>
                  </div>
 
 
@@ -763,10 +763,7 @@ No <input type="checkbox" name="tone" value="No" />
     <label for="exampleInputEmail1">Head Head Measurement</label>
     <input type="name" class="form-control" placeholder="" name="cir">
     </div>
-   <div class="form-group">
-    <label for="exampleInputPassword1">Temperature</label>
-    <input type="name" class="form-control" id="exampleInputPassword1" placeholder="Temperature" name="temperature"  required>
-   </div>
+   
 
     <div class="form-group">
     <label for="exampleInputPassword1">Systolic BP</label>
@@ -782,7 +779,7 @@ No <input type="checkbox" name="tone" value="No" />
      
      <div class="form-group">
                      <label >Chief Complaint/Reason for visit:</label>
-                     <select multiple="multiple" id="chief" name="chiefcompliants[]" class="form-control chief" style="width:50%"></select>
+                     <select multiple="multiple" id="chief" name="chiefcompliants[]" class="form-control chief" style="width:50%" required></select>
                  </div>
     <!--<div class="form-group">
     <label for="exampleInputPassword1">Observation</label>
@@ -795,11 +792,11 @@ No <input type="checkbox" name="tone" value="No" />
     </div>-->
       <div class="form-group">
                      <label >Observation:</label>
-                     <select multiple="multiple" id="observation" name="observations[]" class="form-control observation" style="width:50%"></select>
+                     <select multiple="multiple" id="observation" name="observations[]" class="form-control observation" style="width:50%" required></select>
                  </div>
       <div class="form-group">
                      <label >Symptom:</label>
-                     <select multiple="multiple" id="symptom" name="symptoms[]" class="form-control symptom" style="width:50%"></select>
+                     <select multiple="multiple" id="symptom" name="symptoms[]" class="form-control symptom" style="width:50%" required></select>
                  </div>
     
     

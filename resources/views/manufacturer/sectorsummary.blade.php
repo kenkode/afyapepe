@@ -149,13 +149,13 @@
                                                  $companies=DB::table('prescription_filled_status')
                                                   ->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')
                                                   ->join('druglists','druglists.id','=','prescription_details.drug_id')
-                                                 ->select('druglists.manufacturer as name','druglists.drugname as drugname')
+                                                 ->select('druglists.manufacturer as name','druglists.drugname as drugname','druglists.DosageForm as DosageForm')
                                                  ->selectRaw('SUM(price * quantity) as total')->orderby('total','DESC')->limit(10)->get();?>
                                                   @foreach ($companies as $company)
                                                     <tr>
                                                     	<td>{{$i}}</td>
                                                     	<td>{{$company->drugname}}</td>
-                                                    	<td>{{$company->name}}</td>
+                                                    	<td>{{$company->DosageForm}}</td>
                                                     	<td>{{$company->total}}</td>
                                                     	<td>
                                                    <?php $sales=DB::table('prescription_filled_status')->selectRaw('SUM(price * quantity) as totals')->first();

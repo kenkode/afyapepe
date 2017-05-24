@@ -29,7 +29,7 @@
             <thead>
               <tr>
                 <th>No</th>
-                <th>Doctor</th>
+                <th>Drug Name</th>
                 <th colspan="2">DIRECT SALES</th>
                 <th colspan="2">SUBSTITUTED SALES</th>
                 <th colspan="2">TOTAL Sales</th>
@@ -255,7 +255,7 @@
               <thead>
                 <tr>
                   <th>No</th>
-                  <th>Doctor</th>
+                  <th>Drug Name</th>
                   <th colspan="2">DIRECT SALES</th>
                   <th colspan="2">SUBSTITUTED SALES</th>
                   <th colspan="2">TOTAL Sales</th>
@@ -494,7 +494,7 @@
               <thead>
                 <tr>
                   <th>No</th>
-                  <th>Doctor</th>
+                  <th>Drug Name</th>
                   <th colspan="2">DIRECT SALES</th>
                   <th colspan="2">SUBSTITUTED SALES</th>
                   <th colspan="2">TOTAL Sales</th>
@@ -734,7 +734,7 @@
               <thead>
                 <tr>
                   <th>No</th>
-                  <th>Doctor</th>
+                  <th>Drug Name</th>
                   <th colspan="2">DIRECT SALES</th>
                   <th colspan="2">SUBSTITUTED SALES</th>
                   <th colspan="2">TOTAL Sales</th>
@@ -973,7 +973,7 @@
             <thead>
               <tr>
                 <th>No</th>
-                <th>Doctor</th>
+                <th>Drug Name</th>
                 <th colspan="2">DIRECT SALES</th>
                 <th colspan="2">SUBSTITUTED SALES</th>
                 <th colspan="2">TOTAL Sales</th>

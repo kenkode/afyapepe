@@ -11,12 +11,22 @@ $id=Auth::id();
 $manufacturer=DB::table('manufacturers')->where('user_id', Auth::id())->first();
 $Mname = $manufacturer->name;
 $Mid = $manufacturer->id;
-?>
 
+$manufacturerid=DB::table('compe_manufacturer')->where('manu_id',$Mid )->first(); ?>
 
-
+ @if(is_null($manufacturerid))
 <a data-toggle="modal" id="button1" class="btn btn-primary" href="#modal-company">Competition Companies</a>
+@else
+@endif
+<?php $drusg = DB::table('compe_drugs')
+                     ->select(DB::raw('count(*) as drugs_count, manu_id'))
+                     ->where('manu_id', '=',$Mid)
+                     ->groupBy('manu_id')
+                     ->first(); ?>
+  @if($drusg->drugs_count < 5)
 <a data-toggle="modal" id="button2" class="btn btn-primary" href="#modal-drugs">Competition Drugs</a>
+@else
+@endif
   <!-- Company Drug Competitions -->
   <div class="row" id="company">
   <div class="col-md-6">
@@ -123,7 +133,7 @@ $Mid = $manufacturer->id;
   </div>
   </div>
 
-  <!-- Company Competitions -->
+  <!-- DrugsCompetitions -->
                             <div class="row" id="drugs">
               <div class="col-lg-12">
                   <div class="ibox float-e-margins">
@@ -153,9 +163,9 @@ $Mid = $manufacturer->id;
 
                                     <form class="form-horizontal" role="form" method="POST" action="/adddrugs" enctype="multipart/form-data" novalidate>
                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                    <div class="form-group">
-                                       <label>Drug NO 1:</label>
-                                            <select class="drugs-single" name="base_drug_1" multiple="multiple" style="width: 100%">
+                                    <div class="form-group col-sm-8">
+                                       <label>Drug Name:</label>
+                                            <select class="drugs-single" name="base_drug" multiple="multiple" style="width: 100%">
                                               <?php $biotests=DB::table('druglists')->where('Manufacturer', 'like',$Mname.'%')->distinct()->get(['id','drugname']); ?>
                                                 <option value=''>Please Choose one</option>
                                                 @foreach($biotests as $biotest)
@@ -163,46 +173,10 @@ $Mid = $manufacturer->id;
                                               @endforeach
                                               </select>
                                         </div>
-                                        <div class="form-group">
-                                           <label>Drug NO 2:</label>
-                                                <select class="drugs-single" name="base_drug_2" multiple="multiple"  style="width: 100%">
-                                                  <?php $biotests=DB::table('druglists')->where('Manufacturer', 'like',$Mname.'%')->distinct()->get(['id','drugname']); ?>
-                                                    <option value=''>Please Choose one</option>
-                                                    @foreach($biotests as $biotest)
-                                                         <option value='{{$biotest->id}}'>{{$biotest->drugname}}</option>
-                                                  @endforeach
-                                                  </select>
-                                            </div>
-                                            <div class="form-group">
-                                               <label>Drug NO 3:</label>
-                                                    <select class="drugs-single" name="base_drug_3" multiple="multiple" style="width: 100%">
-                                                      <?php $biotests=DB::table('druglists')->where('Manufacturer', 'like',$Mname.'%')->distinct()->get(['id','drugname']); ?>
-                                                        <option value=''>Please Choose one</option>
-                                                        @foreach($biotests as $biotest)
-                                                             <option value='{{$biotest->id}}'>{{$biotest->drugname}}</option>
-                                                      @endforeach
-                                                      </select>
-                                                </div>
-                                                <div class="form-group">
-                                                   <label>Drug NO 4:</label>
-                                                        <select class="drugs-single" name="base_drug_4" multiple="multiple"  style="width: 100%">
-                                                          <?php $biotests=DB::table('druglists')->where('Manufacturer', 'like',$Mname.'%')->distinct()->get(['id','drugname']); ?>
-                                                             <option value=''>Please Choose one</option>
-                                                             @foreach($biotests as $biotest)
-                                                                 <option value='{{$biotest->id}}'>{{$biotest->drugname}}</option>
-                                                          @endforeach
-                                                          </select>
-                                                    </div>
-                                                    <div class="form-group">
-                                                       <label>Drug NO 5:</label>
-                                                            <select class="drugs-single" name="base_drug_5" multiple="multiple" style="width: 100%">
-                                                              <?php $biotests=DB::table('druglists')->where('Manufacturer', 'like',$Mname.'%')->distinct()->get(['id','drugname']); ?>
-                                                              <option value=''>Please Choose one</option>
-                                                              @foreach($biotests as $biotest)
-                                                              <option value='{{$biotest->id}}'>{{$biotest->drugname}}</option>
-                                                              @endforeach
-                                                              </select>
-                                                        </div>
+
+
+
+
 
 
 
@@ -265,55 +239,86 @@ $Mid = $manufacturer->id;
               </div>
               <div class="ibox-content">
               <div class="row">
-            <div class="col-sm-4 b-r"><h3 class="m-t-none m-b">Competition Companies</h3>
-              <?php $Companies=DB::table('compe_manufacturer')
-              ->Join('druglists', 'compe_manufacturer.competition', '=', 'druglists.id')
-              ->select('compe_manufacturer.id','druglists.Manufacturer')
-               ->where('compe_manufacturer.company', '=',$Mid)
-               ->get(); ?>
+            <div class="col-sm-4"><h3 class="m-t-none m-b">Competition Companies</h3>
 
-              @foreach($Companies as $cos)
-              <div class="form-group">
-            <input type="text" value="{{$cos->Manufacturer}}" class="form-control">
+               <?php $Companiez=DB::table('compe_manufacturer')
+               ->select('compe_manufacturer.*')
+                ->where('manu_id', '=',$Mid)
+                ->get(); ?>
+
+               @foreach($Companiez as $compz)
+
+
+            <div class="form-group">
+            <?php $Companiez1=DB::table('druglists')  ->where('id', '=',$compz->competition_1)->distinct()->first(['Manufacturer']); ?>
+            <input type="text" value="{{$Companiez1->Manufacturer}}" class="form-control">
             </div>
-              @endforeach
+            <div class="form-group">
+          <?php $Companiez2=DB::table('druglists')  ->where('id', '=',$compz->competition_2)->distinct()->first(['Manufacturer']); ?>
+            <input type="text" value="{{$Companiez2->Manufacturer}}" class="form-control">
+            </div>
+            <div class="form-group">
+      <?php $Companiez3=DB::table('druglists')  ->where('id', '=',$compz->competition_3)->distinct()->first(['Manufacturer']); ?>
+            <input type="text" value="{{$Companiez3->Manufacturer}}" class="form-control">
+            </div>
+
+            <div class="form-group">
+        <?php $Companiez4=DB::table('druglists')  ->where('id', '=',$compz->competition_4)->distinct()->first(['Manufacturer']); ?>
+            <input type="text" value="{{$Companiez4->Manufacturer}}" class="form-control">
+            </div>
+            <div class="form-group">
+      <?php $Companiez5=DB::table('druglists')  ->where('id', '=',$compz->competition_5)->distinct()->first(['Manufacturer']); ?>
+            <input type="text" value="{{$Companiez5->Manufacturer}}" class="form-control">
+            </div>
+                @endforeach
              </div>
-
-
-
-
-        <div class="col-sm-8"><h4>Competition Drug</h4>
-          <form role="form" class="form-inline">
+            
 
             <?php $Companiesd=DB::table('compe_drugs')
             ->select('compe_drugs.*')
-             ->where('manufacturer_id', '=',$Mid)
+             ->where('manu_id', '=',$Mid)
              ->get(); ?>
 
             @foreach($Companiesd as $cosd)
-
+<div class="col-sm-4"><h3 class="m-t-none m-b">Company Drug</h3>
+<form role="form">
 <div class="form-group">
   <?php $companydrugs=DB::table('druglists')->where('id', '=',$cosd->company)->distinct()->first(['drugname']); ?>
 <input type="text" value="{{$companydrugs->drugname}}" class="form-control">
 </div>
 
-<button class="btn btn-white" type="submit">Vs</button>
-
+<button class="btn btn-white text-center" type="submit">Vs</button>
+<h3 class="m-t-none m-b">Competition Drugs</h3>
 <div class="form-group">
-  <?php $companydrug=DB::table('druglists')->where('id', '=',$cosd->competition)->distinct()->first(['drugname']); ?>
-<input type="text" value="{{$companydrug->drugname}}" class="form-control">
+  <?php $compe1=DB::table('druglists')->where('id', '=',$cosd->competition_1)->distinct()->first(['drugname']); ?>
+<input type="text" value="{{$compe1->drugname}}" class="form-control">
 </div>
+<div class="form-group">
+  <?php $compe2=DB::table('druglists')->where('id', '=',$cosd->competition_2)->distinct()->first(['drugname']); ?>
+<input type="text" value="{{$compe2->drugname}}" class="form-control">
+</div>
+<div class="form-group">
+  <?php $compe3=DB::table('druglists')->where('id', '=',$cosd->competition_3)->distinct()->first(['drugname']); ?>
+<input type="text" value="{{$compe3->drugname}}" class="form-control">
+</div>
+<div class="form-group">
+  <?php $compe4=DB::table('druglists')->where('id', '=',$cosd->competition_4)->distinct()->first(['drugname']); ?>
+<input type="text" value="{{$compe4->drugname}}" class="form-control">
+</div>
+<div class="form-group">
+  <?php $compe5=DB::table('druglists')->where('id', '=',$cosd->competition_5)->distinct()->first(['drugname']); ?>
+<input type="text" value="{{$compe5->drugname}}" class="form-control">
+</div>
+
 <br />
-                @endforeach
+</form>
+  </div>
+  @endforeach
+  </div>
+  </div>
 
-                </form>
-          </div>
-            </div>
-              </div>
-
-              </div>
-              </div>
-              </div>
+  </div>
+  </div>
 
 
 

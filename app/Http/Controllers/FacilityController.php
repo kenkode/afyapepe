@@ -103,7 +103,7 @@ return redirect()->route('facility.index');
          $facility = Facility::search($term)->limit(100)->get();
           $formatted_facility = [];
      foreach ($facility as $fac) {
-             $formatted_facility[] = ['id' => $fac->id, 'text' => $fac->FacilityName];
+             $formatted_facility[] = ['id' => $fac->FacilityCode, 'text' => $fac->FacilityName];
          }
 
          return \Response::json($formatted_facility);

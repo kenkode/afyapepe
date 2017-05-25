@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-
+use DB;
+use Redirect;
 class AdminController extends Controller
 {
     /**
@@ -22,6 +23,37 @@ class AdminController extends Controller
       return view('admin.home');
     }
 
+    public function facility(){
+
+        return view('admin.facility');
+    }
+
+    public function addfacility(Request $request){
+        $code=$request->code;
+        $name=$request->name;
+        $type=$request->type;
+        $county=$request->county;
+        $constituency=$request->constituency;
+        $ward=$request->ward;
+
+
+        DB::table('facilities')->insert([
+            'FacilityCode'=>$code,
+             'FacilityName'=>$name,
+             'Type'=>$type,
+             'County'=>$county,
+             'Constituency'=>$constituency,
+             'Ward'=>$ward
+            ]);
+
+return redirect()->action('AdminController@facility');
+
+    }
+
+
+    public function facilityAdmin(){
+        return view('admin.facilityadmin');
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -29,7 +61,7 @@ class AdminController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.create');
     }
 
     /**
@@ -40,7 +72,32 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $name=$request->name;
+        $email=$request->email;
+        $role=$request->role;
+        $password=bcrypt($request->password);
+        $facility=$request->facility;
+
+        $userid=DB::table('users')->insertGetId([
+            'name'=>$name,
+            'email'=>$email,
+            'role'=>$role,
+            'password'=>$password,
+            'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
+            ]);
+        DB::table('facility_admin')->insert([
+            'user_id'=>$userid,
+            'facilitycode'=>$facility,
+            'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
+            ]);
+        DB::table('role_user')->insert([
+            'user_id'=>$userid,
+            'role_id'=>10
+            ]);
+
+        return redirect()->action('AdminController@facilityAdmin');
     }
 
     /**

@@ -40,6 +40,12 @@ Route::get('roles/{id}/edit',['as'=>'roles.edit','uses'=>'RoleController@edit'])
 
 Route::group(['middleware' => ['auth','role:Admin']], function() {
 Route::resource('admin','AdminController');
+Route::get('facilities','AdminController@facility');
+Route::post('addfacility','AdminController@addfacility');
+Route::get('facilityAdmin','AdminController@facilityAdmin');
+Route::get('addAdmin','AdminController@create');
+Route::post('adminstore','AdminController@store');
+
 Route::resource('kins','KinController');
 Route::resource('facility','FacilityController');
 Route::resource('county','CountyController');

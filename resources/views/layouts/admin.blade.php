@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="{!! asset('css/plugins/dataTables/datatables.min.css') !!}" />
     <link rel="stylesheet" href="{!! asset('css/animate.css') !!}" />
     <link rel="stylesheet" href="{!! asset('css/style.css') !!}" />
+    <link rel="stylesheet" href="{{asset('select/select2.min.css') }}" />
 
 </head>
 
@@ -32,6 +33,8 @@
     @include('includes.admin_inc.headbar')
     <!-- Main view  -->
     @yield('content')
+
+    @include('includes.admin_inc.footer')
 
         </div>
 
@@ -109,5 +112,26 @@
         });
 
     </script>
+     <script>
+            $('.facility').select2({
+                placeholder: "Select facility to .....",
+                minimumInputLength: 2,
+                ajax: {
+                    url: '/tags/fac',
+                    dataType: 'json',
+                    data: function (params) {
+                        return {
+                            q: $.trim(params.term)
+                        };
+                    },
+                    processResults: function (data) {
+                        return {
+                            results: data
+                        };
+                    },
+                    cache: true
+                }
+            });
+        </script>
 </body>
 </html>

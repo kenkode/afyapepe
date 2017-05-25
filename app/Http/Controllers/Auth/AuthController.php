@@ -144,6 +144,9 @@ class AuthController extends Controller
       if($role == "Registrar"){
         return '/registrar';
       }
+      if($role=="FacilityAdmin"){
+        return '/facilityadmin';
+      }
       else
       {
       return '/login';

@@ -255,3 +255,15 @@ Route::group(['middleware' => ['auth','role:Admin|Test']], function() {
 
 
 });
+
+//FacilityAdmin
+
+Route::group(['middleware' => ['auth','role:Admin|FacilityAdmin']], function() {
+Route::resource('facilityadmin','FacilityAdminController');
+
+});
+
+
+
+
+

@@ -74,6 +74,42 @@ class FacilityAdminController extends Controller
         return  Redirect()->action('FacilityAdminController@facilityregister');
     }
 
+    public function facilitynurse(){
+
+        return view('facilityadmin.nurse');
+    }
+
+public function storenurse(Request $request){
+
+    $name=$request->name;
+        $email=$request->email;
+        $role=$request->role;
+        $regno=$request->regno;
+        $password=bcrypt($request->password);
+        $facility=$request->facility;
+
+        $userid=DB::table('users')->insertGetId([
+            'name'=>$name,
+            'email'=>$email,
+            'role'=>$role,
+            'password'=>$password,
+            'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
+            ]);
+        DB::table('facility_nurse')->insert([
+            'user_id'=>$userid,
+            'regno'=>$regno,
+            'facilitycode'=>$facility,
+            'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
+            ]);
+        DB::table('role_user')->insert([
+            'user_id'=>$userid,
+            'role_id'=>4
+            ]);
+
+        return  Redirect()->action('FacilityAdminController@facilitynurse');
+}
     /**
      * Display the specified resource.
      *

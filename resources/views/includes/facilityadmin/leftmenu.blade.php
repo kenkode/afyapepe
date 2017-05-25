@@ -21,7 +21,7 @@
                 </div>
             </li>
             <li >
-            <a href="{{ URL::to('facilityadmin') }}"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboards</span> <span class="fa arrow"></span></a>
+            <a href="{{ URL::to('facilityadmin') }}"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboards</span></a>
 
             </li>        
                         

@@ -262,8 +262,11 @@ Route::group(['middleware' => ['auth','role:Admin|FacilityAdmin']], function() {
 Route::resource('facilityadmin','FacilityAdminController');
 Route::get('facilityregister','FacilityAdminController@facilityregister');
 Route::get('facilitynurse','FacilityAdminController@facilitynurse');
+Route::get('facilitydoctor','FacilityAdminController@facilitydoctor');
 Route::post('addfacilityregistrar','FacilityAdminController@store');
 Route::post('addfacilitynurse','FacilityAdminController@storenurse');
+Route::post('addfacilitydoctor','FacilityAdminController@storedoctor');
+
 
 });
 

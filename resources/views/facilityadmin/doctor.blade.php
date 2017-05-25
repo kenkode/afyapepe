@@ -4,10 +4,10 @@
 <div class="content-page  equal-height">
           <div class="content">
               <div class="container">
-               <h1>Facility Registrars</h1>
+               <h1>Facility Doctors</h1>
               <div class="row">
               <div class="col-sm-12">
-             
+            
                <div class="panel-body">
                                 <div class="ibox float-e-margins">
                               <div class="ibox-title">
@@ -42,7 +42,7 @@
                             <div class="modal-dialog">
                             <div class="modal-content">
                             <div class="modal-body">
-          <form class="form-horizontal" role="form" method="POST" action="/addfacilityregistrar" novalidate>
+          <form class="form-horizontal" role="form" method="POST" action="/addfacilitydoctor" novalidate>
              <input type="hidden" name="_token" value="{{ csrf_token() }}">
             
               <div class="form-group">
@@ -53,8 +53,6 @@
              <label for="exampleInputEmail1">RegNo</label>
              <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  name="regno"/>
              </div>
-             <input type="hidden" name="role" value="Registrar">
-             <input type="hidden" name="facility" value="{{$facilitycode->facilitycode}}">
              <div class="form-group">
              <label for="exampleInputPassword1">Email</label>
              <input type="email" class="form-control" id="exampleInputPassword1"  name="email"  >
@@ -63,6 +61,29 @@
              <label for="exampleInputPassword1">password</label>
              <input type="password" class="form-control" id="exampleInputPassword1"  name="password"  >
              </div>
+             <div class="form-group">
+             <label for="exampleInputEmail1">RegDate</label>
+             <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  name="regdate"/>
+             </div>
+             <div class="form-group">
+             <label for="exampleInputEmail1">address</label>
+             <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  name="address"/>
+             </div>
+              <div class="form-group">
+             <label for="exampleInputEmail1">Qualification</label>
+             <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  name="qualify"/>
+             </div>
+             <div class="form-group">
+             <label for="exampleInputEmail1">Speciality</label>
+             <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  name="speciality"/>
+             </div>
+             <div class="form-group">
+             <label for="exampleInputEmail1">Sub Speciality</label>
+             <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  name="sub_speciality"/>
+             </div>
+             <input type="hidden" name="role" value="Doctor">
+             <input type="hidden" name="facility" value="{{$facilitycode->facilitycode}}">
+             
 
 
              <input type="submit" name="submit" value="Add" > 
@@ -81,13 +102,14 @@
 
                                                       <tr>
                                                       <th>No</th>
+                                                      <th>Name</th>
                                                       <th>RegNo</th>
-                                                     <th>Name</th>
-                                                     <th>Facility Name</th>
-                                                     <th>Type</th>
-                                                     <th>County</th>
-                                                     <th>Constituency</th>
-                                                     <th>Ward</th>
+                                                      <th>RegDate</th>
+                                                      <th>Address</th>
+                                                      <th>Qualification</th>
+                                                      <th>Speciality</th>
+                                                      <th>Sub Speciality</th>
+                                                   
 
                                                   
 
@@ -99,20 +121,19 @@
                                                   <?php 
                                                   $i=1;
                                                   
-                                                 $facilities=DB::table('facility_registrar')->join('users','users.id','=','facility_registrar.user_id')->join('facilities','facilities.FacilityCode','=','facility_registrar.facilitycode')
-                                                 ->select('users.name as name','facility_registrar.regno as regno','facilities.*')->where('facility_registrar.facilitycode',$facilitycode->facilitycode)
+                                                 $facilities=DB::table('facility_doctor')->join('users','users.id','=','facility_doctor.user_id')->join('facilities','facilities.FacilityCode','=','facility_doctor.facilitycode')
+                                                 ->select('users.name as name','facility_doctor.*','facilities.*')->where('facility_doctor.facilitycode',$facilitycode->facilitycode)
                                                  ->get();?>
                                                   @foreach ($facilities as $fact)
                                                     <tr>
                                                       <td>{{$i}}</td>
+                                                       <td>{{$fact->name}}</td>
                                                       <td>{{$fact->regno}}</td>
-                                                      <td>{{$fact->name}}</td>
-                                                      <td>{{$fact->FacilityName}}</td>
-                                                      <td>{{$fact->Type}}</td>
-                                                      <td>{{$fact->County}}</td> 
-                                                      <td>{{$fact->Constituency}}</td> 
-                                                      
-                                                      <td>{{$fact->Ward}}</td> 
+                                                      <td>{{$fact->regdate}}</td>
+                                                      <td>{{$fact->address}}</td>
+                                                      <td>{{$fact->qualification}}</td> 
+                                                      <td>{{$fact->speciality}}</td> 
+                                                      <td>{{$fact->sub_speciality}}</td> 
                                                                                               
       
                                                       

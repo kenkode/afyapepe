@@ -31,6 +31,7 @@
                                       </a>
                                   </div>
                               </div>
+                    <?php $facilitycode=DB::table('facility_admin')->where('user_id', Auth::id())->first(); ?>
 
                               <div class="ibox-content">
                    <!-- sales All Custom-->
@@ -51,6 +52,8 @@
              <label for="exampleInputEmail1">RegNo</label>
              <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  name="regno"/>
              </div>
+             <input type="hidden" name="role" value="Registrar">
+             <input type="hidden" name="facility" value="{{$facilitycode->facilitycode}}">
              <div class="form-group">
              <label for="exampleInputPassword1">Email</label>
              <input type="email" class="form-control" id="exampleInputPassword1"  name="email"  >
@@ -77,7 +80,8 @@
 
                                                       <tr>
                                                       <th>No</th>
-                                                     <th>Admin Name</th>
+                                                      <th>RegNo</th>
+                                                     <th>Name</th>
                                                      <th>Facility Name</th>
                                                      <th>Type</th>
                                                      <th>County</th>
@@ -94,12 +98,13 @@
                                                   <?php 
                                                   $i=1;
                                                   
-                                                 $facilities=DB::table('facility_admin')->join('users','users.id','=','facility_admin.user_id')->join('facilities','facilities.FacilityCode','=','facility_admin.facilitycode')
-                                                 ->select('users.name as name','facilities.*')
+                                                 $facilities=DB::table('facility_registrar')->join('users','users.id','=','facility_registrar.user_id')->join('facilities','facilities.FacilityCode','=','facility_registrar.facilitycode')
+                                                 ->select('users.name as name','facility_registrar.regno as regno','facilities.*')->where('facility_registrar.facilitycode',$facilitycode->facilitycode)
                                                  ->get();?>
                                                   @foreach ($facilities as $fact)
                                                     <tr>
                                                       <td>{{$i}}</td>
+                                                      <td>{{$fact->regno}}</td>
                                                       <td>{{$fact->name}}</td>
                                                       <td>{{$fact->FacilityName}}</td>
                                                       <td>{{$fact->Type}}</td>

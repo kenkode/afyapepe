@@ -261,6 +261,7 @@ Route::group(['middleware' => ['auth','role:Admin|Test']], function() {
 Route::group(['middleware' => ['auth','role:Admin|FacilityAdmin']], function() {
 Route::resource('facilityadmin','FacilityAdminController');
 Route::get('facilityregister','FacilityAdminController@facilityregister');
+Route::post('addfacilityregistrar','FacilityAdminController@store');
 
 });
 

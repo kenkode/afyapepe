@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 
     <meta charset="utf-8">
@@ -9,27 +10,17 @@
     <title>Afyapepe- @yield('title') </title>
 
 
-    <link rel="stylesheet" href="{{ asset('css/plugins/toastr/toastr.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('js/plugins/gritter/jquery.gritter.css') }}" />
-    <link rel="stylesheet" href="{{ asset('css/vendor.css') }}" />
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}" />
+    <link rel="stylesheet" href="{!! asset('css/plugins/toastr/toastr.min.css') !!}" />
+    <link rel="stylesheet" href="{!! asset('js/plugins/gritter/jquery.gritter.css') !!}" />
+    <link rel="stylesheet" href="{!! asset('css/vendor.css') !!}" />
+    <link rel="stylesheet" href="{!! asset('css/app.css') !!}" />
 
-    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('font-awesome/css/font-awesome.css') }}" />
-    <link rel="stylesheet" href="{{ asset('css/plugins/dataTables/datatables.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('css/animate.css') }}" />
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
-    <link rel="stylesheet" href="{!!asset('css/plugins/fullcalendar/fullcalendar.css')!!}" />
-    <link rel="stylesheet" media="print" href="{!!asset('css/plugins/fullcalendar/fullcalendar.print.css')!!}" />
-
-    <link rel="stylesheet" href="{!! asset('css/plugins/iCheck/custom.css') !!}" />
-     <link rel="stylesheet" href="{!! asset('css/plugins/steps/jquery.steps.css') !!}" />
-      <script type="text/javascript" src="{{ asset('js/modernizr.js') }}"></script>
-
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  <link rel="stylesheet" href="/resources/demos/style.css">
-
+    <link rel="stylesheet" href="{!! asset('css/bootstrap.min.css') !!}" />
+    <link rel="stylesheet" href="{!! asset('font-awesome/css/font-awesome.css') !!}" />
+    <link rel="stylesheet" href="{!! asset('css/plugins/dataTables/datatables.min.css') !!}" />
+    <link rel="stylesheet" href="{!! asset('css/animate.css') !!}" />
+    <link rel="stylesheet" href="{!! asset('css/style.css') !!}" />
+    <link rel="stylesheet" href="{{asset('select/select2.min.css') }}" />
 
 </head>
 
@@ -39,9 +30,11 @@
 
         <div id="page-wrapper" class="gray-bg dashbard-1">
 
-    @include('includes.facilityadmin.headbar')
+    @include('includes.admin_inc.headbar')
     <!-- Main view  -->
     @yield('content')
+
+    @include('includes.admin_inc.footer')
 
         </div>
 
@@ -56,7 +49,9 @@
     <script src="{{ asset('js/plugins/slimscroll/jquery.slimscroll.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/plugins/dataTables/datatables.min.js') }}" type="text/javascript"></script>
 
-
+    <!-- Custom and plugin javascript -->
+    <script src="{{ asset('js/inspinia.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/plugins/pace/pace.min.js') }}" type="text/javascript"></script>
   <!-- Flot -->
     <script src="{{ asset('js/plugins/flot/jquery.flot.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/plugins/flot/jquery.flot.tooltip.min.js') }}" type="text/javascript"></script>
@@ -85,54 +80,7 @@
 
 
     <!-- Toastr -->
-    <script src="{{ asset('js/plugins/fullcalendar/moment.min.js') }}"></script>
-    <script src="{{ asset('js/jquery-3.1.1.min.js') }}"></script>
-    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('js/plugins/metisMenu/jquery.metisMenu.js') }}"></script>
-    <script src="{{ asset('js/plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
-
-    <!-- Custom and plugin javascript -->
-  <!--  <script src="{{ asset('js/inspinia.js') }}"></script>-->
-    <script src="{{ asset('js/plugins/pace/pace.min.js') }}"></script>
-
-    <!-- jQuery UI  -->
-    <script src="{{ asset('js/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
-
-    <!-- iCheck -->
-    <script src="{{ asset('js/plugins/iCheck/icheck.min.js') }}"></script>
-
-    <!-- Full Calendar -->
-    <script src="{{ asset('js/plugins/fullcalendar/fullcalendar.min.js') }}"></script>
-    <script src="{{ asset('js/plugins/datapicker/bootstrap-datepicker.js') }}" type="text/javascript"></script>
-
-    <!-- Custom and plugin javascript -->
-
-
-
-
-    <!-- Custom and plugin javascript -->
-<script src="{{ asset('js/plugins/pace/pace.min.js') }}" type="text/javascript"></script>
-    <!--  <script src="{{ asset('js/inspinia.js') }}" type="text/javascript"></script>-->
- 
-
-    <script>
-
-
-    $('#data_1 .input-group.date').datepicker({
-                todayBtn: "linked",
-                keyboardNavigation: false,
-                forceParse: false,
-                calendarWeeks: true,
-                autoclose: true,
-              
-            });
-
-            $(document).ready(function(){
-                $("button").click(function(){
-                    $("#testR").toggle();
-                });
-            });
-    </script>
+    <script src="{{ asset('js/plugins/toastr/toastr.min.js') }}" type="text/javascript"></script>
 
     <!-- Page-Level Scripts -->
     <script>
@@ -164,143 +112,26 @@
         });
 
     </script>
-
-    <script type="text/javascript">
-           $(document).ready(function(){
-           $('.multi-field-wrapper').each(function() {
-               var $wrapper = $('.multi-fields', this);
-
-               $(".add-field", $(this)).click(function(e) {
-                   $('.multi-field:first-child', $wrapper).clone(true).appendTo($wrapper).find('input').val('').focus();
-
-
-               });
-               $('.multi-field .remove-field', $wrapper).click(function() {
-                   if ($('.multi-field', $wrapper).length > 1)
-                       $(this).parent('.multi-field').remove();
-               });
-           });
-           });
-           </script>
-<script type="text/javascript">
-       $(document).ready(function(){
-             $("#embedcode").hide();
-             $("input[name='type']").change(function () {
-                  if($(this).val() == "Yes")
-                       $("#embedcode").show();
-                  else
-                       $("#embedcode").hide();
-             });
-       });
-   </script>
-
-   <script>
-
-       $(document).ready(function() {
-
-               $('.i-checks').iCheck({
-                   checkboxClass: 'icheckbox_square-green',
-                   radioClass: 'iradio_square-green'
-               });
-
-           /* initialize the external events
-            -----------------------------------------------------------------*/
-
-
-           $('#external-events div.external-event').each(function() {
-
-               // store data so the calendar knows to render an event upon drop
-               $(this).data('event', {
-                   title: $.trim($(this).text()), // use the element's text as the event title
-                   stick: true // maintain when user navigates (see docs on the renderEvent method)
-               });
-
-               // make the event draggable using jQuery UI
-               $(this).draggable({
-                   zIndex: 1111999,
-                   revert: true,      // will cause the event to go back to its
-                   revertDuration: 0  //  original position after the drag
-               });
-
-           });
-
-
-           /* initialize the calendar
-            -----------------------------------------------------------------*/
-           var date = new Date();
-           var d = date.getDate();
-           var m = date.getMonth();
-           var y = date.getFullYear();
-
-           $('#calendar').fullCalendar({
-               header: {
-                   left: 'prev,next today',
-                   center: 'title',
-                   right: 'month,agendaWeek,agendaDay'
-               },
-               editable: true,
-               droppable: true, // this allows things to be dropped onto the calendar
-               drop: function() {
-                   // is the "remove after drop" checkbox checked?
-                   if ($('#drop-remove').is(':checked')) {
-                       // if so, remove the element from the "Draggable Events" list
-                       $(this).remove();
-                   }
-               },
-               events: [
-                   {
-                       title: 'All Day Event',
-                       start: new Date(y, m, 1)
-                   },
-                   {
-                       title: 'Long Event',
-                       start: new Date(y, m, d-5),
-                       end: new Date(y, m, d-2)
-                   },
-                   {
-                       id: 999,
-                       title: 'Repeating Event',
-                       start: new Date(y, m, d-3, 16, 0),
-                       allDay: false
-                   },
-                   {
-                       id: 999,
-                       title: 'Repeating Event',
-                       start: new Date(y, m, d+4, 16, 0),
-                       allDay: false
-                   },
-                   {
-                       title: 'Meeting',
-                       start: new Date(y, m, d, 10, 30),
-                       allDay: false
-                   },
-                   {
-                       title: 'Lunch',
-                       start: new Date(y, m, d, 12, 0),
-                       end: new Date(y, m, d, 14, 0),
-                       allDay: false
-                   },
-                   {
-                       title: 'Birthday Party',
-                       start: new Date(y, m, d+1, 19, 0),
-                       end: new Date(y, m, d+1, 22, 30),
-                       allDay: false
-                   },
-                   {
-                       title: 'Click for Google',
-                       start: new Date(y, m, 28),
-                       end: new Date(y, m, 29),
-                       url: 'http://google.com/'
-                   }
-               ]
-           });
-
-
-       });
-
-   </script>
-
-
-
+     <script>
+            $('.facility').select2({
+                placeholder: "Select facility to .....",
+                minimumInputLength: 2,
+                ajax: {
+                    url: '/tags/fac',
+                    dataType: 'json',
+                    data: function (params) {
+                        return {
+                            q: $.trim(params.term)
+                        };
+                    },
+                    processResults: function (data) {
+                        return {
+                            results: data
+                        };
+                    },
+                    cache: true
+                }
+            });
+        </script>
 </body>
 </html>

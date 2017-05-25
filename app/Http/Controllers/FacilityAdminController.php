@@ -23,6 +23,9 @@ class FacilityAdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function facilityregister(){
+        return view('facilityadmin.register');
+    }
     public function create()
     {
         //

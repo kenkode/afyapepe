@@ -20,7 +20,7 @@
                     Afya+
                 </div>
             </li>
-            <li class="active">
+            <li >
             <a href="{{ URL::to('facilityadmin') }}"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboards</span> <span class="fa arrow"></span></a>
 
             </li>        

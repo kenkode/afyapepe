@@ -226,6 +226,9 @@ public function dependantTriage($id){
       $mode=$request->mode;
       $amount=$request->amount;
 
+      $facilitycode=DB::table('facility_registrar')->where('user_id', Auth::id())->first(); 
+
+
       DB::table('consultation_fees')->insert(
       ['afyauser_id' => $id,
       'fee_required'=>$type,
@@ -250,9 +253,8 @@ public function dependantTriage($id){
 );
  DB::table('appointments')->insert([
   'status'=>1,
-  'facility_id'=>19310,
+  'facility_id'=>$facilitycode->facilitycode,
   'afya_user_id'=>$id,
-  'doc_id'=>6,
   'persontreated'=>'Self',
   'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
  'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
@@ -272,9 +274,8 @@ public function dependantTriage($id){
       $user=$request->afya_user;
   DB::table('appointments')->insert([
   'status'=>1,
-  'facility_id'=>19310,
+  'facility_id'=>$facilitycode->facilitycode,
   'afya_user_id'=>$user,
-  'doc_id'=>6,
   'persontreated'=>$id,
   'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
  'updated_at' => \Carbon\Carbon::now()->toDateTimeString()

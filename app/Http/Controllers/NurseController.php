@@ -9,6 +9,7 @@ use App\Observation;
 use App\Symptom;
 use App\Chief;
 use Redirect;
+use Auth;
 use Carbon\Carbon;
 use App\Http\Requests;
 class NurseController extends Controller
@@ -24,6 +25,7 @@ class NurseController extends Controller
      }
     public function index(){
       $today = Carbon::today();
+      $facilitycode=DB::table('facility_nurse')->where('user_id', Auth::id())->first();
       $patients = DB::table('appointments as app')
         ->Join('afya_users as par', 'app.afya_user_id', '=', 'par.id')
         ->leftjoin('dependant as dep','app.persontreated','=','dep.id')
@@ -31,6 +33,7 @@ class NurseController extends Controller
             'dep.gender as dgender','app.created_at as created_at','app.persontreated as persontreated')
         ->where('app.status','=',1)
         ->where('app.created_at','>=',$today)
+        ->where('app.facility_id',$facilitycode->facilitycode)
         ->get();
         return view('nurse.newpatient')->with('patients',$patients);
     }

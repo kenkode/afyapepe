@@ -156,7 +156,54 @@ public function storenurse(Request $request){
         return  Redirect()->action('FacilityAdminController@facilitydoctor');
 
 
- }   /**
+ } 
+
+ public function facilityofficer(){
+
+    return view('facilityadmin.officers');
+ } 
+ public function storeofficer(Request $request){
+
+     $name=$request->name;
+        $email=$request->email;
+        $role=$request->role;
+        $regno=$request->regno;
+        $regdate=$request->regdate;
+        $address=$request->address;
+        $qualify=$request->qualify;
+        $speciality=$request->speciality;
+        $sub=$request->sub_speciality;
+        $password=bcrypt($request->password);
+        $facility=$request->facility;
+
+        $userid=DB::table('users')->insertGetId([
+            'name'=>$name,
+            'email'=>$email,
+            'role'=>$role,
+            'password'=>$password,
+            'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
+            ]);
+        DB::table('facility_officer')->insert([
+            'user_id'=>$userid,
+            'regno'=>$regno,
+            'facilitycode'=>$facility,
+            'regdate'=>$regdate,
+            'address'=>$address,
+            'qualification'=>$qualify,
+            'speciality'=>$speciality,
+            'sub_speciality'=>$sub,
+            'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
+            ]);
+        DB::table('role_user')->insert([
+            'user_id'=>$userid,
+            'role_id'=>2
+            ]);
+
+        return  Redirect()->action('FacilityAdminController@facilityofficer');
+
+ } /**
      * Display the specified resource.
      *
      * @param  int  $id

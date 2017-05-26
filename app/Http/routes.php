@@ -263,9 +263,11 @@ Route::resource('facilityadmin','FacilityAdminController');
 Route::get('facilityregister','FacilityAdminController@facilityregister');
 Route::get('facilitynurse','FacilityAdminController@facilitynurse');
 Route::get('facilitydoctor','FacilityAdminController@facilitydoctor');
+Route::get('facilityofficer','FacilityAdminController@facilityofficer');
 Route::post('addfacilityregistrar','FacilityAdminController@store');
 Route::post('addfacilitynurse','FacilityAdminController@storenurse');
 Route::post('addfacilitydoctor','FacilityAdminController@storedoctor');
+Route::Post('addfacilityofficer','FacilityAdminController@storeofficer');
 
 
 });

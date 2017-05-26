@@ -7,6 +7,7 @@ use Redirect;
 
 use App\Http\Requests;
 use DB;
+use Auth;
 use Carbon\Carbon;
 
 class RegistrarController extends Controller
@@ -23,11 +24,12 @@ class RegistrarController extends Controller
     public function index()
     {
         $today = date('Y-m-d');
+         $facilitycode=DB::table('facility_registrar')->where('user_id', Auth::id())->first(); 
         $users=DB::table('afya_users')->
         join('afyamessages','afya_users.msisdn','=','afyamessages.msisdn')->
         leftjoin('constituency','afya_users.constituency','=','constituency.const_id')->
         select('afya_users.*','afyamessages.created_at as created_at','constituency.Constituency','constituency.cont_id')
-        ->where('afyamessages.facilityCode',19310)
+        ->where('afyamessages.facilityCode',$facilitycode->facilitycode)
         ->where('afyamessages.created_at','>=',$today)
         ->where('afyamessages.status','=',NULL)
         ->distinct()

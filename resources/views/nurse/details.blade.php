@@ -176,7 +176,7 @@ $doctors = DB::table('users')->
                    <option value="{{$doctor->id}}">{{$doctor->name}}</option>
                  @endforeach
                 </select>
-                </div>
+                
 
     <button type="submit" class="btn btn-primary">Save</button>
      {!! Form::close() !!}

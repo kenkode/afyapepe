@@ -171,11 +171,12 @@
 
 $doctors = DB::table('users')->
                     join('facility_doctor','facility_doctor.user_id','=','users.id')
-                    ->select('facility_doctor.*','users.name as name')->Where('facility_doctor.facilitycode',$facilitycode->facilitycode)->get();?>
+                    ->select('facility_doctor.*','users.name as name')->Where('facility_doctor.facilitycode',$facilitycode->facilitycode)->where('users.role','=','Doctor')->get();?>
                   @foreach($doctors as $doctor)
                    <option value="{{$doctor->id}}">{{$doctor->name}}</option>
                  @endforeach
                 </select>
+                </div>
 
     <button type="submit" class="btn btn-primary">Save</button>
      {!! Form::close() !!}

@@ -74,84 +74,8 @@ class ManufacturerController extends Controller
     }
 
    public function todaysales(){
-      $today = Carbon::today();
-      $prescribed = DB::table('prescriptions')
-       ->Join('prescription_details', 'prescriptions.id', '=', 'prescription_details.presc_id')
-       ->Join('prescription_filled_status', 'prescription_details.id', '=', 'prescription_filled_status.presc_details_id')
-       ->Join('pharmacy', 'prescription_filled_status.outlet_id', '=', 'pharmacy.id')
-       ->Join('facilities', 'prescriptions.facility_id', '=', 'facilities.FacilityCode')
-       ->Join('doctors', 'prescriptions.doc_id', '=', 'doctors.doc_id')
-       ->Join('druglists', 'prescription_details.drug_id', '=', 'druglists.id')
-       ->select('prescription_filled_status.*','facilities.FacilityName','doctors.name','druglists.drugname','pharmacy.name as pharmacy',
-        'pharmacy.county','prescription_details.doseform',
-       'prescription_filled_status.substitute_presc_id')
-     ->where([ ['druglists.Manufacturer','like', '%' . 'MERCK' . '%'],
-             ['prescription_filled_status.created_at','>=',$today],
-           ])
-    ->whereNull('prescription_filled_status.substitute_presc_id');
-
-      $Dsales=DB::table('prescriptions')
-     ->Join('prescription_details', 'prescriptions.id', '=', 'prescription_details.presc_id')
-       ->Join('prescription_filled_status', 'prescription_details.id', '=', 'prescription_filled_status.presc_details_id')
-       ->Join('pharmacy', 'prescription_filled_status.outlet_id', '=', 'pharmacy.id')
-       ->Join('facilities', 'prescriptions.facility_id', '=', 'facilities.FacilityCode')
-       ->Join('doctors', 'prescriptions.doc_id', '=', 'doctors.doc_id')
-      ->Join('substitute_presc_details', 'prescription_filled_status.substitute_presc_id', '=', 'substitute_presc_details.id')
- ->Join('druglists', 'substitute_presc_details.drug_id', '=', 'druglists.id')
-
-       ->select('prescription_filled_status.*','facilities.FacilityName','doctors.name','druglists.drugname','pharmacy.name as pharmacy',
-       'pharmacy.county','substitute_presc_details.doseform',
-       'prescription_filled_status.substitute_presc_id')
-     ->where([ ['druglists.Manufacturer','like', '%' . 'MERCK' . '%'],
-             ['prescription_filled_status.created_at','>=',$today],
-           ])
-     ->whereNotNull('prescription_filled_status.substitute_presc_id')
-    ->union($prescribed)
-    ->get();
-
-
-
-
-
-
-    $todaysales = Carbon::now();
-    $one_week_ago = Carbon::now()->subWeeks(1);
-    $drugwprsc = DB::table('prescriptions')
-    ->Join('prescription_details', 'prescriptions.id', '=', 'prescription_details.presc_id')
-    ->Join('prescription_filled_status', 'prescription_details.id', '=', 'prescription_filled_status.presc_details_id')
-    ->Join('pharmacy', 'prescription_filled_status.outlet_id', '=', 'pharmacy.id')
-    ->Join('facilities', 'prescriptions.facility_id', '=', 'facilities.FacilityCode')
-    ->Join('doctors', 'prescriptions.doc_id', '=', 'doctors.doc_id')
-    ->Join('druglists', 'prescription_details.drug_id', '=', 'druglists.id')
-    ->select('prescription_filled_status.*','facilities.FacilityName','doctors.name','druglists.drugname','pharmacy.name as pharmacy',
-    'pharmacy.county','prescription_details.doseform',
-    'prescription_filled_status.substitute_presc_id')
-  ->where([ ['druglists.Manufacturer','like', '%' . 'MERCK' . '%'],
-  ['prescription_filled_status.created_at','>=',$one_week_ago],
-  ['prescription_filled_status.created_at','<=',$todaysales],])
- ->whereNull('prescription_filled_status.substitute_presc_id');
-
-   $drugw=DB::table('prescriptions')
-  ->Join('prescription_details', 'prescriptions.id', '=', 'prescription_details.presc_id')
-  ->Join('prescription_filled_status', 'prescription_details.id', '=', 'prescription_filled_status.presc_details_id')
-  ->Join('pharmacy', 'prescription_filled_status.outlet_id', '=', 'pharmacy.id')
-  ->Join('facilities', 'prescriptions.facility_id', '=', 'facilities.FacilityCode')
-  ->Join('doctors', 'prescriptions.doc_id', '=', 'doctors.doc_id')
-  ->Join('substitute_presc_details', 'prescription_filled_status.substitute_presc_id', '=', 'substitute_presc_details.id')
-  ->Join('druglists', 'substitute_presc_details.drug_id', '=', 'druglists.id')
-  ->select('prescription_filled_status.*','facilities.FacilityName','doctors.name','druglists.drugname','pharmacy.name as pharmacy',
-    'pharmacy.county','substitute_presc_details.doseform',
-    'prescription_filled_status.substitute_presc_id')
-  ->where([ ['druglists.Manufacturer','like', '%' . 'MERCK' . '%'],
-  ['prescription_filled_status.created_at','>=',$one_week_ago],
-  ['prescription_filled_status.created_at','<=',$todaysales],
-        ])
-  ->whereNotNull('prescription_filled_status.substitute_presc_id')
- ->union($drugwprsc)
- ->get();
-     return view('manufacturer.todaysales')->with('Dsales',$Dsales)->with('drugw',$drugw);
-
-  }
+   return view('manufacturer.todaysales');
+   }
 
     public function manuDoctor(){
        return view('manufacturer.manudoctor');
@@ -159,40 +83,6 @@ class ManufacturerController extends Controller
    }
 
  public function drugsubstitution(){
-   $today = Carbon::today();
-   $prescribed22 = DB::table('prescriptions')
-    ->Join('prescription_details', 'prescriptions.id', '=', 'prescription_details.presc_id')
-    ->Join('prescription_filled_status', 'prescription_details.id', '=', 'prescription_filled_status.presc_details_id')
-    ->Join('pharmacy', 'prescription_filled_status.outlet_id', '=', 'pharmacy.id')
-    ->Join('facilities', 'prescriptions.facility_id', '=', 'facilities.FacilityCode')
-    ->Join('doctors', 'prescriptions.doc_id', '=', 'doctors.doc_id')
-    ->Join('druglists', 'prescription_details.drug_id', '=', 'druglists.id')
-    ->select('prescription_filled_status.*','facilities.FacilityName','doctors.name','druglists.drugname','pharmacy.name as pharmacy',
-     'pharmacy.county','prescription_details.doseform',
-    'prescription_filled_status.substitute_presc_id')
-  ->where([ ['druglists.Manufacturer','like', 'MERCK%'],
-          ])
- ->whereNotNull('prescription_filled_status.substitute_presc_id')
- ->get();
-
-   $drugsubst=DB::table('prescriptions')
-  ->Join('prescription_details', 'prescriptions.id', '=', 'prescription_details.presc_id')
-    ->Join('prescription_filled_status', 'prescription_details.id', '=', 'prescription_filled_status.presc_details_id')
-    ->Join('pharmacy', 'prescription_filled_status.outlet_id', '=', 'pharmacy.id')
-    ->Join('facilities', 'prescriptions.facility_id', '=', 'facilities.FacilityCode')
-    ->Join('doctors', 'prescriptions.doc_id', '=', 'doctors.doc_id')
-   ->Join('substitute_presc_details', 'prescription_filled_status.substitute_presc_id', '=', 'substitute_presc_details.id')
-->Join('druglists', 'substitute_presc_details.drug_id', '=', 'druglists.id')
-->select('prescription_filled_status.*','facilities.FacilityName','doctors.name','druglists.drugname','pharmacy.name as pharmacy',
-    'pharmacy.county','substitute_presc_details.doseform',
-    'prescription_filled_status.substitute_presc_id')
-  ->where([ ['druglists.Manufacturer',' like', 'MERCK%'],
-          ['prescription_filled_status.created_at','>=',$today],
-
-        ])
-  ->whereNotNull('prescription_filled_status.substitute_presc_id')
- // ->unionAll($prescribed)
- ->get();
 
 return view('manufacturer.drugsubstitutions');
  }

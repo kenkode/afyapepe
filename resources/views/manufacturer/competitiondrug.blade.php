@@ -240,7 +240,7 @@
             </div>
         </div>
   <!--................................. THIS WEEK ...........................-->
-  <div id="tab-42a" class="tab-pane active">
+  <div id="tab-42a" class="tab-pane">
       <div class="panel-body">
         <div class="ibox float-e-margins">
            <div class="col-md-12">
@@ -479,7 +479,7 @@
           </div>
 
   <!--................................. THIS MONTH...........................-->
-  <div id="tab-43a" class="tab-pane active">
+  <div id="tab-43a" class="tab-pane">
       <div class="panel-body">
         <div class="ibox float-e-margins">
            <div class="col-md-12">
@@ -719,7 +719,7 @@
 
   <!--................................. THIS YEAR...........................-->
 
-  <div id="tab-44a" class="tab-pane active">
+  <div id="tab-44a" class="tab-pane">
       <div class="panel-body">
         <div class="ibox float-e-margins">
            <div class="col-md-12">

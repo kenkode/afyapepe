@@ -265,6 +265,7 @@ public function dependantTriage($id){
    return redirect()->action('RegistrarController@index');
     }
  public function Dependentconsultationfee(Request $request){
+  $facilitycode=DB::table('facility_registrar')->where('user_id', Auth::id())->first();
    $today = date('Y-m-d');
       $id=$request->id;
         $type=$request->type;

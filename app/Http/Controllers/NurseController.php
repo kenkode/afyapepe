@@ -207,6 +207,7 @@ foreach($insects as $key) {
  return redirect()->action('NurseController@showDependents', [$id]);
    }
 public function babyDetails(Request $request){
+    $today = Carbon::today();
     $id=$request->id;
     $dob=$request->admission_date;
     $ipno=$request->ipno;
@@ -226,7 +227,7 @@ public function babyDetails(Request $request){
     $revelantdrugs=$request->revelantdrugs;
     DB::table('infant_details')->insert(
     ['dependant_id' => $id,
-     'admission_date'=>$dob,
+     'admission_date'=>$today,
      'ipno'=>$ipno,
      'gestation'=>$gestation,
      'temperature'=>$temperature,
@@ -997,7 +998,7 @@ return Redirect::route('nurse.show', [$id]);
    
    public function addBaby(Request $request){ 
     $id=$request->id;
-    $dob=$request->admission_date;
+    $admissiondate= Carbon::today();
     $ipno=$request->ipno;
     $gestation=$request->gestation;
     $temperature=$request->temperature;
@@ -1237,7 +1238,7 @@ join('afya_users','afya_users.msisdn','=','dependant_parent.phone')->select('afy
 );
     DB::table('infant_details')->insert(
     ['dependant_id' => $id,
-     'admission_date'=>$dob,
+     'admission_date'=>$admissiondate,
      'ipno'=>$ipno,
      'gestation'=>$gestation,
      'temperature'=>$temperature,

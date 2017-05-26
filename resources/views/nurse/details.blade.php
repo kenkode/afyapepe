@@ -166,10 +166,14 @@
     <div class="form-group">
     <label for="exampleInputEmail1">Consulting Physician</label>
     <select class="form-control" name="doctor" >
-    <?php $doctors = DB::table('users')->
-                    join('doctors','doctors.user_id','=','users.id')->select('doctors.*')->Where('role', '=','Doctor')->get();?>
+    <?php 
+     $facilitycode=DB::table('facility_nurse')->where('user_id', Auth::id())->first();
+
+$doctors = DB::table('users')->
+                    join('facility_doctor','facility_doctor.user_id','=','users.id')
+                    ->select('facility_doctor.*','users.name as name')->Where('facility_doctor.facilitycode',$facilitycode->facilitycode)->get();?>
                   @foreach($doctors as $doctor)
-                   <option value="{{$doctor->doc_id}}">{{$doctor->name}}</option>
+                   <option value="{{$doctor->id}}">{{$doctor->name}}</option>
                  @endforeach
                 </select>
 

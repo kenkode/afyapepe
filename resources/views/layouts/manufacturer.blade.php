@@ -10,20 +10,20 @@
     <title>Afyapepe- @yield('title') </title>
 
 
-    <link rel="stylesheet" href="{!! asset('css/plugins/toastr/toastr.min.css') !!}" />
-    <link rel="stylesheet" href="{!! asset('js/plugins/gritter/jquery.gritter.css') !!}" />
-    <link rel="stylesheet" href="{!! asset('css/vendor.css') !!}" />
-    <link rel="stylesheet" href="{!! asset('css/app.css') !!}" />
+    <link rel="stylesheet" href="{{ asset('css/plugins/toastr/toastr.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('js/plugins/gritter/jquery.gritter.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/vendor.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}" />
     <link rel="stylesheet" href="{{asset('select/select2.min.css') }}" />
 
-    <link rel="stylesheet" href="{!! asset('css/bootstrap.min.css') !!}" />
-    <link rel="stylesheet" href="{!! asset('font-awesome/css/font-awesome.css') !!}" />
-    <link rel="stylesheet" href="{!! asset('css/plugins/dataTables/datatables.min.css') !!}" />
-    <link rel="stylesheet" href="{!! asset('css/animate.css') !!}" />
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('font-awesome/css/font-awesome.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/plugins/dataTables/datatables.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/animate.css') }}" />
 
-<link rel="stylesheet" href="{!! asset('css/plugins/datapicker/datepicker3.css') !!}" />
-
-    <link rel="stylesheet" href="{!! asset('css/style.css') !!}" />
+<link rel="stylesheet" href="{{ asset('css/plugins/datapicker/datepicker3.css') }}" />
+<link rel="stylesheet" href="{{ asset('css/custom.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
 
 </head>
 
@@ -231,7 +231,7 @@
            $sato=$saturday->toDateString();
            $sunday=$saturday->addDays(1);
            $sund= $sunday->toDateString();
-          
+
 $id=Auth::id();
 $manufacturer=DB::table('manufacturers')->where('user_id', Auth::id())->first();
             if($manufacturer==''){
@@ -519,7 +519,7 @@ $dec=DB::table('prescription_filled_status')->join('prescription_details','presc
 
     var ctx = document.getElementById("lineChartp").getContext("2d");
     new Chart(ctx, {type: 'line', data: lineDatap, options:lineOptions});
-    <?php 
+    <?php
      $monday = Carbon::now()->startOfWeek();
            $mon=$monday->toDateString();
            $tuesday=  $monday->addDays(1);
@@ -585,7 +585,7 @@ $dec=DB::table('prescription_filled_status')->join('prescription_details','presc
 
     var ctx = document.getElementById("lineChartsp").getContext("2d");
     new Chart(ctx, {type: 'line', data: lineDatasp, options:lineOptions});
-    <?php 
+    <?php
 
     $wk1=DB::table('prescription_filled_status')->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')->join('druglists','druglists.id','=','prescription_details.drug_id')
                 ->where('druglists.Manufacturer','like', '%' .$name . '%')->whereDate('prescription_filled_status.created_at','>=',$monthstarts)->whereDate('prescription_filled_status.created_at','<=',$firsts)->selectRaw('SUM(price * quantity) as total')->whereNull('prescription_filled_status.substitute_presc_id')->count();

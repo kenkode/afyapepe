@@ -4,6 +4,12 @@
 <div class="content-page  equal-height">
           <div class="content">
               <div class="container">
+  <?php
+  $id=Auth::id();
+  $manufacturer=DB::table('manufacturers')->where('user_id', Auth::id())->first();
+  $Mname = $manufacturer->name;
+  $Mid = $manufacturer->id;
+  ?>
 <div class="row">
 <h1> Sales</h1>
             <div class="col-lg-12">
@@ -75,7 +81,47 @@
                                                   </thead>
 
                                                   <tbody>
-                                                    <?php $i =1; ?>
+                                                    <?php $i =1;
+                                                    use Carbon\Carbon;
+
+                                                    $one_mon_ago = Carbon::now()->subMonths(1);
+                                                    $todaysales = Carbon::now();
+                                                    $one_week_ago = Carbon::now()->subWeeks(1);
+                                                    $today = Carbon::today();
+                                                    $prescribed = DB::table('prescriptions')
+                                                     ->Join('prescription_details', 'prescriptions.id', '=', 'prescription_details.presc_id')
+                                                     ->Join('prescription_filled_status', 'prescription_details.id', '=', 'prescription_filled_status.presc_details_id')
+                                                     ->Join('pharmacy', 'prescription_filled_status.outlet_id', '=', 'pharmacy.id')
+                                                     ->Join('facilities', 'prescriptions.facility_id', '=', 'facilities.FacilityCode')
+                                                     ->Join('doctors', 'prescriptions.doc_id', '=', 'doctors.doc_id')
+                                                     ->Join('druglists', 'prescription_details.drug_id', '=', 'druglists.id')
+                                                     ->select('prescription_filled_status.*','facilities.FacilityName','doctors.name','druglists.drugname','pharmacy.name as pharmacy',
+                                                      'pharmacy.county','prescription_details.doseform',
+                                                     'prescription_filled_status.substitute_presc_id')
+                                                   ->where([ ['druglists.Manufacturer','like', '%' .$Mname . '%'],
+                                                           ['prescription_filled_status.created_at','>=',$today],
+                                                         ])
+                                                  ->whereNull('prescription_filled_status.substitute_presc_id');
+
+                                                    $Dsales=DB::table('prescriptions')
+                                                   ->Join('prescription_details', 'prescriptions.id', '=', 'prescription_details.presc_id')
+                                                     ->Join('prescription_filled_status', 'prescription_details.id', '=', 'prescription_filled_status.presc_details_id')
+                                                     ->Join('pharmacy', 'prescription_filled_status.outlet_id', '=', 'pharmacy.id')
+                                                     ->Join('facilities', 'prescriptions.facility_id', '=', 'facilities.FacilityCode')
+                                                     ->Join('doctors', 'prescriptions.doc_id', '=', 'doctors.doc_id')
+                                                    ->Join('substitute_presc_details', 'prescription_filled_status.substitute_presc_id', '=', 'substitute_presc_details.id')
+                                                 ->Join('druglists', 'substitute_presc_details.drug_id', '=', 'druglists.id')
+                                                ->select('prescription_filled_status.*','facilities.FacilityName','doctors.name','druglists.drugname','pharmacy.name as pharmacy',
+                                                     'pharmacy.county','substitute_presc_details.doseform',
+                                                     'prescription_filled_status.substitute_presc_id')
+                                                   ->where([ ['druglists.Manufacturer','like', '%' .$Mname . '%'],
+                                                           ['prescription_filled_status.created_at','>=',$today],
+                                                         ])
+                                                   ->whereNotNull('prescription_filled_status.substitute_presc_id')
+                                                  ->union($prescribed)
+                                                  ->get();
+
+                                                    ?>
                                                  @foreach($Dsales as $mandrug)
                                                  <?php $total= ($mandrug->quantity * $mandrug->price);
 
@@ -152,7 +198,44 @@
                                                   </thead>
 
                                                   <tbody>
-                                                    <?php $i =1; ?>
+                                                    <?php $i =1;
+
+                                                    $drugwprsc = DB::table('prescriptions')
+                                                    ->Join('prescription_details', 'prescriptions.id', '=', 'prescription_details.presc_id')
+                                                    ->Join('prescription_filled_status', 'prescription_details.id', '=', 'prescription_filled_status.presc_details_id')
+                                                    ->Join('pharmacy', 'prescription_filled_status.outlet_id', '=', 'pharmacy.id')
+                                                    ->Join('facilities', 'prescriptions.facility_id', '=', 'facilities.FacilityCode')
+                                                    ->Join('doctors', 'prescriptions.doc_id', '=', 'doctors.doc_id')
+                                                    ->Join('druglists', 'prescription_details.drug_id', '=', 'druglists.id')
+                                                    ->select('prescription_filled_status.*','facilities.FacilityName','doctors.name','druglists.drugname','pharmacy.name as pharmacy',
+                                                    'pharmacy.county','prescription_details.doseform',
+                                                    'prescription_filled_status.substitute_presc_id')
+                                                  ->where([ ['druglists.Manufacturer','like', '%' .$Mname . '%'],
+                                                  ['prescription_filled_status.created_at','>=',$one_week_ago],
+                                                  ['prescription_filled_status.created_at','<=',$todaysales],])
+                                                  ->whereNull('prescription_filled_status.substitute_presc_id');
+
+                                                   $drugw=DB::table('prescriptions')
+                                                  ->Join('prescription_details', 'prescriptions.id', '=', 'prescription_details.presc_id')
+                                                  ->Join('prescription_filled_status', 'prescription_details.id', '=', 'prescription_filled_status.presc_details_id')
+                                                  ->Join('pharmacy', 'prescription_filled_status.outlet_id', '=', 'pharmacy.id')
+                                                  ->Join('facilities', 'prescriptions.facility_id', '=', 'facilities.FacilityCode')
+                                                  ->Join('doctors', 'prescriptions.doc_id', '=', 'doctors.doc_id')
+                                                  ->Join('substitute_presc_details', 'prescription_filled_status.substitute_presc_id', '=', 'substitute_presc_details.id')
+                                                  ->Join('druglists', 'substitute_presc_details.drug_id', '=', 'druglists.id')
+                                                  ->select('prescription_filled_status.*','facilities.FacilityName','doctors.name','druglists.drugname','pharmacy.name as pharmacy',
+                                                    'pharmacy.county','substitute_presc_details.doseform',
+                                                    'prescription_filled_status.substitute_presc_id')
+                                                  ->where([ ['druglists.Manufacturer','like', '%' .$Mname . '%'],
+                                                  ['prescription_filled_status.created_at','>=',$one_week_ago],
+                                                  ['prescription_filled_status.created_at','<=',$todaysales],
+                                                        ])
+                                                  ->whereNotNull('prescription_filled_status.substitute_presc_id')
+                                                  ->union($drugwprsc)
+                                                  ->get();
+
+
+                                                    ?>
                                                  @foreach($drugw as $mandrug)
                                                  <?php $total= ($mandrug->quantity * $mandrug->price);
 
@@ -230,9 +313,7 @@
 
                                                   <tbody>
                                                     <?php $i =1;
-                                                    use Carbon\Carbon;
-                                                    $todaysales = Carbon::now();
-                                                    $one_mon_ago = Carbon::now()->subMonths(1);
+
                                                      $drugmprsc = DB::table('prescriptions')
                                                       ->Join('prescription_details', 'prescriptions.id', '=', 'prescription_details.presc_id')
                                                       ->Join('prescription_filled_status', 'prescription_details.id', '=', 'prescription_filled_status.presc_details_id')
@@ -243,7 +324,7 @@
                                                       ->select('prescription_filled_status.*','facilities.FacilityName','doctors.name','druglists.drugname','pharmacy.name as pharmacy',
                                                       'pharmacy.county','prescription_details.doseform',
                                                       'prescription_filled_status.substitute_presc_id')
-                                                    ->where([ ['druglists.Manufacturer','like', '%' . 'MERCK' . '%'],
+                                                    ->where([ ['druglists.Manufacturer','like', '%' .$Mname . '%'],
                                                     ['prescription_filled_status.created_at','>=',$one_mon_ago],
                                                     ['prescription_filled_status.created_at','<=',$todaysales],])
                                                    ->whereNull('prescription_filled_status.substitute_presc_id');
@@ -259,7 +340,7 @@
                                                     ->select('prescription_filled_status.*','facilities.FacilityName','doctors.name','druglists.drugname','pharmacy.name as pharmacy',
                                                       'pharmacy.county','substitute_presc_details.doseform',
                                                       'prescription_filled_status.substitute_presc_id')
-                                                    ->where([ ['druglists.Manufacturer','like', '%' . 'MERCK' . '%'],
+                                                    ->where([ ['druglists.Manufacturer','like', '%' .$Mname . '%'],
                                                     ['prescription_filled_status.created_at','>=',$one_mon_ago],
                                                     ['prescription_filled_status.created_at','<=',$todaysales],
                                                           ])
@@ -358,7 +439,7 @@
                                                      ->select('prescription_filled_status.*','facilities.FacilityName','doctors.name','druglists.drugname','pharmacy.name as pharmacy',
                                                      'pharmacy.county','prescription_details.doseform',
                                                      'prescription_filled_status.substitute_presc_id')
-                                                   ->where([ ['druglists.Manufacturer','like', '%' . 'MERCK' . '%'],
+                                                   ->where([ ['druglists.Manufacturer','like', '%' .$Mname . '%'],
                                                    ['prescription_filled_status.created_at','>=',$one_year_ago],
                                                    ['prescription_filled_status.created_at','<=',$todaysales],])
                                                   ->whereNull('prescription_filled_status.substitute_presc_id');
@@ -374,7 +455,7 @@
                                                    ->select('prescription_filled_status.*','facilities.FacilityName','doctors.name','druglists.drugname','pharmacy.name as pharmacy',
                                                      'pharmacy.county','substitute_presc_details.doseform',
                                                      'prescription_filled_status.substitute_presc_id')
-                                                   ->where([ ['druglists.Manufacturer','like', '%' . 'MERCK' . '%'],
+                                                   ->where([ ['druglists.Manufacturer','like', '%' .$Mname . '%'],
                                                    ['prescription_filled_status.created_at','>=',$one_year_ago],
                                                    ['prescription_filled_status.created_at','<=',$todaysales],
                                                          ])
@@ -473,7 +554,7 @@
                ->select('prescription_filled_status.*','facilities.FacilityName','doctors.name','druglists.drugname','pharmacy.name as pharmacy',
                'pharmacy.county','prescription_details.doseform',
                'prescription_filled_status.substitute_presc_id')
-             ->where([ ['druglists.Manufacturer','like', '%' . 'MERCK' . '%'],
+             ->where([ ['druglists.Manufacturer','like', '%' .$Mname . '%'],
              ])
              ->whereNull('prescription_filled_status.substitute_presc_id');
 
@@ -488,7 +569,7 @@
              ->select('prescription_filled_status.*','facilities.FacilityName','doctors.name','druglists.drugname','pharmacy.name as pharmacy',
               'pharmacy.county', 'substitute_presc_details.doseform',
                'prescription_filled_status.substitute_presc_id')
-             ->where([ ['druglists.Manufacturer','like', '%' . 'MERCK' . '%'],
+             ->where([ ['druglists.Manufacturer','like', '%' .$Mname . '%'],
              ])
              ->whereNotNull('prescription_filled_status.substitute_presc_id')
             ->union($drugallprsc)
@@ -595,7 +676,7 @@
                             ->select('prescription_filled_status.*','facilities.FacilityName','doctors.name','druglists.drugname','pharmacy.name as pharmacy',
                             'pharmacy.county','prescription_details.doseform',
                             'prescription_filled_status.substitute_presc_id')
-                          ->where([ ['druglists.Manufacturer','like', '%' . 'MERCK' . '%'],
+                          ->where([ ['druglists.Manufacturer','like', '%' .$Mname . '%'],
 
                                 ])
 

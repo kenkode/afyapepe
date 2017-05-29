@@ -46,10 +46,12 @@
 
           $stock_level = $bought - $sold;
         ?>
+        <tr>
         <td>{{$i}}</td>
         <td>{{$inv->drugname}}</td>
         <td>{{$inv->Manufacturer}}</td>
         <td>{{$stock_level}}</td>
+        </tr>
         <?php
         $i++;
       }

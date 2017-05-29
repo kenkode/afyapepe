@@ -67,7 +67,8 @@
                                                   $i=1;
                                                   
                                                  $facilities=DB::table('facility_doctor')->join('users','users.id','=','facility_doctor.user_id')->join('facilities','facilities.FacilityCode','=','facility_doctor.facilitycode')
-                                                 ->select('users.name as name','facility_doctor.*','facilities.*')->where('facility_doctor.facilitycode',$facilitycode->facilitycode)
+                                                 ->join('doctors','doctors.id','=','facility_doctor.doctor_id')
+                                                 ->select('users.name as name','facility_doctor.*','facilities.*','doctors.*')->where('facility_doctor.facilitycode',$facilitycode->facilitycode)
                                                  ->get();?>
                                                   @foreach ($facilities as $fact)
                                                     <tr>
@@ -76,9 +77,9 @@
                                                       <td>{{$fact->regno}}</td>
                                                       <td>{{$fact->regdate}}</td>
                                                       <td>{{$fact->address}}</td>
-                                                      <td>{{$fact->qualification}}</td> 
+                                                      <td>{{$fact->qualifications}}</td> 
                                                       <td>{{$fact->speciality}}</td> 
-                                                      <td>{{$fact->sub_speciality}}</td> 
+                                                      <td>{{$fact->subspeciality}}</td> 
                                                                                               
       
                                                       

@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 use DB;
 use App\Http\Requests;
 use Redirect;
+use App\Doctor;
+use App\Kin;
+
+
 
 class FacilityAdminController extends Controller
 {
@@ -119,15 +123,9 @@ public function storenurse(Request $request){
         $name=$request->name;
         $email=$request->email;
         $role=$request->role;
-        $regno=$request->regno;
-        $regdate=$request->regdate;
-        $address=$request->address;
-        $qualify=$request->qualify;
-        $speciality=$request->speciality;
-        $sub=$request->sub_speciality;
         $password=bcrypt($request->password);
         $facility=$request->facility;
-
+        $doc=$request->doc;
         $userid=DB::table('users')->insertGetId([
             'name'=>$name,
             'email'=>$email,
@@ -138,13 +136,8 @@ public function storenurse(Request $request){
             ]);
         DB::table('facility_doctor')->insert([
             'user_id'=>$userid,
-            'regno'=>$regno,
+            'doctor_id'=>$doc,
             'facilitycode'=>$facility,
-            'regdate'=>$regdate,
-            'address'=>$address,
-            'qualification'=>$qualify,
-            'speciality'=>$speciality,
-            'sub_speciality'=>$sub,
             'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
     'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
             ]);
@@ -152,6 +145,9 @@ public function storenurse(Request $request){
             'user_id'=>$userid,
             'role_id'=>2
             ]);
+        DB::table('doctors')->where('id',$doc)
+         ->limit(1)->update([
+            'user_id'=>$userid]);
 
         return  Redirect()->action('FacilityAdminController@facilitydoctor');
 
@@ -208,6 +204,19 @@ public function storenurse(Request $request){
   return view('facilityadmin.createdoc');
  }
 
+public function finddoc(Request $request){
+
+      $term = trim($request->q);
+      if (empty($term)) {
+           return \Response::json([]);
+         }
+       $drugs = Doctor::search($term)->limit(20)->get();
+         $formatted_drugs = [];
+          foreach ($drugs as $drug) {
+             $formatted_drugs[] = ['id' => $drug->id, 'text' => $drug->name];
+         }
+     return \Response::json($formatted_drugs);
+}
 
  /**
      * Display the specified resource.

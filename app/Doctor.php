@@ -12,7 +12,7 @@ use Eloquence;
 
 protected $searchableColumns = ['name'];
 
-    public $fillable = ['user_id','name','regdate','regno','address',
-    'qualifications','speciality','subspeciality','phone','residence','facility'];
+
 
 }
+ 

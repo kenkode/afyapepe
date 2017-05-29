@@ -10,28 +10,31 @@
       <h5>Add Facility Doctor</h5>
 
   </div>
+   <?php $facilitycode=DB::table('facility_admin')->where('user_id', Auth::id())->first(); ?>
+
          <div class="ibox-content">
-               <form class="form-horizontal" role="form" method="POST" action="/adminstore" novalidate>
+               <form class="form-horizontal" role="form" method="POST" action="/addfacilitydoctor" novalidate>
               <input type="hidden" name="_token" value="{{ csrf_token() }}">
               
                <div class="form-group">
               <label for="exampleInputPassword1">Username</label>
               <input type="name" class="form-control" id="exampleInputEmail1"  placeholder="" name="name">
               </div>
+            <input type="hidden" name="facility" value="{{$facilitycode->facilitycode}}">
 
               <div class="form-group">
              <label for="exampleInputPassword1">Email</label>
              <input type="email" class="form-control" id="exampleInputEmail1"  placeholder="" name="email"/>
              </div>
-             <input type="hidden" name="role" value="FacilityAdmin">
+             <input type="hidden" name="role" value="Doctor">
              <div class="form-group">
              <label for="exampleInputPassword1">Password</label>
              <input type="password" class="form-control" id="exampleInputEmail1"  placeholder="" name="password"/>
              </div>
              
-             <div class="form-group">
-                     <label >Doctor:</label>
-                     <select  id="doctor" name="doctor" class="form-control doctor" style="width:50%"></select>
+            <div class="form-group">
+                     <label >Doctors</label>
+                     <select id="doc" name="doc" class="form-control doc" style="width:50%"></select>
                  </div>
                   <button type="submit" class="btn btn-primary">Save</button>
      {!! Form::close() !!}
@@ -42,5 +45,7 @@
 
 </div>
                    </div><!--container-->
+
+@include('includes.default.footer')
                 
 @endsection

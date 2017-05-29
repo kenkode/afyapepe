@@ -10,17 +10,26 @@
     <title>Afyapepe- @yield('title') </title>
 
 
-    <link rel="stylesheet" href="{!! asset('css/plugins/toastr/toastr.min.css') !!}" />
-    <link rel="stylesheet" href="{!! asset('js/plugins/gritter/jquery.gritter.css') !!}" />
-    <link rel="stylesheet" href="{!! asset('css/vendor.css') !!}" />
-    <link rel="stylesheet" href="{!! asset('css/app.css') !!}" />
+    <meta name="_token" content="{!! csrf_token() !!}" />
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/base/minified/jquery-ui.min.css" type="text/css" />
 
-    <link rel="stylesheet" href="{!! asset('css/bootstrap.min.css') !!}" />
-    <link rel="stylesheet" href="{!! asset('font-awesome/css/font-awesome.css') !!}" />
-    <link rel="stylesheet" href="{!! asset('css/plugins/dataTables/datatables.min.css') !!}" />
-    <link rel="stylesheet" href="{!! asset('css/animate.css') !!}" />
-    <link rel="stylesheet" href="{!! asset('css/style.css') !!}" />
+
+    <link rel="stylesheet" href="{{ asset('css/plugins/toastr/toastr.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('js/plugins/gritter/jquery.gritter.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/vendor.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}" />
+
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('font-awesome/css/font-awesome.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/plugins/dataTables/datatables.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/animate.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
+    <link rel="stylesheet" href="{{asset('css/custom.css') }}" />
+      <script type="text/javascript" src="{{ asset('js/modernizr.js') }}"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <link rel="stylesheet" href="{{asset('select/select2.min.css') }}" />
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+      <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 </head>
 
@@ -41,46 +50,37 @@
     </div>
 
     <!-- Mainly scripts -->
-    <script src="{{ asset('js/app.js') }}" type="text/javascript"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="{{asset('js/ajaxscript.js')}}"></script>
+   <script src="{{ asset('js/app.js') }}" type="text/javascript"></script>
     <!-- Mainly scripts -->
     <script src="{{ asset('js/jquery-3.1.1.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/plugins/metisMenu/jquery.metisMenu.js') }}" type="text/javascript"></script>
+     <script src="{{ asset('js/jquery-3.1.1.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/plugins/metisMenu/jquery.metisMenu.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/plugins/slimscroll/jquery.slimscroll.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/plugins/dataTables/datatables.min.js') }}" type="text/javascript"></script>
 
+   <script src="{{ asset('js/plugins/steps/jquery.steps.min.js') }}"></script>
+<script src="{{ asset('js/plugins/validate/jquery.validate.min.js') }}"></script>
+<script src="{{ asset('js/plugins/datapicker/bootstrap-datepicker.js') }}" type="text/javascript"></script>
+
+ 
+
+ <script src="{{ asset('js/plugins/datapicker/bootstrap-datepicker.js') }}" type="text/javascript"></script>
+<script src="{{asset('js/ajaxscript.js')}}"></script>
+
     <!-- Custom and plugin javascript -->
-    <script src="{{ asset('js/inspinia.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('js/plugins/pace/pace.min.js') }}" type="text/javascript"></script>
-  <!-- Flot -->
-    <script src="{{ asset('js/plugins/flot/jquery.flot.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('js/plugins/flot/jquery.flot.tooltip.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('js/plugins/flot/jquery.flot.spline.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('js/plugins/flot/jquery.flot.resize.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('js/plugins/flot/jquery.flot.pie.js') }}" type="text/javascript"></script>
 
 
-    <!-- Peity -->
-    <script src="{{ asset('js/plugins/peity/jquery.peity.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('js/demo/peity-demo.js') }}" type="text/javascript"></script>
 
 
-    <!-- jQuery UI -->
-    <script src="{{ asset('js/plugins/jquery-ui/jquery-ui.min.js') }}" type="text/javascript"></script>
-    <!-- GITTER -->
-    <script src="{{ asset('js/plugins/gritter/jquery.gritter.min.js') }}" type="text/javascript"></script>
-    <!-- Sparkline -->
-    <script src="{{ asset('js/plugins/sparkline/jquery.sparkline.min.js') }}" type="text/javascript"></script>
-   <!-- Sparkline demo data  -->
-    <script src="{{ asset('js/demo/sparkline-demo.js') }}" type="text/javascript"></script>
-
-
-    <!-- ChartJS-->
-    <script src="{{ asset('js/plugins/chartJs/Chart.min.js') }}" type="text/javascript"></script>
-
-
-    <!-- Toastr -->
-    <script src="{{ asset('js/plugins/toastr/toastr.min.js') }}" type="text/javascript"></script>
+    <!-- Custom and plugin javascript -->
+<script src="{{ asset('js/plugins/pace/pace.min.js') }}" type="text/javascript"></script>
+ <script src="{{ asset('select/select2.min.js') }}" type="text/javascript"></script>
 
     <!-- Page-Level Scripts -->
     <script>
@@ -132,9 +132,8 @@
                     cache: true
                 }
             });
-
         $('.doc').select2({
-                placeholder: "Select facility to .....",
+                placeholder: "Select doctor to .....",
                 minimumInputLength: 2,
                 ajax: {
                     url: '/tags/doc',
@@ -152,6 +151,9 @@
                     cache: true
                 }
             });
-        </script>
+             
+
+       </script>
+      
 </body>
 </html>

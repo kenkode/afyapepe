@@ -272,7 +272,6 @@
                <div class="form-group"><label>Price</label> <input type="number" name="price" id="price" class="form-control" oninput="calculate()"></div>
                <div class="form-group"><label>Total</label> <input type="number" name="total" id="total" class="form-control" readonly oninput="calculate()"></div>
 
-
                </div>
 
                <div class="Box1" style="display:none">

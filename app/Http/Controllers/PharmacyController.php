@@ -95,7 +95,7 @@ class PharmacyController extends Controller
         ->join('frequency', 'frequency.id', '=', 'prescription_details.frequency')
         ->join('route', 'prescription_details.routes', '=', 'route.id')
         ->leftJoin('prescription_filled_status', 'prescription_details.id', '=', 'prescription_filled_status.presc_details_id')
-        ->select('druglists.drugname', 'prescriptions.*','prescription_details.*',
+        ->select('druglists.drugname', 'druglists.id AS drug_id', 'prescriptions.*','prescription_details.*',
         'afya_users.*', 'route.name','prescription_details.id AS presc_id','prescriptions.id AS the_id',
         'appointments.persontreated','dependant.firstName AS fname', 'dependant.secondName AS sname',
         'frequency.name AS freq_name')

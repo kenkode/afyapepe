@@ -72,6 +72,38 @@
          $new_strength = $count2 - $count1;
 
          $person_treated = $patient->persontreated;
+
+         /**
+         *Check if drug is in stock ,if not disable "fill prescription button/hyperlink"
+         */
+         $drug_id = $patient->drug_id;
+         $amount_needed = $new_strength; //prescription strength
+
+         /*Get amount inserted in inventory*/
+         $stocks = DB::table('inventory')
+                  ->select(DB::raw('SUM(strength * quantity) AS stock'))
+                  ->where('drug_id', '=', $drug_id)
+                  ->first();
+
+          $level = $stocks->stock;
+
+         /*Get amount sold as prescribed by doctor*/
+         $counter1 = DB::table('prescription_filled_status')
+                ->join('prescription_details', 'prescription_details.id', '=', 'prescription_filled_status.presc_details_id')
+                ->select(DB::raw('SUM(prescription_filled_status.dose_given * prescription_filled_status.quantity) AS count1'))
+                ->where('prescription_details.drug_id', '=', $drug_id)
+                ->first();
+
+          /*Get amount sold by susbtitution*/
+          $counter2 = DB::table('prescription_filled_status')
+                 ->join('prescription_details', 'prescription_details.id', '=', 'prescription_filled_status.presc_details_id')
+                 ->join('substitute_presc_details', 'substitute_presc_details.id', '=', 'prescription_filled_status.substitute_presc_id')
+                 ->select(DB::raw('SUM(substitute_presc_details.strength * prescription_filled_status.quantity) AS count2'))
+                 ->where('substitute_presc_details.drug_id', '=', $drug_id)
+                 ->first();
+         $amount_sold = $counter1->count1 + $counter2->count2;
+         $stock_level = $level - $amount_sold;
+
          ?>
      <tr class="gradeX">
 
@@ -96,10 +128,20 @@
      <td>{{$patient->freq_name}} </td>
      <td>
     <div class="text-center">
-    <!-- <a class="btn btn-success btn-rounded" data-toggle="modal" data-id="{{$patient->presc_id}}" data-target="#modal-form">Fill Prescription</a> -->
+      <?php
+      if($stock_level >= $amount_needed)
+      {
+       ?>
     <a class="btn btn-primary btn-rounded" href="{{ route('fillpresc',$patient->presc_id) }}" >Fill Prescription</a>
-
-    <!-- <a data-toggle="modal" class="btn btn-primary" href="#modal-form">Fill Prescription</a> -->
+    <?php
+  }
+  else
+  {
+     ?>
+     <a class="btn btn-primary btn-rounded"  >Out of stock</a>
+     <?php
+   }
+      ?>
     </div>
     </td>
 

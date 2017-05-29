@@ -264,6 +264,7 @@ Route::get('facilityregister','FacilityAdminController@facilityregister');
 Route::get('facilitynurse','FacilityAdminController@facilitynurse');
 Route::get('facilitydoctor','FacilityAdminController@facilitydoctor');
 Route::get('facilityofficer','FacilityAdminController@facilityofficer');
+Route::get('createdoc','FacilityAdminController@createdoc');
 Route::post('addfacilityregistrar','FacilityAdminController@store');
 Route::post('addfacilitynurse','FacilityAdminController@storenurse');
 Route::post('addfacilitydoctor','FacilityAdminController@storedoctor');

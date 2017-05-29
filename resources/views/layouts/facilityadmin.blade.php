@@ -132,6 +132,26 @@
                     cache: true
                 }
             });
+
+        $('.doc').select2({
+                placeholder: "Select facility to .....",
+                minimumInputLength: 2,
+                ajax: {
+                    url: '/tags/doc',
+                    dataType: 'json',
+                    data: function (params) {
+                        return {
+                            q: $.trim(params.term)
+                        };
+                    },
+                    processResults: function (data) {
+                        return {
+                            results: data
+                        };
+                    },
+                    cache: true
+                }
+            });
         </script>
 </body>
 </html>

@@ -203,7 +203,13 @@ public function storenurse(Request $request){
 
         return  Redirect()->action('FacilityAdminController@facilityofficer');
 
- } /**
+ } 
+ public function createdoc(){
+  return view('facilityadmin.createdoc');
+ }
+
+
+ /**
      * Display the specified resource.
      *
      * @param  int  $id

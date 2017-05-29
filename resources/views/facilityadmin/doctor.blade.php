@@ -36,63 +36,8 @@
 
                               <div class="ibox-content">
                    <!-- sales All Custom-->
-                 <a data-toggle="modal" class="btn btn-primary" href="#modal-formf">Add</a>
-                            
-                            <div id="modal-formf" class="modal fade" aria-hidden="true">
-                            <div class="modal-dialog">
-                            <div class="modal-content">
-                            <div class="modal-body">
-          <form class="form-horizontal" role="form" method="POST" action="/addfacilitydoctor" novalidate>
-             <input type="hidden" name="_token" value="{{ csrf_token() }}">
-            
-              <div class="form-group">
-             <label for="exampleInputEmail1">Name</label>
-             <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  name="name"/>
-             </div>
-             <div class="form-group">
-             <label for="exampleInputEmail1">RegNo</label>
-             <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  name="regno"/>
-             </div>
-             <div class="form-group">
-             <label for="exampleInputPassword1">Email</label>
-             <input type="email" class="form-control" id="exampleInputPassword1"  name="email"  >
-             </div>
-             <div class="form-group">
-             <label for="exampleInputPassword1">password</label>
-             <input type="password" class="form-control" id="exampleInputPassword1"  name="password"  >
-             </div>
-             <div class="form-group">
-             <label for="exampleInputEmail1">RegDate</label>
-             <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  name="regdate"/>
-             </div>
-             <div class="form-group">
-             <label for="exampleInputEmail1">address</label>
-             <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  name="address"/>
-             </div>
-              <div class="form-group">
-             <label for="exampleInputEmail1">Qualification</label>
-             <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  name="qualify"/>
-             </div>
-             <div class="form-group">
-             <label for="exampleInputEmail1">Speciality</label>
-             <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  name="speciality"/>
-             </div>
-             <div class="form-group">
-             <label for="exampleInputEmail1">Sub Speciality</label>
-             <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  name="sub_speciality"/>
-             </div>
-             <input type="hidden" name="role" value="Doctor">
-             <input type="hidden" name="facility" value="{{$facilitycode->facilitycode}}">
-             
-
-
-             <input type="submit" name="submit" value="Add" > 
-    </form>
-         
-                            </div>
-                            </div>
-                            </div>
-                            </div>
+                <a href="{{ URL::to('createdoc')}}" class="btn btn-primary">Add</a>
+                
                    <br>
                                   <div class="table-responsive">
                                   

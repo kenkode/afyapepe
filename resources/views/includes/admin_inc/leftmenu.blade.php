@@ -12,7 +12,7 @@
                         <li><a href="#">Contacts</a></li>
                         <li><a href="#">Mailbox</a></li>
                         <li class="divider"></li>
-                        <li><a href="{{ url('/logout') }}">Logout</a></li>
+                       
 
                     </ul>
                 </div>
@@ -21,7 +21,7 @@
                 </div>
             </li>
             <li class="active">
-            <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboards</span> <span class="fa arrow"></span></a>
+            <a href="{{ URL::to('admin')}}"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboards</span> <span class="fa arrow"></span></a>
 
             </li>
 
@@ -40,13 +40,13 @@
                      ?>
                          <li>
 
-                           <a href="{{ URL::to('#')}}"><i class="glyphicon glyphicon-stats"></i> <span>Statistics</span>
-                           <a href="{{ URL::to('nurse')}}"><i class="fa fa-users"></i> <span>Total Patients</span>       <span class="badge"><?php echo $data; ?></span>
-                          <a href="{{ URL::to('newpatient') }}"><i class="fa fa-pie-chart"></i> <span>New Patients</span>    <span class="badge"><?php echo $newpatient; ?></span>
-                          <a href="{{ URL::to('waitingList')}}">
-                          <i class="glyphicon glyphicon-dashboard "></i> <span>Waiting List</span>   <span class="badge"><?php echo $wList;?></span>
+                           <a href="{{ URL::to('facilities')}}"><i class="glyphicon glyphicon-stats"></i> <span>Facilities</span></a></li>
+                            <li>
 
-                         </li>
+                           <a href="{{ URL::to('facilityAdmin')}}"><i class="fa fa-users"></i> <span>Facility Admin</span></a></li>
+                         <li> <a href="{{ URL::to('#')}}">  <i class="fa fa-envelope "></i> <span>Email</span></a></li>
+                        <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i><span>Logout</span></a></li>
+                          
 
 
 

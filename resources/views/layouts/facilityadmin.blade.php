@@ -26,7 +26,7 @@
 
 <body>
     <div id="wrapper">
-      @include('includes.admin_inc.leftmenu')
+      @include('includes.facilityadmin.leftmenu')
 
         <div id="page-wrapper" class="gray-bg dashbard-1">
 

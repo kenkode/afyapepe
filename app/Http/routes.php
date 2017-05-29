@@ -40,6 +40,12 @@ Route::get('roles/{id}/edit',['as'=>'roles.edit','uses'=>'RoleController@edit'])
 
 Route::group(['middleware' => ['auth','role:Admin']], function() {
 Route::resource('admin','AdminController');
+Route::get('facilities','AdminController@facility');
+Route::post('addfacility','AdminController@addfacility');
+Route::get('facilityAdmin','AdminController@facilityAdmin');
+Route::get('addAdmin','AdminController@create');
+Route::post('adminstore','AdminController@store');
+
 Route::resource('kins','KinController');
 Route::resource('facility','FacilityController');
 Route::resource('county','CountyController');
@@ -249,3 +255,24 @@ Route::group(['middleware' => ['auth','role:Admin|Test']], function() {
 
 
 });
+
+//FacilityAdmin
+
+Route::group(['middleware' => ['auth','role:Admin|FacilityAdmin']], function() {
+Route::resource('facilityadmin','FacilityAdminController');
+Route::get('facilityregister','FacilityAdminController@facilityregister');
+Route::get('facilitynurse','FacilityAdminController@facilitynurse');
+Route::get('facilitydoctor','FacilityAdminController@facilitydoctor');
+Route::get('facilityofficer','FacilityAdminController@facilityofficer');
+Route::post('addfacilityregistrar','FacilityAdminController@store');
+Route::post('addfacilitynurse','FacilityAdminController@storenurse');
+Route::post('addfacilitydoctor','FacilityAdminController@storedoctor');
+Route::Post('addfacilityofficer','FacilityAdminController@storeofficer');
+
+
+});
+
+
+
+
+

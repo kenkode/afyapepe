@@ -7,6 +7,7 @@ use Redirect;
 
 use App\Http\Requests;
 use DB;
+use Auth;
 use Carbon\Carbon;
 
 class RegistrarController extends Controller
@@ -23,11 +24,12 @@ class RegistrarController extends Controller
     public function index()
     {
         $today = date('Y-m-d');
+         $facilitycode=DB::table('facility_registrar')->where('user_id', Auth::id())->first(); 
         $users=DB::table('afya_users')->
         join('afyamessages','afya_users.msisdn','=','afyamessages.msisdn')->
         leftjoin('constituency','afya_users.constituency','=','constituency.const_id')->
         select('afya_users.*','afyamessages.created_at as created_at','constituency.Constituency','constituency.cont_id')
-        ->where('afyamessages.facilityCode',19310)
+        ->where('afyamessages.facilityCode',$facilitycode->facilitycode)
         ->where('afyamessages.created_at','>=',$today)
         ->where('afyamessages.status','=',NULL)
         ->distinct()
@@ -224,6 +226,9 @@ public function dependantTriage($id){
       $mode=$request->mode;
       $amount=$request->amount;
 
+      $facilitycode=DB::table('facility_registrar')->where('user_id', Auth::id())->first(); 
+
+
       DB::table('consultation_fees')->insert(
       ['afyauser_id' => $id,
       'fee_required'=>$type,
@@ -248,9 +253,8 @@ public function dependantTriage($id){
 );
  DB::table('appointments')->insert([
   'status'=>1,
-  'facility_id'=>19310,
+  'facility_id'=>$facilitycode->facilitycode,
   'afya_user_id'=>$id,
-  'doc_id'=>6,
   'persontreated'=>'Self',
   'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
  'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
@@ -261,6 +265,7 @@ public function dependantTriage($id){
    return redirect()->action('RegistrarController@index');
     }
  public function Dependentconsultationfee(Request $request){
+  $facilitycode=DB::table('facility_registrar')->where('user_id', Auth::id())->first();
    $today = date('Y-m-d');
       $id=$request->id;
         $type=$request->type;
@@ -270,9 +275,8 @@ public function dependantTriage($id){
       $user=$request->afya_user;
   DB::table('appointments')->insert([
   'status'=>1,
-  'facility_id'=>19310,
+  'facility_id'=>$facilitycode->facilitycode,
   'afya_user_id'=>$user,
-  'doc_id'=>6,
   'persontreated'=>$id,
   'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
  'updated_at' => \Carbon\Carbon::now()->toDateTimeString()

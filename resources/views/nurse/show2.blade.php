@@ -722,9 +722,7 @@ No <input type="checkbox" name="tone" value="No" />
 
                                                           <td>{{$vaccine->status_date or ''}}</td>
                                                           <td><?php if(is_null($vaccine->status)){
-                                                            echo "<select name='test[]'>
-                                                            <option></option>
-                                                            <option value='<?php echo $vaccine->userid;?>'>Done</option>";
+                                                            echo '<input type="text" name="vaccines[]" id="name" value="<?php echo $name; ?>">';
                                                             } ?></td>
                                                            
                                                              </tr>

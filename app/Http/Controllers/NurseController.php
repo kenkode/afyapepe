@@ -1096,6 +1096,19 @@ $cry=$request->cry;
     $tone=$request->tone;
      $drugs=$request->drugs;
 
+     $vaccines=$request->vaccines;
+
+if($vaccines){
+    foreach ($vaccines as $key => $vaccine) {
+
+    DB::table('dependant_vaccination')->where('id',$vaccine)->update([
+    'status'=>'Done',
+    'status_date'=>\Carbon\Carbon::now()->toDateTimeString(),
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
+    }
+}
+
 
 
 if($drugs){

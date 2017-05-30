@@ -65,7 +65,11 @@
                                                     <tr>
                                                     <td><a href="{{URL('registrar.select',$user->id)}}">{{$i}}</a></td>
                                                       <td><a href="{{URL('registrar.select',$user->id)}}">{{$user->firstname}} {{$user->secondName}}</a></td>
-                                                       <td>{{$user->age}}</td>
+                                                        <td><?php $dob=$user->dob;
+                                  $interval = date_diff(date_create(), date_create($dob));
+                             $age= $interval->format(" %Y Year, %M Months, %d Days Old");?> {{$age}}
+
+                             </td>
                                                         <td><?php $gender=$user->gender;?>
                                                       @if($gender==1){{"Male"}}@else{{"Female"}}@endif</td>
                                                         <td>{{$user->created_at}}</td>

@@ -694,7 +694,7 @@ No <input type="checkbox" name="tone" value="No" />
                                                                 </tr>
                                                               </thead>
                                                               
-                                                        <?php  $vaccines=DB::table('vaccine')->join('dependant_vaccination','dependant_vaccination.vaccine_id','=','vaccine.id')->distinct()->select('vaccine.*','dependant_vaccination.*','dependant_vaccination.id as userid')
+                                                        <?php  $vaccines=DB::table('vaccine')->join('dependant_vaccination','dependant_vaccination.vaccine_id','=','vaccine.id')->distinct()->select('vaccine.*','dependant_vaccination.*','dependant_vaccination.id as id')
                                                          ->where('vaccine.age','=>',$length)
                                                          ->where('dependant_vaccination.dependent_id','=',$id)->get(); ?>
                                                           <?php $i=1; ?>
@@ -722,9 +722,11 @@ No <input type="checkbox" name="tone" value="No" />
 
                                                           <td>{{$vaccine->status_date or ''}}</td>
                                                           <td><?php if(is_null($vaccine->status)){
-                                                            echo '<input type="text" name="vaccines[]" id="name" value="<?php echo $name; ?>">';
+                                                            echo "<select name='vaccines[]'>
+                                                            <option></option>
+                                                            <option value='<?php echo $vaccine->id;?>'>Done</option>";
                                                             } ?></td>
-                                                           
+                                                           <td style="display:none;"><input type="number" name="vaccines[]" value="{{$vaccine->id}}"></td>
                                                              </tr>
                                                                </tbody>
                                                            <?php $i++ ?>

@@ -248,6 +248,8 @@
 
 <input type="hidden" name="_token" value="{{ csrf_token() }}">
   <input type="hidden" class="form-control" id="exampleInputEmail1S" aria-describedby="emailHelp" value="{{$user->id}}" name="id"  required>
+  <?php   $facilitycode=DB::table('facility_registrar')->where('user_id', Auth::id())->first(); ?>
+<input type="hidden" name="facility" value="{{$facilitycode->facilitycode}}">
 
     <div class="form-group">
 <label class="control-label" for="name">Consultation Fee ?</label>

@@ -59,7 +59,11 @@
           <?php $i++ ?>
             @endforeach
 
+
                      </tbody>
+                                 <?php $wekexp=DB::table('consultation_fees')->where('facility',$facility->facilitycode)
+                  ->sum('amount'); ?>
+ <td></td><td></td><td></td><td>Total</td><td>{{$wekexp}}</td>
                    </table>
                        </div>
 

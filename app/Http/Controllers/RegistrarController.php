@@ -235,7 +235,7 @@ public function dependantTriage($id){
       'fee_required'=>$type,
       'payments_method'=> $mode,
       'amount'=> $amount,
-      'facilitycode'=>$facility,
+      'facility'=>$facility,
       'person_treated'=>'Self',
       'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
       'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
@@ -313,7 +313,7 @@ public function dependantTriage($id){
    ->select('consultation_fees.*','afya_users.firstname','afya_users.secondName')->
    orderby('consultation_fees.created_at','desc')->get();
 
-   return view('registrar.fees')->with('fees',$fees);
+   return view('registrar.fees')->with('fees',$fees)->with('facility',$facility);
  }
     /**
      * Show the form for creating a new resource.

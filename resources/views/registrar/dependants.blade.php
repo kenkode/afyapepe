@@ -1,18 +1,20 @@
 @extends('layouts.registrar')
 @section('title', 'Registrar Dashboard')
 @section('content')
-
+<br>
 <div class="row">
 
   <?php  $dependants=DB::table('dependant')->where('afya_user_id',$id)->get();?>
   @if(!empty($dependants))
 
 
-    <div class="col-lg-8 col-md-offset-2">
+    <div class="col-lg-11">
     <div class="ibox-title">
         <h5>Dependant Details</h5>
 
     </div>
+  
+    <div class="ibox-content">
       <div class="table-responsive">
   <table class="table table-striped table-bordered table-hover dataTables-example" >
   <thead>
@@ -48,6 +50,7 @@
 
                      </table>
                      <a href="{{URL('registrar.addDependents',$id)}}" class="btn btn-primary btn-block">Add</a>
+                         </div>
                          </div>
                        </div>
   @else

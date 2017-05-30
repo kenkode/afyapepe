@@ -274,7 +274,10 @@ Route::Post('addfacilityofficer','FacilityAdminController@storeofficer');
 
 });
 
+//PrivateDoc
+
+Route::group(['middleware' => ['auth','role:Admin|Private']], function() {
+Route::resource('private','privateController');
 
 
-
-
+});

@@ -26,15 +26,15 @@
 
 <body>
     <div id="wrapper">
-      @include('includes.admin_inc.leftmenu')
+      @include('includes.private_inc.leftmenu')
 
         <div id="page-wrapper" class="gray-bg dashbard-1">
 
-    @include('includes.admin_inc.headbar')
+    @include('includes.private_inc.headbar')
     <!-- Main view  -->
     @yield('content')
 
-    @include('includes.admin_inc.footer')
+    @include('includes.private_inc.footer')
 
         </div>
 

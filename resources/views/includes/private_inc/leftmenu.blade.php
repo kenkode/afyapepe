@@ -21,29 +21,20 @@
                 </div>
             </li>
             <li class="active">
-            <a href="{{ URL::to('admin')}}"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboards</span> <span class="fa arrow"></span></a>
+            <a href="{{ URL::to('private')}}"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboards</span> <span class="fa arrow"></span></a>
 
             </li>
 
 
 
 
-               <?php $data = DB::table("patients")->count();
-                       $wList=DB::table('afya_users')
-                         ->Join('patients', 'afya_users.id', '=', 'patients.afya_user_id')
-                         ->select('afya_users.*', 'patients.allergies')
-                         ->where('afya_users.status',2)->count();
-                       $newpatient= DB::table('afya_users')
-                         ->Join('patients', 'afya_users.id', '=', 'patients.afya_user_id')
-                         ->select('afya_users.*', 'patients.allergies')
-                         ->where('afya_users.status',1)->count();
-                     ?>
+               
                          <li>
 
-                           <a href="{{ URL::to('facilities')}}"><i class="glyphicon glyphicon-stats"></i> <span>Facilities</span></a></li>
+                           <a href="{{ URL::to('#')}}"><i class="glyphicon glyphicon-stats"></i> <span>Today's Patients</span></a></li>
                             <li>
 
-                           <a href="{{ URL::to('facilityAdmin')}}"><i class="fa fa-users"></i> <span>Facility Admin</span></a></li>
+                           <a href="{{ URL::to('#')}}"><i class="fa fa-money"></i> <span>Consultation Fees</span></a></li>
                          <li> <a href="{{ URL::to('#')}}">  <i class="fa fa-envelope "></i> <span>Email</span></a></li>
                         <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i><span>Logout</span></a></li>
                           

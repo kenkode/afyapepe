@@ -68,10 +68,11 @@
            </div>
            </div>
        </div>
-       @include('includes.default.footer')
+
 
          </div><!--container-->
       </div><!--content-->
       </div><!--content page-->
+             @include('includes.admin_inc.footer')
 
 @endsection

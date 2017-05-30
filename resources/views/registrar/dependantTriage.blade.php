@@ -9,12 +9,16 @@
   <div class="ibox float-e-margins">
     <div class="ibox-title">
         <h5>Consultation description</h5>
+        <?php   $facilitycode=DB::table('facility_registrar')->where('user_id', Auth::id())->first(); ?>
+
+    
 
     </div>
     <div class="ibox-content">
     <form class="form-horizontal" role="form" method="POST" action="/Dependentconsultationfee" novalidate>
 
 <input type="hidden" name="_token" value="{{ csrf_token() }}">
+<input type="hidden" name="facility" value="{{$facilitycode->facilitycode}}">
   <input type="hidden" class="form-control" id="exampleInputEmail1S" aria-describedby="emailHelp" value="{{$id}}" name="id"  required>
   <input type="hidden" class="form-control" id="exampleInputEmail1S" aria-describedby="emailHelp" value="{{$user->afya_user_id}}" name="afya_user"  required>
     <div class="form-group">

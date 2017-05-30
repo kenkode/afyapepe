@@ -49,14 +49,13 @@
     </div>
 
     <!-- Mainly scripts -->
-    <script src="{{ asset('js/app.js') }}" type="text/javascript"></script>
+     <script src="{{ asset('js/app.js') }}" type="text/javascript"></script>
     <!-- Mainly scripts -->
     <script src="{{ asset('js/jquery-3.1.1.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/plugins/metisMenu/jquery.metisMenu.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/plugins/slimscroll/jquery.slimscroll.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/plugins/dataTables/datatables.min.js') }}" type="text/javascript"></script>
-
 
   <!-- Flot -->
     <script src="{{ asset('js/plugins/flot/jquery.flot.js') }}" type="text/javascript"></script>

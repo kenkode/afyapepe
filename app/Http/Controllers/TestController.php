@@ -231,7 +231,7 @@ public function fdrugs(Request $request)
   if (empty($term)) {
        return \Response::json([]);
      }
-   $drugs = Druglist::search($term)->limit(20)->get();
+   $drugs = Druglist::search($term)->limit(50)->get();
      $formatted_drugs = [];
       foreach ($drugs as $drug) {
          $formatted_drugs[] = ['id' => $drug->id, 'text' => $drug->drugname];

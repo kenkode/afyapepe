@@ -186,6 +186,7 @@ public function store(Request $request)
   'doc_id' => $request->get('doc_id'),
   'appointment_id' => $request->get('appointment_id'),
   'test_status' => 0,
+  'facility' => $request->get('facility'),
               ]);
     $ptid = $PatientTest->id;
      } else {

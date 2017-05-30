@@ -14,7 +14,7 @@
    <div class="col-lg-12">
      <div class="ibox float-e-margins">
          <div class="ibox-title">
-             <h5><h1>Gainers</h1> </h5>
+             <h3>Gainers</h3>
              <div class="ibox-tools">
                  <a class="collapse-link">
                      <i class="fa fa-chevron-up"></i>
@@ -93,7 +93,7 @@
                   <?php  $i++  ?>
               <?php   } ?>
               @endforeach
-             <tr><td><h1>Losers</h1></td></tr>
+             <tr><td><h3>Losers</h3></td></tr>
             <?php   $sdTrendsaleL = DB::table('substitute_presc_details')
                ->join('prescription_filled_status','substitute_presc_details.id','=','prescription_filled_status.substitute_presc_id')
                ->join('druglists','substitute_presc_details.drug_id','=','druglists.id')
@@ -144,7 +144,7 @@
  <div class="col-lg-12">
    <div class="ibox float-e-margins">
        <div class="ibox-title">
-           <h5><h1>Gainers</h1> </h5>
+           <h3>Gainers</h3>
            <div class="ibox-tools">
                <a class="collapse-link">
                    <i class="fa fa-chevron-up"></i>
@@ -212,7 +212,7 @@
                 <?php  $i++  ?>
                <?php   } ?>
                @endforeach
-               <tr><td><h1>Losers</h1></td></tr>
+               <tr><td><h3>Losers</h3></td></tr>
                <?php   $sdTrendsalewL = DB::table('substitute_presc_details')
                ->join('prescription_filled_status','substitute_presc_details.id','=','prescription_filled_status.substitute_presc_id')
                ->join('druglists','substitute_presc_details.drug_id','=','druglists.id')
@@ -265,7 +265,7 @@
  <div class="col-lg-12">
    <div class="ibox float-e-margins">
        <div class="ibox-title">
-           <h5><h1>Gainers</h1> </h5>
+           <h3>Gainers</h3>
            <div class="ibox-tools">
                <a class="collapse-link">
                    <i class="fa fa-chevron-up"></i>
@@ -333,7 +333,7 @@
                 <?php  $i++  ?>
                <?php   } ?>
                @endforeach
-               <tr><td><h1>Losers</h1></td></tr>
+               <tr><td><h3>Losers</h3></td></tr>
                <?php   $sdTrendsalemL = DB::table('substitute_presc_details')
                ->join('prescription_filled_status','substitute_presc_details.id','=','prescription_filled_status.substitute_presc_id')
                ->join('druglists','substitute_presc_details.drug_id','=','druglists.id')
@@ -383,7 +383,7 @@
 <div class="col-lg-12">
  <div class="ibox float-e-margins">
      <div class="ibox-title">
-         <h5><h1>Gainers</h1> </h5>
+         <h3>Gainers</h3>
          <div class="ibox-tools">
              <a class="collapse-link">
                  <i class="fa fa-chevron-up"></i>
@@ -451,7 +451,7 @@
               <?php  $i++  ?>
              <?php   } ?>
              @endforeach
-             <tr><td><h1>Losers</h1></td></tr>
+             <tr><td><h3>Losers</h3></td></tr>
              <?php   $sdTrendsaleyL = DB::table('substitute_presc_details')
              ->join('prescription_filled_status','substitute_presc_details.id','=','prescription_filled_status.substitute_presc_id')
              ->join('druglists','substitute_presc_details.drug_id','=','druglists.id')

@@ -137,7 +137,7 @@ Route::Post('admitts', [ 'as' => 'admitting', 'uses' => 'TagController@admitts']
 	Route::get('endvisittransfer/{id}', [ 'as' => 'endvisit', 'uses' => 'TagController@endvisits']);
 
 	 Route::get('/tags/tst', 'TagController@ftest');
-	 Route::get('/tags/drugs', 'TestController@fdrugs');
+	 Route::get('/docss/drugs', 'TestController@fdrugs');
    Route::get('/disis/find', 'DiseasesController@find');
 	 Route::get('/tags/fac', 'FacilityController@ffacility');
 

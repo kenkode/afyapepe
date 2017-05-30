@@ -143,7 +143,7 @@ $('#data_1 .input-group.date').datepicker({
               placeholder: "Select prescriptions...",
               minimumInputLength: 2,
               ajax: {
-                  url: '/tags/drugs',
+                  url: '/docss/drugs',
                   dataType: 'json',
                   data: function (params) {
                       return {

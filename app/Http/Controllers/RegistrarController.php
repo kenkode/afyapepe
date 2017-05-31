@@ -34,7 +34,7 @@ class RegistrarController extends Controller
         ->where('afyamessages.status','=',NULL)
         ->distinct()
         ->get();
-        return view('registrar.index')->with('users',$users);
+        return view('registrar.index')->with('users',$users)->with('facilitycode',$facilitycode);
     }
     public function   showUser($id){
 

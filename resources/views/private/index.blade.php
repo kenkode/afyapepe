@@ -15,7 +15,7 @@
                               <div class="ibox-title">
 
                                   <div class="ibox-tools">
-                                
+
 
                                       <a class="collapse-link">
                                           <i class="fa fa-chevron-up"></i>
@@ -61,8 +61,8 @@
                                                  @foreach($patients as $patient)
                                                       <tr>
                                                 @if($patient->persontreated==="Self")                                                
-                                                 <td><a href="{{route('nurse.show',$patient->parid)}}">{{$i}}</a></td>
-                                                          <td><a href="{{route('nurse.show',$patient->parid)}}">{{$patient->first}} {{$patient->second}}</a></td>
+                                                 <td><a href="{{route('private.show',$patient->parid)}}">{{$i}}</a></td>
+                                                          <td><a href="{{route('private.show',$patient->parid)}}">{{$patient->first}} {{$patient->second}}</a></td>
                                                           <td><?php $gender=$patient->gender;?>
                                                             @if($gender==1){{"Male"}}@else{{"Female"}}@endif</a>
                                                           </td>

@@ -177,7 +177,29 @@ public function Dependentconsultationfee(Request $request){
      */
     public function show($id)
     {
-        //
+        $patient= DB::table('afya_users')
+        ->where('afya_users.id',$id)
+        ->first();
+
+        $kin=DB::table('kin_details')
+        ->Join('kin','kin_details.relation','=','kin.id')
+        ->select('kin_details.*', 'kin.relation')
+        ->where('kin_details.afya_user_id',$id)
+        ->first();
+        $details=DB::table('triage_details')
+        ->Join('appointments','appointments.id','=','triage_details.appointment_id')
+        ->where('appointments.afya_user_id',$id)
+        ->select('triage_details.*')
+        ->orderBy('triage_details.id','desc')
+        ->get();
+
+        $vaccines =DB::table('vaccination')
+          ->Join('vaccine','vaccination.diseaseId','=','vaccine.id')
+          ->select('vaccination.*', 'vaccine.*')
+          ->where('vaccination.yes','=','yes')
+          ->where('vaccination.userId',$id)
+          ->get();
+          return view('private.nurse')->with('patient',$patient)->with(['vaccines'=>$vaccines,'kin'=>$kin,'details'=>$details]);
     }
 
     /**

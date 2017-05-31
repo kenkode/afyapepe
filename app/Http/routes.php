@@ -284,6 +284,7 @@ Route::Post('addfacilityofficer','FacilityAdminController@storeofficer');
 Route::group(['middleware' => ['auth','role:Admin|Private']], function() {
 Route::resource('private','privateController');
 Route::get('private.fees','privateController@Fees');
+Route::get('private.show','privateController@show');
 
 
 });

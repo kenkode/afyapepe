@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use DB;
 use Auth;
+use Carbon\Carbon;
 
 class privateController extends Controller
 {
@@ -17,7 +18,19 @@ class privateController extends Controller
      */
     public function index()
     {
-        return view('private.index');
+      $today = Carbon::today();
+      $facilitycode=DB::table('facility_doctor')->where('user_id', Auth::id())->first();
+      $patients = DB::table('appointments as app')
+        ->Join('afya_users as par', 'app.afya_user_id', '=', 'par.id')
+        ->leftjoin('dependant as dep','app.persontreated','=','dep.id')
+        ->select('par.id as parid','par.firstname as first','par.secondName as second','par.gender as gender','par.dob as dob','dep.id as depid','dep.firstName as dfirst','dep.secondName as dsecond','dep.dob as ddob',
+            'dep.gender as dgender','app.created_at as created_at','app.persontreated as persontreated')
+        ->where('app.status','=',2)
+        ->where('app.created_at','>=',$today)
+        ->where('app.facility_id',$facilitycode->facilitycode)
+        ->get();
+
+        return view('private.index')->with('patients',$patients);
     }
     public function selectChoice($id){
 
@@ -122,6 +135,18 @@ public function Dependentconsultationfee(Request $request){
   );
    return redirect()->action('RegistrarController@index');
 
+ }
+
+
+ public function Fees(){
+  $facility=DB::table('facility_doctor')->where('user_id', Auth::id())->first(); 
+   $fees=DB::table('consultation_fees')->
+   join('afya_users','consultation_fees.afyauser_id','=','afya_users.id')->where('fee_required','=','Yes')
+   ->where('facility',$facility->facilitycode)
+   ->select('consultation_fees.*','afya_users.firstname','afya_users.secondName')->
+   orderby('consultation_fees.created_at','desc')->get();
+
+   return view('private.consultationfees')->with('fees',$fees)->with('facility',$facility);
  }
     /**
      * Show the form for creating a new resource.

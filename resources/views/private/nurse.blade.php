@@ -60,8 +60,7 @@
          else{ echo "";} ?>" readonly=""/>
          </div>
 
-  <a href="{{ url('nurseupdate', $patient->id) }}" class="btn btn-primary btn-sm">Update Details</a>
-
+ 
 
             </div>
           </div>
@@ -121,9 +120,9 @@
                 <div class="form-group">
                 <label for="exampleInputPassword1">Phone</label>
                 <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Next of Kin Phone" name="phone"
-                value="{{$kin->phone_of_kin}}"readonly="">
+                value="{{$kin->phone_of_kin}}" readonly="">
                 </div>
-  <a href="{{ route('createkin', $patient->id) }}" class="btn btn-primary btn-sm">Update Details</a>
+ 
                         </div>
 
         {!! Form::close() !!}
@@ -131,7 +130,6 @@
             </div>
         </div>
       </div>
-
   <div class="row">
             <div class="col-lg-12">
                 <div class="ibox float-e-margins">
@@ -180,6 +178,67 @@
 
                                                                </tbody>
                                                              </table>
+                                                               <a href="{{ route('vaccinescreate', $patient->id) }}" class="btn btn-primary btn-sm">Update Details</a>
+
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+  <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Allergy Details</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+
+                            <a class="close-link">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+
+
+                                                                <div class="table-responsive">
+                     <table class="table table-striped table-bordered table-hover dataTables-example" >
+      <thead>
+       <tr>
+      <th>No</th>
+  <th>Allery Type</th>
+  <th>Allery Name</th>
+   <th>Date </th>
+  </tr>
+      </thead>
+
+      <?php $i =1;  $allergies=DB::table('afya_users_allergy')
+    ->Join('allergies_type','allergies_type.id','=','afya_users_allergy.allergies_type_id')
+    ->Join('allergies','allergies.id','=','allergies_type.allergies_id')
+    ->Select('allergies_type.name','allergies.name as Allergy','afya_users_allergy.created_at')
+    ->Where('afya_users_allergy.afya_user_id','=',$patient->id)
+    ->get(); ?>
+     <tbody>
+       @foreach($allergies as $allergy)
+   
+      <tr>
+      <td>{{$i}}</td>
+       <td>{{$allergy->Allergy}}</td>
+      <td>{{$allergy->name}}</td>   
+       <td>{{$allergy->created_at}}</td>      
+      </tr>
+  
+       <?php $i++; ?>
+
+      @endforeach
+
+        </tbody>
+      </table>
                                                                <a href="{{ route('vaccinescreate', $patient->id) }}" class="btn btn-primary btn-sm">Update Details</a>
 
 
@@ -259,7 +318,7 @@
 
         </tbody>
       </table>
-      <a href="{{ route('details', $patient->id) }}" class="btn btn-primary btn-sm">Add Details</a>
+      <a href="{{ url('nursevitals', $patient->id) }}" class="btn btn-primary btn-sm">Add Details</a>
 
    </div>
 

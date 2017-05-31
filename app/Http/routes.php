@@ -285,6 +285,12 @@ Route::group(['middleware' => ['auth','role:Admin|Private']], function() {
 Route::resource('private','privateController');
 Route::get('private.fees','privateController@Fees');
 Route::get('private.show','privateController@show');
+Route::get('nursevitals/{id}','privateController@nurseVitals');
+ Route::get('/tag1/drugs', 'privateController@fdrugs');
+ Route::get('/tag1/observation','privateController@fobservation');
+Route::get('/tag1/symptom','privateController@fsymptom');
+Route::get('/tag1/chief','privateController@fchief');
+Route::post('private.createdetail','privateController@createDetails');
 
 
 });

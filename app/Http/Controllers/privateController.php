@@ -8,6 +8,9 @@ use App\Http\Requests;
 use DB;
 use Auth;
 use Carbon\Carbon;
+use App\Observation;
+use App\Symptom;
+use App\Chief;
 
 class privateController extends Controller
 {
@@ -148,6 +151,136 @@ public function Dependentconsultationfee(Request $request){
 
    return view('private.consultationfees')->with('fees',$fees)->with('facility',$facility);
  }
+
+public function createDetails(Request $request)
+
+ {
+        $id=$request->id;
+        $weight=$request->weight;
+        $heightS=$request->current_height;
+        $temperature=$request->temperature;
+        $systolic=$request->systolic;
+        $diastolic=$request->diastolic;
+        $allergies=$request->allergies;
+        $chiefcompliant=$request->chiefcompliant;
+        $observation=$request->observation;
+        $symptoms=$request->symptoms;
+        $nurse=$request->nurse;
+        $doctor=$request->doctor;
+            
+      
+       
+
+
+
+$drugs=$request->drugs;
+if($drugs){
+foreach($drugs as $key =>$drug) {
+     DB::table('afya_users_allergy')->insert([
+    'afya_user_id'=>$id,
+   
+    'allergies_type_id'=>$drug,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
+}
+}
+ $foods=$request->foods;
+ if($foods){
+foreach($foods as $key) {
+    DB::table('afya_users_allergy')->insert([
+    'afya_user_id'=>$id,
+   
+    'allergies_type_id'=>$key,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
+}
+}
+ $latexs=$request->latexs;
+ if($latexs){
+foreach($latexs as $key) {
+   DB::table('afya_users_allergy')->insert([
+    'afya_user_id'=>$id,
+   
+    'allergies_type_id'=>$key,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
+}
+}
+
+ $molds=$request->molds;
+ if($molds){
+   DB::table('afya_users_allergy')->insert([
+    'afya_user_id'=>$id,
+    
+    'allergies_type_id'=>$molds,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
+}
+$pets=$request->pets;
+if($pets)
+{
+foreach($pets as $key) {
+    DB::table('afya_users_allergy')->insert([
+    'afya_user_id'=>$id,
+    
+    'allergies_type_id'=>$key,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
+}
+}
+
+$pollens=$request->pollens;
+if($pollens) {   
+   DB::table('afya_users_allergy')->insert([
+    'afya_user_id'=>$id,
+    'allergy_name'=>'Pollen Allergy',
+    'allergies_type_id'=>$pollens,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
+}
+
+$insects=$request->insects;
+if($insects)
+{
+foreach($insects as $key) {
+    DB::table('afya_users_allergy')->insert([
+    'afya_user_id'=>$id,
+   
+    'allergies_type_id'=>$key,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
+}
+}
+
+
+$chiefcompliant = implode(',', $chiefcompliant);
+$symptoms= implode(',', $symptoms);
+$observation= implode(',', $observation);
+$appointment=DB::table('appointments')->where('afya_user_id', $id)->where('status',2)->orderBy('created_at', 'desc')->first();
+
+    DB::table('triage_details')->insert(
+    ['appointment_id' => $appointment->id,
+    'current_weight'=> $weight,
+    'current_height'=>$heightS,
+    'temperature'=>$temperature,
+    'systolic_bp'=>$systolic,
+    'diastolic_bp'=>$diastolic,
+    'chief_compliant'=>$chiefcompliant,
+    'observation'=>$observation,
+    'symptoms'=>$symptoms,
+    'nurse_notes'=>$nurse,
+    'Doctor_note'=>'',
+    'prescription'=>'',
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
+
+);
+ DB::table('appointments')->where('id',$appointment->id)->update([
+    'doc_id'=>$doctor]);
+
+
+
+        return redirect()->action('privateController@index');
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -201,6 +334,48 @@ public function Dependentconsultationfee(Request $request){
           ->get();
           return view('private.nurse')->with('patient',$patient)->with(['vaccines'=>$vaccines,'kin'=>$kin,'details'=>$details]);
     }
+
+    public function nurseVitals($id){
+
+        return view('private.nursevitals')->with('id',$id);
+    }
+
+     public function fobservation(Request $request){
+         $term = trim($request->q);
+      if (empty($term)) {
+           return \Response::json([]);
+         }
+       $drugs = Observation::search($term)->limit(20)->get();
+         $formatted_drugs = [];
+          foreach ($drugs as $drug) {
+             $formatted_drugs[] = ['id' => $drug->name, 'text' => $drug->name];
+         }
+     return \Response::json($formatted_drugs);
+     }
+      public function fsymptom(Request $request){
+         $term = trim($request->q);
+      if (empty($term)) {
+           return \Response::json([]);
+         }
+       $drugs = Symptom::search($term)->limit(20)->get();
+         $formatted_drugs = [];
+          foreach ($drugs as $drug) {
+             $formatted_drugs[] = ['id' => $drug->name, 'text' => $drug->name];
+         }
+     return \Response::json($formatted_drugs);
+     }
+     public function fchief(Request $request){
+         $term = trim($request->q);
+      if (empty($term)) {
+           return \Response::json([]);
+         }
+       $drugs = Chief::search($term)->limit(20)->get();
+         $formatted_drugs = [];
+          foreach ($drugs as $drug) {
+             $formatted_drugs[] = ['id' => $drug->name, 'text' => $drug->name];
+         }
+     return \Response::json($formatted_drugs);
+     }
 
     /**
      * Show the form for editing the specified resource.

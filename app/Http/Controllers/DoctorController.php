@@ -36,7 +36,8 @@ class DoctorController extends Controller
        $patients = DB::table('appointments')
        ->leftJoin('afya_users', 'appointments.afya_user_id', '=', 'afya_users.id')
         ->leftJoin('triage_details', 'appointments.id', '=', 'triage_details.appointment_id')
-          ->leftJoin('doctors', 'appointments.doc_id', '=', 'doctors.doc_id')
+->leftJoin('facility_doctor', 'appointments.doc_id', '=', 'facility_doctor.doctor_id')
+        ->leftJoin('doctors', 'appointments.doc_id', '=', 'doctors.doc_id')
         ->leftJoin('triage_infants', 'appointments.id', '=', 'triage_infants.appointment_id')
         ->leftJoin('dependant', 'triage_infants.dependant_id', '=', 'dependant.id')
          ->leftJoin('constituency', 'afya_users.constituency', '=', 'constituency.const_id')
@@ -49,25 +50,23 @@ class DoctorController extends Controller
           'dependant.firstName as Infname','dependant.secondName as InfName','dependant.gender as Infgender','dependant.blood_type as Infblood_type',
           'dependant.dob as Infdob','dependant.pob as Infpob'
         )
-
-
-                      ->where(function($query)
+     ->where(function($query)
                {
-                 $today = Carbon::today();
-                   $query->where([
-                                 ['appointments.created_at','>=',$today],
-                                 ['appointments.status', '=', 2],
-                                 ['doctors.user_id', '=',Auth::user()->id],
-                                ])
-                         ->orWhere([
-                                       ['appointments.date_present','>=',$today],
-                                       ['appointments.status', '=', 2],
-                                       ['doctors.user_id', '=',Auth::user()->id],
-                                     ]);
+   $today = Carbon::today();
+   $query->where([
+                 ['appointments.created_at','>=',$today],
+                 ['appointments.status', '=', 2],
+                 ['facility_doctor.user_id', '=',Auth::user()->id],
+                ])
+ ->orWhere([
+               ['appointments.date_present','>=',$today],
+               ['appointments.status', '=', 2],
+               ['facility_doctor.user_id', '=',Auth::user()->id],
+             ]);
                })
          ->get();
 
-       return view('doctor.newPatients')->with('patients',$patients);
+return view('doctor.newPatients')->with('patients',$patients);
      }
 
 public function dependant()
@@ -129,8 +128,7 @@ public function dependant()
      Doctor::create($request->all());
 
 
-return redirect()->route('doctor.index')
-    ->with('success','User created successfully');
+return redirect()->route('doctor.index')->with('success','User created successfully');
 
         }
 

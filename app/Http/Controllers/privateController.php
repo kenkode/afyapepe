@@ -35,6 +35,23 @@ class privateController extends Controller
 
         return view('private.index')->with('patients',$patients);
     }
+
+    public function privatepatient()
+    {
+      $today = Carbon::today();
+      $facilitycode=DB::table('facility_doctor')->where('user_id', Auth::id())->first();
+      $patients = DB::table('appointments as app')
+        ->Join('afya_users as par', 'app.afya_user_id', '=', 'par.id')
+        ->leftjoin('dependant as dep','app.persontreated','=','dep.id')
+        ->select('par.id as parid','par.firstname as first','par.secondName as second','par.gender as gender','par.dob as dob','dep.id as depid','dep.firstName as dfirst','dep.secondName as dsecond','dep.dob as ddob',
+            'dep.gender as dgender','app.id as appid','app.created_at as created_at','app.persontreated as persontreated')
+        ->where('app.status','=',2)
+        ->where('app.created_at','>=',$today)
+        ->where('app.facility_id',$facilitycode->facilitycode)
+        ->get();
+
+        return view('private.patients')->with('patients',$patients);
+    }
     public function selectChoice($id){
 
       return view('registrar.selects')->with('id',$id);
@@ -44,7 +61,7 @@ class privateController extends Controller
       $user=DB::table('afya_users')->where('id',$id)->first();
       return view('registrar.shows')->with('user',$user);
     }
-    
+
     public function consultationFees(Request $request){
       $id=$request->id;
       $descr=$request->descr;
@@ -53,7 +70,7 @@ class privateController extends Controller
       $amount=$request->amount;
       $facility=$request->facility;
 
-      $facilitycode=DB::table('facility_registrar')->where('user_id', Auth::id())->first(); 
+      $facilitycode=DB::table('facility_registrar')->where('user_id', Auth::id())->first();
 
 
       DB::table('consultation_fees')->insert(
@@ -96,7 +113,7 @@ class privateController extends Controller
 
     public function selectDependant($id){
 
-     
+
             return view('registrar.showdependants')->with('id',$id);
     }
 
@@ -142,7 +159,7 @@ public function Dependentconsultationfee(Request $request){
 
 
  public function Fees(){
-  $facility=DB::table('facility_doctor')->where('user_id', Auth::id())->first(); 
+  $facility=DB::table('facility_doctor')->where('user_id', Auth::id())->first();
    $fees=DB::table('consultation_fees')->
    join('afya_users','consultation_fees.afyauser_id','=','afya_users.id')->where('fee_required','=','Yes')
    ->where('facility',$facility->facilitycode)
@@ -167,9 +184,9 @@ public function createDetails(Request $request)
         $symptoms=$request->symptoms;
         $nurse=$request->nurse;
         $doctor=$request->doctor;
-            
-      
-       
+
+
+
 
 
 
@@ -178,7 +195,7 @@ if($drugs){
 foreach($drugs as $key =>$drug) {
      DB::table('afya_users_allergy')->insert([
     'afya_user_id'=>$id,
-   
+
     'allergies_type_id'=>$drug,
     'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
     'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
@@ -189,7 +206,7 @@ foreach($drugs as $key =>$drug) {
 foreach($foods as $key) {
     DB::table('afya_users_allergy')->insert([
     'afya_user_id'=>$id,
-   
+
     'allergies_type_id'=>$key,
     'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
     'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
@@ -200,7 +217,7 @@ foreach($foods as $key) {
 foreach($latexs as $key) {
    DB::table('afya_users_allergy')->insert([
     'afya_user_id'=>$id,
-   
+
     'allergies_type_id'=>$key,
     'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
     'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
@@ -211,7 +228,7 @@ foreach($latexs as $key) {
  if($molds){
    DB::table('afya_users_allergy')->insert([
     'afya_user_id'=>$id,
-    
+
     'allergies_type_id'=>$molds,
     'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
     'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
@@ -222,7 +239,7 @@ if($pets)
 foreach($pets as $key) {
     DB::table('afya_users_allergy')->insert([
     'afya_user_id'=>$id,
-    
+
     'allergies_type_id'=>$key,
     'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
     'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
@@ -230,7 +247,7 @@ foreach($pets as $key) {
 }
 
 $pollens=$request->pollens;
-if($pollens) {   
+if($pollens) {
    DB::table('afya_users_allergy')->insert([
     'afya_user_id'=>$id,
     'allergy_name'=>'Pollen Allergy',
@@ -245,7 +262,7 @@ if($insects)
 foreach($insects as $key) {
     DB::table('afya_users_allergy')->insert([
     'afya_user_id'=>$id,
-   
+
     'allergies_type_id'=>$key,
     'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
     'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
@@ -278,8 +295,8 @@ $appointment=DB::table('appointments')->where('afya_user_id', $id)->where('statu
     'doc_id'=>$doctor]);
 
 
-
-        return redirect()->action('privateController@index');
+return redirect()->route('showPatient', ['id'=> $appointment->id]);
+  //  return redirect()->action('privateController@index');
     }
     /**
      * Show the form for creating a new resource.

@@ -61,8 +61,8 @@
                                                  @foreach($patients as $patient)
                                                       <tr>
                                                 @if($patient->persontreated==="Self")
-                                  <td><a href="{{route('private.show',$patient->parid)}}">{{$i}}</a></td>
-                                    <td><a href="{{route('private.show',$patient->parid)}}">{{$patient->first}} {{$patient->second}}</a></td>
+                                  <td><a href="{{route('showPatient2',$patient->appid)}}">{{$i}}</a></td>
+                                    <td><a href="{{route('showPatient2',$patient->appid)}}">{{$patient->first}} {{$patient->second}}</a></td>
                                     <td><?php $gender=$patient->gender;?>
                                       @if($gender==1){{"Male"}}@else{{"Female"}}@endif</a>
                                     </td>

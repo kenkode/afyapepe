@@ -113,51 +113,44 @@ Route::get('/ajax-subcat',function(){
 });
 
 // Doctor routes;
-  Route::group(['middleware' => ['auth','role:Admin|Doctor']], function() {
-	Route::resource('doctor','DoctorController');
-	Route::get('doctorProfile', [ 'as' => 'doctorProfile', 'uses' => 'DoctorController@DocDetails']);
+Route::group(['middleware' => ['auth','role:Admin|Doctor|Private']], function() {
+Route::resource('doctor','DoctorController');
+Route::get('doctorProfile', [ 'as' => 'doctorProfile', 'uses' => 'DoctorController@DocDetails']);
+Route::get('appointment','DoctorController@Appointment');
+Route::get('calendar','DoctorController@Calendar');
+Route::resource('prescription', 'PrescriptionController@store');
 
-
-  Route::get('appointment','DoctorController@Appointment');
-	Route::get('calendar','DoctorController@Calendar');
-	Route::resource('prescription', 'PrescriptionController@store');
-
-   Route::get('patientadmitted', [ 'as' => 'admitted', 'uses' => 'DoctorController@Admitted']);
-	//  Route::Post('show', [ 'as' => 'patienttest', 'uses' => 'PatientTestController@store']);
-   Route::get('testdone/{id}', [ 'as' => 'testdone', 'uses' => 'PatientController@testdone']);
-	 Route::get('show/{id}',['as'=>'showPatient', 'uses'=>'PatientController@showpatient']);
-   Route::get('visit/{id}', [ 'as' => 'visit', 'uses' => 'PatientController@pvisit']);
-  Route::get('depvisit/{id}', [ 'as' => 'dependantvisit', 'uses' => 'PatientController@dependantvisit']);
-
+Route::get('patientadmitted', [ 'as' => 'admitted', 'uses' => 'DoctorController@Admitted']);
+Route::get('testdone/{id}', [ 'as' => 'testdone', 'uses' => 'PatientController@testdone']);
+Route::get('show/{id}',['as'=>'showPatient', 'uses'=>'PatientController@showpatient']);
+Route::get('visit/{id}', [ 'as' => 'visit', 'uses' => 'PatientController@pvisit']);
+Route::get('depvisit/{id}', [ 'as' => 'dependantvisit', 'uses' => 'PatientController@dependantvisit']);
 Route::get('admit/{id}', [ 'as' => 'admit', 'uses' => 'PatientTestController@admit']);
 Route::Post('admitts', [ 'as' => 'admitting', 'uses' => 'TagController@admitts']);
+Route::get('transfer/{id}', [ 'as' => 'transfering', 'uses' => 'PatientTestController@transfer']);
+Route::Post('transfers', [ 'as' => 'transfer', 'uses' => 'TagController@transfers']);
+Route::get('endvisittransfer/{id}', [ 'as' => 'endvisit', 'uses' => 'TagController@endvisits']);
 
-  Route::get('transfer/{id}', [ 'as' => 'transfering', 'uses' => 'PatientTestController@transfer']);
-  Route::Post('transfers', [ 'as' => 'transfer', 'uses' => 'TagController@transfers']);
-	Route::get('endvisittransfer/{id}', [ 'as' => 'endvisit', 'uses' => 'TagController@endvisits']);
-
-	 Route::get('/tags/tst', 'TagController@ftest');
-	 Route::get('/docss/drugs', 'TestController@fdrugs');
-   Route::get('/disis/find', 'DiseasesController@find');
-	 Route::get('/tags/fac', 'FacilityController@ffacility');
-
+Route::get('/tags/tst', 'TagController@ftest');
+Route::get('/docss/drugs', 'TestController@fdrugs');
+Route::get('/disis/find', 'DiseasesController@find');
+Route::get('/tags/fac', 'FacilityController@ffacility');
 
 
+Route::Post('testpost', [ 'as' => 'patienttest', 'uses' => 'PatientTestController@store']);
+Route::get('test/{id}', [ 'as' => 'testes', 'uses' => 'PatientTestController@testdata']);
+Route::get('diagnosis/{id}', [ 'as' => 'diagnoses', 'uses' => 'PatientTestController@diagnoses']);
+Route::Post('diagnosisconfirm', [ 'as' => 'diaconf', 'uses' => 'PatientTestController@diagnosesconf']);
 
- Route::Post('testpost', [ 'as' => 'patienttest', 'uses' => 'PatientTestController@store']);
-	 Route::get('test/{id}', [ 'as' => 'testes', 'uses' => 'PatientTestController@testdata']);
-	 Route::get('diagnosis/{id}', [ 'as' => 'diagnoses', 'uses' => 'PatientTestController@diagnoses']);
-	  Route::Post('diagnosisconfirm', [ 'as' => 'diaconf', 'uses' => 'PatientTestController@diagnosesconf']);
-
-   Route::Post('diagnosis', [ 'as' => 'confdiag', 'uses' => 'PrescriptionController@diagnoses']);
-   Route::get('prescriptions/{id}', [ 'as' => 'medicines', 'uses' => 'PrescriptionController@prescriptions']);
-   Route::get('history/{id}', [ 'as' => 'patienthistory', 'uses' => 'PatientController@history']);
+Route::Post('diagnosis', [ 'as' => 'confdiag', 'uses' => 'PrescriptionController@diagnoses']);
+Route::get('prescriptions/{id}', [ 'as' => 'medicines', 'uses' => 'PrescriptionController@prescriptions']);
+Route::get('history/{id}', [ 'as' => 'patienthistory', 'uses' => 'PatientController@history']);
 
 Route::get('disdiagnosis/{id}', [ 'as' => 'disdiagnosis', 'uses' => 'PatientTestController@disdiagnosis']);
 Route::get('disprescription/{id}', [ 'as' => 'disprescription', 'uses' => 'PatientTestController@disprescription']);
 
- Route::get('discharge/{id}', [ 'as' => 'discharge', 'uses' => 'PatientTestController@discharges']);
- Route::Post('showdischarge', [ 'as' => 'discharging', 'uses' => 'TagController@discharge']);
+Route::get('discharge/{id}', [ 'as' => 'discharge', 'uses' => 'PatientTestController@discharges']);
+Route::Post('showdischarge', [ 'as' => 'discharging', 'uses' => 'TagController@discharge']);
 });
 
 Route::group(['middleware' => ['auth','role:Admin|Manufacturer']], function() {
@@ -239,7 +232,7 @@ Route::group(['middleware' => ['auth','role:Admin|Registrar']], function() {
 	Route::post('Dependentconsultationfee','RegistrarController@Dependentconsultationfee');
 	Route::get('allpatients','RegistrarController@allPatients');
 	Route::post('registeruser','RegistrarController@store');
-    
+
     Route::get('registrar.selects/{id}','privateController@selectChoice');
     Route::get('registrar.shows/{id}','privateController@showUser');
     Route::post('privateconsultationfee','privateController@consultationFees');
@@ -254,7 +247,7 @@ Route::group(['middleware' => ['auth','role:Admin|Test']], function() {
 	Route::resource('test','TestController');
 	Route::get('testsales','TestController@testSales');
 	Route::get('testanalytics','TestController@testAnalytics');
-	Route::get('patientTests/{id}', [ 'as' => 'patientTest', 'uses' => 'TestController@testdetails']);
+	Route::get('patientTests/{id}', [ 'as' => 'patientTests', 'uses' => 'TestController@testdetails']);
 	// Route::get('testing/{id} ', [ 'as' => 'testing', 'uses' => 'TestController@testing']);
   Route::Post('pdetails', [ 'as' => 'testResult', 'uses' => 'TestController@testResult']);
 
@@ -281,16 +274,20 @@ Route::Post('addfacilityofficer','FacilityAdminController@storeofficer');
 
 //PrivateDoc
 
-Route::group(['middleware' => ['auth','role:Admin|Private']], function() {
+Route::group(['middleware' => ['auth','role:Private|Admin']], function() {
 Route::resource('private','privateController');
 Route::get('private.fees','privateController@Fees');
 Route::get('private.show','privateController@show');
 Route::get('nursevitals/{id}','privateController@nurseVitals');
- Route::get('/tag1/drugs', 'privateController@fdrugs');
- Route::get('/tag1/observation','privateController@fobservation');
+Route::get('/tag1/drugs', 'privateController@fdrugs');
+Route::get('/tag1/observation','privateController@fobservation');
 Route::get('/tag1/symptom','privateController@fsymptom');
 Route::get('/tag1/chief','privateController@fchief');
 Route::post('private.createdetail','privateController@createDetails');
+
+Route::get('privatepat','privateController@privatepatient');
+Route::get('show2/{id}',['as'=>'showPatient2', 'uses'=>'PatientController@showpatient']);
+
 
 
 });

@@ -5,10 +5,14 @@
             <?php
 $id=Auth::id();
 $emp=DB::table('manufacturers_employees')->where('users_id',$id)->first();
-
+$rep=DB::table('sales_rep')->where('users_id',$id)->first();
 if ($emp) {
   $manufacturer=DB::table('manufacturers')->where('user_id',$emp->manu_id)->first();
 }
+else if($rep) {
+   $manufacturer=DB::table('manufacturers')->where('user_id',$rep->manu_id)->first();
+} 
+
 else{
 $manufacturer=DB::table('manufacturers')->where('user_id', Auth::id())->first();
 
@@ -38,7 +42,8 @@ $manufacturer=DB::table('manufacturers')->where('user_id', Auth::id())->first();
 
             @if(!empty($emp))
           <li><a href="{{ URL::to('salesrep')}}"><i class="fa fa-users"></i> <span class="nav-label">Sales Rep</span></a></li>
-
+         @elseif(!empty($rep))
+          <li><a href="{{ URL::to('#')}}"><i class="fa fa-money"></i> <span class="nav-label">Sales</span></a></li>
             @else
             <li ><a href="{{ URL::to('manufacturerconfig')}}"><i class="fa fa-th-large"></i> <span class="nav-label">Master Config</span></a></li>
          <li><a href="{{ URL::to('manuemployees')}}"><i class="fa fa-users"></i> <span class="nav-label">Employees</span></a></li>    

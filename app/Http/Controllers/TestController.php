@@ -34,10 +34,10 @@ class TestController extends Controller
       ->leftJoin('appointments', 'patient_test.appointment_id', '=', 'appointments.id')
       ->leftJoin('afya_users', 'appointments.afya_user_id', '=', 'afya_users.id')
       ->leftJoin('dependant', 'appointments.persontreated', '=', 'dependant.id')
-      ->select('afya_users.*','patient_test.id as tid','patient_test.created_at as date',
-      'patient_test.test_status','appointments.persontreated','dependant.firstName as depname',
-      'dependant.firstName as depname','dependant.secondName as depname2','dependant.gender as depgender',
-      'dependant.dob as depdob')
+     ->select('afya_users.*','patient_test.id as tid','patient_test.created_at as date',
+      'patient_test.test_status','appointments.persontreated',
+      'dependant.firstName as depname','dependant.secondName as depname2',
+      'dependant.gender as depgender','dependant.dob as depdob')
       ->where('patient_test.test_status', '=',0)
 
       ->get();
@@ -47,13 +47,11 @@ class TestController extends Controller
 
 public function testdetails($id){
 
-  $triage = DB::table('patient_test')
-  ->Join('appointments', 'patient_test.appointment_id', '=', 'appointments.id')
-  ->Join('triage_details', 'patient_test.appointment_id', '=', 'triage_details.appointment_id')
-  ->Join('triage_infants', 'patient_test.appointment_id', '=', 'triage_infants.appointment_id')
-  ->select('triage_details.*','appointments.*','triage_infants.*')
+  $pdetails = DB::table('patient_test')
+  ->leftJoin('appointments', 'patient_test.appointment_id', '=', 'appointments.id')
+  ->select('appointments.*')
   ->where('patient_test.id', '=',$id)
-  ->get();
+  ->first();
 
 
 
@@ -75,7 +73,7 @@ public function testdetails($id){
                ])
   ->get();
 
-return view('test.pdetails')->with('tsts',$tsts)->with('triage',$triage);
+return view('test.pdetails')->with('tsts',$tsts)->with('pdetails',$pdetails);
 }
 
     public function testSales(){
@@ -231,7 +229,7 @@ public function fdrugs(Request $request)
   if (empty($term)) {
        return \Response::json([]);
      }
-   $drugs = Druglist::search($term)->limit(20)->get();
+   $drugs = Druglist::search($term)->limit(50)->get();
      $formatted_drugs = [];
       foreach ($drugs as $drug) {
          $formatted_drugs[] = ['id' => $drug->id, 'text' => $drug->drugname];

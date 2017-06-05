@@ -49,7 +49,7 @@
     </div>
 
     <!-- Mainly scripts -->
-    <script src="{{ asset('js/app.js') }}" type="text/javascript"></script>
+      <script src="{{ asset('js/app.js') }}" type="text/javascript"></script>
     <!-- Mainly scripts -->
     <script src="{{ asset('js/jquery-3.1.1.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}" type="text/javascript"></script>
@@ -57,7 +57,9 @@
     <script src="{{ asset('js/plugins/slimscroll/jquery.slimscroll.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/plugins/dataTables/datatables.min.js') }}" type="text/javascript"></script>
 
-
+    <!-- Custom and plugin javascript -->
+    <script src="{{ asset('js/inspinia.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/plugins/pace/pace.min.js') }}" type="text/javascript"></script>
   <!-- Flot -->
     <script src="{{ asset('js/plugins/flot/jquery.flot.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/plugins/flot/jquery.flot.tooltip.min.js') }}" type="text/javascript"></script>
@@ -86,34 +88,38 @@
 
 
     <!-- Toastr -->
-    <script src="{{ asset('js/plugins/fullcalendar/moment.min.js') }}"></script>
-    <script src="{{ asset('js/jquery-3.1.1.min.js') }}"></script>
-    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('js/plugins/metisMenu/jquery.metisMenu.js') }}"></script>
-    <script src="{{ asset('js/plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
-
-    <!-- Custom and plugin javascript -->
-  <!--  <script src="{{ asset('js/inspinia.js') }}"></script>-->
-    <script src="{{ asset('js/plugins/pace/pace.min.js') }}"></script>
-
-    <!-- jQuery UI  -->
-    <script src="{{ asset('js/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
-
-    <!-- iCheck -->
-    <script src="{{ asset('js/plugins/iCheck/icheck.min.js') }}"></script>
-
-    <!-- Full Calendar -->
-    <script src="{{ asset('js/plugins/fullcalendar/fullcalendar.min.js') }}"></script>
+    <script src="{{ asset('js/plugins/toastr/toastr.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/plugins/datapicker/bootstrap-datepicker.js') }}" type="text/javascript"></script>
-
-    <!-- Custom and plugin javascript -->
-
-
-
-
-    <!-- Custom and plugin javascript -->
-<script src="{{ asset('js/plugins/pace/pace.min.js') }}" type="text/javascript"></script>
     <!--  <script src="{{ asset('js/inspinia.js') }}" type="text/javascript"></script>-->
+        <script>
+        $(document).ready(function(){
+            $('.dataTables-example').DataTable({
+                pageLength: 25,
+                responsive: true,
+                dom: '<"html5buttons"B>lTfgitp',
+                buttons: [
+                    { extend: 'copy'},
+                    {extend: 'csv'},
+                    {extend: 'excel', title: 'ExampleFile'},
+                    {extend: 'pdf', title: 'ExampleFile'},
+
+                    {extend: 'print',
+                     customize: function (win){
+                            $(win.document.body).addClass('white-bg');
+                            $(win.document.body).css('font-size', '10px');
+
+                            $(win.document.body).find('table')
+                                    .addClass('compact')
+                                    .css('font-size', 'inherit');
+                    }
+                    }
+                ]
+
+            });
+
+        });
+
+    </script>
       <script>
   $( function() {
     var availableTags = [
@@ -191,35 +197,7 @@
     </script>
 
     <!-- Page-Level Scripts -->
-    <script>
-        $(document).ready(function(){
-            $('.dataTables-example').DataTable({
-                pageLength: 25,
-                responsive: true,
-                dom: '<"html5buttons"B>lTfgitp',
-                buttons: [
-                    { extend: 'copy'},
-                    {extend: 'csv'},
-                    {extend: 'excel', title: 'ExampleFile'},
-                    {extend: 'pdf', title: 'ExampleFile'},
 
-                    {extend: 'print',
-                     customize: function (win){
-                            $(win.document.body).addClass('white-bg');
-                            $(win.document.body).css('font-size', '10px');
-
-                            $(win.document.body).find('table')
-                                    .addClass('compact')
-                                    .css('font-size', 'inherit');
-                    }
-                    }
-                ]
-
-            });
-
-        });
-
-    </script>
 
     <script type="text/javascript">
            $(document).ready(function(){

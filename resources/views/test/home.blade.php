@@ -77,8 +77,8 @@
 
                                                   ?>
 																									  <tr>
-																									  <td><a href="{{route('patientTest',$tst->tid)}}">{{$i}}</a></td>
-																									 <td><a href="{{route('patientTest',$tst->tid)}}">
+																									  <td><a href="{{route('patientTests',$tst->tid)}}">{{$i}}</a></td>
+																									 <td><a href="{{route('patientTests',$tst->tid)}}">
 																									 <?php if ($tst->persontreated=='Self') {echo $tst->firstname." ".$tst->secondName;}
 																									 else {echo $tst->depname." ".$tst->depname2;}
 																									 ?></a></td>

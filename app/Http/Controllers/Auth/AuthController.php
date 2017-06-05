@@ -147,6 +147,9 @@ class AuthController extends Controller
       if($role=="FacilityAdmin"){
         return '/facilityadmin';
       }
+      if($role=="Private"){
+        return '/private';
+      }
       else
       {
       return '/login';

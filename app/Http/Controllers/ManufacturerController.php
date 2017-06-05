@@ -166,4 +166,43 @@ return view('manufacturer.settings');
     }
 
 
+    public function getEmployees(){
+
+      return view('manufacturer.employees');
+    }
+
+    public function addEmployee (Request $request){
+      $id=$request->id;
+      $role=$request->role;
+      $name=$request->name;
+      $email=$request->email;
+      $password=$request->password;
+      $job=$request->job;
+
+      $user=DB::table('users')->insertGetId([
+         'name'=>$name,
+          'email'=>$email,
+          'role'=>$role,
+          'password'=>bcrypt($password),
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
+
+        ]);
+
+      DB::table('manufacturers_employees')->insert([
+         'manu_id'=>$id,
+         'users_id'=>$user,
+         'job'=>$job,
+         'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+         'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
+
+        ]);
+ DB::table('role_user')->insert(['user_id'=>$user,
+      'role_id'=>5]);
+return redirect()->action('ManufacturerController@getEmployees');
+
+
+    }
+
+
 }

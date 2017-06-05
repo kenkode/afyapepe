@@ -5,6 +5,8 @@
     <div class="ibox float-e-margins">
       <div class="ibox-title">
           <h5>Patient Details</h5>
+       <?php   $facilitycode=DB::table('facility_registrar')->where('user_id', Auth::id())->first(); ?>
+
 
       </div>
       <div class="ibox-content">
@@ -12,6 +14,7 @@
 
   <input type="hidden" name="_token" value="{{ csrf_token() }}">
     <input type="hidden" class="form-control" id="exampleInputEmail1S" aria-describedby="emailHelp" value="{{$id}}" name="id"  required>
+    <input type="hidden" name="facility" value="{{$facilitycode->facilitycode}}">
     <div class="form-group">
     <label for="exampleInputEmail1">Consultation descr</label>
     <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Descr" name="descr"  required>

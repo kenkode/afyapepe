@@ -11,7 +11,7 @@
                 $Mid = $manufacturer->id;
                 ?>
 <div class="row">
-<h1> Drug Substitutions</h1>
+<h3>Drug Substitutions</h3>
               <div class="col-lg-12">
                     <div class="tabs-container">
                         <ul class="nav nav-tabs">

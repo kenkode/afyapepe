@@ -1095,6 +1095,17 @@ $cry=$request->cry;
     $irritable=$request->irritable;
     $tone=$request->tone;
      $drugs=$request->drugs;
+     $vaccines=$request->vaccines;
+
+if(isset($vaccines)){
+    foreach ($vaccines as $vaccine) {
+    DB::table('dependant_vaccination')->where('id',$vaccine)->whereNull('status')->update([
+    'status'=>'Done',
+    'status_date'=>\Carbon\Carbon::now()->toDateTimeString(),
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
+    }
+}
 
 
 
@@ -1256,7 +1267,7 @@ join('afya_users','afya_users.msisdn','=','dependant_parent.phone')->select('afy
      'revelantdrugs'=>$bdrug,
     'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
     'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
-    $appointment=DB::table('appointments')->where('persontreated', $id)->orderBy('created_at', 'desc')->first();
+    $appointment=DB::table('appointments')->where('persontreated', $id)->where('status',1)->orderBy('created_at', 'desc')->first();
 DB::table('triage_infants')->insert(
     ['appointment_id' => $appointment->id,
     'dependant_id'=>$id,
@@ -1625,7 +1636,7 @@ foreach($insects as $key) {
 $chiefcompliant = implode(',', $chiefcompliant);
 $symptoms= implode(',', $symptoms);
 $observation= implode(',', $observation);
-$appointment=DB::table('appointments')->where('afya_user_id', $id)->orderBy('created_at', 'desc')->first();
+$appointment=DB::table('appointments')->where('afya_user_id', $id)->where('status',1)->orderBy('created_at', 'desc')->first();
 
     DB::table('triage_details')->insert(
     ['appointment_id' => $appointment->id,

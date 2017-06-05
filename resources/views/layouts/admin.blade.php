@@ -81,6 +81,7 @@
 
     <!-- Toastr -->
     <script src="{{ asset('js/plugins/toastr/toastr.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/plugins/datapicker/bootstrap-datepicker.js') }}" type="text/javascript"></script>
 
     <!-- Page-Level Scripts -->
     <script>

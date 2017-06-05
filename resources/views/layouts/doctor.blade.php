@@ -10,21 +10,21 @@
     <title>Afyapepe- @yield('title') </title>
 
 
-    <link rel="stylesheet" href="{!! asset('css/plugins/toastr/toastr.min.css') !!}" />
-    <link rel="stylesheet" href="{!! asset('js/plugins/gritter/jquery.gritter.css') !!}" />
-    <link rel="stylesheet" href="{!! asset('css/vendor.css') !!}" />
-    <link rel="stylesheet" href="{!! asset('css/app.css') !!}" />
+    <link rel="stylesheet" href="{{ asset('css/plugins/toastr/toastr.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('js/plugins/gritter/jquery.gritter.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/vendor.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}" />
 
-    <link rel="stylesheet" href="{!! asset('css/bootstrap.min.css') !!}" />
-    <link rel="stylesheet" href="{!! asset('font-awesome/css/font-awesome.css') !!}" />
-    <link rel="stylesheet" href="{!! asset('css/plugins/dataTables/datatables.min.css') !!}" />
-    <link rel="stylesheet" href="{!! asset('css/animate.css') !!}" />
-    <link rel="stylesheet" href="{!! asset('css/style.css') !!}" />
-    <link rel="stylesheet" href="{!!asset('css/plugins/fullcalendar/fullcalendar.css')!!}" />
-    <link rel="stylesheet" media="print" href="{!!asset('css/plugins/fullcalendar/fullcalendar.print.css')!!}" />
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('font-awesome/css/font-awesome.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/plugins/dataTables/datatables.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/animate.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
+    <link rel="stylesheet" href="{{asset('css/plugins/fullcalendar/fullcalendar.css')}}" />
+    <link rel="stylesheet" media="print" href="{{asset('css/plugins/fullcalendar/fullcalendar.print.css')}}" />
 
-    <link rel="stylesheet" href="{!! asset('css/plugins/iCheck/custom.css') !!}" />
-     <link rel="stylesheet" href="{!! asset('css/plugins/steps/jquery.steps.css') !!}" />
+    <link rel="stylesheet" href="{{ asset('css/plugins/iCheck/custom.css') }}" />
+     <link rel="stylesheet" href="{{ asset('css/plugins/steps/jquery.steps.css') }}" />
 
 
 
@@ -98,8 +98,8 @@
         <script src="{{ asset('js/plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
 
         <!-- Custom and plugin javascript -->
-        <script src="{{ asset('js/inspinia.js') }}"></script>
-        <script src="{{ asset('js/plugins/pace/pace.min.js') }}"></script>
+        <!-- <script src="{{ asset('js/inspinia.js') }}"></script>
+        <script src="{{ asset('js/plugins/pace/pace.min.js') }}"></script> -->
 
         <!-- jQuery UI  -->
         <script src="{{ asset('js/plugins/jquery-ui/jquery-ui.min.js') }}"></script>

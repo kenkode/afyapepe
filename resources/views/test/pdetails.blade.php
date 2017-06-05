@@ -2,96 +2,139 @@
 @section('title', 'Tests')
 @section('content')
 <div class="content-page  equal-height">
+	<?php
+	$dependantId = $pdetails->persontreated;
+	$afyauserId = $pdetails->afya_user_id;
+	$appId = $pdetails->id;
 
+ if ($dependantId =='Self')   {
+	 $afyadetails = DB::table('appointments')
+	 ->leftJoin('triage_details', 'appointments.id', '=', 'triage_details.appointment_id')
+	 ->leftJoin('afya_users', 'appointments.afya_user_id', '=', 'afya_users.id')
+	 ->select('triage_details.*','afya_users.*')
+	 ->where('appointments.id', '=',$appId)
+	 ->first();
+
+	 $dob=$afyadetails->dob;
+	 $gender=$afyadetails->gender;
+	 $firstName = $afyadetails->firstname;
+	 $secondName = $afyadetails->secondName;
+	 $name =$firstName." ".$secondName;
+}else{
+	$deppdetails = DB::table('appointments')
+	->leftJoin('triage_infants', 'appointments.id', '=', 'triage_infants.appointment_id')
+	->leftJoin('dependant', 'appointments.persontreated', '=', 'dependant.id')
+	->select('triage_infants.*','dependant.*')
+	->where('appointments.id', '=',$appId)
+	->first();
+
+	          $dob=$deppdetails->dob;
+            $gender=$deppdetails->gender;
+            $firstName = $deppdetails->firstName;
+            $secondName = $deppdetails->secondName;
+            $name =$firstName." ".$secondName;
+}
+$interval = date_diff(date_create(), date_create($dob));
+$age= $interval->format(" %Y Year, %M Months, %d Days Old");
+
+?>
 		<div class="content">
 				<div class="container">
+					<div class="row wrapper border-bottom white-bg page-heading">
+					<div class="col-lg-6">
+					<h2>{{$name}}</h2>
+					<ol class="breadcrumb">
+					<li><a>@if($gender==1){{"Male"}}@else{{"Female"}}@endif</a></li>
+					<li><a>{{$age}}</a> </li>
+					
+					</ol>
+					</div>
+					<div class="col-lg-6">
+					<h2>Test Center </h2>
+					<ol class="breadcrumb">
+					<li class="active"><strong>Name </strong></li>
+					</ol>
+					</div>
+					</div>
 
-
-
-					<div class="wrapper wrapper-content animated fadeInRight">
+           <div class="wrapper wrapper-content animated fadeInRight">
 										<div class="row">
 											<div class="ibox float-e-margins">
-													<div class="ibox-title">
-														<h5>Today's Visit Triage</h5>
 
-													</div>
 													<div class="ibox-content">
-
+                      <h5>Today's Visit Triage</h5>
 											<div class="table-responsive ibox-content">
 											<table class="table table-striped table-bordered table-hover dataTables-conditional" >
-												 <thead>
-											<tr>
-												@foreach($triage as $pdetails)
-              <?php
-
-							$dependantId = $pdetails->persontreated;
-              $afyauserId = $pdetails->afya_user_id;
-
-							if ($dependantId =='Self') {  ?>
-												 <th>Weight </th>
-												 <th>Height</th>
-												 <th>Temperature</th>
-												 <th>Systolic BP</th>
-												 <th>Diastolic BP</th>
-												 <th>BMI</th>
-												 <th>Chief Compliant</th>
-												 <th>Observations</th>
-												 <th>Symptoms</th>
-												 <th>Nurse Notes</th>
-  <?php  } else {  ?>
-		<th>Weight </th>
- 	 <th>Height</th>
- 	 <th>Temperature</th>
- 	 <th>Systolic BP</th>
- 	 <th>Diastolic BP</th>
- 	  <th>Chief Compliant</th>
- 	 <th>Observations</th>
- 	 <th>Symptoms</th>
- 	 <th>Nurse Notes</th>
-	   <?php  } ?>
-											</tr>
-											</thead>
-
-											<tbody>
-
-											<?php   if ($dependantId =='Self') { ?>
-												<tr>
-												 <td>
-											 </td>
-											 <td>{{$pdetails->current_weight}}</td>
-												<td>{{$pdetails->current_height}}</td>
-												<td>{{$pdetails->temperature}}</td>
-												<td>{{$pdetails->systolic_bp}}</td>
-												 <td>{{$pdetails->diastolic_bp}}</td>
-												 <td><?php $height=$pdetails->current_height; $weight=$pdetails->current_weight;
-																		$bmi =$weight/($height*$height);
-																		echo number_format($bmi, 2);
-																 ?></td>
-												 <td>{{$pdetails->chief_compliant}}</td>
-												 <td>{{$pdetails->observation}}</td>
-												 <td>{{$pdetails->symptoms}}</td>
-												 <td>{{$pdetails->nurse_notes}}</td>
-                        </tr>
-											<?php }  else { ?>
-													<tr>
-
-												 <td>{{$pdetails->weight}}</td>
-													<td>{{$pdetails->height}}</td>
-													<td>{{$pdetails->temperature}}</td>
-													<td>{{$pdetails->systolic_bp}}</td>
-													 <td>{{$pdetails->diastolic_bp}}</td>
-                           <td>{{$pdetails->chief_compliant}}</td>
-													 <td>{{$pdetails->observation}}</td>
-													 <td>{{$pdetails->symptoms}}</td>
-													 <td>{{$pdetails->nurse_notes}}</td>
-	                        </tr>
-													<?php  } ?>
 
 
+    <?php if ($dependantId =='Self')   {  ?>
+<thead>
+<tr>
+<th>Weight </th>
+<th>Height</th>
+<th>Temperature</th>
+<th>Systolic BP</th>
+<th>Diastolic BP</th>
+<th>BMI</th>
+<th>Chief Compliant</th>
+<th>Observations</th>
+<th>Symptoms</th>
+<th>Nurse Notes</th>
+</tr>
+</thead>
 
-											@endforeach
+<tbody>
+<tr>
 
-											</tbody>
+<td>{{$afyadetails->current_weight}}</td>
+<td>{{$afyadetails->current_height}}</td>
+<td>{{$afyadetails->temperature}}</td>
+<td>{{$afyadetails->systolic_bp}}</td>
+<td>{{$afyadetails->diastolic_bp}}</td>
+<td><?php $height=$afyadetails->current_height; $weight=$afyadetails->current_weight;
+$bmi =$weight/($height*$height);
+echo number_format($bmi, 2);
+?></td>
+<td>{{$afyadetails->chief_compliant}}</td>
+<td>{{$afyadetails->observation}}</td>
+<td>{{$afyadetails->symptoms}}</td>
+<td>{{$afyadetails->nurse_notes}}</td>
+</tr>
+</tbody>
+                <?php  } else {  ?>
+<thead>
+<tr>
+<th>Weight </th>
+<th>Height</th>
+<th>Temperature</th>
+<th>Systolic BP</th>
+<th>Diastolic BP</th>
+<th>Chief Compliant</th>
+<th>Observations</th>
+<th>Symptoms</th>
+<th>Nurse Notes</th>
+
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td>{{$deppdetails->weight}}</td>
+<td>{{$deppdetails->height}}</td>
+<td>{{$deppdetails->temperature}}</td>
+<td>{{$deppdetails->systolic_bp}}</td>
+<td>{{$deppdetails->diastolic_bp}}</td>
+<td>{{$deppdetails->chief_compliant}}</td>
+<td>{{$deppdetails->observation}}</td>
+<td>{{$deppdetails->symptoms}}</td>
+<td>{{$deppdetails->nurse_notes}}</td>
+</tr>
+</tbody>
+<?php  } ?>
+
+
+
 											</table>
 										</div>
 									</div>

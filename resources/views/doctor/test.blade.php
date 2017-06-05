@@ -416,6 +416,7 @@ elseif ($stat == 6) {
 
 {{ Form::hidden('appointment_id',$app_id, array('class' => 'form-control')) }}
 {{ Form::hidden('doc_id',$doc_id, array('class' => 'form-control')) }}
+{{ Form::hidden('facility',$fac_id, array('class' => 'form-control')) }}
 
 <?php if ($pdetails->persontreated=='Self') { ?>
 

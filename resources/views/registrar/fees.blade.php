@@ -59,7 +59,11 @@
           <?php $i++ ?>
             @endforeach
 
+
                      </tbody>
+                                 <?php $wekexp=DB::table('consultation_fees')->where('facility',$facility->facilitycode)
+                  ->sum('amount'); ?>
+ <td></td><td></td><td></td><td>Total</td><td>{{$wekexp}}</td>
                    </table>
                        </div>
 
@@ -68,10 +72,11 @@
            </div>
            </div>
        </div>
-       @include('includes.default.footer')
+
 
          </div><!--container-->
       </div><!--content-->
       </div><!--content page-->
+             @include('includes.admin_inc.footer')
 
 @endsection

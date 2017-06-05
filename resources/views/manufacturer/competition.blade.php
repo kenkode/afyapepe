@@ -11,7 +11,7 @@
                 $Mid = $manufacturer->id;
                 ?>
 <div class="row">
-<h1>Competition Analysis</h1>
+<h3>Competition Analysis</h3>
               <div class="col-lg-12">
                     <div class="tabs-container">
                         <ul class="nav nav-tabs">
@@ -107,8 +107,8 @@
 <td>@if($d1t11->quantity){{$d1t11->quantity}} @else 0 @endif</td>
 <td>@if($d1t11->qprice){{$d1t11->qprice}} @else 0 @endif</td>
 <?php    $d1st11=DB::table('prescription_filled_status')
-->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')
-->join('druglists','druglists.id','=','prescription_details.drug_id')
+->join('substitute_presc_details','substitute_presc_details.id','=','prescription_filled_status.substitute_presc_id')
+->join('druglists','substitute_presc_details.drug_id','=','druglists.id')
 ->select('prescription_filled_status.*')
 ->selectRaw('SUM(quantity) as quantity')
 ->selectRaw('SUM(price*quantity) as qprice')
@@ -139,8 +139,8 @@
       <td>@if($d1t->quantity){{$d1t->quantity}} @else 0 @endif</td>
     <td>@if($d1t->qprice){{$d1t->qprice}} @else 0 @endif</td>
 <?php    $d1st=DB::table('prescription_filled_status')
-->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')
-->join('druglists','druglists.id','=','prescription_details.drug_id')
+->join('substitute_presc_details','substitute_presc_details.id','=','prescription_filled_status.substitute_presc_id')
+->join('druglists','substitute_presc_details.drug_id','=','druglists.id')
 ->select('prescription_filled_status.*')
 ->selectRaw('SUM(quantity) as quantity')
 ->selectRaw('SUM(price*quantity) as qprice')
@@ -171,8 +171,8 @@
 <td>@if($d1t2->quantity){{$d1t2->quantity}} @else 0 @endif</td>
 <td>@if($d1t2->qprice){{$d1t2->qprice}} @else 0 @endif</td>
 <?php    $d1st2=DB::table('prescription_filled_status')
-->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')
-->join('druglists','druglists.id','=','prescription_details.drug_id')
+->join('substitute_presc_details','substitute_presc_details.id','=','prescription_filled_status.substitute_presc_id')
+->join('druglists','substitute_presc_details.drug_id','=','druglists.id')
 ->select('prescription_filled_status.*')
 ->selectRaw('SUM(quantity) as quantity')
 ->selectRaw('SUM(price*quantity) as qprice')
@@ -203,8 +203,8 @@
 <td>@if($d1t3->quantity){{$d1t3->quantity}} @else 0 @endif</td>
 <td>@if($d1t3->qprice){{$d1t3->qprice}} @else 0 @endif</td>
 <?php    $d1st3=DB::table('prescription_filled_status')
-->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')
-->join('druglists','druglists.id','=','prescription_details.drug_id')
+->join('substitute_presc_details','substitute_presc_details.id','=','prescription_filled_status.substitute_presc_id')
+->join('druglists','substitute_presc_details.drug_id','=','druglists.id')
 ->select('prescription_filled_status.*')
 ->selectRaw('SUM(quantity) as quantity')
 ->selectRaw('SUM(price*quantity) as qprice')
@@ -236,8 +236,8 @@
 <td>@if($d1t4->quantity){{$d1t4->quantity}} @else 0 @endif</td>
 <td>@if($d1t4->qprice){{$d1t4->qprice}} @else 0 @endif</td>
 <?php    $d1st4=DB::table('prescription_filled_status')
-->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')
-->join('druglists','druglists.id','=','prescription_details.drug_id')
+->join('substitute_presc_details','substitute_presc_details.id','=','prescription_filled_status.substitute_presc_id')
+->join('druglists','substitute_presc_details.drug_id','=','druglists.id')
 ->select('prescription_filled_status.*')
 ->selectRaw('SUM(quantity) as quantity')
 ->selectRaw('SUM(price*quantity) as qprice')
@@ -269,8 +269,8 @@
 <td>@if($d1t5->quantity){{$d1t5->quantity}} @else 0 @endif</td>
 <td>@if($d1t5->qprice){{$d1t5->qprice}} @else 0 @endif</td>
 <?php    $d1st5=DB::table('prescription_filled_status')
-->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')
-->join('druglists','druglists.id','=','prescription_details.drug_id')
+->join('substitute_presc_details','substitute_presc_details.id','=','prescription_filled_status.substitute_presc_id')
+->join('druglists','substitute_presc_details.drug_id','=','druglists.id')
 ->select('prescription_filled_status.*')
 ->selectRaw('SUM(quantity) as quantity')
 ->selectRaw('SUM(price*quantity) as qprice')
@@ -367,8 +367,8 @@
   <td>@if($d1w11->quantity){{$d1w11->quantity}} @else 0 @endif</td>
   <td>@if($d1w11->qprice){{$d1w11->qprice}} @else 0 @endif</td>
   <?php    $d1sw11=DB::table('prescription_filled_status')
-  ->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')
-  ->join('druglists','druglists.id','=','prescription_details.drug_id')
+  ->join('substitute_presc_details','substitute_presc_details.id','=','prescription_filled_status.substitute_presc_id')
+  ->join('druglists','substitute_presc_details.drug_id','=','druglists.id')
   ->select('prescription_filled_status.*')
   ->selectRaw('SUM(quantity) as quantity')
   ->selectRaw('SUM(price*quantity) as qprice')
@@ -402,8 +402,8 @@
         <td>@if($d1w->quantity){{$d1w->quantity}} @else 0 @endif</td>
       <td>@if($d1w->qprice){{$d1w->qprice}} @else 0 @endif</td>
   <?php    $d1sw=DB::table('prescription_filled_status')
-  ->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')
-  ->join('druglists','druglists.id','=','prescription_details.drug_id')
+  ->join('substitute_presc_details','substitute_presc_details.id','=','prescription_filled_status.substitute_presc_id')
+  ->join('druglists','substitute_presc_details.drug_id','=','druglists.id')
   ->select('prescription_filled_status.*')
   ->selectRaw('SUM(quantity) as quantity')
   ->selectRaw('SUM(price*quantity) as qprice')
@@ -436,8 +436,8 @@
   <td>@if($d1w2->quantity){{$d1w2->quantity}} @else 0 @endif</td>
   <td>@if($d1w2->qprice){{$d1w2->qprice}} @else 0 @endif</td>
   <?php    $d1sw2=DB::table('prescription_filled_status')
-  ->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')
-  ->join('druglists','druglists.id','=','prescription_details.drug_id')
+  ->join('substitute_presc_details','substitute_presc_details.id','=','prescription_filled_status.substitute_presc_id')
+  ->join('druglists','substitute_presc_details.drug_id','=','druglists.id')
   ->select('prescription_filled_status.*')
   ->selectRaw('SUM(quantity) as quantity')
   ->selectRaw('SUM(price*quantity) as qprice')
@@ -455,7 +455,7 @@
     <td>4</td>
   <?php $Companiez3=DB::table('druglists')  ->where('id', '=',$compz->competition_3)->distinct()->first(['Manufacturer']); ?>
   <?php    $d1w3=DB::table('prescription_filled_status')
-  ->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')
+->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')
   ->join('druglists','druglists.id','=','prescription_details.drug_id')
   ->select('prescription_filled_status.price as dprice')
   ->selectRaw('SUM(quantity) as quantity')
@@ -471,8 +471,8 @@
   <td>@if($d1w3->quantity){{$d1w3->quantity}} @else 0 @endif</td>
   <td>@if($d1w3->qprice){{$d1w3->qprice}} @else 0 @endif</td>
   <?php    $d1sw3=DB::table('prescription_filled_status')
-  ->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')
-  ->join('druglists','druglists.id','=','prescription_details.drug_id')
+  ->join('substitute_presc_details','substitute_presc_details.id','=','prescription_filled_status.substitute_presc_id')
+  ->join('druglists','substitute_presc_details.drug_id','=','druglists.id')
   ->select('prescription_filled_status.*')
   ->selectRaw('SUM(quantity) as quantity')
   ->selectRaw('SUM(price*quantity) as qprice')
@@ -506,8 +506,9 @@
   <td>@if($d1w4->quantity){{$d1w4->quantity}} @else 0 @endif</td>
   <td>@if($d1w4->qprice){{$d1w4->qprice}} @else 0 @endif</td>
   <?php    $d1sw4=DB::table('prescription_filled_status')
-  ->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')
-  ->join('druglists','druglists.id','=','prescription_details.drug_id')
+
+  ->join('substitute_presc_details','substitute_presc_details.id','=','prescription_filled_status.substitute_presc_id')
+  ->join('druglists','substitute_presc_details.drug_id','=','druglists.id')
   ->select('prescription_filled_status.*')
   ->selectRaw('SUM(quantity) as quantity')
   ->selectRaw('SUM(price*quantity) as qprice')
@@ -541,8 +542,8 @@
   <td>@if($d1w5->quantity){{$d1w5->quantity}} @else 0 @endif</td>
   <td>@if($d1w5->qprice){{$d1w5->qprice}} @else 0 @endif</td>
   <?php    $d1sw5=DB::table('prescription_filled_status')
-  ->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')
-  ->join('druglists','druglists.id','=','prescription_details.drug_id')
+  ->join('substitute_presc_details','substitute_presc_details.id','=','prescription_filled_status.substitute_presc_id')
+  ->join('druglists','substitute_presc_details.drug_id','=','druglists.id')
   ->select('prescription_filled_status.*')
   ->selectRaw('SUM(quantity) as quantity')
   ->selectRaw('SUM(price*quantity) as qprice')
@@ -638,8 +639,8 @@ $i =1; $Companiez=DB::table('compe_manufacturer')
 <td>@if($d1m11->quantity){{$d1m11->quantity}} @else 0 @endif</td>
 <td>@if($d1m11->qprice){{$d1m11->qprice}} @else 0 @endif</td>
 <?php    $d1sm11=DB::table('prescription_filled_status')
-->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')
-->join('druglists','druglists.id','=','prescription_details.drug_id')
+->join('substitute_presc_details','substitute_presc_details.id','=','prescription_filled_status.substitute_presc_id')
+->join('druglists','substitute_presc_details.drug_id','=','druglists.id')
 ->select('prescription_filled_status.*')
 ->selectRaw('SUM(quantity) as quantity')
 ->selectRaw('SUM(price*quantity) as qprice')
@@ -673,8 +674,8 @@ $i =1; $Companiez=DB::table('compe_manufacturer')
 <td>@if($d1m->quantity){{$d1m->quantity}} @else 0 @endif</td>
 <td>@if($d1m->qprice){{$d1m->qprice}} @else 0 @endif</td>
 <?php    $d1sm=DB::table('prescription_filled_status')
-->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')
-->join('druglists','druglists.id','=','prescription_details.drug_id')
+->join('substitute_presc_details','substitute_presc_details.id','=','prescription_filled_status.substitute_presc_id')
+->join('druglists','substitute_presc_details.drug_id','=','druglists.id')
 ->select('prescription_filled_status.*')
 ->selectRaw('SUM(quantity) as quantity')
 ->selectRaw('SUM(price*quantity) as qprice')
@@ -707,8 +708,8 @@ $i =1; $Companiez=DB::table('compe_manufacturer')
 <td>@if($d1m2->quantity){{$d1m2->quantity}} @else 0 @endif</td>
 <td>@if($d1m2->qprice){{$d1m2->qprice}} @else 0 @endif</td>
 <?php    $d1sm2=DB::table('prescription_filled_status')
-->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')
-->join('druglists','druglists.id','=','prescription_details.drug_id')
+->join('substitute_presc_details','substitute_presc_details.id','=','prescription_filled_status.substitute_presc_id')
+->join('druglists','substitute_presc_details.drug_id','=','druglists.id')
 ->select('prescription_filled_status.*')
 ->selectRaw('SUM(quantity) as quantity')
 ->selectRaw('SUM(price*quantity) as qprice')
@@ -742,8 +743,8 @@ $i =1; $Companiez=DB::table('compe_manufacturer')
 <td>@if($d1m3->quantity){{$d1m3->quantity}} @else 0 @endif</td>
 <td>@if($d1m3->qprice){{$d1m3->qprice}} @else 0 @endif</td>
 <?php    $d1sm3=DB::table('prescription_filled_status')
-->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')
-->join('druglists','druglists.id','=','prescription_details.drug_id')
+->join('substitute_presc_details','substitute_presc_details.id','=','prescription_filled_status.substitute_presc_id')
+->join('druglists','substitute_presc_details.drug_id','=','druglists.id')
 ->select('prescription_filled_status.*')
 ->selectRaw('SUM(quantity) as quantity')
 ->selectRaw('SUM(price*quantity) as qprice')
@@ -777,8 +778,8 @@ $i =1; $Companiez=DB::table('compe_manufacturer')
 <td>@if($d1m4->quantity){{$d1m4->quantity}} @else 0 @endif</td>
 <td>@if($d1m4->qprice){{$d1m4->qprice}} @else 0 @endif</td>
 <?php    $d1sm4=DB::table('prescription_filled_status')
-->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')
-->join('druglists','druglists.id','=','prescription_details.drug_id')
+->join('substitute_presc_details','substitute_presc_details.id','=','prescription_filled_status.substitute_presc_id')
+->join('druglists','substitute_presc_details.drug_id','=','druglists.id')
 ->select('prescription_filled_status.*')
 ->selectRaw('SUM(quantity) as quantity')
 ->selectRaw('SUM(price*quantity) as qprice')
@@ -812,8 +813,8 @@ $i =1; $Companiez=DB::table('compe_manufacturer')
 <td>@if($d1m5->quantity){{$d1m5->quantity}} @else 0 @endif</td>
 <td>@if($d1m5->qprice){{$d1m5->qprice}} @else 0 @endif</td>
 <?php    $d1sm5=DB::table('prescription_filled_status')
-->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')
-->join('druglists','druglists.id','=','prescription_details.drug_id')
+->join('substitute_presc_details','substitute_presc_details.id','=','prescription_filled_status.substitute_presc_id')
+->join('druglists','substitute_presc_details.drug_id','=','druglists.id')
 ->select('prescription_filled_status.*')
 ->selectRaw('SUM(quantity) as quantity')
 ->selectRaw('SUM(price*quantity) as qprice')
@@ -909,8 +910,8 @@ $i =1; $Companiez=DB::table('compe_manufacturer')
 <td>@if($d1y11->quantity){{$d1y11->quantity}} @else 0 @endif</td>
 <td>@if($d1y11->qprice){{$d1y11->qprice}} @else 0 @endif</td>
 <?php    $d1sy11=DB::table('prescription_filled_status')
-->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')
-->join('druglists','druglists.id','=','prescription_details.drug_id')
+->join('substitute_presc_details','substitute_presc_details.id','=','prescription_filled_status.substitute_presc_id')
+->join('druglists','substitute_presc_details.drug_id','=','druglists.id')
 ->select('prescription_filled_status.*')
 ->selectRaw('SUM(quantity) as quantity')
 ->selectRaw('SUM(price*quantity) as qprice')
@@ -944,8 +945,8 @@ $i =1; $Companiez=DB::table('compe_manufacturer')
 <td>@if($d1y->quantity){{$d1y->quantity}} @else 0 @endif</td>
 <td>@if($d1y->qprice){{$d1y->qprice}} @else 0 @endif</td>
 <?php    $d1sy=DB::table('prescription_filled_status')
-->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')
-->join('druglists','druglists.id','=','prescription_details.drug_id')
+->join('substitute_presc_details','substitute_presc_details.id','=','prescription_filled_status.substitute_presc_id')
+->join('druglists','substitute_presc_details.drug_id','=','druglists.id')
 ->select('prescription_filled_status.*')
 ->selectRaw('SUM(quantity) as quantity')
 ->selectRaw('SUM(price*quantity) as qprice')
@@ -978,8 +979,8 @@ $i =1; $Companiez=DB::table('compe_manufacturer')
 <td>@if($d1y2->quantity){{$d1y2->quantity}} @else 0 @endif</td>
 <td>@if($d1y2->qprice){{$d1y2->qprice}} @else 0 @endif</td>
 <?php    $d1sy2=DB::table('prescription_filled_status')
-->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')
-->join('druglists','druglists.id','=','prescription_details.drug_id')
+->join('substitute_presc_details','substitute_presc_details.id','=','prescription_filled_status.substitute_presc_id')
+->join('druglists','substitute_presc_details.drug_id','=','druglists.id')
 ->select('prescription_filled_status.*')
 ->selectRaw('SUM(quantity) as quantity')
 ->selectRaw('SUM(price*quantity) as qprice')
@@ -1013,8 +1014,8 @@ $i =1; $Companiez=DB::table('compe_manufacturer')
 <td>@if($d1y3->quantity){{$d1y3->quantity}} @else 0 @endif</td>
 <td>@if($d1y3->qprice){{$d1y3->qprice}} @else 0 @endif</td>
 <?php    $d1sy3=DB::table('prescription_filled_status')
-->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')
-->join('druglists','druglists.id','=','prescription_details.drug_id')
+->join('substitute_presc_details','substitute_presc_details.id','=','prescription_filled_status.substitute_presc_id')
+->join('druglists','substitute_presc_details.drug_id','=','druglists.id')
 ->select('prescription_filled_status.*')
 ->selectRaw('SUM(quantity) as quantity')
 ->selectRaw('SUM(price*quantity) as qprice')
@@ -1048,8 +1049,8 @@ $i =1; $Companiez=DB::table('compe_manufacturer')
 <td>@if($d1y4->quantity){{$d1y4->quantity}} @else 0 @endif</td>
 <td>@if($d1y4->qprice){{$d1y4->qprice}} @else 0 @endif</td>
 <?php    $d1sy4=DB::table('prescription_filled_status')
-->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')
-->join('druglists','druglists.id','=','prescription_details.drug_id')
+->join('substitute_presc_details','substitute_presc_details.id','=','prescription_filled_status.substitute_presc_id')
+->join('druglists','substitute_presc_details.drug_id','=','druglists.id')
 ->select('prescription_filled_status.*')
 ->selectRaw('SUM(quantity) as quantity')
 ->selectRaw('SUM(price*quantity) as qprice')
@@ -1083,8 +1084,8 @@ $i =1; $Companiez=DB::table('compe_manufacturer')
 <td>@if($d1y5->quantity){{$d1y5->quantity}} @else 0 @endif</td>
 <td>@if($d1y5->qprice){{$d1y5->qprice}} @else 0 @endif</td>
 <?php    $d1sy5=DB::table('prescription_filled_status')
-->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')
-->join('druglists','druglists.id','=','prescription_details.drug_id')
+->join('substitute_presc_details','substitute_presc_details.id','=','prescription_filled_status.substitute_presc_id')
+->join('druglists','substitute_presc_details.drug_id','=','druglists.id')
 ->select('prescription_filled_status.*')
 ->selectRaw('SUM(quantity) as quantity')
 ->selectRaw('SUM(price*quantity) as qprice')
@@ -1180,8 +1181,8 @@ $i =1; $Companiez=DB::table('compe_manufacturer')
 <td>@if($d1a11->quantity){{$d1a11->quantity}} @else 0 @endif</td>
 <td>@if($d1a11->qprice){{$d1a11->qprice}} @else 0 @endif</td>
 <?php    $d1sa11=DB::table('prescription_filled_status')
-->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')
-->join('druglists','druglists.id','=','prescription_details.drug_id')
+->join('substitute_presc_details','substitute_presc_details.id','=','prescription_filled_status.substitute_presc_id')
+->join('druglists','substitute_presc_details.drug_id','=','druglists.id')
 ->select('prescription_filled_status.*')
 ->selectRaw('SUM(quantity) as quantity')
 ->selectRaw('SUM(price*quantity) as qprice')
@@ -1211,8 +1212,8 @@ $i =1; $Companiez=DB::table('compe_manufacturer')
 <td>@if($d1a->quantity){{$d1a->quantity}} @else 0 @endif</td>
 <td>@if($d1a->qprice){{$d1a->qprice}} @else 0 @endif</td>
 <?php    $d1sa=DB::table('prescription_filled_status')
-->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')
-->join('druglists','druglists.id','=','prescription_details.drug_id')
+->join('substitute_presc_details','substitute_presc_details.id','=','prescription_filled_status.substitute_presc_id')
+->join('druglists','substitute_presc_details.drug_id','=','druglists.id')
 ->select('prescription_filled_status.*')
 ->selectRaw('SUM(quantity) as quantity')
 ->selectRaw('SUM(price*quantity) as qprice')
@@ -1241,8 +1242,8 @@ $i =1; $Companiez=DB::table('compe_manufacturer')
 <td>@if($d1a2->quantity){{$d1a2->quantity}} @else 0 @endif</td>
 <td>@if($d1a2->qprice){{$d1a2->qprice}} @else 0 @endif</td>
 <?php    $d1sa2=DB::table('prescription_filled_status')
-->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')
-->join('druglists','druglists.id','=','prescription_details.drug_id')
+->join('substitute_presc_details','substitute_presc_details.id','=','prescription_filled_status.substitute_presc_id')
+->join('druglists','substitute_presc_details.drug_id','=','druglists.id')
 ->select('prescription_filled_status.*')
 ->selectRaw('SUM(quantity) as quantity')
 ->selectRaw('SUM(price*quantity) as qprice')
@@ -1272,8 +1273,8 @@ $i =1; $Companiez=DB::table('compe_manufacturer')
 <td>@if($d1a3->quantity){{$d1a3->quantity}} @else 0 @endif</td>
 <td>@if($d1a3->qprice){{$d1a3->qprice}} @else 0 @endif</td>
 <?php    $d1sa3=DB::table('prescription_filled_status')
-->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')
-->join('druglists','druglists.id','=','prescription_details.drug_id')
+->join('substitute_presc_details','substitute_presc_details.id','=','prescription_filled_status.substitute_presc_id')
+->join('druglists','substitute_presc_details.drug_id','=','druglists.id')
 ->select('prescription_filled_status.*')
 ->selectRaw('SUM(quantity) as quantity')
 ->selectRaw('SUM(price*quantity) as qprice')
@@ -1303,8 +1304,8 @@ $i =1; $Companiez=DB::table('compe_manufacturer')
 <td>@if($d1a4->quantity){{$d1a4->quantity}} @else 0 @endif</td>
 <td>@if($d1a4->qprice){{$d1a4->qprice}} @else 0 @endif</td>
 <?php    $d1sa4=DB::table('prescription_filled_status')
-->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')
-->join('druglists','druglists.id','=','prescription_details.drug_id')
+->join('substitute_presc_details','substitute_presc_details.id','=','prescription_filled_status.substitute_presc_id')
+->join('druglists','substitute_presc_details.drug_id','=','druglists.id')
 ->select('prescription_filled_status.*')
 ->selectRaw('SUM(quantity) as quantity')
 ->selectRaw('SUM(price*quantity) as qprice')
@@ -1334,8 +1335,8 @@ $i =1; $Companiez=DB::table('compe_manufacturer')
 <td>@if($d1a5->quantity){{$d1a5->quantity}} @else 0 @endif</td>
 <td>@if($d1a5->qprice){{$d1a5->qprice}} @else 0 @endif</td>
 <?php    $d1sa5=DB::table('prescription_filled_status')
-->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')
-->join('druglists','druglists.id','=','prescription_details.drug_id')
+->join('substitute_presc_details','substitute_presc_details.id','=','prescription_filled_status.substitute_presc_id')
+->join('druglists','substitute_presc_details.drug_id','=','druglists.id')
 ->select('prescription_filled_status.*')
 ->selectRaw('SUM(quantity) as quantity')
 ->selectRaw('SUM(price*quantity) as qprice')

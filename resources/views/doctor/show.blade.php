@@ -31,7 +31,7 @@ foreach ($patientdetails as $pdetails) {
     $fac_id= $pdetails->facility_id;
     $dependantAge = $pdetails->depdob;
     $AfyaUserAge = $pdetails->dob;
-    $name= $pdetails->firstname;
+    //$name= $pdetails->firstname;
 
 $now = time(); // or your date as well
 $your_date = strtotime($dependantAge);
@@ -90,7 +90,7 @@ $appStatue='Discharged Intpatient';
               <div class="col-lg-6">
                   <h2>{{$pdetails->FacilityName}} </h2>
                   <ol class="breadcrumb">
-                    <li class="active"><strong>{{$Name}} </strong></li>
+                    <li class="active"><strong>{{$name}} </strong></li>
                   </ol>
               </div>
           </div>

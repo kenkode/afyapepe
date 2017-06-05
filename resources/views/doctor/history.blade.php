@@ -124,6 +124,7 @@ $i =1;
      ->orderBy('visitDate', 'desc')
      ->get();
 ?>
+<div class ="ibox-content">
 <div class="ibox-title">
  <h5>Patient Triage Details</h5>
     <div class="ibox-tools">
@@ -314,72 +315,49 @@ $tstdone = DB::table('patient_test_details')
 
     ?>
 
-                                                  <div class="col-lg-12">
-                                                    <div class="ibox float-e-margins">
-                                                      <div class="ibox-content col-md-12">
-                                                      <div class="ibox-title">
-                                                          <h5>Prescription History</h5>
-                                                          <div class="ibox-tools">
+<div class="ibox-title">
+  <h5>Prescription History</h5>
+  </div>
+<div class="table-responsive">
+<table class="table table-striped table-bordered table-hover dataTables-conditional" >
+<thead>
+<tr>
+<th></th>
+<th>Diagnosis</th>
+<th>Drug Name</th>
+<th>Start Date</th>
+<th>Stop Date</th>
+<th>Frequeny</th>
+<th>Route</th>
+</tr>
+</thead>
 
-                                                              <a class="collapse-link">
-                                                                  <i class="fa fa-chevron-up"></i>
-                                                              </a>
-                                                              <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                                                  <i class="fa fa-wrench"></i>
-                                                              </a>
-                                                              <ul class="dropdown-menu dropdown-user">
+<tbody>
+<?php $i =1; ?>
 
-                                                                  <li><a href="#">Config option 1</a>
-                                                                  </li>
-                                                                  <li><a href="#">Config option 2</a>
-                                                                  </li>
-                                                              </ul>
-                                                              <a class="close-link">
-                                                                  <i class="fa fa-times"></i>
-                                                              </a>
-                                                          </div>
-                                                      </div>
-                                                      <div class="ibox-content">
-                                                         <div class="table-responsive">
-                                                      <table class="table table-striped table-bordered table-hover dataTables-conditional" >
-                                                      <thead>
-                                                     <tr>
-                                                       <th></th>
-                                                          <th>Diagnosis</th>
-                                                          <th>Drug Name</th>
-                                                          <th>Start Date</th>
-                                                          <th>Stop Date</th>
-                                                          <th>Frequeny</th>
-                                                          <th>Route</th>
-                                                   </tr>
-                                                 </thead>
+@foreach($prescriptions as $tstdn)
+<tr>
+<td>{{ +$i }}</td>
+<td>{{$tstdn->name}}</td>
+<td>{{$tstdn->drugname}}</td>
+<td>{{$tstdn->start_date}}</td>
+<td>{{$tstdn->end_date}}</td>
+<td>{{$tstdn->frequency}}</td>
+<td>{{$tstdn->route}}</td>
 
-                                                 <tbody>
-                                                   <?php $i =1; ?>
+</tr>
+<?php $i++; ?>
 
-                                                        @foreach($prescriptions as $tstdn)
-                                                        <tr>
-                                                        <td>{{ +$i }}</td>
-                                                         <td>{{$tstdn->name}}</td>
-                                                         <td>{{$tstdn->drugname}}</td>
-                                                          <td>{{$tstdn->start_date}}</td>
-                                                          <td>{{$tstdn->end_date}}</td>
-                                                          <td>{{$tstdn->frequency}}</td>
-                                                          <td>{{$tstdn->route}}</td>
+@endforeach
 
-                                                </tr>
-                                                     <?php $i++; ?>
+</tbody>
+</table>
+</div>
+</div>
 
-                                                                       @endforeach
 
-                                                    </tbody>
-                                                  </table>
-                                                 </div>
-                                                </div>
-                                            </div>
-                                       </div>
-                                  </div>
-                                </div>
+
+</div>
 
       </div><!-- col md 12" -->
    </div><!-- emargis" -->

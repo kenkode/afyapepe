@@ -58,7 +58,11 @@
                                                           <td><?php $gender=$patient->gender;?>
                                                             @if($gender==1){{"Male"}}@else{{"Female"}}@endif</a>
                                                           </td>
-                                                          <td>{{$patient->dob}}</td>
+                                                         <td><?php $dob=$patient->dob;
+                                  $interval = date_diff(date_create(), date_create($dob));
+                             $age= $interval->format(" %Y Year, %M Months, %d Days Old");?> {{$age}}
+
+                             </td>
 
                                                           <td>{{$patient->created_at}}</td>
 

@@ -75,22 +75,22 @@ elseif ($stat == 6) {
 }
 ?>
 <div class="row wrapper border-bottom white-bg page-heading">
-              <div class="col-lg-6">
-                  <h2>{{$name}}</h2>
-                  <ol class="breadcrumb">
-                      <li><a>@if($gender==1){{"Male"}}@else{{"Female"}}@endif</a></li>
-                      <li><a>{{$age}}</a> </li>
-                      <li>
-                          <strong> <button type="btn" class="btn btn-primary">{{$appStatue}}</button></strong>
-                      </li>
-                  </ol>
-              </div>
-              <div class="col-lg-6">
-                  <h2>{{$pdetails->FacilityName}} </h2>
-                  <ol class="breadcrumb">
-                    <li class="active"><strong>{{$Name}} </strong></li>
-                  </ol>
-              </div>
+<div class="col-lg-6">
+<h2>{{$name}}</h2>
+<ol class="breadcrumb">
+<li><a>@if($gender==1){{"Male"}}@else{{"Female"}}@endif</a></li>
+<li><a>{{$age}}</a> </li>
+<li>
+<strong> <button type="btn" class="btn btn-primary">{{$appStatue}}</button></strong>
+</li>
+</ol>
+</div>
+<div class="col-lg-6">
+<h2>{{$pdetails->FacilityName}} </h2>
+<ol class="breadcrumb">
+<li class="active"><strong>{{$Name}} </strong></li>
+</ol>
+</div>
 </div>
 <!--tabs-->
         <div class="col-lg-12">

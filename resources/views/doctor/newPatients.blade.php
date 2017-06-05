@@ -45,9 +45,8 @@
                         </div>
                     </div>
                     <div class="ibox-content ">
-                       <div class="table-responsive">
-                    <table class="table table-striped table-bordered table-hover dataTables-main" >
-                    <thead>
+                      <div class="table-responsive">
+                  <table class="table table-striped table-bordered table-hover dataTables-example" ><thead>
                         <tr>
                             <th>No</th>
                             <th>Name</th>

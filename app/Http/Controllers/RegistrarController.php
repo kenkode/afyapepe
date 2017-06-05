@@ -34,7 +34,7 @@ class RegistrarController extends Controller
         ->where('afyamessages.status','=',NULL)
         ->distinct()
         ->get();
-        return view('registrar.index')->with('users',$users);
+        return view('registrar.index')->with('users',$users)->with('facilitycode',$facilitycode);
     }
     public function   showUser($id){
 
@@ -225,6 +225,7 @@ public function dependantTriage($id){
       $type=$request->type;
       $mode=$request->mode;
       $amount=$request->amount;
+      $facility=$request->facility;
 
       $facilitycode=DB::table('facility_registrar')->where('user_id', Auth::id())->first(); 
 
@@ -234,6 +235,7 @@ public function dependantTriage($id){
       'fee_required'=>$type,
       'payments_method'=> $mode,
       'amount'=> $amount,
+      'facility'=>$facility,
       'person_treated'=>'Self',
       'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
       'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
@@ -296,6 +298,7 @@ public function dependantTriage($id){
       'payments_method'=> $mode,
       'amount'=> $amount,
       'person_treated'=>'Dependent',
+      'facility'=>$facilitycode->facilitycode,
       'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
       'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
   );
@@ -303,12 +306,14 @@ public function dependantTriage($id){
 
  }
  public function Fees(){
+  $facility=DB::table('facility_registrar')->where('user_id', Auth::id())->first(); 
    $fees=DB::table('consultation_fees')->
    join('afya_users','consultation_fees.afyauser_id','=','afya_users.id')->where('fee_required','=','Yes')
+   ->where('facility',$facility->facilitycode)
    ->select('consultation_fees.*','afya_users.firstname','afya_users.secondName')->
    orderby('consultation_fees.created_at','desc')->get();
 
-   return view('registrar.fees')->with('fees',$fees);
+   return view('registrar.fees')->with('fees',$fees)->with('facility',$facility);
  }
     /**
      * Show the form for creating a new resource.

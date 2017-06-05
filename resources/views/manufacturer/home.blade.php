@@ -9,9 +9,13 @@
  <?php
 $id=Auth::id();
 $emp=DB::table('manufacturers_employees')->where('users_id',$id)->first();
+$rep=DB::table('sales_rep')->where('users_id',$id)->first();
 if ($emp) {
   $manufacturer=DB::table('manufacturers')->where('user_id',$emp->manu_id)->first();
 }
+else if($rep) {
+   $manufacturer=DB::table('manufacturers')->where('user_id',$rep->manu_id)->first();
+} 
 else{
 $manufacturer=DB::table('manufacturers')->where('user_id', Auth::id())->first();
 }

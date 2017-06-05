@@ -738,7 +738,7 @@ return Response::json($results);
                 ->join('druglists','druglists.id','=','inventory.drug_id')
                 ->join('strength','strength.strength','=','inventory.strength')
                 ->select('druglists.Manufacturer','druglists.drugname',
-                'druglists.id AS drug_id','strength.strength','inventory.*')
+                'druglists.id AS drug_id','strength.strength','inventory.*','inventory.id AS inventory_id')
                 ->get();
 
     return view('pharmacy.inventory')->with('inventory',$inventory);
@@ -778,6 +778,48 @@ return Response::json($results);
     ]);
 
     return redirect()->action('PharmacyController@showInventory');
+  }
+
+  public function getInventory($id)
+  {
+    $inventory = DB::table('inventory')
+                ->join('druglists','druglists.id','=','inventory.drug_id')
+                ->join('strength','strength.strength','=','inventory.strength')
+                ->select('druglists.Manufacturer','druglists.drugname',
+                'druglists.id AS drug_id','strength.strength','inventory.*','inventory.id AS inventory_id')
+                ->where('inventory.id', '=', $id)
+                ->get();
+
+    return view('pharmacy.edit_inventory')->with('inventory',$inventory);
+  }
+
+  public function deleteInventory(Request $request)
+  {
+    $id = $request->inv_id;
+    $all = DB::table('inventory')
+          ->select('*')
+          ->where('id', '=', $id)
+          ->first();
+
+      $drug = $all->drug_id;
+      $price = $all->price;
+      $strength = $all->strength;
+      $strength_unit = $all->strength_unit;
+      $quantity = $all->quantity;
+      $outlet_id = $all->outlet_id;
+      $user = $all->submitted_by;
+
+    DB::table('deleted_inventory')->insert(
+      ['drug_id' => $drug, 'price' => $price, 'quantity' => $quantity, 'strength' => $strength,
+      'strength_unit' => $strength_unit, 'deleted_by' => $user, 'outlet_id' => $outlet_id,
+      'created_at' => Carbon::now(), 'updated_at' => Carbon::now()]
+    );
+
+    DB::table('inventory')->where('id', '=', $id)->delete();
+
+    return redirect()->action('PharmacyController@showInventory');
+
+
   }
 
 

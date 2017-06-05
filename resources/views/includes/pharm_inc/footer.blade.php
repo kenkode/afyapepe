@@ -86,6 +86,28 @@ $.ajaxSetup({
         });
     </script>
 
+    <script>
+    $(document).ready(function() {
+  $('a[data-toggle=modal], button[data-toggle=modal]').click(function () {
+
+      var data_manufacturer = '';
+      var data_drug = '';
+      var data_stock = '';
+      var data_id = '';
+if (typeof $(this).data('manufacturer') !== 'undefined') {
+         data_manufacturer = $(this).data('manufacturer');
+         data_drug = $(this).data('drug');
+         data_stock = $(this).data('stock');
+         data_id = $(this).data('id');
+      }
+      $('#deletion1').val(data_manufacturer);
+      $('#deletion2').val(data_drug);
+      $('#deletion3').val(data_stock);
+      $('#deletion4').val(data_id);
+    })
+  });
+  </script>
+
 <script>
    $(document).ready(function(){
        $('.dataTables-conditional').DataTable({

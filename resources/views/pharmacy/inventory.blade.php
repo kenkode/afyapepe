@@ -28,6 +28,7 @@
          <th>Drug</th>
          <th>Manufacturer</th>
          <th>Number in stock</th>
+         <th></th>
      </tr>
      </thead>
      <tbody>
@@ -37,6 +38,7 @@
        {
          $bought = $inv->quantity;
          $drug_id = $inv->drug_id;
+         $inventory_id = $inv->inventory_id;
          $counter = DB::table('prescription_filled_status')
                 ->join('prescription_details', 'prescription_details.id', '=', 'prescription_filled_status.presc_details_id')
                 ->select(DB::raw('SUM(prescription_filled_status.quantity) AS count1'))
@@ -51,6 +53,35 @@
         <td>{{$inv->drugname}}</td>
         <td>{{$inv->Manufacturer}}</td>
         <td>{{$stock_level}}</td>
+        <td><a href="{{ route('edit_inventory',$inventory_id) }}">Edit</a> &nbsp;&nbsp;
+
+          <a data-toggle="modal" class="btn btn-primary" href="#modal-form" data-manufacturer="{{$inv->Manufacturer}}"
+            data-drug="{{$inv->drugname}}" data-stock="{{$stock_level}}" data-id="{{$inv->inventory_id}}">Delete</a>
+          <div id="modal-form" class="modal fade" aria-hidden="true">
+          <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-body">
+            <div class="row">
+          <div class="col-sm-8"><h3 class="m-t-none m-b">Inventory</h3>
+          {!! Form::open(array('route' => 'delete_inventory','method'=>'POST','class'=>'form-horizontal')) !!}
+            <input type="hidden" class="form-control" name="inv_id" id="deletion4">
+
+              <div class="form-group"><label>Manufacturer</label> <input type="text" class="form-control" id="deletion1" disabled></div>
+              <div class="form-group"><label>Drug</label> <input type="text" class="form-control" id="deletion2" disabled></div>
+              <div class="form-group"><label>Number in Stock</label> <input type="text" class="form-control" id="deletion3" disabled></div>
+              <div>
+                  <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>Delete</strong></button>
+              </div>
+          </form>
+          </div>
+
+                  </div>
+              </div>
+              </div>
+              </div>
+      </div>
+
+        </td>
         </tr>
         <?php
         $i++;
@@ -63,6 +94,7 @@
       <th>Drug</th>
       <th>Manufacturer</th>
       <th>Number in stock</th>
+      <th></th>
     </tr>
     </tfoot>
     </table>

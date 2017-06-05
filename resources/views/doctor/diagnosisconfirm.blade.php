@@ -12,7 +12,8 @@ foreach ($patientD as $pdetails) {
     $doc_id= $pdetails->doc_id;
     $fac_id= $pdetails->facility_id;
     $dependantAge= $pdetails->depdob;
-    $name= $pdetails->firstname;
+    $condition = $pdetails->condition;
+    //$name= $pdetails->firstname;
 
 $now = time(); // or your date as well
 $your_date = strtotime($dependantAge);
@@ -50,7 +51,7 @@ $dependantdays= floor($datediff / (60 * 60 * 24));
           <?php if ($stat==2) { ?>
          <li class=""><a href="{{route('admit',$app_id)}}">Admit</a></li>
          <?php } ?>
-          <?php if ($stat==4) { ?>
+          <?php if ($condition =='Admitted') { ?>
          <li class=""><a href="{{route('discharge',$app_id)}}">Discharge</a></li>
           <?php } ?>
            <li cl ass=""><a href="{{route('transfering',$app_id)}}">Transfer</a></li>
@@ -127,11 +128,8 @@ $dependantdays= floor($datediff / (60 * 60 * 24));
 
           <div class="col-lg-offset-5">
             <button class=" mtop btn btn-sm btn-primary  m-t-n-xs" type="submit"><strong>Submit</strong></button>
-
-          </div>
-
-
-          {{ Form::close() }}
+     </div>
+      {{ Form::close() }}
         </div>
  </div>
 </div><!-- tabs-container -->

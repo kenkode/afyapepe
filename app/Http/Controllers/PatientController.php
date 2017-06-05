@@ -71,14 +71,18 @@ class PatientController extends Controller
        ->leftjoin('afya_users','appointments.afya_user_id','=','afya_users.id')
        ->leftjoin('dependant','appointments.persontreated','=','dependant.id')
        ->leftjoin('facilities','appointments.facility_id','=','facilities.FacilityCode')
+       ->leftJoin('patient_admitted', 'appointments.id', '=', 'patient_admitted.appointment_id')
        ->select('appointments.*','afya_users.dob','afya_users.firstname','afya_users.secondName','afya_users.gender',
          'dependant.firstName as dep1name','dependant.secondName as dep2name','dependant.gender as depgender',
-         'dependant.dob as depdob','facilities.FacilityName')
+         'dependant.dob as depdob','facilities.FacilityName','facilities.set_up','patient_admitted.condition')
        ->where('appointments.id',$id)
        ->get();
 
 
-  return view('doctor.show')->with('patientdetails',$patientdetails);
+return view('doctor.show')->with('patientdetails',$patientdetails);
+
+
+
 }
 
 public function history($id)
@@ -87,13 +91,18 @@ public function history($id)
   $patientD=DB::table('appointments')
   ->leftjoin('afya_users','appointments.afya_user_id','=','afya_users.id')
   ->leftjoin('dependant','appointments.persontreated','=','dependant.id')
+   ->leftJoin('patient_admitted', 'appointments.id', '=', 'patient_admitted.appointment_id')
   ->leftjoin('facilities','appointments.facility_id','=','facilities.FacilityCode')
   ->select('appointments.*','afya_users.firstname','afya_users.secondName','afya_users.gender',
     'dependant.firstName as dep1name','afya_users.dob','dependant.secondName as dep2name','dependant.gender as depgender',
-    'dependant.dob as depdob','facilities.FacilityName')
+    'dependant.dob as depdob','facilities.FacilityName','facilities.set_up','patient_admitted.condition')
   ->where('appointments.id',$id)
   ->get();
+
+
   return view('doctor.history')->with('patientD',$patientD);
+
+
 }
 
 public function facilitiesList(){

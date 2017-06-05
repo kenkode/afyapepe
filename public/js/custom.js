@@ -12,6 +12,7 @@ $('#div1').toggle('fast');
 
   });
 
+
 // show checkbox divs
 $(document).ready(function(){
  $('input[type="checkbox"]').click(function(){
@@ -32,7 +33,15 @@ $(document).ready(function(){
    });
 
 });
+// show quick diagnosis divs
+$(document).ready(function () {
+$('#quickD').hide();
 
+$('#button11').click(function () {
+$('#quickD').toggle('fast');
+$('#quickR').hide();
+               });
+});
 // select test
 $(".test-multiple").select2();
 
@@ -77,3 +86,59 @@ document.getElementById('dcond').addEventListener('change', function () {
     var style = this.value == 4 ? 'block' : 'none';
     document.getElementById('hidden_div4').style.display = style;
 });
+
+
+    $(document).ready(function(){
+        $('.dataTables-conditional').DataTable({
+            pageLength: 5,
+            responsive: true,
+            dom: '<"html5buttons"B>lTfgitp',
+            buttons: [
+                { extend: 'copy'},
+                {extend: 'csv'},
+                {extend: 'excel', title: 'ExampleFile'},
+                {extend: 'pdf', title: 'ExampleFile'},
+
+                {extend: 'print',
+                 customize: function (win){
+                        $(win.document.body).addClass('white-bg');
+                        $(win.document.body).css('font-size', '10px');
+
+                        $(win.document.body).find('table')
+                                .addClass('compact')
+                                .css('font-size', 'inherit');
+                }
+                }
+            ]
+
+        });
+
+    });
+
+
+    $(document).ready(function(){
+        $('.dataTables-main').DataTable({
+            pageLength: 25,
+            responsive: true,
+            dom: '<"html5buttons"B>lTfgitp',
+            buttons: [
+                { extend: 'copy'},
+                {extend: 'csv'},
+                {extend: 'excel', title: 'ExampleFile'},
+                {extend: 'pdf', title: 'ExampleFile'},
+
+                {extend: 'print',
+                 customize: function (win){
+                        $(win.document.body).addClass('white-bg');
+                        $(win.document.body).css('font-size', '10px');
+
+                        $(win.document.body).find('table')
+                                .addClass('compact')
+                                .css('font-size', 'inherit');
+                }
+                }
+            ]
+
+        });
+
+    });

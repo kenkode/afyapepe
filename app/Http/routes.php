@@ -120,6 +120,7 @@ Route::get('appointment','DoctorController@Appointment');
 Route::get('calendar','DoctorController@Calendar');
 Route::resource('prescription', 'PrescriptionController@store');
 
+Route::get('newpatients', [ 'as' => 'doctor', 'uses' => 'DoctorController@index']);
 Route::get('patientadmitted', [ 'as' => 'admitted', 'uses' => 'DoctorController@Admitted']);
 Route::get('testdone/{id}', [ 'as' => 'testdone', 'uses' => 'PatientController@testdone']);
 Route::get('show/{id}',['as'=>'showPatient', 'uses'=>'PatientController@showpatient']);
@@ -291,9 +292,8 @@ Route::get('/tag1/symptom','privateController@fsymptom');
 Route::get('/tag1/chief','privateController@fchief');
 Route::post('private.createdetail','privateController@createDetails');
 
-Route::get('privatepat','privateController@privatepatient');
-Route::get('show2/{id}',['as'=>'showPatient2', 'uses'=>'PatientController@showpatient']);
 
-
+Route::get('privatepatients', [ 'as' => 'privatepat', 'uses' => 'privateController@privatepatient']);
+Route::get('privateaddmited', [ 'as' => 'privadmpat', 'uses' => 'privateController@privadmitted']);
 
 });

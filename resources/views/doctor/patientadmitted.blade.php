@@ -51,7 +51,7 @@
                         <tr>
                             <th>No</th>
                             <th>Name</th>
-                            <th>Chief Complain</th>
+                            <th>Chief Complaint</th>
                             <th>Gender</th>
                             <th>Age</th>
                             <th>Weight</th>
@@ -69,54 +69,51 @@
                     <tbody>
                       <?php $i =1; ?>
                    @foreach($patients as $apatient)
-                        <tr>
 
+                          <?php
+                          if ($apatient->persontreated=='Self') {
+                             $dob=$apatient->dob;
+                             $gender=$apatient->gender;
+                           }else {
+                            $dob=$apatient->Infdob;
+                            $gender=$apatient->Infgender;
+                          }
+                            $interval = date_diff(date_create(), date_create($dob));
+                           $age= $interval->format(" %Y Year, %M Months, %d Days Old");
+                           if($gender==1){ $gender="Male"; }else{$gender="Female";}
+                           ?>
+
+                          @if ($apatient->persontreated=='Self')
+                          <tr>
                             <td><a href="{{route('showPatient',$apatient->appid)}}">{{$i}}</a></td>
-                            <td><a href="{{route('showPatient',$apatient->appid)}}">
-                              <?php if ($apatient->persontreated=='Self') {echo $apatient->firstname ;  echo $apatient->secondName;}
-                              else {echo $apatient->Infname; echo $apatient->InfName;}
-                             ?></a></td>
-                            <td><a href="{{route('showPatient',$apatient->appid)}}">
-                              <?php if ($apatient->persontreated=='Self') {echo $apatient->chief_compliant;}
-                              else {echo $apatient->Infcompliant;}
-                             ?>
-                              {{$apatient->chief_compliant}}</a></td>
-                            <td><?php
-                             if ($apatient->persontreated=='Self') { $gender=$apatient->gender;}
-                            else {$gender=$apatient->Infgender;}?>
-                              @if($gender==1){{"Male"}}@else{{"Female"}}@endif</a>
-                            </td>
-                            <td><?php
-                            if ($apatient->persontreated=='Self') { $dob=$apatient->dob;}
-                            else {$dob=$apatient->Infdob;}
+                            <td><a href="{{route('showPatient',$apatient->appid)}}">{{$apatient->firstname}}  {{$apatient->secondName}}</a></td>
+                            <td><a href="{{route('showPatient',$apatient->appid)}}">{{$apatient->chief_compliant}}</a></td>
+                            <td>{{$gender}}</td>
+                            <td>{{$age}}</td>
+                            <td>{{$apatient->current_weight}}</td>
+                            <td>{{$apatient->current_height}}</td>
+                            <td>{{$apatient->temperature}}</td>
+                            <td>{{$apatient->systolic_bp}}</td>
+                            <td>{{$apatient->diastolic_bp}}
+                          </tr>
+
+                              @else
+                            <tr>
+                              <td><a href="{{route('showPatient',$apatient->appid)}}">{{$i}}</a></td>
+                              <td><a href="{{route('showPatient',$apatient->appid)}}">{{$apatient->Infname}} {{$apatient->InfName}}</a></td>
+                              <td><a href="{{route('showPatient',$apatient->appid)}}">{{$apatient->Infcompliant}}</a></td>
+                              <td>{{$gender}}</td>
+                              <td>{{$age}}</td>
+                              <td>{{$apatient->Infweight}}</td>
+                              <td>{{$apatient->Infheight}}</td>
+                              <td>{{$apatient->Inftemp}}</td>
+                              <td>{{$apatient->Infsyst}}</td>
+                              <td>{{$apatient->Infdiast}}</td>
+                            </tr>
+                                @endif
+                                <!-- <td>{{$apatient->Constituency}}</td> -->
 
 
-                             $interval = date_diff(date_create(), date_create($dob));
-                             $age= $interval->format(" %Y Year, %M Months, %d Days Old");?>
-
-                              {{$age}}</td>
-                            <td>
-                              <?php if ($apatient->persontreated=='Self') {echo $apatient->current_weight;}
-                              else {echo $apatient->Infweight;}
-                             ?></td>
-                            <td>  <?php if ($apatient->persontreated=='Self') {echo $apatient->current_height;}
-                              else {echo $apatient->Infheight;}
-                             ?></td>
-                            <td>
-                              <?php if ($apatient->persontreated=='Self') {echo $apatient->temperature;}
-                               else {echo $apatient->Inftemp;}
-                              ?></td>
-                            <td>
-                              <?php if ($apatient->persontreated=='Self') {echo $apatient->systolic_bp;}
-                               else {}
-                              ?></td>
-                            <td>
-                              <?php if ($apatient->persontreated=='Self') {echo $apatient->diastolic_bp;}
-                               else {}
-                              ?>
-                              <!-- <td>{{$apatient->Constituency}}</td> -->
-
-                        </tr>
                         <?php $i++; ?>
 
                      @endforeach

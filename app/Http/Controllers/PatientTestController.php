@@ -22,13 +22,19 @@ class PatientTestController extends Controller
       $patientD=DB::table('appointments')
       ->leftjoin('afya_users','appointments.afya_user_id','=','afya_users.id')
       ->leftjoin('dependant','appointments.persontreated','=','dependant.id')
+    ->leftJoin('patient_admitted', 'appointments.id', '=', 'patient_admitted.appointment_id')
       ->leftjoin('facilities','appointments.facility_id','=','facilities.FacilityCode')
       ->select('appointments.*','afya_users.dob','afya_users.firstname','afya_users.secondName','afya_users.gender',
         'dependant.firstName as dep1name','dependant.secondName as dep2name','dependant.gender as depgender',
-        'dependant.dob as depdob','facilities.FacilityName')
+        'dependant.dob as depdob','facilities.FacilityName','facilities.set_up','patient_admitted.condition')
       ->where('appointments.id',$id)
       ->get();
+
+
+
       return view('doctor.test')->with('patientD',$patientD);
+
+
     }
 
 public function diagnoses($id)
@@ -37,13 +43,18 @@ public function diagnoses($id)
   $patientD=DB::table('appointments')
   ->leftjoin('afya_users','appointments.afya_user_id','=','afya_users.id')
   ->leftjoin('dependant','appointments.persontreated','=','dependant.id')
-  ->leftjoin('facilities','appointments.facility_id','=','facilities.FacilityCode')
+  ->leftJoin('patient_admitted', 'appointments.id', '=', 'patient_admitted.appointment_id')
+->leftjoin('facilities','appointments.facility_id','=','facilities.FacilityCode')
   ->select('appointments.*','afya_users.firstname','afya_users.dob','afya_users.secondName','afya_users.gender',
     'dependant.firstName as dep1name','dependant.secondName as dep2name','dependant.gender as depgender',
-    'dependant.dob as depdob','facilities.FacilityName')
+    'dependant.dob as depdob','facilities.FacilityName','facilities.set_up','patient_admitted.condition')
   ->where('appointments.id',$id)
   ->get();
+
+
   return view('doctor.diagnosis')->with('patientD',$patientD);
+
+
 }
 public function diagnosesconf(Request $request)
 {
@@ -53,10 +64,11 @@ public function diagnosesconf(Request $request)
   $patientD=DB::table('appointments')
   ->leftjoin('afya_users','appointments.afya_user_id','=','afya_users.id')
   ->leftjoin('dependant','appointments.persontreated','=','dependant.id')
+     ->leftJoin('patient_admitted', 'appointments.id', '=', 'patient_admitted.appointment_id')
   ->leftjoin('facilities','appointments.facility_id','=','facilities.FacilityCode')
   ->select('appointments.*','afya_users.firstname','afya_users.secondName','afya_users.gender',
     'dependant.firstName as dep1name','dependant.secondName as dep2name','dependant.gender as depgender',
-    'dependant.dob as depdob','facilities.FacilityName')
+    'dependant.dob as depdob','facilities.FacilityName','patient_admitted.condition')
   ->where('appointments.id',$appointment)
   ->get();
 
@@ -74,10 +86,12 @@ public function discharges($id)
   $patientD=DB::table('appointments')
   ->leftjoin('afya_users','appointments.afya_user_id','=','afya_users.id')
   ->leftjoin('dependant','appointments.persontreated','=','dependant.id')
+  ->leftJoin('patient_admitted', 'appointments.id', '=', 'patient_admitted.appointment_id')
+
   ->leftjoin('facilities','appointments.facility_id','=','facilities.FacilityCode')
   ->select('appointments.*','afya_users.firstname','afya_users.dob','afya_users.secondName','afya_users.gender',
     'dependant.firstName as dep1name','dependant.secondName as dep2name','dependant.gender as depgender',
-    'dependant.dob as depdob','facilities.FacilityName')
+    'dependant.dob as depdob','facilities.FacilityName','patient_admitted.condition')
   ->where('appointments.id',$id)
   ->get();
   return view('doctor.discharge')->with('patientD',$patientD);
@@ -89,13 +103,18 @@ public function admit($id)
   $patientD=DB::table('appointments')
   ->leftjoin('afya_users','appointments.afya_user_id','=','afya_users.id')
   ->leftjoin('dependant','appointments.persontreated','=','dependant.id')
+  ->leftJoin('patient_admitted', 'appointments.id', '=', 'patient_admitted.appointment_id')
   ->leftjoin('facilities','appointments.facility_id','=','facilities.FacilityCode')
   ->select('appointments.*','afya_users.firstname','afya_users.dob','afya_users.secondName','afya_users.gender',
     'dependant.firstName as dep1name','dependant.secondName as dep2name','dependant.gender as depgender',
-    'dependant.dob as depdob','facilities.FacilityName')
+    'dependant.dob as depdob','facilities.FacilityName','facilities.set_up','patient_admitted.condition')
   ->where('appointments.id',$id)
   ->get();
+
+
   return view('doctor.admit')->with('patientD',$patientD);
+
+
 }
 
 
@@ -104,23 +123,28 @@ public function transfer($id)
   $patientD=DB::table('appointments')
   ->leftjoin('afya_users','appointments.afya_user_id','=','afya_users.id')
   ->leftjoin('dependant','appointments.persontreated','=','dependant.id')
+  ->leftJoin('patient_admitted', 'appointments.id', '=', 'patient_admitted.appointment_id')
   ->leftjoin('facilities','appointments.facility_id','=','facilities.FacilityCode')
   ->select('appointments.*','afya_users.firstname','afya_users.dob','afya_users.secondName','afya_users.gender',
     'dependant.firstName as dep1name','dependant.secondName as dep2name','dependant.gender as depgender',
-    'dependant.dob as depdob','facilities.FacilityName')
+    'dependant.dob as depdob','facilities.FacilityName','facilities.set_up','patient_admitted.condition')
   ->where('appointments.id',$id)
   ->get();
+
   return view('doctor.transfer')->with('patientD',$patientD);
+
+
 }
 public function disdiagnosis($id)
 {
   $patientD=DB::table('appointments')
   ->leftjoin('afya_users','appointments.afya_user_id','=','afya_users.id')
   ->leftjoin('dependant','appointments.persontreated','=','dependant.id')
+  ->leftJoin('patient_admitted', 'appointments.id', '=', 'patient_admitted.appointment_id')
   ->leftjoin('facilities','appointments.facility_id','=','facilities.FacilityCode')
   ->select('appointments.*','afya_users.firstname','afya_users.dob','afya_users.secondName','afya_users.gender',
     'dependant.firstName as dep1name','dependant.secondName as dep2name','dependant.gender as depgender',
-    'dependant.dob as depdob','facilities.FacilityName')
+    'dependant.dob as depdob','facilities.FacilityName','facilities.set_up','patient_admitted.condition')
   ->where('appointments.id',$id)
   ->get();
   return view('doctor.disdiagnosis')->with('patientD',$patientD);
@@ -131,15 +155,16 @@ public function disprescription($id)
   $patientD=DB::table('appointments')
   ->leftjoin('afya_users','appointments.afya_user_id','=','afya_users.id')
   ->leftjoin('dependant','appointments.persontreated','=','dependant.id')
+  ->leftJoin('patient_admitted', 'appointments.id', '=', 'patient_admitted.appointment_id')
   ->leftjoin('facilities','appointments.facility_id','=','facilities.FacilityCode')
   ->select('appointments.*','afya_users.firstname','afya_users.dob','afya_users.secondName','afya_users.gender',
     'dependant.firstName as dep1name','dependant.secondName as dep2name','dependant.gender as depgender',
-    'dependant.dob as depdob','facilities.FacilityName')
+    'dependant.dob as depdob','facilities.FacilityName','facilities.set_up','patient_admitted.condition')
   ->where('appointments.id',$id)
   ->get();
 
   $Pdiagnosis=DB::table('patient_diagnosis')
-  ->leftjoin('diagnoses','patient_diagnosis.disease_id','=','diagnoses.name')
+  ->leftjoin('diagnoses','patient_diagnosis.disease_id','=','diagnoses.id')
   ->leftjoin('severity','patient_diagnosis.severity','=','severity.id')
   ->select('diagnoses.name','patient_diagnosis.level','severity.name as severity','diagnoses.id')
 

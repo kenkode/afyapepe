@@ -73,7 +73,18 @@ class TagController extends Controller
                      ->where('id',$appid)
                      ->update(['status'=>$appstatus]);
 
-     return redirect()->route('showPatient', ['id' => $appid]);
+        $setUp= DB::table('facility_doctor')
+        ->leftJoin('facilities', 'facility_doctor.facilitycode', '=', 'facilities.FacilityCode')
+        ->where('facility_doctor.user_id', '=', Auth::user()->id)
+        ->select('facilities.set_up')
+        ->first();
+        if ($setUp->set_up == 'Partial') {
+          return redirect()->action('privateController@privatepatient');
+        } else {
+        return redirect()->route('doctor');
+        }
+
+
     }
 
 
@@ -132,8 +143,19 @@ $time_of_death =$request['time_of_death'];
                   'condition'=> $disconditions,
                   'date_of_death'=> $date_of_death,
                   'time_of_death'=> $time_of_death]);
+$setUp= DB::table('facility_doctor')
+->leftJoin('facilities', 'facility_doctor.facilitycode', '=', 'facilities.FacilityCode')
+->where('facility_doctor.user_id', '=', Auth::user()->id)
+->select('facilities.set_up')
+->first();
+
 if ($date_of_death) {
-return redirect()->route('showPatient', ['id' => $appid]);
+  if ($setUp->set_up == 'Partial') {
+  return redirect()->action('privateController@privatepatient');
+  } else {
+  return redirect()->route('doctor');
+  }
+//return redirect()->route('showPatient', ['id' => $appid]);
 } else {
 return redirect()->route('discharge', ['id' => $appid]);
 }
@@ -166,8 +188,17 @@ $appstatus =$request['appointment_status'];
        DB::table('appointments')
                  ->where('id',$appid)
                  ->update(['status'=>$appstatus]);
-
- return redirect()->route('showPatient', ['id' => $appid]);
+$setUp= DB::table('facility_doctor')
+->leftJoin('facilities', 'facility_doctor.facilitycode', '=', 'facilities.FacilityCode')
+->where('facility_doctor.user_id', '=', Auth::user()->id)
+->select('facilities.set_up')
+->first();
+if ($setUp->set_up == 'Partial') {
+return redirect()->action('privateController@privatepatient');
+} else {
+return redirect()->route('doctor');
+}
+ //return redirect()->route('showPatient', ['id' => $appid]);
 }
 
 
@@ -178,8 +209,18 @@ public function endvisits($id)
  DB::table('appointments')
            ->where('id',$id)
            ->update(['status'=> 3]);
+  $setUp= DB::table('facility_doctor')
+  ->leftJoin('facilities', 'facility_doctor.facilitycode', '=', 'facilities.FacilityCode')
+  ->where('facility_doctor.user_id', '=', Auth::user()->id)
+  ->select('facilities.set_up')
+  ->first();
+  if ($setUp->set_up == 'Partial') {
+  return redirect()->action('privateController@privatepatient');
+   
+  } else {
+   return redirect()->action('DoctorController@index');
+  }
 
- return redirect()->action('DoctorController@index');
 }
 
 

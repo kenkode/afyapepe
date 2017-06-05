@@ -158,7 +158,8 @@ Route::resource('manufacturer','ManufacturerController');
 Route::get('DrugSubstitution','ManufacturerController@drugsubstitution');
 Route::get('Drugsales','ManufacturerController@todaysales');
 Route::get('druglist', 'ManufacturerController@show');
-
+Route::get('manuemployees','ManufacturerController@getEmployees');
+Route::post('addemployee','ManufacturerController@addEmployee');
 Route::get('manudoctor', 'ManufacturerController@manuDoctor');
 Route::get('region', 'ManufacturerController@Region');
 Route::get('awaycompany', 'ManufacturerController@awayCompany');

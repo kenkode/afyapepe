@@ -793,6 +793,39 @@ return Response::json($results);
     return view('pharmacy.edit_inventory')->with('inventory',$inventory);
   }
 
+  public function editedInventory(Request $request)
+  {
+    $id = $request->inventory_id;
+    $drug = $request->prescription;
+    $strength = $request->strength;
+    $strength_unit = $request->strength_unit;
+    $quantity = $request->quantity;
+    $price = $request->price;
+
+    $user_id = Auth::user()->id;
+
+    $data = DB::table('pharmacists')
+              ->where('user_id', $user_id)
+              ->first();
+
+    $facility = $data->premiseid;
+
+    DB::table('inventory')
+                    ->where('id', '=', $id)
+                    ->update([
+                      'drug_id'=>$drug,
+                      'strength'=>$strength,
+                      'strength_unit'=>$strength_unit,
+                      'quantity'=>$quantity,
+                      'price'=>$price,
+                      'submitted_by'=>$user_id,
+                      'outlet_id'=>$facility,
+                      'updated_at'=>Carbon::now()
+                    ]);
+
+    return redirect()->action('PharmacyController@showInventory');
+  }
+
   public function deleteInventory(Request $request)
   {
     $id = $request->inv_id;

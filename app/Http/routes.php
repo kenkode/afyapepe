@@ -203,6 +203,7 @@ Route::get('new_stock', function()
 Route::post('add_stock', ['as' => 'add_stock', 'uses' => 'PharmacyController@addStock']);
 Route::get('/manus', 'PharmacyController@getManufacturer');
 Route::get('edit_inventory/{id}', ['as' => 'edit_inventory', 'uses' => 'PharmacyController@getInventory']);
+Route::post('submit_edited', ['as' => 'submit_edited', 'uses' => 'PharmacyController@editedInventory']);
 Route::post('delete_inventory', ['as' => 'delete_inventory', 'uses' => 'PharmacyController@deleteInventory']);
 
 });

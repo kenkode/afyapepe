@@ -160,6 +160,8 @@ Route::get('Drugsales','ManufacturerController@todaysales');
 Route::get('druglist', 'ManufacturerController@show');
 Route::get('manuemployees','ManufacturerController@getEmployees');
 Route::post('addemployee','ManufacturerController@addEmployee');
+Route::get('salesrep','ManufacturerController@getSalesrep');
+Route::post('addsalesrep','ManufacturerController@addSalesrep');
 Route::get('manudoctor', 'ManufacturerController@manuDoctor');
 Route::get('region', 'ManufacturerController@Region');
 Route::get('awaycompany', 'ManufacturerController@awayCompany');

@@ -4,7 +4,20 @@
   <div class="content-page  equal-height">
     <?php
     $id=Auth::id();
-    $manufacturer=DB::table('manufacturers')->where('user_id', Auth::id())->first();
+$emp=DB::table('manufacturers_employees')->where('users_id',$id)->where('job','=','Manager')->first();
+$rep=DB::table('sales_rep')->where('users_id',$id)->first();
+if ($emp) {
+  $manufacturer=DB::table('manufacturers')->where('user_id',$emp->manu_id)->first();
+}
+else if($rep) {
+   $manufacturer=DB::table('manufacturers')->where('user_id',$rep->manu_id)->first();
+} 
+
+else{
+$manufacturer=DB::table('manufacturers')->where('user_id', Auth::id())->first();
+
+}
+   
     $Mname = $manufacturer->name;
     $Mid = $manufacturer->id;
     ?>

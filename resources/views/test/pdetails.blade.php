@@ -1,8 +1,19 @@
 @extends('layouts.test')
 @section('title', 'Tests')
 @section('content')
-<div class="content-page  equal-height">
-	<?php
+<?php
+$test = (new \App\Http\Controllers\TestController);
+$testdet = $test->TDetails();
+foreach($testdet as $DataTests){
+$facility = $DataTests->FacilityName;
+$firstname = $DataTests->firstname;
+$secondName = $DataTests->secondname;
+$TName = $firstname.' '.$secondName;
+
+}
+
+
+
 	$dependantId = $pdetails->persontreated;
 	$afyauserId = $pdetails->afya_user_id;
 	$appId = $pdetails->id;
@@ -38,25 +49,33 @@ $interval = date_diff(date_create(), date_create($dob));
 $age= $interval->format(" %Y Year, %M Months, %d Days Old");
 
 ?>
+<div class="row wrapper border-bottom white-bg page-heading">
+<div class="content-page  equal-height">
 		<div class="content">
 				<div class="container">
-					<div class="row wrapper border-bottom white-bg page-heading">
+
 					<div class="col-lg-6">
 					<h2>{{$name}}</h2>
 					<ol class="breadcrumb">
 					<li><a>@if($gender==1){{"Male"}}@else{{"Female"}}@endif</a></li>
 					<li><a>{{$age}}</a> </li>
-					
+
 					</ol>
 					</div>
 					<div class="col-lg-6">
-					<h2>Test Center </h2>
+					<h2>Test Center: {{$facility}}</h2>
 					<ol class="breadcrumb">
-					<li class="active"><strong>Name </strong></li>
+					<li class="active"><strong>Name: {{$TName}} </strong></li>
 					</ol>
 					</div>
-					</div>
+				</div>
+			</div>
+		</div>
 
+
+  <div class="ibox float-e-margins">
+     <div class="col-lg-12">
+       <div class="tabs-container">
            <div class="wrapper wrapper-content animated fadeInRight">
 										<div class="row">
 											<div class="ibox float-e-margins">
@@ -164,8 +183,7 @@ echo number_format($bmi, 2);
 																</div>
 														</div>
 														<div class="ibox-content">
-
-																<div class="table-responsive">
+                              <div class="table-responsive">
 														<table class="table table-striped table-bordered table-hover dataTables-example" >
 														<thead>
 																										<tr>
@@ -176,11 +194,10 @@ echo number_format($bmi, 2);
 																												<th>Conditional Diesease</th>
 																												<th>Status</th>
 																												<th>Date Created</th>
-
-																									</tr>
+																												<th>Action</th>
+                                                      </tr>
 																								</thead>
-
-																								<tbody>
+                                              <tbody>
 
 																									<?php $i =1; ?>
 
@@ -202,18 +219,13 @@ echo number_format($bmi, 2);
                                                   {{$status}}</td>
 
 																										  <td>{{$tst->date}}</td>
-
-																											<td>
-																												<div>
-																													<button type="button" class="btn btn-primary" data-toggle="modal" data-id="{{$tst->patTdid}}"
-																														 data-target="#edit-modal">Perform Test</button>
-                                                   	</td>
+                                                    <td class="btn btn-primary"><a href="{{route('perftest',$tst->patTdid)}}">Perform Test</a></td>
 																								</tr>
-																									<?php $i++; ?>
+																								<?php $i++; ?>
+																									  @endforeach
 
-																									@endforeach
 																								 </tbody>
-                             <li class="btn btn-primary"><a href="{{ url('test') }}">GO BACK</a></li>
+<li class="btn btn-primary"><a href="{{ url('test') }}">GO BACK</a></li>
 
 								</table>
 								<?php if ($dependantId =='Self') { ?>
@@ -266,38 +278,9 @@ echo number_format($bmi, 2);
 
 								  </div>
 								<?php } ?>
-							<div class="ibox-content">
 
-                         <div id="edit-modal" class="modal fade" aria-hidden="true">
-                             <div class="modal-dialog">
-                                 <div class="modal-content">
-                                     <div class="modal-body">
-                                         <div class="row">
-                                             <div class="col-sm-8"><h3 class="m-t-none m-b">Test Result</h3>
 
-																							 {{ Form::open(array('route' => array('testResult'),'method'=>'POST')) }}
 
-																									 <div class="form-group"><label>Sample Input</label>
-																									   <input type="text" name="testId" id="edit-content" class="form-control" >
-																									</div>
-
-                                                     <div class="form-group"><label>Results</label>
-																											  <input type="text" name="results" placeholder="Enter Value" class="form-control"></div>
-                                                     <div class="form-group"><label>Notes</label>
-																											 <input type="textarea" name="notes" placeholder="Any other notes" class="form-control"></div>
-                                                     <div>
-                                                         <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>SUBMIT</strong></button>
-
-                                                     </div>
-                                                {{ Form::close() }}
-                                             </div>
-
-                                     </div>
-                                 </div>
-                                 </div>
-                             </div>
-                     </div>
-                 </div>
 
 																									 </div>
 
@@ -306,11 +289,10 @@ echo number_format($bmi, 2);
 																			 </div>
 																			 </div>
 																	 </div>
-
-
-
-											 </div>
+                                </div>
 @include('includes.default.footer')
+                </div>
+            </div>
 				</div><!--content-->
 		</div><!--content page-->
 

@@ -10,6 +10,7 @@ use App\Druglist;
 use App\Test;
 use App\TestDetails;
 use Carbon\Carbon;
+use Auth;
 class TestController extends Controller
 {
     /**
@@ -52,27 +53,20 @@ public function testdetails($id){
   ->select('appointments.*')
   ->where('patient_test.id', '=',$id)
   ->first();
+$tsts = DB::table('patient_test')
+    ->leftJoin('appointments', 'patient_test.appointment_id', '=', 'appointments.id')
+    ->leftJoin('patient_test_details', 'patient_test.id', '=', 'patient_test_details.patient_test_id')
+    ->leftJoin('diagnoses', 'patient_test_details.conditional_diag_id', '=', 'diagnoses.id')
+    ->leftJoin('lab_test', 'patient_test_details.tests_reccommended', '=', 'lab_test.id')
+    ->select('diagnoses.name as disease','patient_test_details.created_at as date','patient_test_details.done',
+    'patient_test_details.id as patTdid','lab_test.name as testname','lab_test.category','lab_test.sub_category')
 
+    ->where([
+                  ['patient_test.id', '=',$id],
+                  ['patient_test_details.done', '=',0],
 
-
-
-  $tsts = DB::table('patient_test')
-  ->Join('appointments', 'patient_test.appointment_id', '=', 'appointments.id')
-  ->Join('afya_users', 'appointments.afya_user_id', '=', 'afya_users.id')
-  ->Join('triage_details', 'appointments.id', '=', 'triage_details.appointment_id')
-  ->Join('patient_test_details', 'patient_test.id', '=', 'patient_test_details.patient_test_id')
-  ->Join('diagnoses', 'patient_test_details.conditional_diag_id', '=', 'diagnoses.id')
-  ->Join('lab_test', 'patient_test_details.tests_reccommended', '=', 'lab_test.id')
-  ->select('afya_users.*','diagnoses.name as disease','patient_test_details.created_at as date','patient_test_details.done',
-  'patient_test_details.id as patTdid','triage_details.*','lab_test.name as testname','lab_test.category','lab_test.sub_category')
-
-  ->where([
-                ['patient_test.id', '=',$id],
-                ['patient_test_details.done', '=',0],
-
-               ])
-  ->get();
-
+                 ])
+    ->get();
 return view('test.pdetails')->with('tsts',$tsts)->with('pdetails',$pdetails);
 }
 
@@ -119,7 +113,7 @@ $now = Carbon::now();
    if($count1 == $count2)
    {
     DB::table('patient_test')
-              ->where('id', $appid)
+               ->where('id', $appid)
               ->update(
                 ['test_status' => 1, 'updated_at'=> $now]
               );
@@ -161,9 +155,14 @@ $now = Carbon::now();
          * @param  int  $id
          * @return \Illuminate\Http\Response
          */
-        public function show($id)
+        public function actions($id)
         {
-
+          $tsts1 = DB::table('patient_test_details')
+          ->Join('lab_test', 'patient_test_details.tests_reccommended', '=', 'lab_test.id')
+          ->select('lab_test.name','lab_test.id','patient_test_details.*')
+          ->where('patient_test_details.id', '=',$id)
+          ->get();
+           return view('test.action')->with('tsts1',$tsts1);
         }
 
         /**
@@ -236,6 +235,13 @@ public function fdrugs(Request $request)
      }
  return \Response::json($formatted_drugs);
  }
+ function TDetails(){
+
+   $TDetails = DB::table('facility_test')
+   ->leftJoin('facilities', 'facility_test.facilitycode', '=', 'facilities.FacilityCode')
+   ->where('facility_test.user_id', '=', Auth::user()->id)->get();
+  return $TDetails;
+}
 
 
 }

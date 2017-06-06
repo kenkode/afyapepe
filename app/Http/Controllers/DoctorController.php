@@ -243,9 +243,5 @@ return redirect()->route('doctor.index')->with('success','User created successfu
       ->leftJoin('doctors', 'facility_doctor.doctor_id', '=', 'doctors.doc_id')
       ->where('facility_doctor.user_id', '=', Auth::user()->id)->get();
      return $DocDetails;
-
 }
-
-
-
 }

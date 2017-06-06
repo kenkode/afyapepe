@@ -255,8 +255,10 @@ Route::group(['middleware' => ['auth','role:Admin|Test']], function() {
 	Route::get('testsales','TestController@testSales');
 	Route::get('testanalytics','TestController@testAnalytics');
 	Route::get('patientTests/{id}', [ 'as' => 'patientTests', 'uses' => 'TestController@testdetails']);
-	// Route::get('testing/{id} ', [ 'as' => 'testing', 'uses' => 'TestController@testing']);
-  Route::Post('pdetails', [ 'as' => 'testResult', 'uses' => 'TestController@testResult']);
+
+	Route::get('action/{id}', [ 'as' => 'perftest', 'uses' => 'TestController@actions']);
+
+	Route::Post('pdetails', [ 'as' => 'testResult', 'uses' => 'TestController@testResult']);
 
 
 });

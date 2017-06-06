@@ -2,8 +2,6 @@
 $doc = (new \App\Http\Controllers\DoctorController);
 $Docdatas = $doc->DocDetails();
 foreach($Docdatas as $Docdata){
-
-
 $Did = $Docdata->doc_id;
 $Name = $Docdata->name;
 $Address = $Docdata->address;
@@ -12,8 +10,6 @@ $RegDate = $Docdata->regdate;
 $Speciality = $Docdata->speciality;
 $Sub_Speciality = $Docdata->subspeciality;
 $Duser = $Docdata->user_id;
-
-
 }
 
 
@@ -101,7 +97,7 @@ elseif ($stat == 6) {
               <li><a href="{{route('testes',$app_id)}}">Tests</a></li>
               <li><a href="{{route('diagnoses',$app_id)}}">Diagnosis</a></li>
               <li><a href="{{route('medicines',$app_id)}}">Prescriptions</a></li>
-      @if ($condition =='Admitted') 
+      @if ($condition =='Admitted')
               <li><a href="{{route('discharge',$app_id)}}">Discharge</a></li>
        @else  <li class="active"><a href="{{route('admit',$app_id)}}">Admit</a></li>@endif
               <li ><a href="{{route('transfering',$app_id)}}">Transfer</a></li>
@@ -125,9 +121,8 @@ elseif ($stat == 6) {
                                     {{ Form::open(array('route' => array('admitting'),'method'=>'POST')) }}
 
                                     <div class="form-group col-md-8 col-md-offset-1">
-                                        <label for="presc" class="col-md-6">Facility:</label>
-
-                                        <select id="facility" name="facility" class="form-control facility1" style="width: 100%"></select>
+                                        <label  class="col-md-6">Facility:</label>
+                                         <select id="facility" name="facility" class="form-control facility1" style="width: 100%"></select>
                                     </div>
                                       <div class="form-group col-md-8 col-md-offset-1" id="data_1">
                                           <label class="font-normal">Next Doctor Visit</label>

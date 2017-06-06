@@ -212,21 +212,15 @@ public function store(Request $request)
   'appointment_id' => $request->get('appointment_id'),
   'test_status' => 0,
   'facility' => $request->get('facility'),
+  'facility_from' => $request->get('facility_from'),
+
               ]);
     $ptid = $PatientTest->id;
      } else {
      // Already test exist - just get the id
       $ptid =$pttids->id;
      }
-// Inserting  conditional_diagnosis tests
-     //
-    //  $conditional_id= DB::table('patient_cond_diagnosis')-> insertGetId(array(
-    //               'disease_id' => $request->get('mainconditional'),
-    //               'other_disease_id' => $request->get('conditional'),
-    //               'appointment_id' => $request->get('appointment_id'),
-    //               'patient_test_id' => $ptid,
-     //
-    //            ));
+
 
      // Insertingmalaria2 tests
      $malaria2=$request->malaria2;

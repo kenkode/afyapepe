@@ -195,16 +195,11 @@ elseif ($stat == 6) {
         <label for="tag_list" class="">Conditional Diagnosis:</label>
              <select class="test-multiple" name="mainconditional"  style="width: 100%">
                <?php $diagnoses=DB::table('diagnoses')->where(function($query)
-        {
-            $query->where('target', '=','28 ')
-                  ->orWhere('target', '=','28-29');
-        })
-        ->get();
-          ?>
-               @foreach($diagnoses as $diag)
-                      <option value='{{$diag->id}}'>{{$diag->name}}</option>
-               @endforeach
-               </select>
+        { $query->where('target', '=','28 ')
+         ->orWhere('target', '=','28-29');  })
+        ->get(); ?>
+  @foreach($diagnoses as $diag)<option value='{{$diag->id}}'>{{$diag->name}}</option>
+               @endforeach </select>
          </div>
          <?php } if ($dependantdays >='28') { ?>
          <div class="form-group">
@@ -223,9 +218,10 @@ elseif ($stat == 6) {
                     </select>
               </div>
                <?php }  ?>
-
-
-
+               <div class="form-group">
+                   <label  class="col-md-6">Facility:</label>
+                    <select id="facility" name="facility" class="form-control facility1" style="width: 100%"></select>
+               </div>
           <div class="col-sm-6 b-r">
           <div class="form-group">
               <label for="tag_list" class="">Malaria Test:</label>
@@ -416,7 +412,7 @@ elseif ($stat == 6) {
 
 {{ Form::hidden('appointment_id',$app_id, array('class' => 'form-control')) }}
 {{ Form::hidden('doc_id',$doc_id, array('class' => 'form-control')) }}
-{{ Form::hidden('facility',$fac_id, array('class' => 'form-control')) }}
+{{ Form::hidden('facility_from',$fac_id, array('class' => 'form-control')) }}
 
 <?php if ($pdetails->persontreated=='Self') { ?>
 

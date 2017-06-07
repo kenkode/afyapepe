@@ -37,7 +37,6 @@
   <!-- sales Today -->
   <div class="ibox-content">
       <div class="table-responsive">
-      @if(!empty($rep))
   <table class="table table-striped table-bordered table-hover dataTables-example" >
   <thead>
 
@@ -59,6 +58,7 @@
 
                       <tbody>
                         <?php $i =1;
+                        use Carbon\Carbon;
                         ?>
                     @foreach($Dsales as $mandrug)
                      <?php $total= ($mandrug->quantity * $mandrug->price);
@@ -81,52 +81,6 @@
 
                          </tbody>
                      </table>
-        @else
-        <table class="table table-striped table-bordered table-hover dataTables-example" >
-  <thead>
-
-
-                          <tr>
-                        <th>No</th>
-                         <th>Prescribing Doctor</th>
-                          <th>Drug Name</th>
-                             <th>Facility</th>
-                              <th>Pharmacy  name</th>
-                             <th> Quantity</th>
-                             <th>Dosage</th>
-                              <th>Dosage form</th>
-                             <th>Unit Cost</th>
-                             <th>Total </th>
-                             </tr>
-
-                      </thead>
-
-                      <tbody>
-                        <?php $i =1;
-                        ?>
-                    @foreach($Dsales as $mandrug)
-                     <?php $total= ($mandrug->quantity * $mandrug->price);
-
-                     ?>
-                          <tr>
-                              <td>{{$i}}</td>
-                             <td>{{$mandrug->name}}</td>
-                             <td>{{$mandrug->drugname}}</td>
-                              <td>{{$mandrug->FacilityName}}</td>
-                              <td>{{$mandrug->pharmacy}}</td>
-                              <td>{{$mandrug->quantity}}</td>
-                              <td>{{$mandrug->dose_given}}</td>
-                              <td>{{$mandrug->doseform}}</td>
-                              <td>{{$mandrug->price}}</td>
-                              <td>{{$total}}</td>
-                            </tr>
-                              <?php $i++;  ?>
-                            @endforeach
-
-                         </tbody>
-                     </table>
-
-        @endif
                      </div>
                      </div>
                      </div>

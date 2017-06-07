@@ -215,6 +215,7 @@ public function getSalesrep(){
 public function addSalesrep(Request $request){
   $id=$request->id;
   $user=$request->user;
+  $drug=$request->drug;
     
      
      $manu=DB::table('manufacturers_employees')->where('users_id',$id)->first();
@@ -225,6 +226,7 @@ public function addSalesrep(Request $request){
          'manu_id'=>$manu->manu_id,
          'users_id'=>$user,
          'manager_id'=>$id,
+         'drug_id'=>$drug,
          'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
          'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
 

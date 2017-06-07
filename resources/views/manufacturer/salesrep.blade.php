@@ -55,6 +55,18 @@
             @endforeach              
             </select>
              </div>
+             <div class="form-group">
+            <label for="exampleInputPassword1">Assign Drug</label>
+            <select name="drug" class="form-control">
+            <?php
+            $emp=DB::table('manufacturers_employees')->where('users_id',$id)->first();
+            $manufacturer=DB::table('manufacturers')->where('user_id',$emp->manu_id)->first(); 
+            $drugs=DB::table('druglists')->where('Manufacturer',$manufacturer->name)->get();?>
+            @foreach($drugs as $drug)
+           <option value="{{$drug->id}}">{{$drug->drugname}}</option>
+            @endforeach              
+            </select>
+             </div>
 
             
           

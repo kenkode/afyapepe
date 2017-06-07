@@ -255,8 +255,7 @@
                              <tr>
                                  <th>No</th>
             <th>Date</th>
-            <th>Time</th>
-           <th>Weight</th>
+            <th>Weight</th>
            <th>Height</th>
            <th>BMI</th>
            <th>Temperature</th>
@@ -277,8 +276,8 @@
                         @foreach($triages as $triage)
                         <tr>
                          <td>{{$i}}</td>
-            <td>{{ date('d -m- Y', strtotime($triage->updated_at)) }}</td>
-            <td>{{ date('H:i:s', strtotime($triage->updated_at)) }}</td>
+            <td>{{$triage->updated_at}}</td>
+           
            <td>{{$triage->current_weight}}</td>
            <td>{{$triage->current_height}}</td>
             <td><?php $height=$triage->current_height; $weight=$triage->current_weight;
@@ -420,11 +419,11 @@
                                   <tr>
                                       <th>No</th>
                                       <th>Date</th>
-                                      <th>Test Type</th>
-                                      <th>Test</th>
+                                      <th>Diagnosis</th>
+                                      <th>State</th>
+                                      <th>Drug</th>
                                       <th>Doctor Name</th>
-                                      <th>Status</th>
-                                      <th>Cost</th>
+                                     
 
                                       <!-- <th>Constituency of Residence</th> -->
 
@@ -432,6 +431,24 @@
                               </thead>
 
                               <tbody>
+                               <?php $i=1; 
+                              $prescs=DB::table('prescription_details')->Join('diagnoses','diagnoses.id','=','prescription_details.diagnosis')->join('druglists','druglists.id','=','prescription_details.drug_id')->join('prescriptions','prescriptions.id','=','prescription_details.presc_id')->select('prescription_details.*','diagnoses.name as name','druglists.drugname as drugname','prescriptions.doc_id as doc')
+                              ->where('prescription_details.afya_user_id',$patient->id)->get(); ?>
+                         
+                              @foreach($prescs as $presc)
+                              <tr>
+                              <td>{{$i}}</td>
+                              <td>{{$presc->created_at}}</td>
+                              <td>{{$presc->name}}</td>
+                              
+                              <td>{{$presc->state}}</td>
+                              <td>{{$presc->drugname}}</td>
+                              <td><?php $doc=DB::table('doctors')->where('id',$presc->doc)->first();?>{{$doc->name}}</td>
+
+                              </tr>
+
+                               <?php $i++; ?>
+                               @endforeach
 
 
                                </tbody>
@@ -481,12 +498,10 @@
                                    <thead>
                                        <tr>
                                            <th>No</th>
-                                           <th>Date</th>
                                            <th>Date of Admission</th>
                                            <th>Date of Discharge</th>
                                            <th>Chief Complaint</th>
                                            <th>Diagnosis</th>
-                                           <th>Procedure Performed</th>
                                            <th>Discharge Summary</th>
 
                                            <!-- <th>Constituency of Residence</th> -->
@@ -496,7 +511,21 @@
 
                                    <tbody>
 
-
+                                      <?php $i=1;
+                         $admits=DB::table('patient_admitted')->join('appointments','appointments.id','=','patient_admitted.appointment_id')->join('prescriptions','prescriptions.appointment_id','=','appointments.id')->join('prescription_details','prescription_details.presc_id','=','prescriptions.id')->Join('diagnoses','diagnoses.id','=','prescription_details.diagnosis')->Join('triage_details','triage_details.appointment_id','=','appointments.id')
+                         ->select('patient_admitted.*','diagnoses.name as name','triage_details.chief_compliant as triage')->where('appointments.afya_user_id',$patient->id)->get();
+                        ?>
+                        @foreach($admits as $admit)
+                        <tr>
+                          <td>{{$i}}</td>
+                          <td>{{$admit->date_admitted}}</td>
+                          <td>{{$admit->date_discharged}}</td>
+                          <td>{{$admit->triage}}</td>
+                          <td>{{$admit->name}}</td>
+                           <td>{{$admit->condition}}</td>
+                        </tr>
+                        <?php $i++; ?>
+                        @endforeach
                                     </tbody>
                                   </table>
                                       </div>
@@ -509,10 +538,10 @@
                       </div>
                       </div>
                       <br><br>
-       @include('includes.default.footer')
-
+      
          </div><!--container-->
       </div><!--content-->
       </div><!--content page-->
+
 
 @endsection

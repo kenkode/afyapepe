@@ -205,7 +205,7 @@
                          
                          </tr>
 
-                         <?php $i++ ?>
+                         <?php $i++; ?>
                          @endforeach
                           </tbody>
                         </table>
@@ -290,7 +290,7 @@
          <td>{{$triage->diastolic_bp}}</td>
          <td>{{$triage->chief_compliant}}</td>
          </tr>
-                          <?php $i++ ?>
+                          <?php $i++; ?>
                          @endforeach
                         
                           </tbody>
@@ -355,10 +355,9 @@
 
                               <tbody>
                               <?php $i=1; 
-                              $tests=DB::table('patient_test')
-                                 ->join('appointments','appointments.id','=','patient_test.appointment_id')
-                                 ->join('patient_test_details','patient_test_details.patient_test_id','=','patient_test.id')->select('patient_test.*','patient_test_details.*')->
-                              where('appointments.afya_user_id',$patient->id)->get(); ?>
+                              $tests=DB::table('patient_test_details')->join('patient_test','patient_test.id','=','patient_test_details.patient_test_id')->select('patient_test.*','patient_test_details.*')->where('patient_test_details.afya_user_id',$patient->id) ->get(); ?>
+
+                         
                               @foreach($tests as $test)
                               <tr>
                               <td>{{$i}}</td>
@@ -366,12 +365,12 @@
                                 <td><?php $labtest=DB::table('lab_test')->where('id',$test->tests_reccommended)->first();
                                $testname=DB::table('test_type')->where('id',$labtest->test_type_id)->first();?>{{$testname->test_category}}</td>
                               <td>{{$labtest->name}}</td>
-                              <td><?php $user=DB::table('users')->where('id',$test->doc_id)->first(); ?>{{$user->name}}</td>
-                              <td><?php $status=$test->done; if($status==0){ echo "Not Done";} else { echo "Done";}?></td>
+                              <td><?php $user=DB::table('doctors')->where('id',$test->doc_id)->first(); ?>{{$user->name}}</td>
+                              <td><?php $status=$test->test_status; if($status==0){ echo "Not Done";} else { echo "Done";}?></td>
                            
                               </tr>
 
-                               <?php $i++ ?>
+                               <?php $i++; ?>
                                @endforeach
                                </tbody>
                              </table>

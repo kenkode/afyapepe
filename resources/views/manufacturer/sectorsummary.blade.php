@@ -5,6 +5,24 @@
 <div class="content-page  equal-height">
           <div class="content">
               <div class="container">
+<?php
+  $id=Auth::id();
+ $emp=DB::table('manufacturers_employees')->where('users_id',$id)->where('job','=','Manager')->first();
+$rep=DB::table('sales_rep')->where('users_id',$id)->first();
+if ($emp) {
+  $manufacturer=DB::table('manufacturers')->where('user_id',$emp->manu_id)->first();
+}
+else if($rep) {
+   $manufacturer=DB::table('manufacturers')->where('user_id',$rep->manu_id)->first();
+} 
+
+else{
+$manufacturer=DB::table('manufacturers')->where('user_id', Auth::id())->first();
+
+}
+  $Mname = $manufacturer->name;
+  $Mid = $manufacturer->id;
+  ?>
 
 <div class="row">
 <h1> Sector Summary</h1>
@@ -41,11 +59,60 @@
                                       <a class="close-link">
                                           <i class="fa fa-times"></i>
                                       </a>
-                                  </div>
+                                  </div> 
                               </div>
                               <div class="ibox-content">
-                   <!-- sales All Custom-->
+                   <!-- sales All Custom--> 
                                   <div class="table-responsive">
+                               @if(!empty($rep)) 
+                                 <table class="table table-striped table-bordered table-hover dataTables-example" >
+                              <thead>
+
+
+                                                      <tr>
+                                                          <th>No</th>
+                                                     <th>Company</th>
+
+                                                          <th>Total Sales</th>
+                                                           <th>Market Share(%)</th>
+
+                                                         </tr>
+
+                                                  </thead>
+
+                                                  <tbody>
+                                                  <?php 
+                                                  $i=1;
+                                                  
+                                                 $companies=DB::table('prescription_filled_status')
+                                                  ->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')
+                                                  ->join('druglists','druglists.id','=','prescription_details.drug_id')
+                                                  ->where('druglists.id',$rep->drug_id)
+                                                 ->select('druglists.manufacturer as name')
+                                                 ->selectRaw('SUM(price * quantity) as total')->orderby('total','DESC')->limit(10)->get();?>
+                                                  @foreach ($companies as $company)
+                                                    <tr>
+                                                      <td>{{$i}}</td>
+                                                      <td>{{$company->name}}</td>
+                                                      <td>{{$company->total}}</td>
+                                                      <td>
+                                                   <?php $sales=DB::table('prescription_filled_status')->selectRaw('SUM(price * quantity) as totals')->first();
+                                                       
+                                                       echo $company->total/$sales->totals * 100;
+                                                   ?>
+      
+                                                      
+
+                                                      </td>
+                                                    </tr>
+
+                                                     <?php $i++;  ?>
+                                                        @endforeach
+                                                   </tbody>
+
+                                                 </table>
+
+                                @else
                               <table class="table table-striped table-bordered table-hover dataTables-example" >
                               <thead>
 
@@ -91,6 +158,7 @@
                                                    </tbody>
 
                                                  </table>
+                                        @endif
                                                  </div>
                                                  </div>
                                                  </div>
@@ -125,7 +193,64 @@
                               </div>
                               <div class="ibox-content">
                    <!-- sales All Custom-->
+
                                   <div class="table-responsive">
+
+                             @if(!empty($rep))
+                             <table class="table table-striped table-bordered table-hover dataTables-example" >
+                              <thead>
+
+
+                                                      <tr>
+                                                          <th>No</th>
+                                                     <th>Drug Name</th>
+
+                                                          <th>Dosage Form</th>
+                                                           <th>Total Sales (Kes millions)</th>
+                                                           <th>Growth (%)</th>
+                                                           <th> Company Name</th>
+                                                         </tr>
+
+                                                  </thead>
+
+                                                  <tbody>
+                                                  <?php 
+                                                  $i=1;
+                                                  
+                                                 $companies=DB::table('prescription_filled_status')
+                                                  ->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')
+                                                  ->join('druglists','druglists.id','=','prescription_details.drug_id')
+                                                  ->where('druglists.id',$rep->drug_id)
+                                                 ->select('druglists.manufacturer as name','druglists.drugname as drugname','druglists.DosageForm as DosageForm')
+                                                 ->selectRaw('SUM(price * quantity) as total')->orderby('total','DESC')->limit(10)->get();?>
+                                                  @foreach ($companies as $company)
+                                                    <tr>
+                                                      <td>{{$i}}</td>
+                                                      <td>{{$company->drugname}}</td>
+                                                      <td>{{$company->DosageForm}}</td>
+                                                      <td>{{$company->total}}</td>
+                                                      <td>
+                                                   <?php $sales=DB::table('prescription_filled_status')->selectRaw('SUM(price * quantity) as totals')->first();
+                                                       
+                                                       echo $company->total/$sales->totals * 100;
+                                                   ?>
+      
+                                                      
+
+                                                      </td>
+                                                      <td>{{$company->name}}</td>
+
+                                                    </tr>
+
+                                                     <?php $i++;  ?>
+                                                        @endforeach
+
+
+                                                   </tbody>
+
+                                                 </table>
+
+                             @else
                               <table class="table table-striped table-bordered table-hover dataTables-example" >
                               <thead>
 
@@ -177,6 +302,7 @@
                                                    </tbody>
 
                                                  </table>
+                                          @endif
                                                  </div>
                                                  </div>
                                                  </div>
@@ -212,6 +338,60 @@
                               <div class="ibox-content">
                    <!-- sales All Custom-->
                                   <div class="table-responsive">
+                            @if(!empty($rep))
+                            <table class="table table-striped table-bordered table-hover dataTables-example" >
+                              <thead>
+
+
+                                                      <tr>
+                                                          <th>No</th>
+                                                     <th>Drug Name</th>
+
+                                                          <th>Prescribing Doctor</th>
+                                                           <th>Facility</th>
+                                                          <th>Pharmacy  name</th>
+                                                         <th> Quantity</th>
+                                                         <th>Dosage</th>
+                                                          <th>Dosage form</th>
+                                                         <th>Unit Cost</th>
+                                                         <th>Total </th>
+                                                         </tr>
+
+                                                  </thead>
+
+                                                  <tbody>
+                                                   <?php  $i=1;
+                                                    $companies=DB::table('prescription_filled_status')
+                                                  ->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')
+                                                  ->join('druglists','druglists.id','=','prescription_details.drug_id')
+                                                  ->join('pharmacy','pharmacy.id','=','prescription_filled_status.outlet_id')
+                                                  ->join('prescriptions','prescriptions.id','=','prescription_details.presc_id')
+                                                  ->join('doctors','doctors.id','=','prescriptions.doc_id')
+                                                  ->join('appointments','appointments.id','=','prescriptions.appointment_id')->select('druglists.manufacturer as name','druglists.drugname as drugname','druglists.DosageForm as DosageForm','druglists.id as id','prescription_filled_status.price as price','prescription_filled_status.quantity as quantity','prescription_filled_status.dose_given as dosage','pharmacy.name as pharmacy','doctors.name as doctors','appointments.facility_id as Facility')
+                                                   ->where('druglists.id',$rep->drug_id)
+                                                 ->selectRaw('SUM(price * quantity) as total')->orderby('total','DESC')->limit(10)->get();?>
+                                                   @foreach($companies as $company)
+                                                   <tr>
+                                                    <td>{{$i}}</td>
+                                                    <td>{{$company->drugname}}</td>
+                                                    <td>{{$company->doctors}}</td>
+             <td><?php   $fac=DB::table('facilities')->where('FacilityCode',$company->Facility)->first();?>{{$fac->FacilityName or ''}}</td>
+                                                     <td>{{$company->pharmacy}}</td>
+                                                     <td>{{$company->quantity}}</td>
+                                                     <td>{{$company->dosage}}</td>
+                                                      <td>{{$company->DosageForm}}</td>
+                                                     <td>{{$company->price}}</td>
+                                                     <td>{{$company->total}}</td>
+                                                   </tr>
+
+
+                                                   <?php $i++;  ?>
+                                                   @endforeach
+
+                                                   </tbody>
+
+                                                 </table>
+                            @else
                               <table class="table table-striped table-bordered table-hover dataTables-example" >
                               <thead>
 
@@ -263,6 +443,7 @@
                                                    </tbody>
 
                                                  </table>
+                                                 @endif
                                                  </div>
                                                  </div>
                                                  </div>

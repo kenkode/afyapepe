@@ -239,7 +239,7 @@
                                                   ->join('druglists','druglists.id','=','prescription_details.drug_id')
                                                   ->join('pharmacy','pharmacy.id','=','prescription_filled_status.outlet_id')
                                          ->join('prescriptions','prescriptions.id','=','prescription_details.presc_id')
-                                                  ->join('doctors','doctors.doc_id','=','prescriptions.doc_id')
+                                                  ->join('doctors','doctors.id','=','prescriptions.doc_id')
                                                   ->join('appointments','appointments.id','=','prescriptions.appointment_id')->select('druglists.manufacturer as name','druglists.drugname as drugname','druglists.DosageForm as DosageForm','druglists.id as id','prescription_filled_status.price as price','prescription_filled_status.quantity as quantity','prescription_filled_status.dose_given as dosage','pharmacy.name as pharmacy','doctors.name as doctors','appointments.facility_id as Facility')
                                                  ->selectRaw('SUM(price * quantity) as total')->orderby('total','DESC')->limit(10)->get();?>
                                                    @foreach($companies as $company)

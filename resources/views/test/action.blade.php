@@ -9,14 +9,16 @@ $facility = $DataTests->FacilityName;
 $firstname = $DataTests->firstname;
 $secondName = $DataTests->secondname;
 $TName = $firstname.' '.$secondName;
+$facilityId = $DataTests->id;
 
 }
 
-foreach($tsts1 as $pdetails){
-	$dependantId = $pdetails->dependant_id;
-	$afyauserId = $pdetails->afya_user_id;
-	$appId = $pdetails->appointment_id;
-}
+
+	$dependantId = $tsts1->dependant_id;
+	$afyauserId = $tsts1->afya_user_id;
+	$appId = $tsts1->appointment_id;
+	$ptdId = $tsts1->id;
+
  if ($dependantId =='Self')   {
 	 $afyadetails = DB::table('appointments')
 	 ->leftJoin('triage_details', 'appointments.id', '=', 'triage_details.appointment_id')
@@ -69,25 +71,41 @@ if ($gender == 1) { $gender = 'Male'; }else{ $gender = 'Female'; }
 					<li class="active"><strong>Name: {{$TName}} </strong></li>
 					</ol>
 					</div>
-				</div>
-			</div>
-		</div>
 
 
-  <div class="ibox float-e-margins">
-     <div class="col-lg-12">
-       <div class="tabs-container">
-				 @foreach($tsts1 as $results1)
-							<input type="text" value="{{$results1->name}}" class="form-control" readonly="readonly">
-				 @endforeach
-@if($results1->name =='Full haemoglobin')
+
+
+
+@if($tsts1->name =='Full Haemoglobin')
   @include('test.fheamoglobin')
-@else @endif
+	@else
+	<div class="ibox float-e-margins">
+		 <div class="col-lg-12">
+			 <div class="tabs-container">
+
+				 <h5>{{$tsts1->name}}</h5>
+				   <div class="col-lg-6">
+					 <div class="form-group"><label>Value</label>
+					<input type="text" name="value" placeholder="Enter Value" class="form-control">
+					</div>
+					<div class="form-group"><label>Value</label>
+					<input type="text" name="value" placeholder="Enter Value" class="form-control">
+					</div>
+					<div class="form-group"><label>Value</label>
+				 <input type="text" name="value"  class="form-control">
+				 </div>
+					</div>
+				</div>
+				</div>
+				</div>
+@endif
 
 @include('includes.default.footer')
+
         </div>
       </div>
 		</div><!--content-->
+
 	</div><!--content page-->
 
 @endsection

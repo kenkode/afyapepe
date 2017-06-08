@@ -30,17 +30,18 @@ class TestController extends Controller
      */
     public function index()
     {
-
       $tsts = DB::table('patient_test')
       ->leftJoin('appointments', 'patient_test.appointment_id', '=', 'appointments.id')
       ->leftJoin('afya_users', 'appointments.afya_user_id', '=', 'afya_users.id')
       ->leftJoin('dependant', 'appointments.persontreated', '=', 'dependant.id')
+  ->leftJoin('facility_test', 'patient_test.facility', '=', 'facility_test.facilitycode')
      ->select('afya_users.*','patient_test.id as tid','patient_test.created_at as date',
       'patient_test.test_status','appointments.persontreated',
       'dependant.firstName as depname','dependant.secondName as depname2',
       'dependant.gender as depgender','dependant.dob as depdob')
-      ->where('patient_test.test_status', '=',0)
-
+      ->where([  ['patient_test.test_status', '=',0],
+                 ['facility_test.user_id', '=',Auth::user()->id],
+                   ])
       ->get();
 
         return view('test.home')->with('tsts',$tsts);
@@ -82,124 +83,92 @@ public function testAnalytics(){
 public function testResult(Request $request)
 {
 $now = Carbon::now();
-  $testId =$request->testId;
+
+  $com1 =$request->comments;
+  $test1 =$request->test;
+  $ptd_id =$request->ptd_id;
+  $film = $request->film;
+
+
+  if($test1){
+    $testRslt = DB::table('test_results')->insert([
+       'ptd_id' => $ptd_id,
+       'appointment_id' => $request->get('appointment_id'),
+       'test' => $test1,
+       'value' => $request->get('value'),
+   ]);
+ }
+  if($film){
+    $filmRslt1 = DB::table('film_reports')->insert([
+       'ptd_id' => $ptd_id,
+       'appointment_id' => $request->get('appointment_id'),
+       'test' => $request->get('rbc'),
+       'status' => $film,
+
+]);  }
+
+
+if($com1){
   DB::table('patient_test_details')
-    ->where('id',$testId)
+    ->where('id',$ptd_id)
     ->update(['done'  =>1,
-    'results'  => $request['results'],
-     'note'  => $request['notes'],
-     'updated_at'  => $request['notes'],
+    'results'  => $request['comments'],
+     'note'  => $request['comments2'],
+     'facility_done'  => $request['facility'],
+     'updated_at'  => $now,
    ]);
 
-   $tsts = DB::table('patient_test_details')->where('id', '=', $testId)->first();
-   $appid=$tsts->patient_test_id;
+   $tsts = DB::table('patient_test_details')->where('id', '=', $ptd_id)->first();
+   $ptid=$tsts->patient_test_id;
 
 
    $query1 = DB::table('patient_test_details')
            ->select(DB::raw('count(id) as idz'))
-           ->where([
-                     ['patient_test_id', '=', $appid],
+           ->where([  ['patient_test_id', '=', $ptid],
                       ['done', '=', 1],
                         ])
+  ->first();
 
-           ->first();
    $count1 = $query1->idz;
    $query2 = DB::table('patient_test_details')
            ->select(DB::raw('count(id) as ids'))
-           ->where('patient_test_id', '=', $appid)
+           ->where('patient_test_id', '=', $ptid)
            ->first();
    $count2 = $query2->ids;
 
    if($count1 == $count2)
    {
     DB::table('patient_test')
-               ->where('id', $appid)
+               ->where('id', $ptid)
               ->update(
                 ['test_status' => 1, 'updated_at'=> $now]
               );
    }else {
      DB::table('patient_test')
-               ->where('id', $appid)
+               ->where('id', $ptid)
                ->update(
                  ['test_status' => 2, 'updated_at'=> $now]
                );
              }
 
-
-   return redirect()->route('patientTest',$appid);
 }
-  /**
-         * Show the form for creating a new resource.
-         *
-         * @return \Illuminate\Http\Response
-         */
-        public function create()
-        {
-            //
-        }
+$testDdone=DB::table('patient_test_details')->where('id', '=',$ptd_id)->distinct()->first(['done']);
 
-        /**
-         * Store a newly created resource in storage.
-         *
-         * @param  \Illuminate\Http\Request  $request
-         * @return \Illuminate\Http\Response
-         */
-        public function store(Request $request)
-        {
-            //
-        }
+if ($testDdone == 1) {
+  return redirect()->route('patientTests',$ptid);
+} else { return redirect()->route('perftest',$ptd_id); }
+}
 
-        /**
-         * Display the specified resource.
-         *
-         * @param  int  $id
-         * @return \Illuminate\Http\Response
-         */
         public function actions($id)
         {
           $tsts1 = DB::table('patient_test_details')
           ->Join('lab_test', 'patient_test_details.tests_reccommended', '=', 'lab_test.id')
-          ->select('lab_test.name','lab_test.id','patient_test_details.*')
+          ->select('lab_test.name','lab_test.sub_category','lab_test.category','patient_test_details.*')
           ->where('patient_test_details.id', '=',$id)
-          ->get();
+          ->first();
            return view('test.action')->with('tsts1',$tsts1);
         }
 
-        /**
-         * Show the form for editing the specified resource.
-         *
-         * @param  int  $id
-         * @return \Illuminate\Http\Response
-         */
-        public function edit($id)
-        {
-
-        }
-
-        /**
-         * Update the specified resource in storage.
-         *
-         * @param  \Illuminate\Http\Request  $request
-         * @param  int  $id
-         * @return \Illuminate\Http\Response
-         */
-
-
-
-        /**
-         * Remove the specified resource from storage.
-         *
-         * @param  int  $id
-         * @return \Illuminate\Http\Response
-         */
-        public function destroy($id)
-        {
-            //
-        }
-
-
-// DB::table('users')->orderBy('id')->chunk(100, function($users)
-// $categories = \DB::table('categories')->orderBy('name')->take(10)->get();
 
 function Strength(){
  $Strength = DB::table('strength')

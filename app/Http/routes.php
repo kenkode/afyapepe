@@ -142,6 +142,7 @@ Route::Post('testpost', [ 'as' => 'patienttest', 'uses' => 'PatientTestControlle
 Route::get('test/{id}', [ 'as' => 'testes', 'uses' => 'PatientTestController@testdata']);
 Route::get('diagnosis/{id}', [ 'as' => 'diagnoses', 'uses' => 'PatientTestController@diagnoses']);
 Route::Post('diagnosisconfirm', [ 'as' => 'diaconf', 'uses' => 'PatientTestController@diagnosesconf']);
+Route::get('diagconfirm/{id}', [ 'as' => 'Testconfirms', 'uses' => 'PatientTestController@Testconfirm']);
 
 Route::Post('diagnosis', [ 'as' => 'confdiag', 'uses' => 'PrescriptionController@diagnoses']);
 Route::get('prescriptions/{id}', [ 'as' => 'medicines', 'uses' => 'PrescriptionController@prescriptions']);
@@ -258,8 +259,8 @@ Route::group(['middleware' => ['auth','role:Admin|Test']], function() {
 	Route::get('patientTests/{id}', [ 'as' => 'patientTests', 'uses' => 'TestController@testdetails']);
 
 	Route::get('action/{id}', [ 'as' => 'perftest', 'uses' => 'TestController@actions']);
-
 	Route::Post('pdetails', [ 'as' => 'testResult', 'uses' => 'TestController@testResult']);
+	Route::Post('pdetails2', [ 'as' => 'testfilm', 'uses' => 'TestController@testResult']);
 
 
 });

@@ -36,7 +36,7 @@ class DoctorController extends Controller
        $patients = DB::table('appointments')
        ->leftJoin('afya_users', 'appointments.afya_user_id', '=', 'afya_users.id')
         ->leftJoin('triage_details', 'appointments.id', '=', 'triage_details.appointment_id')
-->leftJoin('facility_doctor', 'appointments.doc_id', '=', 'facility_doctor.doctor_id')
+    ->leftJoin('facility_doctor', 'appointments.facility_id', '=', 'facility_doctor.facilitycode')
         ->leftJoin('doctors', 'appointments.doc_id', '=', 'doctors.doc_id')
         ->leftJoin('triage_infants', 'appointments.id', '=', 'triage_infants.appointment_id')
         ->leftJoin('dependant', 'triage_infants.dependant_id', '=', 'dependant.id')

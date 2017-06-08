@@ -134,7 +134,7 @@ elseif ($stat == 6) {
      ?>
 <div id="testR">
      <div class="table-responsive ibox-content">
-      <table class="table table-striped table-bordered table-hover dataTables-main" >
+      <table class="table table-striped table-bordered table-hover dataTables-conditional" >
         <thead>
      <tr>
       <th></th>
@@ -143,7 +143,6 @@ elseif ($stat == 6) {
         <th>Conditional Diagnosis</th>
         <th>Status</th>
         <th>Result</th>
-        <th>Faciity</th>
         <th>Note</th>
 
 
@@ -171,7 +170,6 @@ elseif ($stat == 6) {
        }
          ?>  {{$prescs}}</td>
         <td>{{$tstdn->results}}</td>
-        <td>{{$tstdn->FacilityName}}</td>
         <td>{{$tstdn->note}}</td>
 
      </tr>

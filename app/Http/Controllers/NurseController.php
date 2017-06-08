@@ -783,6 +783,7 @@ return redirect()->action('NurseController@showDependents', [$id]);
     'relationship' => 'Father',
     'phone'=> $father_phone,
     'dependant_id'=>$id,
+    'afya_user_id'=>$userid,
     'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
     'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
 );
@@ -826,6 +827,7 @@ DB::table('role_user')->insert(
     'relationship' => 'Mother',
     'phone'=> $mother_phone,
     'dependant_id'=>$id,
+     'afya_user_id'=>$userid,
     'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
     'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
 );

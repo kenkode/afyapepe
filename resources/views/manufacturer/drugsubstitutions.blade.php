@@ -8,7 +8,8 @@
                 <?php
                 $id=Auth::id();
 $emp=DB::table('manufacturers_employees')->where('users_id',$id)->where('job','=','Manager')->first();
-$rep=DB::table('sales_rep')->where('users_id',$id)->first();
+$rep=DB::table('sales_rep')
+->where('users_id',$id)->first();
 if ($emp) {
   $manufacturer=DB::table('manufacturers')->where('user_id',$emp->manu_id)->first();
 }
@@ -110,6 +111,7 @@ $manufacturer=DB::table('manufacturers')->where('user_id', Auth::id())->first();
  ->where([ ['druglists.Manufacturer','like', '%'.$Mname.'%'],
            ['prescription_filled_status.created_at','>=',$today],
            ['druglists.id',$rep->drug_id],
+           ['pharmacy.county','like','%'.$rep->region.'%'],
          ])
  ->whereNotNull('prescription_filled_status.substitute_presc_id')
  ->get();
@@ -121,6 +123,80 @@ $manufacturer=DB::table('manufacturers')->where('user_id', Auth::id())->first();
  ->where([ ['substitute_presc_details.id', '=', $daily->substitute_presc_id],
            ['druglists.Manufacturer','Not like','%'.$Mname.'%'],
            ['druglists.id',$rep->drug_id],
+           ['pharmacy.county','like','%'.$rep->region.'%'],
+         ])
+
+->first();
+?>
+<?php if($substituted) { ?>
+<tr>
+<td>{{$i}}</td>
+<td>{{ $daily->drugname}}</td>
+<td>{{$daily->pharmacy}}</td>
+<td>{{$daily->name}}</td>
+<td>{{$substituted->subdrugname}}</td>
+<td>{{$daily->FacilityName}}</td>
+<td>{{$daily->substitution_reason}}</td>
+<td>{{$daily->quantity}}</td>
+<td>{{$daily->price}}</td>
+<td>{{($daily->quantity * $daily->price)}}</td>
+</tr>
+<?php $i++;  ?>
+<?php } ?>
+
+      @endforeach
+
+
+   </tbody>
+
+   </table>
+   @elseif(!empty($emp))
+   <table class="table table-striped table-bordered table-hover dataTables-example" >
+            <thead>
+            <tr>
+            <th>No</th>
+            <th>Prescribed Drug</th>
+            <th>Pharmacy  name</th>
+            <th>Prescribing Doctor</th>
+            <th>Substituted Drug</th>
+            <th>Facility Name</th>
+            <th>Reason</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th> Value</th>
+            </tr>
+
+            </thead>
+
+<tbody><?php  $i =1;
+  $today = Carbon::today();
+  $one_week_ago = Carbon::now()->subWeeks(1);
+  $one_month_ago = Carbon::now()->subMonths(1);
+  $one_year_ago = Carbon::now()->subYears(1);
+  $prescribed = DB::table('prescriptions')
+   ->Join('prescription_details', 'prescriptions.id', '=', 'prescription_details.presc_id')
+   ->Join('prescription_filled_status', 'prescription_details.id', '=', 'prescription_filled_status.presc_details_id')
+   ->Join('pharmacy', 'prescription_filled_status.outlet_id', '=', 'pharmacy.id')
+   ->Join('facilities', 'prescriptions.facility_id', '=', 'facilities.FacilityCode')
+   ->Join('doctors', 'prescriptions.doc_id', '=', 'doctors.doc_id')
+   ->Join('druglists', 'prescription_details.drug_id', '=', 'druglists.id')
+   ->select('prescription_filled_status.*','facilities.FacilityName','doctors.name','druglists.drugname','pharmacy.name as pharmacy',
+    'pharmacy.county','prescription_details.doseform',
+   'prescription_filled_status.substitute_presc_id')
+ ->where([ ['druglists.Manufacturer','like', '%'.$Mname.'%'],
+           ['prescription_filled_status.created_at','>=',$today],
+           ['pharmacy.county','like', '%'.$emp->region.'%'],
+         ])
+ ->whereNotNull('prescription_filled_status.substitute_presc_id')
+ ->get();
+  ?>
+@foreach($prescribed  as $daily)
+<?php $substituted = DB::table('substitute_presc_details')
+->Join('druglists', 'substitute_presc_details.drug_id', '=', 'druglists.id')
+->select('druglists.drugname as subdrugname')
+ ->where([ ['substitute_presc_details.id', '=', $daily->substitute_presc_id],
+           ['druglists.Manufacturer','Not like','%'.$Mname.'%'],
+
          ])
 
 ->first();
@@ -285,6 +361,7 @@ $manufacturer=DB::table('manufacturers')->where('user_id', Auth::id())->first();
   ['prescription_filled_status.created_at','>=',$one_week_ago],
   ['prescription_filled_status.created_at','<=',$today],
   ['druglists.id',$rep->drug_id],
+  ['pharmacy.county','like','%'.$rep->region.'%'],
   ])
   ->whereNotNull('prescription_filled_status.substitute_presc_id')
   ->get();
@@ -296,6 +373,77 @@ $manufacturer=DB::table('manufacturers')->where('user_id', Auth::id())->first();
   ->where([ ['substitute_presc_details.id', '=', $daily->substitute_presc_id],
   ['druglists.Manufacturer','Not like','%'.$Mname.'%'],
   ['druglists.id',$rep->drug_id],
+   ])
+
+  ->first();
+  ?>
+  <?php if($substitutedw) { ?>
+  <tr>
+  <td>{{$i}}</td>
+  <td>{{ $daily->drugname}}</td>
+  <td>{{$daily->pharmacy}}</td>
+  <td>{{$daily->name}}</td>
+  <td>{{$substitutedw->subdrugname}}</td>
+  <td>{{$daily->FacilityName}}</td>
+  <td>{{$daily->substitution_reason}}</td>
+  <td>{{$daily->quantity}}</td>
+  <td>{{$daily->price}}</td>
+  <td>{{($daily->quantity * $daily->price)}}</td>
+  </tr>
+  <?php $i++;  ?>
+  <?php } ?>
+
+  @endforeach
+  </tbody>
+
+          </table>
+  @elseif(!empty($emp))
+  <table class="table table-striped table-bordered table-hover dataTables-example" >
+  <thead>
+  <tr>
+  <th>No</th>
+  <th>Prescribed Drug</th>
+  <th>Pharmacy  name</th>
+  <th>Prescribing Doctor</th>
+  <th>Substituted Drug</th>
+  <th>Facility Name</th>
+  <th>Reason</th>
+  <th>Quantity</th>
+  <th>Price</th>
+  <th> Value</th>
+  </tr>
+
+  </thead>
+
+  <tbody><?php  $i =1;
+  $today = Carbon::today();
+  $one_week_ago = Carbon::now()->subWeeks(1);
+  $one_month_ago = Carbon::now()->subMonths(1);
+  $one_year_ago = Carbon::now()->subYears(1);
+  $prescribedw = DB::table('prescriptions')
+  ->Join('prescription_details', 'prescriptions.id', '=', 'prescription_details.presc_id')
+  ->Join('prescription_filled_status', 'prescription_details.id', '=', 'prescription_filled_status.presc_details_id')
+  ->Join('pharmacy', 'prescription_filled_status.outlet_id', '=', 'pharmacy.id')
+  ->Join('facilities', 'prescriptions.facility_id', '=', 'facilities.FacilityCode')
+  ->Join('doctors', 'prescriptions.doc_id', '=', 'doctors.doc_id')
+  ->Join('druglists', 'prescription_details.drug_id', '=', 'druglists.id')
+  ->select('prescription_filled_status.*','facilities.FacilityName','doctors.name','druglists.drugname','pharmacy.name as pharmacy',
+  'pharmacy.county','prescription_details.doseform',
+  'prescription_filled_status.substitute_presc_id')
+  ->where([ ['druglists.Manufacturer','like', '%'.$Mname.'%'],
+  ['prescription_filled_status.created_at','>=',$one_week_ago],
+  ['prescription_filled_status.created_at','<=',$today],
+  ['pharmacy.county','like', '%'.$emp->region.'%']
+  ])
+  ->whereNotNull('prescription_filled_status.substitute_presc_id')
+  ->get();
+  ?>
+  @foreach($prescribedw  as $daily)
+  <?php $substitutedw = DB::table('substitute_presc_details')
+  ->Join('druglists', 'substitute_presc_details.drug_id', '=', 'druglists.id')
+  ->select('druglists.drugname as subdrugname')
+  ->where([ ['substitute_presc_details.id', '=', $daily->substitute_presc_id],
+  ['druglists.Manufacturer','Not like','%'.$Mname.'%'],
   ])
 
   ->first();
@@ -320,6 +468,7 @@ $manufacturer=DB::table('manufacturers')->where('user_id', Auth::id())->first();
   </tbody>
 
           </table>
+
   @else
   <table class="table table-striped table-bordered table-hover dataTables-example" >
   <thead>
@@ -339,6 +488,10 @@ $manufacturer=DB::table('manufacturers')->where('user_id', Auth::id())->first();
   </thead>
 
   <tbody><?php  $i =1;
+  $today = Carbon::today();
+  $one_week_ago = Carbon::now()->subWeeks(1);
+  $one_month_ago = Carbon::now()->subMonths(1);
+  $one_year_ago = Carbon::now()->subYears(1);
   $prescribedw = DB::table('prescriptions')
   ->Join('prescription_details', 'prescriptions.id', '=', 'prescription_details.presc_id')
   ->Join('prescription_filled_status', 'prescription_details.id', '=', 'prescription_filled_status.presc_details_id')
@@ -454,6 +607,7 @@ $manufacturer=DB::table('manufacturers')->where('user_id', Auth::id())->first();
   ['prescription_filled_status.created_at','>=',$one_month_ago],
   ['prescription_filled_status.created_at','<=',$today],
   ['druglists.id',$rep->drug_id],
+  ['pharmacy.county','like','%'.$rep->region.'%'],
   ])
   ->whereNotNull('prescription_filled_status.substitute_presc_id')
   ->get();
@@ -465,6 +619,7 @@ $manufacturer=DB::table('manufacturers')->where('user_id', Auth::id())->first();
   ->where([ ['substitute_presc_details.id', '=', $daily->substitute_presc_id],
   ['druglists.Manufacturer','Not like','%'.$Mname.'%'],
   ['druglists.id',$rep->drug_id],
+  
   ])
 
   ->first();
@@ -489,6 +644,74 @@ $manufacturer=DB::table('manufacturers')->where('user_id', Auth::id())->first();
   </tbody>
 
           </table>
+  @elseif(!empty($emp)) 
+  <table class="table table-striped table-bordered table-hover dataTables-example" >
+  <thead>
+  <tr>
+  <th>No</th>
+  <th>Prescribed Drug</th>
+  <th>Pharmacy  name</th>
+  <th>Prescribing Doctor</th>
+  <th>Substituted Drug</th>
+  <th>Facility Name</th>
+  <th>Reason</th>
+  <th>Quantity</th>
+  <th>Price</th>
+  <th> Value</th>
+  </tr>
+
+  </thead>
+
+  <tbody><?php  $i =1;
+  $prescribedm= DB::table('prescriptions')
+  ->Join('prescription_details', 'prescriptions.id', '=', 'prescription_details.presc_id')
+  ->Join('prescription_filled_status', 'prescription_details.id', '=', 'prescription_filled_status.presc_details_id')
+  ->Join('pharmacy', 'prescription_filled_status.outlet_id', '=', 'pharmacy.id')
+  ->Join('facilities', 'prescriptions.facility_id', '=', 'facilities.FacilityCode')
+  ->Join('doctors', 'prescriptions.doc_id', '=', 'doctors.doc_id')
+  ->Join('druglists', 'prescription_details.drug_id', '=', 'druglists.id')
+  ->select('prescription_filled_status.*','facilities.FacilityName','doctors.name','druglists.drugname','pharmacy.name as pharmacy',
+  'pharmacy.county','prescription_details.doseform',
+  'prescription_filled_status.substitute_presc_id')
+  ->where([ ['druglists.Manufacturer','like', '%'.$Mname.'%'],
+  ['prescription_filled_status.created_at','>=',$one_month_ago],
+  ['prescription_filled_status.created_at','<=',$today],
+  ['pharmacy.county','like','%'.$emp->region.'%'],
+  ])
+  ->whereNotNull('prescription_filled_status.substitute_presc_id')
+  ->get();
+  ?>
+  @foreach($prescribedm as $daily)
+  <?php $substitutedm = DB::table('substitute_presc_details')
+  ->Join('druglists', 'substitute_presc_details.drug_id', '=', 'druglists.id')
+  ->select('druglists.drugname as subdrugname')
+  ->where([ ['substitute_presc_details.id', '=', $daily->substitute_presc_id],
+  ['druglists.Manufacturer','Not like','%'.$Mname.'%'],
+   
+  ])
+
+  ->first();
+  ?>
+  <?php if($substitutedm) { ?>
+  <tr>
+  <td>{{$i}}</td>
+  <td>{{ $daily->drugname}}</td>
+  <td>{{$daily->pharmacy}}</td>
+  <td>{{$daily->name}}</td>
+  <td>{{$substitutedm->subdrugname}}</td>
+  <td>{{$daily->FacilityName}}</td>
+  <td>{{$daily->substitution_reason}}</td>
+  <td>{{$daily->quantity}}</td>
+  <td>{{$daily->price}}</td>
+  <td>{{($daily->quantity * $daily->price)}}</td>
+  </tr>
+  <?php $i++;  ?>
+  <?php } ?>
+
+  @endforeach
+  </tbody>
+
+          </table>       
   @else
   <table class="table table-striped table-bordered table-hover dataTables-example" >
   <thead>
@@ -623,6 +846,7 @@ $manufacturer=DB::table('manufacturers')->where('user_id', Auth::id())->first();
   ['prescription_filled_status.created_at','>=',$one_year_ago],
   ['prescription_filled_status.created_at','<=',$today],
   ['druglists.id',$rep->drug_id],
+  ['pharmacy.county','like','%'.$rep->region.'%'],
   ])
   ->whereNotNull('prescription_filled_status.substitute_presc_id')
   ->get();
@@ -634,6 +858,7 @@ $manufacturer=DB::table('manufacturers')->where('user_id', Auth::id())->first();
   ->where([ ['substitute_presc_details.id', '=', $daily->substitute_presc_id],
   ['druglists.Manufacturer','Not like','%'.$Mname.'%'],
   ['druglists.id',$rep->drug_id],
+  ['pharmacy.county','like','%'.$rep->region.'%'],
   ])
 
   ->first();
@@ -658,6 +883,75 @@ $manufacturer=DB::table('manufacturers')->where('user_id', Auth::id())->first();
   </tbody>
 
           </table>
+  @elseif(!empty($emp))
+  <table class="table table-striped table-bordered table-hover dataTables-example" >
+  <thead>
+  <tr>
+  <th>No</th>
+  <th>Prescribed Drug</th>
+  <th>Pharmacy  name</th>
+  <th>Prescribing Doctor</th>
+  <th>Substituted Drug</th>
+  <th>Facility Name</th>
+  <th>Reason</th>
+  <th>Quantity</th>
+  <th>Price</th>
+  <th> Value</th>
+  </tr>
+
+  </thead>
+
+  <tbody><?php  $i =1;
+  $prescribedy= DB::table('prescriptions')
+  ->Join('prescription_details', 'prescriptions.id', '=', 'prescription_details.presc_id')
+  ->Join('prescription_filled_status', 'prescription_details.id', '=', 'prescription_filled_status.presc_details_id')
+  ->Join('pharmacy', 'prescription_filled_status.outlet_id', '=', 'pharmacy.id')
+  ->Join('facilities', 'prescriptions.facility_id', '=', 'facilities.FacilityCode')
+  ->Join('doctors', 'prescriptions.doc_id', '=', 'doctors.doc_id')
+  ->Join('druglists', 'prescription_details.drug_id', '=', 'druglists.id')
+  ->select('prescription_filled_status.*','facilities.FacilityName','doctors.name','druglists.drugname','pharmacy.name as pharmacy',
+  'pharmacy.county','prescription_details.doseform',
+  'prescription_filled_status.substitute_presc_id')
+  ->where([ ['druglists.Manufacturer','like', '%'.$Mname.'%'],
+  ['prescription_filled_status.created_at','>=',$one_year_ago],
+  ['prescription_filled_status.created_at','<=',$today],
+  ['pharmacy.county','like', '%'.$emp->region.'%'],
+  ])
+
+  ->whereNotNull('prescription_filled_status.substitute_presc_id')
+  ->get();
+  ?>
+  @foreach($prescribedy as $daily)
+  <?php $substitutedy = DB::table('substitute_presc_details')
+  ->Join('druglists', 'substitute_presc_details.drug_id', '=', 'druglists.id')
+  ->select('druglists.drugname as subdrugname')
+  ->where([ ['substitute_presc_details.id', '=', $daily->substitute_presc_id],
+  ['druglists.Manufacturer','Not like','%'.$Mname.'%'],
+  ])
+
+  ->first();
+  ?>
+  <?php if($substitutedy) { ?>
+  <tr>
+  <td>{{$i}}</td>
+  <td>{{ $daily->drugname}}</td>
+  <td>{{$daily->pharmacy}}</td>
+  <td>{{$daily->name}}</td>
+  <td>{{$substitutedy->subdrugname}}</td>
+  <td>{{$daily->FacilityName}}</td>
+  <td>{{$daily->substitution_reason}}</td>
+  <td>{{$daily->quantity}}</td>
+  <td>{{$daily->price}}</td>
+  <td>{{($daily->quantity * $daily->price)}}</td>
+  </tr>
+  <?php $i++;  ?>
+  <?php } ?>
+
+  @endforeach
+  </tbody>
+
+          </table>
+
   @else
   <table class="table table-striped table-bordered table-hover dataTables-example" >
   <thead>
@@ -790,6 +1084,7 @@ $manufacturer=DB::table('manufacturers')->where('user_id', Auth::id())->first();
     'prescription_filled_status.substitute_presc_id')
     ->where([ ['druglists.Manufacturer','like', '%'.$Mname.'%'],
       ['druglists.id',$rep->drug_id],
+      ['pharmacy.county','like','%'.$rep->region.'%'],
     ])
     ->whereNotNull('prescription_filled_status.substitute_presc_id')
     ->get();
@@ -801,6 +1096,72 @@ $manufacturer=DB::table('manufacturers')->where('user_id', Auth::id())->first();
     ->where([ ['substitute_presc_details.id', '=', $daily->substitute_presc_id],
     ['druglists.Manufacturer','Not like','%'.$Mname.'%'],
     ['druglists.id',$rep->drug_id],
+    ['pharmacy.county','like','%'.$rep->region.'%'],
+    ])
+
+    ->first();
+    ?>
+    <?php if($substitutedall) { ?>
+    <tr>
+    <td>{{$i}}</td>
+    <td>{{ $daily->drugname}}</td>
+    <td>{{$daily->pharmacy}}</td>
+    <td>{{$daily->name}}</td>
+    <td>{{$substitutedall->subdrugname}}</td>
+    <td>{{$daily->FacilityName}}</td>
+    <td>{{$daily->substitution_reason}}</td>
+    <td>{{$daily->quantity}}</td>
+    <td>{{$daily->price}}</td>
+    <td>{{($daily->quantity * $daily->price)}}</td>
+    </tr>
+    <?php $i++;  ?>
+    <?php } ?>
+
+    @endforeach
+    </tbody>
+
+            </table>
+    @elseif(!empty($emp))
+    <table class="table table-striped table-bordered table-hover dataTables-example" >
+    <thead>
+    <tr>
+    <th>No</th>
+    <th>Prescribed Drug</th>
+    <th>Pharmacy  name</th>
+    <th>Prescribing Doctor</th>
+    <th>Substituted Drug</th>
+    <th>Facility Name</th>
+    <th>Reason</th>
+    <th>Quantity</th>
+    <th>Price</th>
+    <th> Value</th>
+    </tr>
+
+    </thead>
+
+    <tbody><?php  $i =1;
+    $prescribedall = DB::table('prescriptions')
+    ->Join('prescription_details', 'prescriptions.id', '=', 'prescription_details.presc_id')
+    ->Join('prescription_filled_status', 'prescription_details.id', '=', 'prescription_filled_status.presc_details_id')
+    ->Join('pharmacy', 'prescription_filled_status.outlet_id', '=', 'pharmacy.id')
+    ->Join('facilities', 'prescriptions.facility_id', '=', 'facilities.FacilityCode')
+    ->Join('doctors', 'prescriptions.doc_id', '=', 'doctors.doc_id')
+    ->Join('druglists', 'prescription_details.drug_id', '=', 'druglists.id')
+    ->select('prescription_filled_status.*','facilities.FacilityName','doctors.name','druglists.drugname','pharmacy.name as pharmacy',
+    'pharmacy.county','prescription_details.doseform',
+    'prescription_filled_status.substitute_presc_id')
+    ->where([ ['druglists.Manufacturer','like', '%'.$Mname.'%'],
+            ['pharmacy.county','like', '%'.$emp->region.'%'],
+    ])
+    ->whereNotNull('prescription_filled_status.substitute_presc_id')
+    ->get();
+    ?>
+    @foreach($prescribedall  as $daily)
+    <?php $substitutedall = DB::table('substitute_presc_details')
+    ->Join('druglists', 'substitute_presc_details.drug_id', '=', 'druglists.id')
+    ->select('druglists.drugname as subdrugname')
+    ->where([ ['substitute_presc_details.id', '=', $daily->substitute_presc_id],
+    ['druglists.Manufacturer','Not like','%'.$Mname.'%'],
     ])
 
     ->first();
@@ -956,6 +1317,7 @@ $manufacturer=DB::table('manufacturers')->where('user_id', Auth::id())->first();
   'prescription_filled_status.substitute_presc_id')
   ->where([ ['druglists.Manufacturer','like', '%'.$Mname.'%'],
     ['druglists.id',$rep->drug_id],
+    ['pharmacy.county','like','%'.$rep->region.'%'],
   ])
   ->whereNotNull('prescription_filled_status.substitute_presc_id')
   ->get();
@@ -967,6 +1329,72 @@ $manufacturer=DB::table('manufacturers')->where('user_id', Auth::id())->first();
   ->where([ ['substitute_presc_details.id', '=', $daily->substitute_presc_id],
   ['druglists.Manufacturer','Not like','%'.$Mname.'%'],
   ['druglists.id',$rep->drug_id],
+  ['pharmacy.county','like','%'.$rep->region.'%'],
+  ])
+
+  ->first();
+  ?>
+  <?php if($substitutedall) { ?>
+  <tr>
+  <td>{{$i}}</td>
+  <td>{{ $daily->drugname}}</td>
+  <td>{{$daily->pharmacy}}</td>
+  <td>{{$daily->name}}</td>
+  <td>{{$substitutedall->subdrugname}}</td>
+  <td>{{$daily->FacilityName}}</td>
+  <td>{{$daily->substitution_reason}}</td>
+  <td>{{$daily->quantity}}</td>
+  <td>{{$daily->price}}</td>
+  <td>{{($daily->quantity * $daily->price)}}</td>
+  </tr>
+  <?php $i++;  ?>
+  <?php } ?>
+
+  @endforeach
+  </tbody>
+
+          </table>
+  @elseif(!empty($emp))
+  <table class="table table-striped table-bordered table-hover dataTables-example" >
+  <thead>
+  <tr>
+  <th>No</th>
+  <th>Prescribed Drug</th>
+  <th>Pharmacy  name</th>
+  <th>Prescribing Doctor</th>
+  <th>Substituted Drug</th>
+  <th>Facility Name</th>
+  <th>Reason</th>
+  <th>Quantity</th>
+  <th>Price</th>
+  <th> Value</th>
+  </tr>
+
+  </thead>
+
+  <tbody><?php  $i =1;
+  $prescribedall = DB::table('prescriptions')
+  ->Join('prescription_details', 'prescriptions.id', '=', 'prescription_details.presc_id')
+  ->Join('prescription_filled_status', 'prescription_details.id', '=', 'prescription_filled_status.presc_details_id')
+  ->Join('pharmacy', 'prescription_filled_status.outlet_id', '=', 'pharmacy.id')
+  ->Join('facilities', 'prescriptions.facility_id', '=', 'facilities.FacilityCode')
+  ->Join('doctors', 'prescriptions.doc_id', '=', 'doctors.doc_id')
+  ->Join('druglists', 'prescription_details.drug_id', '=', 'druglists.id')
+  ->select('prescription_filled_status.*','facilities.FacilityName','doctors.name','druglists.drugname','pharmacy.name as pharmacy',
+  'pharmacy.county','prescription_details.doseform',
+  'prescription_filled_status.substitute_presc_id')
+  ->where([ ['druglists.Manufacturer','like', '%'.$Mname.'%'],
+    ['pharmacy.county','like','%'.$emp->region.'%'],
+  ])
+  ->whereNotNull('prescription_filled_status.substitute_presc_id')
+  ->get();
+  ?>
+  @foreach($prescribedall  as $daily)
+  <?php $substitutedall = DB::table('substitute_presc_details')
+  ->Join('druglists', 'substitute_presc_details.drug_id', '=', 'druglists.id')
+  ->select('druglists.drugname as subdrugname')
+  ->where([ ['substitute_presc_details.id', '=', $daily->substitute_presc_id],
+  ['druglists.Manufacturer','Not like','%'.$Mname.'%'],
   ])
 
   ->first();

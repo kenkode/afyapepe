@@ -67,6 +67,15 @@
             @endforeach              
             </select>
              </div>
+             <div class="form-group">
+            <label for="exampleInputPassword1">Region</label>
+            <select name="region" class="form-control">
+            <?php $counties=DB::table('county')->get();?>
+            @foreach($counties as $county)
+           <option value="{{$county->county}}">{{$county->county}}</option>
+            @endforeach              
+            </select>
+             </div>
 
             
           

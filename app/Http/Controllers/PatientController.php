@@ -34,14 +34,20 @@ class PatientController extends Controller
       $nextkin=DB::table('kin_details')
       ->join('kin','kin.id','=','kin_details.relation')
       ->select('kin_details.kin_name','kin_details.phone_of_kin',
-        'kin.relation')->where('afya_user_id',$patient->id)->
-      orderBy('created_at','desc')->first();
+        'kin.relation')->where('kin_details.afya_user_id',$patient->id)->
+      first();
         return view('patient.home')->with('patient',$patient)->with('nextkin',$nextkin);
     }
     public function patientAllergies(){
       $id = Auth::id();
       $patient=DB::table('afya_users')->where('users_id',$id)->first();
       return view('patient.patientallery')->with('patient',$patient);
+    }
+
+    public function getDependant(){
+       $id = Auth::id();
+            $patient=DB::table('afya_users')->where('users_id',$id)->first();
+      return view('patient.patientdependants')->with('patient',$patient);
     }
 
   public function Expenditure(){

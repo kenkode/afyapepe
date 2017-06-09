@@ -269,6 +269,15 @@
                    @endforeach
                  </select>
                </div>
+               <?php
+               $prices = DB::table('inventory')
+                        ->select('recommended_retail_price')
+                        ->where('drug_id', '=', $results->drug_id)
+                        ->orderBy('updated_at', 'desc')
+                        ->first();
+                $recommended_price = $prices->recommended_retail_price;
+                ?>
+               <div class="form-group"><label>Recommended Price</label> <input type="number" name="rec_price" value="{{$recommended_price}}"  class="form-control" disabled></div>
                <div class="form-group"><label>Price</label> <input type="number" name="price" id="price" class="form-control" oninput="calculate()"></div>
                <div class="form-group"><label>Total</label> <input type="number" name="total" id="total" class="form-control" readonly oninput="calculate()"></div>
 

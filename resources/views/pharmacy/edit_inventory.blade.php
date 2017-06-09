@@ -10,7 +10,6 @@
 
     {!! Form::open(array('route' => 'submit_edited','method'=>'POST','class'=>'form-horizontal','role'=>'form')) !!}
 
-
     <!-- <div class="form-group">
         <label >Manufacturer:</label>
         <select id="manufacturer1" name="manufacturer" class="form-control manufacturer1" ></select>

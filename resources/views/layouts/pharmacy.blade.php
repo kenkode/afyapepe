@@ -30,8 +30,8 @@
       <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
       <script>
-  $( function() {
-    var dateFormat = "mm/dd/yy",
+      $( function() {
+      var dateFormat = "mm/dd/yy",
       from = $( ".from" ).datepicker({
           minDate: -0,
           defaultDate: "+1w",

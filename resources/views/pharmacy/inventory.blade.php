@@ -13,6 +13,7 @@
      <div class="ibox-tools">
 
      <a class="btn btn-primary " type="button" href="{{ URL::to('new_stock') }}"><i class="fa fa-paste"></i> Add Stock</a>
+
    </div>
 
  </div>
@@ -53,7 +54,9 @@
         <td>{{$inv->drugname}}</td>
         <td>{{$inv->Manufacturer}}</td>
         <td>{{$stock_level}}</td>
-        <td><a href="{{ route('edit_inventory',$inventory_id) }}">Edit</a> &nbsp;&nbsp;
+        <td>
+          <a href="{{ route('edit_inventory',$inventory_id) }}">Edit</a> &nbsp;&nbsp;
+          <a href="{{ route('update_inv',$inventory_id) }}">Update</a> &nbsp;&nbsp;
 
           <a data-toggle="modal" class="btn btn-primary" href="#modal-form" data-manufacturer="{{$inv->Manufacturer}}"
             data-drug="{{$inv->drugname}}" data-stock="{{$stock_level}}" data-id="{{$inv->inventory_id}}">Delete</a>

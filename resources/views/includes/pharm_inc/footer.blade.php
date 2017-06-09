@@ -197,3 +197,19 @@ $('#diag_id').val(data_id);
   //  }
   //   );
  </script>
+
+<script>
+<script>
+$(document).ready(function()
+{
+  var radios = document.getElementsByName('availability');
+
+for (var i=0; i<radios.length; i++)
+{
+  if (radios[i].type == 'radio')
+  {
+    radios[i].checked = false;
+  }
+}
+}
+</script>

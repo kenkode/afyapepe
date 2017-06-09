@@ -45,6 +45,7 @@
      <div class="form-group"><label>Quantity</label> <input type="number" name="quantity" class="form-control"></div>
 
      <div class="form-group"><label>Price</label> <input type="number" name="price" class="form-control"></div>
+     <div class="form-group"><label>Retail Price</label> <input type="number" name="retail_price" class="form-control"></div>
 
 
     <p> </p>

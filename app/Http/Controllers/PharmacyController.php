@@ -131,7 +131,7 @@ class PharmacyController extends Controller
         ->join('druglists', 'prescription_details.drug_id', '=', 'druglists.id')
         ->join('route', 'prescription_details.routes', '=', 'route.id')
         ->leftJoin('prescription_filled_status', 'prescription_details.id', '=', 'prescription_filled_status.presc_details_id')
-        ->select('druglists.drugname', 'prescriptions.*','prescription_details.*',
+        ->select('druglists.drugname', 'druglists.id AS drug_id', 'prescriptions.*','prescription_details.*',
          'route.name','prescription_details.id AS presc_id','prescriptions.id AS the_id',
          'prescriptions.appointment_id','appointments.persontreated','appointments.afya_user_id')
         ->where([
@@ -764,6 +764,7 @@ return Response::json($results);
     $strength_unit = $request->strength_unit;
     $quantity = $request->quantity;
     $price = $request->price;
+    $retail_price = $request->retail_price;
 
     DB::table('inventory')->insert([
       'drug_id'=>$drug,
@@ -771,6 +772,7 @@ return Response::json($results);
       'strength_unit'=>$strength_unit,
       'quantity'=>$quantity,
       'price'=>$price,
+      'recommended_retail_price'=>$retail_price,
       'submitted_by'=>$user_id,
       'outlet_id'=>$facility,
       'created_at'=>Carbon::now(),
@@ -791,6 +793,19 @@ return Response::json($results);
                 ->get();
 
     return view('pharmacy.edit_inventory')->with('inventory',$inventory);
+  }
+
+  public function getInventory2($id)
+  {
+    $inventory = DB::table('inventory')
+                ->join('druglists','druglists.id','=','inventory.drug_id')
+                ->join('strength','strength.strength','=','inventory.strength')
+                ->select('druglists.Manufacturer','druglists.drugname',
+                'druglists.id AS drug_id','strength.strength','inventory.*','inventory.id AS inventory_id')
+                ->where('inventory.id', '=', $id)
+                ->get();
+
+    return view('pharmacy.update_inventory')->with('inventory',$inventory);
   }
 
   public function editedInventory(Request $request)
@@ -822,6 +837,32 @@ return Response::json($results);
                       'outlet_id'=>$facility,
                       'updated_at'=>Carbon::now()
                     ]);
+
+    return redirect()->action('PharmacyController@showInventory');
+  }
+
+  public function updateInventory(Request $request)
+  {
+
+    $drug = $request->patient_prescription;
+    $quantity = $request->quantity;
+
+    $user_id = Auth::user()->id;
+
+    $data = DB::table('pharmacists')
+              ->where('user_id', $user_id)
+              ->first();
+
+    $facility = $data->premiseid;
+
+    DB::table('inventory_updates')->insert([
+      'drug_id'=>$drug,
+      'quantity'=>$quantity,
+      'submitted_by'=>$user_id,
+      'outlet_id'=>$facility,
+      'created_at'=>Carbon::now(),
+      'updated_at'=>Carbon::now()
+    ]);
 
     return redirect()->action('PharmacyController@showInventory');
   }

@@ -896,6 +896,21 @@ return Response::json($results);
 
   }
 
+  public function inventoryReport()
+  {
+    $reports = DB::table('druglists')
+              ->join('inventory', 'druglists.id', '=', 'inventory.drug_id')
+              ->join('inventory_updates', 'druglists.id', '=', 'inventory_updates.drug_id')
+              ->join('prescription_details', 'druglists.id', '=', 'prescription_details.drug_id')
+              ->join('prescription_filled_status', 'prescription_details.id', '=', 'prescription_filled_status.presc_details_id')
+              ->select('inventory.quantity AS inv_qty', 'inventory_updates.quantity AS inv_qty2',
+              'druglists.drugname', 'prescription_filled_status.quantity AS qty3')
+              ->groupBy('druglists.drugname')
+              ->get();
+
+      return view('pharmacy.inventory_report')->with('reports',$reports);
+  }
+
 
     /**
      * Show the form for editing the specified resource.

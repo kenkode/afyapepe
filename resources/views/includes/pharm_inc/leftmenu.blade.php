@@ -44,6 +44,8 @@
                            </ul>
                          </li>
 
+                         <li> <a href="{{route('inventory_report')}}"><i class="fa fa-money"></i> <span>Inventory Report</span></a></li>
+
 
                            <li><a href="{{ URL::to('#')}}">  <i class="glyphicon glyphicon-stats"></i> <span>Analytics</span></a></li>
                          <li>  <a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i><span>Logout</span> </a> </li>

@@ -112,11 +112,12 @@ if ($gender ==1){ $gender = 'Male';}else{ $gender = 'Female';}
           <div class="col-lg-12">
               <div class="tabs-container">
    <div class="row">
-     <?php $i=1; $fhDeta=DB::table('patient_test_details')
+  <?php $i=1; $fhDeta=DB::table('patient_test_details')
      ->leftJoin('lab_test', 'patient_test_details.tests_reccommended', '=', 'lab_test.id')
      ->select('lab_test.name','lab_test.category')
      ->where('patient_test_details.id', '=',$patientT->ptdid)
      ->first(); ?>
+
    <h3 class="text-center">{{$fhDeta->category}} Report</h3>
    <div class="col-lg-6 b-r">
    <div class="ibox float-e-margins">
@@ -140,7 +141,7 @@ if ($gender ==1){ $gender = 'Male';}else{ $gender = 'Female';}
    </thead>
    <tbody>
      <?php $i=1; $fh=DB::table('test_ranges')
-     ->leftJoin('test_results', 'test_ranges.test', '=', 'test_results.test')
+     ->leftJoin('test_results', 'test_ranges.id', '=', 'test_results.test')
      ->select('test_ranges.*','test_results.value')
      ->where('test_results.ptd_id', '=',$patientT->ptdid)
      ->get(); ?>
@@ -160,14 +161,43 @@ if ($gender ==1){ $gender = 'Male';}else{ $gender = 'Female';}
    </table>
    </div>
    </div>
+   <?php $i=1; $fh2=DB::table('interpretations')
+      ->where('lab_test_id', '=',$patientT->ptdid)->get(); ?>
+      @if($fh2)
+   <div class="ibox float-e-margins">
+   <h5>Interpretations</h5>
+   <div class="ibox-content">
+   <table class="table table-bordered">
+   <thead>
+   <tr>
+   <th>#</th>
+   <th>Units</th>
+   <th>Interpretations</th>
+   </tr>
+   </thead>
+   <tbody>
+
+   @foreach($fh2 as $fhtest)
+   <tr>
+   <td>{{$i}}</td>
+   <td>{{$fhtest->ranges}}</td>
+   <td>{{$fhtest->status}}</td>
+   <?php $i ++ ?>
+   </tr>
+   @endforeach
+
+   </tbody>
+   </table>
    </div>
+   </div>
+   @endif
+
+</div>
 
         <?php $i=1; $fhfilmr = DB::table('film_reports')
         ->where('ptd_id', '=',$patientT->ptdid)
         ->get(); ?>
-
-
-        <?php if($fhfilmr) { ?>
+  <?php if($fhfilmr) { ?>
 
 
           <div class="col-lg-6 ">
@@ -207,10 +237,10 @@ if ($gender ==1){ $gender = 'Male';}else{ $gender = 'Female';}
                 <h5>Results</h5>
                 <div class="ibox-content">
                     <div class="form-group"><label>Comment</label>
-                        <textarea class="form-control" rows="2" cols="20"> <?php echo $fhcommr->results; ?> </textarea>
+                        <textarea class="form-control" rows="2" cols="20" readonly=""> <?php echo $fhcommr->results; ?> </textarea>
                    </div>
                     <div class="form-group"><label>Other Information</label>
-                        <textarea class="form-control" rows="2" cols="20"> <?php echo $fhcommr->note; ?> </textarea>
+                        <textarea class="form-control" rows="2" cols="20" readonly> <?php echo $fhcommr->note; ?> </textarea>
                     </div>
                 </div>
               </div>

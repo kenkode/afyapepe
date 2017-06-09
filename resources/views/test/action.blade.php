@@ -75,10 +75,10 @@ if ($gender == 1) { $gender = 'Male'; }else{ $gender = 'Female'; }
 
 
 
+@include('test.fheamoglobin')
+@if($tsts1->name =='Moketch')
 
-@if($tsts1->name =='Full Haemoglobin')
-  @include('test.fheamoglobin')
-	@else
+
 	<div class="ibox float-e-margins">
 		 <div class="col-lg-12">
 			 <div class="tabs-container">
@@ -98,6 +98,7 @@ if ($gender == 1) { $gender = 'Male'; }else{ $gender = 'Female'; }
 				</div>
 				</div>
 				</div>
+				@else
 @endif
 
 @include('includes.default.footer')

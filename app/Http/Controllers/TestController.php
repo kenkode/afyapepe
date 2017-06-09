@@ -88,6 +88,7 @@ $now = Carbon::now();
   $test1 =$request->test;
   $ptd_id =$request->ptd_id;
   $film = $request->film;
+  $egfr = $request->egfr;
 
 
   if($test1){
@@ -102,11 +103,18 @@ $now = Carbon::now();
     $filmRslt1 = DB::table('film_reports')->insert([
        'ptd_id' => $ptd_id,
        'appointment_id' => $request->get('appointment_id'),
-       'test' => $request->get('rbc'),
+       'test' => $request->get('test'),
        'status' => $film,
 
 ]);  }
+if($egfr){
+  $filmRslt2 = DB::table('film_reports')->insert([
+     'ptd_id' => $ptd_id,
+     'appointment_id' => $request->get('appointment_id'),
+     'test' =>'EGFR',
+     'status' => $egfr,
 
+]);  }
 
 if($com1){
   DB::table('patient_test_details')
@@ -152,10 +160,10 @@ if($com1){
              }
 
 }
-$testDdone=DB::table('patient_test_details')->where('id', '=',$ptd_id)->distinct()->first(['done']);
+$testDdone=DB::table('patient_test_details')->where('id', '=',$ptd_id)->distinct()->first(['results','patient_test_id']);
 
-if ($testDdone == 1) {
-  return redirect()->route('patientTests',$ptid);
+if ($testDdone->results) {
+  return redirect()->route('patientTests',$testDdone->patient_test_id);
 } else { return redirect()->route('perftest',$ptd_id); }
 }
 

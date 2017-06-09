@@ -28,7 +28,7 @@
       @foreach($fh as $fhtest)
       <?php  $fhresut=DB::table('test_results')
       ->where([ ['test_results.ptd_id', '=',$tsts1->id],
-                ['test_results.test', '=',$fhtest->test],
+                ['test_results.test', '=',$fhtest->id],
                 ['test_results.appointment_id', '=',$appId], ])
       //  ->orwhere('test_results.appointment_id', '=', $appId)
       ->first(); ?>
@@ -47,7 +47,37 @@
       </table>
       </div>
       </div>
+      <?php $i=1; $fh2=DB::table('interpretations')
+         ->where('lab_test_id', '=',$tsts1->tests_reccommended)->get(); ?>
+         @if($fh2)
+      <div class="ibox float-e-margins">
+      <h5>Interpretations</h5>
+      <div class="ibox-content">
+      <table class="table table-bordered">
+      <thead>
+      <tr>
+      <th>#</th>
+      <th>Units</th>
+      <th>Interpretations</th>
+      </tr>
+      </thead>
+      <tbody>
+
+      @foreach($fh2 as $fhtest)
+      <tr>
+      <td>{{$i}}</td>
+      <td>{{$fhtest->ranges}}</td>
+      <td>{{$fhtest->status}}</td>
+      <?php $i ++ ?>
+      </tr>
+      @endforeach
+
+      </tbody>
+      </table>
       </div>
+      </div>
+      @endif
+</div>
 
       <div class="col-lg-5">
        <div class="ibox float-e-margins">
@@ -74,11 +104,16 @@
         <div class="form-group">
         <label  class="">Film Report:</label>
         <select class="form-control" name ="film">
+      <option value=''>Choose one ..</option>
         <option value='Normocytic'>Normocytic</option>
         <option value='Normochromic'>Normochromic</option>
         <option value='Neutropenia'>Neutropenia</option>
         <option value='Adequate'>Adequate</option>
         </select>
+        </div>
+        <div class="form-group">
+        <label class="">EGFR:</label>
+        <input type="text" name="egfr" class="form-control">
         </div>
         <input type="hidden" name="appointment_id" value="{{$appId}}" class="form-control">
         <input type="hidden" name="ptd_id" value="{{$ptdId}}" class="form-control">
@@ -90,12 +125,16 @@
      {{ Form::close() }}
 
 
-  <h5>FILM REPORT</h5>
-
 {{ Form::open(array('route' => array('testfilm'),'method'=>'POST')) }}
 
         <label  class="">Comments:</label>
-        <select class="form-control" name="comments" >
+        <select class="form-control" name="comments" required >
+        <option value=''>Choose one ..</option>
+        <option value='Normal'>Normal</option>
+        <option value='Severe'>Severe</option>
+        <option value='High'>High</option>
+        <option value='Efficient'>Efficient</option>
+        <option value='Inefficient'>Inefficient</option>
         <option value='Borderline neutropenia'>Borderline neutropenia</option>
         <option value='Normal peripherial blood picture'>Normal peripherial blood picture</option>
         </select>

@@ -6,7 +6,7 @@ $Docdatas = $doc->DocDetails();
 foreach($Docdatas as $Docdata){
 
 
-$Did = $Docdata->doc_id;
+$Did = $Docdata->id;
 $Name = $Docdata->name;
 $Address = $Docdata->address;
 $RegNo = $Docdata->regno;
@@ -249,7 +249,7 @@ return redirect('doctor.create');
 
 
 {{ Form::hidden('appointment_id',$pdetails->app_id, array('class' => 'form-control')) }}
-{{ Form::hidden('doc_id',$Docdata->doc_id, array('class' => 'form-control')) }}
+{{ Form::hidden('doc_id',$Docdata->id, array('class' => 'form-control')) }}
 
 <div class="form-group  text-center">
 <button type="submit" class="btn btn-primary">Submit</button>  </td>
@@ -372,7 +372,7 @@ return redirect('doctor.create');
 
                             {{ Form::hidden('test_status',1, array('class' => 'form-control')) }}
                             {{ Form::hidden('appointment_id',$pdetails->app_id, array('class' => 'form-control')) }}
-                            {{ Form::hidden('doc_id',$Docdata->doc_id, array('class' => 'form-control')) }}
+                            {{ Form::hidden('doc_id',$Docdata->id, array('class' => 'form-control')) }}
 
                             <!-- <div class="form-group">
                              <label for="dosage" class="col-md-2 control-label">Doctor note</label></td>
@@ -411,7 +411,7 @@ return redirect('doctor.create');
 
                                   {{ Form::hidden('test_status',1, array('class' => 'form-control')) }}
                                   {{ Form::hidden('appointment_id',$pdetails->app_id, array('class' => 'form-control')) }}
-                                  {{ Form::hidden('doc_id',$Docdata->doc_id, array('class' => 'form-control')) }}
+                                  {{ Form::hidden('doc_id',$Docdata->id, array('class' => 'form-control')) }}
 
 
                       <div class="form-group col-md-8 col-md-offset-1">
@@ -444,7 +444,7 @@ return redirect('doctor.create');
 
                                   {{ Form::hidden('test_status',1, array('class' => 'form-control')) }}
                                   {{ Form::hidden('appointment_id',$pdetails->app_id, array('class' => 'form-control')) }}
-                                  {{ Form::hidden('doc_id',$Docdata->doc_id, array('class' => 'form-control')) }}
+                                  {{ Form::hidden('doc_id',$Docdata->id, array('class' => 'form-control')) }}
 
 
                       <div class="form-group col-md-8 col-md-offset-1">
@@ -475,7 +475,7 @@ return redirect('doctor.create');
 
                                   {{ Form::hidden('test_status',1, array('class' => 'form-control')) }}
                                   {{ Form::hidden('appointment_id',$pdetails->app_id, array('class' => 'form-control')) }}
-                                  {{ Form::hidden('doc_id',$Docdata->doc_id, array('class' => 'form-control')) }}
+                                  {{ Form::hidden('doc_id',$Docdata->id, array('class' => 'form-control')) }}
 
 
                       <div class="form-group col-md-8 col-md-offset-1">

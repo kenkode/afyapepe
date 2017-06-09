@@ -6,7 +6,7 @@ $Docdatas = $doc->DocDetails();
 foreach($Docdatas as $Docdata){
 
 
-$Did = $Docdata->doc_id;
+$Did = $Docdata->id;
 $Name = $Docdata->name;
 $Address = $Docdata->address;
 $RegNo = $Docdata->regno;
@@ -313,6 +313,8 @@ if ($gender ==1){ $gender = 'Male';}else{ $gender = 'Female';}
             {{ Form::hidden('appointment_id',$app_id, array('class' => 'form-control')) }}
             {{ Form::hidden('dependant_id',$dependantId, array('class' => 'form-control')) }}
             {{ Form::hidden('afya_user_id',$afyauserId, array('class' => 'form-control')) }}
+           {{ Form::hidden('facility_id',$fac_id, array('class' => 'form-control')) }}
+          {{ Form::hidden('doc_id',$Did, array('class' => 'form-control')) }}
     </div>
 </div>
 

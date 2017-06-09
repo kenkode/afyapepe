@@ -34,7 +34,7 @@ class TestController extends Controller
       ->leftJoin('appointments', 'patient_test.appointment_id', '=', 'appointments.id')
       ->leftJoin('afya_users', 'appointments.afya_user_id', '=', 'afya_users.id')
       ->leftJoin('dependant', 'appointments.persontreated', '=', 'dependant.id')
-  ->leftJoin('facility_test', 'patient_test.facility', '=', 'facility_test.facilitycode')
+   ->leftJoin('facility_test', 'patient_test.facility', '=', 'facility_test.facilitycode')
      ->select('afya_users.*','patient_test.id as tid','patient_test.created_at as date',
       'patient_test.test_status','appointments.persontreated',
       'dependant.firstName as depname','dependant.secondName as depname2',

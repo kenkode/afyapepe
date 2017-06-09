@@ -51,13 +51,17 @@ $pttids= DB::table('patient_diagnosis')
                         'severity' => $request->get('severity'),
                         'chronic' => $request->get('chronic'),
                         'appointment_id' => $request->get('appointment_id'),
+                        'facility_id' => $request->get('facility_id'),
+                        'doc_id' => $request->get('doc_id'),
                         'date_diagnosed' => $Now,
+
 ]);
 }
+if ($ptdid) {
 DB::table('patient_test_details')
           ->where('id',$ptdid)
           ->update(['confirm'=>'Y']);
-
+}
 if ($state == 'Discharge') {
 return redirect()->route('disdiagnosis', ['id' => $appointment]);
 } elseif ($state =='Normal'){
@@ -71,10 +75,11 @@ return redirect()->route('diagnoses', ['id' => $appointment]);
       $patientD =DB::table('appointments')
       ->leftjoin('afya_users','appointments.afya_user_id','=','afya_users.id')
       ->leftjoin('dependant','appointments.persontreated','=','dependant.id')
+      ->leftJoin('patient_admitted', 'appointments.id', '=', 'patient_admitted.appointment_id')
       ->leftjoin('facilities','appointments.facility_id','=','facilities.FacilityCode')
       ->select('appointments.*','afya_users.firstname','afya_users.dob','afya_users.secondName','afya_users.gender',
         'dependant.firstName as dep1name','dependant.secondName as dep2name','dependant.gender as depgender',
-        'dependant.dob as depdob','facilities.FacilityName')
+        'dependant.dob as depdob','facilities.FacilityName','facilities.set_up','patient_admitted.condition')
       ->where('appointments.id',$id)
       ->get();
 
@@ -89,6 +94,7 @@ return redirect()->route('diagnoses', ['id' => $appointment]);
 
                    ])
       ->get();
+
       return view('doctor.prescription')->with('patientD',$patientD)->with('Pdiagnosis',$Pdiagnosis);
 
     }

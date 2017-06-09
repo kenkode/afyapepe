@@ -52,6 +52,31 @@ class privateController extends Controller
 
         return view('private.patients')->with('patients',$patients);
     }
+
+    public function privadmitted()
+    {
+      $today = Carbon::today();
+      $facilitycode=DB::table('facility_doctor')->where('user_id', Auth::id())->first();
+      $patients = DB::table('appointments as app')
+        ->leftJoin('afya_users as par', 'app.afya_user_id', '=', 'par.id')
+        ->leftjoin('dependant as dep','app.persontreated','=','dep.id')
+        ->leftJoin('patient_admitted as pad', 'app.id', '=', 'pad.appointment_id')
+        ->select('par.id as parid','par.firstname as first','par.secondName as second','par.gender as gender','par.dob as dob','dep.id as depid','dep.firstName as dfirst','dep.secondName as dsecond','dep.dob as ddob',
+            'dep.gender as dgender','app.id as appid','app.created_at as created_at','app.persontreated as persontreated')
+        ->where('app.status','=',2)
+        ->where('app.created_at','>=',$today)
+        ->where('app.facility_id',$facilitycode->facilitycode)
+        ->where
+                  ([
+                        ['app.created_at','>=',$today],
+                        ['app.status','=',2],
+                        ['pad.condition', '=','Admitted'],
+                        ['app.facility_id',$facilitycode->facilitycode],
+                       ])
+        ->get();
+
+        return view('private.admitted')->with('patients',$patients);
+    }
     public function selectChoice($id){
 
       return view('registrar.selects')->with('id',$id);

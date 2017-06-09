@@ -364,7 +364,7 @@
 
 
                         <div class="form-group"><label class="col-lg-4 control-label">Age</label>
-                        <div class="col-lg-8"><input type="text" value="{{ $dependantage}}" class="form-control" readonly="readonly" > </div>
+                        <div class="col-lg-8"><input type="text" value="{{ $age}}" class="form-control" readonly="readonly" > </div>
                         </div>
                         @foreach($BabyD as $baby)
                         <div class="form-group"><label class="col-lg-4 control-label">Birth wt</label>

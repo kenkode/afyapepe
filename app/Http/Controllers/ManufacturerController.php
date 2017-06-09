@@ -178,6 +178,7 @@ return view('manufacturer.settings');
       $email=$request->email;
       $password=$request->password;
       $job=$request->job;
+      $region=$request->region;
 
       $user=DB::table('users')->insertGetId([
          'name'=>$name,
@@ -193,6 +194,7 @@ return view('manufacturer.settings');
          'manu_id'=>$id,
          'users_id'=>$user,
          'job'=>$job,
+         'region'=>$region,
          'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
          'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
 
@@ -212,33 +214,26 @@ public function getSalesrep(){
 
 public function addSalesrep(Request $request){
   $id=$request->id;
-      $role=$request->role;
-      $name=$request->name;
-      $email=$request->email;
-      $password=$request->password;
+  $user=$request->user;
+  $drug=$request->drug;
+   $region=$request->region;
+    
      
      $manu=DB::table('manufacturers_employees')->where('users_id',$id)->first();
 
-      $user=DB::table('users')->insertGetId([
-         'name'=>$name,
-          'email'=>$email,
-          'role'=>$role,
-          'password'=>bcrypt($password),
-    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
-    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
-
-        ]);
+     
 
       DB::table('sales_rep')->insert([
          'manu_id'=>$manu->manu_id,
          'users_id'=>$user,
          'manager_id'=>$id,
+         'drug_id'=>$drug,
+         'region'=>$region,
          'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
          'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
 
         ]);
- DB::table('role_user')->insert(['user_id'=>$user,
-      'role_id'=>5]);
+ 
 return redirect()->action('ManufacturerController@getSalesrep');
 
 }

@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="{!! asset('js/plugins/gritter/jquery.gritter.css') !!}" />
     <link rel="stylesheet" href="{!! asset('css/vendor.css') !!}" />
     <link rel="stylesheet" href="{!! asset('css/app.css') !!}" />
+    <link rel="stylesheet" href="{{asset('select/select2.min.css') }}" />
 
     <link rel="stylesheet" href="{!! asset('css/bootstrap.min.css') !!}" />
     <link rel="stylesheet" href="{!! asset('font-awesome/css/font-awesome.css') !!}" />
@@ -45,7 +46,7 @@
     <script src="{{ asset('js/plugins/metisMenu/jquery.metisMenu.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/plugins/slimscroll/jquery.slimscroll.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/plugins/dataTables/datatables.min.js') }}" type="text/javascript"></script>
-
+<script src="{{ asset('select/select2.min.js') }}" type="text/javascript"></script>
     <!-- Custom and plugin javascript -->
     <!-- <script src="{{ asset('js/inspinia.js') }}" type="text/javascript"></script> -->
     <script src="{{ asset('js/plugins/pace/pace.min.js') }}" type="text/javascript"></script>
@@ -92,6 +93,7 @@ if (typeof $(this).data('id') !== 'undefined') {
     })
   });
   </script>
+
     <script>
         $(document).ready(function(){
             $('.dataTables-example').DataTable({

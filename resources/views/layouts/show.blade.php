@@ -10,30 +10,36 @@
 
     <title>Afyapepe- @yield('title') </title>
 
-    <link rel="stylesheet" href="{{asset('bootstrap/css/bootstrap.min.css') }}" />
-    <link rel="stylesheet" href="{{asset('select/select2.min.css') }}" />
-
-  <link rel="stylesheet" href="{{asset('css/plugins/chosen/bootstrap-chosen.css') }}" />
+<link rel="stylesheet" href="{{asset('bootstrap/css/bootstrap.min.css') }}" />
+<link rel="stylesheet" href="{{asset('select/select2.min.css') }}" />
+<link rel="stylesheet" href="{{asset('css/plugins/chosen/bootstrap-chosen.css') }}" />
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- <link rel="stylesheet" href="{{asset('css/bootstrap.min.css') }}" /> -->
-    <link rel="stylesheet" href="{{asset('font-awesome/css/font-awesome.css') }}" />
-    <link rel="stylesheet" href="{{asset('css/plugins/dataTables/datatables.min.css') }}" />
-  <link rel="stylesheet" href="{{asset('css/plugins/datapicker/datepicker3.css') }}" />
-  <link rel="stylesheet" href="{{asset('css/plugins/clockpicker/clockpicker.css') }}" />
+<link rel="stylesheet" href="{{asset('font-awesome/css/font-awesome.css') }}" />
+<link rel="stylesheet" href="{{asset('css/plugins/dataTables/datatables.min.css') }}" />
+<link rel="stylesheet" href="{{asset('css/plugins/datapicker/datepicker3.css') }}" />
+<link rel="stylesheet" href="{{asset('css/plugins/clockpicker/clockpicker.css') }}" />
 
 
-  <link rel="stylesheet" href="{{asset('css/plugins/steps/jquery.steps.css') }}" />
-    <link rel="stylesheet" href="{{asset('css/animate.css') }}" />
-    <link rel="stylesheet" href="{{asset('css/style.css') }}" />
-    <link rel="stylesheet" href="{{asset('css/custom.css') }}" />
+<link rel="stylesheet" href="{{asset('css/plugins/steps/jquery.steps.css') }}" />
+<link rel="stylesheet" href="{{asset('css/animate.css') }}" />
+<link rel="stylesheet" href="{{asset('css/style.css') }}" />
+<link rel="stylesheet" href="{{asset('css/custom.css') }}" />
 
 </head>
 
 <body>
     <div id="wrapper">
-      @include('includes.doc_inc.leftmenu')
-
+    <?php $setUp= DB::table('facility_doctor')
+      ->leftJoin('facilities', 'facility_doctor.facilitycode', '=', 'facilities.FacilityCode')
+      ->where('facility_doctor.user_id', '=', Auth::user()->id)
+      ->select('facilities.set_up')
+      ->first();
+      ?>
+      @if($setUp->set_up == 'Partial')
+      @include('includes.private_inc.leftmenu')
+      @else
+@include('includes.doc_inc.leftmenu')
+      @endif
         <div id="page-wrapper" class="gray-bg dashbard-1">
 
     @include('includes.doc_inc.headbar')
@@ -44,35 +50,35 @@
 
     </div>
 
-    <!-- End wrapper-->
-    <meta name="_token" content="{!! csrf_token() !!}" />
+<!-- End wrapper-->
+<meta name="_token" content="{!! csrf_token() !!}" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-  <script src="{{asset('js/ajaxscript.js')}}"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="{{asset('js/ajaxscript.js')}}"></script>
 
-  <!-- Chosen -->
-  <script src="{{ asset('js/plugins/chosen/chosen.jquery.js') }}"></script>
+<!-- Chosen -->
+<script src="{{ asset('js/plugins/chosen/chosen.jquery.js') }}"></script>
 
-    <!-- Mainly scripts -->
-    <script src="{{ asset('js/jquery-3.1.1.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('bootstrap/js/bootstrap.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('js/plugins/metisMenu/jquery.metisMenu.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('js/plugins/slimscroll/jquery.slimscroll.min.js') }}" type="text/javascript"></script>
+<!-- Mainly scripts -->
+<script src="{{ asset('js/jquery-3.1.1.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('bootstrap/js/bootstrap.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('js/plugins/metisMenu/jquery.metisMenu.js') }}" type="text/javascript"></script>
+<script src="{{ asset('js/plugins/slimscroll/jquery.slimscroll.min.js') }}" type="text/javascript"></script>
 
 <!-- Custom and plugin javascript -->
-    <script src="{{ asset('js/plugins/dataTables/datatables.min.js') }}" type="text/javascript"></script>
-   <script src="{{ asset('select/select2.min.js') }}" type="text/javascript"></script>
-   <!-- Data picker -->
-   <script src="{{ asset('js/plugins/datapicker/bootstrap-datepicker.js') }}" type="text/javascript"></script>
-   <!-- Clock picker -->
-   <script src="{{ asset('js/plugins/clockpicker/clockpicker.js') }}" type="text/javascript"></script>
+<script src="{{ asset('js/plugins/dataTables/datatables.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('select/select2.min.js') }}" type="text/javascript"></script>
+<!-- Data picker -->
+<script src="{{ asset('js/plugins/datapicker/bootstrap-datepicker.js') }}" type="text/javascript"></script>
+<!-- Clock picker -->
+<script src="{{ asset('js/plugins/clockpicker/clockpicker.js') }}" type="text/javascript"></script>
 
-   <!-- Custom and plugin javascript -->
-  <script src="{{ asset('js/plugins/pace/pace.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('js/custom.js') }}" type="text/javascript"></script>
+<!-- Custom and plugin javascript -->
+<script src="{{ asset('js/plugins/pace/pace.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('js/custom.js') }}" type="text/javascript"></script>
 
-    <script src="{{ asset('js/plugins/steps/jquery.steps.min.js') }}" type="text/javascript"></script>
-      <script src="{{ asset('js/plugins/validate/jquery.validate.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('js/plugins/steps/jquery.steps.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('js/plugins/validate/jquery.validate.min.js') }}" type="text/javascript"></script>
 
 
 

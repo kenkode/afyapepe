@@ -4,7 +4,7 @@
 <br>
 <div class="row">
 
-  <?php  $dependants=DB::table('dependant')->where('afya_user_id',$id)->get();?>
+  <?php  $dependants=DB::table('dependant')->join('dependant_parent','dependant_parent.dependant_id','=','dependant.id')->select('dependant.*','dependant_parent.relationship as rlns')->where('dependant_parent.afya_user_id',$id)->get();?>
   @if(!empty($dependants))
 
 
@@ -37,7 +37,7 @@
                         <td><a href="{{URL('registrar.dependantTriage',$dependant->id)}}">{{$dependant->firstName}} {{$dependant->secondName}}</a></td>
                         <td>{{$dependant->gender}}</td>
                         
-                        <td>{{$dependant->relationship or ''}}</td>
+                        <td>{{$dependant->rlns or ''}}</td>
                         <td>{{$dependant->dob or ''}}</td>
                         <td>{{$dependant->pob or ''}}</td>
 

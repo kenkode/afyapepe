@@ -12,6 +12,7 @@ $('#div1').toggle('fast');
 
   });
 
+
 // show checkbox divs
 $(document).ready(function(){
  $('input[type="checkbox"]').click(function(){
@@ -32,7 +33,15 @@ $(document).ready(function(){
    });
 
 });
+// show quick diagnosis divs
+$(document).ready(function () {
+$('#quickD').hide();
 
+$('#button11').click(function () {
+$('#quickD').toggle('fast');
+$('#quickR').hide();
+               });
+});
 // select test
 $(".test-multiple").select2();
 

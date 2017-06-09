@@ -59,11 +59,11 @@
             </div>
 
             <div class="form-group">
-            <label for="exampleInputPassword1">Job Type</label>
+            <label for="exampleInputPassword1">Employee Type</label>
             <select name="job" class="form-control">
              <option>Select</option>
               <option value="Manager">Manager</option>
-              <option value="Sales">Sales Rep</option>
+              <option value="Sales Representatives">Sales Representatives</option>
             </select>
             </div>
           
@@ -71,7 +71,15 @@
             <label for="exampleInputPassword1">Default Password</label>
             <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="password">
             </div>
-
+             <div class="form-group">
+            <label for="exampleInputPassword1">Region</label>
+            <select name="region" class="form-control">
+            <?php $counties=DB::table('county')->get();?>
+            @foreach($counties as $county)
+           <option value="{{$county->county}}">{{$county->county}}</option>
+            @endforeach              
+            </select>
+             </div>
             <input  type="submit" class="btn btn-primary btn btn-block " value="Add">
     </form>
      
@@ -90,7 +98,8 @@
                                                           <th>No</th>
                                                      <th>Name</th>
                                                      <th>Email</th>
-                                                     <th>Group Group</th>
+                                                     <th>Group</th>
+                                                     <th>Region</th>
                                                     <th>Joined Date</th>
 
                                                          </tr>
@@ -101,7 +110,7 @@
                                                     <?php 
 
                                                     $i=1;
-                                                    $employees=DB::table('manufacturers_employees')->join('users','users.id','=','manufacturers_employees.users_id')->select('users.*','manufacturers_employees.job as job')->where('manufacturers_employees.manu_id',$id)->get();
+                                                    $employees=DB::table('manufacturers_employees')->join('users','users.id','=','manufacturers_employees.users_id')->select('users.*','manufacturers_employees.job as job','manufacturers_employees.region')->where('manufacturers_employees.manu_id',$id)->get();
 
                                                     ?>
 
@@ -111,6 +120,7 @@
                                                       <td>{{$employee->name}}</td>
                                                       <td>{{$employee->email}}</td>
                                                       <td>{{$employee->job}}</td>
+                                                      <td>{{$employee->region}}</td>
                                                       <td>{{$employee->created_at}}</td>
 
                                                     </tr>

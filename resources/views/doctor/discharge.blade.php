@@ -29,7 +29,8 @@ $Duser = $Docdata->user_id;
           $doc_id= $pdetails->doc_id;
           $fac_id= $pdetails->facility_id;
           $dependantAge= $pdetails->depdob;
-          $name= $pdetails->firstname;
+         $condition = $pdetails->condition;
+
 
  $now = time(); // or your date as well
  $your_date = strtotime($dependantAge);
@@ -44,7 +45,7 @@ $Duser = $Docdata->user_id;
 
 
 
-   <div class="ibox float-e-margins">
+
      <div class="ibox-title">
        <?php if ($dependantId =='Self') { ?>
       <h5>{{$pdetails->firstname}} {{$pdetails->secondName}}</h5>
@@ -59,34 +60,29 @@ $Duser = $Docdata->user_id;
       </div>
       <?php  }   } ?>
        </div>
-   <div class="ibox-content col-md-12">
+       <div class="ibox float-e-margins">
+         <div class="col-lg-12">
+           <div class="tabs-container">
      <ul class="nav nav-tabs">
        <li><a  href="{{route('showPatient',$app_id)}}">Today's Triage</a></li>
          <li><a href="{{route('patienthistory',$app_id)}}">History</a></li>
          <li><a href="{{route('testes',$app_id)}}">Tests</a></li>
          <li><a href="{{route('diagnoses',$app_id)}}">Diagnosis</a></li>
          <li><a href="{{route('medicines',$app_id)}}">Prescriptions</a></li>
-          <?php if ($stat==2) { ?>
-         <li class=""><a href="{{route('admit',$app_id)}}">Admit</a></li>
-         <?php } ?>
-          <?php if ($stat==4) { ?>
-         <li class=""><a href="{{route('discharge',$app_id)}}">Discharge</a></li>
-          <?php } ?>
+         @if ($condition =='Admitted')
+                 <li><a href="{{route('discharge',$app_id)}}">Discharge</a></li>
+          @else  <li><a href="{{route('admit',$app_id)}}">Admit</a></li>@endif
            <li cl ass=""><a href="{{route('transfering',$app_id)}}">Transfer</a></li>
-     <?php if ($stat==2) { ?>
          <li class="btn btn-primary"><a href="{{route('endvisit',$app_id)}}">End Visit</a></li>
-     <?php } ?>
-     <li class="btn btn-primary"><a href="{{ url('doctor') }}">End Visit</a></li>
-   </ul>
-<div class="col-md-8">
-   <div class="tabs-container">
-         <ul class="nav nav-tabs">
-            <li class="active"><a href="{{route('discharge',$app_id)}}"> Discharge Condition</a></li>
+         <li class="btn btn-primary"><a href="{{ url('doctor') }}">End Visit</a></li>
+      </ul>
+
+           <ul class="nav nav-tabs">
+             <li class="active"><a href="{{route('discharge',$app_id)}}"> Discharge Condition</a></li>
              <li class=""><a href="{{route('disdiagnosis',$app_id)}}"> Discharge Diagnosis</a></li>
              <li class=""><a href="{{route('disprescription',$app_id)}}">Discharge Prescription</a></li>
-         </ul>
- </div>
-</div>
+           </ul>
+
 <div class="ibox-content">
 <div class="row">
 
@@ -234,7 +230,7 @@ $Duser = $Docdata->user_id;
 </div>
 
 
-
+        </div>
       </div><!-- col md 12" -->
    </div><!-- emargis" -->
 

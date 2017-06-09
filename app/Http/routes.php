@@ -120,6 +120,7 @@ Route::get('appointment','DoctorController@Appointment');
 Route::get('calendar','DoctorController@Calendar');
 Route::resource('prescription', 'PrescriptionController@store');
 
+Route::get('newpatients', [ 'as' => 'doctor', 'uses' => 'DoctorController@index']);
 Route::get('patientadmitted', [ 'as' => 'admitted', 'uses' => 'DoctorController@Admitted']);
 Route::get('testdone/{id}', [ 'as' => 'testdone', 'uses' => 'PatientController@testdone']);
 Route::get('show/{id}',['as'=>'showPatient', 'uses'=>'PatientController@showpatient']);
@@ -141,6 +142,7 @@ Route::Post('testpost', [ 'as' => 'patienttest', 'uses' => 'PatientTestControlle
 Route::get('test/{id}', [ 'as' => 'testes', 'uses' => 'PatientTestController@testdata']);
 Route::get('diagnosis/{id}', [ 'as' => 'diagnoses', 'uses' => 'PatientTestController@diagnoses']);
 Route::Post('diagnosisconfirm', [ 'as' => 'diaconf', 'uses' => 'PatientTestController@diagnosesconf']);
+Route::get('diagconfirm/{id}', [ 'as' => 'Testconfirms', 'uses' => 'PatientTestController@Testconfirm']);
 
 Route::Post('diagnosis', [ 'as' => 'confdiag', 'uses' => 'PrescriptionController@diagnoses']);
 Route::get('prescriptions/{id}', [ 'as' => 'medicines', 'uses' => 'PrescriptionController@prescriptions']);
@@ -216,6 +218,7 @@ Route::group(['middleware' => ['auth','role:Admin|Patient']], function() {
 	Route::resource('patient','PatientController');
 	Route::get('PatientAllergies','PatientController@patientAllergies');
 	Route::get('expenditure','PatientController@Expenditure');
+	Route::get('patientdependants','PatientController@getDependant');
 
 	Route::get('patientappointment','PatientController@patientAppointment');
 	Route::get('patientcalendar','PatientController@patientCalendar');
@@ -254,8 +257,10 @@ Route::group(['middleware' => ['auth','role:Admin|Test']], function() {
 	Route::get('testsales','TestController@testSales');
 	Route::get('testanalytics','TestController@testAnalytics');
 	Route::get('patientTests/{id}', [ 'as' => 'patientTests', 'uses' => 'TestController@testdetails']);
-	// Route::get('testing/{id} ', [ 'as' => 'testing', 'uses' => 'TestController@testing']);
-  Route::Post('pdetails', [ 'as' => 'testResult', 'uses' => 'TestController@testResult']);
+
+	Route::get('action/{id}', [ 'as' => 'perftest', 'uses' => 'TestController@actions']);
+	Route::Post('pdetails', [ 'as' => 'testResult', 'uses' => 'TestController@testResult']);
+	Route::Post('pdetails2', [ 'as' => 'testfilm', 'uses' => 'TestController@testResult']);
 
 
 });
@@ -291,9 +296,8 @@ Route::get('/tag1/symptom','privateController@fsymptom');
 Route::get('/tag1/chief','privateController@fchief');
 Route::post('private.createdetail','privateController@createDetails');
 
-Route::get('privatepat','privateController@privatepatient');
-Route::get('show2/{id}',['as'=>'showPatient2', 'uses'=>'PatientController@showpatient']);
 
-
+Route::get('privatepatients', [ 'as' => 'privatepat', 'uses' => 'privateController@privatepatient']);
+Route::get('privateaddmited', [ 'as' => 'privadmpat', 'uses' => 'privateController@privadmitted']);
 
 });

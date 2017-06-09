@@ -45,24 +45,40 @@
        <form class="form-horizontal" role="form" method="POST" action="/addsalesrep" novalidate>
              <input type="hidden" name="_token" value="{{ csrf_token() }}">
              <input type="hidden" name="id" value="{{$id}}">
-             <input type="hidden" name="role" value="Manufacturer"/>
              
-          <div class="form-group">
-            <label for="exampleInputPassword1">Name</label>
-            <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Name" name="name">
-            </div>
+                       <div class="form-group">
+            <label for="exampleInputPassword1">Region</label>
+            <select name="user" class="form-control">
+            <?php $reps=DB::table('manufacturers_employees')->join('users','users.id','=','manufacturers_employees.users_id')->where('manufacturers_employees.job','=','Sales Representatives')->select('users.*')->get();?>
+            @foreach($reps as $rep)
+           <option value="{{$rep->id}}">{{$rep->name}}</option>
+            @endforeach              
+            </select>
+             </div>
+             <div class="form-group">
+            <label for="exampleInputPassword1">Assign Drug</label>
+            <select name="drug" class="form-control">
+            <?php
+            $emp=DB::table('manufacturers_employees')->where('users_id',$id)->first();
+            $manufacturer=DB::table('manufacturers')->where('user_id',$emp->manu_id)->first(); 
+            $drugs=DB::table('druglists')->where('Manufacturer',$manufacturer->name)->get();?>
+            @foreach($drugs as $drug)
+           <option value="{{$drug->id}}">{{$drug->drugname}}</option>
+            @endforeach              
+            </select>
+             </div>
+             <div class="form-group">
+            <label for="exampleInputPassword1">Region</label>
+            <select name="region" class="form-control">
+            <?php $counties=DB::table('county')->get();?>
+            @foreach($counties as $county)
+           <option value="{{$county->county}}">{{$county->county}}</option>
+            @endforeach              
+            </select>
+             </div>
 
             
-          <div class="form-group">
-            <label for="exampleInputPassword1">Email</label>
-            <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Email" name="email">
-            </div>
-
-                    
-            <div class="form-group">
-            <label for="exampleInputPassword1">Default Password</label>
-            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="password">
-            </div>
+          
 
             <input  type="submit" class="btn btn-primary btn btn-block " value="Add">
     </form>

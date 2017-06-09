@@ -72,8 +72,8 @@
 
                              </td>
                               @else
-                              <td><a href="{{route('showPatient',$patient->appid)}}">{{$i}}</a></td>
-                              <td><a href="{{route('showPatient',$patient->appid)}}">{{$patient->dfirst}} {{$patient->dsecond}}</a></td>
+                              <td><a href="{{url('#')}}">{{$i}}</a></td>
+                              <td><a href="{{url('#')}}">{{$patient->dfirst}} {{$patient->dsecond}}</a></td>
                               <td>{{$patient->dgender}}
                               </td>
                               <td><?php

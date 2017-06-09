@@ -5,6 +5,7 @@
   <div class="content-page  equal-height">
       <div class="content">
           <div class="container">
+          <div class="row">
        <div class="col-lg-4">
                      <div class="widget navy-bg ">
 
@@ -49,6 +50,10 @@
                     </div>
 
           </div>
+           <div class="col-lg-8">
+           </div>
+          </div>
+    <div class="row">       
   <div class="col-lg-12">
 
  
@@ -138,13 +143,14 @@
                       </tr>
                       <?php $i++ ?>
                       @endforeach
+                       </tbody>
 <?php $wekexp=DB::table('consultation_fees')->where('afyauser_id',$patient->id)
                     ->where('fee_required','=','Yes')->whereBetween('created_at', [
     Carbon\Carbon::now()->startOfWeek(),
     Carbon\Carbon::now()->endOfWeek(),
 ])->sum('amount'); ?>
  <td></td><td></td><td></td><td>Total</td><td></td><td>{{$wekexp}}</td>
-                     </tbody>
+                    
                    </table>
                        </div>
 
@@ -223,13 +229,14 @@
                       </tr>
                       <?php $i++ ?>
                       @endforeach
+                      </tbody>
           <?php $monthexp=DB::table('consultation_fees')->where('afyauser_id',$patient->id)
                     ->where('fee_required','=','Yes')->whereBetween('created_at', [
     Carbon\Carbon::now()->startOfMonth(),
     Carbon\Carbon::now()->endOfMonth(),
 ])->sum('amount'); ?>
                 <td></td><td></td><td></td><td>Total</td><td></td><td>{{$monthexp}}</td>
-                     </tbody>
+                     
                    </table>
                        </div>
 
@@ -307,12 +314,13 @@
                       </tr>
                       <?php $i++ ?>
                       @endforeach
+                       </tbody>
+                   
   <?php $yearexp=DB::table('consultation_fees')->where('afyauser_id',$patient->id)
                     ->where('fee_required','=','Yes')->whereYear('created_at','=',date("Y"))
  ->sum('amount'); ?>
  <td></td><td></td><td></td><td>Total</td><td></td><td>{{$yearexp}}</td>
-                     </tbody>
-                   </table>
+                    </table>
                        </div>
 
                    </div>
@@ -320,14 +328,15 @@
            </div>
            </div>
            </div>
+
+
+
            </div>
-       </div>
-       <br><br><br>
+       
+       
 
-       @include('includes.default.footer')
+     
 
-         </div><!--container-->
-      </div><!--content-->
-      </div><!--content page-->
+         
 
 @endsection

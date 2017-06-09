@@ -32,9 +32,9 @@
             <li>
           <a href=""><i class="fa fa-th-large"></i> <span class="nav-label">Patients</span> <span class="fa arrow"></span></a>
           <ul class="nav nav-second-level">
-            <li><a href="{{ url('privatepat') }}"><span>Today's Patient</span></a></li>
-            <li><a href="{{ route('admitted') }}"><span>Admitted Patients</span></a></li>
-            <li><a href="{{ url('appointment') }}"><span>Appointment</span></a></li>
+              <li><a href="{{ url('private') }}"><span>New Patient</span></a></li>
+            <li><a href="{{ route('privatepat') }}"><span>Today's Patient</span></a></li>
+            <li><a href="{{ route('privadmpat') }}"><span>Admitted Patients</span></a></li>
           </ul>
           </li><li> <a href="{{ URL::to('private.fees')}}"><i class="fa fa-money"></i> <span>Consultation Fees</span></a></li>
 <li> <a href="{{ URL::to('#')}}">  <i class="fa fa-envelope "></i> <span>Email</span></a></li>

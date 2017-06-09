@@ -36,7 +36,7 @@ class DoctorController extends Controller
        $patients = DB::table('appointments')
        ->leftJoin('afya_users', 'appointments.afya_user_id', '=', 'afya_users.id')
         ->leftJoin('triage_details', 'appointments.id', '=', 'triage_details.appointment_id')
-->leftJoin('facility_doctor', 'appointments.doc_id', '=', 'facility_doctor.doctor_id')
+    ->leftJoin('facility_doctor', 'appointments.facility_id', '=', 'facility_doctor.facilitycode')
         ->leftJoin('doctors', 'appointments.doc_id', '=', 'doctors.doc_id')
         ->leftJoin('triage_infants', 'appointments.id', '=', 'triage_infants.appointment_id')
         ->leftJoin('dependant', 'triage_infants.dependant_id', '=', 'dependant.id')
@@ -76,7 +76,8 @@ public function dependant()
 
   $patients = DB::table('appointments')
   ->leftJoin('dependant', 'appointments.persontreated', '=', 'dependant.id')
-  ->leftJoin('doctors', 'appointments.doc_id', '=', 'doctors.doc_id')
+  ->leftJoin('facility_doctor', 'appointments.doc_id', '=', 'facility_doctor.doctor_id')
+->leftJoin('doctors', 'appointments.doc_id', '=', 'doctors.doc_id')
   ->leftJoin('triage_infants', 'appointments.id', '=', 'triage_infants.appointment_id')
   ->leftJoin('afya_users', 'dependant.afya_user_id', '=', 'afya_users.id')
   ->leftJoin('constituency', 'afya_users.constituency', '=', 'constituency.const_id')
@@ -85,7 +86,7 @@ public function dependant()
   ->where([
                   ['appointments.created_at','>=',$today],
                   ['appointments.status', '=', 2],
-                  ['doctors.user_id', '=',Auth::user()->id],
+                  ['facility_doctor.user_id', '=',Auth::user()->id],
                  ])
     ->get();
 
@@ -145,26 +146,27 @@ return redirect()->route('doctor.index')->with('success','User created successfu
       $patients = DB::table('appointments')
       ->leftJoin('patient_admitted', 'appointments.id', '=', 'patient_admitted.appointment_id')
       ->leftJoin('afya_users', 'appointments.afya_user_id', '=', 'afya_users.id')
+      ->leftJoin('facility_doctor', 'appointments.doc_id', '=', 'facility_doctor.doctor_id')
       ->leftJoin('doctors', 'appointments.doc_id', '=', 'doctors.doc_id')
        ->leftJoin('triage_details', 'appointments.id', '=', 'triage_details.appointment_id')
        ->leftJoin('triage_infants', 'appointments.id', '=', 'triage_infants.appointment_id')
        ->leftJoin('dependant', 'triage_infants.dependant_id', '=', 'dependant.id')
         ->leftJoin('constituency', 'afya_users.constituency', '=', 'constituency.const_id')
-        ->select('afya_users.*','triage_details.*','triage_infants.*','appointments.id as appid',
+        ->select('afya_users.*','triage_details.*','appointments.id as appid',
          'appointments.created_at','appointments.facility_id','constituency.Constituency',
          'appointments.persontreated',
          'triage_infants.weight as Infweight','triage_infants.height as Infheight','triage_infants.temperature as Inftemp',
-        'triage_infants.chief_compliant as Infcompliant',
+        'triage_infants.chief_compliant as Infcompliant','triage_infants.systolic_bp as Infsyst','triage_infants.diastolic_bp as Infdiast',
          'triage_infants.observation as Infobservation','triage_infants.symptoms as Infsymptoms','triage_infants.nurse_notes as Infnotes',
          'dependant.firstName as Infname','dependant.secondName as InfName','dependant.gender as Infgender','dependant.blood_type as Infblood_type',
          'dependant.dob as Infdob','dependant.pob as Infpob'
        )
    ->where
-   ([
+             ([
                    ['appointments.created_at','>=',$today],
                    ['appointments.status', '=', 2],
                    ['patient_admitted.condition', '=','Admitted'],
-                   ['doctors.user_id', '=',Auth::user()->id],
+                   ['facility_doctor.user_id', '=',Auth::user()->id],
                   ])
         ->get();
 
@@ -178,7 +180,8 @@ return redirect()->route('doctor.index')->with('success','User created successfu
        ->leftJoin('triage_details', 'appointments.id', '=', 'triage_details.appointment_id')
        ->leftJoin('triage_infants', 'appointments.id', '=', 'triage_infants.appointment_id')
        ->leftJoin('dependant', 'triage_infants.dependant_id', '=', 'dependant.id')
-       ->leftJoin('doctors', 'appointments.doc_id', '=', 'doctors.doc_id')
+       ->leftJoin('facility_doctor', 'appointments.doc_id', '=', 'facility_doctor.doctor_id')
+        ->leftJoin('doctors', 'appointments.doc_id', '=', 'doctors.doc_id')
         ->leftJoin('constituency', 'afya_users.constituency', '=', 'constituency.const_id')
         ->select('afya_users.*','triage_details.*','triage_infants.*','appointments.id as appid',
          'appointments.created_at','appointments.facility_id','constituency.Constituency',
@@ -193,7 +196,7 @@ return redirect()->route('doctor.index')->with('success','User created successfu
              ['appointments.appointment_date','>=',$today],
              ['appointments.status', '=', 2],
              ['appointments.appointment_made', '=','Y'],
-             ['doctors.user_id', '=',Auth::user()->id],
+             ['facility_doctor.user_id', '=',Auth::user()->id],
           ])
 
         ->get();
@@ -236,11 +239,9 @@ return redirect()->route('doctor.index')->with('success','User created successfu
     function DocDetails(){
 
       $uid = Auth::user()->id;
-      $DocDetails = DB::table('doctors')->where('user_id', '=', Auth::user()->id)->get();
+      $DocDetails = DB::table('facility_doctor')
+      ->leftJoin('doctors', 'facility_doctor.doctor_id', '=', 'doctors.doc_id')
+      ->where('facility_doctor.user_id', '=', Auth::user()->id)->get();
      return $DocDetails;
-
 }
-
-
-
 }

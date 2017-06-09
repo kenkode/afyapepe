@@ -126,7 +126,7 @@
     <div class="col-sm-6 col-sm-offset-2">
         <div class="ibox float-e-margins">
               <form class="form-horizontal">
-
+  @if(!empty($nextkin))
               <h4>Next of Kin Details</h4>
                 <div class="form-group">
                 <label for="exampleInputEmail1">Name</label>
@@ -144,9 +144,9 @@
                 <input type="number" class="form-control" id="exampleInputPassword1" placeholder="" name="phone" value="{{$nextkin->phone_of_kin}}" readonly="" 
                 >
                 </div>
-               <input type="submit" class="btn btn-block btn-primary" value="Update Details">
+      
                </form>
-                        </div>
+       @endif                </div>
 
             </div>
             </div>

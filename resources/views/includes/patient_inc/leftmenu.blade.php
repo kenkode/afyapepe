@@ -27,6 +27,8 @@
 
             <li><a href="{{ URL::to('PatientAllergies')}}"><i class="fa fa-plus-square" aria-hidden="true"></i>
  <span>Patient Details</span></a></li>
+ <li><a href="{{ URL::to('patientdependants')}}"><i class="fa fa-plus-square" aria-hidden="true"></i>
+ <span>Dependent Details</span></a></li>
 
 <li><a href="{{ URL::to('expenditure')}}">  <i class="fa fa-money "></i> <span>Health Expenditure</span></a></li>
 

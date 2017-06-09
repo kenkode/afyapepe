@@ -15,13 +15,21 @@
     <link rel="stylesheet" href="{!! asset('css/vendor.css') !!}" />
     <link rel="stylesheet" href="{!! asset('css/app.css') !!}" />
 
-    <link rel="stylesheet" href="{!! asset('css/bootstrap.min.css') !!}" />
-    <link rel="stylesheet" href="{!! asset('font-awesome/css/font-awesome.css') !!}" />
-    <link rel="stylesheet" href="{!! asset('css/plugins/dataTables/datatables.min.css') !!}" />
-    <link rel="stylesheet" href="{!! asset('css/animate.css') !!}" />
-    <link rel="stylesheet" href="{!! asset('css/style.css') !!}" />
-    <link rel="stylesheet" href="{{asset('select/select2.min.css') }}" />
+    <link rel="stylesheet" href="{{asset('bootstrap/css/bootstrap.min.css') }}" />
 
+    <link rel="stylesheet" href="{{asset('css/plugins/chosen/bootstrap-chosen.css') }}" />
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{asset('font-awesome/css/font-awesome.css') }}" />
+    <link rel="stylesheet" href="{{asset('css/plugins/dataTables/datatables.min.css') }}" />
+    <link rel="stylesheet" href="{{asset('css/plugins/datapicker/datepicker3.css') }}" />
+    <link rel="stylesheet" href="{{asset('css/plugins/clockpicker/clockpicker.css') }}" />
+
+    <link rel="stylesheet" href="{{asset('select/select2.min.css') }}" />
+    <link rel="stylesheet" href="{{asset('css/plugins/steps/jquery.steps.css') }}" />
+    <link rel="stylesheet" href="{{asset('css/animate.css') }}" />
+    <link rel="stylesheet" href="{{asset('css/style.css') }}" />
+    <link rel="stylesheet" href="{{asset('css/custom.css') }}" />
 </head>
 
 <body>
@@ -39,6 +47,14 @@
         </div>
 
     </div>
+    <!-- End wrapper-->
+    <meta name="_token" content="{!! csrf_token() !!}" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="{{asset('js/ajaxscript.js')}}"></script>
+
+    <!-- Chosen -->
+    <script src="{{ asset('js/plugins/chosen/chosen.jquery.js') }}"></script>
 
     <!-- Mainly scripts -->
     <script src="{{ asset('js/app.js') }}" type="text/javascript"></script>
@@ -82,6 +98,17 @@
     <!-- Toastr -->
     <script src="{{ asset('js/plugins/toastr/toastr.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/plugins/datapicker/bootstrap-datepicker.js') }}" type="text/javascript"></script>
+    <!-- Custom and plugin javascript -->
+    <script src="{{ asset('select/select2.min.js') }}" type="text/javascript"></script>
+  <!-- Clock picker -->
+    <script src="{{ asset('js/plugins/clockpicker/clockpicker.js') }}" type="text/javascript"></script>
+
+    <!-- Custom and plugin javascript -->
+
+    <script src="{{ asset('js/custom.js') }}" type="text/javascript"></script>
+
+    <script src="{{ asset('js/plugins/steps/jquery.steps.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/plugins/validate/jquery.validate.min.js') }}" type="text/javascript"></script>
 
     <!-- Page-Level Scripts -->
     <script>
@@ -134,5 +161,7 @@
                 }
             });
         </script>
+
+
 </body>
 </html>

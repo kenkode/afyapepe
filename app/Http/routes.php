@@ -209,7 +209,9 @@ Route::post('submit_edited', ['as' => 'submit_edited', 'uses' => 'PharmacyContro
 Route::post('delete_inventory', ['as' => 'delete_inventory', 'uses' => 'PharmacyController@deleteInventory']);
 Route::post('inventory_update', ['as' => 'inventory_update', 'uses' => 'PharmacyController@updateInventory']);
 Route::get('update_inv/{id}', ['as' => 'update_inv', 'uses' => 'PharmacyController@getInventory2']);
+
 Route::get('inventory_report', ['as' => 'inventory_report', 'uses' => 'PharmacyController@inventoryReport']);
+
 });
 
 

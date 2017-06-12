@@ -101,8 +101,11 @@
           <div class="form-group"><label>Value</label>
           <input type="text" name="value" placeholder="Enter Value" class="form-control"></div>
         </div>
+        
+        <?php $fh11=DB::table('lab_test')->where('id', '=',$tsts1->tests_reccommended)->first(['id']); ?>
+        @if($fh11->id == '175')
         <div class="form-group">
-        <label  class="">Film Report:</label>
+        <label  class="">Film Report:(for RBC,WBC,Platelets)</label>
         <select class="form-control" name ="film">
       <option value=''>Choose one ..</option>
         <option value='Normocytic'>Normocytic</option>
@@ -111,10 +114,12 @@
         <option value='Adequate'>Adequate</option>
         </select>
         </div>
-        <div class="form-group">
+        @else @endif
+
+        <!-- <div class="form-group">
         <label class="">EGFR:</label>
         <input type="text" name="egfr" class="form-control">
-        </div>
+        </div> -->
         <input type="hidden" name="appointment_id" value="{{$appId}}" class="form-control">
         <input type="hidden" name="ptd_id" value="{{$ptdId}}" class="form-control">
 

@@ -215,7 +215,7 @@ $triagedetails= DB::table('appointments')
       <?php } }
       $i=1;
       $tstdone = DB::table('patient_test_details')
-      ->leftJoin('facilities', 'patient_test_details.facility_done', '=', 'facilities.FacilityCode')
+      ->leftJoin('facilities', 'patient_test_details.facility_done', '=', 'facilities.id')
       ->leftJoin('lab_test', 'patient_test_details.tests_reccommended', '=', 'lab_test.id')
       ->leftJoin('diagnoses', 'patient_test_details.conditional_diag_id', '=', 'diagnoses.id')
       ->select('patient_test_details.*','facilities.*','lab_test.name','diagnoses.name as diagnoses')
@@ -237,7 +237,7 @@ $triagedetails= DB::table('appointments')
                 <th>Conditional Diagnosis</th>
                 <th>Status</th>
                 <th>Result</th>
-                <th>Faciity</th>
+                <th>Facility</th>
                 <th>Note</th>
               </tr>
             </thead>

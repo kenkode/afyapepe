@@ -76,7 +76,8 @@ $age= $interval->format(" %Y Year, %M Months, %d Days Old");
      <div class="col-lg-12">
        <div class="tabs-container">
            <div class="wrapper wrapper-content animated fadeInRight">
-										<div class="row">
+
+											<div class="row">
 											<div class="ibox float-e-margins">
 
 													<div class="ibox-content">

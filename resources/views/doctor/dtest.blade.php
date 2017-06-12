@@ -4,7 +4,7 @@ $Docdatas = $doc->DocDetails();
 foreach($Docdatas as $Docdata){
 
 
-$Did = $Docdata->doc_id;
+$Did = $Docdata->id;
 $Name = $Docdata->name;
 $Address = $Docdata->address;
 $RegNo = $Docdata->regno;
@@ -122,7 +122,7 @@ elseif ($stat == 6) {
      <?php $i =1;
 
         $tstdone = DB::table('patient_test_details')
-       ->leftJoin('facilities', 'patient_test_details.facility_id', '=', 'facilities.FacilityCode')
+      ->leftJoin('facilities', 'patient_test_details.facility_done', '=', 'facilities.FacilityCode')
        ->leftJoin('lab_test', 'patient_test_details.tests_reccommended', '=', 'lab_test.id')
        ->leftJoin('diagnoses', 'patient_test_details.conditional_diag_id', '=', 'diagnoses.id')
        ->select('patient_test_details.*','facilities.*','lab_test.name','diagnoses.name as diagnoses')

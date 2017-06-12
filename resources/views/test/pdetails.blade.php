@@ -13,7 +13,6 @@ $TName = $firstname.' '.$secondName;
 }
 
 
-
 	$dependantId = $pdetails->persontreated;
 	$afyauserId = $pdetails->afya_user_id;
 	$appId = $pdetails->id;

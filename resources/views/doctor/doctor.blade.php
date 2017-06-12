@@ -5,7 +5,7 @@ $Docdatas = $doc->DocDetails();
 foreach($Docdatas as $Docdata){
 
 
-  $Did = $Docdata->doc_id;
+  $Did = $Docdata->id;
 	$Name = $Docdata->name;
 	$Address = $Docdata->address;
 	$RegNo = $Docdata->regno;

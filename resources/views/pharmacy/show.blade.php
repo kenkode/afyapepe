@@ -138,7 +138,7 @@
   else
   {
      ?>
-     <a class="btn btn-primary btn-rounded" href="{{ route('fillpresc',$patient->presc_id) }}" >Out of Stock</a>
+     <a class="btn btn-primary btn-rounded"  >Out of Stock</a>
      <?php
    }
       ?>

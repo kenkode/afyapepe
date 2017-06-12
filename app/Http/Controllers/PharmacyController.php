@@ -47,7 +47,7 @@ class PharmacyController extends Controller
                 ->join('appointments', 'appointments.afya_user_id', '=', 'afya_users.id')
                 ->join('prescriptions', 'prescriptions.appointment_id', '=', 'appointments.id')
                 ->join('prescription_details', 'prescription_details.presc_id', '=', 'prescriptions.id')
-                ->join('doctors', 'doctors.doc_id', '=', 'prescriptions.doc_id')
+                ->join('doctors', 'doctors.id', '=', 'prescriptions.doc_id')
                 ->join('dependant', 'dependant.afya_user_id', '=', 'afya_users.id')
                 ->select('afya_users.*','prescriptions.created_at AS presc_date','prescriptions.id AS presc_id',
                 'doctors.name','dependant.firstName AS fname', 'dependant.secondName AS sname',
@@ -266,7 +266,7 @@ class PharmacyController extends Controller
 
       $prescs = DB::table('prescriptions')
         ->join('prescription_details', 'prescription_details.presc_id', '=', 'prescriptions.id')
-        ->join('doctors', 'doctors.doc_id', '=', 'prescriptions.doc_id')
+        ->join('doctors', 'doctors.id', '=', 'prescriptions.doc_id')
         ->join('druglists', 'prescription_details.drug_id', '=', 'druglists.id')
         ->join('appointments', 'prescriptions.appointment_id', '=', 'appointments.id')
         ->join('afya_users', 'afya_users.id', '=', 'appointments.afya_user_id')
@@ -283,7 +283,7 @@ class PharmacyController extends Controller
         /* Get today's sales*/
         $todays = DB::table('prescriptions')
           ->join('prescription_details', 'prescription_details.presc_id', '=', 'prescriptions.id')
-          ->join('doctors', 'doctors.doc_id', '=', 'prescriptions.doc_id')
+          ->join('doctors', 'doctors.id', '=', 'prescriptions.doc_id')
           ->join('druglists', 'prescription_details.drug_id', '=', 'druglists.id')
           ->join('appointments', 'prescriptions.appointment_id', '=', 'appointments.id')
           ->join('afya_users', 'afya_users.id', '=', 'appointments.afya_user_id')
@@ -304,7 +304,7 @@ class PharmacyController extends Controller
           /* Get this week's sales*/
           $weeks = DB::table('prescriptions')
             ->join('prescription_details', 'prescription_details.presc_id', '=', 'prescriptions.id')
-            ->join('doctors', 'doctors.doc_id', '=', 'prescriptions.doc_id')
+            ->join('doctors', 'doctors.id', '=', 'prescriptions.doc_id')
             ->join('druglists', 'prescription_details.drug_id', '=', 'druglists.id')
             ->join('appointments', 'prescriptions.appointment_id', '=', 'appointments.id')
             ->join('afya_users', 'afya_users.id', '=', 'appointments.afya_user_id')
@@ -328,7 +328,7 @@ class PharmacyController extends Controller
             /* Get this month's sales*/
             $months = DB::table('prescriptions')
               ->join('prescription_details', 'prescription_details.presc_id', '=', 'prescriptions.id')
-              ->join('doctors', 'doctors.doc_id', '=', 'prescriptions.doc_id')
+              ->join('doctors', 'doctors.id', '=', 'prescriptions.doc_id')
               ->join('druglists', 'prescription_details.drug_id', '=', 'druglists.id')
               ->join('appointments', 'prescriptions.appointment_id', '=', 'appointments.id')
               ->join('afya_users', 'afya_users.id', '=', 'appointments.afya_user_id')
@@ -352,7 +352,7 @@ class PharmacyController extends Controller
               /* Get this year's sales*/
               $years = DB::table('prescriptions')
                 ->join('prescription_details', 'prescription_details.presc_id', '=', 'prescriptions.id')
-                ->join('doctors', 'doctors.doc_id', '=', 'prescriptions.doc_id')
+                ->join('doctors', 'doctors.id', '=', 'prescriptions.doc_id')
                 ->join('druglists', 'prescription_details.drug_id', '=', 'druglists.id')
                 ->join('appointments', 'prescriptions.appointment_id', '=', 'appointments.id')
                 ->join('afya_users', 'afya_users.id', '=', 'appointments.afya_user_id')

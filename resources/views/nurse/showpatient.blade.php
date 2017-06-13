@@ -48,7 +48,7 @@
            <div class="form-group">
           <label for="exampleInputPassword1">Constituency</label>
           <input type="text" class="form-control" id="exampleInputPassword1" placeholder="" name="phone" value="<?php
-          if ($patient->constituency != "") {$county=DB::Table('constituency')->where('const_id',$patient->constituency)->first();
+          if ($patient->constituency != "") {$county=DB::Table('constituency')->where('id',$patient->constituency)->first();
           echo $county->Constituency;}
           else{ echo "";} ?>" readonly=""/>
           </div>

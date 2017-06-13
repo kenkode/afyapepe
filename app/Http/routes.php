@@ -245,6 +245,7 @@ Route::group(['middleware' => ['auth','role:Admin|Registrar']], function() {
 	Route::post('Dependentconsultationfee','RegistrarController@Dependentconsultationfee');
 	Route::get('allpatients','RegistrarController@allPatients');
 	Route::post('registeruser','RegistrarController@store');
+	Route::get('/tag/constituency','RegistrarController@findConstituency');
 
     Route::get('registrar.selects/{id}','privateController@selectChoice');
     Route::get('registrar.shows/{id}','privateController@showUser');

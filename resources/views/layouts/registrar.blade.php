@@ -6,6 +6,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="_token" content="{!! csrf_token() !!}" />
+
 
     <title>Afyapepe- @yield('title') </title>
 
@@ -14,7 +16,7 @@
     <link rel="stylesheet" href="{{ asset('js/plugins/gritter/jquery.gritter.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/vendor.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/app.css') }}" />
-
+    <link rel="stylesheet" href="{{asset('select/select2.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('font-awesome/css/font-awesome.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/plugins/dataTables/datatables.min.css') }}" />
@@ -26,7 +28,9 @@
     <link rel="stylesheet" href="{!! asset('css/plugins/iCheck/custom.css') !!}" />
      <link rel="stylesheet" href="{!! asset('css/plugins/steps/jquery.steps.css') !!}" />
       <script type="text/javascript" src="{{ asset('js/modernizr.js') }}"></script>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="{{asset('js/ajaxscript.js')}}"></script>
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <link rel="stylesheet" href="/resources/demos/style.css">
@@ -227,6 +231,33 @@
              });
        });
    </script>
+   <script type="text/javascript">
+$.ajaxSetup({
+ headers: { 'X-CSRF-Token' : $('meta[name=_token]').attr('content') }
+});
+</script>
+
+<script>
+      $('.constituency').select2({
+          placeholder: "Select constituency...",
+          minimumInputLength: 2,
+          ajax: {
+              url: '/tag/constituency',
+              dataType: 'json',
+              data: function (params) {
+                  return {
+                      q: $.trim(params.term)
+                  };
+              },
+              processResults: function (data) {
+                  return {
+                      results: data
+                  };
+              },
+              cache: true
+          }
+      });
+  </script>
 
    <script>
 

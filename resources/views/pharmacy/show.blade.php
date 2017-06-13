@@ -55,6 +55,8 @@
        <?php $i =1;
        foreach ($patients as $patient)
        {
+
+         $af_id = $patient->af_id;
          /* Get total amount of that specific drug that has been given  */
          $id = $patient->presc_id;
          $query1 = DB::table('prescription_filled_status')
@@ -116,8 +118,15 @@
      <?php
      }
      else
-     {?>
-       <td>{{$patient->fname.' '.$patient->sname}}</td>
+     {
+       $depends = DB::table('dependant')
+                 ->select('dependant.firstName AS fname', 'dependant.secondName AS sname')
+                 ->where('afya_user_id', '=', $af_id)
+                 ->first();
+       $fname = $depends->fname;
+       $sname = $depends->sname;
+       ?>
+       <td>{{$fname.' '.$sname}}</td>
      <?php }
       ?>
      <td>{{$patient->drugname}}</td>

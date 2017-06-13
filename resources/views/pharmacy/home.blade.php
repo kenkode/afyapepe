@@ -31,17 +31,15 @@
                     foreach($results as $result)
                     {
                       $name = $result->firstname.'  '.$result->secondName;
-                      $name1 = $result->fname.' '.$result->sname;
-                      $gg = $result->d_gender;
-                      $dob = $result->d_dob;
-                      $interval = date_diff(date_create(), date_create($dob));
-                      $age1 = $interval->format(" %Y Year, %M Months, %d Days Old");
+
+
                       $age = $result->dob;
                       $interval = date_diff(date_create(), date_create($age));
                       $age = $interval->format(" %Y Year, %M Months, %d Days Old");
                       $gender = $result->gender;
 
                       $person = $result->persontreated;
+                      $af_id = $result->af_id;
 
 
                       if($gender === 1)
@@ -79,6 +77,17 @@
                         }
                         else
                         {
+                          $depends = DB::table('dependant')
+                                    ->select('dependant.firstName AS fname', 'dependant.secondName AS sname',
+                                    'dependant.gender AS d_gender', 'dependant.dob AS d_dob')
+                                    ->where('afya_user_id', '=', $af_id)
+                                    ->first();
+
+                          $name1 = $depends->fname.' '.$depends->sname;
+                          $gg = $depends->d_gender;
+                          $dob = $depends->d_dob;
+                          $interval = date_diff(date_create(), date_create($dob));
+                          $age1 = $interval->format(" %Y Year, %M Months, %d Days Old");
                            ?>
                            <td><a href="{{route('pharmacy.show',$result->presc_id)}}">{{$name1}}</a></td>
                            <td><a href="{{route('pharmacy.show',$result->presc_id)}}">{{$age1}}</td>

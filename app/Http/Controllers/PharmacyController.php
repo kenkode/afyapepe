@@ -48,10 +48,8 @@ class PharmacyController extends Controller
                 ->join('prescriptions', 'prescriptions.appointment_id', '=', 'appointments.id')
                 ->join('prescription_details', 'prescription_details.presc_id', '=', 'prescriptions.id')
                 ->join('doctors', 'doctors.id', '=', 'prescriptions.doc_id')
-                ->join('dependant', 'dependant.afya_user_id', '=', 'afya_users.id')
                 ->select('afya_users.*','prescriptions.created_at AS presc_date','prescriptions.id AS presc_id',
-                'doctors.name','dependant.firstName AS fname', 'dependant.secondName AS sname',
-                 'dependant.gender AS d_gender', 'dependant.dob AS d_dob', 'appointments.persontreated')
+                'doctors.name', 'appointments.persontreated', 'afya_users.id AS af_id')
                 ->where([
                   ['afyamessages.facilityCode', '=', $facility],
                   ['afyamessages.created_at','>=',$today],
@@ -90,15 +88,13 @@ class PharmacyController extends Controller
         ->join('druglists', 'prescription_details.drug_id', '=', 'druglists.id')
         ->join('appointments', 'prescriptions.appointment_id', '=', 'appointments.id')
         ->join('afya_users', 'afya_users.id', '=', 'appointments.afya_user_id')
-        ->join('dependant', 'dependant.afya_user_id', '=', 'afya_users.id')
         ->join('afyamessages', 'afyamessages.msisdn', '=', 'afya_users.msisdn')
         ->join('frequency', 'frequency.id', '=', 'prescription_details.frequency')
         ->join('route', 'prescription_details.routes', '=', 'route.id')
         ->leftJoin('prescription_filled_status', 'prescription_details.id', '=', 'prescription_filled_status.presc_details_id')
         ->select('druglists.drugname', 'druglists.id AS drug_id', 'prescriptions.*','prescription_details.*',
         'afya_users.*', 'route.name','prescription_details.id AS presc_id','prescriptions.id AS the_id',
-        'appointments.persontreated','dependant.firstName AS fname', 'dependant.secondName AS sname',
-        'frequency.name AS freq_name')
+        'appointments.persontreated', 'frequency.name AS freq_name', 'afya_users.id AS af_id')
         ->where([
           ['prescriptions.id', '=', $id],
           ['afyamessages.facilityCode', '=', $facility],

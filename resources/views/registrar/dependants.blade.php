@@ -4,7 +4,7 @@
 <br><br><br>
 <div class="row">
 
-  <?php  $dependants=DB::table('dependant')->join('dependant_parent','dependant_parent.dependant_id','=','dependant.id')->select('dependant.*','dependant_parent.relationship as rlns')->where('dependant_parent.afya_user_id',$id)->get();?>
+  <?php  $dependants=DB::table('dependant')->join('dependant_parent','dependant_parent.dependant_id','=','dependant.id')->select('dependant.*')->where('dependant_parent.afya_user_id',$id)->get();?>
 
      <div class="col-lg-11">
     <div class="ibox-title">
@@ -34,7 +34,7 @@
                         <td><a href="{{URL('registrar.dependantTriage',$dependant->id)}}">{{$dependant->firstName}} {{$dependant->secondName}}</a></td>
                         <td>{{$dependant->gender}}</td>
                         
-                        <td>{{$dependant->rlns or ''}}</td>
+                        <td>{{$dependant->relationship or ''}}</td>
                         <td>{{$dependant->dob or ''}}</td>
                         <td>{{$dependant->pob or ''}}</td>
 

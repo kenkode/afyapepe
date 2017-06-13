@@ -172,37 +172,7 @@ return redirect()->route('doctor.index')->with('success','User created successfu
 
       return view('doctor.patientadmitted')->with('patients',$patients);
     }
-    public function Appointment()
-    {
-      $today = Carbon::today();
-      $patients = DB::table('appointments')
-      ->leftJoin('afya_users', 'appointments.afya_user_id', '=', 'afya_users.id')
-       ->leftJoin('triage_details', 'appointments.id', '=', 'triage_details.appointment_id')
-       ->leftJoin('triage_infants', 'appointments.id', '=', 'triage_infants.appointment_id')
-       ->leftJoin('dependant', 'triage_infants.dependant_id', '=', 'dependant.id')
-       ->leftJoin('facility_doctor', 'appointments.doc_id', '=', 'facility_doctor.doctor_id')
-        ->leftJoin('doctors', 'appointments.doc_id', '=', 'doctors.id')
-        ->leftJoin('constituency', 'afya_users.constituency', '=', 'constituency.const_id')
-        ->select('afya_users.*','triage_details.*','triage_infants.*','appointments.id as appid',
-         'appointments.created_at','appointments.facility_id','constituency.Constituency',
-         'appointments.persontreated',
-         'triage_infants.weight as Infweight','triage_infants.height as Infheight','triage_infants.temperature as Inftemp',
-        'triage_infants.chief_compliant as Infcompliant',
-         'triage_infants.observation as Infobservation','triage_infants.symptoms as Infsymptoms','triage_infants.nurse_notes as Infnotes',
-         'dependant.firstName as Infname','dependant.secondName as InfName','dependant.gender as Infgender','dependant.blood_type as Infblood_type',
-         'dependant.dob as Infdob','dependant.pob as Infpob'
-       )
-   ->where([
-             ['appointments.appointment_date','>=',$today],
-             ['appointments.status', '=', 2],
-             ['appointments.appointment_made', '=','Y'],
-             ['facility_doctor.user_id', '=',Auth::user()->id],
-          ])
 
-        ->get();
-
-      return view('doctor.appointment')->with('patients',$patients);
-    }
     /**
      * Show the form for editing the specified resource.
      *

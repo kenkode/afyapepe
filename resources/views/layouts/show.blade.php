@@ -72,8 +72,8 @@
 <script src="{{ asset('js/plugins/datapicker/bootstrap-datepicker.js') }}" type="text/javascript"></script>
 <!-- Clock picker -->
 <script src="{{ asset('js/plugins/clockpicker/clockpicker.js') }}" type="text/javascript"></script>
-
 <!-- Custom and plugin javascript -->
+<script src="{{ asset('js/inspinia.js') }}" type="text/javascript"></script>
 <script src="{{ asset('js/plugins/pace/pace.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('js/custom.js') }}" type="text/javascript"></script>
 

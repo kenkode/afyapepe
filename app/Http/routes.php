@@ -116,7 +116,6 @@ Route::get('/ajax-subcat',function(){
 Route::group(['middleware' => ['auth','role:Admin|Doctor|Private']], function() {
 Route::resource('doctor','DoctorController');
 Route::get('doctorProfile', [ 'as' => 'doctorProfile', 'uses' => 'DoctorController@DocDetails']);
-Route::get('appointment','DoctorController@Appointment');
 Route::get('calendar','DoctorController@Calendar');
 Route::resource('prescription', 'PrescriptionController@store');
 

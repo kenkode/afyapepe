@@ -49,7 +49,7 @@
               <label>No</label>
                     <input type="radio" value="yes" id="type" name="type" class="youtube" />
                   <label>Yes</label>
-                   <input type="date" value="0000-00-00" id="embedcode" placeholder="Vaccinated Date" name="date" type="text"/>
+                   
 
               </div>
 

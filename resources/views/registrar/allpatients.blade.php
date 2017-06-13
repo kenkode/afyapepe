@@ -1,14 +1,7 @@
 @extends('layouts.registrar')
 @section('title', 'Registrar Dashboard')
 @section('content')
-  <div class="content-page  equal-height">
-
-      <div class="content">
-          <div class="container">
-
-
-
-            <div class="wrapper wrapper-content animated fadeInRight">
+              <div class="wrapper wrapper-content animated fadeInRight">
                       <div class="row">
                           <div class="col-lg-11">
                           <div class="ibox float-e-margins">
@@ -91,7 +84,7 @@
 
 
 
-                         </div>
+                    
  
                             <div id="modal-form3" class="modal fade" aria-hidden="true">
                             <div class="modal-dialog">
@@ -135,7 +128,7 @@
                                 </div>
                                 </div>
 @include('includes.default.footer')
-          </div><!--content-->
-      </div><!--content page-->
+
+
 
 @endsection

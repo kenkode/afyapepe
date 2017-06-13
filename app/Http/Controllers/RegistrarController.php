@@ -9,6 +9,7 @@ use App\Http\Requests;
 use DB;
 use Auth;
 use Carbon\Carbon;
+use App\County;
 
 class RegistrarController extends Controller
 {
@@ -27,7 +28,7 @@ class RegistrarController extends Controller
          $facilitycode=DB::table('facility_registrar')->where('user_id', Auth::id())->first(); 
         $users=DB::table('afya_users')->
         join('afyamessages','afya_users.msisdn','=','afyamessages.msisdn')->
-        leftjoin('constituency','afya_users.constituency','=','constituency.const_id')->
+        leftjoin('constituency','afya_users.constituency','=','constituency.id')->
         select('afya_users.*','afyamessages.created_at as created_at','constituency.Constituency','constituency.cont_id')
         ->where('afyamessages.facilityCode',$facilitycode->facilitycode)
         ->where('afyamessages.created_at','>=',$today)
@@ -99,6 +100,7 @@ if($parentgender==1){
     'relationship'=>'Father',
     'phone'=>$phone,
     'dependant_id'=>$dependant_id,
+    'afya_user_id'=>$id,
      'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
     'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
     ]);
@@ -110,6 +112,7 @@ if($parentgender==1){
     'relationship'=>'Mother',
     'phone'=>$phone,
     'dependant_id'=>$dependant_id,
+    'afya_user_id'=>$id,
      'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
     'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
     ]);
@@ -159,9 +162,11 @@ public function dependantTriage($id){
       $constituency=$request->constituency;
       $nhif=$request->nhif;
       $blood=$request->blood_type;
+      $age = date_diff(date_create($db), date_create('now'))->y;
 
       DB::table('afya_users')->where('id',$id)->
       update([
+        'age'=>$age,
         'dob' => $db,
      'pob' => $pob,
      'nhif'=>$nhif,
@@ -171,6 +176,8 @@ public function dependantTriage($id){
      'constituency' =>$constituency,
      'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
      'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
+
+
 
   return redirect()->action('RegistrarController@showUser',[$id]);
 
@@ -324,6 +331,20 @@ public function dependantTriage($id){
     {
         //
     }
+
+    public function findConstituency(Request $request)
+     {
+         $term = trim($request->q);
+      if (empty($term)) {
+           return \Response::json([]);
+         }
+       $drugs = County::search($term)->limit(20)->get();
+         $formatted_drugs = [];
+          foreach ($drugs as $drug) {
+             $formatted_drugs[] = ['id' => $drug->id, 'text' => $drug->Constituency];
+         }
+     return \Response::json($formatted_drugs);
+     }
 
     /**
      * Store a newly created resource in storage.

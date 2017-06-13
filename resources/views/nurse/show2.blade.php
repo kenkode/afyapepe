@@ -136,7 +136,8 @@
              <input type="text" class="form-control" id="exampleInputPassword1"  name="phone" value="{{$father->phone or ''}}" readonly  >
             </div>
             @endif
-             <?php $mother=DB::table('dependant_parent')->where('dependant_id',$id)->where('relationship','=','Mother')->first();?>
+             <?php $mother=DB::table('dependant_parent')->where('dependant_id',$id)->where('relationship','=','Mother')->first();
+             $db=DB::table('afya_users')->where('users_id',$mother->afya_user_id)->first();?>
              
    @if(is_null($mother))
             
@@ -385,17 +386,11 @@ No<input type="checkbox" value="No"  name="bba"/>Yes<input type="checkbox" value
                                    
                                     <div class="row">
                                         <div class="col-sm-6">
-                                            @if(!empty($mothers))
- @else
-  <div class="form-group" id="data_1">
-                 <label for="exampleInputPassword1">Date of Birth</label>
-                 <div class="input-group date">
-                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                     <input type="text" class="form-control" name="dob" value="">
-                 </div>
-                 </div>
+                                            
+                     <input type="hidden" class="form-control" name="dob" value="{{$db->dob}}">
+                 
   
-  @endif
+  
   <div class="form-group">
   <label>Gravidity</label><br>
   <input type="number" name="gravidity" id="gravidity" maxlength="6" autocomplete="off" placeholder="mother gravidity" class="form-control" />

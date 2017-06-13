@@ -63,6 +63,27 @@ $.ajaxSetup({
           }
       });
   </script>
+ <script>
+      $('.constituency').select2({
+          placeholder: "Select constituency...",
+          minimumInputLength: 2,
+          ajax: {
+              url: '/tag/constituency',
+              dataType: 'json',
+              data: function (params) {
+                  return {
+                      q: $.trim(params.term)
+                  };
+              },
+              processResults: function (data) {
+                  return {
+                      results: data
+                  };
+              },
+              cache: true
+          }
+      });
+  </script>
 
 
 

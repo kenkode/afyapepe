@@ -98,12 +98,12 @@
                  <form class="form-horizontal">
                <div class="form-group">
                <label for="exampleInputEmail1">Name</label>
-               <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Next Kin Name" name="kin_name" value="{{$patient->kin_name}}" readonly="">
+               <input type="name" class="form-control"  aria-describedby="emailHelp" placeholder="Next Kin Name" name="kin_name" value="{{$patient->kin_name}}" readonly="">
                </div>
 
                <div class="form-group">
                <label for="exampleInputPassword1">Relationship</label>
-               <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Next Kin Name" name="relation"
+               <input type="name" class="form-control"  aria-describedby="emailHelp" placeholder="Next Kin Name" name="relation"
                value="<?php $county=DB::Table('kin')->where('id',$patient->relation)->first();?>{{$county->relation}}"  readonly="">
                </div>
 
@@ -146,11 +146,11 @@
       <input type="hidden" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{$user->id}}" name="id"  required>
       <div class="form-group">
      <label for="exampleInputEmail1">Id Number</label>
-     <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  name="idno" />
+     <input type="number" class="form-control"  aria-describedby="emailHelp"  name="idno" />
      </div>
      <div class="form-group">
     <label for="exampleInputEmail1">NHIF</label>
-    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  name="nhif" />
+    <input type="text" class="form-control"  aria-describedby="emailHelp"  name="nhif" />
     </div>
     <div class="form-group">
     <label for="exampleInputEmail1">Blood Group</label>
@@ -181,15 +181,19 @@
       <label for="exampleInputPassword1">Place of Birth</label>
       <input type="text"  class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  name="place"/>
       </div>
-     <div class="form-group">
+     <!--<div class="form-group">
     <label for="exampleInputPassword1">Constituency</label>
     <select class="form-control" name="constituency">
     <?php  $kin = DB::table('constituency')->get();?>
                   @foreach($kin as $kn)
-                   <option value="{{$kn->const_id}}">{{$kn->Constituency}}</option>
+                   <option value="{{$kn->id}}">{{$kn->Constituency}}</option>
                  @endforeach
                 </select>
-    </div>
+    </div>-->
+    <div class="form-group">
+                     <label >Constituency:</label>
+                     <select id="constituency" name="constituency" class="form-control constituency" style="width:50%"></select>
+                 </div>
     <button type="submit" class="btn btn-primary btn-sm">Update Details</button>
       {!! Form::close() !!}
       @else
@@ -222,13 +226,13 @@
          </div>
         <div class="form-group">
           <label for="exampleInputPassword1">County</label>
-          <input type="text"  class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<?php $const=DB::table('constituency')->where('const_id',$user->constituency)->first();
+          <input type="text"  class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<?php $const=DB::table('constituency')->where('id',$user->constituency)->first();
           $county=DB::Table('county')->where('id',$const->cont_id)->first();?>{{$county->county}}"  name="place" readonly=""/>
 
        </div>
        <div class="form-group">
          <label for="exampleInputPassword1">Constituency</label>
-         <input type="text"  class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<?php $countys=DB::Table('constituency')->where('const_id',$user->constituency)->first();?>{{$countys->Constituency}}" readonly=""/>
+         <input type="text"  class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<?php $countys=DB::Table('constituency')->where('id',$user->constituency)->first();?>{{$countys->Constituency}}" readonly=""/>
 
       </div>
        <button type="submit" class="btn btn-primary btn-sm">Update Details</button>
@@ -273,7 +277,7 @@
 <br>
 
 
-@include('includes.default.footer')
+@include('includes.admin_inc.footer')
           </div><!--content-->
       </div><!--content page-->
 

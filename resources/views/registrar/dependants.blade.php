@@ -1,7 +1,7 @@
 @extends('layouts.registrar')
 @section('title', 'Registrar Dashboard')
 @section('content')
-<br>
+<br><br><br>
 <div class="row">
 
   <?php  $dependants=DB::table('dependant')->join('dependant_parent','dependant_parent.dependant_id','=','dependant.id')->select('dependant.*','dependant_parent.relationship as rlns')->where('dependant_parent.afya_user_id',$id)->get();?>
@@ -46,8 +46,9 @@
                        </tbody>
 
                      </table>
-                     <a href="{{URL('registrar.addDependents',$id)}}" class="btn btn-primary btn-block">Add Dependant</a>
+                     
                          </div>
+                         <a href="{{URL('registrar.addDependents',$id)}}" class="btn btn-primary btn-block">Add Dependant</a>
                          </div>
                        </div>
                         </div>

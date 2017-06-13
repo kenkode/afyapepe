@@ -1,16 +1,14 @@
 @extends('layouts.registrar')
 @section('title', 'Registrar Dashboard')
 @section('content')
-  <div class="content-page  equal-height">
-
-      <div class="content">
-          <div class="container">
-           <?php   $facilitycode=DB::table('facility_registrar')->where('user_id', Auth::id())->first();
+             <?php   $facilitycode=DB::table('facility_registrar')->where('user_id', Auth::id())
+             ->where('facilitycode',1111)->first();
+            
             ?>
 <div class="wrapper wrapper-content animated fadeInRight">
   <br><br><br><br><br><br>
   
-   @if(!empty($facilitycode->facilitycode == 1111))
+   @if(!empty($facilitycode))
   <div class="row">
             <div class="col-sm-5 col-sm-offset-1">
 
@@ -40,9 +38,8 @@
           </div>
           @endif
         </div>
-      </div>
+      
      @include('includes.default.footer')
-     </div><!--content-->
-     </div><!--content page-->
+    
 
      @endsection

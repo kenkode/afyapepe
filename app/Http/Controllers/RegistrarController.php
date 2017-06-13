@@ -99,6 +99,7 @@ if($parentgender==1){
     'relationship'=>'Father',
     'phone'=>$phone,
     'dependant_id'=>$dependant_id,
+    'afya_user_id'=>$id,
      'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
     'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
     ]);
@@ -110,6 +111,7 @@ if($parentgender==1){
     'relationship'=>'Mother',
     'phone'=>$phone,
     'dependant_id'=>$dependant_id,
+    'afya_user_id'=>$id,
      'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
     'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
     ]);

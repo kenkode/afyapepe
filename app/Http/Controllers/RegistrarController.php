@@ -162,9 +162,11 @@ public function dependantTriage($id){
       $constituency=$request->constituency;
       $nhif=$request->nhif;
       $blood=$request->blood_type;
+      $age = date_diff(date_create($db), date_create('now'))->y;
 
       DB::table('afya_users')->where('id',$id)->
       update([
+        'age'=>$age,
         'dob' => $db,
      'pob' => $pob,
      'nhif'=>$nhif,
@@ -174,6 +176,8 @@ public function dependantTriage($id){
      'constituency' =>$constituency,
      'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
      'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
+
+
 
   return redirect()->action('RegistrarController@showUser',[$id]);
 

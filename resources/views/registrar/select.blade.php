@@ -5,10 +5,12 @@
 
       <div class="content">
           <div class="container">
-           <?php   $facilitycode=DB::table('facility_registrar')->where('user_id', Auth::id())->first(); ?>
+           <?php   $facilitycode=DB::table('facility_registrar')->where('user_id', Auth::id())->first();
+            ?>
 <div class="wrapper wrapper-content animated fadeInRight">
   <br><br><br><br><br><br>
-  @if($facilitycode->facilitycode == 1111)
+  
+   @if(!empty($facilitycode->facilitycode == 1111))
   <div class="row">
             <div class="col-sm-5 col-sm-offset-1">
 

@@ -2,7 +2,6 @@
 @section('title', 'Registrar Dashboard')
 @section('content')
 
-
            <div class="ibox-content">
                  <form class="form-horizontal" role="form" method="POST" action="/createdependent" novalidate>
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">

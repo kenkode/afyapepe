@@ -96,26 +96,35 @@ $appStatue='Discharged Intpatient';
               </div>
           </div>
 <!--tabs-->
-        <div class="col-lg-12">
-            <div class="tabs-container">
-              <!-- <div class="col-lg-12 tbg"> -->
-              <ul class="nav nav-tabs">
-              <li class="active"><a  href="{{route('showPatient',$app_id)}}">Today's Triage</a></li>
-              <li><a href="{{route('patienthistory',$app_id)}}">History</a></li>
-              <li><a href="{{route('testes',$app_id)}}">Tests</a></li>
-              <li><a href="{{route('diagnoses',$app_id)}}">Diagnosis</a></li>
-              <li><a href="{{route('medicines',$app_id)}}">Prescriptions</a></li>
-              @if ($condition =='Admitted')
-                      <li><a href="{{route('discharge',$app_id)}}">Discharge</a></li>
-               @else  <li><a href="{{route('admit',$app_id)}}">Admit</a></li>@endif
-                <li ><a href="{{route('transfering',$app_id)}}">Transfer</a></li>
-               <li class="btn btn-primary"><a href="{{route('endvisit',$app_id)}}">End Visit</a></li>
+<div class="row border-bottom">
+<nav class="navbar navbar-static-top" role="navigation">
 
-              </ul>
-              <!-- </div> -->
-                <div class="tab-content">
-                  <!--tabs1-->
-                  <div id="tab-1" class="tab-pane active">
+    <div class="navbar-collapse collapse" id="navbar">
+        <ul class="nav navbar-nav">
+          <li class="active"><a role="button" href="{{route('showPatient',$app_id)}}">Today's Triage</a></li>
+          <li><a role="button" href="{{route('patienthistory',$app_id)}}">History</a></li>
+          <li><a role="button" href="{{route('testes',$app_id)}}">Tests</a></li>
+          <li><a role="button" href="{{route('diagnoses',$app_id)}}">Diagnosis</a></li>
+          <li><a role="button" href="{{route('medicines',$app_id)}}">Prescriptions</a></li>
+          @if ($condition =='Admitted')
+            <li><a role="button" href="{{route('discharge',$app_id)}}">Discharge</a></li>
+           @else
+            <li><a role="button" href="{{route('admit',$app_id)}}">Admit</a></li>@endif
+            <li><a role="button" href="{{route('transfering',$app_id)}}">Transfer</a></li>
+           <li><a role="button" href="{{route('endvisit',$app_id)}}">End Visit</a></li>
+  </ul>
+
+    </div>
+</nav>
+</div>
+<div class="row wrapper border-bottom page-heading">
+  <div class="ibox float-e-margins">
+    <div class="col-lg-12">
+       <div class="tabs-container">
+
+
+
+
                     <?php if ($pdetails->persontreated=='Self') {
                     ?>
                           @include('doctor.triage')
@@ -135,17 +144,14 @@ $appStatue='Discharged Intpatient';
                       <?php } ?>
 
 
-                   </div><!--tabs1-->
 
 
 
 
 
 
-
-
-
-              </div><!--tabcontent-->
+            </div>
+          </div>
           </div><!--tabs-container-->
         </div><!--col12-->
         <!--tabs-->

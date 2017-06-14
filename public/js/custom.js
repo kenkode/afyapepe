@@ -51,13 +51,6 @@ $(document).ready(function(){
 
 });
 
-// Test toogle
-$(document).ready(function(){
-  $("#divtest").hide();
-    $("#addtestes").click(function(){
-        $("#divtest").toggle();
-    });
-});
 
 // diagnoses toogle
 $(document).ready(function(){

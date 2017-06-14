@@ -14,6 +14,9 @@
     <link rel="stylesheet" href="{{ asset('js/plugins/gritter/jquery.gritter.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/vendor.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/app.css') }}" />
+    <!-- FooTable -->
+      <link rel="stylesheet" href="{{ asset('css/plugins/footable/footable.core.css') }}" />
+
 
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('font-awesome/css/font-awesome.css') }}" />
@@ -77,40 +80,62 @@
     <script src="{{ asset('js/plugins/sparkline/jquery.sparkline.min.js') }}" type="text/javascript"></script>
    <!-- Sparkline demo data  -->
     <script src="{{ asset('js/demo/sparkline-demo.js') }}" type="text/javascript"></script>
-
-
-    <!-- ChartJS-->
+<!-- ChartJS-->
     <script src="{{ asset('js/plugins/chartJs/Chart.min.js') }}" type="text/javascript"></script>
-
-
-    <!-- Toastr -->
+  <!-- Toastr -->
     <script src="{{ asset('js/plugins/toastr/toastr.min.js') }}" type="text/javascript"></script>
-
-    <!-- Steps -->
-
-  <script src="{{ asset('js/plugins/steps/jquery.steps.min.js') }}" type="text/javascript"></script>
+  <!-- Steps -->
+<script src="{{ asset('js/plugins/steps/jquery.steps.min.js') }}" type="text/javascript"></script>
         <!-- Jquery Validate -->
 
         <script src="{{ asset('js/plugins/fullcalendar/moment.min.js') }}"></script>
-        <script src="{{ asset('js/jquery-3.1.1.min.js') }}"></script>
-        <script src="{{ asset('js/bootstrap.min.js') }}"></script>
-        <script src="{{ asset('js/plugins/metisMenu/jquery.metisMenu.js') }}"></script>
-        <script src="{{ asset('js/plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
-
-        <!-- Custom and plugin javascript -->
-        <!-- <script src="{{ asset('js/inspinia.js') }}"></script>
-        <script src="{{ asset('js/plugins/pace/pace.min.js') }}"></script> -->
-
-        <!-- jQuery UI  -->
-        <script src="{{ asset('js/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
-
-        <!-- iCheck -->
+      <!-- iCheck -->
         <script src="{{ asset('js/plugins/iCheck/icheck.min.js') }}"></script>
-
-        <!-- Full Calendar -->
+<!-- Full Calendar -->
         <script src="{{ asset('js/plugins/fullcalendar/fullcalendar.min.js') }}"></script>
+        <!-- FooTable -->
+        <script src="{{ asset('js/plugins/footable/footable.all.min.js') }}"></script>
 
 
+        <!-- Page-Level Scripts -->
+        <!-- Page-Level Scripts -->
+  <script>
+      $(document).ready(function() {
+
+          $('.footable').footable();
+          $('.footable2').footable();
+
+      });
+
+  </script>
+        <script>
+          $(document).ready(function(){
+                      $('.dataTables-example').DataTable({
+                          pageLength: 25,
+                          responsive: true,
+                          dom: '<"html5buttons"B>lTfgitp',
+                          buttons: [
+                              { extend: 'copy'},
+                              {extend: 'csv'},
+                              {extend: 'excel', title: 'ExampleFile'},
+                              {extend: 'pdf', title: 'ExampleFile'},
+
+                              {extend: 'print',
+                               customize: function (win){
+                                      $(win.document.body).addClass('white-bg');
+                                      $(win.document.body).css('font-size', '10px');
+
+                                      $(win.document.body).find('table')
+                                              .addClass('compact')
+                                              .css('font-size', 'inherit');
+                              }
+                              }
+                          ]
+
+                      });
+
+                  });
+            </script>
         <script>
             $(document).ready(function(){
                 $("#wizard").steps();
@@ -191,45 +216,7 @@
                         });
            });
         </script>
-
-
-
-
-
-
-
-    <!-- Page-Level Scripts -->
-    <script>
-        $(document).ready(function(){
-            $('.dataTables-example').DataTable({
-                pageLength: 25,
-                responsive: true,
-                dom: '<"html5buttons"B>lTfgitp',
-                buttons: [
-                    { extend: 'copy'},
-                    {extend: 'csv'},
-                    {extend: 'excel', title: 'ExampleFile'},
-                    {extend: 'pdf', title: 'ExampleFile'},
-
-                    {extend: 'print',
-                     customize: function (win){
-                            $(win.document.body).addClass('white-bg');
-                            $(win.document.body).css('font-size', '10px');
-
-                            $(win.document.body).find('table')
-                                    .addClass('compact')
-                                    .css('font-size', 'inherit');
-                    }
-                    }
-                ]
-
-            });
-
-        });
-
-    </script>
-
-    <script>
+  <script>
 
         $(document).ready(function() {
 

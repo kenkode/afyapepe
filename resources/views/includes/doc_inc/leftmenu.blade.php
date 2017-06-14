@@ -21,31 +21,19 @@
                 </div>
             </li>
 
-                        <li>
-                      <a href="{{ url('doctor') }}"><i class="fa fa-th-large"></i> <span class="nav-label">Patients</span> <span class="fa arrow"></span></a>
-                      <ul class="nav nav-second-level">
+            <li><a href="{{ url('doctor') }}"><i class="fa fa-th-large"></i> <span class="nav-label">Patients</span> <span class="fa arrow"></span></a>
+                  <ul class="nav nav-second-level">
                         <li><a href="{{ url('doctor') }}"><span>Today's Patient</span></a></li>
                         <li><a href="{{ route('admitted') }}"><span>Admitted Patients</span></a></li>
-                        <li><a href="{{ url('appointment') }}"><span>Appointment</span></a></li>
-                      </ul>
-                  </li>
-
-
-
-                        <li><a href="{{ url('allpatients') }}"><i class="fa fa-stethoscope"></i><span>Test Results</span><span class="fa arrow"></span></a></li>
-                          <li><a href="{{ url('yourfees') }}"><i class="fa fa-money"></i><span>Your Fees</span><span class="fa arrow"></span></a></li>
-
-                          <li><a href="{{ URL::to('appointment')}}">  <i class="fa fa-clock-o"></i> <span>Appointment</span><span class="fa arrow"></span></a></li>
-                          <li><a href="{{ URL::to('calendar')}}">  <i class="glyphicon glyphicon-calendar "></i> <span>Calendar</span><span class="fa arrow"></span></a></li>
-                        <li> <a href="{{ URL::to('waitingList')}}">  <i class="fa fa-envelope "></i> <span>Email</span><span class="fa arrow"></span></a></li>
-                        <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout<span class="fa arrow"></span></a></li>
-
-
-
-
-
-
-        </ul>
+                    </ul>
+              </li>
+              <li><a href="{{ url('allpatients') }}"><i class="fa fa-stethoscope"></i><span>Test Results</span><span class="fa arrow"></span></a></li>
+              <li><a href="{{ url('yourfees') }}"><i class="fa fa-money"></i><span>Your Fees</span><span class="fa arrow"></span></a></li>
+              <li><a href="{{ URL::to('appointment')}}">  <i class="fa fa-clock-o"></i> <span>Appointment</span><span class="fa arrow"></span></a></li>
+              <li><a href="{{ URL::to('calendar')}}">  <i class="glyphicon glyphicon-calendar "></i> <span>Calendar</span><span class="fa arrow"></span></a></li>
+              <li> <a href="{{ URL::to('waitingList')}}">  <i class="fa fa-envelope "></i> <span>Email</span><span class="fa arrow"></span></a></li>
+              <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout<span class="fa arrow"></span></a></li>
+           </ul>
 
     </div>
 </nav>

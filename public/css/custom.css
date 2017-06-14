@@ -11,3 +11,7 @@
 table.borderless td,table.borderless th{
   border: none !important;
 }
+.table2 {
+    table-layout: fixed;
+    word-wrap: break-word;
+}

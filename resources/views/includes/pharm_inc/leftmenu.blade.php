@@ -20,6 +20,7 @@
                     Afya+
                 </div>
             </li>
+            @role(['Pharmacyadmin','Pharmacymanager'])
             <li>
             <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboards</span> </a>
 
@@ -37,17 +38,20 @@
                      ?>
                          <li><a href="{{ URL::to('pharmacy')}}"><i class="glyphicon glyphicon-tasks"></i> <span>Today's Prescription</span></a></li>
                            <li> <a href="{{route('filled_prescriptions')}}"><i class="fa fa-money"></i> <span>Sales</span></a></li>
-                         <li><a href="{{ URL::to('inventory')}}"><i class="fa fa-money"></i> <span>Inventory</span><span class="fa arrow"> </a>
-                             <ul class="nav nav-second-level collapse">
-                               <li><a href="{{ URL::to('#') }}"><span>Available Inventory</span> </a></li>
-                               <li><a href="{{ URL::to('#') }}"><span>Update Inventory </span>  </a></li>
-                           </ul>
-                         </li>
+                           @endrole
 
+                          @role(['Pharmacystorekeeper','Pharmacymanager','Pharmacyadmin'])
+                         <li><a href="{{ URL::to('inventory')}}"><i class="fa fa-money"></i> <span>Inventory</span><span class="fa arrow"> </a>
+                         </li>
+                         @endrole
+
+
+                         @role(['Pharmacyadmin','Pharmacymanager'])
                          <li> <a href="{{route('inventory_report')}}"><i class="fa fa-money"></i> <span>Inventory Report</span></a></li>
 
 
                            <li><a href="{{ URL::to('#')}}">  <i class="glyphicon glyphicon-stats"></i> <span>Analytics</span></a></li>
+                           @endrole
                          <li>  <a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i><span>Logout</span> </a> </li>
 
         </ul>

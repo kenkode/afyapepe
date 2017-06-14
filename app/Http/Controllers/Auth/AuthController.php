@@ -89,7 +89,7 @@ class AuthController extends Controller
                 DB::table('role_user')->insert(['user_id'=>$user->id,
       'role_id'=>5]);
              }
-               elseif($role=='Pharmacy'){
+               elseif($role=='Pharmacy_admin'){
                   DB::table('role_user')->insert(['user_id'=>$user->id,
       'role_id'=>6]);
                }
@@ -101,12 +101,20 @@ class AuthController extends Controller
                       DB::table('role_user')->insert(['user_id'=>$user->id,
       'role_id'=>8]);
                    }
+                   elseif($role=='Pharmacy_manager'){
+                      DB::table('role_user')->insert(['user_id'=>$user->id,
+          'role_id'=>10]);
+                   }
+                   elseif($role=='Pharmacy_store_keeper'){
+                      DB::table('role_user')->insert(['user_id'=>$user->id,
+          'role_id'=>11]);
+                   }
                     else{
                         DB::table('role_user')->insert(['user_id'=>$user->id,
       'role_id'=>9]);
                     }
 
-         
+
 
        return $user;
 
@@ -132,8 +140,11 @@ class AuthController extends Controller
       if($role == "Manufacturer"){
         return '/manufacturer';
       }
-      if($role == "Pharmacy"){
+      if($role == "Pharmacy_admin" || $role == "Pharmacy_manager"){
         return '/pharmacy';
+      }
+      if($role == "Pharmacy_store_keeper"){
+        return '/inventory';
       }
       if($role == "Test"){
         return '/test';

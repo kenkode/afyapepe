@@ -33,11 +33,13 @@
                         <option value='Admin'>Admin</option>
                         <option value='Doctor'>Doctor</option>
                         <option value='Nurse'>Nurse</option>
-                        <option value='Pharmacy'>Pharmacy</option>
+                        <option value='Pharmacy_admin'>Pharmacy Admin</option>
                         <option value='Test'>Test Center</option>
                         <option value='Manufacturer'>Manufacturer</option>
                         <option value='Patient'>Patient</option>
-                          <option value='Registrar'>Registrar</option>
+                        <option value='Registrar'>Registrar</option>
+                        <option value='Pharmacy_manager'>Pharmacy Manager</option>
+                        <option value='Pharmacy_store_keeper'>Pharmacy Store Keeper</option>
                         </select>
                       @if ($errors->has('role'))
                           <span class="help-block">

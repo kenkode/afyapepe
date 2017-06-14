@@ -28,7 +28,9 @@
          <th>No</th>
          <th>Drug</th>
          <th>Manufacturer</th>
+         @role(['Pharmacyadmin','Pharmacymanager'])
          <th>Number in stock</th>
+         @endrole
          <th></th>
      </tr>
      </thead>
@@ -53,13 +55,18 @@
         <td>{{$i}}</td>
         <td>{{$inv->drugname}}</td>
         <td>{{$inv->Manufacturer}}</td>
+        @role(['Pharmacyadmin','Pharmacymanager'])
         <td>{{$stock_level}}</td>
+        @endrole
         <td>
+          @role(['Pharmacyadmin','Pharmacymanager'])
           <a href="{{ route('edit_inventory',$inventory_id) }}">Edit</a> &nbsp;&nbsp;
+          @endrole
           <a href="{{ route('update_inv',$inventory_id) }}">Update</a> &nbsp;&nbsp;
-
+          @role(['Pharmacyadmin','Pharmacymanager'])
           <a data-toggle="modal" class="btn btn-primary" href="#modal-form" data-manufacturer="{{$inv->Manufacturer}}"
             data-drug="{{$inv->drugname}}" data-stock="{{$stock_level}}" data-id="{{$inv->inventory_id}}">Delete</a>
+            @endrole
           <div id="modal-form" class="modal fade" aria-hidden="true">
           <div class="modal-dialog">
           <div class="modal-content">
@@ -96,7 +103,9 @@
       <th>No</th>
       <th>Drug</th>
       <th>Manufacturer</th>
+      @role(['Pharmacyadmin','Pharmacymanager'])
       <th>Number in stock</th>
+      @endrole
       <th></th>
     </tr>
     </tfoot>

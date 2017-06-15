@@ -15,7 +15,7 @@ if ($emp) {
 }
 else if($rep) {
    $manufacturer=DB::table('manufacturers')->where('user_id',$rep->manu_id)->first();
-} 
+}
 
 else{
 $manufacturer=DB::table('manufacturers')->where('user_id', Auth::id())->first();
@@ -103,7 +103,7 @@ $manufacturer=DB::table('manufacturers')->where('user_id', Auth::id())->first();
    ->Join('prescription_filled_status', 'prescription_details.id', '=', 'prescription_filled_status.presc_details_id')
    ->Join('pharmacy', 'prescription_filled_status.outlet_id', '=', 'pharmacy.id')
    ->Join('facilities', 'prescriptions.facility_id', '=', 'facilities.FacilityCode')
-   ->Join('doctors', 'prescriptions.doc_id', '=', 'doctors.doc_id')
+   ->Join('doctors', 'prescriptions.doc_id', '=', 'doctors.id')
    ->Join('druglists', 'prescription_details.drug_id', '=', 'druglists.id')
    ->select('prescription_filled_status.*','facilities.FacilityName','doctors.name','druglists.drugname','pharmacy.name as pharmacy',
     'pharmacy.county','prescription_details.doseform',
@@ -178,7 +178,7 @@ $manufacturer=DB::table('manufacturers')->where('user_id', Auth::id())->first();
    ->Join('prescription_filled_status', 'prescription_details.id', '=', 'prescription_filled_status.presc_details_id')
    ->Join('pharmacy', 'prescription_filled_status.outlet_id', '=', 'pharmacy.id')
    ->Join('facilities', 'prescriptions.facility_id', '=', 'facilities.FacilityCode')
-   ->Join('doctors', 'prescriptions.doc_id', '=', 'doctors.doc_id')
+   ->Join('doctors', 'prescriptions.doc_id', '=', 'doctors.id')
    ->Join('druglists', 'prescription_details.drug_id', '=', 'druglists.id')
    ->select('prescription_filled_status.*','facilities.FacilityName','doctors.name','druglists.drugname','pharmacy.name as pharmacy',
     'pharmacy.county','prescription_details.doseform',
@@ -251,7 +251,7 @@ $manufacturer=DB::table('manufacturers')->where('user_id', Auth::id())->first();
    ->Join('prescription_filled_status', 'prescription_details.id', '=', 'prescription_filled_status.presc_details_id')
    ->Join('pharmacy', 'prescription_filled_status.outlet_id', '=', 'pharmacy.id')
    ->Join('facilities', 'prescriptions.facility_id', '=', 'facilities.FacilityCode')
-   ->Join('doctors', 'prescriptions.doc_id', '=', 'doctors.doc_id')
+   ->Join('doctors', 'prescriptions.doc_id', '=', 'doctors.id')
    ->Join('druglists', 'prescription_details.drug_id', '=', 'druglists.id')
    ->select('prescription_filled_status.*','facilities.FacilityName','doctors.name','druglists.drugname','pharmacy.name as pharmacy',
     'pharmacy.county','prescription_details.doseform',
@@ -352,7 +352,7 @@ $manufacturer=DB::table('manufacturers')->where('user_id', Auth::id())->first();
   ->Join('prescription_filled_status', 'prescription_details.id', '=', 'prescription_filled_status.presc_details_id')
   ->Join('pharmacy', 'prescription_filled_status.outlet_id', '=', 'pharmacy.id')
   ->Join('facilities', 'prescriptions.facility_id', '=', 'facilities.FacilityCode')
-  ->Join('doctors', 'prescriptions.doc_id', '=', 'doctors.doc_id')
+  ->Join('doctors', 'prescriptions.doc_id', '=', 'doctors.id')
   ->Join('druglists', 'prescription_details.drug_id', '=', 'druglists.id')
   ->select('prescription_filled_status.*','facilities.FacilityName','doctors.name','druglists.drugname','pharmacy.name as pharmacy',
   'pharmacy.county','prescription_details.doseform',
@@ -425,7 +425,7 @@ $manufacturer=DB::table('manufacturers')->where('user_id', Auth::id())->first();
   ->Join('prescription_filled_status', 'prescription_details.id', '=', 'prescription_filled_status.presc_details_id')
   ->Join('pharmacy', 'prescription_filled_status.outlet_id', '=', 'pharmacy.id')
   ->Join('facilities', 'prescriptions.facility_id', '=', 'facilities.FacilityCode')
-  ->Join('doctors', 'prescriptions.doc_id', '=', 'doctors.doc_id')
+  ->Join('doctors', 'prescriptions.doc_id', '=', 'doctors.id')
   ->Join('druglists', 'prescription_details.drug_id', '=', 'druglists.id')
   ->select('prescription_filled_status.*','facilities.FacilityName','doctors.name','druglists.drugname','pharmacy.name as pharmacy',
   'pharmacy.county','prescription_details.doseform',
@@ -497,7 +497,7 @@ $manufacturer=DB::table('manufacturers')->where('user_id', Auth::id())->first();
   ->Join('prescription_filled_status', 'prescription_details.id', '=', 'prescription_filled_status.presc_details_id')
   ->Join('pharmacy', 'prescription_filled_status.outlet_id', '=', 'pharmacy.id')
   ->Join('facilities', 'prescriptions.facility_id', '=', 'facilities.FacilityCode')
-  ->Join('doctors', 'prescriptions.doc_id', '=', 'doctors.doc_id')
+  ->Join('doctors', 'prescriptions.doc_id', '=', 'doctors.id')
   ->Join('druglists', 'prescription_details.drug_id', '=', 'druglists.id')
   ->select('prescription_filled_status.*','facilities.FacilityName','doctors.name','druglists.drugname','pharmacy.name as pharmacy',
   'pharmacy.county','prescription_details.doseform',
@@ -598,7 +598,7 @@ $manufacturer=DB::table('manufacturers')->where('user_id', Auth::id())->first();
   ->Join('prescription_filled_status', 'prescription_details.id', '=', 'prescription_filled_status.presc_details_id')
   ->Join('pharmacy', 'prescription_filled_status.outlet_id', '=', 'pharmacy.id')
   ->Join('facilities', 'prescriptions.facility_id', '=', 'facilities.FacilityCode')
-  ->Join('doctors', 'prescriptions.doc_id', '=', 'doctors.doc_id')
+  ->Join('doctors', 'prescriptions.doc_id', '=', 'doctors.id')
   ->Join('druglists', 'prescription_details.drug_id', '=', 'druglists.id')
   ->select('prescription_filled_status.*','facilities.FacilityName','doctors.name','druglists.drugname','pharmacy.name as pharmacy',
   'pharmacy.county','prescription_details.doseform',
@@ -619,7 +619,7 @@ $manufacturer=DB::table('manufacturers')->where('user_id', Auth::id())->first();
   ->where([ ['substitute_presc_details.id', '=', $daily->substitute_presc_id],
   ['druglists.Manufacturer','Not like','%'.$Mname.'%'],
   ['druglists.id',$rep->drug_id],
-  
+
   ])
 
   ->first();
@@ -644,7 +644,7 @@ $manufacturer=DB::table('manufacturers')->where('user_id', Auth::id())->first();
   </tbody>
 
           </table>
-  @elseif(!empty($emp)) 
+  @elseif(!empty($emp))
   <table class="table table-striped table-bordered table-hover dataTables-example" >
   <thead>
   <tr>
@@ -668,7 +668,7 @@ $manufacturer=DB::table('manufacturers')->where('user_id', Auth::id())->first();
   ->Join('prescription_filled_status', 'prescription_details.id', '=', 'prescription_filled_status.presc_details_id')
   ->Join('pharmacy', 'prescription_filled_status.outlet_id', '=', 'pharmacy.id')
   ->Join('facilities', 'prescriptions.facility_id', '=', 'facilities.FacilityCode')
-  ->Join('doctors', 'prescriptions.doc_id', '=', 'doctors.doc_id')
+  ->Join('doctors', 'prescriptions.doc_id', '=', 'doctors.id')
   ->Join('druglists', 'prescription_details.drug_id', '=', 'druglists.id')
   ->select('prescription_filled_status.*','facilities.FacilityName','doctors.name','druglists.drugname','pharmacy.name as pharmacy',
   'pharmacy.county','prescription_details.doseform',
@@ -687,7 +687,7 @@ $manufacturer=DB::table('manufacturers')->where('user_id', Auth::id())->first();
   ->select('druglists.drugname as subdrugname')
   ->where([ ['substitute_presc_details.id', '=', $daily->substitute_presc_id],
   ['druglists.Manufacturer','Not like','%'.$Mname.'%'],
-   
+
   ])
 
   ->first();
@@ -711,7 +711,7 @@ $manufacturer=DB::table('manufacturers')->where('user_id', Auth::id())->first();
   @endforeach
   </tbody>
 
-          </table>       
+          </table>
   @else
   <table class="table table-striped table-bordered table-hover dataTables-example" >
   <thead>
@@ -736,7 +736,7 @@ $manufacturer=DB::table('manufacturers')->where('user_id', Auth::id())->first();
   ->Join('prescription_filled_status', 'prescription_details.id', '=', 'prescription_filled_status.presc_details_id')
   ->Join('pharmacy', 'prescription_filled_status.outlet_id', '=', 'pharmacy.id')
   ->Join('facilities', 'prescriptions.facility_id', '=', 'facilities.FacilityCode')
-  ->Join('doctors', 'prescriptions.doc_id', '=', 'doctors.doc_id')
+  ->Join('doctors', 'prescriptions.doc_id', '=', 'doctors.id')
   ->Join('druglists', 'prescription_details.drug_id', '=', 'druglists.id')
   ->select('prescription_filled_status.*','facilities.FacilityName','doctors.name','druglists.drugname','pharmacy.name as pharmacy',
   'pharmacy.county','prescription_details.doseform',
@@ -837,7 +837,7 @@ $manufacturer=DB::table('manufacturers')->where('user_id', Auth::id())->first();
   ->Join('prescription_filled_status', 'prescription_details.id', '=', 'prescription_filled_status.presc_details_id')
   ->Join('pharmacy', 'prescription_filled_status.outlet_id', '=', 'pharmacy.id')
   ->Join('facilities', 'prescriptions.facility_id', '=', 'facilities.FacilityCode')
-  ->Join('doctors', 'prescriptions.doc_id', '=', 'doctors.doc_id')
+  ->Join('doctors', 'prescriptions.doc_id', '=', 'doctors.id')
   ->Join('druglists', 'prescription_details.drug_id', '=', 'druglists.id')
   ->select('prescription_filled_status.*','facilities.FacilityName','doctors.name','druglists.drugname','pharmacy.name as pharmacy',
   'pharmacy.county','prescription_details.doseform',
@@ -907,7 +907,7 @@ $manufacturer=DB::table('manufacturers')->where('user_id', Auth::id())->first();
   ->Join('prescription_filled_status', 'prescription_details.id', '=', 'prescription_filled_status.presc_details_id')
   ->Join('pharmacy', 'prescription_filled_status.outlet_id', '=', 'pharmacy.id')
   ->Join('facilities', 'prescriptions.facility_id', '=', 'facilities.FacilityCode')
-  ->Join('doctors', 'prescriptions.doc_id', '=', 'doctors.doc_id')
+  ->Join('doctors', 'prescriptions.doc_id', '=', 'doctors.id')
   ->Join('druglists', 'prescription_details.drug_id', '=', 'druglists.id')
   ->select('prescription_filled_status.*','facilities.FacilityName','doctors.name','druglists.drugname','pharmacy.name as pharmacy',
   'pharmacy.county','prescription_details.doseform',
@@ -976,7 +976,7 @@ $manufacturer=DB::table('manufacturers')->where('user_id', Auth::id())->first();
   ->Join('prescription_filled_status', 'prescription_details.id', '=', 'prescription_filled_status.presc_details_id')
   ->Join('pharmacy', 'prescription_filled_status.outlet_id', '=', 'pharmacy.id')
   ->Join('facilities', 'prescriptions.facility_id', '=', 'facilities.FacilityCode')
-  ->Join('doctors', 'prescriptions.doc_id', '=', 'doctors.doc_id')
+  ->Join('doctors', 'prescriptions.doc_id', '=', 'doctors.id')
   ->Join('druglists', 'prescription_details.drug_id', '=', 'druglists.id')
   ->select('prescription_filled_status.*','facilities.FacilityName','doctors.name','druglists.drugname','pharmacy.name as pharmacy',
   'pharmacy.county','prescription_details.doseform',
@@ -1077,7 +1077,7 @@ $manufacturer=DB::table('manufacturers')->where('user_id', Auth::id())->first();
     ->Join('prescription_filled_status', 'prescription_details.id', '=', 'prescription_filled_status.presc_details_id')
     ->Join('pharmacy', 'prescription_filled_status.outlet_id', '=', 'pharmacy.id')
     ->Join('facilities', 'prescriptions.facility_id', '=', 'facilities.FacilityCode')
-    ->Join('doctors', 'prescriptions.doc_id', '=', 'doctors.doc_id')
+    ->Join('doctors', 'prescriptions.doc_id', '=', 'doctors.id')
     ->Join('druglists', 'prescription_details.drug_id', '=', 'druglists.id')
     ->select('prescription_filled_status.*','facilities.FacilityName','doctors.name','druglists.drugname','pharmacy.name as pharmacy',
     'pharmacy.county','prescription_details.doseform',
@@ -1145,7 +1145,7 @@ $manufacturer=DB::table('manufacturers')->where('user_id', Auth::id())->first();
     ->Join('prescription_filled_status', 'prescription_details.id', '=', 'prescription_filled_status.presc_details_id')
     ->Join('pharmacy', 'prescription_filled_status.outlet_id', '=', 'pharmacy.id')
     ->Join('facilities', 'prescriptions.facility_id', '=', 'facilities.FacilityCode')
-    ->Join('doctors', 'prescriptions.doc_id', '=', 'doctors.doc_id')
+    ->Join('doctors', 'prescriptions.doc_id', '=', 'doctors.id')
     ->Join('druglists', 'prescription_details.drug_id', '=', 'druglists.id')
     ->select('prescription_filled_status.*','facilities.FacilityName','doctors.name','druglists.drugname','pharmacy.name as pharmacy',
     'pharmacy.county','prescription_details.doseform',
@@ -1210,7 +1210,7 @@ $manufacturer=DB::table('manufacturers')->where('user_id', Auth::id())->first();
     ->Join('prescription_filled_status', 'prescription_details.id', '=', 'prescription_filled_status.presc_details_id')
     ->Join('pharmacy', 'prescription_filled_status.outlet_id', '=', 'pharmacy.id')
     ->Join('facilities', 'prescriptions.facility_id', '=', 'facilities.FacilityCode')
-    ->Join('doctors', 'prescriptions.doc_id', '=', 'doctors.doc_id')
+    ->Join('doctors', 'prescriptions.doc_id', '=', 'doctors.id')
     ->Join('druglists', 'prescription_details.drug_id', '=', 'druglists.id')
     ->select('prescription_filled_status.*','facilities.FacilityName','doctors.name','druglists.drugname','pharmacy.name as pharmacy',
     'pharmacy.county','prescription_details.doseform',
@@ -1310,7 +1310,7 @@ $manufacturer=DB::table('manufacturers')->where('user_id', Auth::id())->first();
   ->Join('prescription_filled_status', 'prescription_details.id', '=', 'prescription_filled_status.presc_details_id')
   ->Join('pharmacy', 'prescription_filled_status.outlet_id', '=', 'pharmacy.id')
   ->Join('facilities', 'prescriptions.facility_id', '=', 'facilities.FacilityCode')
-  ->Join('doctors', 'prescriptions.doc_id', '=', 'doctors.doc_id')
+  ->Join('doctors', 'prescriptions.doc_id', '=', 'doctors.id')
   ->Join('druglists', 'prescription_details.drug_id', '=', 'druglists.id')
   ->select('prescription_filled_status.*','facilities.FacilityName','doctors.name','druglists.drugname','pharmacy.name as pharmacy',
   'pharmacy.county','prescription_details.doseform',
@@ -1378,7 +1378,7 @@ $manufacturer=DB::table('manufacturers')->where('user_id', Auth::id())->first();
   ->Join('prescription_filled_status', 'prescription_details.id', '=', 'prescription_filled_status.presc_details_id')
   ->Join('pharmacy', 'prescription_filled_status.outlet_id', '=', 'pharmacy.id')
   ->Join('facilities', 'prescriptions.facility_id', '=', 'facilities.FacilityCode')
-  ->Join('doctors', 'prescriptions.doc_id', '=', 'doctors.doc_id')
+  ->Join('doctors', 'prescriptions.doc_id', '=', 'doctors.id')
   ->Join('druglists', 'prescription_details.drug_id', '=', 'druglists.id')
   ->select('prescription_filled_status.*','facilities.FacilityName','doctors.name','druglists.drugname','pharmacy.name as pharmacy',
   'pharmacy.county','prescription_details.doseform',
@@ -1443,7 +1443,7 @@ $manufacturer=DB::table('manufacturers')->where('user_id', Auth::id())->first();
   ->Join('prescription_filled_status', 'prescription_details.id', '=', 'prescription_filled_status.presc_details_id')
   ->Join('pharmacy', 'prescription_filled_status.outlet_id', '=', 'pharmacy.id')
   ->Join('facilities', 'prescriptions.facility_id', '=', 'facilities.FacilityCode')
-  ->Join('doctors', 'prescriptions.doc_id', '=', 'doctors.doc_id')
+  ->Join('doctors', 'prescriptions.doc_id', '=', 'doctors.id')
   ->Join('druglists', 'prescription_details.drug_id', '=', 'druglists.id')
   ->select('prescription_filled_status.*','facilities.FacilityName','doctors.name','druglists.drugname','pharmacy.name as pharmacy',
   'pharmacy.county','prescription_details.doseform',

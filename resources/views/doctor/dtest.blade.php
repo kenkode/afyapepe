@@ -92,28 +92,28 @@ elseif ($stat == 6) {
         </div>
         </div>
 
-<div class="row wrapper border-bottom page-heading">
-   <div class="ibox float-e-margins">
-     <div class="col-lg-12">
-           <div class="tabs-container">
-             <ul class="nav nav-tabs">
-             <li><a  href="{{route('showPatient',$app_id)}}">Today's Triage</a></li>
-             <li><a href="{{route('patienthistory',$app_id)}}">History</a></li>
-             <li class="active"><a href="{{route('testes',$app_id)}}">Tests</a></li>
-             <li><a href="{{route('diagnoses',$app_id)}}">Diagnosis</a></li>
-             <li><a href="{{route('medicines',$app_id)}}">Prescriptions</a></li>
-             @if ($condition =='Admitted')
-                     <li><a href="{{route('discharge',$app_id)}}">Discharge</a></li>
-              @else  <li><a href="{{route('admit',$app_id)}}">Admit</a></li>@endif
-               <li ><a href="{{route('transfering',$app_id)}}">Transfer</a></li>
-               <li class="btn btn-primary"><a href="{{route('endvisit',$app_id)}}">End Visit</a></li>
-              </ul>
-            </div>
-            </div>
-          </div>
-          </div>
+        <!--tabs Menus-->
+        <div class="row border-bottom">
+        <nav class="navbar" role="navigation">
+          <div class="navbar-collapse " id="navbar">
+                <ul class="nav navbar-nav">
+                  <li><a role="button" href="{{route('showPatient',$app_id)}}">Today's Triage</a></li>
+                  <li><a role="button" href="{{route('patienthistory',$app_id)}}">History</a></li>
+                  <li class="active"><a role="button" href="{{route('testes',$app_id)}}">Tests</a></li>
+                  <li><a role="button" href="{{route('diagnoses',$app_id)}}">Diagnosis</a></li>
+                  <li><a role="button" href="{{route('medicines',$app_id)}}">Prescriptions</a></li>
+                  @if ($condition =='Admitted')
+                    <li><a role="button" href="{{route('discharge',$app_id)}}">Discharge</a></li>
+                   @else
+                    <li><a role="button" href="{{route('admit',$app_id)}}">Admit</a></li>@endif
+                    <li><a role="button" href="{{route('transfering',$app_id)}}">Transfer</a></li>
+                   <li><a role="button" href="{{route('endvisit',$app_id)}}">End Visit</a></li>
+                 </ul>
+             </div>
+        </nav>
+     </div>
 
-          <div class="row wrapper border-bottom white-bg page-heading">
+          <div class="row wrapper border-bottom  page-heading">
              <div class="ibox float-e-margins">
                <div class="col-lg-12">
                      <div class="tabs-container">
@@ -202,7 +202,7 @@ elseif ($stat == 6) {
                     <div class="panel-body">
 
                       {{ Form::open(array('route' => array('patienttest'),'method'=>'POST')) }}
-                      <div class="col-sm-6 b-r ibox float-e-margins ibox-content">
+                      <div class="col-sm-6 b-r ibox float-e-margins ">
                       <?php  if ($dependantdays <='28') {
                       ?>
                       <div class="form-group">
@@ -335,7 +335,7 @@ elseif ($stat == 6) {
 
                       <div id="div1">
                       <div class="col-sm-6">
-                      <div id="othertest" class="ibox float-e-margins ibox-content">
+                      <div id="othertest" class="ibox float-e-margins">
 
                       <label class="col-md-2">Test Categories:</label>
                       <input type="checkbox" name="colorCheckbox" value="MRI">MRI

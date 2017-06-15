@@ -56,57 +56,109 @@ if ($gender == 1) { $gender = 'Male'; }else{ $gender = 'Female'; }
 <div class="content-page  equal-height">
 		<div class="content">
 				<div class="container">
-
-					<div class="col-lg-6">
-					<h2>Name {{$name}}</h2>
+          <div class="col-lg-6 ">
+					<h2>Name: {{$name}}</h2>
 					<ol class="breadcrumb">
 					<li><a>Gender {{$gender}}</a></li>
 					<li><a>Age {{$age}}</a> </li>
 
 					</ol>
 					</div>
-					<div class="col-lg-6">
-					<h2>Test Center: {{$facility}}</h2>
+					<div class="col-lg-5 ">
+					<h2 class="">LAB: {{$facility}}</h2>
 					<ol class="breadcrumb">
-					<li class="active"><strong>Name: {{$TName}} </strong></li>
+					<li class="active">Name: {{$TName}}</li>
 					</ol>
 					</div>
-
-
-
-
-@include('test.fheamoglobin')
-@if($tsts1->name =='Moketch')
-
-
-	<div class="ibox float-e-margins">
-		 <div class="col-lg-12">
-			 <div class="tabs-container">
-
-				 <h5>{{$tsts1->name}}</h5>
-				   <div class="col-lg-6">
-					 <div class="form-group"><label>Value</label>
-					<input type="text" name="value" placeholder="Enter Value" class="form-control">
-					</div>
-					<div class="form-group"><label>Value</label>
-					<input type="text" name="value" placeholder="Enter Value" class="form-control">
-					</div>
-					<div class="form-group"><label>Value</label>
-				 <input type="text" name="value"  class="form-control">
+			</div>
+			</div>
+		</div>
+	</div>
+	<div class="row wrapper border-bottom white-bg">
+	<div class="content-page  equal-height">
+		<div class="content">
+			<div class="container">
+				<div class="col-lg-10">
+			<h3 class="text-center">{{$tsts1->category}} Report</h3>
+				<div class="text-center">
+				{{$tsts1->name}} // {{$tsts1->sub_category}}
+				  </div>
 				 </div>
-					</div>
-				</div>
-				</div>
-				</div>
-				@else
+       </div>
+		</div>
+  </div>
+</div>
+<div class="row wrapper border-bottom page-heading">
+  <div class="content-page  equal-height">
+		<div class="content">
+
+
+<?php $i=1; $fh=DB::table('test_ranges')
+		->where('test_ranges.type', '=',$tsts1->tests_reccommended)->get(); ?>
+@if($fh)
+@include('test.fheamoglobin')
+@else
+<div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>TEST RESULTS</h5>
+
+                    </div>
+                    <div class="ibox-content">
+                        <div class="row">
+                    <div class="col-sm-5 b-r col-md-offset-1">
+									{{ Form::open(array('route' => array('testResult'),'method'=>'POST')) }}
+
+												 <div class="form-group"><label>Test</label>
+												 <input type="text"  value="{{$tsts1->name}}" class="form-control">
+												 </div>
+													<div class="form-group"><label>Value</label>
+													<input type="text" name="value" placeholder="Enter Value" class="form-control">
+													</div>
+                      </div>
+
+									    <div class="col-sm-5">
+												<div class="form-group">
+												<label  class="">Comments:</label>
+											 <select class="form-control" name="comments" required >
+											 <option value=''>Choose one ..</option>
+											 <option value='Normal'>Normal</option>
+											 <option value='Severe'>Severe</option>
+											 <option value='High'>High</option>
+											 <option value='Efficient'>Efficient</option>
+											 <option value='Inefficient'>Inefficient</option>
+											 <option value='Borderline neutropenia'>Borderline neutropenia</option>
+											 <option value='Normal peripherial blood picture'>Normal peripherial blood picture</option>
+											 </select>
+											 </div>
+                      <div class="form-group">
+											 <label>Other Reports</label>
+											 <textarea name="comments2" rows="2" placeholder="Any other notes" class="form-control"></textarea>
+                      </div>
+										 <input type="hidden" name="appointment_id" value="{{$appId}}" class="form-control">
+										 <input type="hidden" name="ptd_id" value="{{$ptdId}}" class="form-control">
+										 <input type="hidden" name="facility" value="{{$facilityId}}" class="form-control">
+										 <input type="hidden" name="test" value="{{$tsts1->id}}" class="form-control">
+
+										 <div class="text-center">
+										 <button class="btn btn-sm btn-primary m-t-n-xs" type="submit"><strong>SUBMIT</strong></button>
+									 </div>
+											{{ Form::close() }}
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
 @endif
 
-@include('includes.default.footer')
 
-        </div>
-      </div>
+
+
 		</div><!--content-->
-
-	</div><!--content page-->
-
+  </div><!--content page-->
+</div>
+@include('includes.default.footer')
 @endsection

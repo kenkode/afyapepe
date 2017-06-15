@@ -40,7 +40,7 @@ class DoctorController extends Controller
         ->leftJoin('doctors', 'appointments.doc_id', '=', 'doctors.id')
         ->leftJoin('triage_infants', 'appointments.id', '=', 'triage_infants.appointment_id')
         ->leftJoin('dependant', 'triage_infants.dependant_id', '=', 'dependant.id')
-         ->leftJoin('constituency', 'afya_users.constituency', '=', 'constituency.const_id')
+         ->leftJoin('constituency', 'afya_users.constituency', '=', 'constituency.id')
          ->select('afya_users.*','triage_details.*','appointments.id as appid',
           'appointments.created_at','appointments.facility_id','constituency.Constituency',
           'appointments.persontreated', 'appointments.appointment_made',
@@ -80,7 +80,7 @@ public function dependant()
 ->leftJoin('doctors', 'appointments.doc_id', '=', 'doctors.id')
   ->leftJoin('triage_infants', 'appointments.id', '=', 'triage_infants.appointment_id')
   ->leftJoin('afya_users', 'dependant.afya_user_id', '=', 'afya_users.id')
-  ->leftJoin('constituency', 'afya_users.constituency', '=', 'constituency.const_id')
+  ->leftJoin('constituency', 'afya_users.constituency', '=', 'constituency.id')
   ->select('triage_infants.*','dependant.*','appointments.*','appointments.id as appid',
   'afya_users.firstname','afya_users.secondName as ndName','afya_users.constituency','constituency.Constituency')
   ->where([
@@ -151,7 +151,7 @@ return redirect()->route('doctor.index')->with('success','User created successfu
        ->leftJoin('triage_details', 'appointments.id', '=', 'triage_details.appointment_id')
        ->leftJoin('triage_infants', 'appointments.id', '=', 'triage_infants.appointment_id')
        ->leftJoin('dependant', 'triage_infants.dependant_id', '=', 'dependant.id')
-        ->leftJoin('constituency', 'afya_users.constituency', '=', 'constituency.const_id')
+        ->leftJoin('constituency', 'afya_users.constituency', '=', 'constituency.id')
         ->select('afya_users.*','triage_details.*','appointments.id as appid',
          'appointments.created_at','appointments.facility_id','constituency.Constituency',
          'appointments.persontreated',

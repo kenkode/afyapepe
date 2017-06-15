@@ -2,8 +2,6 @@
 $doc = (new \App\Http\Controllers\DoctorController);
 $Docdatas = $doc->DocDetails();
 foreach($Docdatas as $Docdata){
-
-
 $Did = $Docdata->id;
 $Name = $Docdata->name;
 $Address = $Docdata->address;
@@ -11,16 +9,12 @@ $RegNo = $Docdata->regno;
 $RegDate = $Docdata->regdate;
 $Speciality = $Docdata->speciality;
 $Sub_Speciality = $Docdata->subspeciality;
-
-
 }
-
 ?>
 
 <?php
 foreach ($patientdetails as $pdetails) {
-  // $patientid = $pdetails->pat_id;
-  //  $facilty = $pdetails->FacilityName;
+
    $stat= $pdetails->status;
    $afyauserId= $pdetails->afya_user_id;
     $dependantId= $pdetails->persontreated;
@@ -31,8 +25,6 @@ foreach ($patientdetails as $pdetails) {
     $dependantAge = $pdetails->depdob;
     $AfyaUserAge = $pdetails->dob;
     $condition = $pdetails->condition;
-
-    //$name= $pdetails->firstname;
 
 $now = time(); // or your date as well
 $your_date = strtotime($dependantAge);
@@ -55,12 +47,8 @@ else {
      $secondName = $pdetails->dep2name;
      $name =$firstName." ".$secondName;
 }
-
-
 $interval = date_diff(date_create(), date_create($dob));
 $age= $interval->format(" %Y Year, %M Months, %d Days Old");
-
-
 $appStatue=$stat;
 if ($appStatue == 2) {
 $appStatue ='ACTIVE';
@@ -95,11 +83,11 @@ $appStatue='Discharged Intpatient';
                   </ol>
               </div>
           </div>
-<!--tabs-->
-<div class="row border-bottom">
-<nav class="navbar navbar-static-top" role="navigation">
 
-    <div class="navbar-collapse collapse" id="navbar">
+<!--tabs Menus-->
+<div class="row border-bottom">
+<nav class="navbar" role="navigation">
+  <div class="navbar-collapse " id="navbar">
         <ul class="nav navbar-nav">
           <li class="active"><a role="button" href="{{route('showPatient',$app_id)}}">Today's Triage</a></li>
           <li><a role="button" href="{{route('patienthistory',$app_id)}}">History</a></li>
@@ -112,9 +100,8 @@ $appStatue='Discharged Intpatient';
             <li><a role="button" href="{{route('admit',$app_id)}}">Admit</a></li>@endif
             <li><a role="button" href="{{route('transfering',$app_id)}}">Transfer</a></li>
            <li><a role="button" href="{{route('endvisit',$app_id)}}">End Visit</a></li>
-  </ul>
-
-    </div>
+         </ul>
+     </div>
 </nav>
 </div>
 <div class="row wrapper border-bottom page-heading">

@@ -93,38 +93,30 @@ elseif ($stat == 6) {
               </div>
 </div>
 
-
-<!--tabs-->
+<!--tabs Menus-->
+<div class="row border-bottom">
+<nav class="navbar" role="navigation">
+  <div class="navbar-collapse " id="navbar">
+        <ul class="nav navbar-nav">
+          <li><a role="button" href="{{route('showPatient',$app_id)}}">Today's Triage</a></li>
+          <li><a role="button" href="{{route('patienthistory',$app_id)}}">History</a></li>
+          <li><a role="button" href="{{route('testes',$app_id)}}">Tests</a></li>
+          <li><a role="button" href="{{route('diagnoses',$app_id)}}">Diagnosis</a></li>
+          <li><a role="button" href="{{route('medicines',$app_id)}}">Prescriptions</a></li>
+          @if ($condition =='Admitted')
+            <li><a role="button" href="{{route('discharge',$app_id)}}">Discharge</a></li>
+           @else
+            <li><a role="button" href="{{route('admit',$app_id)}}">Admit</a></li>@endif
+            <li class="active"><a role="button" href="{{route('transfering',$app_id)}}">Transfer</a></li>
+           <li><a role="button" href="{{route('endvisit',$app_id)}}">End Visit</a></li>
+         </ul>
+     </div>
+</nav>
+</div>
+<div class="row wrapper border-bottom">
         <div class="col-lg-12">
             <div class="tabs-container">
-              <!-- <div class="col-lg-12 tbg"> -->
-              <ul class="nav nav-tabs">
-              <li><a  href="{{route('showPatient',$app_id)}}">Today's Triage</a></li>
-              <li><a href="{{route('patienthistory',$app_id)}}">History</a></li>
-              <li><a href="{{route('testes',$app_id)}}">Tests</a></li>
-              <li><a href="{{route('diagnoses',$app_id)}}">Diagnosis</a></li>
-              <li><a href="{{route('medicines',$app_id)}}">Prescriptions</a></li>
-               <?php if ($stat==2) { ?>
-              <li><a href="{{route('admit',$app_id)}}">Admit</a></li>
-              <?php } ?>
-               <?php if ($condition =='Admitted') { ?>
-              <li><a href="{{route('discharge',$app_id)}}">Discharge</a></li>
-               <?php } ?>
-                <li class="active"><a href="{{route('transfering',$app_id)}}">Transfer</a></li>
-              <?php if ($stat==2) { ?>
-              <li class="btn btn-primary"><a href="{{route('endvisit',$app_id)}}">End Visit</a></li>
-              <?php } ?>
-              </ul>
-              <!-- </div> -->
-
-
-
-
-
-                    <!--tabs7 Transfer-->
-
-
-                            <div id="transfer" class="panel-body">
+            <div id="transfer" class="panel-body">
                                     {{ Form::open(array('route' => array('transfer'),'method'=>'POST')) }}
                                     <div class="form-group col-md-8 col-md-offset-1">
                                         <label for="presc" class="col-md-6">Facility:</label>
@@ -149,10 +141,7 @@ elseif ($stat == 6) {
                   {{ Form::close() }}
 
                           </div><!--panel body-->
-
-
-
-
-          </div><!--tabs-container-->
+            </div><!--tabs-container-->
         </div><!--col12-->
+    </div>
         <!--tabs-->

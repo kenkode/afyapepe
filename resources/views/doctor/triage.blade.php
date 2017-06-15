@@ -1,8 +1,6 @@
 
 <div class="wrapper wrapper-content">
-
-
-           <div class="col-lg-12">
+   <div class="col-lg-12">
                        <div class="ibox float-e-margins">
                            <div class="ibox-title">
                                <h5>Today's Vitals </h5>

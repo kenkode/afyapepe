@@ -63,7 +63,7 @@
                           ->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')
                           ->join('druglists','druglists.id','=','prescription_details.drug_id')
                           ->join('prescriptions','prescription_details.presc_id','=','prescriptions.id')
-                          ->join('doctors','prescriptions.doc_id','=','doctors.doc_id')
+                          ->join('doctors','prescriptions.doc_id','=','doctors.id')
 
                           ->select('doctors.name as name', DB::raw('SUM(quantity) as totalq'), DB::raw('SUM(price * quantity) as total'))
                             ->groupBy('name')
@@ -81,7 +81,7 @@
                 ->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')
                 ->join('druglists','druglists.id','=','prescription_details.drug_id')
                 ->join('prescriptions','prescription_details.presc_id','=','prescriptions.id')
-                ->join('doctors','prescriptions.doc_id','=','doctors.doc_id')
+                ->join('doctors','prescriptions.doc_id','=','doctors.id')
                      ->select( DB::raw('SUM(quantity) as totalq1'), DB::raw('SUM(price * quantity) as total1'))
                      ->where([ ['prescription_filled_status.created_at','>=',$todaysales],
                                ['doctors.name','=', $doctor->name],
@@ -94,7 +94,7 @@
                    ->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')
                    ->join('druglists','druglists.id','=','prescription_details.drug_id')
                    ->join('prescriptions','prescription_details.presc_id','=','prescriptions.id')
-                   ->join('doctors','prescriptions.doc_id','=','doctors.doc_id')
+                   ->join('doctors','prescriptions.doc_id','=','doctors.id')
                         ->select( DB::raw('SUM(quantity) as totalq1'), DB::raw('SUM(price * quantity) as total1'))
                         ->where([ ['prescription_filled_status.created_at','>=',$todaysales],
                                   ['doctors.name','=', $doctor->name],
@@ -108,7 +108,7 @@
        ->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')
        ->join('druglists','druglists.id','=','prescription_details.drug_id')
        ->join('prescriptions','prescription_details.presc_id','=','prescriptions.id')
-       ->join('doctors','prescriptions.doc_id','=','doctors.doc_id')
+       ->join('doctors','prescriptions.doc_id','=','doctors.id')
             ->select( DB::raw('SUM(quantity) as totalq1'), DB::raw('SUM(price * quantity) as total1'))
             ->where([ ['prescription_filled_status.created_at','>=',$todaysales],
                       ['doctors.name','=', $doctor->name],
@@ -122,7 +122,7 @@
      ->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')
      ->join('druglists','druglists.id','=','prescription_details.drug_id')
      ->join('prescriptions','prescription_details.presc_id','=','prescriptions.id')
-     ->join('doctors','prescriptions.doc_id','=','doctors.doc_id')
+     ->join('doctors','prescriptions.doc_id','=','doctors.id')
           ->select( DB::raw('SUM(quantity) as totalq1'), DB::raw('SUM(price * quantity) as total1'))
           ->where([ ['prescription_filled_status.created_at','>=',$todaysales],
                     ['doctors.name','=', $doctor->name],
@@ -135,7 +135,7 @@
                ->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')
                ->join('druglists','druglists.id','=','prescription_details.drug_id')
                ->join('prescriptions','prescription_details.presc_id','=','prescriptions.id')
-               ->join('doctors','prescriptions.doc_id','=','doctors.doc_id')
+               ->join('doctors','prescriptions.doc_id','=','doctors.id')
                     ->select( DB::raw('SUM(quantity) as totalq1'), DB::raw('SUM(price * quantity) as total1'))
                     ->where([ ['prescription_filled_status.created_at','>=',$todaysales],
                               ['doctors.name','=', $doctor->name],
@@ -147,7 +147,7 @@
        ->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')
        ->join('druglists','druglists.id','=','prescription_details.drug_id')
        ->join('prescriptions','prescription_details.presc_id','=','prescriptions.id')
-       ->join('doctors','prescriptions.doc_id','=','doctors.doc_id')
+       ->join('doctors','prescriptions.doc_id','=','doctors.id')
             ->select( DB::raw('SUM(quantity) as totalq1'), DB::raw('SUM(price * quantity) as total1'))
             ->where([ ['prescription_filled_status.created_at','>=',$todaysales],
                       ['doctors.name','=', $doctor->name],
@@ -221,7 +221,7 @@
   ->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')
   ->join('druglists','druglists.id','=','prescription_details.drug_id')
   ->join('prescriptions','prescription_details.presc_id','=','prescriptions.id')
-  ->join('doctors','prescriptions.doc_id','=','doctors.doc_id')
+  ->join('doctors','prescriptions.doc_id','=','doctors.id')
 
   ->select('doctors.name as name', DB::raw('SUM(quantity) as totalq'), DB::raw('SUM(price * quantity) as total'))
     ->groupBy('name')
@@ -241,7 +241,7 @@
   ->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')
   ->join('druglists','druglists.id','=','prescription_details.drug_id')
   ->join('prescriptions','prescription_details.presc_id','=','prescriptions.id')
-  ->join('doctors','prescriptions.doc_id','=','doctors.doc_id')
+  ->join('doctors','prescriptions.doc_id','=','doctors.id')
   ->select( DB::raw('SUM(quantity) as totalq1'), DB::raw('SUM(price * quantity) as total1'))
   ->where([ ['prescription_filled_status.created_at','>=',$one_week_ago],
           ['prescription_filled_status.created_at','<=',$todaysales],
@@ -255,7 +255,7 @@
   ->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')
   ->join('druglists','druglists.id','=','prescription_details.drug_id')
   ->join('prescriptions','prescription_details.presc_id','=','prescriptions.id')
-  ->join('doctors','prescriptions.doc_id','=','doctors.doc_id')
+  ->join('doctors','prescriptions.doc_id','=','doctors.id')
   ->select( DB::raw('SUM(quantity) as totalq1'), DB::raw('SUM(price * quantity) as total1'))
   ->where([ ['prescription_filled_status.created_at','>=',$one_week_ago],
   ['prescription_filled_status.created_at','<=',$todaysales],
@@ -270,7 +270,7 @@
   ->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')
   ->join('druglists','druglists.id','=','prescription_details.drug_id')
   ->join('prescriptions','prescription_details.presc_id','=','prescriptions.id')
-  ->join('doctors','prescriptions.doc_id','=','doctors.doc_id')
+  ->join('doctors','prescriptions.doc_id','=','doctors.id')
   ->select( DB::raw('SUM(quantity) as totalq1'), DB::raw('SUM(price * quantity) as total1'))
   ->where([ ['prescription_filled_status.created_at','>=',$one_week_ago],
   ['prescription_filled_status.created_at','<=',$todaysales],
@@ -285,7 +285,7 @@
   ->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')
   ->join('druglists','druglists.id','=','prescription_details.drug_id')
   ->join('prescriptions','prescription_details.presc_id','=','prescriptions.id')
-  ->join('doctors','prescriptions.doc_id','=','doctors.doc_id')
+  ->join('doctors','prescriptions.doc_id','=','doctors.id')
   ->select( DB::raw('SUM(quantity) as totalq1'), DB::raw('SUM(price * quantity) as total1'))
   ->where([ ['prescription_filled_status.created_at','>=',$one_week_ago],
   ['prescription_filled_status.created_at','<=',$todaysales],
@@ -299,7 +299,7 @@
   ->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')
   ->join('druglists','druglists.id','=','prescription_details.drug_id')
   ->join('prescriptions','prescription_details.presc_id','=','prescriptions.id')
-  ->join('doctors','prescriptions.doc_id','=','doctors.doc_id')
+  ->join('doctors','prescriptions.doc_id','=','doctors.id')
   ->select( DB::raw('SUM(quantity) as totalq1'), DB::raw('SUM(price * quantity) as total1'))
   ->where([ ['prescription_filled_status.created_at','>=',$one_week_ago],
   ['prescription_filled_status.created_at','<=',$todaysales],
@@ -312,7 +312,7 @@
   ->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')
   ->join('druglists','druglists.id','=','prescription_details.drug_id')
   ->join('prescriptions','prescription_details.presc_id','=','prescriptions.id')
-  ->join('doctors','prescriptions.doc_id','=','doctors.doc_id')
+  ->join('doctors','prescriptions.doc_id','=','doctors.id')
   ->select( DB::raw('SUM(quantity) as totalq1'), DB::raw('SUM(price * quantity) as total1'))
   ->where([ ['prescription_filled_status.created_at','>=',$one_week_ago],
   ['prescription_filled_status.created_at','<=',$todaysales],
@@ -386,7 +386,7 @@
   ->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')
   ->join('druglists','druglists.id','=','prescription_details.drug_id')
   ->join('prescriptions','prescription_details.presc_id','=','prescriptions.id')
-  ->join('doctors','prescriptions.doc_id','=','doctors.doc_id')
+  ->join('doctors','prescriptions.doc_id','=','doctors.id')
 
   ->select('doctors.name as name', DB::raw('SUM(quantity) as totalq'), DB::raw('SUM(price * quantity) as total'))
     ->groupBy('name')
@@ -406,7 +406,7 @@
   ->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')
   ->join('druglists','druglists.id','=','prescription_details.drug_id')
   ->join('prescriptions','prescription_details.presc_id','=','prescriptions.id')
-  ->join('doctors','prescriptions.doc_id','=','doctors.doc_id')
+  ->join('doctors','prescriptions.doc_id','=','doctors.id')
   ->select( DB::raw('SUM(quantity) as totalq1'), DB::raw('SUM(price * quantity) as total1'))
   ->where([ ['prescription_filled_status.created_at','>=',$one_month_ago],
           ['prescription_filled_status.created_at','<=',$todaysales],
@@ -420,7 +420,7 @@
   ->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')
   ->join('druglists','druglists.id','=','prescription_details.drug_id')
   ->join('prescriptions','prescription_details.presc_id','=','prescriptions.id')
-  ->join('doctors','prescriptions.doc_id','=','doctors.doc_id')
+  ->join('doctors','prescriptions.doc_id','=','doctors.id')
   ->select( DB::raw('SUM(quantity) as totalq1'), DB::raw('SUM(price * quantity) as total1'))
   ->where([ ['prescription_filled_status.created_at','>=',$one_month_ago],
   ['prescription_filled_status.created_at','<=',$todaysales],
@@ -435,7 +435,7 @@
   ->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')
   ->join('druglists','druglists.id','=','prescription_details.drug_id')
   ->join('prescriptions','prescription_details.presc_id','=','prescriptions.id')
-  ->join('doctors','prescriptions.doc_id','=','doctors.doc_id')
+  ->join('doctors','prescriptions.doc_id','=','doctors.id')
   ->select( DB::raw('SUM(quantity) as totalq1'), DB::raw('SUM(price * quantity) as total1'))
   ->where([ ['prescription_filled_status.created_at','>=',$one_month_ago],
   ['prescription_filled_status.created_at','<=',$todaysales],
@@ -450,7 +450,7 @@
   ->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')
   ->join('druglists','druglists.id','=','prescription_details.drug_id')
   ->join('prescriptions','prescription_details.presc_id','=','prescriptions.id')
-  ->join('doctors','prescriptions.doc_id','=','doctors.doc_id')
+  ->join('doctors','prescriptions.doc_id','=','doctors.id')
   ->select( DB::raw('SUM(quantity) as totalq1'), DB::raw('SUM(price * quantity) as total1'))
   ->where([ ['prescription_filled_status.created_at','>=',$one_month_ago],
   ['prescription_filled_status.created_at','<=',$todaysales],
@@ -464,7 +464,7 @@
   ->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')
   ->join('druglists','druglists.id','=','prescription_details.drug_id')
   ->join('prescriptions','prescription_details.presc_id','=','prescriptions.id')
-  ->join('doctors','prescriptions.doc_id','=','doctors.doc_id')
+  ->join('doctors','prescriptions.doc_id','=','doctors.id')
   ->select( DB::raw('SUM(quantity) as totalq1'), DB::raw('SUM(price * quantity) as total1'))
   ->where([ ['prescription_filled_status.created_at','>=',$one_month_ago],
   ['prescription_filled_status.created_at','<=',$todaysales],
@@ -477,7 +477,7 @@
   ->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')
   ->join('druglists','druglists.id','=','prescription_details.drug_id')
   ->join('prescriptions','prescription_details.presc_id','=','prescriptions.id')
-  ->join('doctors','prescriptions.doc_id','=','doctors.doc_id')
+  ->join('doctors','prescriptions.doc_id','=','doctors.id')
   ->select( DB::raw('SUM(quantity) as totalq1'), DB::raw('SUM(price * quantity) as total1'))
   ->where([ ['prescription_filled_status.created_at','>=',$one_month_ago],
   ['prescription_filled_status.created_at','<=',$todaysales],
@@ -551,7 +551,7 @@
   ->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')
   ->join('druglists','druglists.id','=','prescription_details.drug_id')
   ->join('prescriptions','prescription_details.presc_id','=','prescriptions.id')
-  ->join('doctors','prescriptions.doc_id','=','doctors.doc_id')
+  ->join('doctors','prescriptions.doc_id','=','doctors.id')
 
   ->select('doctors.name as name', DB::raw('SUM(quantity) as totalq'), DB::raw('SUM(price * quantity) as total'))
     ->groupBy('name')
@@ -571,7 +571,7 @@
   ->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')
   ->join('druglists','druglists.id','=','prescription_details.drug_id')
   ->join('prescriptions','prescription_details.presc_id','=','prescriptions.id')
-  ->join('doctors','prescriptions.doc_id','=','doctors.doc_id')
+  ->join('doctors','prescriptions.doc_id','=','doctors.id')
   ->select( DB::raw('SUM(quantity) as totalq1'), DB::raw('SUM(price * quantity) as total1'))
   ->where([ ['prescription_filled_status.created_at','>=',$one_year_ago],
           ['prescription_filled_status.created_at','<=',$todaysales],
@@ -585,7 +585,7 @@
   ->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')
   ->join('druglists','druglists.id','=','prescription_details.drug_id')
   ->join('prescriptions','prescription_details.presc_id','=','prescriptions.id')
-  ->join('doctors','prescriptions.doc_id','=','doctors.doc_id')
+  ->join('doctors','prescriptions.doc_id','=','doctors.id')
   ->select( DB::raw('SUM(quantity) as totalq1'), DB::raw('SUM(price * quantity) as total1'))
   ->where([ ['prescription_filled_status.created_at','>=',$one_year_ago],
   ['prescription_filled_status.created_at','<=',$todaysales],
@@ -600,7 +600,7 @@
   ->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')
   ->join('druglists','druglists.id','=','prescription_details.drug_id')
   ->join('prescriptions','prescription_details.presc_id','=','prescriptions.id')
-  ->join('doctors','prescriptions.doc_id','=','doctors.doc_id')
+  ->join('doctors','prescriptions.doc_id','=','doctors.id')
   ->select( DB::raw('SUM(quantity) as totalq1'), DB::raw('SUM(price * quantity) as total1'))
   ->where([ ['prescription_filled_status.created_at','>=',$one_year_ago],
   ['prescription_filled_status.created_at','<=',$todaysales],
@@ -615,7 +615,7 @@
   ->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')
   ->join('druglists','druglists.id','=','prescription_details.drug_id')
   ->join('prescriptions','prescription_details.presc_id','=','prescriptions.id')
-  ->join('doctors','prescriptions.doc_id','=','doctors.doc_id')
+  ->join('doctors','prescriptions.doc_id','=','doctors.id')
   ->select( DB::raw('SUM(quantity) as totalq1'), DB::raw('SUM(price * quantity) as total1'))
   ->where([ ['prescription_filled_status.created_at','>=',$one_year_ago],
   ['prescription_filled_status.created_at','<=',$todaysales],
@@ -629,7 +629,7 @@
   ->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')
   ->join('druglists','druglists.id','=','prescription_details.drug_id')
   ->join('prescriptions','prescription_details.presc_id','=','prescriptions.id')
-  ->join('doctors','prescriptions.doc_id','=','doctors.doc_id')
+  ->join('doctors','prescriptions.doc_id','=','doctors.id')
   ->select( DB::raw('SUM(quantity) as totalq1'), DB::raw('SUM(price * quantity) as total1'))
   ->where([ ['prescription_filled_status.created_at','>=',$one_year_ago],
   ['prescription_filled_status.created_at','<=',$todaysales],
@@ -642,7 +642,7 @@
   ->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')
   ->join('druglists','druglists.id','=','prescription_details.drug_id')
   ->join('prescriptions','prescription_details.presc_id','=','prescriptions.id')
-  ->join('doctors','prescriptions.doc_id','=','doctors.doc_id')
+  ->join('doctors','prescriptions.doc_id','=','doctors.id')
   ->select( DB::raw('SUM(quantity) as totalq1'), DB::raw('SUM(price * quantity) as total1'))
   ->where([ ['prescription_filled_status.created_at','>=',$one_year_ago],
   ['prescription_filled_status.created_at','<=',$todaysales],
@@ -717,7 +717,7 @@ $Dall = DB::table('prescription_filled_status')
 ->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')
 ->join('druglists','druglists.id','=','prescription_details.drug_id')
 ->join('prescriptions','prescription_details.presc_id','=','prescriptions.id')
-->join('doctors','prescriptions.doc_id','=','doctors.doc_id')
+->join('doctors','prescriptions.doc_id','=','doctors.id')
 
 ->select('doctors.name as name', DB::raw('SUM(quantity) as totalq'), DB::raw('SUM(price * quantity) as total'))
   ->groupBy('name')
@@ -737,7 +737,7 @@ $Dall = DB::table('prescription_filled_status')
 ->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')
 ->join('druglists','druglists.id','=','prescription_details.drug_id')
 ->join('prescriptions','prescription_details.presc_id','=','prescriptions.id')
-->join('doctors','prescriptions.doc_id','=','doctors.doc_id')
+->join('doctors','prescriptions.doc_id','=','doctors.id')
 ->select( DB::raw('SUM(quantity) as totalq1'), DB::raw('SUM(price * quantity) as total1'))
 ->where([
      ['doctors.name','=', $doctor->name],
@@ -750,7 +750,7 @@ $Dall = DB::table('prescription_filled_status')
 ->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')
 ->join('druglists','druglists.id','=','prescription_details.drug_id')
 ->join('prescriptions','prescription_details.presc_id','=','prescriptions.id')
-->join('doctors','prescriptions.doc_id','=','doctors.doc_id')
+->join('doctors','prescriptions.doc_id','=','doctors.id')
 ->select( DB::raw('SUM(quantity) as totalq1'), DB::raw('SUM(price * quantity) as total1'))
 ->where([
         ['doctors.name','=', $doctor->name],
@@ -764,7 +764,7 @@ $Dall = DB::table('prescription_filled_status')
 ->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')
 ->join('druglists','druglists.id','=','prescription_details.drug_id')
 ->join('prescriptions','prescription_details.presc_id','=','prescriptions.id')
-->join('doctors','prescriptions.doc_id','=','doctors.doc_id')
+->join('doctors','prescriptions.doc_id','=','doctors.id')
 ->select( DB::raw('SUM(quantity) as totalq1'), DB::raw('SUM(price * quantity) as total1'))
 ->where([
 ['doctors.name','=', $doctor->name],
@@ -778,7 +778,7 @@ $Dall = DB::table('prescription_filled_status')
 ->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')
 ->join('druglists','druglists.id','=','prescription_details.drug_id')
 ->join('prescriptions','prescription_details.presc_id','=','prescriptions.id')
-->join('doctors','prescriptions.doc_id','=','doctors.doc_id')
+->join('doctors','prescriptions.doc_id','=','doctors.id')
 ->select( DB::raw('SUM(quantity) as totalq1'), DB::raw('SUM(price * quantity) as total1'))
 ->where([
 ['doctors.name','=', $doctor->name],
@@ -791,7 +791,7 @@ $Dall = DB::table('prescription_filled_status')
 ->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')
 ->join('druglists','druglists.id','=','prescription_details.drug_id')
 ->join('prescriptions','prescription_details.presc_id','=','prescriptions.id')
-->join('doctors','prescriptions.doc_id','=','doctors.doc_id')
+->join('doctors','prescriptions.doc_id','=','doctors.id')
 ->select( DB::raw('SUM(quantity) as totalq1'), DB::raw('SUM(price * quantity) as total1'))
 ->where([
     ['doctors.name','=', $doctor->name],
@@ -803,7 +803,7 @@ $Dall = DB::table('prescription_filled_status')
 ->join('prescription_details','prescription_details.id','=','prescription_filled_status.presc_details_id')
 ->join('druglists','druglists.id','=','prescription_details.drug_id')
 ->join('prescriptions','prescription_details.presc_id','=','prescriptions.id')
-->join('doctors','prescriptions.doc_id','=','doctors.doc_id')
+->join('doctors','prescriptions.doc_id','=','doctors.id')
 ->select( DB::raw('SUM(quantity) as totalq1'), DB::raw('SUM(price * quantity) as total1'))
 ->where([
 ['doctors.name','=', $doctor->name],

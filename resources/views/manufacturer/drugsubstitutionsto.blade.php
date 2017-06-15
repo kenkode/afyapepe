@@ -64,7 +64,7 @@ $Toprescribed = DB::table('prescriptions')
 ->Join('prescription_filled_status', 'prescription_details.id', '=', 'prescription_filled_status.presc_details_id')
 ->Join('pharmacy', 'prescription_filled_status.outlet_id', '=', 'pharmacy.id')
 ->Join('facilities', 'prescriptions.facility_id', '=', 'facilities.FacilityCode')
-->Join('doctors', 'prescriptions.doc_id', '=', 'doctors.doc_id')
+->Join('doctors', 'prescriptions.doc_id', '=', 'doctors.id')
 ->Join('druglists', 'prescription_details.drug_id', '=', 'druglists.id')
 ->select('prescription_filled_status.*','facilities.FacilityName','doctors.name','druglists.drugname','pharmacy.name as pharmacy',
 'pharmacy.county','prescription_details.doseform',
@@ -163,7 +163,7 @@ $Toprescribedw = DB::table('prescriptions')
 ->Join('prescription_filled_status', 'prescription_details.id', '=', 'prescription_filled_status.presc_details_id')
 ->Join('pharmacy', 'prescription_filled_status.outlet_id', '=', 'pharmacy.id')
 ->Join('facilities', 'prescriptions.facility_id', '=', 'facilities.FacilityCode')
-->Join('doctors', 'prescriptions.doc_id', '=', 'doctors.doc_id')
+->Join('doctors', 'prescriptions.doc_id', '=', 'doctors.id')
 ->Join('druglists', 'prescription_details.drug_id', '=', 'druglists.id')
 ->select('prescription_filled_status.*','facilities.FacilityName','doctors.name','druglists.drugname','pharmacy.name as pharmacy',
 'pharmacy.county','prescription_details.doseform',
@@ -262,7 +262,7 @@ $Toprescribedm= DB::table('prescriptions')
 ->Join('prescription_filled_status', 'prescription_details.id', '=', 'prescription_filled_status.presc_details_id')
 ->Join('pharmacy', 'prescription_filled_status.outlet_id', '=', 'pharmacy.id')
 ->Join('facilities', 'prescriptions.facility_id', '=', 'facilities.FacilityCode')
-->Join('doctors', 'prescriptions.doc_id', '=', 'doctors.doc_id')
+->Join('doctors', 'prescriptions.doc_id', '=', 'doctors.id')
 ->Join('druglists', 'prescription_details.drug_id', '=', 'druglists.id')
 ->select('prescription_filled_status.*','facilities.FacilityName','doctors.name','druglists.drugname','pharmacy.name as pharmacy',
 'pharmacy.county','prescription_details.doseform',
@@ -361,7 +361,7 @@ $Toprescribedy= DB::table('prescriptions')
 ->Join('prescription_filled_status', 'prescription_details.id', '=', 'prescription_filled_status.presc_details_id')
 ->Join('pharmacy', 'prescription_filled_status.outlet_id', '=', 'pharmacy.id')
 ->Join('facilities', 'prescriptions.facility_id', '=', 'facilities.FacilityCode')
-->Join('doctors', 'prescriptions.doc_id', '=', 'doctors.doc_id')
+->Join('doctors', 'prescriptions.doc_id', '=', 'doctors.id')
 ->Join('druglists', 'prescription_details.drug_id', '=', 'druglists.id')
 ->select('prescription_filled_status.*','facilities.FacilityName','doctors.name','druglists.drugname','pharmacy.name as pharmacy',
 'pharmacy.county','prescription_details.doseform',
@@ -460,7 +460,7 @@ $Toprescribedall = DB::table('prescriptions')
 ->Join('prescription_filled_status', 'prescription_details.id', '=', 'prescription_filled_status.presc_details_id')
 ->Join('pharmacy', 'prescription_filled_status.outlet_id', '=', 'pharmacy.id')
 ->Join('facilities', 'prescriptions.facility_id', '=', 'facilities.FacilityCode')
-->Join('doctors', 'prescriptions.doc_id', '=', 'doctors.doc_id')
+->Join('doctors', 'prescriptions.doc_id', '=', 'doctors.id')
 ->Join('druglists', 'prescription_details.drug_id', '=', 'druglists.id')
 ->select('prescription_filled_status.*','facilities.FacilityName','doctors.name','druglists.drugname','pharmacy.name as pharmacy',
 'pharmacy.county','prescription_details.doseform',
@@ -558,7 +558,7 @@ $Toprescribedall = DB::table('prescriptions')
 ->Join('prescription_filled_status', 'prescription_details.id', '=', 'prescription_filled_status.presc_details_id')
 ->Join('pharmacy', 'prescription_filled_status.outlet_id', '=', 'pharmacy.id')
 ->Join('facilities', 'prescriptions.facility_id', '=', 'facilities.FacilityCode')
-->Join('doctors', 'prescriptions.doc_id', '=', 'doctors.doc_id')
+->Join('doctors', 'prescriptions.doc_id', '=', 'doctors.id')
 ->Join('druglists', 'prescription_details.drug_id', '=', 'druglists.id')
 ->select('prescription_filled_status.*','facilities.FacilityName','doctors.name','druglists.drugname','pharmacy.name as pharmacy',
 'pharmacy.county','prescription_details.doseform',

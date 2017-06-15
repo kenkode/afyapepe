@@ -74,7 +74,7 @@ public function diagnosesconf(Request $request)
 
   $patientT=DB::table('patient_test_details')
   ->join('diagnoses','patient_test_details.conditional_diag_id','=','diagnoses.id')
-  ->select('diagnoses.id','diagnoses.name','patient_test_details.id as ptdid')
+  ->select('diagnoses.id','diagnoses.name','patient_test_details.id as ptdid','patient_test_details.tests_reccommended as ptest')
   ->where('patient_test_details.id', $pat_details_id)
   ->first();
 
@@ -87,11 +87,10 @@ public function discharges($id)
   ->leftjoin('afya_users','appointments.afya_user_id','=','afya_users.id')
   ->leftjoin('dependant','appointments.persontreated','=','dependant.id')
   ->leftJoin('patient_admitted', 'appointments.id', '=', 'patient_admitted.appointment_id')
-
-  ->leftjoin('facilities','appointments.facility_id','=','facilities.FacilityCode')
+ ->leftjoin('facilities','appointments.facility_id','=','facilities.FacilityCode')
   ->select('appointments.*','afya_users.firstname','afya_users.dob','afya_users.secondName','afya_users.gender',
     'dependant.firstName as dep1name','dependant.secondName as dep2name','dependant.gender as depgender',
-    'dependant.dob as depdob','facilities.FacilityName','patient_admitted.condition')
+    'dependant.dob as depdob','facilities.FacilityName','facilities.set_up','patient_admitted.condition')
   ->where('appointments.id',$id)
   ->get();
   return view('doctor.discharge')->with('patientD',$patientD);

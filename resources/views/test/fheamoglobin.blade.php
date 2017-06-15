@@ -1,10 +1,9 @@
  <div class="wrapper wrapper-content animated fadeInRight">
 				<div class="row">
-      <h3 class="text-center">{{$tsts1->category}} REPORT</h3>
-
-      <div class="col-lg-7 br">
+       <div class="col-lg-7 br">
       <div class="ibox float-e-margins">
-      <h5>{{$tsts1->name}} / {{$tsts1->sub_category}}</h5>
+
+
       <div class="ibox-content">
       <table class="table table-bordered">
       <thead>
@@ -23,14 +22,12 @@
       </tr>
       </thead>
       <tbody>
-      <?php $i=1; $fh=DB::table('test_ranges')
-         ->where('test_ranges.type', '=',$tsts1->tests_reccommended)->get(); ?>
-      @foreach($fh as $fhtest)
+        @foreach($fh as $fhtest)
       <?php  $fhresut=DB::table('test_results')
       ->where([ ['test_results.ptd_id', '=',$tsts1->id],
                 ['test_results.test', '=',$fhtest->id],
                 ['test_results.appointment_id', '=',$appId], ])
-      //  ->orwhere('test_results.appointment_id', '=', $appId)
+
       ->first(); ?>
       <tr>
       <td>{{$i}}</td>
@@ -47,6 +44,7 @@
       </table>
       </div>
       </div>
+
       <?php $i=1; $fh2=DB::table('interpretations')
          ->where('lab_test_id', '=',$tsts1->tests_reccommended)->get(); ?>
          @if($fh2)
@@ -101,7 +99,7 @@
           <div class="form-group"><label>Value</label>
           <input type="text" name="value" placeholder="Enter Value" class="form-control"></div>
         </div>
-        
+
         <?php $fh11=DB::table('lab_test')->where('id', '=',$tsts1->tests_reccommended)->first(['id']); ?>
         @if($fh11->id == '175')
         <div class="form-group">
@@ -149,7 +147,6 @@
 
       <input type="hidden" name="appointment_id" value="{{$appId}}" class="form-control">
       <input type="hidden" name="ptd_id" value="{{$ptdId}}" class="form-control">
-      <input type="hidden" name="type" value="full-haemoglobin" class="form-control">
       <input type="hidden" name="facility" value="{{$facilityId}}" class="form-control">
 
       <div class="text-center">

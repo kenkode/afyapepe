@@ -213,3 +213,27 @@ for (var i=0; i<radios.length; i++)
 }
 }
 </script>
+
+<script type="text/javascript">
+
+      // $('#dd').select2({
+      //   placeholder: 'Select an item',
+      //   ajax: {
+      //     url: '/select2',
+      //     dataType: 'json',
+      //     delay: 250,
+      //     processResults: function (data) {
+      //       return {
+      //         results:  $.map(data, function (item) {
+      //               return {
+      //                   text: item.drugname,
+      //                   id: item.drug_id
+      //               }
+      //           })
+      //       };
+      //     },
+      //     cache: true
+      //   }
+      // });
+
+</script>

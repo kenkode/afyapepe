@@ -17,25 +17,6 @@
  <div class="table-responsive">
    <table class="table table-striped table-bordered table-hover dataTables-example" >
    <thead>
-     <?php
-     //$drugs = DB::table('druglists')->distinct(['drugname'])->get();
-      ?>
-     <!-- <div class="form-group">
-         <label >Prescription:</label>
-         <?php
-        //  foreach($drugs as $drug)
-        //  {
-        //   $dds = $drug->drugname;
-        //   foreach( explode(' ,', $dds) as $dd)
-        //   {
-        //   $d= $dd;
-        //    }
-        //}
-          ?>
-        <textarea><?php //echo $d; ?></textarea> -->
-
-  <!-- <select class="presc1 form-control" style="width:500px;" name="itemName"></select>
-  <input class="form-control" id="q" placeholder="Search users" name="q" type="text" > -->
 
 
      <tr>
@@ -147,7 +128,7 @@
   else
   {
      ?>
-     <a class="btn btn-primary btn-rounded"  >Out of Stock</a>
+     <a class="btn btn-primary btn-rounded"  href="{{ route('substitution',$patient->presc_id) }}" >Out of Stock</a>
      <?php
    }
       ?>

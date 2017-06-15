@@ -187,6 +187,7 @@ Route::resource('pharmacy','PharmacyController');
 Route::get('pharmacy/{id}', 'PharmacyController@show');
 Route::post('post_presc', 'PharmacyController@postPresc');
 Route::get('fill_prescription/{id}', [ 'as' => 'fillpresc', 'uses' => 'PharmacyController@fillPresc']);
+Route::get('substitution/{id}', [ 'as' => 'substitution', 'uses' => 'PharmacyController@subPresc']);
 Route::get('filled_prescriptions', ['as' => 'filled_prescriptions','uses' => 'PharmacyController@FilledPresc']);
 Route::get('totalsales', 'PharmacyController@totalsales');
 Route::get('available', 'PharmacyController@Available');

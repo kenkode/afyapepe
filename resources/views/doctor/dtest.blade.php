@@ -349,7 +349,7 @@ elseif ($stat == 6) {
                       <div class="Lab box">
                       <div class="col-lg-6 b-r">
                       <div class="form-group">
-                      <label>Biochestry Test:</label>
+                      <label>Biochemistry Test:</label>
                       <select class="test-multiple" name="biotests[]" multiple="multiple" style="width: 100%">
                       <?php $biotests=DB::table('lab_test')->where('category', '=','Biochemistry')->distinct()->get(['id','name']); ?>
                       @foreach($biotests as $biotest)

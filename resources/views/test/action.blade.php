@@ -160,5 +160,4 @@ if ($gender == 1) { $gender = 'Male'; }else{ $gender = 'Female'; }
 		</div><!--content-->
   </div><!--content page-->
 </div>
-@include('includes.default.footer')
 @endsection

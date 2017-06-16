@@ -10,6 +10,7 @@ use Carbon\Carbon;
 use Auth;
 use App\Druglist;
 use App\Inventory;
+use App\DrugSuppliers;
 use Response;
 
 class PharmacyController extends Controller
@@ -780,10 +781,31 @@ class PharmacyController extends Controller
          $formatted_drugs = [];
           foreach ($drugs as $drug)
           {
-             $formatted_drugs[] = ['id' => $drug->id, 'text' => $drug->drugname];
+             $formatted_drugs[] = ['id' => $drug->drug_id, 'text' => $drug->drugname];
           }
      return \Response::json($formatted_drugs);
      }
+
+/**
+* Get suppliers
+*/
+     public function fetchSuppliers(Request $request)
+      {
+
+          $term = trim($request->q);
+       if (empty($term))
+         {
+            return \Response::json([]);
+         }
+        $suppliers = DrugSuppliers::search($term)->limit(20)->get();
+
+          $formatted_suppliers = [];
+           foreach ($suppliers as $supplier)
+           {
+              $formatted_suppliers[] = ['id' => $supplier->id, 'text' => $supplier->name];
+           }
+      return \Response::json($formatted_suppliers);
+      }
 
      public function trySomething(Request $request)
      {
@@ -875,6 +897,7 @@ return Response::json($results);
     //$manufacturer = $request->manufacturer;
 
     $drug = $request->prescription;
+    $supplier = $request->supplier;
     $strength = $request->strength;
     $strength_unit = $request->strength_unit;
     $quantity = $request->quantity;
@@ -890,6 +913,7 @@ return Response::json($results);
 
     DB::table('inventory')->insert([
       'drug_id'=>$drug,
+      'supplier'=>$supplier,
       'drugname'=>$drug_name,
       'strength'=>$strength,
       'strength_unit'=>$strength_unit,
@@ -1033,6 +1057,7 @@ return Response::json($results);
 
       return view('pharmacy.inventory_report')->with('reports',$reports);
   }
+
 
 
     /**

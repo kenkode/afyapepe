@@ -207,9 +207,8 @@ Route::get('/manus', 'PharmacyController@getManufacturer');
 Route::get('edit_inventory/{id}', ['as' => 'edit_inventory', 'uses' => 'PharmacyController@getInventory']);
 Route::post('submit_edited', ['as' => 'submit_edited', 'uses' => 'PharmacyController@editedInventory']);
 Route::post('delete_inventory', ['as' => 'delete_inventory', 'uses' => 'PharmacyController@deleteInventory']);
-
 Route::get('inventory_report', ['as' => 'inventory_report', 'uses' => 'PharmacyController@inventoryReport']);
-
+Route::get('/supplier', 'PharmacyController@fetchSuppliers');
 });
 
 /**

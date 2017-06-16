@@ -64,6 +64,29 @@ $.ajaxSetup({
       });
   </script>
 
+<!-- Get drug suppliers -->
+  <script>
+        $('.supplier1').select2({
+            placeholder: "Select supplier...",
+            minimumInputLength: 2,
+            ajax: {
+                url: '/supplier',
+                dataType: 'json',
+                data: function (params) {
+                    return {
+                        q: $.trim(params.term)
+                    };
+                },
+                processResults: function (data) {
+                    return {
+                        results: data
+                    };
+                },
+                cache: true
+            }
+        });
+    </script>
+
   <script>
         $('.manufacturer1').select2({
             placeholder: "Select manufacturer...",
@@ -110,8 +133,8 @@ if (typeof $(this).data('manufacturer') !== 'undefined') {
 
 <script>
    $(document).ready(function(){
-       $('.dataTables-conditional').DataTable({
-           pageLength: 5,
+       $('.dataTables-example').DataTable({
+           pageLength: 10,
            responsive: true,
            dom: '<"html5buttons"B>lTfgitp',
            buttons: [

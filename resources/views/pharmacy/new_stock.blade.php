@@ -15,6 +15,11 @@
     </div> -->
 
     <div class="form-group">
+        <label >Supplier:</label>
+        <select id="supplier1" name="supplier" class="form-control supplier1" ></select>
+    </div>
+
+    <div class="form-group">
         <label >Drug:</label>
         <select id="presc1" name="prescription" class="form-control presc1" ></select>
     </div>

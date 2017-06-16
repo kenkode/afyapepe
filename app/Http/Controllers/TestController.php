@@ -42,6 +42,9 @@ class TestController extends Controller
       ->where([  ['patient_test.test_status', '=',0],
                  ['facility_test.user_id', '=',Auth::user()->id],
                    ])
+     ->orwhere([  ['patient_test.test_status', '=',2],
+                ['facility_test.user_id', '=',Auth::user()->id],
+                  ])
       ->get();
 
         return view('test.home')->with('tsts',$tsts);

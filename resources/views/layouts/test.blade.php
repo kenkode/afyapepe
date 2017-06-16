@@ -33,10 +33,9 @@
     @include('includes.test_inc.headbar')
     <!-- Main view  -->
     @yield('content')
-
+@include('includes.default.footer')
         </div>
-
-    </div>
+</div>
 
     <!-- Mainly scripts -->
     <script src="{{ asset('js/app.js') }}" type="text/javascript"></script>

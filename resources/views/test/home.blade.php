@@ -107,7 +107,7 @@
 
 
 											 </div>
-@include('includes.default.footer')
+
 				</div><!--content-->
 		</div><!--content page-->
 

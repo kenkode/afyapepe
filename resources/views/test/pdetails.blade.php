@@ -61,8 +61,8 @@ $age= $interval->format(" %Y Year, %M Months, %d Days Old");
 
 					</ol>
 					</div>
-					<div class="col-lg-6">
-					<h2>Test Center: {{$facility}}</h2>
+					<div class="col-lg-5">
+					<h2>LAB: {{$facility}}</h2>
 					<ol class="breadcrumb">
 					<li class="active"><strong>Name: {{$TName}} </strong></li>
 					</ol>
@@ -76,7 +76,7 @@ $age= $interval->format(" %Y Year, %M Months, %d Days Old");
      <div class="col-lg-12">
        <div class="tabs-container">
            <div class="wrapper wrapper-content animated fadeInRight">
-
+       @include('doctor.allergy')
 											<div class="row">
 											<div class="ibox float-e-margins">
 
@@ -225,62 +225,8 @@ echo number_format($bmi, 2);
 																									  @endforeach
 
 																								 </tbody>
-<li class="btn btn-primary"><a href="{{ url('test') }}">GO BACK</a></li>
 
-								</table>
-								<?php if ($dependantId =='Self') { ?>
-
-								  <div class="col-sm-6">
-								      <label>Patient Allergy To:</label>
-								      <?php $allergy=DB::table('afya_users_allergy')
-								      ->Join('allergies_type', 'afya_users_allergy.allergies_type_id',  '=', 'allergies_type.id')
-								      ->where('afya_user_id', '=',$afyauserId)->distinct()->get(['name']); ?>
-
-								      @foreach($allergy as $micrtest)
-								           <input type="text" value="{{$micrtest->name}}" class="form-control" readonly="readonly">
-								      @endforeach
-
-								      <label>Patient Chronic Disease:</label>
-								      <?php $chronic=DB::table('appointments')
-								      ->Join('patient_diagnosis', 'appointments.id',  '=', 'patient_diagnosis.appointment_id')
-								      ->Join('diseases', 'patient_diagnosis.disease_id',  '=', 'diseases.id')
-								      ->where('appointments.afya_user_id', '=',$afyauserId)->distinct()->get(['name']); ?>
-
-
-								      @foreach($chronic as $micrtest)
-								           <input type="text" value="{{$micrtest->name}}" class="form-control" readonly="readonly">
-								      @endforeach
-
-								  </div>
-								<?php }
-								else { ?>
-
-
-								  <div class="col-sm-6">
-								      <label>Patient Allergy To:</label>
-								      <?php $allergy=DB::table('afya_users_allergy')
-								      ->Join('allergies_type', 'afya_users_allergy.allergies_type_id',  '=', 'allergies_type.id')
-								      ->where('dependant_id', '=',$dependantId)->distinct()->get(['name']); ?>
-
-								      @foreach($allergy as $micrtest)
-								           <input type="text" value="{{$micrtest->name}}" class="form-control" readonly="readonly">
-								      @endforeach
-
-								      <label>Patient Chronic Disease:</label>
-								      <?php $allergy=DB::table('appointments')
-								        ->Join('patient_diagnosis', 'appointments.id',  '=', 'patient_diagnosis.appointment_id')
-								      ->Join('diagnoses', 'patient_diagnosis.disease_id',  '=', 'diagnoses.id')
-								      ->where([ ['appointments.persontreated', '=',$dependantId],['patient_diagnosis.chronic', '=','Y'],])->distinct()->get(['name']); ?>
-
-								      @foreach($allergy as $micrtest)
-								           <input type="text" value="{{$micrtest->name}}" class="form-control" readonly="readonly">
-								      @endforeach
-
-								  </div>
-								<?php } ?>
-
-
-
+								                            </table>
 
 																									 </div>
 
@@ -290,8 +236,8 @@ echo number_format($bmi, 2);
 																			 </div>
 																	 </div>
                                 </div>
-@include('includes.default.footer')
-                </div>
+
+
             </div>
 				</div><!--content-->
 		</div><!--content page-->

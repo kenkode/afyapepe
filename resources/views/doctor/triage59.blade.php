@@ -268,7 +268,7 @@
 
                 <?php $MotherD=DB::table('mother_details')
                   ->leftJoin('afya_users', 'mother_details.afya_user_id',  '=', 'afya_users.id')
-                  ->leftJoin('constituency', 'afya_users.constituency',  '=', 'constituency.const_id')
+                  ->leftJoin('constituency', 'afya_users.constituency',  '=', 'constituency.id')
                   ->where('mother_details.dependant_id', '=', $dependantId)
                      ->select('mother_details.*','afya_users.*','constituency.constituency as const')
                      ->get();

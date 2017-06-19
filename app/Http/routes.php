@@ -120,6 +120,7 @@ Route::get('calendar','DoctorController@Calendar');
 Route::resource('prescription', 'PrescriptionController@store');
 
 Route::get('newpatients', [ 'as' => 'doctor', 'uses' => 'DoctorController@index']);
+Route::get('pendingpatients', [ 'as' => 'pending', 'uses' => 'DoctorController@pending']);
 Route::get('patientadmitted', [ 'as' => 'admitted', 'uses' => 'DoctorController@Admitted']);
 Route::get('testdone/{id}', [ 'as' => 'testdone', 'uses' => 'PatientController@testdone']);
 Route::get('show/{id}',['as'=>'showPatient', 'uses'=>'PatientController@showpatient']);

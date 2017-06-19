@@ -83,7 +83,7 @@ $appStatue='Discharged Intpatient';
                   </ol>
               </div>
           </div>
-
+        
 <!--tabs Menus-->
 <div class="row border-bottom">
 <nav class="navbar" role="navigation">

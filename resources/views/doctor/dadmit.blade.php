@@ -107,6 +107,7 @@ elseif ($stat == 6) {
      </div>
 </nav>
 </div>
+<div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-12">
             <div class="tabs-container">
             <div class="tab-content">
@@ -143,12 +144,7 @@ elseif ($stat == 6) {
                   {{ Form::close() }}
                         </div><!--panel body-->
 
-
-
-
-
-
-
+                </div>
               </div><!--tabcontent-->
           </div><!--tabs-container-->
         </div><!--col12-->

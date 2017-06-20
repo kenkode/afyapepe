@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Patient')
+@section('title', 'Dependant')
 @section('content')
 <div class="row">
 <div class="col-lg-6">
@@ -9,22 +9,22 @@
 
       </div>
       <div class="ibox-content">
-      <?php  $app=DB::table('appointments')->orderby('created_at', 'desc')->where('afya_user_id',$id) ->where('created_at','<=',$today)->first();
+      <?php  $app=DB::table('appointments')->orderby('created_at', 'desc')->where('persontreated',$id)->where('created_at','<=',$today)->first();
 
-      $triage=DB::table('triage_details')->where('appointment_id',$app->id)->first();?>
+      $triage=DB::table('triage_infants')->where('appointment_id',$app->id)->first();?>
   
- {!! Form::open(array('url' => 'createexistingdetail','method'=>'POST')) !!}
+ {!! Form::open(array('url' => 'existingdetail','method'=>'POST')) !!}
     <div class="form-group">
     <input type="hidden" class="form-control" id="exampleInputEmail1S" aria-describedby="emailHelp" value="{{$id}}" name="id"  required>
     <input name="last_app_id" type="hidden" value="{{$app->id}}">
     <div class="form-group">
     <label for="exampleInputEmail1">Weight</label>
-    <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{$triage->current_weight}}" placeholder="Weight" name="weight" readonly="">
+    <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{$triage->weight}}" placeholder="Weight" name="weight" readonly="">
     </div>
     
     <div class="form-group">
     <label for="exampleInputEmail1">Height</label>
-    <input type="name" class="form-control" placeholder="Height in Metres" name="current_height" value="{{$triage->current_height }}" 
+    <input type="name" class="form-control" placeholder="Height in Metres" name="current_height" value="{{$triage->height }}" 
      readonly="">
     </div>
    <div class="form-group">

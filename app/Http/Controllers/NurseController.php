@@ -1880,4 +1880,34 @@ $appointment=DB::table('appointments')->where('afya_user_id', $id)->where('statu
 
         return redirect()->action('NurseController@index');
     }
+
+    public function deexistapp($id){
+        $today = Carbon::today();
+        return view('nurse.deexistapp')->with('id',$id)->with('today',$today);
+    }
+
+    public function existingdetail(Request $request){
+
+
+        $id=$request->id;
+        $doctor=$request->doctor;
+        $lastid=$request->last_app_id;
+            
+      
+       
+
+
+
+
+$appointment=DB::table('appointments')->where('persontreated', $id)->where('status',1)->orderBy('created_at', 'desc')->first();
+    
+ DB::table('appointments')->where('id',$appointment->id)->update([
+    'status'=>2,
+    'doc_id'=>$doctor,
+    'last_app_id'=>$lastid]);
+
+
+
+        return redirect()->action('NurseController@index');
+    }
 }

@@ -86,6 +86,10 @@
                              $dage= $intervals->format(" %Y Year, %M Months, %d Days Old");?>
 
                               {{$dage}}</td></td>
+                               <td><?php $st=$patient->depid;
+                               $app=DB::table('appointments')->orderby('created_at', 'desc')->where('persontreated',$st) ->where('created_at','<=',$today)->first();
+
+                                   ?>@if($app->status==3)<a href="{{route('nurse.dependents',$patient->depid)}}">{{"New"}}</a>@else<a href="{{url('nurse.deexistapp',$patient->depid)}}">{{"Existing"}}</a>@endif</td>
 
                                                   @endif
                                                           

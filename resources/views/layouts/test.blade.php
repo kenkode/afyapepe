@@ -122,5 +122,16 @@ if (typeof $(this).data('id') !== 'undefined') {
         });
 
     </script>
+    <script>
+    // show test updateResult
+    $(document).ready(function(){
+      $("#Tupdate").hide();
+        $("#upresult").click(function(){
+            $("#Tupdate").show();
+            $("#Uclose").hide();
+            
+        });
+    });
+    </script>
 </body>
 </html>

@@ -142,7 +142,7 @@ elseif ($stat == 6) {
                         ->leftJoin('facilities', 'patient_test_details.facility_done', '=', 'facilities.FacilityCode')
                         ->leftJoin('lab_test', 'patient_test_details.tests_reccommended', '=', 'lab_test.id')
                         ->leftJoin('diagnoses', 'patient_test_details.conditional_diag_id', '=', 'diagnoses.id')
-                        ->select('patient_test_details.*','facilities.*','lab_test.name','diagnoses.name as diagnoses')
+                        ->select('patient_test_details.id as ptdid','patient_test_details.*','facilities.*','lab_test.name','diagnoses.name as diagnoses')
                         ->where('patient_test.appointment_id', '=',$app_id)
                         ->orderBy('created_at', 'desc')
                          ->get();
@@ -160,14 +160,13 @@ elseif ($stat == 6) {
                          <th>Status</th>
                          <th>Result</th>
                          <th>Note</th>
-
-
-                      </tr>
+                    </tr>
                       </thead>
 
                       <tbody>
 
                       @foreach($tstdone as $tstdn)
+                  <?php    $ptdid =$tstdn->ptdid; ?>
                         <tr>
                         <td>{{ +$i }}</td>
                        <td>{{$tstdn->created_at}}</td>
@@ -186,7 +185,17 @@ elseif ($stat == 6) {
                         }
                           ?>  {{$prescs}}</td>
                          <td>{{$tstdn->results}}</td>
+                         @if($tstdn->confirm =='Y')
                          <td>{{$tstdn->note}}</td>
+                         @else
+                         <td>
+                           {{ Form::open(array('route' => array('diaconf'),'method'=>'POST')) }}
+                             {{ Form::hidden('appointment_id',$app_id, array('class' => 'form-control')) }}
+                             {{ Form::hidden('pat_details_id',$ptdid, array('class' => 'form-control')) }}
+                             <button class="btn btn-sm btn-primary  m-t-n-xs" type="submit"><strong>Confirm Diagnosis</strong></button>
+                            {{ Form::close() }}
+                         </td>
+                          @endif
 
                       </tr>
                       <?php $i++; ?>

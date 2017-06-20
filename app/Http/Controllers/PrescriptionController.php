@@ -65,7 +65,16 @@ DB::table('patient_test_details')
 if ($state == 'Discharge') {
 return redirect()->route('disdiagnosis', ['id' => $appointment]);
 } elseif ($state =='Normal'){
-return redirect()->route('diagnoses', ['id' => $appointment]);
+
+  $tNY = DB::table('patient_test_details')
+  ->where([['appointment_id',$appointment],['confirm','N'],])
+  ->first();
+if ($tNY){
+return redirect()->route('testes', ['id' => $appointment]);
+}else{
+return redirect()->route('medicines', ['id' => $appointment]);
+}
+
 }
 
 

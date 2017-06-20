@@ -456,16 +456,23 @@ $patienttd = DB::table('patient_test_details')->insert([
       }
 
 
-      public function Testconfirm($id){
-          DB::table('patient_test_details')
-          ->where('id', $id)
-          ->update(
-          ['confirm' =>'Y']
-          );
+          public function Testconfirm($id){
+          DB::table('patient_test_details')->where('id', $id)
+          ->update(['confirm' =>'Y']);
+
           $appid = DB::table('patient_test_details')->where('id', $id)
           ->first();
 
-          return redirect()->route('diagnoses',$appid->appointment_id);
+          $tNY = DB::table('patient_test_details')
+          ->where([['appointment_id',$appid->appointment_id],['confirm','N'],])
+          ->first();
+        if ($tNY){
+        return redirect()->route('testes',$appid->appointment_id);
+        }else{
+        return redirect()->route('medicines',$appid->appointment_id);
+
+        }
+
 
       }
 

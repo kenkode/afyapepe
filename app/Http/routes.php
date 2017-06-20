@@ -277,7 +277,9 @@ Route::group(['middleware' => ['auth','role:Admin|Test']], function() {
 
 	Route::get('action/{id}', [ 'as' => 'perftest', 'uses' => 'TestController@actions']);
 	Route::Post('pdetails', [ 'as' => 'testResult', 'uses' => 'TestController@testResult']);
-	Route::Post('pdetails2', [ 'as' => 'testfilm', 'uses' => 'TestController@testResult']);
+	Route::Post('pdetails2', [ 'as' => 'testfilm', 'uses' => 'TestController@testreport']);
+	Route::Post('report', [ 'as' => 'testRupdt', 'uses' => 'TestController@testupdate']);
+
 
 
 });

@@ -32,11 +32,14 @@ class TestController extends Controller
     {
       $tsts = DB::table('patient_test')
       ->leftJoin('appointments', 'patient_test.appointment_id', '=', 'appointments.id')
+      ->leftJoin('doctors', 'patient_test.doc_id', '=', 'doctors.id')
+      ->leftJoin('facilities', 'patient_test.facility_from', '=', 'facilities.FacilityCode')
       ->leftJoin('afya_users', 'appointments.afya_user_id', '=', 'afya_users.id')
       ->leftJoin('dependant', 'appointments.persontreated', '=', 'dependant.id')
    ->leftJoin('facility_test', 'patient_test.facility', '=', 'facility_test.facilitycode')
      ->select('afya_users.*','patient_test.id as tid','patient_test.created_at as date',
-      'patient_test.test_status','appointments.persontreated',
+      'patient_test.test_status','doctors.name as doc','facilities.FacilityName as fac',
+      'appointments.persontreated',
       'dependant.firstName as depname','dependant.secondName as depname2',
       'dependant.gender as depgender','dependant.dob as depdob')
       ->where([  ['patient_test.test_status', '=',0],
@@ -84,6 +87,7 @@ public function testAnalytics(){
 }
 
 public function testResult(Request $request)
+
 {
 $now = Carbon::now();
 
@@ -92,15 +96,24 @@ $now = Carbon::now();
   $ptd_id =$request->ptd_id;
   $film = $request->film;
   $egfr = $request->egfr;
-
-
+$labd = $request->lab_test_id;
+$appid = $request->appointment_id;
   if($test1){
+$pttids=DB::table('test_results')
+->where([ ['appointment_id','=',$appid],
+         ['test_results.ptd_id', '=',$ptd_id],
+         ['test_results.test', '=',$test1],])
+  ->first();
+
+if (is_null($pttids)) {
     $testRslt = DB::table('test_results')->insert([
        'ptd_id' => $ptd_id,
        'appointment_id' => $request->get('appointment_id'),
        'test' => $test1,
        'value' => $request->get('value'),
+       'status' => 1,
    ]);
+ }
  }
   if($film){
     $filmRslt1 = DB::table('film_reports')->insert([
@@ -118,6 +131,43 @@ if($egfr){
      'status' => $egfr,
 
 ]);  }
+
+$query11 = DB::table('test_ranges')
+        ->select(DB::raw('count(id) as idt'))
+        ->where('type', '=', $labd)
+->first();
+
+$count11 = $query11->idt;
+$query22 = DB::table('test_results')
+        ->select(DB::raw('count(id) as idp'))
+        ->where('ptd_id', '=', $ptd_id)
+        ->first();
+$count22 = $query22->idp;
+
+if($count11 == $count22)
+{
+  $tsts1 = DB::table('patient_test_details')
+  ->Join('lab_test', 'patient_test_details.tests_reccommended', '=', 'lab_test.id')
+  ->select('lab_test.name','lab_test.sub_category','lab_test.category','patient_test_details.*')
+  ->where('patient_test_details.id', '=',$ptd_id)
+  ->first();
+  return view('test.report')->with('tsts1',$tsts1);
+}else {
+return redirect()->route('perftest',$ptd_id);
+  }
+
+}
+
+
+
+public function testreport(Request $request)
+{
+$now = Carbon::now();
+
+  $com1 =$request->comments;
+  $ptd_id =$request->ptd_id;
+
+
 
 if($com1){
   DB::table('patient_test_details')
@@ -164,10 +214,8 @@ if($com1){
 
 }
 $testDdone=DB::table('patient_test_details')->where('id', '=',$ptd_id)->distinct()->first(['results','patient_test_id']);
+return redirect()->route('patientTests',$testDdone->patient_test_id);
 
-if ($testDdone->results) {
-  return redirect()->route('patientTests',$testDdone->patient_test_id);
-} else { return redirect()->route('perftest',$ptd_id); }
 }
 
         public function actions($id)
@@ -180,6 +228,33 @@ if ($testDdone->results) {
            return view('test.action')->with('tsts1',$tsts1);
         }
 
+public function testupdate(Request $request){
+  $now = Carbon::now();
+  $test1 =$request->test;
+  $value =$request->value;
+  $film = $request->film;
+  
+  $ptd_id= $request->ptd_id;
+  $filmrept= $request->filmrept;
+  DB::table('test_results')
+            ->where('id', $test1)
+            ->update(
+              ['value' => $value , 'updated_at'=> $now]
+            );
+if($film){
+DB::table('film_reports')
+          ->where('id',$filmrept)
+          ->update(
+            ['status' => $film, 'updated_at'=> $now]
+          );
+        }
+        $tsts1 = DB::table('patient_test_details')
+        ->Join('lab_test', 'patient_test_details.tests_reccommended', '=', 'lab_test.id')
+        ->select('lab_test.name','lab_test.sub_category','lab_test.category','patient_test_details.*')
+        ->where('patient_test_details.id', '=',$ptd_id)
+        ->first();
+        return view('test.report')->with('tsts1',$tsts1);
+}
 
 function Strength(){
  $Strength = DB::table('strength')

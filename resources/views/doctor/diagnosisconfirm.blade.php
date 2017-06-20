@@ -149,11 +149,9 @@ if ($gender ==1){ $gender = 'Male';}else{ $gender = 'Female';}
                       <th>VALUE</th>
                       <th>UNITS</th>
                       @if($gender == 'Male')
-                      <th><button type="button" class="btn btn-primary">NORMAL MALE</button></th>
-                      <th>NORMAL FEMALE</th>
-                      @else
                       <th>NORMAL MALE</th>
-                      <th><button type="button" class="btn btn-primary">NORMAL FEMALE</button></th>
+                      @else
+                      <th>NORMAL FEMALE</th>
                       @endif
                       </tr>
                       </thead>
@@ -169,8 +167,11 @@ if ($gender ==1){ $gender = 'Male';}else{ $gender = 'Female';}
                       <td>{{$fhtest->test}}</td>
                       <td>{{$fhtest->value}}</td>
                       <td>{{$fhtest->units}}</td>
-                      <td>{{$fhtest->normal_male}}</td>
-                      <td>{{$fhtest->normal_female}}</td>
+                      @if($gender == 'Male')
+                      <td>{{$fhtest->low_male}} - {{$fhtest->high_male}}</td>
+                       @else
+                      <td>{{$fhtest->low_female}} - {{$fhtest->high_female}}</td>
+                       @endif
                       <?php $i ++ ?>
                       </tr>
                       @endforeach
@@ -213,7 +214,9 @@ if ($gender ==1){ $gender = 'Male';}else{ $gender = 'Female';}
                    </div>
 
                            <?php $i=1; $fhfilmr = DB::table('film_reports')
+                           ->join('test_ranges', 'film_reports.test', '=', 'test_ranges.id')
                            ->where('ptd_id', '=',$patientT->ptdid)
+                           ->select('test_ranges.test','film_reports.status')
                            ->get(); ?>
                      <?php if($fhfilmr) { ?>
 

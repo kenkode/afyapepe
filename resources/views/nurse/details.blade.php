@@ -15,26 +15,26 @@
     <input type="hidden" class="form-control" id="exampleInputEmail1S" aria-describedby="emailHelp" value="{{$id}}" name="id"  required>
     <div class="form-group">
     <label for="exampleInputEmail1">Weight</label>
-    <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Weight" name="weight"  required>
+    <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Weight" name="weight"  required>
     </div>
     
     <div class="form-group">
     <label for="exampleInputEmail1">Height</label>
-    <input type="name" class="form-control" placeholder="Height in Metres" name="current_height"
+    <input type="text" class="form-control" placeholder="Height in Metres" name="current_height"
      required>
     </div>
    <div class="form-group">
     <label for="exampleInputPassword1">Temperature</label>
-    <input type="name" class="form-control" id="exampleInputPassword1" placeholder="Temperature" name="temperature"  required>
+    <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Temperature" name="temperature"  required>
    </div>
 
     <div class="form-group">
     <label for="exampleInputPassword1">Systolic BP</label>
-    <input type="name" class="form-control" id="exampleInputPassword1" placeholder="Systolic BP" name="systolic"  required>
+    <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Systolic BP" name="systolic"  required>
     </div>
     <div class="form-group">
     <label for="exampleInputEmail1">Diastolic BP</label>
-    <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Diastolic BP" name="diastolic"  required>
+    <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Diastolic BP" name="diastolic"  required>
     </div>
 
     </div>

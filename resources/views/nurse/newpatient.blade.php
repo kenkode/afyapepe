@@ -49,6 +49,7 @@
                                                           <th>Name</th>
                                                           <th>Gender</th>
                                                           <th>Age</th>
+                                                          <th>Appointment Status</th>
                                                           <th>Date</th>
                                                     </tr>
                                                   </thead>
@@ -64,11 +65,16 @@
                                                           <td><?php $gender=$patient->gender;?>
                                                             @if($gender==1){{"Male"}}@else{{"Female"}}@endif</a>
                                                           </td>
+                                
                                   <td><?php $dob=$patient->dob;
                                   $interval = date_diff(date_create(), date_create($dob));
                              $age= $interval->format(" %Y Year, %M Months, %d Days Old");?> {{$age}}
 
                              </td>
+                               <td><?php $status=$patient->parid;
+                               $app=DB::table('appointments')->orderby('created_at', 'desc')->where('afya_user_id',$status) ->where('created_at','<=',$today)->first();
+
+                                   ?>@if($app->status==3)<a href="{{route('nurse.show',$patient->parid)}}">{{"New"}}</a>@else<a href="{{url('nurse.existapp',$patient->parid)}}">{{"Existing"}}</a>@endif</td>
                                                 @else
                                                           <td><a href="{{url('nurse.dependents',$patient->depid)}}">{{$i}}</a></td>
                                                           <td><a href="{{url('nurse.dependents',$patient->depid)}}">{{$patient->dfirst}} {{$patient->dsecond}}</a></td>

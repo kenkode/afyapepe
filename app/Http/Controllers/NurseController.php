@@ -35,7 +35,7 @@ class NurseController extends Controller
         ->where('app.created_at','>=',$today)
         ->where('app.facility_id',$facilitycode->facilitycode)
         ->get();
-        return view('nurse.newpatient')->with('patients',$patients);
+        return view('nurse.newpatient')->with('patients',$patients)->with('today',$today);
     }
     public function fdrugs(Request $request)
      {
@@ -1848,5 +1848,10 @@ DB::table('patients')->where('id', $id)
     public function destroy($id)
     {
         //
+    }
+
+
+    public function selfselect($id){
+        return view('nurse.selfselect')->with('id',$id);
     }
 }

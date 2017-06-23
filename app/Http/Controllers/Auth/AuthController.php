@@ -103,11 +103,11 @@ class AuthController extends Controller
                    }
                    elseif($role=='Pharmacy_manager'){
                       DB::table('role_user')->insert(['user_id'=>$user->id,
-          'role_id'=>10]);
+          'role_id'=>12]);
                    }
                    elseif($role=='Pharmacy_store_keeper'){
                       DB::table('role_user')->insert(['user_id'=>$user->id,
-          'role_id'=>11]);
+          'role_id'=>13]);
                    }
                     else{
                         DB::table('role_user')->insert(['user_id'=>$user->id,

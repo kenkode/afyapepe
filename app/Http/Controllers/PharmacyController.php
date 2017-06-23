@@ -541,7 +541,7 @@ class PharmacyController extends Controller
       $price = $request->price;
       $available = $request->availability;
 
-      $strength = $request->strength;
+      $strength = $request->dose_given2;
       $frequency = $request->frequency;
       $doseform = $request->dosageform;
       $strength_unit = $request->strength_unit;
@@ -776,12 +776,12 @@ class PharmacyController extends Controller
         {
            return \Response::json([]);
         }
-       $drugs = Inventory::search($term)->limit(20)->get();
+       $drugs = Druglist::search($term)->limit(20)->get();
 
          $formatted_drugs = [];
           foreach ($drugs as $drug)
           {
-             $formatted_drugs[] = ['id' => $drug->drug_id, 'text' => $drug->drugname];
+             $formatted_drugs[] = ['id' => $drug->id, 'text' => $drug->drugname];
           }
      return \Response::json($formatted_drugs);
      }
@@ -874,8 +874,9 @@ return Response::json($results);
     $inventory = DB::table('inventory')
                 ->join('druglists','druglists.id','=','inventory.drug_id')
                 ->join('strength','strength.strength','=','inventory.strength')
-                ->select('druglists.Manufacturer','druglists.drugname',
+                ->select('druglists.Manufacturer','druglists.drugname','inventory.created_at AS entry_date',
                 'druglists.id AS drug_id','strength.strength','inventory.*','inventory.id AS inventory_id')
+                ->orderBy('inventory.created_at', 'desc')
                 ->get();
 
     return view('pharmacy.inventory')->with('inventory',$inventory);

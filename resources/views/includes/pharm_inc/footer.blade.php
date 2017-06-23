@@ -28,7 +28,6 @@
 <script src="{{ asset('js/plugins/dataTables/datatables.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('select/select2.min.js') }}" type="text/javascript"></script>
 
-
 <!-- Custom and plugin javascript -->
 <script src="{{ asset('js/plugins/pace/pace.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('js/custom.js') }}" type="text/javascript"></script>
@@ -203,7 +202,7 @@ $('#diag_id').val(data_id);
 
 <script>
  $('#weight,#quantity').keyup(function(){
- if((document.getElementById('weight1').value * document.getElementById('quantity').value) <document.getElementById('strength22').value)
+ if((document.getElementById('weight1').value * document.getElementById('quantity').value) < document.getElementById('strength22').value)
  $('#subs').show();
  else
  $('#subs').hide();

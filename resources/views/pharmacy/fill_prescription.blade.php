@@ -5,6 +5,17 @@
         <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
 
+          <?php
+
+          $user_id = Auth::user()->id;
+
+          $data = DB::table('pharmacists')
+                    ->where('user_id', $user_id)
+                    ->first();
+
+          $facility = $data->premiseid;
+           ?>
+
           <!-- Display patient allergies if any -->
           <?php
           if(empty($allergies))
@@ -251,15 +262,13 @@
 
                <div class="Box" style="display:none">
 
-               <div class="form-group">
-               <label for="from">From</label>
-               <input class="from"  type="text"  name="from1">
-               <label for="to">to</label>
-               <input class="to" type="text" name="to1">
-               </div>
+
                <div class="form-group"><label>Weight</label> <input type="number" id="weight1" name="weight1"  class="form-control" oninput="calc1()"></div>
-               <div class="form-group"><label>Quantity</label> <input type="number" name="quantity" id="quantity" class="form-control" oninput="calculate();calc1();"></div>
-               <div class="form-group"><label>Dose Given</label> <input type="number" id="sub2" name="dose_given1"  class="form-control" oninput="calc1()" readonly></div>
+
+               <div class="form-group"><label>Quantity</label> <input type="number" name="quantity" id="quantity" class="form-control" oninput="calc1()"></div>
+
+               <div class="form-group"><label>Dose Given</label> <input type="number" id="sub2" name="dose_given1"  class="form-control" readonly></div>
+
                <div class="form-group" id="subs" style="display:none">
                  <label>Reason</label>
                   <select class="form-control" name="reason22" >
@@ -269,6 +278,8 @@
                    @endforeach
                  </select>
                </div>
+
+
                <?php
                $prices = DB::table('inventory')
                         ->select('recommended_retail_price')
@@ -277,9 +288,35 @@
                         ->first();
                 $recommended_price = $prices->recommended_retail_price;
                 ?>
+
                <div class="form-group"><label>Recommended Price</label> <input type="number" name="rec_price" value="{{$recommended_price}}"  class="form-control" disabled></div>
-               <div class="form-group"><label>Price</label> <input type="number" name="price" id="price" class="form-control" oninput="calculate()"></div>
+
+               <div class="form-group"><label>Price</label> <input type="number" name="price" id="price" class="form-control" ></div>
+
+               <div class="form-group">
+                 <label>Payment options</label>
+                  <select class="form-control" name="payment_options" id="pay_option1" >
+                    <option value="" selected disabled>Select payment option</option>
+                   <?php $options = DB::table('payment_options')->distinct()
+                                ->join('pharmacy_payment', 'pharmacy_payment.option_id', '=', 'payment_options.id')
+                                ->where('pharmacy_payment.pharmacy_id', '=', $facility)
+                                ->get(['payment_options.name','pharmacy_payment.markup']); ?>
+                   @foreach($options as $option)
+                          <option value='{{$option->markup}}'>{{$option->name}}</option>
+                   @endforeach
+                 </select>
+
+               </div>
+
                <div class="form-group"><label>Total</label> <input type="number" name="total" id="total" class="form-control" readonly oninput="calculate()"></div>
+
+               <div class="form-group">
+               <label for="from">From</label>
+               <input class="from"  type="text"  name="from1">
+               <label for="to">to</label>
+               <input class="to" type="text" name="to1">
+               </div>
+
 
                </div>
 
@@ -314,15 +351,6 @@
            </select>
          </div>
 
-          <div class="form-group">
-           <label>Strength</label>
-            <select class="form-control" id="testsj" name="strength" >
-              <?php $Strengths=DB::table('strength')->distinct()->get(['strength']); ?>
-                @foreach($Strengths as $Strengthz)
-                  <option value="{{$Strengthz->strength}}">{{ $Strengthz->strength  }}  </option>
-               @endforeach
-           </select>
-           </div>
 
            <div class="form-group">
            <label>Strength Unit</label>
@@ -359,16 +387,37 @@
 
 
          <div class="form-group"><label>Weight</label> <input type="number" id="weight2" name="weight2"  class="form-control" oninput="calc2()"></div>
+
          <div class="form-group"><label>Quantity</label> <input type="number" name="quantity1" id="quantity1" class="form-control" oninput="calc2();calculated();"></div>
-         <div class="form-group"><label>Dose Given</label> <input type="number" name="dose_given2" id="sus"  class="form-control" oninput="calc2()" readonly></div>
+
+         <div class="form-group"><label>Dose Given / Strength</label> <input type="number" name="dose_given2" id="sus"  class="form-control" oninput="calc2()" readonly></div>
+
          <div class="form-group"><label>Price</label> <input type="number" name="price1" id="price1" class="form-control" oninput="calculated()"></div>
+
+         <div class="form-group">
+           <label>Payment options</label>
+            <select class="form-control" name="payment_options" id="pay_option" >
+              <option value="" selected disabled>Select payment option</option>
+             <?php $options = DB::table('payment_options')->distinct()
+                          ->join('pharmacy_payment', 'pharmacy_payment.option_id', '=', 'payment_options.id')
+                          ->where('pharmacy_payment.pharmacy_id', '=', $facility)
+                          ->get(['payment_options.name','pharmacy_payment.markup']); ?>
+             @foreach($options as $option)
+                    <option value='{{$option->markup}}'>{{$option->name}}</option>
+             @endforeach
+           </select>
+         </div>
+
+         <div class="form-group"><label>Total</label> <input type="number" name="total1" id="total1" class="form-control" readonly oninput="calculated()"></div>
+
+
          <div class="form-group">
          <label for="from">From</label>
          <input class="from"  type="text"  name="from2">
          <label for="to">to</label>
          <input class="to" type="text" name="to2">
          </div>
-         <div class="form-group"><label>Total</label> <input type="number" name="total1" id="total1" class="form-control" readonly oninput="calculated()"></div>
+
 
 
          </div>
@@ -407,18 +456,40 @@
                 h_change.value = myResult4;
              }
 
-             function calculated()
-                 {
-                   var myInput7 = document.getElementById('quantity1').value;
-                   var myInput8 = document.getElementById('price1').value;
+            //  function calculated()
+            //      {
+            //        var myInput7 = document.getElementById('quantity1').value;
+            //        var myInput8 = document.getElementById('price1').value;
+             //
+            //        var h_change= document.getElementById('total1');
+             //
+            //         myResult4 =(+myInput7) * (+myInput8) ;
+            //         h_change.value = myResult4;
+            //      }
 
-                   var h_change= document.getElementById('total1');
 
-                    myResult4 =(+myInput7) * (+myInput8) ;
-                    h_change.value = myResult4;
-                 }
+         </script>
 
+         <!-- function for getting total during normal filling of prescription -->
+         <script>
+         $('#price, #pay_option1, #quantity').change(function(){
+          var price = parseFloat($('#price').val()) || 0;
+          var pay = parseFloat($('#pay_option1').val()) || 0;
+          var quantity = parseFloat($('#quantity').val()) || 0;
 
+         $('#total').val(Math.round(quantity*price*pay));
+          });
+         </script>
+
+         <!-- function for getting total during substitution -->
+         <script>
+         $('#price1, #pay_option, #quantity1').change(function(){
+          var price = parseFloat($('#price1').val()) || 0;
+          var pay = parseFloat($('#pay_option').val()) || 0;
+          var quantity = parseFloat($('#quantity1').val()) || 0;
+
+         $('#total1').val(Math.round(quantity*price*pay));
+          });
          </script>
 
 

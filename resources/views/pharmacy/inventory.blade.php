@@ -11,8 +11,9 @@
      <h5>Drugs Stock</h5>
 
      <div class="ibox-tools">
-
+@role(['Pharmacyadmin','Pharmacymanager'])
      <a class="btn btn-primary " type="button" href="{{ URL::to('new_stock') }}"><i class="fa fa-paste"></i> Add Stock</a>
+     @endrole
 
    </div>
 
@@ -30,6 +31,7 @@
          <th>Manufacturer</th>
          @role(['Pharmacyadmin','Pharmacymanager'])
          <th>Number in stock</th>
+         <th>Date</th>
          @endrole
          <th></th>
      </tr>
@@ -40,6 +42,7 @@
        foreach($inventory as $inv)
        {
          $bought = $inv->quantity;
+         $entry_date = $inv->entry_date;
          $drug_id = $inv->drug_id;
          $inventory_id = $inv->inventory_id;
          $counter = DB::table('prescription_filled_status')
@@ -57,6 +60,7 @@
         <td>{{$inv->Manufacturer}}</td>
         @role(['Pharmacyadmin','Pharmacymanager'])
         <td>{{$stock_level}}</td>
+        <td>{{$entry_date}}</td>
         @endrole
         <td>
           @role(['Pharmacyadmin','Pharmacymanager'])
@@ -105,6 +109,7 @@
       <th>Manufacturer</th>
       @role(['Pharmacyadmin','Pharmacymanager'])
       <th>Number in stock</th>
+      <th>Date</th>
       @endrole
       <th></th>
     </tr>

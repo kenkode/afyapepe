@@ -4,7 +4,16 @@
 
         <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
+          <?php
 
+          $user_id = Auth::user()->id;
+
+          $data = DB::table('pharmacists')
+                    ->where('user_id', $user_id)
+                    ->first();
+
+          $facility = $data->premiseid;
+           ?>
           <!-- Display patient allergies if any -->
           <?php
           if(empty($allergies))
@@ -224,7 +233,7 @@
                             <option value='{{$reason->id}}'>{{$reason->reason}}</option>
                      @endforeach
                    </select>
-                   
+
                  </div>
                  <div class="form-group">
                      <label >Prescription:</label>
@@ -246,15 +255,7 @@
            </select>
          </div>
 
-          <div class="form-group">
-           <label>Strength</label>
-            <select class="form-control" id="testsj" name="strength" >
-              <?php $Strengths=DB::table('strength')->distinct()->get(['strength']); ?>
-                @foreach($Strengths as $Strengthz)
-                  <option value="{{$Strengthz->strength}}">{{ $Strengthz->strength  }}  </option>
-               @endforeach
-           </select>
-           </div>
+
 
            <div class="form-group">
            <label>Strength Unit</label>
@@ -289,32 +290,52 @@
             </select>
          </div>
 
-
          <div class="form-group"><label>Weight</label> <input type="number" id="weight2" name="weight2"  class="form-control" oninput="calc2()"></div>
-         <div class="form-group"><label>Quantity</label> <input type="number" name="quantity1" id="quantity1" class="form-control" oninput="calc2();calculated();"></div>
-         <div class="form-group"><label>Dose Given</label> <input type="number" name="dose_given2" id="sus"  class="form-control" oninput="calc2()" readonly></div>
-         <div class="form-group"><label>Price</label> <input type="number" name="price1" id="price1" class="form-control" oninput="calculated()"></div>
+
+         <div class="form-group"><label>Quantity</label> <input type="number" name="quantity1" id="quantity1" class="form-control" oninput="calc2()"></div>
+
+         <div class="form-group"><label>Dose Given</label> <input type="number" name="dose_given2" id="sus"  class="form-control" readonly></div>
+
+         <div class="form-group"><label>Price</label> <input type="number" name="price1" id="price1" class="form-control" ></div>
+
+         <div class="form-group">
+           <label>Payment options</label>
+            <select class="form-control" name="payment_options" id="pay_option" >
+              <option value="" selected disabled>Select payment option</option>
+             <?php $options = DB::table('payment_options')->distinct()
+                          ->join('pharmacy_payment', 'pharmacy_payment.option_id', '=', 'payment_options.id')
+                          ->where('pharmacy_payment.pharmacy_id', '=', $facility)
+                          ->get(['payment_options.name','pharmacy_payment.markup']); ?>
+             @foreach($options as $option)
+                    <option value='{{$option->markup}}'>{{$option->name}}</option>
+             @endforeach
+           </select>
+         </div>
+
          <div class="form-group">
          <label for="from">From</label>
          <input class="from"  type="text"  name="from2">
-         <label for="to">to</label>
+         <label for="to">To</label>
          <input class="to" type="text" name="to2">
          </div>
-         <div class="form-group"><label>Total</label> <input type="number" name="total1" id="total1" class="form-control" readonly oninput="calculated()"></div>
+
+         <div class="form-group"><label>Total</label> <input type="text" name="total1" id="total1" class="form-control" readonly ></div>
+          <!-- <input type="text" name="actual_payment" id="yi" >
+          <input type="text" name="actual_payment_option" id="ii" > -->
+          <script>
+          // var the_textbox = document.getElementById('ii');
+          //
+          // var the_dropdown = document.getElementById('pay_option');
+          //
+          // the_dropdown.onchange = function(){
+          // the_textbox.value = this.value;
+          //
+          // }
+          </script>
 
 
+          <!-- function for getting total during substitution -->
          <script type="text/javascript">
-         function calc1()
-             {
-           var myInput8 = document.getElementById('quantity').value;
-           var myInput7 = document.getElementById('weight1').value;
-
-           var h_change= document.getElementById('sub2');
-
-            myResult4 =(+myInput7) * (+myInput8) ;
-            h_change.value = myResult4;
-             }
-
          function calc2()
              {
              var myInput8 = document.getElementById('quantity1').value;
@@ -326,29 +347,29 @@
               h_change.value = myResult4;
              }
 
-         function calculate()
-             {
-               var myInput7 = document.getElementById('quantity').value;
-               var myInput8 = document.getElementById('price').value;
 
-               var h_change= document.getElementById('total');
+            //  function calculated()
+            //      {
+            //        var myInput7 = document.getElementById('quantity1').value;
+            //        var myInput8 = document.getElementById('price1').value;
+            //
+            //        var h_change= document.getElementById('total1');
+            //
+            //         myResult4 = myInput7 * myInput8 ;
+            //         h_change.value = myResult4;
+            //      }
 
-                myResult4 =(+myInput7) * (+myInput8) ;
-                h_change.value = myResult4;
-             }
+         </script>
 
-             function calculated()
-                 {
-                   var myInput7 = document.getElementById('quantity1').value;
-                   var myInput8 = document.getElementById('price1').value;
+         <!-- function for getting total during substitution -->
+         <script>
+         $('#price1, #pay_option, #quantity1').change(function(){
+          var price = parseFloat($('#price1').val()) || 0;
+          var pay = parseFloat($('#pay_option').val()) || 0;
+          var quantity = parseFloat($('#quantity1').val()) || 0;
 
-                   var h_change= document.getElementById('total1');
-
-                    myResult4 =(+myInput7) * (+myInput8) ;
-                    h_change.value = myResult4;
-                 }
-
-
+         $('#total1').val(Math.round(quantity*price*pay));
+          });
          </script>
 
 

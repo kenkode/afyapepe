@@ -24,6 +24,7 @@
             <li><a href="{{ url('doctor') }}"><i class="fa fa-th-large"></i> <span class="nav-label">Patients</span> <span class="fa arrow"></span></a>
                   <ul class="nav nav-second-level">
                         <li><a href="{{ url('doctor') }}"><span>Today's Patient</span></a></li>
+                        <li><a href="{{ route('pending') }}"><span>Pending Patient</span></a></li>
                         <li><a href="{{ route('admitted') }}"><span>Admitted Patients</span></a></li>
                     </ul>
               </li>

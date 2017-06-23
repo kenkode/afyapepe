@@ -103,6 +103,10 @@ Route::group(['middleware' => ['auth','role:Admin|Nurse']], function() {
  Route::get('/tag/observation','NurseController@fobservation');
 Route::get('/tag/symptom','NurseController@fsymptom');
 Route::get('/tag/chief','NurseController@fchief');
+Route::get('nurse.existapp/{id}','NurseController@existingapp');
+Route::post('createexistingdetail','NurseController@createexistingdetail');
+Route::get('nurse.deexistapp/{id}','NurseController@deexistapp');
+Route::post('existingdetail','NurseController@existingdetail');
 Route::get('/ajax-subcat',function(){
 	$cat_id= Input::get('cat_id');
 	$symptoms= Symptom::where('observation_id','=',$cat_id)->get();
@@ -120,6 +124,7 @@ Route::get('calendar','DoctorController@Calendar');
 Route::resource('prescription', 'PrescriptionController@store');
 
 Route::get('newpatients', [ 'as' => 'doctor', 'uses' => 'DoctorController@index']);
+Route::get('pendingpatients', [ 'as' => 'pending', 'uses' => 'DoctorController@pending']);
 Route::get('patientadmitted', [ 'as' => 'admitted', 'uses' => 'DoctorController@Admitted']);
 Route::get('testdone/{id}', [ 'as' => 'testdone', 'uses' => 'PatientController@testdone']);
 Route::get('show/{id}',['as'=>'showPatient', 'uses'=>'PatientController@showpatient']);
@@ -272,7 +277,9 @@ Route::group(['middleware' => ['auth','role:Admin|Test']], function() {
 
 	Route::get('action/{id}', [ 'as' => 'perftest', 'uses' => 'TestController@actions']);
 	Route::Post('pdetails', [ 'as' => 'testResult', 'uses' => 'TestController@testResult']);
-	Route::Post('pdetails2', [ 'as' => 'testfilm', 'uses' => 'TestController@testResult']);
+	Route::Post('pdetails2', [ 'as' => 'testfilm', 'uses' => 'TestController@testreport']);
+	Route::Post('report', [ 'as' => 'testRupdt', 'uses' => 'TestController@testupdate']);
+
 
 
 });

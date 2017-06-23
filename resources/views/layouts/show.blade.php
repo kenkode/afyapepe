@@ -189,7 +189,7 @@ $('#data_1 .input-group.date').datepicker({
    <script>
        $(document).ready(function(){
            $('.dataTables-conditional').DataTable({
-               pageLength: 5,
+               pageLength: 10,
                responsive: true,
                dom: '<"html5buttons"B>lTfgitp',
                buttons: [

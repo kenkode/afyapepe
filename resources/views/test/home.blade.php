@@ -41,9 +41,9 @@
 																												<th>Patient Name</th>
 																												<th>Gender</th>
 																												<th>Age</th>
-																												<!-- <th>Conditional Diesease</th> -->
 																												<th>Date Created</th>
-																												<th>Status</th>
+																												<th>Precribing Doctor</th>
+																												<th>Precribing Facility</th>
 																									</tr>
 																								</thead>
 
@@ -53,42 +53,30 @@
 
 																									@foreach($tsts as $tst)
 																									<?php
-																									if ($tst->persontreated=='Self') {$gender= $tst->gender; }
-																									else {$gender= $tst->depgender;}
-
-																									  if ($gender==1) {$gender='Male';}else{$gender='Female';}
-
-																										if ($tst->persontreated=='Self') {$dob=$tst->dob; }
-																										else {$dob=$tst->depdob;}
-
-																									 $interval = date_diff(date_create(), date_create($dob));
-																									 $age= $interval->format(" %Y Year, %M Months, %d Days Old");
-
-																									$status= $tst->test_status;
-																									//  if ($status=1) {$status='Done';}else{$status='NOT DONE';}
-																									if ($status==1) {
-																										$status='Done';
-																									}elseif($status==2) {
-																										$status='Partially Done';
-																									}else {
-																										$status='NOT DONE';
+																									if ($tst->persontreated=='Self') {
+																										$gender= $tst->gender;
+																										$dob=$tst->dob;
+																										$pname= $tst->firstname." ".$tst->secondName;
 																									}
 
+																									else {
+																										$gender= $tst->depgender;
+																										$dob=$tst->depdob;
+																										$pname= $tst->depname." ".$tst->depname2;
+																									}
 
-                                                  ?>
+																									  if ($gender==1) {$gender='Male';}else{$gender='Female';}
+                                                 $interval = date_diff(date_create(), date_create($dob));
+																									 $age= $interval->format(" %Y Year, %M Months, %d Days Old");
+                                                   ?>
 																									  <tr>
 																									  <td><a href="{{route('patientTests',$tst->tid)}}">{{$i}}</a></td>
-																									 <td><a href="{{route('patientTests',$tst->tid)}}">
-																									 <?php if ($tst->persontreated=='Self') {echo $tst->firstname." ".$tst->secondName;}
-																									 else {echo $tst->depname." ".$tst->depname2;}
-																									 ?></a></td>
-
-
-																										<td>{{$gender}}</td>
+																									 <td><a href="{{route('patientTests',$tst->tid)}}">{{$pname}}</a></td>
+                                                    <td>{{$gender}}</td>
 																									  <td>{{$age}}</td>
-
-																									   <td>{{$tst->date}}</td>
-																										 <td>{{$status}}</td>
+                                                    <td>{{$tst->date}}</td>
+																										 <td>{{$tst->doc}}</td>
+																										 <td>{{$tst->fac}}</td>
 																								</tr>
 																									<?php $i++; ?>
 
@@ -103,10 +91,7 @@
 																			 </div>
 																			 </div>
 																	 </div>
-
-
-
-											 </div>
+                          </div>
 
 				</div><!--content-->
 		</div><!--content page-->

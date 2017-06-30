@@ -64,7 +64,7 @@ $age= $interval->format(" %Y Year, %M Months, %d Days Old");
 					<div class="col-lg-5">
 					<h2>LAB: {{$facility}}</h2>
 					<ol class="breadcrumb">
-					<li class="active"><strong>Name: {{$TName}} </strong></li>
+					<li class="active"><strong>Name: {{$pdetails->docname}} </strong></li>
 					</ol>
 					</div>
 				</div>
@@ -205,9 +205,21 @@ echo number_format($bmi, 2);
 
 																									  <tr>
 																									  <td>{{$i}}</td>
-																									 <td>{{$tst->testname}}</td>
-																									  <td>{{$tst->category}}</td>
-																									  <td>{{$tst->sub_category}}</td>
+																									 <td>
+																										 @if($tst->testname)
+																										 	{{$tst->testname}}
+																										 @else
+																										 <?php $tstdone1 = DB::table('test_subcategories')
+																										 ->join('test_categories','test_subcategories.categories_id','=','test_categories.id')
+																										 ->where('test_subcategories.id', '=',$tst->subcat)
+																										 ->select('test_subcategories.*','test_categories.name as ctname')
+																											 ->first() ?>
+
+																											{{$tstdone1->name}}
+																										 	@endif
+                                                      </td>
+																									  <td>@if($tst->category){{$tst->category}}@else {{$tstdone1->ctname}} @endif</td>
+																									  <td>@if($tst->sub_category){{$tst->sub_category}} @else {{$tstdone1->name}} @endif</td>
 																									  <td>{{$tst->disease }}</td>
 																									   <td><?php
 																										 $status=$tst->done; if ($status==0) {
@@ -217,9 +229,12 @@ echo number_format($bmi, 2);
 																									   }
 																									    ?>
                                                   {{$status}}</td>
-
-																										  <td>{{$tst->date}}</td>
-                                                    <td class="btn btn-primary"><a href="{{route('perftest',$tst->patTdid)}}">Perform Test</a></td>
+                                                     <td>{{$tst->date}}</td>
+																								@if($tst->testname)
+																									<td class="btn btn-primary"><a href="{{route('perftest',$tst->patTdid)}}">Perform Test</a></td>
+                                                  @else
+																									<td class="btn btn-primary"><a href="{{route('perftest2',$tst->patTdid)}}">Perform Test</a></td>
+                                                  @endif
 																								</tr>
 																								<?php $i++; ?>
 																									  @endforeach

@@ -106,11 +106,49 @@ return redirect()->action('AdminController@facility');
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function addtest()
     {
-        //
+    return view('admin.tests');
     }
+    public function storetest(Request $request)
+    {
+      $test_cat=$request->test_cat;
+      $sub_name=$request->sub_name;
+      $sub_cat_id =$request->sub_cat_id;
+      $test=$request->test;
+         if($sub_name){
+      $sub_id=DB::table('test_subcategories')->insertGetId([
+          'name'=>$sub_name,
+          'categories_id'=>$test_cat,
+          ]);
 
+      DB::table('tests')->insert([
+          'name'=>$test,
+          'sub_categories_id'=>$sub_id,
+          ]);
+                  }
+if($sub_cat_id){
+DB::table('tests')->insert([
+    'name'=>$test,
+    'sub_categories_id'=>$sub_cat_id,
+    ]);
+
+    return  Redirect()->action('AdminController@teststo',['id'=> $sub_cat_id]);
+    }
+    return view('admin.tests');
+}
+    public function teststo($id)
+    {
+
+$tests=DB::table('overall_test')
+ ->join('test_categories','overall_test.id','=','test_categories.overall_test_id')
+ ->join('test_subcategories','test_categories.id','=','test_subcategories.categories_id')
+ ->select('overall_test.category as oname','test_categories.name as cname',
+          'test_subcategories.name as sname','test_subcategories.id as sid')
+ ->where('test_subcategories.id',$id)
+ ->first();
+      return view('admin.testsupdate')->with('tests',$tests);
+  }
     /**
      * Show the form for editing the specified resource.
      *
@@ -140,8 +178,9 @@ return redirect()->action('AdminController@facility');
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroytests($id)
     {
-        //
+    DB::table("tests")->where('id',$id)->delete();
+      return view('admin.tests');
     }
 }

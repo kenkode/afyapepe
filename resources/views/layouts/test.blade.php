@@ -127,9 +127,9 @@ if (typeof $(this).data('id') !== 'undefined') {
     $(document).ready(function(){
       $("#Tupdate").hide();
         $("#upresult").click(function(){
-            $("#Tupdate").show();
-            $("#Uclose").hide();
-            
+            $("#Tupdate").toggle();
+            // $("#Uclose").hide();
+
         });
     });
     </script>

@@ -65,6 +65,9 @@ $appStatue='Discharged Intpatient';
 
 }
 ?>
+
+
+
 <div class="row wrapper border-bottom white-bg page-heading">
               <div class="col-lg-6">
                   <h2>{{$name }}</h2>
@@ -83,7 +86,32 @@ $appStatue='Discharged Intpatient';
                   </ol>
               </div>
           </div>
-        
+          <div class="row bs-wizard" style="border-bottom:0;">
+                <div class="col-xs-3 bs-wizard-step complete">
+                <div class="text-center bs-wizard-stepnum">TEST</div>
+                <div class="progress"><div class="progress-bar"></div></div>
+                <a href="#" class="bs-wizard-dot"></a>
+              </div>
+
+              <div class="col-xs-3 bs-wizard-step complete"><!-- complete -->
+                <div class="text-center bs-wizard-stepnum">Diagnosis</div>
+                <div class="progress"><div class="progress-bar"></div></div>
+                <a href="#" class="bs-wizard-dot"></a>
+              </div>
+
+              <div class="col-xs-3 bs-wizard-step disabled"><!-- complete -->
+                <div class="text-center bs-wizard-stepnum">PRESCRIPTIONS</div>
+                <div class="progress"><div class="progress-bar"></div></div>
+                <a href="#" class="bs-wizard-dot"></a>
+                </div>
+
+              <div class="col-xs-3 bs-wizard-step disabled"><!-- active -->
+                <div class="text-center bs-wizard-stepnum">DISCHARGED ✓</div>
+                <div class="progress"><div class="progress-bar"></div></div>
+                <a href="#" class="bs-wizard-dot"></a>
+              </div>
+
+          </div>
 <!--tabs Menus-->
 <div class="row border-bottom">
 <nav class="navbar" role="navigation">

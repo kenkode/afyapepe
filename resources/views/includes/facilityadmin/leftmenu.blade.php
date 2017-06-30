@@ -23,14 +23,17 @@
             <li >
             <a href="{{ URL::to('facilityadmin') }}"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboards</span></a>
 
-            </li>        
-                        
+            </li>
 
-                         
-                       <li><a href="{{ URL::to('facilityregister') }}"><i class="fa fa-users"></i> <span>Registrar</span></a></li>    
+
+
+                       <li><a href="{{ URL::to('facilityregister') }}"><i class="fa fa-users"></i> <span>Registrar</span></a></li>
                       <li><a href="{{ URL::to('facilitynurse') }}"><i class="fa fa-users"></i> <span>Nurse</span></a></li>
                      <li><a href="{{ URL::to('facilitydoctor') }}"><i class="fa fa-users"></i> <span>Doctor</span></a></li>
                       <li><a href="{{ URL::to('facilityofficer') }}"><i class="fa fa-users"></i> <span>C.Officers</span></a></li>
+                      <li><a href="{{ URL::to('laboratory') }}"><i class="fa fa-users"></i> <span>Laboratory</span></a></li>
+                      <li><a href="{{ URL::to('testranges') }}"><i class="fa fa-users"></i> <span>Add Test Ranges</span></a></li>
+
                          <li> <a href="{{ URL::to('#')}}">  <i class="fa fa-envelope "></i> <span>Email</span></a></li>
                          <li> <a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i><span>Logout</span></a>
                          </li>

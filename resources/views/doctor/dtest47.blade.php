@@ -137,16 +137,17 @@ elseif ($stat == 6) {
                       <!--Test result tabs PatientController@testdone-->
                   <?php $i =1;
 
-   $tstdone = DB::table('patient_test')
-  ->leftJoin('patient_test_details', 'patient_test.id', '=', 'patient_test_details.patient_test_id')
-  ->leftJoin('facilities', 'patient_test_details.facility_done', '=', 'facilities.FacilityCode')
-  ->leftJoin('tests', 'patient_test_details.tests_reccommended', '=', 'tests.id')
-  ->leftJoin('diagnoses', 'patient_test_details.conditional_diag_id', '=', 'diagnoses.id')
-  ->select('patient_test_details.test_subcategories_id as subcat','patient_test_details.id as ptdid','patient_test_details.*','facilities.*','tests.name','diagnoses.name as diagnoses')
-  ->where('patient_test.appointment_id', '=',$app_id)
-  ->orderBy('created_at', 'desc')
-  ->get();
-?>
+                         $tstdone = DB::table('patient_test')
+                       ->leftJoin('patient_test_details', 'patient_test.id', '=', 'patient_test_details.patient_test_id')
+                        ->leftJoin('facilities', 'patient_test_details.facility_done', '=', 'facilities.FacilityCode')
+                        ->leftJoin('lab_test', 'patient_test_details.tests_reccommended', '=', 'lab_test.id')
+                        ->leftJoin('diagnoses', 'patient_test_details.conditional_diag_id', '=', 'diagnoses.id')
+                        ->select('patient_test_details.id as ptdid','patient_test_details.*','facilities.*','lab_test.name','diagnoses.name as diagnoses')
+                        ->where('patient_test.appointment_id', '=',$app_id)
+                        ->orderBy('created_at', 'desc')
+                         ->get();
+
+                      ?>
 
                       <div class="table-responsive ibox-content">
                        <table class="table table-striped table-bordered table-hover dataTables-conditional" >
@@ -169,13 +170,7 @@ elseif ($stat == 6) {
                         <tr>
                         <td>{{ +$i }}</td>
                        <td>{{$tstdn->created_at}}</td>
-                        <td>@if($tstdn->name)
-                          {{$tstdn->name}}
-                        @else
-                        <?php $tstdone = DB::table('test_subcategories')->where('id', '=',$tstdn->subcat)->first() ?>
-                          {{$tstdone->name}}
-                          @endif
-                        </td>
+                        <td>{{$tstdn->name}}</td>
                        <td>{{$tstdn->diagnoses}}</td>
 
                         <td><?php
@@ -246,12 +241,97 @@ elseif ($stat == 6) {
                       </select>
                       </div>
                       <?php }  ?>
-
+                      <div class="form-group">
+                      <label  class="col-md-6">Facility:</label>
+                      <select id="facility" name="facility" class="form-control facility1" style="width: 100%"></select>
+                      </div>
                       <div class="col-sm-6 b-r">
-
+                      <div class="form-group">
+                      <label for="tag_list" class="">Malaria Test:</label>
+                      <select class="test-multiple" name="malaria2[]" multiple="multiple" style="width: 100%">
+                      <?php $biotests=DB::table('lab_test')->where('sub_category', '=','Malaria')->distinct()->get(['id','name']); ?>
+                      @foreach($biotests as $biotest)
+                      <option value='{{$biotest->id}}'>{{$biotest->name}}</option>
+                      @endforeach
+                      </select>
+                      </div>
+                      <div class="form-group">
+                      <label for="tag_list" class="">Haematology Test:</label>
+                      <select class="test-multiple" name="haematology2[]" multiple="multiple" style="width: 100%">
+                      <?php $biotests=DB::table('lab_test')->where('sub_category', '=','Haematology')->distinct()->get(['id','name']); ?>
+                      @foreach($biotests as $biotest)
+                      <option value='{{$biotest->id}}'>{{$biotest->name}}</option>
+                      @endforeach
+                      </select>
+                      </div>
+                      <div class="form-group">
+                      <label for="tag_list" class="">Chemistry Test:</label>
+                      <select class="test-multiple" name="chemistry2[]" multiple="multiple" style="width: 100%">
+                      <?php $biotests=DB::table('lab_test')->where('sub_category', '=','Chemistry')->distinct()->get(['id','name']); ?>
+                      @foreach($biotests as $biotest)
+                      <option value='{{$biotest->id}}'>{{$biotest->name}}</option>
+                      @endforeach
+                      </select>
+                      </div>
+                      <div class="form-group">
+                      <label for="tag_list" class="">HIV Test:</label>
+                      <select class="test-multiple" name="hiv2[]" multiple="multiple" style="width: 100%">
+                      <?php $biotests=DB::table('lab_test')->where('sub_category', '=','HIV')->distinct()->get(['id','name']); ?>
+                      @foreach($biotests as $biotest)
+                      <option value='{{$biotest->id}}'>{{$biotest->name}}</option>
+                      @endforeach
+                      </select>
+                      </div>
+                      <div class="form-group">
+                      <label for="tag_list" class="">TB Test:</label>
+                      <select class="test-multiple" name="tb2[]" multiple="multiple" style="width: 100%">
+                      <?php $biotests=DB::table('lab_test')->where('sub_category', '=','TB')->distinct()->get(['id','name']); ?>
+                      @foreach($biotests as $biotest)
+                      <option value='{{$biotest->id}}'>{{$biotest->name}}</option>
+                      @endforeach
+                      </select>
+                      </div>
                       </div>
                       <div class="col-sm-6 ">
-
+                      <div class="form-group">
+                      <label for="tag_list" class="">Glucose Test:</label>
+                      <select class="test-multiple" name="glucose2[]" multiple="multiple" style="width: 100%">
+                      <?php $biotests=DB::table('lab_test')->where('sub_category', '=','Glucose')->distinct()->get(['id','name']); ?>
+                      @foreach($biotests as $biotest)
+                      <option value='{{$biotest->id}}'>{{$biotest->name}}</option>
+                      @endforeach
+                      </select>
+                      </div>
+                      <div class="form-group">
+                      <label for="tag_list" class="">X-RAY Test:</label>
+                      <select class="test-multiple" name="xray2[]" multiple="multiple" style="width: 100%">
+                      <?php $biotests=DB::table('lab_test')->where('sub_category', '=','X-ray')->distinct()->get(['id','name']); ?>
+                      @foreach($biotests as $biotest)
+                      <option value='{{$biotest->id}}'>{{$biotest->name}}</option>
+                      @endforeach
+                      </select>
+                      </div>
+                      <div class="form-group">
+                      <label for="tag_list" class="">Microbiology Test:</label>
+                      <select class="test-multiple" name="mcrobiology2[]" multiple="multiple" style="width: 100%">
+                      <?php $biotests=DB::table('lab_test')->where('sub_category', '=','Microbiology')->distinct()->get(['id','name']); ?>
+                      @foreach($biotests as $biotest)
+                      <option value='{{$biotest->id}}'>{{$biotest->name}}</option>
+                      @endforeach
+                      </select>
+                      </div>
+                      <div class="form-group">
+                      <label for="tag_list" class="">Urine Test:</label>
+                      <select class="test-multiple" name="urine2[]" multiple="multiple" style="width: 100%">
+                      <?php $biotests=DB::table('lab_test')->where('sub_category', '=','Urine')->distinct()->get(['id','name']); ?>
+                      @foreach($biotests as $biotest)
+                      <option value='{{$biotest->id}}'>{{$biotest->name}}</option>
+                      @endforeach
+                      </select>
+                      </div>
+                      <div id="buttonsDiv">
+                      <input type="button" id="button2" class="btn btn-w-m btn-warning" value="Other Tests"></input>
+                      </div>
 
                       </div>
                       <div class="form-group ">
@@ -276,27 +356,11 @@ elseif ($stat == 6) {
                       <!-- Laboratory Tests starts}} -->
 
                       <div class="Lab box">
-                        <div class="form-group">
-                        <label>Tests Categories:</label>
-                        <select class="test-multiple" name="subcat[]" multiple="multiple" style="width: 100%">
-                        <?php $subcats=DB::table('test_subcategories')
-                      ->distinct()->get(['id','name']); ?>
-                        @foreach($subcats as $subcat)
-                        <option value='{{$subcat->id}}'>{{$subcat->name}}</option>
-                        @endforeach
-                        </select>
-                        </div>
-                        <div class ="">
-                            <h5>For Single Test</h5>
-                          </div>
                       <div class="col-lg-6 b-r">
                       <div class="form-group">
                       <label>Biochemistry Test:</label>
                       <select class="test-multiple" name="biotests[]" multiple="multiple" style="width: 100%">
-                      <?php $biotests=DB::table('tests')
-                      ->Join('test_subcategories', 'tests.sub_categories_id', '=', 'test_subcategories.id')
-                      ->where('test_subcategories.categories_id', '=','1')
-                      ->distinct()->get(['tests.id','tests.name']); ?>
+                      <?php $biotests=DB::table('lab_test')->where('category', '=','Biochemistry')->distinct()->get(['id','name']); ?>
                       @foreach($biotests as $biotest)
                       <option value='{{$biotest->id}}'>{{$biotest->name}}</option>
                       @endforeach
@@ -305,10 +369,7 @@ elseif ($stat == 6) {
                       <div class="form-group">
                       <label>Coagulation  Test:</label>
                       <select class="test-multiple" name="coagtests[]" multiple="multiple" style="width: 100%">
-                      <?php $coagtests=DB::table('tests')
-                      ->Join('test_subcategories', 'tests.sub_categories_id', '=', 'test_subcategories.id')
-                      ->where('test_subcategories.categories_id', '=','2')
-                      ->distinct()->get(['tests.id','tests.name']); ?>
+                      <?php $coagtests=DB::table('lab_test')->where('category', '=','Coagulation')->distinct()->get(['id','name']); ?>
                       @foreach($coagtests as $coagtest)
                       <option value='{{$coagtest->id}}'>{{$coagtest->name}}</option>
                       @endforeach
@@ -317,10 +378,7 @@ elseif ($stat == 6) {
                       <div class="form-group">
                       <label>Haematology Test:</label>
                       <select class="test-multiple" name="haemtests[]" multiple="multiple" style="width: 100%">
-                      <?php $haemtests=DB::table('tests')
-                      ->Join('test_subcategories', 'tests.sub_categories_id', '=', 'test_subcategories.id')
-                      ->where('test_subcategories.categories_id', '=','3')
-                      ->distinct()->get(['tests.id','tests.name']); ?>
+                      <?php $haemtests=DB::table('lab_test')->where('category', '=','Haematology')->distinct()->get(['id','name']); ?>
                       @foreach($haemtests as $haemtest)
                       <option value='{{$haemtest->id}}'>{{$haemtest->name}}</option>
                       @endforeach
@@ -332,10 +390,7 @@ elseif ($stat == 6) {
                       <div class="form-group">
                       <label>Immunology Infective Test:</label>
                       <select class="test-multiple" name="inftests[]" multiple="multiple" style="width: 100%">
-                      <?php $imitests=DB::table('tests')
-                      ->Join('test_subcategories', 'tests.sub_categories_id', '=', 'test_subcategories.id')
-                      ->where('test_subcategories.categories_id', '=','5')
-                      ->distinct()->get(['tests.id','tests.name']); ?>
+                      <?php $imitests=DB::table('lab_test')->where('category', '=','Immunology_Infective')->distinct()->get(['id','name']); ?>
                       @foreach($imitests as $imitest)
                       <option value='{{$imitest->id}}'>{{$imitest->name}}</option>
                       @endforeach
@@ -345,10 +400,7 @@ elseif ($stat == 6) {
                       <div class="form-group">
                       <label>Immunology Auto Immune Test:</label>
                       <select class="test-multiple" name="autotests[]" multiple="multiple" style="width: 100%">
-                      <?php $imatests=DB::table('tests')
-                      ->Join('test_subcategories', 'tests.sub_categories_id', '=', 'test_subcategories.id')
-                      ->where('test_subcategories.categories_id', '=','6')
-                      ->distinct()->get(['tests.id','tests.name']); ?>
+                      <?php $imatests=DB::table('lab_test')->where('category', '=','Immunology-Auto-Immune')->distinct()->get(['id','name']); ?>
                       @foreach($imatests as $imatest)
                       <option value='{{$imatest->id}}'>{{$imatest->name}}</option>
                       @endforeach
@@ -358,10 +410,7 @@ elseif ($stat == 6) {
                       <div class="form-group">
                       <label>Microbiologye  Test:</label>
                       <select class="test-multiple" name="microtests[]" multiple="multiple" style="width: 100%">
-                      <?php $micrtests=DB::table('tests')
-                      ->Join('test_subcategories', 'tests.sub_categories_id', '=', 'test_subcategories.id')
-                      ->where('test_subcategories.categories_id', '=','4')
-                      ->distinct()->get(['tests.id','tests.name']); ?>
+                      <?php $micrtests=DB::table('lab_test')->where('category', '=','Microbiology')->distinct()->get(['id','name']); ?>
                       @foreach($micrtests as $micrtest)
                       <option value='{{$micrtest->id}}'>{{$micrtest->name}}</option>
                       @endforeach

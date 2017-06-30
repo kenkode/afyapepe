@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="{{ asset('js/plugins/gritter/jquery.gritter.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/vendor.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/app.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/plugins/steps/jquery.steps.css') }}" />
 
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('font-awesome/css/font-awesome.css') }}" />
@@ -68,7 +69,7 @@
 <script src="{{ asset('js/plugins/validate/jquery.validate.min.js') }}"></script>
 <script src="{{ asset('js/plugins/datapicker/bootstrap-datepicker.js') }}" type="text/javascript"></script>
 
- 
+
 
  <script src="{{ asset('js/plugins/datapicker/bootstrap-datepicker.js') }}" type="text/javascript"></script>
 <script src="{{asset('js/ajaxscript.js')}}"></script>
@@ -151,9 +152,18 @@
                     cache: true
                 }
             });
-             
+
 
        </script>
-      
+       <script>
+       // Lab add personnel toogle
+       $(document).ready(function(){
+         $("#technician").hide("fast");
+           $("#labadd").click(function(){
+               $("#technician").show();
+                $("#labpersonnel").hide();
+           });
+       });
+       </script>
 </body>
 </html>

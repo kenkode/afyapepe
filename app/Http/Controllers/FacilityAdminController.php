@@ -35,17 +35,7 @@ class FacilityAdminController extends Controller
     public function addregistrar(Request $request){
 
     }
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $name=$request->name;
@@ -119,6 +109,48 @@ public function storenurse(Request $request){
     return view('facilityadmin.doctor');
  }
 
+ public function laboratory(){
+
+    return view('facilityadmin.lab');
+ }
+ public function storelabtech(Request $request){
+        $name=$request->name;
+        $email=$request->email;
+        $role=$request->role;
+        $password=bcrypt($request->password);
+        $facility=$request->facility;
+
+
+        $userid=DB::table('users')->insertGetId([
+            'name'=>$name,
+            'email'=>$email,
+            'role'=>$role,
+            'password'=>$password,
+            'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
+            ]);
+        DB::table('facility_test')->insert([
+            'user_id'=>$userid,
+            'firstname'=>$request->get('firstname'),
+            'secondname'=>$request->get('lastname'),
+            'address'=>$request->get('address'),
+            'phone'=>$request->get('phone'),
+            'department'=>$request->get('department'),
+            'speciality'=>$request->get('speciality'),
+            'qualification'=>$request->get('qualification'),
+            'facilitycode'=>$facility,
+            'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+            'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
+            ]);
+        DB::table('role_user')->insert([
+            'user_id'=>$userid,
+            'role_id'=>7  ]);
+
+
+        return  Redirect()->action('FacilityAdminController@laboratory');
+
+
+ }
  public function storedoctor(Request $request){
         $name=$request->name;
         $email=$request->email;
@@ -152,12 +184,12 @@ public function storenurse(Request $request){
         return  Redirect()->action('FacilityAdminController@facilitydoctor');
 
 
- } 
+ }
 
  public function facilityofficer(){
 
     return view('facilityadmin.officers');
- } 
+ }
  public function storeofficer(Request $request){
 
      $name=$request->name;
@@ -199,7 +231,7 @@ public function storenurse(Request $request){
 
         return  Redirect()->action('FacilityAdminController@facilityofficer');
 
- } 
+ }
  public function createdoc(){
   return view('facilityadmin.createdoc');
  }
@@ -247,10 +279,30 @@ public function finddoc(Request $request){
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+     public function labtech($id)
+     {
+$labtechs=DB::table('facility_test')->where('user_id',$id)
+->first();
+       return view('facilityadmin.labtechupdate')->with('labtechs',$labtechs);
+   }
+  public function uplabtech(Request $request){
+
+
+    $userid = $request->user_id;
+    $address = $request->address;
+    $phone = $request->phone;
+    $department = $request->department;
+    $speciality = $request->speciality;
+    $qualification = $request->qualifications;
+  DB::table('facility_test')
+            ->where('user_id',$userid)
+            ->update(['department'=>$department,
+            'address'=>$address,
+            'phone'=>$phone,
+                  ]);
+
+return  Redirect()->action('FacilityAdminController@laboratory');
+  }
 
     /**
      * Remove the specified resource from storage.
@@ -258,8 +310,101 @@ public function finddoc(Request $request){
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroylabtech($id)
     {
-        //
-    }
+      DB::table("facility_test")->where('user_id',$id)->delete();
+      DB::table("users")->where('id',$id)->delete();
+      DB::table("role_user")->where('user_id',$id)->delete();
+   return  Redirect()->action('FacilityAdminController@laboratory')
+    ->with('success','Record deleted successfully');
+         }
+         public function testranges()
+         {
+           return view('facilityadmin.testranges');
+        }
+        public function rangesadd(Request $request){
+               $name=$request->machine_name;
+               if ($name){
+                 $machine = $name;
+               }else{ $machine = "TBC";}
+
+              
+                  $machine_id=DB::table('test_machines')->insertGetId([
+                  'name'=>$machine,
+                  'series'=>$request->get('series'),
+                  'serial_no'=>$request->get('serial_no'),
+                   'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+                   'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
+                 ]);
+
+               DB::table('test_ranges')->insert([
+                   'tests_id'=>$request->get('tests_id'),
+                   'machine_id'=>$machine_id,
+                   'facility_id'=>$request->get('facility_id'),
+                   'low_male'=>$request->get('low_male'),
+                   'high_male'=>$request->get('high_male'),
+                   'low_female'=>$request->get('low_female'),
+                   'high_female'=>$request->get('high_female'),
+                   'units'=>$request->get('units'),
+                  'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+                   'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
+                   ]);
+
+
+     return view('facilityadmin.testranges');
+  }
+
+  public function destroyranges($id)
+  {
+
+    DB::table("test_ranges")->where('id',$id)->delete();
+    return view('facilityadmin.testranges');
+       }
+       public function testsRang($id)
+       {
+    $testranges=DB::table('test_ranges')
+   ->join('tests','test_ranges.tests_id','=','tests.id')
+   ->join('test_machines','test_ranges.machine_id','=','test_machines.id')
+    ->select('test_ranges.*','tests.name','test_machines.id as machineid','test_machines.name as machine',
+    'test_machines.series','test_machines.serial_no')
+    ->where('test_ranges.id',$id)
+    ->first();
+   return view('facilityadmin.testrangesupdate')->with('testranges',$testranges);
+     }
+     public function updateranges(Request $request){
+
+
+       $test = $request->test_id;
+       $units = $request->units;
+       $low_female = $request->low_female;
+       $high_female = $request->high_female;
+       $low_male = $request->low_male;
+       $high_male = $request->high_male;
+
+       $machine_id = $request->machine_id;
+       $machine = $request->machine_name;
+       $series = $request->series;
+       $serial_no = $request->serial_no;
+     DB::table('test_ranges')
+               ->where('id',$test)
+               ->update(['units'=>$units,
+               'low_female'=>$low_female,
+               'high_female'=>$high_female,
+               'low_male'=>$low_male,
+               'high_male'=>$high_male,
+               ]);
+                   if($machine){
+               DB::table('test_machines')
+                         ->where('id',$machine_id)
+                         ->update(['name'=>$machine,
+                         'series'=>$series,
+                         'serial_no'=>$serial_no,
+                       ]);   }
+
+  return view('facilityadmin.testranges');
+     }
+         public function create()
+         {
+             //
+         }
 }

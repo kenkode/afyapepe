@@ -1,16 +1,16 @@
-// show radio divs
-$(document).ready(function () {
-  // $('#div1').hide();
-  $('#div2').hide();
-  $('#othertest').hide();
-$('#button1').click(function () {
-$('#div1').toggle('fast');
-               });
- $('#button2').click(function () {
-    $('#othertest').toggle('fast');
-     });
-
-  });
+// // show radio divs
+// $(document).ready(function () {
+//   // $('#div1').hide();
+//   $('#div2').hide();
+//   $('#othertest').hide();
+// $('#button1').click(function () {
+// $('#div1').toggle('fast');
+//                });
+//  $('#button2').click(function () {
+//     $('#othertest').toggle('fast');
+//      });
+//
+//   });
 
 
 // show checkbox divs

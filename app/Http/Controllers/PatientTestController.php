@@ -207,7 +207,21 @@ $PatientTest = Patienttest ::create([
      // Already test exist - just get the id
       $ptid =$pttids->id;
      }
-
+     // Inserting subcategory tests
+     $subcat=$request->subcat;
+     if ($subcat) {
+       foreach($subcat as $key) {
+     $patienttd = DB::table('patient_test_details')->insert([
+                  'patient_test_id' => $ptid,
+                  'afya_user_id'=> $afya_user_id,
+                  'dependant_id' => $dependant_id,
+                  'appointment_id' => $request->get('appointment_id'),
+                  'conditional_diag_id' => $request->get('mainconditional'),
+                  'test_subcategories_id' => $key,
+                  'done' => 0,
+               ]);
+              }
+     }
 
      // Insertingmalaria2 tests
      $malaria2=$request->malaria2;

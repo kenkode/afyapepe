@@ -45,6 +45,11 @@ Route::post('addfacility','AdminController@addfacility');
 Route::get('facilityAdmin','AdminController@facilityAdmin');
 Route::get('addAdmin','AdminController@create');
 Route::post('adminstore','AdminController@store');
+Route::get('addtest','AdminController@addtest');
+Route::post('addingtest','AdminController@storetest');
+Route::get('testupdate/{id}', [ 'as' => 'teststo', 'uses' => 'AdminController@teststo']);
+Route::delete('testts/{id}',['as'=>'testts.destroy','uses'=>'AdminController@destroytests']);
+
 
 Route::resource('kins','KinController');
 Route::resource('facility','FacilityController');
@@ -276,8 +281,13 @@ Route::group(['middleware' => ['auth','role:Admin|Test']], function() {
 	Route::get('patientTests/{id}', [ 'as' => 'patientTests', 'uses' => 'TestController@testdetails']);
 
 	Route::get('action/{id}', [ 'as' => 'perftest', 'uses' => 'TestController@actions']);
+Route::get('action2/{id}', [ 'as' => 'perftest2', 'uses' => 'TestController@actions2']);
 	Route::Post('pdetails', [ 'as' => 'testResult', 'uses' => 'TestController@testResult']);
-	Route::Post('pdetails2', [ 'as' => 'testfilm', 'uses' => 'TestController@testreport']);
+	Route::Post('pdetails3', [ 'as' => 'testResult3', 'uses' => 'TestController@testResult3']);
+
+Route::Post('action2', [ 'as' => 'testResult2', 'uses' => 'TestController@testResult2']);
+	Route::Post('action22', [ 'as' => 'testResult22', 'uses' => 'TestController@testResult22']);
+ Route::Post('pdetails2', [ 'as' => 'testfilm', 'uses' => 'TestController@testreport']);
 	Route::Post('report', [ 'as' => 'testRupdt', 'uses' => 'TestController@testupdate']);
 
 
@@ -298,7 +308,17 @@ Route::post('addfacilityregistrar','FacilityAdminController@store');
 Route::post('addfacilitynurse','FacilityAdminController@storenurse');
 Route::post('addfacilitydoctor','FacilityAdminController@storedoctor');
 Route::Post('addfacilityofficer','FacilityAdminController@storeofficer');
+Route::get('laboratory','FacilityAdminController@laboratory');
+Route::post('facilitytest','FacilityAdminController@storelabtech');
+Route::delete('lab/{id}',['as'=>'labtech.destroy','uses'=>'FacilityAdminController@destroylabtech']);
+Route::get('techupdate/{id}', [ 'as' => 'labtechperson', 'uses' => 'FacilityAdminController@labtech']);
+Route::Post('techupdate', [ 'as' => 'updatelabtech', 'uses' => 'FacilityAdminController@uplabtech']);
 
+Route::get('testranges','FacilityAdminController@testranges');
+Route::post('rangesadd','FacilityAdminController@rangesadd');
+Route::delete('testranges/{id}',['as'=>'ranges.destroy','uses'=>'FacilityAdminController@destroyranges']);
+Route::get('rangeupdate/{id}', [ 'as' => 'testsRang', 'uses' => 'FacilityAdminController@testsRang']);
+Route::Post('techupdate', [ 'as' => 'updateranges', 'uses' => 'FacilityAdminController@updateranges']);
 
 });
 

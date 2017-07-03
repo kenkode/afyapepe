@@ -7,7 +7,7 @@
                <h1>Facility Doctors</h1>
               <div class="row">
               <div class="col-sm-12">
-            
+
                <div class="panel-body">
                                 <div class="ibox float-e-margins">
                               <div class="ibox-title">
@@ -37,10 +37,10 @@
                               <div class="ibox-content">
                    <!-- sales All Custom-->
                 <a href="{{ URL::to('createdoc')}}" class="btn btn-primary">Add</a>
-                
+
                    <br>
                                   <div class="table-responsive">
-                                  
+
                               <table class="table table-striped table-bordered table-hover dataTables-example" >
                               <thead>
 
@@ -54,19 +54,14 @@
                                                       <th>Qualification</th>
                                                       <th>Speciality</th>
                                                       <th>Sub Speciality</th>
-                                                   
-
-                                                  
-
-                                                         </tr>
+                                                   </tr>
 
                                                   </thead>
 
                                                   <tbody>
                                                   <?php 
                                                   $i=1;
-                                                  
-                                                 $facilities=DB::table('facility_doctor')->join('users','users.id','=','facility_doctor.user_id')->join('facilities','facilities.FacilityCode','=','facility_doctor.facilitycode')
+                                                $facilities=DB::table('facility_doctor')->join('users','users.id','=','facility_doctor.user_id')->join('facilities','facilities.FacilityCode','=','facility_doctor.facilitycode')
                                                  ->join('doctors','doctors.id','=','facility_doctor.doctor_id')
                                                  ->select('users.name as name','facility_doctor.*','facilities.*','doctors.*')->where('facility_doctor.facilitycode',$facilitycode->facilitycode)
                                                  ->get();?>
@@ -77,17 +72,11 @@
                                                       <td>{{$fact->regno}}</td>
                                                       <td>{{$fact->regdate}}</td>
                                                       <td>{{$fact->address}}</td>
-                                                      <td>{{$fact->qualifications}}</td> 
-                                                      <td>{{$fact->speciality}}</td> 
-                                                      <td>{{$fact->subspeciality}}</td> 
-                                                                                              
-      
-                                                      
-
-                                                      
-                                                    </tr>
-
-                                                     <?php $i++;  ?>
+                                                      <td>{{$fact->qualifications}}</td>
+                                                      <td>{{$fact->speciality}}</td>
+                                                      <td>{{$fact->subspeciality}}</td>
+                                                      </tr>
+                                                        <?php $i++;  ?>
                                                         @endforeach
                                                    </tbody>
 
@@ -98,7 +87,7 @@
 
                                 </div>
                                 </div>
- 
+
 
 
  </div>
@@ -107,5 +96,5 @@
 
 </div>
                    </div><!--container-->
-                
+
 @endsection

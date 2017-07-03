@@ -134,5 +134,15 @@
                 }
             });
         </script>
+  <script>
+  $(document).ready(function () {
+  $('.group').hide();
+  // $('#1').show();
+  $('#selectMe').change(function () {
+    $('.group').hide();
+    $('#'+$(this).val()).show();
+  })
+});
+  </script>
 </body>
 </html>

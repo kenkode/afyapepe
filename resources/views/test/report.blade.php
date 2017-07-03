@@ -53,6 +53,7 @@ if ($gender == 1) { $gender = 'Male'; }else{ $gender = 'Female'; }
 ?>
 
 
+
 <div class="row wrapper border-bottom white-bg page-heading">
 <div class="content-page  equal-height">
 		<div class="content">
@@ -89,6 +90,7 @@ if ($gender == 1) { $gender = 'Male'; }else{ $gender = 'Female'; }
 		</div>
   </div>
 </div>
+
 <div class="row wrapper border-bottom page-heading">
   <div class="content-page  equal-height">
 		<div class="content">
@@ -121,47 +123,47 @@ if ($gender == 1) { $gender = 'Male'; }else{ $gender = 'Female'; }
 
       </thead>
       <tbody>
-        <?php $i=1; $fh=DB::table('test_ranges')
-        		->where('test_ranges.type', '=',$tsts1->tests_reccommended)->get(); ?>
-        @foreach($fh as $fhtest)
-      <?php  $fhresut=DB::table('test_results')
-      ->where([ ['test_results.ptd_id', '=',$tsts1->id],
-                ['test_results.test', '=',$fhtest->id],
-                ['test_results.appointment_id', '=',$appId], ])
+        <?php $i=1; $fha=DB::table('test_results')
+				->Join('test_ranges', 'test_results.test_ranges_id', '=', 'test_ranges.id')
+				->Join('tests', 'test_ranges.tests_id', '=', 'tests.id')
+				->where([ ['test_results.ptd_id', '=',$tsts1->id],
+									['test_results.appointment_id', '=',$appId], ])
+				->select('tests.name as tname','test_ranges.id as rangesId',
+				'test_results.id as tresultId','test_ranges.*','test_results.*')
+        ->first();
+				?>
 
-      ->first(); ?>
       <tr>
       <td>{{$i}}</td>
-      <td>{{$fhtest->test}}</td>
+      <td>{{$fha->tname}}</td>
 
 @if($gender == 'Male')
-  <?php if($fhtest->low_male <= $fhresut->value AND  $fhresut->value <= $fhtest->high_male) { ?>
-   <td class="font-bold text-navy"> {{$fhresut->value}}</td>
+  <?php if($fha->low_male <= $fha->value AND  $fha->value <= $fha->high_male) { ?>
+   <td class="font-bold text-navy"> {{$fha->value}}</td>
     <?php }else{ ?>
-   <td class="font-bold text-danger"> {{$fhresut->value}}</td>
+   <td class="font-bold text-danger"> {{$fha->value}}</td>
    <?php } ?>
 
 
 @else
 
-   <?php if($fhtest->low_female <= $fhresut->value AND  $fhresut->value <= $fhtest->high_female) { ?>
-   <td class="font-bold text-navy"> {{$fhresut->value}}</td>
+   <?php if($fha->low_female <= $fha->value AND  $fha->value <= $fha->high_female) { ?>
+   <td class="font-bold text-navy"> {{$fha->value}}</td>
     <?php }else{ ?>
-   <td class="font-bold text-danger"> {{$fhresut->value}}</td>
+   <td class="font-bold text-danger"> {{$fha->value}}</td>
    <?php } ?>
 
 @endif
 
-      <td>{{$fhtest->units}}</td>
+      <td>{{$fha->units}}</td>
        @if($gender == 'Male')
-     <td>{{$fhtest->low_male}} - {{$fhtest->low_male}}</td>
+     <td>{{$fha->low_male}} - {{$fha->low_male}}</td>
        @else
-     <td>{{$fhtest->low_female}} - {{$fhtest->low_female}}</td>
+     <td>{{$fha->low_female}} - {{$fha->low_female}}</td>
        @endif
 
       <?php $i ++ ?>
       </tr>
-      @endforeach
 
     </tbody>
     </table>
@@ -178,62 +180,19 @@ if ($gender == 1) { $gender = 'Male'; }else{ $gender = 'Female'; }
   <div class="ibox-content">
 {{ Form::open(array('route' => array('testRupdt'),'method'=>'POST')) }}
 
-    <div class="form-group">
-        <label for="tag_list" class="">Test:</label>
-             <select class="test-multiple" name="test"  style="width: 100%">
-               <?php $fh1=DB::table('test_results')
-                 ->Join('test_ranges', 'test_results.test', '=', 'test_ranges.id')
-             ->where([['test_results.appointment_id', '=',$appId],
-                       ['test_results.ptd_id', '=',$ptdId],])
-							->Select('test_results.id','test_ranges.test')
-							->get();
-							?>
-               @foreach($fh1 as $fh1test)
-                      <option value='{{$fh1test->id}}'>{{$fh1test->test}}</option>
-               @endforeach
-               </select>
-
-
-  </div>
-
-    <div class="form-group"><label>Value</label>
-    <input type="text" name="value" placeholder="Enter Value" class="form-control"></div>
-
-
-  <?php $fh11=DB::table('lab_test')->where('id', '=',$tsts1->tests_reccommended)->first(['id']); ?>
-  @if($fh11->id == '175')
-	<div class="form-group">
-			<label for="tag_list" class="">Film Report:</label>
-					 <select class="test-multiple" name="filmrept"  style="width: 100%">
-						 <?php $fh3=DB::table('film_reports')
-							 ->Join('test_ranges', 'film_reports.test', '=', 'test_ranges.id')
-					 ->where([['film_reports.appointment_id', '=',$appId],
-										 ['film_reports.ptd_id', '=',$ptdId],])
-						->Select('film_reports.id','test_ranges.test')
-						->get();
-						?>
-						 @foreach($fh3 as $fh1test)
-										<option value='{{$fh1test->id}}'>{{$fh1test->test}}</option>
-						 @endforeach
-						 </select>
-			 </div>
-
-
-  <div class="form-group">
-  <label  class="">value</label>
-  <select class="form-control" name ="film">
-<option value=''>Choose one ..</option>
-  <option value='Normocytic'>Normocytic</option>
-  <option value='Normochromic'>Normochromic</option>
-  <option value='Neutropenia'>Neutropenia</option>
-  <option value='Adequate'>Adequate</option>
-  </select>
-  </div>
-
-@endif
-
+<div class="form-group">
+		<label>Test:</label>
+		<input type="text"  value="{{$fha->tname}}" class="form-control">
+		<input type="hidden" name="test_rid" value="{{$fha->tresultId}}" class="form-control">
+</div>
+<div class="form-group"><label>Value</label>
+    <input type="text" name="value" placeholder="Enter Value" class="form-control">
+	</div>
   <input type="hidden" name="ptd_id" value="{{$ptdId}}" class="form-control">
-
+	<input type="hidden" name="report1" value="R1" class="form-control">
+	<div class="text-center">
+      <button class="btn btn-sm btn-primary m-t-n-xs" type="submit"><strong>SUBMIT</strong></button>
+      </div>
 {{ Form::close() }}
 
     </div>
@@ -244,7 +203,7 @@ if ($gender == 1) { $gender = 'Male'; }else{ $gender = 'Female'; }
  <?php $i=1; $fhfilmr = DB::table('film_reports')
  ->Join('test_ranges', 'film_reports.test', '=', 'test_ranges.id')
  ->where('film_reports.ptd_id', '=',$ptdId)
- ->select('film_reports.status','test_ranges.test')
+ ->select('film_reports.status','test_ranges.tests_id')
  ->get(); ?>
 @if($fhfilmr)
 <div class="col-lg-6">
@@ -265,8 +224,8 @@ if ($gender == 1) { $gender = 'Male'; }else{ $gender = 'Female'; }
               </div>
           @endif
 
-           <?php $i=1; $fh2=DB::table('interpretations')
-              ->where('lab_test_id', '=',$tsts1->tests_reccommended)->get(); ?>
+           <?php $i=1; $fh2=DB::table('test_interpretations')
+              ->where('test_ranges_id', '=',$fha->rangesId)->get(); ?>
               @if($fh2)
           <div class="col-lg-6">
            <div class="ibox float-e-margins">
@@ -284,14 +243,14 @@ if ($gender == 1) { $gender = 'Male'; }else{ $gender = 'Female'; }
            </thead>
            <tbody>
 
-           @foreach($fh2 as $fhtest)
+
            <tr>
-           <td>{{$i}}</td>
-           <td>{{$fhtest->ranges}}</td>
-           <td>{{$fhtest->status}}</td>
+           <td>1</td>
+           <td>2</td>
+           <td>3</td>
            <?php $i ++ ?>
            </tr>
-           @endforeach
+
 
            </tbody>
            </table>

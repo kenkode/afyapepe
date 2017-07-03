@@ -9,7 +9,7 @@ $facility = $DataTests->FacilityName;
 $firstname = $DataTests->firstname;
 $secondName = $DataTests->secondname;
 $TName = $firstname.' '.$secondName;
-$facilityId = $DataTests->id;
+$facilityId = $DataTests->FacilityCode;
 
 }
 
@@ -67,7 +67,7 @@ if ($gender == 1) { $gender = 'Male'; }else{ $gender = 'Female'; }
 					<div class="col-lg-5 ">
 					<h2 class="">LAB: {{$facility}}</h2>
 					<ol class="breadcrumb">
-					<li class="active">Name: {{$TName}}</li>
+					<li class="active">Name: {{$tsts1->docname}}</li>
 					</ol>
 					</div>
 			</div>
@@ -93,10 +93,15 @@ if ($gender == 1) { $gender = 'Male'; }else{ $gender = 'Female'; }
 		<div class="content">
 
 
-<?php $i=1; $fh=DB::table('test_ranges')
-		->where('test_ranges.type', '=',$tsts1->tests_reccommended)->get(); ?>
-@if($fh)
-@include('test.fheamoglobin')
+ <?php $i=1; $fh01=DB::table('tests')
+ ->Join('test_ranges', 'tests.id', '=', 'test_ranges.tests_id')
+ ->where('tests.id', '=',$tsts1->tests_reccommended)
+ ->where('test_ranges.facility_id', '=','19310')
+ ->select('tests.id as tests_id','tests.*','test_ranges.*','test_ranges.id as testranges')
+ ->get();
+  ?>
+@if($fh01)
+@include('test.action1')
 @else
 <div class="row">
             <div class="col-lg-12">
@@ -108,13 +113,16 @@ if ($gender == 1) { $gender = 'Male'; }else{ $gender = 'Female'; }
                     <div class="ibox-content">
                         <div class="row">
                     <div class="col-sm-5 b-r col-md-offset-1">
-									{{ Form::open(array('route' => array('testResult'),'method'=>'POST')) }}
+									{{ Form::open(array('route' => array('testResult3'),'method'=>'POST')) }}
 
 												 <div class="form-group"><label>Test</label>
 												 <input type="text"  value="{{$tsts1->name}}" class="form-control">
 												 </div>
 													<div class="form-group"><label>Value</label>
 													<input type="text" name="value" placeholder="Enter Value" class="form-control">
+													</div>
+													<div class="form-group"><label>Units</label>
+													<input type="text" name="units" placeholder="Enter Value" class="form-control">
 													</div>
                       </div>
 
@@ -136,10 +144,10 @@ if ($gender == 1) { $gender = 'Male'; }else{ $gender = 'Female'; }
 											 <label>Other Reports</label>
 											 <textarea name="comments2" rows="2" placeholder="Any other notes" class="form-control"></textarea>
                       </div>
-										 <input type="hidden" name="appointment_id" value="{{$appId}}" class="form-control">
-										 <input type="hidden" name="ptd_id" value="{{$ptdId}}" class="form-control">
-										 <input type="hidden" name="facility" value="{{$facilityId}}" class="form-control">
-										 <input type="hidden" name="test" value="{{$tsts1->id}}" class="form-control">
+										 <input type="text" name="appointment_id" value="{{$appId}}" class="form-control">
+										 <input type="text" name="ptd_id" value="{{$ptdId}}" class="form-control">
+										 <input type="text" name="facility" value="{{$facilityId}}" class="form-control">
+										 <input type="text" name="tests_id" value="{{$tsts1->tests_id}}" class="form-control">
 
 										 <div class="text-center">
 										 <button class="btn btn-sm btn-primary m-t-n-xs" type="submit"><strong>SUBMIT</strong></button>
@@ -153,7 +161,6 @@ if ($gender == 1) { $gender = 'Male'; }else{ $gender = 'Female'; }
 </div>
 </div>
 @endif
-
 
 
 

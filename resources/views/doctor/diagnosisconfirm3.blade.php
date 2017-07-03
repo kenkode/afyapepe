@@ -133,15 +133,8 @@ if ($gender ==1){ $gender = 'Male';}else{ $gender = 'Female';}
                  ->where('patient_test_details.id', '=',$patientT->ptdid)
                  ->first(); ?>
 
-  <h3 class="text-center">{{$fhDeta->name}} Report</h3>
+               <h3 class="text-center">{{$fhDeta->name}} Report</h3>
               <div class="tab-content">
-                <?php $i=1; $fhb=DB::table('test_ranges')
-                ->leftJoin('test_results', 'test_ranges.id', '=', 'test_results.test_ranges_id')
-                ->leftJoin('tests', 'test_ranges.tests_id', '=', 'tests.id')
-                ->select('test_results.*','test_results.value','tests.name')
-                ->where('test_results.ptd_id', '=',$patientT->ptdid)
-                ->first(); ?>
-                @if($fhb)
                 <div id="tab-1" class="tab-pane active">
                     <div class="panel-body">
                       <div class="col-lg-6 b-r">
@@ -163,10 +156,9 @@ if ($gender ==1){ $gender = 'Male';}else{ $gender = 'Female';}
                       </tr>
                       </thead>
                       <tbody>
-                        <?php $i=1; $fh=DB::table('test_ranges')
-                        ->leftJoin('test_results', 'test_ranges.id', '=', 'test_results.test_ranges_id')
-                        ->leftJoin('tests', 'test_ranges.tests_id', '=', 'tests.id')
-                        ->select('test_results.value','tests.name','test_ranges.*')
+                        <?php $i=1; $fh=DB::table('tests')
+                        ->leftJoin('test_results', 'tests.id', '=', 'test_results.tests_id')
+                        ->select('test_results.*','test_results.value','tests.name')
                         ->where('test_results.ptd_id', '=',$patientT->ptdid)
                         ->get(); ?>
                       @foreach($fh as $fhtest)
@@ -188,95 +180,97 @@ if ($gender ==1){ $gender = 'Male';}else{ $gender = 'Female';}
                       </table>
                       </div>
                       </div>
+                      <?php $i=1; $fh2=DB::table('test_interpretations')
+                         ->where('id', '=',$patientT->ptest)->get(); ?>
+                         @if($fh2)
+                      <div class="ibox float-e-margins">
+                      <h5>Interpretations</h5>
+                      <div class="ibox-content">
+                      <table class="table table-bordered">
+                      <thead>
+                      <tr>
+                      <th>#</th>
+                      <th>Units</th>
+                      <th>Interpretations</th>
+                      </tr>
+                      </thead>
+                      <tbody>
 
+                      @foreach($fh2 as $fhtest)
+                      <tr>
+                      <td>{{$i}}</td>
+                      <td>{{$fhtest->ranges}}</td>
+                      <td>{{$fhtest->status}}</td>
+                      <?php $i ++ ?>
+                      </tr>
+                      @endforeach
+
+                      </tbody>
+                      </table>
+                      </div>
+                      </div>
+                      @endif
 
                    </div>
-   <?php $i=1; $fhcommr = DB::table('patient_test_details')
+
+                           <?php $i=1; $fhfilmr = DB::table('film_reports')
+                           ->join('test_ranges', 'film_reports.test', '=', 'test_ranges.id')
+                           ->where('ptd_id', '=',$patientT->ptdid)
+                           ->select('test_ranges.id as test','film_reports.status')
+                           ->get(); ?>
+                     <?php if($fhfilmr) { ?>
+
+
+                             <div class="col-lg-6 ">
+                             <div class="ibox float-e-margins">
+                             <h5>Film Reports</h5>
+
+                             <div class="ibox-content">
+                             @foreach($fhfilmr as $fhfilm)
+                             <div class="col-lg-6 b-r">
+                             <div class="form-group"><label>Test</label>
+                             <input type="text"  value="{{$fhfilm->test}}" class="form-control" >
+                             </div>
+                             </div>
+                             <div class="col-lg-6">
+                             <div class="form-group"><label>Status</label>
+                             <input type="text"  value="{{$fhfilm->status}}" class="form-control" >
+                             </div>
+                             </div>
+                             @endforeach
+                             </div>
+                              </div>
+                             </div>
+                         <?php } ?>
+
+
+
+
+
+
+                         <?php $i=1; $fhcommr = DB::table('patient_test_details')
                            ->where('id', '=',$patientT->ptdid)
                            ->first(); ?>
                          @if (is_null($fhcommr))
                          @else
-       <div class="col-lg-6 ">
-             <div class="ibox float-e-margins">
-               <h5>Results</h5>
-               <div class="ibox-content">
-                   <div class="form-group"><label>Comment</label>
-                       <textarea class="form-control" rows="2" cols="20" readonly=""> <?php echo $fhcommr->results; ?> </textarea>
-                  </div>
-                   <div class="form-group"><label>Other Information</label>
-                       <textarea class="form-control" rows="2" cols="20" readonly> <?php echo $fhcommr->note; ?> </textarea>
-                   </div>
+                           <div class="col-lg-6 ">
+                                 <div class="ibox float-e-margins">
+                                   <h5>Results</h5>
+                                   <div class="ibox-content">
+                                       <div class="form-group"><label>Comment</label>
+                                           <textarea class="form-control" rows="2" cols="20" readonly=""> <?php echo $fhcommr->results; ?> </textarea>
+                                      </div>
+                                       <div class="form-group"><label>Other Information</label>
+                                           <textarea class="form-control" rows="2" cols="20" readonly> <?php echo $fhcommr->note; ?> </textarea>
+                                       </div>
+                                   </div>
+                                 </div>
+                             </div>
+                             @endif
+
+                    </div>
                </div>
-             </div>
-         </div>
-         @endif
-
-      </div>
- </div>
- @else
- <div id="tab-1" class="tab-pane active">
-     <div class="panel-body">
-       <div class="col-lg-6 b-r">
-       <div class="ibox float-e-margins">
-       <h5>{{$fhDeta->name}} Test</h5>
-       <div class="ibox-content">
-       <table class="table table-bordered">
-       <thead>
-       <tr>
-       <th>#</th>
-       <th>TEST</th>
-       <th>VALUE</th>
-       <th>UNITS</th>
-       </tr>
-       </thead>
-       <tbody>
-         <?php $i=1; $fh=DB::table('tests')
-         ->leftJoin('test_results', 'tests.id', '=', 'test_results.tests_id')
-         ->select('test_results.*','test_results.value','tests.name')
-         ->where('test_results.ptd_id', '=',$patientT->ptdid)
-         ->get(); ?>
-       @foreach($fh as $fhtest)
-       <tr>
-       <td>{{$i}}</td>
-       <td>{{$fhtest->name}}</td>
-       <td>{{$fhtest->value}}</td>
-       <td>{{$fhtest->units}}</td>
-
-       <?php $i ++ ?>
-       </tr>
-       @endforeach
-
-       </tbody>
-       </table>
-       </div>
-       </div>
-
-
-    </div>
-<?php $i=1; $fhcommr = DB::table('patient_test_details')
-            ->where('id', '=',$patientT->ptdid)
-            ->first(); ?>
-          @if (is_null($fhcommr))
-          @else
-<div class="col-lg-6 ">
-<div class="ibox float-e-margins">
-<h5>Results</h5>
-<div class="ibox-content">
-    <div class="form-group"><label>Comment</label>
-        <textarea class="form-control" rows="2" cols="20" readonly=""> <?php echo $fhcommr->results; ?> </textarea>
-   </div>
-    <div class="form-group"><label>Other Information</label>
-        <textarea class="form-control" rows="2" cols="20" readonly> <?php echo $fhcommr->note; ?> </textarea>
-    </div>
-</div>
-</div>
-</div>
-@endif
-
-</div>
-</div>
- @endif
-  <div id="tab-2" class="tab-pane">
+               <div id="tab-2" class="tab-pane">
                    <div class="panel-body">
                      <div class="ibox-content col-md-12" id="Tconfirm2">
                          {{ Form::open(array('route' => array('confdiag'),'method'=>'POST')) }}
@@ -347,7 +341,7 @@ if ($gender ==1){ $gender = 'Male';}else{ $gender = 'Female';}
 
                    </div>
               </div>
-      </div>
+             </div>
   </div>
  </div>
 </div>

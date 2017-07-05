@@ -12,21 +12,36 @@
     <?php
     foreach($inventory as $inv)
     {
+      $inventory = DB::table('inventory_updates')->select('quantity')
+      ->where([
+        ['status', '=', 1],
+        ['inventory_id', '=', $inv->inventory_id],
+      ])
+      ->first();
+
+      if(!empty($inventory->quantity))
+      {
+        $quantity = $inventory->quantity;
+      }
+      else
+      {
+        $quantity = '';
+      }
      ?>
      <input type="hidden" name="inventory_id" value="{{$inv->inventory_id}}" />
 
     <div class="form-group">
         <label >Drug:</label>
-        <select id="presc1" name="prescription" class="form-control presc1" >
+        <select id="presc1" name="prescription" class="form-control presc1" disabled="">
           <option selected="" value="{{$inv->drug_id}}">{{$inv->drugname}}</option>
         </select>
     </div>
 
     <input type="hidden" name="patient_prescription" class="form-control" value="{{$inv->drug_id}}">
 
-    <div class="form-group"><label>Strength</label> <input type="text" name="strength" class="form-control" value="{{$inv->strength.$inv->strength_unit}}"></div>
+    <div class="form-group"><label>Strength</label> <input type="text" name="strength" class="form-control" value="{{$inv->strength.$inv->strength_unit}}" disabled=""></div>
 
-     <div class="form-group"><label>Quantity</label> <input type="number" name="quantity" class="form-control" ></div>
+     <div class="form-group"><label>Quantity</label> <input type="number" name="quantity" value="{{$quantity}}" class="form-control" ></div>
 
      <?php
       }

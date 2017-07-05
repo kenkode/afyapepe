@@ -272,6 +272,7 @@
                <div class="form-group" id="subs" style="display:none">
                  <label>Reason</label>
                   <select class="form-control" name="reason22" >
+                    <option value="" selected disabled>Select reason</option>
                    <?php $reasons = DB::table('substitution_reason')->distinct()->get(['reason','id']); ?>
                    @foreach($reasons as $reason)
                           <option value='{{$reason->id}}'>{{$reason->reason}}</option>
@@ -295,7 +296,7 @@
 
                <div class="form-group">
                  <label>Payment options</label>
-                  <select class="form-control" name="payment_options" id="pay_option1" >
+                  <select class="form-control" name="payment_options1" id="pay_option1" >
                     <option value="" selected disabled>Select payment option</option>
                    <?php $options = DB::table('payment_options')->distinct()
                                 ->join('pharmacy_payment', 'pharmacy_payment.option_id', '=', 'payment_options.id')
@@ -317,7 +318,7 @@
                <input class="to" type="text" name="to1">
                </div>
 
-
+               
                </div>
 
                <div class="Box1" style="display:none">
@@ -417,7 +418,6 @@
          <label for="to">to</label>
          <input class="to" type="text" name="to2">
          </div>
-
 
 
          </div>

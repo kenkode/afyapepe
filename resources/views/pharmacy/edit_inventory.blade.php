@@ -22,14 +22,14 @@
 
     <div class="form-group">
         <label >Drug:</label>
-        <select id="presc1" name="prescription" class="form-control presc1" >
+        <select id="presc1" name="prescription" class="form-control presc1" required="">
           <option selected="" value="{{$inv->drug_id}}">{{$inv->drugname}}</option>
         </select>
     </div>
 
     <div class="form-group">
      <label>Strength</label>
-      <select class="form-control" id="testsj" name="strength" >
+      <select class="form-control" id="testsj" name="strength" required="">
         <option selected value="{{$inv->strength}}">{{ $inv->strength  }}  </option>
         <?php $Strengths=DB::table('strength')->distinct()->get(['strength']); ?>
           @foreach($Strengths as $Strengthz)
@@ -51,9 +51,9 @@
      </div>
      </div>
 
-     <div class="form-group"><label>Quantity</label> <input type="number" name="quantity" class="form-control" value="{{$inv->quantity}}"></div>
+     <div class="form-group"><label>Quantity</label> <input type="number" name="quantity" class="form-control" value="{{$inv->quantity}}" required=""></div>
 
-     <div class="form-group"><label>Price</label> <input type="number" name="price" class="form-control" value="{{$inv->price}}"></div>
+     <div class="form-group"><label>Price</label> <input type="number" name="price" class="form-control" value="{{$inv->price}}" required=""></div>
      <?php
       }
       ?>

@@ -320,19 +320,7 @@
          </div>
 
          <div class="form-group"><label>Total</label> <input type="text" name="total1" id="total1" class="form-control" readonly ></div>
-          <!-- <input type="text" name="actual_payment" id="yi" >
-          <input type="text" name="actual_payment_option" id="ii" > -->
-          <script>
-          // var the_textbox = document.getElementById('ii');
-          //
-          // var the_dropdown = document.getElementById('pay_option');
-          //
-          // the_dropdown.onchange = function(){
-          // the_textbox.value = this.value;
-          //
-          // }
-          </script>
-
+        
 
           <!-- function for getting total during substitution -->
          <script type="text/javascript">

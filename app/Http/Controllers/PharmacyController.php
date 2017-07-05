@@ -536,10 +536,31 @@ class PharmacyController extends Controller
       $id = $request->presc_id;
       $dose1 = $request->dose_given1;
       $dose2 = $request->dose_given2;
-      $reason = $request->reason;
+      $reason = $request->reason22;
+      $reason2 = $request->reason; //substitution reason
       $quantity = $request->quantity;
       $price = $request->price;
       $available = $request->availability;
+      $total =$request->total;
+      if($available == 'Yes')
+      {
+
+      $markup = $request->payment_options1;
+      }
+      else
+      {
+
+      $markup = $request->payment_options;
+      }
+
+      if(empty($reason))
+      {
+        $reason = NULL;
+      }
+      else
+      {
+        $reason = $reason;
+      }
 
       $strength = $request->dose_given2;
       $frequency = $request->frequency;
@@ -549,11 +570,29 @@ class PharmacyController extends Controller
       $drug = $request->prescription;
       $quantity1 = $request->quantity1;
       $price1 = $request->price1;
+      $total1 =$request->total1;
 
       $start_date1 = date('Y-m-d',strtotime($request->from1));
       $end_date1 = date('Y-m-d',strtotime($request->to1));
       $start_date2 = date('Y-m-d',strtotime($request->from2));
       $end_date2 = date('Y-m-d',strtotime($request->to2));
+
+      $user_id = Auth::user()->id;
+
+      $data = DB::table('pharmacists')
+                ->where('user_id', $user_id)
+                ->first();
+
+      $facility = $data->premiseid;
+
+      $pay_op = DB::table('payment_options')->distinct()
+                   ->join('pharmacy_payment', 'pharmacy_payment.option_id', '=', 'payment_options.id')
+                   ->where([
+                     ['pharmacy_payment.pharmacy_id', '=', $facility],
+                     ['pharmacy_payment.markup', '=', $markup],
+                   ])
+                   ->first(['payment_options.name']);
+      $pay_op = $pay_op->name;
 
 
       if($available == 'Yes')
@@ -563,8 +602,12 @@ class PharmacyController extends Controller
       ['presc_details_id'=>$id,
      'available'=>$available,
      'dose_given'=>$dose1,
+     'dose_reason'=>$reason,
      'quantity'=>$quantity,
      'price'=>$price,
+     'total'=>$total,
+     'payment_option'=>$pay_op,
+     'markup'=>$markup,
      'outlet_id'=>$facility,
      'submitted_by'=>$user_id,
      'start_date'=>$start_date1,
@@ -601,10 +644,13 @@ class PharmacyController extends Controller
    'dose_given'=>$dose2,
    'quantity'=>$quantity1,
    'price'=>$price1,
+   'total'=>$total1,
+   'payment_option'=>$pay_op,
+   'markup'=>$markup,
    'outlet_id'=>$facility,
    'submitted_by'=>$user_id,
    'substitute_presc_id'=>$idd,
-   'substitution_reason'=>$reason,
+   'substitution_reason'=>$reason2,
    'start_date'=>$start_date2,
    'end_date'=>$end_date2,
    'created_at'=>Carbon::now(),
@@ -649,18 +695,20 @@ class PharmacyController extends Controller
 
   $counter1 = DB::table('prescription_details')
               ->select(DB::raw('count(is_filled) as count1'))
-              ->where('presc_id', '=', $the_id)
-              ->whereIn('is_filled', [1,2])
+              ->where([
+                ['presc_id', '=', $the_id],
+                ['is_filled', '=', 2],
+              ])
               ->orWhere(function ($query) {
+
                 $query->where('presc_id', '=', '$the_id')
-                      ->whereIn('is_filled', [1,2])
                       ->whereNull('is_filled');
             })
               ->first();
 
   $counter11 = $counter1->count1;
 
-    if($counter11 >= 0)  // There are both partially & fully filled drugs in the general prescription
+    if($counter11 > 0)  // There are partially filled drugs in the general prescription
     {
       DB::table('prescriptions')
                 ->where('id', $the_id)
@@ -874,8 +922,9 @@ return Response::json($results);
     $inventory = DB::table('inventory')
                 ->join('druglists','druglists.id','=','inventory.drug_id')
                 ->join('strength','strength.strength','=','inventory.strength')
-                ->select('druglists.Manufacturer','druglists.drugname','inventory.created_at AS entry_date',
+                ->select('druglists.Manufacturer','druglists.drugname','inventory.created_at AS entry_date','inventory.id AS inv_id',
                 'druglists.id AS drug_id','strength.strength','inventory.*','inventory.id AS inventory_id')
+                ->where('inventory.quantity', '>', 0)
                 ->orderBy('inventory.created_at', 'desc')
                 ->get();
 
@@ -912,7 +961,7 @@ return Response::json($results);
             ->first();
     $drug_name = $dname->drugname;
 
-    DB::table('inventory')->insert([
+    $id1 = DB::table('inventory')->insertGetId([
       'drug_id'=>$drug,
       'supplier'=>$supplier,
       'drugname'=>$drug_name,
@@ -926,6 +975,14 @@ return Response::json($results);
       'created_at'=>Carbon::now(),
       'updated_at'=>Carbon::now()
     ]);
+
+    DB::table('inventory_updates')->insert(
+      [
+      'inventory_id'=>$id1,
+      'created_at'=>Carbon::now()
+      ]
+    );
+
 
     return redirect()->action('PharmacyController@showInventory');
   }
@@ -992,7 +1049,7 @@ return Response::json($results);
   public function updateInventory(Request $request)
   {
 
-    $drug = $request->patient_prescription;
+    $inv = $request->inventory_id;
     $quantity = $request->quantity;
 
     $user_id = Auth::user()->id;
@@ -1003,12 +1060,12 @@ return Response::json($results);
 
     $facility = $data->premiseid;
 
-    DB::table('inventory_updates')->insert([
-      'drug_id'=>$drug,
+    DB::table('inventory_updates')->where('inventory_id','=', $inv)
+    ->update([
       'quantity'=>$quantity,
+      'status'=>1,
       'submitted_by'=>$user_id,
       'outlet_id'=>$facility,
-      'created_at'=>Carbon::now(),
       'updated_at'=>Carbon::now()
     ]);
 

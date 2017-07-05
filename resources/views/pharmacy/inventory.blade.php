@@ -24,7 +24,6 @@
  <div class="table-responsive">
    <table class="table table-striped table-bordered table-hover dataTables-example" >
    <thead>
-
      <tr>
          <th>No</th>
          <th>Drug</th>
@@ -32,6 +31,9 @@
          @role(['Pharmacyadmin','Pharmacymanager'])
          <th>Number in stock</th>
          <th>Date</th>
+         @endrole
+         @role(['Pharmacyadmin','Pharmacymanager','Pharmacystorekeeper'])
+         <th>Updated Quantity</th>
          @endrole
          <th></th>
      </tr>
@@ -41,6 +43,7 @@
        $i = 1;
        foreach($inventory as $inv)
        {
+         $inv_id = $inv->inv_id;
          $bought = $inv->quantity;
          $entry_date = $inv->entry_date;
          $drug_id = $inv->drug_id;
@@ -62,6 +65,30 @@
         <td>{{$stock_level}}</td>
         <td>{{$entry_date}}</td>
         @endrole
+        @role(['Pharmacyadmin','Pharmacymanager','Pharmacystorekeeper'])
+        <td>
+          <?php
+          $amount = array();
+          $amount = DB::table('inventory_updates')
+                  ->select('quantity')
+                  ->where([
+                    ['status', '=', 1],
+                    ['id', '=', $inv_id],
+                  ])
+                  ->first();
+
+                  if(empty($amount->quantity))
+                  {
+                  echo '';
+                  }
+                  else
+                  {
+                    echo $amount->quantity;
+                  }
+           ?>
+        </td>
+        @endrole
+
         <td>
           @role(['Pharmacyadmin','Pharmacymanager'])
           <a href="{{ route('edit_inventory',$inventory_id) }}">Edit</a> &nbsp;&nbsp;
@@ -110,6 +137,9 @@
       @role(['Pharmacyadmin','Pharmacymanager'])
       <th>Number in stock</th>
       <th>Date</th>
+      @endrole
+      @role('Pharmacystorekeeper')
+      <th>Updated Quantity</th>
       @endrole
       <th></th>
     </tr>

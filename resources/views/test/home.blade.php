@@ -48,36 +48,35 @@
 																								</thead>
 
 																								<tbody>
-
 																									<?php $i =1; ?>
 
 																									@foreach($tsts as $tst)
 																									<?php
 																									if ($tst->persontreated=='Self') {
-																										$gender= $tst->gender;
-																										$dob=$tst->dob;
-																										$pname= $tst->firstname." ".$tst->secondName;
+																									$gender= $tst->gender;
+																									$dob=$tst->dob;
+																									$pname= $tst->firstname." ".$tst->secondName;
 																									}
 
 																									else {
-																										$gender= $tst->depgender;
-																										$dob=$tst->depdob;
-																										$pname= $tst->depname." ".$tst->depname2;
+																									$gender= $tst->depgender;
+																									$dob=$tst->depdob;
+																									$pname= $tst->depname." ".$tst->depname2;
 																									}
 
-																									  if ($gender==1) {$gender='Male';}else{$gender='Female';}
-                                                 $interval = date_diff(date_create(), date_create($dob));
-																									 $age= $interval->format(" %Y Year, %M Months, %d Days Old");
-                                                   ?>
-																									  <tr>
-																									  <td><a href="{{route('patientTests',$tst->tid)}}">{{$i}}</a></td>
-																									 <td><a href="{{route('patientTests',$tst->tid)}}">{{$pname}}</a></td>
-                                                    <td>{{$gender}}</td>
-																									  <td>{{$age}}</td>
-                                                    <td>{{$tst->date}}</td>
-																										 <td>{{$tst->doc}}</td>
-																										 <td>{{$tst->fac}}</td>
-																								</tr>
+																									if ($gender==1) {$gender='Male';}else{$gender='Female';}
+																									$interval = date_diff(date_create(), date_create($dob));
+																									$age= $interval->format(" %Y Year, %M Months, %d Days Old");
+																									?>
+																									<tr>
+																									<td><a href="{{route('patientTests',$tst->tid)}}">{{$i}}</a></td>
+																									<td><a href="{{route('patientTests',$tst->tid)}}">{{$pname}}</a></td>
+																									<td>{{$gender}}</td>
+																									<td>{{$age}}</td>
+																									<td>{{$tst->date}}</td>
+																									 <td>{{$tst->doc}}</td>
+																									 <td>{{$tst->fac}}</td>
+																									</tr>
 																									<?php $i++; ?>
 
 																									@endforeach

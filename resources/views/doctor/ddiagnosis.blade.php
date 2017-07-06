@@ -101,7 +101,7 @@ elseif ($stat == 6) {
             <li><a role="button" href="{{route('discharge',$app_id)}}">Discharge</a></li>
            @else
             <li><a role="button" href="{{route('admit',$app_id)}}">Admit</a></li>@endif
-            <li><a role="button" href="{{route('transfering',$app_id)}}">Transfer</a></li>
+            <li><a role="button" href="{{route('transfering',$app_id)}}">Referral</a></li>
            <li><a role="button" href="{{route('endvisit',$app_id)}}">End Visit</a></li>
          </ul>
      </div>

@@ -34,7 +34,7 @@
                            <li>
                                 <span class="fa  fa-map m-r-xs"></span>
                                 <label>Constituency:</label>
-                                <?php $const=$patient->constituency; $cons=DB::table('constituency')->where('const_id',$const)->first();?>{{$cons->Constituency}}
+                                <?php $const=$patient->constituency; $cons=DB::table('constituency')->where('id',$const)->first();?>{{$cons->Constituency}}
                             </li>
                              <li>
                                 <span class="fa  fa-map m-r-xs"></span>

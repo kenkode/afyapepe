@@ -33,7 +33,7 @@
                            <li>
                                 <span class="fa  fa-map m-r-xs"></span>
                                 <label>Constituency:</label>
-                                <?php $const=$patient->constituency; $cons=DB::table('constituency')->where('const_id',$const)->first();?>{{$cons->Constituency}}
+                                <?php $const=$patient->constituency; $cons=DB::table('constituency')->where('id',$const)->first();?>{{$cons->Constituency}}
                             </li>
                              <li>
                                 <span class="fa  fa-map m-r-xs"></span>
@@ -133,7 +133,7 @@
                       <td>{{$i}}</td>
                        <td>{{ date('d -m- Y', strtotime($exp->created_at)) }}</td>
             <td>{{ date('H:i:s', strtotime($exp->created_at)) }}</td>
-                      <td>St Jude's Huruma Community Health Services</td>
+                      <td><?php $facility=$exp->facility; $name=DB::table('facilities')->where('FacilityCode',$facility)->first();?>{{$name->FacilityName}}</td>
                         <td><?php $person=$exp->person_treated; if($person=='Dependent'){
                           $user=DB::table('dependant')->where('id',$exp->dependent_id)->first();
                           echo $user->firstName." ".$user->secondName; }
@@ -221,7 +221,7 @@
                       <td>{{$i}}</td>
                        <td>{{ date('d -m- Y', strtotime($mexp->created_at)) }}</td>
             <td>{{ date('H:i:s', strtotime($mexp->created_at)) }}</td>
-                      <td>St Jude's Huruma Community Health Services</td>
+                      <td><?php $facility=$mexp->facility; $name=DB::table('facilities')->where('FacilityCode',$facility)->first();?>{{$name->FacilityName}}</td>
                       <td><?php $mperson=$mexp->person_treated; if($mperson=='Dependent'){
                           $userm=DB::table('dependant')->where('id',$mexp->dependent_id)->first();
                          echo $userm->firstName." ".$userm->secondName;} else{ echo "Primary";}?></td>
@@ -304,7 +304,7 @@
                       <td>{{$i}}</td>
                        <td>{{ date('d -m- Y', strtotime($yexp->created_at)) }}</td>
             <td>{{ date('H:i:s', strtotime($yexp->created_at)) }}</td>
-                      <td>St Jude's Huruma Community Health Services</td>
+                     <td><?php $facility=$yexp->facility; $name=DB::table('facilities')->where('FacilityCode',$facility)->first();?>{{$name->FacilityName}}</td>
                        <td><?php $yperson=$yexp->person_treated; if($yperson=='Dependent'){
                           $usery=DB::table('dependant')->where('id',$yexp->dependent_id)->first();
                           echo $usery->firstName." ".$usery->secondName;} else{

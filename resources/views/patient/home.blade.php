@@ -95,7 +95,7 @@
            <h4>Contact Info</h4>
               <div class="form-group">
               <label for="exampleInputPassword1">Counstituency:</label>
-              <input type="text" class="form-control" id="exampleInputPassword1" placeholder="" name="phone" <?php $const=$patient->constituency; $cons=DB::table('constituency')->where('const_id',$const)->first();?> value="{{$cons->Constituency}}" readonly=""
+              <input type="text" class="form-control" id="exampleInputPassword1" placeholder="" name="phone" <?php $const=$patient->constituency; $cons=DB::table('constituency')->where('id',$const)->first();?> value="{{$cons->Constituency}}" readonly=""
               />
               </div>
               <div class="form-group">

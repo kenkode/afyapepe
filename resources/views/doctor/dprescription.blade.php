@@ -114,7 +114,7 @@ elseif ($stat == 6) {
                         <li><a role="button" href="{{route('discharge',$app_id)}}">Discharge</a></li>
                        @else
                         <li><a role="button" href="{{route('admit',$app_id)}}">Admit</a></li>@endif
-                        <li><a role="button" href="{{route('transfering',$app_id)}}">Transfer</a></li>
+                        <li><a role="button" href="{{route('transfering',$app_id)}}">Referral</a></li>
                        <li><a role="button" href="{{route('endvisit',$app_id)}}">End Visit</a></li>
                      </ul>
                  </div>
@@ -135,181 +135,187 @@ elseif ($stat == 6) {
                                  <a class="btn btn-primary btn-lg btn-block" data-toggle="tab" href="#tab-2"><i class="fa fa-database"></i> PRESCRIPTIONS HISTORY </a>
                                  </div>
 
-                                 </ul>
+                     </ul>
 
-                                 <div class="tab-content">
-                                   <div id="tab-1" class="tab-pane active">
-                                       <div class="panel-body">
-                                         <div class="col-sm-5 b-r">
-                                           <div class="table-responsive ibox-content">
-                                             <table class="table table-striped table-bordered table-hover " >
-                                              <thead>
-                                                <tr>
-                                                  <th>Diagnosis</th>
-                                                  <th>Level</th>
-                                                  <th>Severity</th>
-                                                  <th>Reccomendation</th>
-                                              </tr>
-                                                </thead>
-                                                <tbody>
-                                        @foreach($Pdiagnosis as $tstdn)
-                                                  <tr>
-                                                  <td>{{$tstdn->name}}</td>
-                                                  <td>{{$tstdn->level}}</td>
-                                                  <td>{{$tstdn->severity}}</td>
-                                                  <td><button type="button" class="btn btn-primary" data-toggle="modal"
-                                                     data-target="#myModal5"> Gentamicin</button></td>
-                                                 </tr>
-                                           @endforeach
-                                          </tbody>
-                                         </table>
-                                              </div>
-                                           </div>
-                                                   <div class="col-sm-7 ">
-                                                     <div class="ibox float-e-margins ibox-content">
-                                                     <br />
-                                                     {{ Form::open(array('route' => array('prescription.store'),'method'=>'POST')) }}
-                                                           <div class="form-group">
+<div class="tab-content">
+<div id="tab-1" class="tab-pane active">
+<!--..........Patient allergy and chronic Diseases....................-->
+@include('doctor.allergy')
+<!--...........Patient allergy and chronic Diseases ........................-->
 
-                                                             <div class="form-group">
-                                                                 <label for="dosage" class="col-md-4">Prescription For:</label></td>
-                                                                  <select class="form-control m-b col-md-4" name="disease_id" id="example-getting-started" style="width: 50%">
-                                                                   <?php $druglists=DB::table('druglists')->distinct()->get(['DosageForm']); ?>
-                                                                   @foreach($Pdiagnosis as $tstdn)
-                                                                          <option value='{{$tstdn->id}}'>{{$tstdn->name}}</option>
-                                                                   @endforeach
-                                                                 </select>
-                                                               </div>
+<div class="panel-body">
+<div class="col-sm-5 b-r">
+<div class="table-responsive ibox-content">
+ <table class="table table-striped table-bordered table-hover " >
+  <thead>
+    <tr>
+      <th>Diagnosis</th>
+      <th>Level</th>
+      <th>Severity</th>
+      <th>Reccomendation</th>
+  </tr>
+    </thead>
+    <tbody>
+@foreach($Pdiagnosis as $tstdn)
+      <tr>
+      <td>{{$tstdn->name}}</td>
+      <td>{{$tstdn->level}}</td>
+      <td>{{$tstdn->severity}}</td>
+      <td><button type="button" class="btn btn-primary" data-toggle="modal"
+         data-target="#myModal5"> Gentamicin</button></td>
+     </tr>
+@endforeach
+</tbody>
+</table>
+  </div>
+</div>
+       <div class="col-sm-7 ">
+         <div class="ibox float-e-margins ibox-content">
+         <br />
+         {{ Form::open(array('route' => array('prescription.store'),'method'=>'POST')) }}
+               <div class="form-group">
 
-
-                                                                         <label for="presc" class="col-md-4">Prescription:</label>
-                                                                         <select id="presc" name="prescription" class="form-control presc1" style="width: 50%"></select>
-                                                                     </div>
-
-                                                                     <div class="form-group">
-                                                                         <label for="dosage" class="col-md-4">Dosage Form</label></td>
-                                                                          <select class="form-control m-b col-md-4" name="dosageform" id="example-getting-started" style="width: 50%">
-                                                                           <?php $druglists=DB::table('druglists')->distinct()->get(['DosageForm']); ?>
-                                                                           @foreach($druglists as $druglist)
-                                                                                  <option value='{{$druglist->DosageForm}}'>{{$druglist->DosageForm}}</option>
-                                                                           @endforeach
-                                                                         </select>
-                                                                       </div>
-
-                                                                        <div class="form-group">
-                                                                         <label for="dosage" class="col-md-4 control-label">Strength</label></td>
-                                                                          <select class="form-control" id="testsj" name="strength" style="width: 25%">
-                                                                              @foreach($Strengths as $Strengthz)
-                                                                                <option value="{{$Strengthz->strength}}">{{ $Strengthz->strength  }}  </option>
-                                                                             @endforeach
-                                                                         </select>
-                                                                          </div>
-
-                                                                          <div class="form-group">
-                                                                           <label for="dosage" class="col-md-4 control-label">Strength Unit</label></td>
-                                                                           <input type="radio" name="strength_unit" value="ml"> Ml
-                                                                           &nbsp;&nbsp;<input type="radio" name="strength_unit" value="mg"> Mg
-                                                                          </div>
+                 <div class="form-group">
+                     <label for="dosage" class="col-md-4">Prescription For:</label></td>
+                      <select class="form-control m-b col-md-4" name="disease_id" id="example-getting-started" style="width: 50%">
+                       <?php $druglists=DB::table('druglists')->distinct()->get(['DosageForm']); ?>
+                       @foreach($Pdiagnosis as $tstdn)
+                              <option value='{{$tstdn->id}}'>{{$tstdn->name}}</option>
+                       @endforeach
+                     </select>
+                   </div>
 
 
-                                                                        <div class="form-group">
-                                                                         <label for="dosage" class="col-md-4 control-label">Route</label></td>
-                                                                          <select class="form-control" name="routes" style="width: 50%">
-                                                                              @foreach($routems as $routemz)
-                                                                                <option value="{{$routemz->id }}">{{ $routemz->abbreviation }}----{{ $routemz->name  }} </option>
-                                                                             @endforeach
-                                                                          </select>
-                                                                       </div>
+                             <label for="presc" class="col-md-4">Prescription:</label>
+                             <select id="presc" name="prescription" class="form-control presc1" style="width: 50%"></select>
+                         </div>
 
-                                                                         <div class="form-group">
-                                                                         <label for="dosage" class="col-md-4 control-label">Frequency</label></td>
-                                                                          <select class="form-control"  name="frequency" style="width: 50%">
-                                                                              @foreach($frequent as $freq)
-                                                                                <option value="{{$freq->id }}">{{ $freq->abbreviation }}----{{ $freq->name  }} </option>
-                                                                             @endforeach
-                                                                          </select>
-                                                                       </div>
-                                                                        {{ Form::hidden('state','Normal', array('class' => 'form-control')) }}
-                                                                       {{ Form::hidden('appointment_id',$app_id, array('class' => 'form-control')) }}
-                                                                       {{ Form::hidden('doc_id',$doc_id, array('class' => 'form-control')) }}
-                                                                       {{ Form::hidden('afya_user_id',$afyauserId, array('class' => 'form-control')) }}
-                                                                       {{ Form::hidden('dependant_id',$dependantId, array('class' => 'form-control')) }}
-                                                                       {{ Form::hidden('facility_id',$fac_id, array('class' => 'form-control')) }}
+                         <div class="form-group">
+                             <label for="dosage" class="col-md-4">Dosage Form</label></td>
+                              <select class="form-control m-b col-md-4" name="dosageform" id="example-getting-started" style="width: 50%">
+                               <?php $druglists=DB::table('druglists')->distinct()->get(['DosageForm']); ?>
+                               @foreach($druglists as $druglist)
+                                      <option value='{{$druglist->DosageForm}}'>{{$druglist->DosageForm}}</option>
+                               @endforeach
+                             </select>
+                           </div>
+
+                            <div class="form-group">
+                             <label for="dosage" class="col-md-4 control-label">Strength</label></td>
+                              <select class="form-control" id="testsj" name="strength" style="width: 25%">
+                                  @foreach($Strengths as $Strengthz)
+                                    <option value="{{$Strengthz->strength}}">{{ $Strengthz->strength  }}  </option>
+                                 @endforeach
+                             </select>
+                              </div>
+
+                              <div class="form-group">
+                               <label for="dosage" class="col-md-4 control-label">Strength Unit</label></td>
+                               <input type="radio" name="strength_unit" value="ml"> Ml
+                               &nbsp;&nbsp;<input type="radio" name="strength_unit" value="mg"> Mg
+                              </div>
 
 
-                                                                               <div class="form-group  text-center">
-                                                                               <button type="submit" class="btn btn-primary">Submit</button>  </td>
-                                                                                </div>
+                            <div class="form-group">
+                             <label for="dosage" class="col-md-4 control-label">Route</label></td>
+                              <select class="form-control" name="routes" style="width: 50%">
+                                  @foreach($routems as $routemz)
+                                    <option value="{{$routemz->id }}">{{ $routemz->abbreviation }}----{{ $routemz->name  }} </option>
+                                 @endforeach
+                              </select>
+                           </div>
 
-                                                                         {{ Form::close() }}
-                                                                               </div>
-                                                                             </div>
-                                       </div>
-                                   </div>
-                                   <div id="tab-2" class="tab-pane">
-                                       <div class="panel-body">
-                                         <?php $i =1;
-                                         $tstdone = DB::table('prescription_details')
-                                         ->leftJoin('diagnoses', 'prescription_details.diagnosis', '=', 'diagnoses.id')
-                                         ->leftJoin('druglists', 'prescription_details.drug_id', '=', 'druglists.id')
-                                         ->leftJoin('frequency', 'prescription_details.frequency', '=', 'frequency.id')
-                                         ->leftJoin('route', 'prescription_details.routes', '=', 'route.id')
-                                         ->leftJoin('prescription_filled_status', 'prescription_details.id', '=', 'prescription_filled_status.presc_details_id')
-                                         ->select('diagnoses.name','druglists.drugname','frequency.name as frequency','prescription_details.created_at',
-                                         'route.name as route','prescription_filled_status.start_date','prescription_filled_status.end_date')
+                             <div class="form-group">
+                             <label for="dosage" class="col-md-4 control-label">Frequency</label></td>
+                              <select class="form-control"  name="frequency" style="width: 50%">
+                                  @foreach($frequent as $freq)
+                                    <option value="{{$freq->id }}">{{ $freq->abbreviation }}----{{ $freq->name  }} </option>
+                                 @endforeach
+                              </select>
+                           </div>
+                            {{ Form::hidden('state','Normal', array('class' => 'form-control')) }}
+                           {{ Form::hidden('appointment_id',$app_id, array('class' => 'form-control')) }}
+                           {{ Form::hidden('doc_id',$doc_id, array('class' => 'form-control')) }}
+                           {{ Form::hidden('afya_user_id',$afyauserId, array('class' => 'form-control')) }}
+                           {{ Form::hidden('dependant_id',$dependantId, array('class' => 'form-control')) }}
+                           {{ Form::hidden('facility_id',$fac_id, array('class' => 'form-control')) }}
 
-                                         ->where('prescription_details.afya_user_id', '=',$afyauserId)
-                                            ->orWhere('prescription_details.dependant_id', '=',$dependantId)
-                                         ->orderBy('created_at', 'desc')
-                                         ->get();
-                                         ?>
-                                         <div class="col-lg-12">
-                                         <div class="ibox float-e-margins">
-                                         <div class="ibox-content">
-                                         <h5>Prescription History</h5>
-                                         <div class="ibox-content">
-                                         <div class="table-responsive">
-                                         <table class="table table-striped table-bordered table-hover dataTables-conditional" >
-                                         <thead>
-                                         <tr>
-                                         <th></th>
-                                         <th>Diagnosis</th>
-                                         <th>Drug Name</th>
-                                         <th>Start Date</th>
-                                         <th>Stop Date</th>
-                                         <th>Frequeny</th>
-                                         <th>Route</th>
-                                         </tr>
-                                         </thead>
 
-                                         <tbody>
-                                         <?php $i =1; ?>
+                                   <div class="form-group  text-center">
+                                   <button type="submit" class="btn btn-primary">Submit</button>  </td>
+                                    </div>
 
-                                         @foreach($tstdone as $tstdn)
-                                         <tr>
-                                         <td>{{ +$i }}</td>
-                                         <td>{{$tstdn->name}}</td>
-                                         <td>{{$tstdn->drugname}}</td>
-                                         <td>{{$tstdn->start_date}}</td>
-                                         <td>{{$tstdn->end_date}}</td>
-                                         <td>{{$tstdn->frequency}}</td>
-                                         <td>{{$tstdn->route}}</td>
-
-                                         </tr>
-                                         <?php $i++; ?>
-
-                                         @endforeach
-
-                                         </tbody>
-                                         </table>
-                                         </div>
-                                         </div>
-                                         </div>
-                                         </div>
-                                         </div>
-                                       </div>
+                             {{ Form::close() }}
                                    </div>
                                  </div>
+</div>
+</div>
+<div id="tab-2" class="tab-pane">
+<div class="panel-body">
+<?php $i =1;
+$tstdone = DB::table('prescription_details')
+->leftJoin('diagnoses', 'prescription_details.diagnosis', '=', 'diagnoses.id')
+->leftJoin('druglists', 'prescription_details.drug_id', '=', 'druglists.id')
+->leftJoin('frequency', 'prescription_details.frequency', '=', 'frequency.id')
+->leftJoin('route', 'prescription_details.routes', '=', 'route.id')
+->leftJoin('prescription_filled_status', 'prescription_details.id', '=', 'prescription_filled_status.presc_details_id')
+->select('diagnoses.name','druglists.drugname','frequency.name as frequency','prescription_details.created_at',
+'route.name as route','prescription_filled_status.start_date','prescription_filled_status.end_date')
+
+->where('prescription_details.afya_user_id', '=',$afyauserId)
+->orWhere('prescription_details.dependant_id', '=',$dependantId)
+->orderBy('created_at', 'desc')
+->get();
+?>
+<div class="col-lg-12">
+<div class="ibox float-e-margins">
+<div class="ibox-content">
+<h5>Prescription History</h5>
+<div class="ibox-content">
+<div class="table-responsive">
+<table class="table table-striped table-bordered table-hover dataTables-conditional" >
+<thead>
+<tr>
+<th></th>
+<th>Diagnosis</th>
+<th>Drug Name</th>
+<th>Start Date</th>
+<th>Stop Date</th>
+<th>Frequeny</th>
+<th>Route</th>
+</tr>
+</thead>
+
+<tbody>
+<?php $i =1; ?>
+
+@foreach($tstdone as $tstdn)
+<tr>
+<td>{{ +$i }}</td>
+<td>{{$tstdn->name}}</td>
+<td>{{$tstdn->drugname}}</td>
+<td>{{$tstdn->start_date}}</td>
+<td>{{$tstdn->end_date}}</td>
+<td>{{$tstdn->frequency}}</td>
+<td>{{$tstdn->route}}</td>
+
+</tr>
+<?php $i++; ?>
+
+@endforeach
+
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+</div>
                           </div>
                        </div>
                    </div>

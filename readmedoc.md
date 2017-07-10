@@ -21,7 +21,8 @@ All patients at any given time
 4= Admitted
 5= referal
 6=Discharged Inn patient
-0=Discharged Death
+7 = Test
+0 =Discharged Death
 ##table patient_test status
 0= pending
 1= Done

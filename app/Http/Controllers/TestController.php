@@ -30,27 +30,26 @@ class TestController extends Controller
      */
     public function index()
     {
+      $facid = DB::table('facility_test')->where('user_id', '=', Auth::user()->id)->first();
+
       $tsts = DB::table('patient_test')
-      ->leftJoin('appointments', 'patient_test.appointment_id', '=', 'appointments.id')
-      ->leftJoin('doctors', 'patient_test.doc_id', '=', 'doctors.id')
-      ->leftJoin('facilities', 'patient_test.facility_from', '=', 'facilities.FacilityCode')
-      ->leftJoin('afya_users', 'appointments.afya_user_id', '=', 'afya_users.id')
-      ->leftJoin('dependant', 'appointments.persontreated', '=', 'dependant.id')
-   ->leftJoin('facility_test', 'patient_test.facility', '=', 'facility_test.facilitycode')
-     ->select('afya_users.*','patient_test.id as tid','patient_test.created_at as date',
+      ->Join('appointments', 'patient_test.appointment_id', '=', 'appointments.id')
+      ->Join('afya_users', 'appointments.afya_user_id', '=', 'afya_users.id')
+      ->Join('afyamessages', 'afya_users.msisdn', '=', 'afyamessages.msisdn')
+      ->leftJoin('dependant', 'afya_users.id', '=', 'dependant.afya_user_id')
+      ->Join('facilities', 'afyamessages.test_center_code', '=', 'facilities.FacilityCode')
+      ->Join('doctors', 'patient_test.doc_id', '=', 'doctors.id')
+      ->select('afya_users.*','patient_test.id as tid','patient_test.created_at as date',
       'patient_test.test_status','doctors.name as doc','facilities.FacilityName as fac',
       'appointments.persontreated',
       'dependant.firstName as depname','dependant.secondName as depname2',
       'dependant.gender as depgender','dependant.dob as depdob')
-      ->where([  ['patient_test.test_status', '=',0],
-
-                   ])
-        ->orwhere([  ['patient_test.test_status', '=',2],
-
-                  ])
-      ->get();
-
-        return view('test.home')->with('tsts',$tsts);
+      ->where([  ['patient_test.test_status', '!=',1],
+                 ['afyamessages.test_center_code', '=',$facid->facilitycode],
+                           ])
+     ->whereNull('afyamessages.status')
+     ->get();
+    return view('test.home')->with('tsts',$tsts);
     }
 
 public function testdetails($id){

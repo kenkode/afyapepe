@@ -45,7 +45,7 @@
                              <input type="text" name="low_female" class="form-control">
                              </div>
                              <div class="form-group">
-                            <label>Low Female:</label>
+                            <label>Low Male:</label>
                             <input type="text" name="low_male" class="form-control">
                             </div>
                 </div>

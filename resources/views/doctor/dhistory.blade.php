@@ -104,7 +104,7 @@ elseif ($stat == 6) {
             <li><a role="button" href="{{route('discharge',$app_id)}}">Discharge</a></li>
            @else
             <li><a role="button" href="{{route('admit',$app_id)}}">Admit</a></li>@endif
-            <li><a role="button" href="{{route('transfering',$app_id)}}">Transfer</a></li>
+            <li><a role="button" href="{{route('transfering',$app_id)}}">Referral</a></li>
            <li><a role="button" href="{{route('endvisit',$app_id)}}">End Visit</a></li>
          </ul>
      </div>
@@ -333,9 +333,9 @@ $triagedetails= DB::table('appointments')
       $tstdone = DB::table('patient_test')
     ->leftJoin('patient_test_details', 'patient_test.id', '=', 'patient_test_details.patient_test_id')
       ->leftJoin('facilities', 'patient_test_details.facility_done', '=', 'facilities.id')
-      ->leftJoin('lab_test', 'patient_test_details.tests_reccommended', '=', 'lab_test.id')
+      ->leftJoin('tests', 'patient_test_details.tests_reccommended', '=', 'tests.id')
       ->leftJoin('diagnoses', 'patient_test_details.conditional_diag_id', '=', 'diagnoses.id')
-      ->select('patient_test_details.*','facilities.*','lab_test.name','diagnoses.name as diagnoses')
+      ->select('patient_test_details.*','facilities.*','tests.name','diagnoses.name as diagnoses')
       ->Where('patient_test_details.dependant_id', '=',$dependantId)
       ->orderBy('created_at', 'desc')
       ->get();

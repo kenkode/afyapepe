@@ -9,36 +9,37 @@
 
       </div>
       <div class="ibox-content">
-      <?php  $app=DB::table('appointments')->orderby('created_at', 'desc')->where('afya_user_id',$id) ->where('created_at','<=',$today)->first();
+      <?php  $app=DB::table('appointments')->orderby('created_at', 'desc')->where('persontreated','=','Self')->where('afya_user_id',$id)->where('created_at','<',$today)->first();
 
-      $triage=DB::table('triage_details')->where('appointment_id',$app->id)->first();?>
-  
+       
+      $triage=DB::table('triage_details')->where('appointment_id','=',1)->first();?>
+ 
  {!! Form::open(array('url' => 'createexistingdetail','method'=>'POST')) !!}
     <div class="form-group">
     <input type="hidden" class="form-control" id="exampleInputEmail1S" aria-describedby="emailHelp" value="{{$id}}" name="id"  required>
     <input name="last_app_id" type="hidden" value="{{$app->id}}">
     <div class="form-group">
     <label for="exampleInputEmail1">Weight</label>
-    <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{$triage->current_weight}}" placeholder="Weight" name="weight" readonly="">
+    <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{$triage->current_weight or ''}}" placeholder="Weight" name="weight" readonly="">
     </div>
     
     <div class="form-group">
     <label for="exampleInputEmail1">Height</label>
-    <input type="name" class="form-control" placeholder="Height in Metres" name="current_height" value="{{$triage->current_height }}" 
+    <input type="name" class="form-control" placeholder="Height in Metres" name="current_height" value="{{$triage->current_height or ''}}" 
      readonly="">
     </div>
    <div class="form-group">
     <label for="exampleInputPassword1">Temperature</label>
-    <input type="name" class="form-control" id="exampleInputPassword1" placeholder="Temperature" name="temperature" value="{{$triage->temperature}}"  readonly="">
+    <input type="name" class="form-control" id="exampleInputPassword1" placeholder="Temperature" name="temperature" value="{{$triage->temperature or ''}}"  readonly="">
    </div>
 
     <div class="form-group">
     <label for="exampleInputPassword1">Systolic BP</label>
-    <input type="name" class="form-control" id="exampleInputPassword1" placeholder="Systolic BP" name="systolic" value="{{$triage->systolic_bp}}" readonly="">
+    <input type="name" class="form-control" id="exampleInputPassword1" placeholder="Systolic BP" name="systolic" value="{{$triage->systolic_bp or ''}}" readonly="">
     </div>
     <div class="form-group">
     <label for="exampleInputEmail1">Diastolic BP</label>
-    <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Diastolic BP" value="{{$triage->diastolic_bp}}" name="diastolic"  readonly="">
+    <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Diastolic BP" value="{{$triage->diastolic_bp or ''}}" name="diastolic"  readonly="">
     </div>
 
     </div>
@@ -63,18 +64,18 @@
    
     <div class="form-group">
                      <label >Chief Complaint/Reason for visit:</label>
-                     <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Diastolic BP" value="{{$triage->chief_compliant}}" name="diastolic"  readonly="">
+                     <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Diastolic BP" value="{{$triage->chief_compliant or ''}}" name="diastolic"  readonly="">
                  
     
                  </div>
      <div class="form-group">
                      <label >Observation:</label>
-                   <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Diastolic BP" value="{{$triage->observation}}" name="diastolic"  readonly="">
+                   <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Diastolic BP" value="{{$triage->observation or ''}}" name="diastolic"  readonly="">
                     
                  </div>
     <div class="form-group">
                      <label >Symptom:</label>
-                     <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Diastolic BP" value="{{$triage->symptoms}}" name="diastolic"  readonly="">
+                     <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Diastolic BP" value="{{$triage->symptoms or ''}}" name="diastolic"  readonly="">
                      
 
                  </div>
@@ -86,7 +87,7 @@
 
 
     <textarea class="form-control" placeholer="" name="nurse" readonly="">
-    {{$triage->nurse_notes}}
+    {{$triage->nurse_notes or ''}}
     </textarea>
 
     </div>

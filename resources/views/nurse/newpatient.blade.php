@@ -73,9 +73,9 @@
 
                              </td>
                                <td><?php $status=$patient->status;
-                               $app=DB::table('appointments')->orderby('created_at', 'desc')->where('afya_user_id',$status) ->where('created_at','<=',$today)->first();
+                               $app=DB::table('appointments')->orderby('created_at', 'desc')->where('afya_user_id',$status)->where('created_at','<=',$today)->first();
 
-                                   ?>@if($app->status==3)<a href="{{route('nurse.show',$parent->users_id)}}">{{"New"}}</a>@else<a href="{{url('nurse.existapp',$parent->users_id)}}">{{"Existing"}}</a>@endif</td>
+                                   ?>@if($app->status==3)<a href="{{route('nurse.show',$parent->id)}}">{{"New"}}</a>@else<a href="{{url('nurse.existapp',$parent->id)}}">{{"Existing"}}</a>@endif</td>
                                                 @else
                                     <?php $dep=DB::table('dependant')->join('appointments','appointments.persontreated','=','dependant.id')->select('dependant.*')->first(); ?>
                                                           <td><a href="{{url('nurse.dependents',$dep->id)}}">{{$i}}</a></td>

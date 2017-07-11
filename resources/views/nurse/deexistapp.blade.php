@@ -11,6 +11,8 @@
       <div class="ibox-content">
       <?php  $app=DB::table('appointments')->orderby('created_at', 'desc')->where('persontreated',$id)->where('created_at','<=',$today)->first();
 
+      echo $id;
+
       $triage=DB::table('triage_infants')->where('appointment_id',$app->id)->first();?>
   
  {!! Form::open(array('url' => 'existingdetail','method'=>'POST')) !!}

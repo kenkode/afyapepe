@@ -89,9 +89,9 @@
 
                               {{$dage}}</td></td>
                                <td><?php $st=$patient->status;
-                               $apps=DB::table('appointments')->orderby('created_at', 'desc')->where('persontreated',$dep->id) ->where('created_at','<=',$today)->first();
+                               $apps=DB::table('appointments')->orderby('created_at', 'desc')->where('persontreated',$dep->id)->where('status',3)->where('created_at','<=',$today)->first();
 
-                                   ?>@if($apps->status==3)<a href="{{route('nurse.dependents',$dep->id)}}">{{"New"}}</a>@else<a href="{{url('nurse.deexistapp',$dep->id)}}">{{"Existing"}}</a>@endif</td>
+                                   ?>@if(!empty($apps))<a href="{{route('nurse.dependents',$dep->id)}}">{{"New"}}</a>@else<a href="{{url('nurse.deexistapp',$dep->id)}}">{{"Existing"}}</a>@endif</td>
 
                                                   @endif
                                                           

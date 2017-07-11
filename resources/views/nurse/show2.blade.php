@@ -137,7 +137,7 @@
             </div>
             @endif
              <?php $mother=DB::table('dependant_parent')->where('dependant_id',$id)->where('relationship','=','Mother')->first();
-             $db=DB::table('afya_users')->where('users_id',$mother->afya_user_id)->first();?>
+             ?>
              
    @if(is_null($mother))
             
@@ -184,6 +184,7 @@
                             </div>
                             </div>
             @else
+           <?php  $db=DB::table('afya_users')->where('users_id',$mother->afya_user_id)->first();?>
             <div class="form-group">
             <label for="exampleInputPassword1">Mother Name</label>
             <input type="text" class="form-control" id="exampleInputPassword1" name="phone" value="{{$mother->name or ''}}" readonly  >
@@ -387,7 +388,7 @@ No<input type="checkbox" value="No"  name="bba"/>Yes<input type="checkbox" value
                                     <div class="row">
                                         <div class="col-sm-6">
                                             
-                     <input type="hidden" class="form-control" name="dob" value="{{$db->dob}}">
+                     <input type="hidden" class="form-control" name="dob" value="{{$db->dob or ''}}">
                  
   
   

@@ -6,12 +6,13 @@
     <div class="ibox float-e-margins">
       <div class="ibox-title">
           <h5>Patient Details</h5>
+          {{$id}}
 
       </div>
       <div class="ibox-content">
-      <?php  $app=DB::table('appointments')->orderby('created_at', 'desc')->where('persontreated',$id)->where('created_at','<=',$today)->first();
+      <?php  $app=DB::table('appointments')->orderby('created_at', 'desc')->where('persontreated',1)->where('created_at','>=',$today)->first();
 
-      echo $id;
+      {{$id}}
 
       $triage=DB::table('triage_infants')->where('appointment_id',$app->id)->first();?>
   

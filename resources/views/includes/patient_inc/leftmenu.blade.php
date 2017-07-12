@@ -32,7 +32,7 @@
 <li><a href="{{ URL::to('expenditure')}}">  <i class="fa fa-money "></i> <span>Health Expenditure</span></a></li>
 
 
-<li><a href="{{ URL::to('patientcalendar')}}">  <i class="glyphicon glyphicon-calendar "></i> <span>Calendar</span></a></li>
+<li><a href="{{ URL::to('#')}}">  <i class="glyphicon glyphicon-calendar "></i> <span>Calendar</span></a></li>
 
 
 <li><a href="{{ URL::to('#')}}">  <i class="fa fa-envelope "></i> <span>Email</span></a></li>

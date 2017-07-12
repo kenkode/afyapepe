@@ -111,42 +111,7 @@
 
             });
 
-        });
-
-    </script>
-    <script type="text/javascript">
-           $(document).ready(function(){
-           $('.multi-field-wrapper').each(function() {
-               var $wrapper = $('.multi-fields', this);
-
-               $(".add-field", $(this)).click(function(e) {
-                   $('.multi-field:first-child', $wrapper).clone(true).appendTo($wrapper).find('input').val('').focus();
-
-
-               });
-               $('.multi-field .remove-field', $wrapper).click(function() {
-                   if ($('.multi-field', $wrapper).length > 1)
-                       $(this).parent('.multi-field').remove();
-               });
-           });
-           });
-           </script>
-<script type="text/javascript">
-       $(document).ready(function(){
-             $("#embedcode").hide();
-             $("input[name='type']").change(function () {
-                  if($(this).val() == "yes")
-                       $("#embedcode").show();
-                  else
-                       $("#embedcode").hide();
-             });
-       });
-   </script>
-   <script>
-
-       $(document).ready(function() {
-
-               $('.i-checks').iCheck({
+             $('.i-checks').iCheck({
                    checkboxClass: 'icheckbox_square-green',
                    radioClass: 'iradio_square-green'
                });
@@ -244,9 +209,38 @@
            });
 
 
-       });
+        });
 
+    </script>
+    <script type="text/javascript">
+           $(document).ready(function(){
+           $('.multi-field-wrapper').each(function() {
+               var $wrapper = $('.multi-fields', this);
+
+               $(".add-field", $(this)).click(function(e) {
+                   $('.multi-field:first-child', $wrapper).clone(true).appendTo($wrapper).find('input').val('').focus();
+
+
+               });
+               $('.multi-field .remove-field', $wrapper).click(function() {
+                   if ($('.multi-field', $wrapper).length > 1)
+                       $(this).parent('.multi-field').remove();
+               });
+           });
+           });
+           </script>
+<script type="text/javascript">
+       $(document).ready(function(){
+             $("#embedcode").hide();
+             $("input[name='type']").change(function () {
+                  if($(this).val() == "yes")
+                       $("#embedcode").show();
+                  else
+                       $("#embedcode").hide();
+             });
+       });
    </script>
+  
 
 
 </body>

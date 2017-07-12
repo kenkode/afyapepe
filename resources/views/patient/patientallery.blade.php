@@ -354,18 +354,21 @@
 
                               <tbody>
                               <?php $i=1; 
-                              $tests=DB::table('patient_test_details')->join('patient_test','patient_test.id','=','patient_test_details.patient_test_id')->select('patient_test.*','patient_test_details.*')->where('patient_test_details.afya_user_id',$patient->id) ->get(); ?>
+                              $tests=DB::table('patient_test_details')->join('patient_test','patient_test.id','=','patient_test_details.patient_test_id')->join('tests','tests.id','=','patient_test_details.tests_reccommended')->select('patient_test.*','patient_test_details.*','tests.name','tests.sub_categories_id')->where('patient_test_details.afya_user_id',$patient->id) ->get(); ?>
 
                          
                               @foreach($tests as $test)
                               <tr>
                               <td>{{$i}}</td>
                               <td>{{$test->created_at}}</td>
-                                <td><?php $labtest=DB::table('lab_test')->where('id',$test->tests_reccommended)->first();
-                               $testname=DB::table('test_type')->where('id',$labtest->test_type_id)->first();?>{{$testname->test_category}}</td>
-                              <td>{{$labtest->name}}</td>
-                              <td><?php $user=DB::table('doctors')->where('id',$test->doc_id)->first(); ?>{{$user->name}}</td>
-                              <td><?php $status=$test->test_status; if($status==0){ echo "Not Done";} else { echo "Done";}?></td>
+                              <td><?php $docs=DB::table('test_categories')->where('id',$test->sub_categories_id)->first(); echo $docs->name;?></td>
+                              <td>{{$test->name}}</td>
+                              <td><?php $doc=DB::table('doctors')->where('id',$test->doc_id)->first();
+                              echo $doc->name;?>
+                                
+                              </td>
+                              <td>@if($test->test_status==0){{"Not Done"}}@else{{"Done"}}@endif</td>
+                                
                            
                               </tr>
 

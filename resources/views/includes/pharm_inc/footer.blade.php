@@ -207,20 +207,8 @@ $('#diag_id').val(data_id);
  else
  $('#subs').hide();
    });
-
-  //  $('#sub2').change(function ()
-  //  {
-  //    var total_value = document.getElementById('strength22').value;
-   //
-  //    if($(this).val > total_value)
-  //    {
-  //      alert("Dose given is more than prescribed dosage.");
-  //    }
-  //  }
-  //   );
  </script>
 
-<script>
 <script>
 $(document).ready(function()
 {
@@ -233,7 +221,7 @@ for (var i=0; i<radios.length; i++)
     radios[i].checked = false;
   }
 }
-}
+});
 </script>
 
 <script type="text/javascript">

@@ -35,6 +35,8 @@ class PharmacyController extends Controller
     public function index()
     {
         $today = Carbon::today();
+        $today2 = $today->toDateString();
+
 
         $user_id = Auth::user()->id;
 
@@ -52,11 +54,10 @@ class PharmacyController extends Controller
                 ->join('doctors', 'doctors.id', '=', 'prescriptions.doc_id')
                 ->select('afya_users.*','prescriptions.created_at AS presc_date','prescriptions.id AS presc_id',
                 'doctors.name', 'appointments.persontreated', 'afya_users.id AS af_id')
-                ->where([
-                  ['afyamessages.facilityCode', '=', $facility],
-                  ['afyamessages.created_at','>=',$today],
-                ])
+                ->where('afyamessages.facilityCode', '=', $facility)
+                ->whereDate('afyamessages.created_at','=',$today2)
                 ->whereIn('prescriptions.filled_status', [0, 2])
+                ->orWhereNull('prescriptions.filled_status')
                 ->groupBy('appointments.id')
                 ->get();
 
@@ -105,7 +106,10 @@ class PharmacyController extends Controller
         ])
         ->orWhere(function ($query)
         {
-        $query->whereNull('prescription_details.is_filled');
+        $query->whereNull('prescription_details.is_filled')
+              ->where('prescriptions.id', '=', $id)
+              ->where('afyamessages.facilityCode', '=', $facility)
+              ->where('afyamessages.created_at', '>=', $today);
         })
         ->groupBy('prescription_details.id')
         ->get();
@@ -924,7 +928,10 @@ return Response::json($results);
                 ->join('strength','strength.strength','=','inventory.strength')
                 ->select('druglists.Manufacturer','druglists.drugname','inventory.created_at AS entry_date','inventory.id AS inv_id',
                 'druglists.id AS drug_id','strength.strength','inventory.*','inventory.id AS inventory_id')
-                ->where('inventory.quantity', '>', 0)
+                ->where([
+                  ['inventory.quantity', '>', 0],
+                  ['is_active', '=', 'yes'],
+                ])
                 ->orderBy('inventory.created_at', 'desc')
                 ->get();
 
@@ -972,6 +979,7 @@ return Response::json($results);
       'recommended_retail_price'=>$retail_price,
       'submitted_by'=>$user_id,
       'outlet_id'=>$facility,
+      'is_active'=>'yes',
       'created_at'=>Carbon::now(),
       'updated_at'=>Carbon::now()
     ]);
@@ -987,17 +995,23 @@ return Response::json($results);
     return redirect()->action('PharmacyController@showInventory');
   }
 
-  public function getInventory($id)
+  public function getInventory(Request $request)
   {
-    $inventory = DB::table('inventory')
-                ->join('druglists','druglists.id','=','inventory.drug_id')
-                ->join('strength','strength.strength','=','inventory.strength')
-                ->select('druglists.Manufacturer','druglists.drugname',
-                'druglists.id AS drug_id','strength.strength','inventory.*','inventory.id AS inventory_id')
-                ->where('inventory.id', '=', $id)
-                ->get();
+    $idd = $request->selector;
 
-    return view('pharmacy.edit_inventory')->with('inventory',$inventory);
+    if(Input::get('submit_edit'))
+    {
+    return view('pharmacy.edit_inventory')->with('idd',$idd);
+    }
+    elseif(Input::get('submit_update'))
+    {
+    return view('pharmacy.update_inventory')->with('idd',$idd);
+    }
+    elseif(Input::get('submit_delete'))
+    {
+    return view('pharmacy.delete_inventory')->with('idd',$idd);
+    }
+
   }
 
   public function getInventory2($id)
@@ -1007,7 +1021,10 @@ return Response::json($results);
                 ->join('strength','strength.strength','=','inventory.strength')
                 ->select('druglists.Manufacturer','druglists.drugname',
                 'druglists.id AS drug_id','strength.strength','inventory.*','inventory.id AS inventory_id')
-                ->where('inventory.id', '=', $id)
+                ->where([
+                  ['inventory.id', '=', $id],
+                  ['is_active', '=', 'yes'],
+                ])
                 ->get();
 
     return view('pharmacy.update_inventory')->with('inventory',$inventory);
@@ -1015,13 +1032,6 @@ return Response::json($results);
 
   public function editedInventory(Request $request)
   {
-    $id = $request->inventory_id;
-    $drug = $request->prescription;
-    $strength = $request->strength;
-    $strength_unit = $request->strength_unit;
-    $quantity = $request->quantity;
-    $price = $request->price;
-
     $user_id = Auth::user()->id;
 
     $data = DB::table('pharmacists')
@@ -1029,9 +1039,19 @@ return Response::json($results);
               ->first();
 
     $facility = $data->premiseid;
+    $id = $request->inventory_id;
+    $count = count($id);
+
+    for($i=0; $i<$count; $i++)
+    {
+      $drug = $request->prescription[$i];
+      $strength = $request->strength[$i];
+      $strength_unit = $request->strength_unit;
+      $quantity = $request->quantity[$i];
+      $price = $request->price[$i];
 
     DB::table('inventory')
-                    ->where('id', '=', $id)
+                    ->where('id', '=', $id[$i])
                     ->update([
                       'drug_id'=>$drug,
                       'strength'=>$strength,
@@ -1043,6 +1063,8 @@ return Response::json($results);
                       'updated_at'=>Carbon::now()
                     ]);
 
+      }
+
     return redirect()->action('PharmacyController@showInventory');
   }
 
@@ -1050,6 +1072,7 @@ return Response::json($results);
   {
 
     $inv = $request->inventory_id;
+    $id = $request->id;
     $quantity = $request->quantity;
 
     $user_id = Auth::user()->id;
@@ -1060,44 +1083,51 @@ return Response::json($results);
 
     $facility = $data->premiseid;
 
-    DB::table('inventory_updates')->where('inventory_id','=', $inv)
-    ->update([
-      'quantity'=>$quantity,
+    $count = count($inv);
+
+    for($i=0;$i<$count;$i++)
+    {
+      DB::table('inventory_updates')->where('id','=', $id[$i])
+      ->update([
+        'status'=>0,
+        'updated_at'=>Carbon::now()
+      ]);
+
+    DB::table('inventory_updates')
+    ->insert([
+      'inventory_id'=>$inv[$i],
+      'quantity'=>$quantity[$i],
       'status'=>1,
       'submitted_by'=>$user_id,
       'outlet_id'=>$facility,
+      'created_at'=>Carbon::now(),
       'updated_at'=>Carbon::now()
     ]);
+
+    }
 
     return redirect()->action('PharmacyController@showInventory');
   }
 
   public function deleteInventory(Request $request)
   {
-    $id = $request->inv_id;
-    $all = DB::table('inventory')
-          ->select('*')
-          ->where('id', '=', $id)
-          ->first();
+    $user_id = Auth::user()->id;
+    $id = $request->inventory_id;
+    $count = count($id);
 
-      $drug = $all->drug_id;
-      $price = $all->price;
-      $strength = $all->strength;
-      $strength_unit = $all->strength_unit;
-      $quantity = $all->quantity;
-      $outlet_id = $all->outlet_id;
-      $user = $all->submitted_by;
+    for($i=0;$i<$count;$i++)
+    {
+    $results = DB::table('inventory')
+          ->where('id', '=', $id[$i])
+          ->update([
+            'is_active'=>'deleted',
+            'deleted_by'=>$user_id,
+            'updated_at'=>Carbon::now()
+          ]);
 
-    DB::table('deleted_inventory')->insert(
-      ['drug_id' => $drug, 'price' => $price, 'quantity' => $quantity, 'strength' => $strength,
-      'strength_unit' => $strength_unit, 'deleted_by' => $user, 'outlet_id' => $outlet_id,
-      'created_at' => Carbon::now(), 'updated_at' => Carbon::now()]
-    );
-
-    DB::table('inventory')->where('id', '=', $id)->delete();
+    }
 
     return redirect()->action('PharmacyController@showInventory');
-
 
   }
 

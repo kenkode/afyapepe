@@ -59,37 +59,39 @@
                                                     <?php $i =1; ?>
                                                  @foreach($patients as $patient)
                                                       <tr>
-                                                @if($patient->persontreated==="Self")                                                
-                                                 <td><a href="{{route('nurse.show',$patient->parid)}}">{{$i}}</a></td>
-                                                          <td><a href="{{route('nurse.show',$patient->parid)}}">{{$patient->first}} {{$patient->second}}</a></td>
-                                                          <td><?php $gender=$patient->gender;?>
+                                                @if($patient->persontreated=="Self")                
+                                                <?php $parent=DB::table('afya_users')->where('id',$patient->afya_user_id)->first(); ?>                 
+                                                 <td><a href="{{route('nurse.show',$parent->id)}}">{{$i}}</a></td>
+                                                          <td><a href="{{route('nurse.show',$parent->id)}}">{{$parent->firstname}} {{$parent->secondName}}</a></td>
+                                                          <td><?php $gender=$parent->gender;?>
                                                             @if($gender==1){{"Male"}}@else{{"Female"}}@endif</a>
                                                           </td>
                                 
-                                  <td><?php $dob=$patient->dob;
+                                  <td><?php $dob=$parent->dob;
                                   $interval = date_diff(date_create(), date_create($dob));
                              $age= $interval->format(" %Y Year, %M Months, %d Days Old");?> {{$age}}
 
                              </td>
-                               <td><?php $status=$patient->parid;
-                               $app=DB::table('appointments')->orderby('created_at', 'desc')->where('afya_user_id',$status) ->where('created_at','<=',$today)->first();
+                               <td><?php $status=$patient->status;
+                               $app=DB::table('appointments')->orderby('created_at', 'desc')->where('afya_user_id',$status)->where('created_at','<=',$today)->first();
 
-                                   ?>@if($app->status==3)<a href="{{route('nurse.show',$patient->parid)}}">{{"New"}}</a>@else<a href="{{url('nurse.existapp',$patient->parid)}}">{{"Existing"}}</a>@endif</td>
+                                   ?>@if($app->status==3)<a href="{{route('nurse.show',$parent->id)}}">{{"New"}}</a>@else<a href="{{url('nurse.existapp',$parent->id)}}">{{"Existing"}}</a>@endif</td>
                                                 @else
-                                                          <td><a href="{{url('nurse.dependents',$patient->depid)}}">{{$i}}</a></td>
-                                                          <td><a href="{{url('nurse.dependents',$patient->depid)}}">{{$patient->dfirst}} {{$patient->dsecond}}</a></td>
-                                                          <td>{{$patient->dgender}}
+                                    <?php $dep=DB::table('dependant')->join('appointments','appointments.persontreated','=','dependant.id')->select('dependant.*')->first(); ?>
+                                                          <td><a href="{{url('nurse.dependents',$dep->id)}}">{{$i}}</a></td>
+                                                          <td><a href="{{url('nurse.dependents',$dep->id)}}">{{$dep->firstName}} {{$dep->secondName}}</a></td>
+                                                          <td>{{$dep->gender}}
                                                           </td>
                                                          <td><?php
-                                                         $ddob=$patient->ddob;
-                                                          $intervals = date_diff(date_create(), date_create($patient->ddob));
+                                                         $ddob=$dep->dob;
+                                                          $intervals = date_diff(date_create(), date_create($dep->dob));
                              $dage= $intervals->format(" %Y Year, %M Months, %d Days Old");?>
 
                               {{$dage}}</td></td>
-                               <td><?php $st=$patient->depid;
-                               $app=DB::table('appointments')->orderby('created_at', 'desc')->where('persontreated',$st) ->where('created_at','<=',$today)->first();
+                               <td><?php $st=$patient->status;
+                               $apps=DB::table('appointments')->orderby('created_at', 'desc')->where('persontreated',$dep->id)->where('status',3)->where('created_at','<=',$today)->first();
 
-                                   ?>@if($app->status==3)<a href="{{route('nurse.dependents',$patient->depid)}}">{{"New"}}</a>@else<a href="{{url('nurse.deexistapp',$patient->depid)}}">{{"Existing"}}</a>@endif</td>
+                                   ?>@if(!empty($apps))<a href="{{route('nurse.dependents',$dep->id)}}">{{"New"}}</a>@else<a href="{{url('nurse.deexistapp',$dep->id)}}">{{"Existing"}}</a>@endif</td>
 
                                                   @endif
                                                           

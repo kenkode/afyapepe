@@ -35,6 +35,8 @@ class PharmacyController extends Controller
     public function index()
     {
         $today = Carbon::today();
+        $today2 = $today->toDateString();
+
 
         $user_id = Auth::user()->id;
 
@@ -52,10 +54,8 @@ class PharmacyController extends Controller
                 ->join('doctors', 'doctors.id', '=', 'prescriptions.doc_id')
                 ->select('afya_users.*','prescriptions.created_at AS presc_date','prescriptions.id AS presc_id',
                 'doctors.name', 'appointments.persontreated', 'afya_users.id AS af_id')
-                ->where([
-                  ['afyamessages.facilityCode', '=', $facility],
-                  ['afyamessages.created_at','>=',$today],
-                ])
+                ->where('afyamessages.facilityCode', '=', $facility)
+                ->whereDate('afyamessages.created_at','=',$today2)
                 ->whereIn('prescriptions.filled_status', [0, 2])
                 ->orWhereNull('prescriptions.filled_status')
                 ->groupBy('appointments.id')

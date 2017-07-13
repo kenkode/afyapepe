@@ -32,7 +32,6 @@
                     {
                       $name = $result->firstname.'  '.$result->secondName;
 
-
                       $age = $result->dob;
                       $interval = date_diff(date_create(), date_create($age));
                       $age = $interval->format(" %Y Year, %M Months, %d Days Old");
@@ -40,7 +39,6 @@
 
                       $person = $result->persontreated;
                       $af_id = $result->af_id;
-
 
                       if($gender === 1)
                       {
@@ -50,9 +48,7 @@
                       {
                         $gender = 'Female';
                       }
-
-
-
+                      
                     //  $allergies = $result->allergies;
                       $daktari = $result->name;
 

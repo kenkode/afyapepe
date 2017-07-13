@@ -79,6 +79,7 @@ class PharmacyController extends Controller
     {
       $today = Carbon::today();
       $user_id = Auth::user()->id;
+      $id = $id;
 
       $data = DB::table('pharmacists')
                 ->where('user_id', $user_id)
@@ -107,9 +108,9 @@ class PharmacyController extends Controller
         ->orWhere(function ($query)
         {
         $query->whereNull('prescription_details.is_filled')
-              ->where('prescriptions.id', '=', $id)
-              ->where('afyamessages.facilityCode', '=', $facility)
-              ->where('afyamessages.created_at', '>=', $today);
+              ->where('prescriptions.id', '=', '$id')
+              ->where('afyamessages.facilityCode', '=', '$facility')
+              ->where('afyamessages.created_at', '>=', '$today');
         })
         ->groupBy('prescription_details.id')
         ->get();

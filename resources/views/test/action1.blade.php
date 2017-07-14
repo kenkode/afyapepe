@@ -6,6 +6,11 @@
       <div class="ibox float-e-margins">
      <div class="ibox-title">
         <h5> TEST RESULTS  </h5>
+
+<div class="ibox-tools">
+<a class="collapse-link">
+</a>
+</div>
      </div>
      <div class="ibox-content">
       <table class="table table-bordered">
@@ -18,23 +23,23 @@
     </tr>
       </thead>
       <tbody>
-        <?php $i=1; $fh=DB::table('tests')
+        <?php $i=1; $fh01=DB::table('tests')
         ->Join('test_ranges', 'tests.id', '=', 'test_ranges.tests_id')
-        ->where('tests.id', '=',$tsts1->tests_reccommended)
-        ->where('test_ranges.facility_id', '=','19310')
-        ->select('tests.id as tests_id','tests.*','test_ranges.*','test_ranges.id as testrangesId')
+        ->where('tests.id', '=',$tsts1->tests_id)
+        ->select('tests.id as tests_id','tests.name as tname','test_ranges.*','test_ranges.id as testranges','test_ranges.name as rangesname')
         ->get();
          ?>
-        @foreach($fh as $fhtest)
+
+        @foreach($fh01 as $fhtest)
       <?php  $fhresut=DB::table('test_results')
       ->where([ ['test_results.ptd_id', '=',$tsts1->id],
-                ['test_results.test_ranges_id', '=',$fhtest->testrangesId],
+                ['test_results.test_ranges_id', '=',$fhtest->testranges],
                 ['test_results.appointment_id', '=',$appId], ])
 
       ->first(); ?>
       <tr>
       <td>{{$i}}</td>
-      <td>{{$fhtest->name}}</td>
+      <td> @if($fhtest->rangesname){{$fhtest->rangesname}}@else{{$fhtest->tname}} @endif</td>
 
 @if($gender == 'Male')
     @if(is_null($fhresut))<td>Pending</td>
@@ -80,9 +85,22 @@
     <div class="form-group">
         <label for="tag_list" class="">Test:</label>
              <select class="test-multiple" name="testrangesId"  style="width: 100%">
-
-               @foreach($fh as $fh1test)
-                      <option value='{{$fh1test->testrangesId}}'>{{$fh1test->name}} ({{$fh1test->units}})</option>
+  <?php
+                $fh02=DB::table('test_ranges')
+                ->Join('tests', 'test_ranges.tests_id', '=','tests.id' )
+                ->whereNotExists(function($query)
+                {
+                    $query->select(DB::raw(1))
+                          ->from('test_results')
+                          ->whereRaw('test_ranges.id = test_results.test_ranges_id');
+                })
+            ->where('test_ranges.tests_id', '=',$tsts1->tests_id)
+            ->select('tests.id as tests_id','tests.name as tname',
+            'test_ranges.id as testranges','test_ranges.name as rangesname', 'test_ranges.units')
+            ->get();
+              ?>
+                @foreach($fh02 as $fh1test)
+      <option value='{{$fh1test->testranges}}'>@if($fh1test->rangesname){{$fh1test->rangesname}}@else{{$fh1test->tname}} @endif ({{$fh1test->units}})</option>
                @endforeach
                </select>
          </div>
@@ -92,25 +110,14 @@
     <div class="form-group"><label>Value</label>
     <input type="text" name="test_value" placeholder="Enter Value" class="form-control"></div>
   </div>
-
-  <?php $fh11=DB::table('tests')->where('id', '=',$tsts1->tests_reccommended)->first(['id']); ?>
-  @if($fh11->id == '175')
-  <div class="form-group">
-  <label  class="">Film Report:(for RBC,WBC,Platelets)</label>
-  <select class="form-control" name ="film">
-<option value=''>Choose one ..</option>
-  <option value='Normocytic'>Normocytic</option>
-  <option value='Normochromic'>Normochromic</option>
-  <option value='Neutropenia'>Neutropenia</option>
-  <option value='Adequate'>Adequate</option>
-  </select>
+  <div class="form-group ">
+  <label for="d_list2">Test Notes:</label>
+  <textarea rows="4" name="comment" cols="50" placeholder="Any other Information" class="form-control"></textarea>
   </div>
-@endif
-
-  <input type="hidden" name="subcatid" value="{{$tsts1->subcatid}}" class="form-control">
   <input type="hidden" name="appointment_id" value="{{$appId}}" class="form-control">
   <input type="hidden" name="ptd_id" value="{{$ptdId}}" class="form-control">
   <input type="hidden" name="facility" value="{{$facilityId}}" class="form-control">
+  <input type="hidden" name="test_id" value="{{$fh100->tests_id}}" class="form-control">
 
 
 <div class="text-center">

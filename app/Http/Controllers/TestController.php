@@ -37,7 +37,7 @@ class TestController extends Controller
       ->Join('afya_users', 'appointments.afya_user_id', '=', 'afya_users.id')
       ->Join('afyamessages', 'afya_users.msisdn', '=', 'afyamessages.msisdn')
       ->leftJoin('dependant', 'afya_users.id', '=', 'dependant.afya_user_id')
-      ->Join('facilities', 'afyamessages.test_center_code', '=', 'facilities.FacilityCode')
+      ->Join('facilities', 'patient_test.facility_from', '=', 'facilities.FacilityCode')
       ->Join('doctors', 'patient_test.doc_id', '=', 'doctors.id')
       ->select('afya_users.*','patient_test.id as tid','patient_test.created_at as date',
       'patient_test.test_status','doctors.name as doc','facilities.FacilityName as fac',
@@ -46,6 +46,7 @@ class TestController extends Controller
       'dependant.gender as depgender','dependant.dob as depdob')
       ->where([  ['patient_test.test_status', '!=',1],
                  ['afyamessages.test_center_code', '=',$facid->facilitycode],
+
                            ])
      ->whereNull('afyamessages.status')
      ->get();
@@ -56,8 +57,10 @@ public function testdetails($id){
 
   $pdetails = DB::table('patient_test')
   ->leftJoin('appointments', 'patient_test.appointment_id', '=', 'appointments.id')
+  ->leftJoin('patient_test_details', 'patient_test.id', '=', 'patient_test_details.patient_test_id')
   ->leftJoin('doctors', 'patient_test.doc_id', '=', 'doctors.id')
-  ->select('appointments.*','doctors.name as docname')
+  ->select('appointments.*','doctors.name as docname','patient_test_details.appointment_id as appid',
+  'patient_test_details.id as ptd_id','patient_test.id as ptid')
   ->where('patient_test.id', '=',$id)
   ->first();
 $tsts = DB::table('patient_test')
@@ -68,8 +71,8 @@ $tsts = DB::table('patient_test')
     ->leftJoin('test_subcategories', 'tests.sub_categories_id', '=', 'test_subcategories.id')
     ->leftJoin('test_categories', 'test_subcategories.categories_id', '=', 'test_categories.id')
 
-    ->select('patient_test_details.test_subcategories_id as subcat','diagnoses.name as disease','patient_test_details.created_at as date','patient_test_details.done',
-    'patient_test_details.id as patTdid','tests.name as testname','test_categories.name as category','test_subcategories.name as sub_category')
+    ->select('tests.name as tname','test_subcategories.name as tsname','diagnoses.name as dname','patient_test_details.created_at as date',
+    'patient_test_details.id as patTdid','test_categories.name as tcname','patient_test_details.testmore')
 
     ->where([
                   ['patient_test.id', '=',$id],
@@ -96,11 +99,10 @@ $now = Carbon::now();
   $test1 =$request->testrangesId;
   $test2 =$request->test_value;
   $ptd_id =$request->ptd_id;
-  $film = $request->film;
-  $egfr = $request->egfr;
-$labd = $request->subcatid;
-$appid = $request->appointment_id;
-  if($test1){
+  $comment =$request->comment;
+  $appid = $request->appointment_id;
+  $test_id = $request->test_id;
+  if($test2){
 $pttids=DB::table('test_results')
 ->where([ ['appointment_id','=',$appid],
          ['test_results.ptd_id', '=',$ptd_id],
@@ -113,19 +115,44 @@ if (is_null($pttids)) {
        'appointment_id' => $appid,
        'test_ranges_id' => $test1,
        'value' => $test2,
-       'status' => 1,
+       'comments' => $comment,
+       'tests_id' => $test_id,
    ]);
  }
  }
-  $tsts1 = DB::table('patient_test_details')
-  ->Join('tests', 'patient_test_details.tests_reccommended', '=', 'tests.id')
-  ->Join('test_subcategories', 'tests.sub_categories_id', '=', 'test_subcategories.id')
-  ->Join('test_categories', 'test_subcategories.categories_id', '=', 'test_categories.id')
-  ->select('tests.name','test_categories.name as category',
-  'test_subcategories.name as sub_category','patient_test_details.*')
-  ->where('patient_test_details.id', '=',$ptd_id)
-  ->first();
-  return view('test.report')->with('tsts1',$tsts1);
+ $query11 = DB::table('test_ranges')
+         ->select(DB::raw('count(id) as idt'))
+         ->where('tests_id', '=', $test_id)
+ ->first();
+
+ $count11 = $query11->idt;
+ $query22 = DB::table('test_results')
+         ->select(DB::raw('count(id) as idp'))
+         ->where([ ['appointment_id','=',$appid],
+                  ['ptd_id', '=',$ptd_id],
+                  ['tests_id', '=',$test_id],
+                 ])
+         ->first();
+ $count22 = $query22->idp;
+
+ if($count11 == $count22)
+ {
+
+   $tsts1 = DB::table('patient_test_details')
+   ->Join('patient_test', 'patient_test_details.patient_test_id', '=', 'patient_test.id')
+   ->Join('doctors', 'patient_test.doc_id', '=', 'doctors.id')
+   ->Join('tests', 'patient_test_details.tests_reccommended', '=', 'tests.id')
+   ->Join('test_subcategories', 'tests.sub_categories_id', '=', 'test_subcategories.id')
+   ->Join('test_categories', 'test_subcategories.categories_id', '=', 'test_categories.id')
+   ->select('doctors.name as docname','tests.id as tests_id','tests.name','test_categories.name as category','test_subcategories.id as subcatid',
+   'test_subcategories.name as sub_category','patient_test_details.*')
+   ->where('patient_test_details.id', '=',$ptd_id)
+   ->first();
+   return view('test.report2')->with('tsts1',$tsts1);
+ }else {
+  return redirect()->action('TestController@actions', ['id' => $ptd_id]);
+
+   }
 }
 public function testResult3(Request $request)
 {
@@ -136,6 +163,8 @@ $now = Carbon::now();
   $ptd_id =$request->ptd_id;
   $appid = $request->appointment_id;
   $com = $request->comments;
+  $com2= $request->comments2;
+  $facility= $request->facility;
   if($test1){
 $pttids=DB::table('test_results')
 ->where([ ['appointment_id','=',$appid],
@@ -160,8 +189,8 @@ if (is_null($pttids)) {
      ->where('id',$ptd_id)
      ->update(['done'  =>1,
       'results'  => $com,
-      'note'  => $request['comments2'],
-      'facility_done'  => $request['facility'],
+      'note'  => $com2,
+      'facility_done'  => $facility,
       'updated_at'  => $now,
     ]);
 
@@ -189,172 +218,113 @@ if (is_null($pttids)) {
  }
   }
 return redirect()->route('patientTests',$ptid);
-//  return view('test.report')->with('tsts1',$tsts1);
-}
-public function testResult2(Request $request)
 
+}
+
+public function testResult4(Request $request)
 {
 $now = Carbon::now();
-
-  $test1 =$request->rangesId;
-  $test2 =$request->test_value;
+  $units=$request->units;
+  $test1 =$request->test;
+  $test2 =$request->value;
   $ptd_id =$request->ptd_id;
-  $film = $request->film;
-  $egfr = $request->egfr;
-$labd = $request->subcatid;
-$appid = $request->appointment_id;
-  if($test1){
-$pttids=DB::table('test_results')
-->where([ ['appointment_id','=',$appid],
-         ['test_results.ptd_id', '=',$ptd_id],
-         ['test_results.test_ranges_id', '=',$test1],])
+  $appid = $request->appointment_id;
+  $com = $request->comments;
+  $com2= $request->comments2;
+  $facility= $request->facility;
 
-  ->first();
 
-if (is_null($pttids)) {
     $testRslt = DB::table('test_results')->insert([
        'ptd_id' => $ptd_id,
        'appointment_id' => $appid,
-       'tests_id' =>'N/A',
-       'test_ranges_id' => $test1,
+       'result_name' => $test1,
        'value' => $test2,
-       'status' => 1,
+       'comments' => $com,
+       'notes' => $com2,
+       'units' =>$units,
+
    ]);
- }
- }
-  if($film){
-    $filmRslt1 = DB::table('film_reports')->insert([
-       'ptd_id' => $ptd_id,
-       'appointment_id' => $appid,
-       'test' => $test1,
-       'status' => $film,
+   return redirect()->action('TestController@actions', ['id' => $ptd_id]);
 
-]);  }
-if($egfr){
-  $filmRslt2 = DB::table('film_reports')->insert([
-     'ptd_id' => $ptd_id,
-     'appointment_id' => $appid,
-     'test' =>'EGFR',
-     'status' => $egfr,
-
-]);  }
-
-$query11 = DB::table('tests')
-        ->select(DB::raw('count(id) as idt'))
-        ->where('sub_categories_id', '=', $labd)
-->first();
-
-$count11 = $query11->idt;
-$query22 = DB::table('test_results')
-        ->select(DB::raw('count(id) as idp'))
-        ->where([ ['appointment_id','=',$appid],
-                 ['ptd_id', '=',$ptd_id],  ])
-        ->first();
-$count22 = $query22->idp;
-
-if($count11 == $count22)
-{
-  $tsts1 = DB::table('patient_test_details')
-->Join('patient_test', 'patient_test_details.patient_test_id', '=', 'patient_test.id')
- ->Join('doctors', 'patient_test.doc_id', '=', 'doctors.id')
- ->Join('tests', 'patient_test_details.test_subcategories_id', '=', 'tests.sub_categories_id')
-  ->Join('test_subcategories', 'tests.sub_categories_id', '=', 'test_subcategories.id')
-  ->Join('test_categories', 'test_subcategories.categories_id', '=', 'test_categories.id')
-  ->select('doctors.name as docname','tests.name','test_categories.name as category','test_subcategories.id as subcatid',
-  'test_subcategories.name as sub_category','patient_test_details.*')
-  ->where('patient_test_details.id', '=',$ptd_id)
-  ->first();
-  return view('test.report2')->with('tsts1',$tsts1);
-}else {
-return redirect()->route('perftest2',$ptd_id);
-  }
 
 }
-public function testResult22(Request $request)
+public function testResult5(Request $request)
 {
 $now = Carbon::now();
-
-  $testId =$request->testId;
-  $test2 =$request->test_value;
   $ptd_id =$request->ptd_id;
-  $film = $request->film;
-  $egfr = $request->egfr;
-$labd = $request->subcatid;
-$appid = $request->appointment_id;
-  if($testId){
-$pttids=DB::table('test_results')
-->where([ ['appointment_id','=',$appid],
-         ['test_results.ptd_id', '=',$ptd_id],
-         ['test_results.tests_id', '=',$testId],])
+  $appid = $request->appointment_id;
+$facility= $request->facility;
 
-  ->first();
 
-if (is_null($pttids)) {
-    $testRslt = DB::table('test_results')->insert([
-       'ptd_id' => $ptd_id,
-       'appointment_id' => $appid,
-       'tests_id' =>$testId,
-       'test_ranges_id' => 'N/A',
-       'value' => $test2,
-       'status' => 1,
-   ]);
+   DB::table('patient_test_details')
+     ->where('id',$ptd_id)
+     ->update(['done'  =>1,
+      'facility_done'  => $facility,
+      'updated_at'  => $now,
+    ]);
+
+    $tsts = DB::table('patient_test_details')->where('id', '=', $ptd_id)->first();
+    $ptid=$tsts->patient_test_id;
+    $appid=$tsts->appointment_id;
+
+    $tsts11 = DB::table('patient_test_details')
+    ->where([ ['patient_test_id', '=', $ptid],
+             ['appointment_id', '=', $appid],
+            ['done', '=', '0'], ])
+    ->first();
+ if($tsts11){
+     DB::table('patient_test')
+                ->where('id', $ptid)
+               ->update(
+                 ['test_status' => 2, 'updated_at'=> $now]
+               );
+ }else{
+   DB::table('patient_test')
+              ->where('id', $ptid)
+             ->update(
+               ['test_status' => 1, 'updated_at'=> $now]
+             );
  }
- }
-  if($film){
-    $filmRslt1 = DB::table('film_reports')->insert([
-       'ptd_id' => $ptd_id,
-       'appointment_id' => $appid,
-       'test' => $test1,
-       'status' => $film,
 
-]);  }
-if($egfr){
-  $filmRslt2 = DB::table('film_reports')->insert([
-     'ptd_id' => $ptd_id,
-     'appointment_id' => $appid,
-     'test' =>'EGFR',
-     'status' => $egfr,
-
-]);  }
-
-$query11 = DB::table('tests')
-        ->select(DB::raw('count(id) as idt'))
-        ->where('sub_categories_id', '=', $labd)
-->first();
-
-$count11 = $query11->idt;
-$query22 = DB::table('test_results')
-        ->select(DB::raw('count(id) as idp'))
-        ->where([ ['appointment_id','=',$appid],
-                 ['ptd_id', '=',$ptd_id],  ])
-        ->first();
-$count22 = $query22->idp;
-
-if($count11 == $count22)
-{
-  $tsts1 = DB::table('patient_test_details')
-->Join('patient_test', 'patient_test_details.patient_test_id', '=', 'patient_test.id')
- ->Join('doctors', 'patient_test.doc_id', '=', 'doctors.id')
- ->Join('tests', 'patient_test_details.test_subcategories_id', '=', 'tests.sub_categories_id')
-  ->Join('test_subcategories', 'tests.sub_categories_id', '=', 'test_subcategories.id')
-  ->Join('test_categories', 'test_subcategories.categories_id', '=', 'test_categories.id')
-  ->select('doctors.name as docname','tests.name','test_categories.name as category','test_subcategories.id as subcatid',
-  'test_subcategories.name as sub_category','patient_test_details.*')
-  ->where('patient_test_details.id', '=',$ptd_id)
-  ->first();
-  return view('test.report2')->with('tsts1',$tsts1);
-}else {
-return redirect()->route('perftest2',$ptd_id);
-  }
+return redirect()->route('patientTests',$ptid);
 
 }
+public function ctest(Request $request)
+{
+$now = Carbon::now();
+  $ptd_id =$request->ptd_id;
+  $appid = $request->appointment_id;
+  $test =$request->test;
+  $value =$request->value;
+  $units =$request->units;
+  $comment =$request->comments;
+  $comment2 =$request->comments2;
+  $reason =$request->reason;
+  $ptid=$request->ptid;
 
+
+$testRslt6 = DB::table('test_results')->insert([
+   'ptd_id' => $ptd_id,
+   'appointment_id' => $appid,
+   'result_name' => $test,
+   'value' => $value,
+   'units' => $units,
+   'comments' => $comment,
+   'notes' => $comment2,
+   'reason' => $reason,
+]);
+return redirect()->action('TestController@testdetails', ['id' => $ptid]);
+
+//return redirect()->route('patientTests',$ptid);
+}
 public function testreport(Request $request)
 {
 $now = Carbon::now();
 
   $com1 =$request->comments;
+  $com2 =$request->comments2;
   $ptd_id =$request->ptd_id;
+  $facility =$request->facility;
 
 
 
@@ -362,9 +332,9 @@ if($com1){
   DB::table('patient_test_details')
     ->where('id',$ptd_id)
     ->update(['done'  =>1,
-    'results'  => $request['comments'],
-     'note'  => $request['comments2'],
-     'facility_done'  => $request['facility'],
+     'results'  => $com1,
+     'note'  => $com2,
+     'facility_done'  => $facility,
      'updated_at'  => $now,
    ]);
 
@@ -401,9 +371,9 @@ return redirect()->route('patientTests',$ptid);
           $tsts1 = DB::table('patient_test_details')
         ->Join('patient_test', 'patient_test_details.patient_test_id', '=', 'patient_test.id')
          ->Join('doctors', 'patient_test.doc_id', '=', 'doctors.id')
-         ->Join('tests', 'patient_test_details.tests_reccommended', '=', 'tests.id')
-          ->Join('test_subcategories', 'tests.sub_categories_id', '=', 'test_subcategories.id')
-          ->Join('test_categories', 'test_subcategories.categories_id', '=', 'test_categories.id')
+         ->leftJoin('tests', 'patient_test_details.tests_reccommended', '=', 'tests.id')
+          ->leftJoin('test_subcategories', 'tests.sub_categories_id', '=', 'test_subcategories.id')
+          ->leftJoin('test_categories', 'test_subcategories.categories_id', '=', 'test_categories.id')
           ->select('doctors.name as docname','tests.id as tests_id','tests.name','test_categories.name as category','test_subcategories.id as subcatid',
           'test_subcategories.name as sub_category','patient_test_details.*')
           ->where('patient_test_details.id', '=',$id)
@@ -411,56 +381,31 @@ return redirect()->route('patientTests',$ptid);
            return view('test.action')->with('tsts1',$tsts1);
         }
 
-        public function actions2($id)
-        {
-          $tsts1 = DB::table('patient_test_details')
-        ->Join('patient_test', 'patient_test_details.patient_test_id', '=', 'patient_test.id')
-         ->Join('doctors', 'patient_test.doc_id', '=', 'doctors.id')
-         ->Join('tests', 'patient_test_details.test_subcategories_id', '=', 'tests.sub_categories_id')
-          ->Join('test_subcategories', 'tests.sub_categories_id', '=', 'test_subcategories.id')
-          ->Join('test_categories', 'test_subcategories.categories_id', '=', 'test_categories.id')
-          ->select('doctors.name as docname','tests.name','test_categories.name as category','test_subcategories.id as subcatid',
-          'test_subcategories.name as sub_category','patient_test_details.*')
-          ->where('patient_test_details.id', '=',$id)
-          ->first();
-           return view('test.action2')->with('tsts1',$tsts1);
-        }
+
 public function testupdate(Request $request){
   $now = Carbon::now();
   $test1 =$request->test_rid;
   $value =$request->value;
-  $film = $request->film;
- $labd = $request->subcatid;
   $ptd_id= $request->ptd_id;
-  $filmrept= $request->filmrept;
-  $Rprt1= $request->report1;
-  if($test1){
+if($test1){
   DB::table('test_results')
     ->where('id', $test1)
     ->update(
       ['value' => $value , 'updated_at'=> $now]  );
     }
-if($film){
-DB::table('film_reports')
-          ->where('id',$filmrept)
-          ->update(
-            ['status' => $film, 'updated_at'=> $now]
-          );
-        }
+    $tsts1 = DB::table('patient_test_details')
+  ->Join('patient_test', 'patient_test_details.patient_test_id', '=', 'patient_test.id')
+   ->Join('doctors', 'patient_test.doc_id', '=', 'doctors.id')
+   ->Join('tests', 'patient_test_details.tests_reccommended', '=', 'tests.id')
+    ->Join('test_subcategories', 'tests.sub_categories_id', '=', 'test_subcategories.id')
+    ->Join('test_categories', 'test_subcategories.categories_id', '=', 'test_categories.id')
+    ->select('doctors.name as docname','tests.id as tests_id','tests.name','test_categories.name as category','test_subcategories.id as subcatid',
+    'test_subcategories.name as sub_category','patient_test_details.*')
+    ->where('patient_test_details.id', '=',$ptd_id)
+    ->first();
 
-        $tsts1 = DB::table('patient_test_details')
-        ->Join('tests', 'patient_test_details.tests_reccommended', '=', 'tests.id')
-        ->Join('test_subcategories', 'tests.sub_categories_id', '=', 'test_subcategories.id')
-        ->Join('test_categories', 'test_subcategories.categories_id', '=', 'test_categories.id')
-        ->select('tests.name','test_categories.name as category',
-        'test_subcategories.name as sub_category','patient_test_details.*')
-        ->where('patient_test_details.id', '=',$ptd_id)
-        ->first();
-        if($Rprt1){
-        return view('test.report')->with('tsts1',$tsts1)->with('labd',$labd);
-   }else{
-     return view('test.report2')->with('tsts1',$tsts1)->with('labd',$labd);
-  }
+  return view('test.report2')->with('tsts1',$tsts1);
+
 }
 
 function Strength(){

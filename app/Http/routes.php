@@ -147,11 +147,11 @@ Route::get('/disis/find', 'DiseasesController@find');
 Route::get('/tags/fac', 'FacilityController@ffacility');
 
 
-Route::Post('testpost', [ 'as' => 'patienttest', 'uses' => 'PatientTestController@store']);
+Route::Post('testpost', [ 'as' => 'testsave', 'uses' => 'TestsaveController@store']);
 Route::get('test/{id}', [ 'as' => 'testes', 'uses' => 'PatientTestController@testdata']);
 Route::get('diagnosis/{id}', [ 'as' => 'diagnoses', 'uses' => 'PatientTestController@diagnoses']);
 Route::Post('diagnosisconfirm', [ 'as' => 'diaconf', 'uses' => 'PatientTestController@diagnosesconf']);
-Route::get('diagconfirm/{id}', [ 'as' => 'Testconfirms', 'uses' => 'PatientTestController@Testconfirm']);
+Route::Post('diagconfirm', [ 'as' => 'Testconfirms', 'uses' => 'PatientTestController@Testconfirm']);
 
 Route::Post('diagnosis', [ 'as' => 'confdiag', 'uses' => 'PrescriptionController@diagnoses']);
 Route::get('prescriptions/{id}', [ 'as' => 'medicines', 'uses' => 'PrescriptionController@prescriptions']);
@@ -282,12 +282,12 @@ Route::group(['middleware' => ['auth','role:Admin|Test']], function() {
 	Route::get('patientTests/{id}', [ 'as' => 'patientTests', 'uses' => 'TestController@testdetails']);
 
 	Route::get('action/{id}', [ 'as' => 'perftest', 'uses' => 'TestController@actions']);
-Route::get('action2/{id}', [ 'as' => 'perftest2', 'uses' => 'TestController@actions2']);
 	Route::Post('pdetails', [ 'as' => 'testResult', 'uses' => 'TestController@testResult']);
 	Route::Post('pdetails3', [ 'as' => 'testResult3', 'uses' => 'TestController@testResult3']);
+	Route::Post('pdetails4', [ 'as' => 'testResult4', 'uses' => 'TestController@testResult4']);
+	Route::Post('pdetails5', [ 'as' => 'testResult5', 'uses' => 'TestController@testResult5']);
+	Route::Post('pdetailsctest', [ 'as' => 'ctest', 'uses' => 'TestController@ctest']);
 
-Route::Post('action2', [ 'as' => 'testResult2', 'uses' => 'TestController@testResult2']);
-	Route::Post('action22', [ 'as' => 'testResult22', 'uses' => 'TestController@testResult22']);
  Route::Post('pdetails2', [ 'as' => 'testfilm', 'uses' => 'TestController@testreport']);
 	Route::Post('report', [ 'as' => 'testRupdt', 'uses' => 'TestController@testupdate']);
 

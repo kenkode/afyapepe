@@ -7,9 +7,7 @@
             $Did = $Docdata->id;
             $Name = $Docdata->name;
           }
-
-
-            ?>
+?>
 <div class="wrapper wrapper-content animated fadeInRight">
   <div class="row">
     <div class="col-lg-12">
@@ -91,15 +89,15 @@
                       <tr>
                           <td><a href="{{route('showPatient',$apatient->appid)}}">{{$i}}</a></td>
                           <td><a href="{{route('showPatient',$apatient->appid)}}">{{$name}}</a></td>
-                          <td>{{$appointment}}</td>
+                          <td><a href="{{route('showPatient',$apatient->appid)}}">{{$appointment}}</td>
                           <td><a href="{{route('showPatient',$apatient->appid)}}">{{$complain}}</a></td>
-                          <td>{{$gender}}</td>
-                          <td class="tdwith">{{$age}}</td>
-                          <td>{{$weight}}</td>
-                          <td>{{$height}}</td>
-                          <td>{{$temp}} </td>
-                          <td>{{$systo}}</td>
-                          <td>{{$diasto}}</td>
+                          <td><a href="{{route('showPatient',$apatient->appid)}}">{{$gender}}</a></td>
+                          <td class="tdwith"><a href="{{route('showPatient',$apatient->appid)}}">{{$age}}</a></td>
+                          <td><a href="{{route('showPatient',$apatient->appid)}}">{{$weight}}</a></td>
+                          <td><a href="{{route('showPatient',$apatient->appid)}}">{{$height}}</a></td>
+                          <td><a href="{{route('showPatient',$apatient->appid)}}">{{$temp}} </a></td>
+                          <td><a href="{{route('showPatient',$apatient->appid)}}">{{$systo}}</a></td>
+                          <td><a href="{{route('showPatient',$apatient->appid)}}">{{$diasto}}</a></td>
                       </tr>
                       <?php $i++; ?>
                     @endforeach

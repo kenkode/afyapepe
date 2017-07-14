@@ -79,9 +79,9 @@ if ($gender == 1) { $gender = 'Male'; }else{ $gender = 'Female'; }
 		<div class="content">
 			<div class="container">
 				<div class="col-lg-10">
-			<h3 class="text-center">{{$tsts1->category}} Report</h3>
+			<h3 class="text-center">@if($tsts1->category){{$tsts1->category}} @else Test @endif Report</h3>
 				<div class="text-center">
-				{{$tsts1->name}} // {{$tsts1->sub_category}}
+				@if($tsts1->name){{$tsts1->name}} // {{$tsts1->sub_category}} @else OTHER TESTS @endif
 				  </div>
 				 </div>
        </div>
@@ -93,16 +93,18 @@ if ($gender == 1) { $gender = 'Male'; }else{ $gender = 'Female'; }
 		<div class="content">
 
 
- <?php $i=1; $fh01=DB::table('tests')
+ <?php $i=1; $fh100=DB::table('tests')
  ->Join('test_ranges', 'tests.id', '=', 'test_ranges.tests_id')
- ->where('tests.id', '=',$tsts1->tests_reccommended)
- ->where('test_ranges.facility_id', '=','19310')
- ->select('tests.id as tests_id','tests.*','test_ranges.*','test_ranges.id as testranges')
- ->get();
+ ->where('tests.id', '=',$tsts1->tests_id)
+ ->select('tests.id as tests_id','tests.name as tname','test_ranges.*','test_ranges.id as testranges','test_ranges.name as rangesname')
+ ->first();
   ?>
-@if($fh01)
+@if($fh100)
 @include('test.action1')
 @else
+
+
+@if($tsts1->tests_reccommended)
 <div class="row">
             <div class="col-lg-12">
                 <div class="ibox float-e-margins">
@@ -144,10 +146,10 @@ if ($gender == 1) { $gender = 'Male'; }else{ $gender = 'Female'; }
 											 <label>Other Reports</label>
 											 <textarea name="comments2" rows="2" placeholder="Any other notes" class="form-control"></textarea>
                       </div>
-										 <input type="text" name="appointment_id" value="{{$appId}}" class="form-control">
-										 <input type="text" name="ptd_id" value="{{$ptdId}}" class="form-control">
-										 <input type="text" name="facility" value="{{$facilityId}}" class="form-control">
-										 <input type="text" name="tests_id" value="{{$tsts1->tests_id}}" class="form-control">
+										 <input type="hidden" name="appointment_id" value="{{$appId}}" class="form-control">
+										 <input type="hidden" name="ptd_id" value="{{$ptdId}}" class="form-control">
+										 <input type="hidden" name="facility" value="{{$facilityId}}" class="form-control">
+										 <input type="hidden" name="tests_id" value="{{$tsts1->tests_id}}" class="form-control">
 
 										 <div class="text-center">
 										 <button class="btn btn-sm btn-primary m-t-n-xs" type="submit"><strong>SUBMIT</strong></button>
@@ -160,8 +162,82 @@ if ($gender == 1) { $gender = 'Male'; }else{ $gender = 'Female'; }
     </div>
 </div>
 </div>
+@else
+<div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>TEST RESULTS</h5>
+
+                    </div>
+                    <div class="ibox-content">
+                        <div class="row">
+                    <div class="col-sm-5 b-r col-md-offset-1">
+									{{ Form::open(array('route' => array('testResult4'),'method'=>'POST')) }}
+<?php
+$tsts201 = DB::table('patient_test_details')
+->select('patient_test_details.*')
+->where('id', '=',$tsts1->id)
+->first();   ?>
+<div class="form-group">
+ <label>Other Requested Test</label>
+ <textarea rows="2"  class="form-control" readonly="">{{$tsts201->testmore}}</textarea>
+</div>
+												 <div class="form-group"><label>Test Name</label>
+												 <input type="text" name="test" placeholder="Write test name" class="form-control">
+												 </div>
+													<div class="form-group"><label>Value</label>
+													<input type="text" name="value" placeholder="Enter Value" class="form-control">
+													</div>
+													<div class="form-group"><label>Units</label>
+													<input type="text" name="units" placeholder="Enter Value" class="form-control">
+													</div>
+                      </div>
+
+									    <div class="col-sm-5">
+												<div class="form-group">
+												<label  class="">Comments:</label>
+											 <select class="form-control" name="comments" required >
+											 <option value=''>Choose one ..</option>
+											 <option value='Normal'>Normal</option>
+											 <option value='Severe'>Severe</option>
+											 <option value='High'>High</option>
+											 <option value='Efficient'>Efficient</option>
+											 <option value='Inefficient'>Inefficient</option>
+											 <option value='Borderline neutropenia'>Borderline neutropenia</option>
+											 <option value='Normal peripherial blood picture'>Normal peripherial blood picture</option>
+											 </select>
+											 </div>
+                      <div class="form-group">
+											 <label>Other Reports</label>
+											 <textarea name="comments2" rows="2" placeholder="Any other notes" class="form-control"></textarea>
+                      </div>
+										 <input type="hidden" name="appointment_id" value="{{$tsts201->appointment_id}}" class="form-control">
+										 <input type="hidden" name="ptd_id" value="{{$tsts201->id}}" class="form-control">
+										 <input type="hidden" name="facility" value="{{$facilityId}}" class="form-control">
+
+										 <div class="text-center">
+										 <button class="btn btn-sm btn-primary m-t-n-xs" type="submit"><strong>SUBMIT</strong></button>
+          {{ Form::close() }}
+					</div>
+					<div class="form-group">
+						<label>Done Adding Other Tests</label>
+											{{ Form::open(array('route' => array('testResult5'),'method'=>'POST')) }}
+									    <input type="hidden" name="appointment_id" value="{{$tsts201->appointment_id}}" class="form-control">
+										  <input type="hidden" name="ptd_id" value="{{$tsts201->id}}" class="form-control">
+										  <input type="hidden" name="facility" value="{{$facilityId}}" class="form-control">
+											<button class="btn btn-sm btn-primary m-t-n-xs" type="submit"><strong>FINISH</strong></button>
+                {{ Form::close() }}
+								</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
 @endif
 
+@endif
 
 
 		</div><!--content-->

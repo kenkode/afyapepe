@@ -323,21 +323,11 @@ return  Redirect()->action('FacilityAdminController@laboratory');
            return view('facilityadmin.testranges');
         }
         public function rangesadd(Request $request){
-               $name=$request->machine_name;
-               if ($name){
-                 $machine = $name;
-               }else{ $machine = "TBC";}
+               $machine_id=$request->machine_name;
 
-              
-                  $machine_id=DB::table('test_machines')->insertGetId([
-                  'name'=>$machine,
-                  'series'=>$request->get('series'),
-                  'serial_no'=>$request->get('serial_no'),
-                   'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
-                   'updated_at' => \Carbon\Carbon::now()->toDateTimeString()
-                 ]);
 
                DB::table('test_ranges')->insert([
+                'name'=>$request->get('sub_test'),
                    'tests_id'=>$request->get('tests_id'),
                    'machine_id'=>$machine_id,
                    'facility_id'=>$request->get('facility_id'),
@@ -380,11 +370,8 @@ return  Redirect()->action('FacilityAdminController@laboratory');
        $high_female = $request->high_female;
        $low_male = $request->low_male;
        $high_male = $request->high_male;
-
        $machine_id = $request->machine_id;
-       $machine = $request->machine_name;
-       $series = $request->series;
-       $serial_no = $request->serial_no;
+
      DB::table('test_ranges')
                ->where('id',$test)
                ->update(['units'=>$units,
@@ -392,14 +379,9 @@ return  Redirect()->action('FacilityAdminController@laboratory');
                'high_female'=>$high_female,
                'low_male'=>$low_male,
                'high_male'=>$high_male,
+               'machine_id'=>$machine_id,
                ]);
-                   if($machine){
-               DB::table('test_machines')
-                         ->where('id',$machine_id)
-                         ->update(['name'=>$machine,
-                         'series'=>$series,
-                         'serial_no'=>$serial_no,
-                       ]);   }
+
 
   return view('facilityadmin.testranges');
      }

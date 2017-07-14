@@ -1045,20 +1045,31 @@ return Response::json($results);
 
     for($i=0; $i<$count; $i++)
     {
-      $drug = $request->prescription[$i];
-      $strength = $request->strength[$i];
+      $drug = $request->prescription;
+      $strength = $request->strength;
       $strength_unit = $request->strength_unit;
-      $quantity = $request->quantity[$i];
-      $price = $request->price[$i];
+      $quantity = $request->quantity;
+      $price = $request->price;
+      $supplier = $request->supplier;
+      $retail_price = $request->retail_price;
+
+      $dname = DB::table('druglists')
+              ->select('drugname')
+              ->where('id', '=', $drug[$i])
+              ->first();
+      $drug_name = $dname->drugname;
 
     DB::table('inventory')
                     ->where('id', '=', $id[$i])
                     ->update([
-                      'drug_id'=>$drug,
-                      'strength'=>$strength,
-                      'strength_unit'=>$strength_unit,
-                      'quantity'=>$quantity,
-                      'price'=>$price,
+                      'drug_id'=>$drug[$i],
+                      'drugname'=>$drug_name,
+                      'strength'=>$strength[$i],
+                      'strength_unit'=>$strength_unit[$i],
+                      'quantity'=>$quantity[$i],
+                      'price'=>$price[$i],
+                      'recommended_retail_price'=>$retail_price[$i],
+                      'supplier'=>$supplier[$i],
                       'submitted_by'=>$user_id,
                       'outlet_id'=>$facility,
                       'updated_at'=>Carbon::now()

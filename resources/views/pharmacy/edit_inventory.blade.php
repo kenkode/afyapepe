@@ -18,7 +18,8 @@ for($i=0; $i<$count; $i++)
   $inventory = DB::table('inventory')
               ->join('druglists','druglists.id','=','inventory.drug_id')
               ->join('strength','strength.strength','=','inventory.strength')
-              ->select('druglists.Manufacturer','druglists.drugname',
+              ->join('drug_suppliers', 'drug_suppliers.id', '=', 'inventory.supplier')
+              ->select('druglists.Manufacturer','druglists.drugname','drug_suppliers.id AS supplier_id','drug_suppliers.name AS supplier_name',
               'druglists.id AS drug_id','strength.strength','inventory.*','inventory.id AS inventory_id')
               ->where('inventory.id', '=', $idd[$i])
               ->get();
@@ -33,6 +34,13 @@ for($i=0; $i<$count; $i++)
      ?>
      <hr />
      <input type="hidden" name="inventory_id[]" value="{{$inv->inventory_id}}" />
+
+     <div class="form-group">
+         <label >Supplier:</label>
+         <select id="supplier1" name="supplier[]" class="form-control supplier1" required="">
+           <option selected="" value="{{$inv->supplier_id}}">{{$inv->supplier_name}}</option>
+         </select>
+     </div>
 
     <div class="form-group">
         <label >Drug:</label>
@@ -53,21 +61,19 @@ for($i=0; $i<$count; $i++)
      </div>
 
      <div class="form-group">
-     <label>Strength Unit</label>
-
-     <div class="radio radio-info radio-inline">
-         <input type="radio" id="inlineRadio1" value="ml" name="strength_unit[]" <?php echo ($inv->strength_unit == 'ml')?'checked':'' ?> >
-         <label for="inlineRadio1"> Ml</label>
-     </div>
-     <div class="radio radio-inline">
-         <input type="radio" id="inlineRadio2" value="mg" name="strength_unit[]" <?php echo ($inv->strength_unit == 'mg')?'checked':'' ?> >
-         <label for="inlineRadio2"> Mg </label>
-     </div>
-     </div>
+      <label>Strength Unit</label>
+       <select class="form-control" name="strength_unit[]" required="">
+         <option value="" disabled selected>Select your option</option>
+         <option <?php $inv->strength_unit == 'ml' ? 'selected=""' : '' ?>  value="ml">Ml</option>
+         <option <?php $inv->strength_unit == 'mg' ? 'selected=""' : '' ?> value="mg">Mg</option>
+      </select>
+      </div>
 
      <div class="form-group"><label>Quantity</label> <input type="number" name="quantity[]" class="form-control" value="{{$inv->quantity}}" required=""></div>
 
      <div class="form-group"><label>Price</label> <input type="number" name="price[]" class="form-control" value="{{$inv->price}}" required=""></div>
+
+     <div class="form-group"><label>Retail Price</label> <input type="number" name="retail_price[]" class="form-control" value="{{$inv->recommended_retail_price}}" required=""></div>
 
      <br />
      <br />

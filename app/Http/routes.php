@@ -214,7 +214,7 @@ Route::get('new_stock', function()
 );
 Route::post('add_stock', ['as' => 'add_stock', 'uses' => 'PharmacyController@addStock']);
 Route::get('/manus', 'PharmacyController@getManufacturer');
-Route::post('edit_inventory', ['as' => 'edit_inventory', 'uses' => 'PharmacyController@getInventory']);
+
 Route::post('submit_edited', ['as' => 'submit_edited', 'uses' => 'PharmacyController@editedInventory']);
 Route::post('delete_inventory', ['as' => 'delete_inventory', 'uses' => 'PharmacyController@deleteInventory']);
 Route::get('inventory_report', ['as' => 'inventory_report', 'uses' => 'PharmacyController@inventoryReport']);
@@ -225,6 +225,7 @@ Route::get('/supplier', 'PharmacyController@fetchSuppliers');
 *Routes for pharmacy,manager and store keeper
 */
 Route::group(['middleware' => ['auth','role:Admin|Pharmacyadmin|Pharmacymanager|Pharmacystorekeeper']], function() {
+Route::post('edit_inventory', ['as' => 'edit_inventory', 'uses' => 'PharmacyController@getInventory']);
 Route::get('inventory', [ 'as' => 'inventory', 'uses' => 'PharmacyController@showInventory']);
 Route::post('inventory_update', ['as' => 'inventory_update', 'uses' => 'PharmacyController@updateInventory']);
 Route::get('update_inv/{id}', ['as' => 'update_inv', 'uses' => 'PharmacyController@getInventory2']);

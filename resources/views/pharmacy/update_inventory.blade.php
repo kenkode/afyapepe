@@ -26,6 +26,11 @@
                     ['inventory_updates.inventory_id', '=', $idd[$i]],
                     ['inventory_updates.status', '=', 1],
                   ])
+                  ->orWhere(function ($query) use ($idd,$i) { //the 'use' language construct of Closure class very important
+
+                $query->where('inventory_updates.inventory_id', '=', $idd[$i])
+                      ->whereNull('inventory_updates.status');
+                    })
                   ->get();
 
     foreach($inventory as $inv)

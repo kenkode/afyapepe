@@ -18,13 +18,17 @@ foreach ($patientdetails as $pdetails) {
    $stat= $pdetails->status;
    $afyauserId= $pdetails->afya_user_id;
     $dependantId= $pdetails->persontreated;
-    $app_id= $pdetails->id;
+    $app_id_prev= $pdetails->last_app_id;
+    $app_id =  $pdetails->id;
     $doc_id= $pdetails->doc_id;
     $fac_id= $pdetails->facility_id;
     $fac_setup= $pdetails->set_up;
     $dependantAge = $pdetails->depdob;
     $AfyaUserAge = $pdetails->dob;
     $condition = $pdetails->condition;
+
+    if($app_id_prev){ $app_id2 = $app_id_prev;
+    }else{$app_id2 = $app_id;}
 
 $now = time(); // or your date as well
 $your_date = strtotime($dependantAge);

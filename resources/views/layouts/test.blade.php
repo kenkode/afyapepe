@@ -133,5 +133,15 @@ if (typeof $(this).data('id') !== 'undefined') {
         });
     });
     </script>
+    <script>
+    // show test Custom
+    $(document).ready(function(){
+      $("#tcustom").hide();
+        $("#tshow").click(function(){
+            $("#tcustom").toggle();
+            $("#shttable").toggle();
+        });
+    });
+    </script>
 </body>
 </html>

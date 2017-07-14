@@ -32,13 +32,15 @@ class DoctorController extends Controller
 
      {
       $today = Carbon::today();
+         $doc_id = DB::table('facility_doctor')
+         ->select('doctor_id')->where('user_id', Auth::user()->id)
+         ->first();
 
+    $doctor_id=$doc_id->doctor_id;
        $patients = DB::table('appointments')
        ->leftJoin('afya_users', 'appointments.afya_user_id', '=', 'afya_users.id')
         ->leftJoin('triage_details', 'appointments.id', '=', 'triage_details.appointment_id')
-    ->leftJoin('facility_doctor', 'appointments.facility_id', '=', 'facility_doctor.facilitycode')
-        ->leftJoin('doctors', 'appointments.doc_id', '=', 'doctors.id')
-        ->leftJoin('triage_infants', 'appointments.id', '=', 'triage_infants.appointment_id')
+       ->leftJoin('triage_infants', 'appointments.id', '=', 'triage_infants.appointment_id')
         ->leftJoin('dependant', 'triage_infants.dependant_id', '=', 'dependant.id')
          ->leftJoin('constituency', 'afya_users.constituency', '=', 'constituency.id')
          ->select('afya_users.*','triage_details.*','appointments.id as appid',
@@ -50,50 +52,53 @@ class DoctorController extends Controller
           'dependant.firstName as Infname','dependant.secondName as InfName','dependant.gender as Infgender','dependant.blood_type as Infblood_type',
           'dependant.dob as Infdob','dependant.pob as Infpob'
         )
-     ->where(function($query)
-               {
-   $today = Carbon::today();
-   $query->where([
-                 ['appointments.created_at','>=',$today],
+
+   ->where([      ['appointments.created_at','>=',$today],
                  ['appointments.status', '=', 2],
-                 ['facility_doctor.user_id', '=',Auth::user()->id],
+                 ['appointments.doc_id', '=',$doctor_id],
                 ])
  ->orWhere([
                ['appointments.date_present','>=',$today],
                ['appointments.status', '=', 2],
-               ['facility_doctor.user_id', '=',Auth::user()->id],
-             ]);
-               })
-         ->get();
+               ['appointments.doc_id', '=',$doctor_id],
+             ])
+->get();
 
 return view('doctor.newPatients')->with('patients',$patients);
      }
      public function pending(){
     $today = Carbon::today();
+    $doc_id = DB::table('facility_doctor')
+    ->select('doctor_id')->where('user_id', Auth::user()->id)
+    ->first();
 
-     $patients = DB::table('appointments')
-       ->leftJoin('afya_users', 'appointments.afya_user_id', '=', 'afya_users.id')
-        ->leftJoin('triage_details', 'appointments.id', '=', 'triage_details.appointment_id')
-    ->leftJoin('facility_doctor', 'appointments.facility_id', '=', 'facility_doctor.facilitycode')
-        ->leftJoin('doctors', 'appointments.doc_id', '=', 'doctors.id')
-        ->leftJoin('triage_infants', 'appointments.id', '=', 'triage_infants.appointment_id')
-        ->leftJoin('dependant', 'triage_infants.dependant_id', '=', 'dependant.id')
-         ->leftJoin('constituency', 'afya_users.constituency', '=', 'constituency.id')
-         ->select('afya_users.*','triage_details.*','appointments.id as appid',
-          'appointments.created_at','appointments.facility_id','constituency.Constituency',
-          'appointments.persontreated', 'appointments.appointment_made',
-          'triage_infants.weight as Infweight','triage_infants.height as Infheight','triage_infants.temperature as Inftemp',
-         'triage_infants.chief_compliant as Infcompliant','triage_infants.systolic_bp as Infsysto','triage_infants.diastolic_bp as Infdiasto',
-          'triage_infants.observation as Infobservation','triage_infants.symptoms as Infsymptoms','triage_infants.nurse_notes as Infnotes',
-          'dependant.firstName as Infname','dependant.secondName as InfName','dependant.gender as Infgender','dependant.blood_type as Infblood_type',
-          'dependant.dob as Infdob','dependant.pob as Infpob'
-        )
-  ->where([      ['appointments.created_at','<',$today],
-                 ['appointments.status', '=', 2],
-                 ['facility_doctor.user_id', '=',Auth::user()->id],
-                ])
-   ->get();
+    $doctor_id=$doc_id->doctor_id;
+    $patients = DB::table('appointments')
+    ->leftJoin('afya_users', 'appointments.afya_user_id', '=', 'afya_users.id')
+    ->leftJoin('triage_details', 'appointments.last_app_id', '=', 'triage_details.appointment_id')
+    ->leftJoin('triage_infants', 'appointments.last_app_id', '=', 'triage_infants.appointment_id')
+    ->leftJoin('dependant', 'triage_infants.dependant_id', '=', 'dependant.id')
+    ->leftJoin('constituency', 'afya_users.constituency', '=', 'constituency.id')
+    ->select('afya_users.*','triage_details.*','appointments.id as appid',
+     'appointments.created_at','appointments.facility_id','constituency.Constituency',
+     'appointments.persontreated', 'appointments.appointment_made','appointments.last_app_id',
+     'triage_infants.weight as Infweight','triage_infants.height as Infheight','triage_infants.temperature as Inftemp',
+    'triage_infants.chief_compliant as Infcompliant','triage_infants.systolic_bp as Infsysto','triage_infants.diastolic_bp as Infdiasto',
+     'triage_infants.observation as Infobservation','triage_infants.symptoms as Infsymptoms','triage_infants.nurse_notes as Infnotes',
+     'dependant.firstName as Infname','dependant.secondName as InfName','dependant.gender as Infgender','dependant.blood_type as Infblood_type',
+     'dependant.dob as Infdob','dependant.pob as Infpob'
+    )
 
+    ->where([ ['appointments.created_at','<=',$today],
+            ['appointments.p_status', '=', 11],
+            ['appointments.doc_id', '=',$doctor_id],
+           ])
+     ->orwhere([ ['appointments.created_at','>=',$today],
+             ['appointments.p_status', '=', 11],
+             ['appointments.doc_id', '=',$doctor_id],
+            ])
+
+    ->get();
 return view('doctor.pendingPatients')->with('patients',$patients);
      }
 public function dependant()

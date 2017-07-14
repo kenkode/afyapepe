@@ -8,7 +8,9 @@ foreach($testdet as $DataTests){
 $facility = $DataTests->FacilityName;
 $firstname = $DataTests->firstname;
 $secondName = $DataTests->secondname;
+$facilityId = $DataTests->FacilityCode;
 $TName = $firstname.' '.$secondName;
+
 
 }
 
@@ -16,13 +18,13 @@ $TName = $firstname.' '.$secondName;
 	$dependantId = $pdetails->persontreated;
 	$afyauserId = $pdetails->afya_user_id;
 	$appId = $pdetails->id;
+ if($pdetails->last_app_id){$appId2 = $pdetails->last_app_id;}else{$appId2 = $pdetails->id;}
+
 
  if ($dependantId =='Self')   {
-	 $afyadetails = DB::table('appointments')
-	 ->leftJoin('triage_details', 'appointments.id', '=', 'triage_details.appointment_id')
-	 ->leftJoin('afya_users', 'appointments.afya_user_id', '=', 'afya_users.id')
-	 ->select('triage_details.*','afya_users.*')
-	 ->where('appointments.id', '=',$appId)
+	 $afyadetails = DB::table('afya_users')
+	 ->select('afya_users.*')
+	 ->where('id', '=',$afyauserId)
 	 ->first();
 
 	 $dob=$afyadetails->dob;
@@ -31,11 +33,9 @@ $TName = $firstname.' '.$secondName;
 	 $secondName = $afyadetails->secondName;
 	 $name =$firstName." ".$secondName;
 }else{
-	$deppdetails = DB::table('appointments')
-	->leftJoin('triage_infants', 'appointments.id', '=', 'triage_infants.appointment_id')
-	->leftJoin('dependant', 'appointments.persontreated', '=', 'dependant.id')
-	->select('triage_infants.*','dependant.*')
-	->where('appointments.id', '=',$appId)
+	$deppdetails = DB::table('dependant')
+	->select('dependant.*')
+	->where('id', '=',$dependantId)
 	->first();
 
 	          $dob=$deppdetails->dob;
@@ -76,97 +76,17 @@ $age= $interval->format(" %Y Year, %M Months, %d Days Old");
      <div class="col-lg-12">
        <div class="tabs-container">
            <div class="wrapper wrapper-content animated fadeInRight">
-       @include('doctor.allergy')
-											<div class="row">
-											<div class="ibox float-e-margins">
 
-													<div class="ibox-content">
-                      <h5>Today's Visit Triage</h5>
-											<div class="table-responsive ibox-content">
-											<table class="table table-striped table-bordered table-hover dataTables-conditional" >
+<div class="row">
 
-
-    <?php if ($dependantId =='Self')   {  ?>
-<thead>
-<tr>
-<th>Weight </th>
-<th>Height</th>
-<th>Temperature</th>
-<th>Systolic BP</th>
-<th>Diastolic BP</th>
-<th>BMI</th>
-<th>Chief Compliant</th>
-<th>Observations</th>
-<th>Symptoms</th>
-<th>Nurse Notes</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-
-<td>{{$afyadetails->current_weight}}</td>
-<td>{{$afyadetails->current_height}}</td>
-<td>{{$afyadetails->temperature}}</td>
-<td>{{$afyadetails->systolic_bp}}</td>
-<td>{{$afyadetails->diastolic_bp}}</td>
-<td><?php $height=$afyadetails->current_height; $weight=$afyadetails->current_weight;
-$bmi =$weight/($height*$height);
-echo number_format($bmi, 2);
-?></td>
-<td>{{$afyadetails->chief_compliant}}</td>
-<td>{{$afyadetails->observation}}</td>
-<td>{{$afyadetails->symptoms}}</td>
-<td>{{$afyadetails->nurse_notes}}</td>
-</tr>
-</tbody>
-                <?php  } else {  ?>
-<thead>
-<tr>
-<th>Weight </th>
-<th>Height</th>
-<th>Temperature</th>
-<th>Systolic BP</th>
-<th>Diastolic BP</th>
-<th>Chief Compliant</th>
-<th>Observations</th>
-<th>Symptoms</th>
-<th>Nurse Notes</th>
-
-</tr>
-</thead>
-
-<tbody>
-
-<tr>
-<td>{{$deppdetails->weight}}</td>
-<td>{{$deppdetails->height}}</td>
-<td>{{$deppdetails->temperature}}</td>
-<td>{{$deppdetails->systolic_bp}}</td>
-<td>{{$deppdetails->diastolic_bp}}</td>
-<td>{{$deppdetails->chief_compliant}}</td>
-<td>{{$deppdetails->observation}}</td>
-<td>{{$deppdetails->symptoms}}</td>
-<td>{{$deppdetails->nurse_notes}}</td>
-</tr>
-</tbody>
-<?php  } ?>
-
-
-
-											</table>
-										</div>
-									</div>
-								</div>
 												<div class="col-md-12">
 												<div class="ibox float-e-margins">
 														<div class="ibox-title">
                             <h5>Tests Requested</h5>
 																<div class="ibox-tools">
-
-																		<a class="collapse-link">
-																				<i class="fa fa-chevron-up"></i>
-																		</a>
+                                    <a class="collapse-link">
+																			<button type="button" id="tshow" class="btn btn-primary btn-sm">Add Test</button>
+                                     </a>
 																		<a class="dropdown-toggle" data-toggle="dropdown" href="#">
 																				<i class="fa fa-wrench"></i>
 																		</a>
@@ -182,7 +102,7 @@ echo number_format($bmi, 2);
 																		</a>
 																</div>
 														</div>
-														<div class="ibox-content">
+														<div class="ibox-content" id="shttable">
                               <div class="table-responsive">
 														<table class="table table-striped table-bordered table-hover dataTables-example" >
 														<thead>
@@ -192,52 +112,29 @@ echo number_format($bmi, 2);
 																												<th>Category</th>
 																												<th>Sub- Category</th>
 																												<th>Conditional Diesease</th>
-																												<th>Status</th>
 																												<th>Date Created</th>
 																												<th>Action</th>
+
                                                       </tr>
 																								</thead>
                                               <tbody>
+																								<?php $i =1; ?>
 
-																									<?php $i =1; ?>
+																								@foreach($tsts as $tst)
 
-																									@foreach($tsts as $tst)
+																									<tr>
+																									<td>{{$i}}</td>
+																								  <td>@if($tst->testmore){{$tst->testmore}}@else{{$tst->tname}}@endif</td>
+																									<td>{{$tst->tcname}}</td>
+																									<td>{{$tst->tsname}}</td>
+																									<td>{{$tst->dname }}</td>
+																									<td>{{$tst->date}}</td>
 
-																									  <tr>
-																									  <td>{{$i}}</td>
-																									 <td>
-																										 @if($tst->testname)
-																										 	{{$tst->testname}}
-																										 @else
-																										 <?php $tstdone1 = DB::table('test_subcategories')
-																										 ->join('test_categories','test_subcategories.categories_id','=','test_categories.id')
-																										 ->where('test_subcategories.id', '=',$tst->subcat)
-																										 ->select('test_subcategories.*','test_categories.name as ctname')
-																											 ->first() ?>
+																								<td class="btn btn-primary"><a href="{{route('perftest',$tst->patTdid)}}">Perform Test</a></td>
 
-																											{{$tstdone1->name}}
-																										 	@endif
-                                                      </td>
-																									  <td>@if($tst->category){{$tst->category}}@else {{$tstdone1->ctname}} @endif</td>
-																									  <td>@if($tst->sub_category){{$tst->sub_category}} @else {{$tstdone1->name}} @endif</td>
-																									  <td>{{$tst->disease }}</td>
-																									   <td><?php
-																										 $status=$tst->done; if ($status==0) {
-																									   	$status='NOT DONE';
-																									   } else {
-																									   	$status='DONE';
-																									   }
-																									    ?>
-                                                  {{$status}}</td>
-                                                     <td>{{$tst->date}}</td>
-																								@if($tst->testname)
-																									<td class="btn btn-primary"><a href="{{route('perftest',$tst->patTdid)}}">Perform Test</a></td>
-                                                  @else
-																									<td class="btn btn-primary"><a href="{{route('perftest2',$tst->patTdid)}}">Perform Test</a></td>
-                                                  @endif
-																								</tr>
+                                                 </tr>
 																								<?php $i++; ?>
-																									  @endforeach
+																									@endforeach
 
 																								 </tbody>
 
@@ -249,6 +146,67 @@ echo number_format($bmi, 2);
 																					 </div>
 																			 </div>
 																			 </div>
+<div class="row" id="tcustom">
+
+  <div class="col-sm-5 b-r col-md-offset-1">
+			 	{{ Form::open(array('route' => array('ctest'),'method'=>'POST')) }}
+
+
+			 				 <div class="form-group"><label>Test Name</label>
+			 				 <input type="text" name="test" placeholder="Only if not in the List above" class="form-control">
+			 				 </div>
+			 					<div class="form-group"><label>Value</label>
+			 					<input type="text" name="value" placeholder="Enter Value" class="form-control">
+			 					</div>
+			 					<div class="form-group"><label>Units</label>
+			 					<input type="text" name="units" placeholder="Enter Value" class="form-control">
+			 					</div>
+			 			</div>
+
+			 			<div class="col-sm-5">
+			 				<div class="form-group">
+			 				<label  class="">Comments:</label>
+			 			 <select class="form-control" name="comments" required >
+			 			 <option value=''>Choose one ..</option>
+			 			 <option value='Normal'>Normal</option>
+			 			 <option value='Severe'>Severe</option>
+			 			 <option value='High'>High</option>
+			 			 <option value='Efficient'>Efficient</option>
+			 			 <option value='Inefficient'>Inefficient</option>
+			 			 <option value='Borderline neutropenia'>Borderline neutropenia</option>
+			 			 <option value='Normal peripherial blood picture'>Normal peripherial blood picture</option>
+			 			 </select>
+			 			 </div>
+			 			<div class="form-group">
+			 			 <label>Other Reports</label>
+			 			 <textarea name="comments2" rows="2" placeholder="Any other notes" class="form-control"></textarea>
+			 			</div>
+						<div class="form-group">
+			 			 <label>Reason</label>
+			 			 <textarea name="reason" rows="2" placeholder="i.e Is tested alongside the given test" class="form-control" required=""></textarea>
+			 			</div>
+
+			 		 <input type="hidden" name="appointment_id" value="{{$pdetails->appid}}" class="form-control">
+			 		 <input type="hidden" name="ptd_id" value="{{$pdetails->ptd_id}}" class="form-control">
+		 		 <input type="hidden" name="ptid" value="{{$pdetails->ptid}}" class="form-control">
+
+			 		 <div class="text-center">
+			 		 <button class="btn btn-sm btn-primary m-t-n-xs" type="submit"><strong>SUBMIT</strong></button>
+			 {{ Form::close() }}
+			 </div>
+		</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
 																	 </div>
                                 </div>
 

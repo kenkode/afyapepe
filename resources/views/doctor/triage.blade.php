@@ -28,7 +28,7 @@
                                     <?php $pTriagedetails = DB::table('appointments')
                                      ->leftjoin('triage_details','appointments.id','=','triage_details.appointment_id')
                                     ->select('triage_details.*')
-                                     ->where('appointments.id',$app_id)
+                                     ->where('appointments.id',$app_id2)
                                      ->get(); ?>
                                        <form role="form" class="form-horizontal">
                                     @foreach($pTriagedetails as $ptdetails)

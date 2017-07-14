@@ -17,19 +17,19 @@ $Sub_Speciality = $Docdata->subspeciality;
 
 }
 foreach ($patientD as $pdetails) {
-  // $patientid = $pdetails->pat_id;
-  //  $facilty = $pdetails->FacilityName;
+
    $stat= $pdetails->status;
    $afyauserId= $pdetails->afya_user_id;
     $dependantId= $pdetails->persontreated;
-    $app_id= $pdetails->id;
+    $app_id_prev= $pdetails->last_app_id;
+    $app_id =  $pdetails->id;
     $doc_id= $pdetails->doc_id;
     $fac_id= $pdetails->facility_id;
     $fac_setup = $pdetails->set_up;
     $condition = $pdetails->condition;
     $dependantAge = $pdetails->depdob;
 
-
+if($app_id_prev){ $app_id2 = $app_id_prev;}else{$app_id2 = $app_id;}
 
 if ($dependantId =='Self') {
       $dob=$pdetails->dob;
@@ -124,8 +124,13 @@ if ($gender ==1){ $gender = 'Male';}else{ $gender = 'Female';}
               <a class="btn btn-primary btn-lg btn-block" data-toggle="tab" href="#tab-2"><i class="fa fa-flask"></i> POSITIVE RESULT </a>
               </div>
               <div class="col-lg-3">
-              <a class="btn btn-primary btn-lg btn-block"  href="{{route('Testconfirms',$patientT->ptdid)}}"><i class="fa fa-flask"></i> NEGATIVE RESULT</a>
+          {{ Form::open(array('route' => array('Testconfirms'),'method'=>'POST')) }}
+              <input type="text" name="appid" value="{{$app_id}}" class="form-control" >
+              <input type="text" name="ptdid" value="{{$patientT->ptdid}}" class="form-control" >
+          <button class="btn btn-primary btn-lg btn-block" type="submit" ><i class="fa fa-flask"></i> NEGATIVE RESULT</button>
+          {{ Form::close() }}
              </div>
+
               </ul>
               <?php $i=1; $fhDeta=DB::table('patient_test_details')
                  ->leftJoin('tests', 'patient_test_details.tests_reccommended', '=', 'tests.id')

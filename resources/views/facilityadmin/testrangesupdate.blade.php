@@ -18,7 +18,6 @@
      <label>Test:</label>
      <input type="text"  class="form-control" value="{{$testranges->name}}" readonly="">
      <input type="hidden"  class="form-control" name="test_id" value="{{$testranges->id}}" readonly="">
-     <input type="text"  class="form-control" name="machine_id" value="{{$testranges->machineid}}" readonly="">
 
    </div>
       <div class="form-group">
@@ -48,19 +47,21 @@
      </div>
    </div>
    <div class="col-lg-3 col-sm-offset-1">
-     <div class="form-group">
-     <label>Machine:</label>
-     <input type="text" name="machine_name" value="{{$testranges->machine}}" class="form-control">
-     </div>
 
      <div class="form-group">
-     <label>Series:</label>
-     <input type="text" name="series" value="{{$testranges->series}}" class="form-control">
-     </div>
-     <div class="form-group">
-     <label>Serial No:</label>
-     <input type="text" name="serial_no" value="{{$testranges->serial_no}}" class="form-control">
-     </div>
+    <label for="tag_list" class="">Machine:</label>
+    <select class="test-multiple" name="machine_id"  style="width: 100%">
+    <?php $testm=DB::table('test_machines')
+    ->distinct()->get(['id','name']); ?>
+    <option value=''>{{$testranges->machine}}</option>
+    @foreach($testm as $tstms)
+    <option value='{{$tstms->id}}'>{{$tstms->name}}</option>
+    @endforeach
+    </select>
+    </div>
+
+    
+
    </div>
    <div class="col-md-12 col-md-offset-10">
        <button type="submit" class="btn btn-primary">Save</button>

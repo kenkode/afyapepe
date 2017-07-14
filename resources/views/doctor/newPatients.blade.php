@@ -73,7 +73,7 @@
 
                       }else {
                       $name = $apatient->Infname." ".$apatient->InfName;
-                      $complain =$apatient->chief_compliant;
+                      $complain =$apatient->Infcompliant;
                       $gender=$apatient->Infgender;
                       $dob=$apatient->Infdob;
                       $weight=$apatient->Infweight;

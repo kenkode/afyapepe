@@ -31,7 +31,7 @@
                           'triage_infants.chief_compliant as Infcompliant','triage_infants.nurse_notes as InfNnotes','triage_infants.resp_rate as Infresp_rate',
                           'triage_infants.pulse as Infpulse','triage_infants.systolic_bp as Infsysbp','triage_infants.diastolic_bp as Infdiasbp',
                            'triage_infants.observation as Infobservation','triage_infants.symptoms as Infsymptoms')
-                     ->where('appointment_id',$app_id)
+                     ->where('appointment_id',$app_id2)
                     ->get(); ?>
                      @foreach($dependantdetails as $pdetails)
                       <div id="wizard">

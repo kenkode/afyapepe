@@ -240,6 +240,7 @@
                 forceParse: true,
                 calendarWeeks: true,
                 autoclose: true,
+                 format: "yyyy-mm-dd"
               
             });
 

@@ -37,7 +37,6 @@ class PharmacyController extends Controller
         $today = Carbon::today();
         $today2 = $today->toDateString();
 
-
         $user_id = Auth::user()->id;
 
         $data = DB::table('pharmacists')
@@ -57,7 +56,11 @@ class PharmacyController extends Controller
                 ->where('afyamessages.facilityCode', '=', $facility)
                 ->whereDate('afyamessages.created_at','=',$today2)
                 ->whereIn('prescriptions.filled_status', [0, 2])
-                ->orWhereNull('prescriptions.filled_status')
+                ->orWhere(function ($query) use ($facility,$today2){
+                $query->where('afyamessages.facilityCode', '=', $facility)
+                      ->whereDate('afyamessages.created_at','=',$today2)
+                      ->whereNull('prescriptions.filled_status');
+                })
                 ->groupBy('appointments.id')
                 ->get();
 
@@ -78,6 +81,7 @@ class PharmacyController extends Controller
     public function show($id)
     {
       $today = Carbon::today();
+      $today2 = $today->toDateString();
       $user_id = Auth::user()->id;
       $id = $id;
 
@@ -102,15 +106,15 @@ class PharmacyController extends Controller
         ->where([
           ['prescriptions.id', '=', $id],
           ['afyamessages.facilityCode', '=', $facility],
-          ['afyamessages.created_at', '>=', $today],
           ['prescription_details.is_filled', '=', 2]
         ])
-        ->orWhere(function ($query)
+        ->whereDate('afyamessages.created_at','=',$today2)
+        ->orWhere(function ($query) use($id,$facility,$today2)
         {
         $query->whereNull('prescription_details.is_filled')
-              ->where('prescriptions.id', '=', '$id')
-              ->where('afyamessages.facilityCode', '=', '$facility')
-              ->where('afyamessages.created_at', '>=', '$today');
+              ->where('prescriptions.id', '=', $id)
+              ->where('afyamessages.facilityCode', '=', $facility)
+              ->whereDate('afyamessages.created_at','=',$today2);
         })
         ->groupBy('prescription_details.id')
         ->get();
@@ -704,9 +708,8 @@ class PharmacyController extends Controller
                 ['presc_id', '=', $the_id],
                 ['is_filled', '=', 2],
               ])
-              ->orWhere(function ($query) {
-
-                $query->where('presc_id', '=', '$the_id')
+              ->orWhere(function ($query) use($the_id) {
+                $query->where('presc_id', '=', $the_id)
                       ->whereNull('is_filled');
             })
               ->first();
@@ -764,8 +767,8 @@ class PharmacyController extends Controller
                 ->select(DB::raw('count(is_filled) as count1'))
                 ->where('presc_id', '=', $the_id)
                 ->whereIn('is_filled', [1,2])
-                ->orWhere(function ($query) {
-                  $query->where('presc_id', '=', '$the_id')
+                ->orWhere(function ($query) use($the_id) {
+                  $query->where('presc_id', '=', $the_id)
                         ->whereIn('is_filled', [1,2])
                         ->whereNull('is_filled');
               })
@@ -1147,7 +1150,7 @@ return Response::json($results);
   {
     $reports = DB::table('druglists')
               ->join('inventory', 'druglists.id', '=', 'inventory.drug_id')
-              ->join('inventory_updates', 'druglists.id', '=', 'inventory_updates.drug_id')
+              ->join('inventory_updates', 'inventory.id', '=', 'inventory_updates.inventory_id')
               ->join('prescription_details', 'druglists.id', '=', 'prescription_details.drug_id')
               ->join('prescription_filled_status', 'prescription_details.id', '=', 'prescription_filled_status.presc_details_id')
               ->select('inventory.quantity AS inv_qty', 'inventory_updates.quantity AS inv_qty2',

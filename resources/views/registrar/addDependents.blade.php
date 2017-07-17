@@ -64,7 +64,7 @@
   <input type="text" id="tags" class="form-control" name="pob">
 </div>
 </div>
-                <div class="form-group" id="data_1">
+                <div class="form-group" id="data_2">
                  <label for="exampleInputPassword1">Date of Birth</label>
                  <div class="input-group date">
                      <span class="input-group-addon"><i class="fa fa-calendar"></i></span>

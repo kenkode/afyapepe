@@ -162,12 +162,12 @@ public function dependantTriage($id){
       $constituency=$request->constituency;
       $nhif=$request->nhif;
       $blood=$request->blood_type;
-      $age = date_diff(date_create($db), date_create('now'))->y;
-
+    
+     
       DB::table('afya_users')->where('id',$id)->
       update([
-        'age'=>$age,
-        'dob' => $db,
+      'age'=> date_diff(date_create($db), date_create('now'))->y,
+      'dob' => $db,
      'pob' => $pob,
      'nhif'=>$nhif,
      'nationalId'=>$idno,

@@ -5,7 +5,7 @@
        <div class="col-lg-6">
       <div class="ibox float-e-margins">
      <div class="ibox-title">
-        <h5> TEST RESULTS  </h5>
+        <h5> TEST RESULTS 41 </h5>
 
 <div class="ibox-tools">
 <a class="collapse-link">
@@ -23,7 +23,8 @@
     </tr>
       </thead>
       <tbody>
-        <?php $i=1; $fh01=DB::table('tests')
+        <?php  $ptd_ids=$tsts1->id;
+        $i=1; $fh01=DB::table('tests')
         ->Join('test_ranges', 'tests.id', '=', 'test_ranges.tests_id')
         ->where('tests.id', '=',$tsts1->tests_id)
         ->select('tests.id as tests_id','tests.name as tname','test_ranges.*','test_ranges.id as testranges','test_ranges.name as rangesname')
@@ -31,6 +32,7 @@
          ?>
 
         @foreach($fh01 as $fhtest)
+
       <?php  $fhresut=DB::table('test_results')
       ->where([ ['test_results.ptd_id', '=',$tsts1->id],
                 ['test_results.test_ranges_id', '=',$fhtest->testranges],
@@ -72,7 +74,31 @@
       </div>
 
 </div>
-
+<?php
+$i=1; $fh04=DB::table('patientNotes')
+->where([['appointment_id', '=',$appId],['target', '=', 'Test']])
+->select('note')
+->get();
+ ?>
+ @if($fh04)
+<div class="col-lg-6">
+<div class="ibox float-e-margins">
+<div class="ibox-title">
+ <h5> Doctor Notes </h5>
+</div>
+<div class="ibox-content">
+<div class="form-group ">
+<label for="d_list2">Notes:</label>
+<textarea rows="4" name="comment" cols="50"  class="form-control">
+  @foreach($fh04 as $fh041)
+{{$fh041->note}}
+ @endforeach
+  </textarea>
+</div>
+</div>
+</div>
+</div>
+@endif
 
 <div class="col-lg-6">
  <div class="ibox float-e-margins">
@@ -88,11 +114,14 @@
   <?php
                 $fh02=DB::table('test_ranges')
                 ->Join('tests', 'test_ranges.tests_id', '=','tests.id' )
-                ->whereNotExists(function($query)
+                ->whereNotExists(function($query)use($ptd_ids,$appId)
                 {
                     $query->select(DB::raw(1))
                           ->from('test_results')
+                          ->where([ ['test_results.ptd_id', '=',$ptd_ids],
+                                    ['test_results.appointment_id', '=',$appId], ])
                           ->whereRaw('test_ranges.id = test_results.test_ranges_id');
+
                 })
             ->where('test_ranges.tests_id', '=',$tsts1->tests_id)
             ->select('tests.id as tests_id','tests.name as tname',
@@ -128,6 +157,11 @@
     </div>
   </div>
  </div>
+
+
+
+
+
 
  </div>
     </div>

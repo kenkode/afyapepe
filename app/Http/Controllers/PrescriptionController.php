@@ -19,9 +19,9 @@ class PrescriptionController extends Controller
     public function diagnoses(Request $request)
     {
       $Now = Carbon::now();
-     $appointment=$request->get('appointment_id');
+    $appointment=$request->get('appointment_id');
     $state = $request->get('state');
-     $care=$request->get('care');
+    $care=$request->get('care');
     $ptdid =$request->get('ptdid');
     $disease_id = $request->get('disease');
      // Inserting  supportive care
@@ -31,7 +31,7 @@ class PrescriptionController extends Controller
                        'appointment_id' => $appointment,
                           ]);
               }
-// Inserting  diagnosis tests
+// Inserting  diagnosis
 $pttids= DB::table('patient_diagnosis')
 ->select('disease_id')
 ->where([
@@ -57,6 +57,9 @@ $pttids= DB::table('patient_diagnosis')
 
 ]);
 }
+DB::table('appointments')->where('id', $appointment)
+->update(['p_status' => 12,]);
+
 if ($ptdid) {
 DB::table('patient_test_details')
           ->where('id',$ptdid)
@@ -135,10 +138,12 @@ return redirect()->route('medicines', ['id' => $appointment]);
            'appointment_id' => $request['appointment_id'],
            'facility_id' => $request['facility_id'],
            'doc_id' => $request['doc_id'],
-           'filled_status' => 0,
-
-      ]);
+           'filled_status' => 0,  ]);
       $id=$Prescription->id;
+      DB::table('appointments')->where('id', $appid)
+      ->update(['p_status' => 13,]);
+
+
       } else {
       // Already exist - get the id the existing
        $id =$pttids->id;
@@ -171,7 +176,18 @@ return redirect()->route('disprescription',$appid);
    }
 
 
+   public function destroypresc($id)
+   {
+     $pttd=DB::table('prescription_details')
+     ->Join('prescriptions', 'prescription_details.presc_id', '=', 'prescriptions.id')
+->select('prescriptions.appointment_id')
+     ->where('prescription_details.id',$id)
+     ->first();
+     DB::table("prescription_details")->where('id',$id)->delete();
 
+return redirect()->route('medicines', ['id' => $pttd->appointment_id]);
+
+        }
     /**
      * Display the specified resource.
      *

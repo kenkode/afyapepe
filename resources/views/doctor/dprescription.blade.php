@@ -253,19 +253,37 @@ elseif ($stat == 6) {
 <div id="tab-2" class="tab-pane">
 <div class="panel-body">
 <?php $i =1;
+if ($dependantId =='Self') {
 $tstdone = DB::table('prescription_details')
 ->leftJoin('diagnoses', 'prescription_details.diagnosis', '=', 'diagnoses.id')
+->leftJoin('prescriptions', 'prescription_details.presc_id', '=', 'prescriptions.id')
 ->leftJoin('druglists', 'prescription_details.drug_id', '=', 'druglists.id')
 ->leftJoin('frequency', 'prescription_details.frequency', '=', 'frequency.id')
 ->leftJoin('route', 'prescription_details.routes', '=', 'route.id')
 ->leftJoin('prescription_filled_status', 'prescription_details.id', '=', 'prescription_filled_status.presc_details_id')
 ->select('diagnoses.name','druglists.drugname','frequency.name as frequency','prescription_details.created_at',
-'route.name as route','prescription_filled_status.start_date','prescription_filled_status.end_date')
-
+'prescription_details.id as prescdid',
+'route.name as route','prescription_filled_status.start_date','prescription_filled_status.end_date'
+,'prescriptions.filled_status as pstatus')
 ->where('prescription_details.afya_user_id', '=',$afyauserId)
-->orWhere('prescription_details.dependant_id', '=',$dependantId)
 ->orderBy('created_at', 'desc')
 ->get();
+}else {
+  $tstdone = DB::table('prescription_details')
+  ->leftJoin('diagnoses', 'prescription_details.diagnosis', '=', 'diagnoses.id')
+  ->leftJoin('prescriptions', 'prescription_details.presc_id', '=', 'prescriptions.id')
+  ->leftJoin('druglists', 'prescription_details.drug_id', '=', 'druglists.id')
+  ->leftJoin('frequency', 'prescription_details.frequency', '=', 'frequency.id')
+  ->leftJoin('route', 'prescription_details.routes', '=', 'route.id')
+  ->leftJoin('prescription_filled_status', 'prescription_details.id', '=', 'prescription_filled_status.presc_details_id')
+  ->select('diagnoses.name','druglists.drugname','frequency.name as frequency','prescription_details.created_at',
+'prescription_details.id as prescdid',
+'route.name as route','prescription_filled_status.start_date','prescription_filled_status.end_date'
+  ,'prescriptions.filled_status as pstatus')
+->orWhere('prescription_details.dependant_id', '=',$dependantId)
+  ->orderBy('created_at', 'desc')
+  ->get();
+}
 ?>
 <div class="col-lg-12">
 <div class="ibox float-e-margins">
@@ -283,6 +301,7 @@ $tstdone = DB::table('prescription_details')
 <th>Stop Date</th>
 <th>Frequeny</th>
 <th>Route</th>
+<th>Action</th>
 </tr>
 </thead>
 
@@ -298,7 +317,13 @@ $tstdone = DB::table('prescription_details')
 <td>{{$tstdn->end_date}}</td>
 <td>{{$tstdn->frequency}}</td>
 <td>{{$tstdn->route}}</td>
-
+@if($tstdn->pstatus == 0)
+<td> {{ Form::open(['method' => 'DELETE','route' => ['prescs.deletes', $tstdn->prescdid],'style'=>'display:inline']) }}
+  {{ Form::submit('Remove', ['class' => 'btn btn-danger']) }}
+  {{ Form::close() }}</td>
+@else
+<td>Filled</td>
+@endif
 </tr>
 <?php $i++; ?>
 

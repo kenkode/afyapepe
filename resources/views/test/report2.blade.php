@@ -217,8 +217,12 @@ if ($gender == 1) { $gender = 'Male'; }else{ $gender = 'Female'; }
 </div>
 <!--Interpretations------------------------------------------------------------------------->
 
-<?php $i=1; $fh2=DB::table('test_interpretations')
-              ->where('test_ranges_id', '=',$tsts1->tests_reccommended)->get(); ?>
+<?php $i=1; $fh2=DB::table('tests')
+->Join('test_ranges', 'tests.id', '=', 'test_ranges.tests_id')
+->Join('test_interpretations', 'test_ranges.id', '=', 'test_interpretations.test_ranges_id')
+->where('tests.id', '=',$tsts1->tests_reccommended)
+->select('test_interpretations.*')
+->get(); ?>
               @if($fh2)
           <div class="col-lg-6">
            <div class="ibox float-e-margins">
@@ -230,7 +234,7 @@ if ($gender == 1) { $gender = 'Male'; }else{ $gender = 'Female'; }
            <thead>
            <tr>
            <th>#</th>
-           <th>Units</th>
+           <th>Values</th>
            <th>Interpretations</th>
            </tr>
            </thead>

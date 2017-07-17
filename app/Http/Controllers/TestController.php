@@ -360,6 +360,27 @@ if($tsts11){
               ['test_status' => 1, 'updated_at'=> $now]
             );
 }
+$pappoint = DB::table('appointments')->where('id', '=', $appid)->first();
+$facid = DB::table('facility_test')->where('user_id', '=', Auth::user()->id)->first();
+$msgs = DB::table('afya_users')
+->Join('afyamessages', 'afya_users.msisdn', '=', 'afyamessages.msisdn')
+->select('afyamessages.*')
+->where([  ['afyamessages.test_center_code', '=',$facid->facilitycode],
+           ['afya_users.id', '=',$pappoint->afya_user_id],
+])
+->whereNull('afyamessages.status')
+->first();
+$msgsid=$msgs->id;
+$afymss = DB::table('patient_test')->where('id', '=', $ptid)->first();
+if($afymss->test_status == 1){
+  DB::table('afyamessages')
+             ->where('id', $msgsid)
+            ->update(
+              ['status' => 1, 'updated_at'=> $now]
+            );
+}
+
+
 
 }
 return redirect()->route('patientTests',$ptid);

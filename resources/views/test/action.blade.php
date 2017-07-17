@@ -114,6 +114,31 @@ if ($gender == 1) { $gender = 'Male'; }else{ $gender = 'Female'; }
                     </div>
                     <div class="ibox-content">
                         <div class="row">
+													<?php
+													$i=1; $fh04=DB::table('patientNotes')
+													->where([['appointment_id', '=',$appId],['target', '=', 'Test']])
+													->select('note')
+													->get();
+													 ?>
+													 @if($fh04)
+													<div class="col-lg-6">
+													<div class="ibox float-e-margins">
+													<div class="ibox-title">
+													 <h5> Doctor Notes </h5>
+													</div>
+													<div class="ibox-content">
+													<div class="form-group ">
+													<label for="d_list2">Notes:</label>
+													<textarea rows="4" name="comment" cols="50"  class="form-control">
+													  @foreach($fh04 as $fh041)
+													{{$fh041->note}}
+													 @endforeach
+													  </textarea>
+													</div>
+													</div>
+													</div>
+													</div>
+													@endif
                     <div class="col-sm-5 b-r col-md-offset-1">
 									{{ Form::open(array('route' => array('testResult3'),'method'=>'POST')) }}
 
@@ -172,6 +197,31 @@ if ($gender == 1) { $gender = 'Male'; }else{ $gender = 'Female'; }
                     </div>
                     <div class="ibox-content">
                         <div class="row">
+													<?php
+													$i=1; $fh04=DB::table('patientNotes')
+													->where([['appointment_id', '=',$appId],['target', '=', 'Test']])
+													->select('note')
+													->get();
+													 ?>
+													 @if($fh04)
+													<div class="col-lg-6">
+													<div class="ibox float-e-margins">
+													<div class="ibox-title">
+													 <h5> Doctor Notes </h5>
+													</div>
+													<div class="ibox-content">
+													<div class="form-group ">
+													<label for="d_list2">Notes:</label>
+													<textarea rows="4" name="comment" cols="50"  class="form-control">
+													  @foreach($fh04 as $fh041)
+													{{$fh041->note}}
+													 @endforeach
+													  </textarea>
+													</div>
+													</div>
+													</div>
+													</div>
+													@endif
                     <div class="col-sm-5 b-r col-md-offset-1">
 									{{ Form::open(array('route' => array('testResult4'),'method'=>'POST')) }}
 <?php

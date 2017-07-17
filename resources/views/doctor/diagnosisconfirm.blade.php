@@ -117,16 +117,16 @@ if ($gender ==1){ $gender = 'Male';}else{ $gender = 'Female';}
     <div class="col-lg-12">
         <div class="tabs-container">
             <ul class="nav nav-tabs">
-              <div class="col-lg-6">
+              <!-- <div class="col-lg-6">
               <a class="btn btn-primary btn-lg btn-block" data-toggle="tab" href="#tab-1"><i class="fa fa-database"></i> TEST RESULT</a>
-              </div>
+              </div> -->
               <div class="col-lg-3">
               <a class="btn btn-primary btn-lg btn-block" data-toggle="tab" href="#tab-2"><i class="fa fa-flask"></i> POSITIVE RESULT </a>
               </div>
               <div class="col-lg-3">
           {{ Form::open(array('route' => array('Testconfirms'),'method'=>'POST')) }}
-              <input type="text" name="appid" value="{{$app_id}}" class="form-control" >
-              <input type="text" name="ptdid" value="{{$patientT->ptdid}}" class="form-control" >
+              <input type="hidden" name="appid" value="{{$app_id}}" class="form-control" >
+              <input type="hidden" name="ptdid" value="{{$patientT->ptdid}}" class="form-control" >
           <button class="btn btn-primary btn-lg btn-block" type="submit" ><i class="fa fa-flask"></i> NEGATIVE RESULT</button>
           {{ Form::close() }}
              </div>
@@ -134,11 +134,11 @@ if ($gender ==1){ $gender = 'Male';}else{ $gender = 'Female';}
               </ul>
               <?php $i=1; $fhDeta=DB::table('patient_test_details')
                  ->leftJoin('tests', 'patient_test_details.tests_reccommended', '=', 'tests.id')
-                 ->select('tests.name')
+                 ->select('tests.name','appointment_id')
                  ->where('patient_test_details.id', '=',$patientT->ptdid)
                  ->first(); ?>
 
-  <h3 class="text-center">{{$fhDeta->name}} Report</h3>
+  <h3 class="text-center">@if($fhDeta->name){{$fhDeta->name}}@else Test @endif Report</h3>
               <div class="tab-content">
                 <?php $i=1; $fhb=DB::table('test_ranges')
                 ->leftJoin('test_results', 'test_ranges.id', '=', 'test_results.test_ranges_id')
@@ -147,12 +147,14 @@ if ($gender ==1){ $gender = 'Male';}else{ $gender = 'Female';}
                 ->where('test_results.ptd_id', '=',$patientT->ptdid)
                 ->first(); ?>
                 @if($fhb)
-                <div id="tab-1" class="tab-pane active">
+  <!--test with Testranges------------------------------------------------------------------>
+<div id="tab-1" class="tab-pane active">
                     <div class="panel-body">
-                      <div class="col-lg-6 b-r">
+                      <div class="col-lg-8 b-r">
                       <div class="ibox float-e-margins">
-                      <h5>{{$fhDeta->name}} Test</h5>
-                      <div class="ibox-content">
+
+  <h5>@if($fhDeta->name){{$fhDeta->name}} Test @else {{$patientT->name}}@endif</h5>
+                  <div class="ibox-content">
                       <table class="table table-bordered">
                       <thead>
                       <tr>
@@ -165,26 +167,35 @@ if ($gender ==1){ $gender = 'Male';}else{ $gender = 'Female';}
                       @else
                       <th>NORMAL FEMALE</th>
                       @endif
+                        <th>COMMENTS</th>
+                        <th>NOTES</th>
+                        <th>REASON</th>
                       </tr>
                       </thead>
                       <tbody>
-                        <?php $i=1; $fh=DB::table('test_ranges')
-                        ->leftJoin('test_results', 'test_ranges.id', '=', 'test_results.test_ranges_id')
+                        <?php $i=1; $fh=DB::table('test_results')
+                       ->leftJoin('test_ranges', 'test_results.test_ranges_id', '=', 'test_ranges.id')
                         ->leftJoin('tests', 'test_ranges.tests_id', '=', 'tests.id')
-                        ->select('test_results.value','tests.name','test_ranges.*')
-                        ->where('test_results.ptd_id', '=',$patientT->ptdid)
+                        ->select('test_results.value','test_results.appointment_id','test_results.units as runit','test_results.result_name as rname',
+                        'test_results.comments as rcoment','test_results.notes as rnote','test_results.reason as rreason',
+                        'tests.name as tname','test_ranges.*')
+                        ->where([['test_results.ptd_id', '=',$patientT->ptdid],
+                                 ['test_results.appointment_id','=', $fhDeta->appointment_id], ])
                         ->get(); ?>
                       @foreach($fh as $fhtest)
                       <tr>
                       <td>{{$i}}</td>
-                      <td>{{$fhtest->name}}</td>
+                      <td>@if($fhtest->tname){{$fhtest->tname}}@else{{$fhtest->rname}}@endif</td>
                       <td>{{$fhtest->value}}</td>
-                      <td>{{$fhtest->units}}</td>
+                      <td>@if($fhtest->runit){{$fhtest->runit}}@else{{$fhtest->units}} @endif</td>
                       @if($gender == 'Male')
                       <td>{{$fhtest->low_male}} - {{$fhtest->high_male}}</td>
                        @else
                       <td>{{$fhtest->low_female}} - {{$fhtest->high_female}}</td>
                        @endif
+                       <td>{{$fhtest->rcoment}}</td>
+                       <td>{{$fhtest->rnote}}</td>
+                       <td>{{$fhtest->rreason}}</td>
                       <?php $i ++ ?>
                       </tr>
                       @endforeach
@@ -201,7 +212,7 @@ if ($gender ==1){ $gender = 'Male';}else{ $gender = 'Female';}
                            ->first(); ?>
                          @if (is_null($fhcommr))
                          @else
-       <div class="col-lg-6 ">
+       <div class="col-lg-4 ">
              <div class="ibox float-e-margins">
                <h5>Results</h5>
                <div class="ibox-content">
@@ -219,33 +230,42 @@ if ($gender ==1){ $gender = 'Male';}else{ $gender = 'Female';}
       </div>
  </div>
  @else
+ <!--test without Testranges------------------------------------------------------------------>
  <div id="tab-1" class="tab-pane active">
      <div class="panel-body">
-       <div class="col-lg-6 b-r">
+       <div class="col-lg-8 b-r">
        <div class="ibox float-e-margins">
-       <h5>{{$fhDeta->name}} Test</h5>
+       <h5>@if($fhDeta->name){{$fhDeta->name}} Test @else {{$patientT->name}}@endif</h5>
        <div class="ibox-content">
        <table class="table table-bordered">
+         <?php $i=1; $fh=DB::table('test_results')
+        ->leftJoin('tests', 'test_results.tests_id', '=', 'tests.id')
+         ->select('test_results.*','test_results.value','tests.name')
+         ->where([['test_results.ptd_id', '=',$patientT->ptdid],
+                  ['test_results.appointment_id','=', $fhDeta->appointment_id], ])
+         ->get(); ?>
        <thead>
        <tr>
        <th>#</th>
        <th>TEST</th>
        <th>VALUE</th>
        <th>UNITS</th>
+       <th>COMMENTS</th>
+       <th>NOTES</th>
+       <th>REASON</th>
        </tr>
        </thead>
        <tbody>
-         <?php $i=1; $fh=DB::table('tests')
-         ->leftJoin('test_results', 'tests.id', '=', 'test_results.tests_id')
-         ->select('test_results.*','test_results.value','tests.name')
-         ->where('test_results.ptd_id', '=',$patientT->ptdid)
-         ->get(); ?>
+
        @foreach($fh as $fhtest)
        <tr>
        <td>{{$i}}</td>
-       <td>{{$fhtest->name}}</td>
+       <td>@if($fhtest->name){{$fhtest->name}}@else {{$fhtest->result_name}} @endif</td>
        <td>{{$fhtest->value}}</td>
        <td>{{$fhtest->units}}</td>
+       <td>{{$fhtest->comments}}</td>
+       <td>{{$fhtest->notes}}</td>
+       <td>{{$fhtest->reason}}</td>
 
        <?php $i ++ ?>
        </tr>
@@ -263,7 +283,7 @@ if ($gender ==1){ $gender = 'Male';}else{ $gender = 'Female';}
             ->first(); ?>
           @if (is_null($fhcommr))
           @else
-<div class="col-lg-6 ">
+<div class="col-lg-4">
 <div class="ibox float-e-margins">
 <h5>Results</h5>
 <div class="ibox-content">

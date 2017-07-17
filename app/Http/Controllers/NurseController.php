@@ -1545,6 +1545,8 @@ DB::table('appointments')->where('id',$appointment->id)->update([
         $symptoms=$request->symptoms;
         $nurse=$request->nurse;
         $doctor=$request->doctor;
+        $pregnant=$request->pregnant;
+        $lmp=$request->lmp;
             
       
        
@@ -1649,6 +1651,8 @@ $appointment=DB::table('appointments')->where('afya_user_id', $id)->where('statu
     'nurse_notes'=>$nurse,
     'Doctor_note'=>'',
     'prescription'=>'',
+    'pregnant'=>$pregnant,
+    'lmp'=>$lmp,
     'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
 
 );

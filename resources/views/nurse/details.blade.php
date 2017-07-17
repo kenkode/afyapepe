@@ -1,4 +1,6 @@
 @extends('layouts.app')
+@section('title', 'Nurse Dashboard')
+
 
 @section('content')
 <div class="row">
@@ -160,6 +162,14 @@
     <label for="exampleInputPassword1">Pregnant?</label>
     <input type="radio" value="No"  name="pregnant"> No <input type="radio" value="Yes"  name="pregnant"> Yes
     </div>
+
+    <div class="form-group" id="data_1">
+                 <label for="exampleInputPassword1">LMP</label>
+                 <div class="input-group date">
+                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                     <input type="text" class="form-control" name="lmp" value="">
+                 </div>
+                 </div>
    @endif
 
 

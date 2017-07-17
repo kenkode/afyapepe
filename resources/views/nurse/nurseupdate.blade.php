@@ -3,6 +3,7 @@
 @section('content')
 
       <div class="row">
+      <br>
         <div class="col-lg-6 col-md-offset-2">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
@@ -25,23 +26,19 @@
      <form class="form-horizontal" role="form" method="POST" action="/nurseupdates" novalidate>
     <input type="hidden" name="_token" value="{{ csrf_token() }}">
     <input type="hidden" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{$id}}" name="id"  required>
+  <?php $user=DB::table('afya_users')->where('id',$id)->first(); ?>
 
     
     <div class="form-group">
     <label for="exampleInputEmail1">Phone Number</label>
-    <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="phone"  required>
+    <input type="name" class="form-control" value="{{$user->msisdn}}" id="exampleInputEmail1" aria-describedby="emailHelp" name="phone"  required>
     </div>
+<?php $const=DB::table('constituency')->where('id',$user->constituency)->first(); ?>
 
-    <div class="form-group">
-     <label for="exampleInputPassword1">Constituency</label>
-    <select class="form-control" name="constituency">
-    <?php  $kin = DB::table('constituency')->get();?>
-                  @foreach($kin as $kn)
-                   <option value="{{$kn->const_id}}">{{$kn->Constituency}}</option>
-                 @endforeach
-                </select>
-    </div>
-
+   <div class="form-group">
+                     <label >Constituency: {{$const->Constituency}}</label>
+                     <select id="constituency" value="{{$const->Constituency}}" name="constituency" class="form-control constituency" style="width:50%"></select>
+                 </div>
    <button type="submit" class="btn btn-primary btn-sm">Update Details</button>
       {!! Form::close() !!}
 
@@ -50,8 +47,11 @@
 
          </div>
 
+            
+           
+</div>
+</div>
+ @include('includes.admin_inc.footer')
 
-</div>
-</div>
 
 @endsection

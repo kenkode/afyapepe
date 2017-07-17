@@ -112,6 +112,7 @@ Route::get('nurse.existapp/{id}','NurseController@existingapp');
 Route::post('createexistingdetail','NurseController@createexistingdetail');
 Route::get('nurse.deexistapp/{id}','NurseController@deexistapp');
 Route::post('existingdetail','NurseController@existingdetail');
+Route::get('/tag/constituency','RegistrarController@findConstituency');
 Route::get('/ajax-subcat',function(){
 	$cat_id= Input::get('cat_id');
 	$symptoms= Symptom::where('observation_id','=',$cat_id)->get();

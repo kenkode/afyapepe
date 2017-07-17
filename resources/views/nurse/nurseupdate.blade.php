@@ -1,5 +1,6 @@
 
 @extends('layouts.app')
+@section('title', 'Patient Details')
 @section('content')
 
       <div class="row">
@@ -27,6 +28,10 @@
     <input type="hidden" name="_token" value="{{ csrf_token() }}">
     <input type="hidden" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{$id}}" name="id"  required>
   <?php $user=DB::table('afya_users')->where('id',$id)->first(); ?>
+   <div class="form-group">
+    <label for="exampleInputEmail1">Email</label>
+    <input type="name" class="form-control" value="{{$user->email}}" id="exampleInputEmail1" aria-describedby="emailHelp" name="email"  required>
+    </div>
 
     
     <div class="form-group">
@@ -36,8 +41,8 @@
 <?php $const=DB::table('constituency')->where('id',$user->constituency)->first(); ?>
 
    <div class="form-group">
-                     <label >Constituency: {{$const->Constituency}}</label>
-                     <select id="constituency" value="{{$const->Constituency}}" name="constituency" class="form-control constituency" style="width:50%"></select>
+                     <label >Constituency: {{$const->Constituency or ''}}</label>
+                     <select id="constituencyr" value="{{$const->Constituency}}" name="constituencyr" class="form-control constituencyr" style="width:50%"></select>
                  </div>
    <button type="submit" class="btn btn-primary btn-sm">Update Details</button>
       {!! Form::close() !!}

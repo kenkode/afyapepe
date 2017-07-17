@@ -12,6 +12,8 @@
       </div>
       <div class="ibox-content">
 
+     
+
  {!! Form::open(array('route' => 'createdetail','method'=>'POST')) !!}
     <div class="form-group">
     <input type="hidden" class="form-control" id="exampleInputEmail1S" aria-describedby="emailHelp" value="{{$id}}" name="id"  required>
@@ -58,7 +60,7 @@
 
     <div class="form-group">
 
- Drug Allergy <input type="checkbox" value="drug"  name="drug" />
+ Drug Allergy <input type="checkbox"  name="drug" />
  <div id="drug">
     <label>Drug Name</label><br>
  <select multiple="multiple" class="form-control" name="drugs[]">
@@ -69,7 +71,7 @@
                 </select>
     </div>
 
- Food Allergy <input type="checkbox" value="food"  name="food" />
+ Food Allergy <input type="checkbox"   name="food" />
  <div id="food">
     <label>Allergy Name</label><br>
  <select multiple="multiple" class="form-control" name="foods[]"  >

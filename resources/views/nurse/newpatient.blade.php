@@ -91,7 +91,7 @@
                                <td><?php $st=$patient->p_status;
                                
 
-                                   ?>@if($st==11)<a href="{{url('nurse.deexistapp',$dep->id)}}">{{"Existing"}}</a>@else <a href="{{route('nurse.dependents',$dep->id)}}">{{"New"}}</a>@endif</td>
+                                   ?>@if($st==11)<a href="{{url('nurse.deexistapp',$dep->id)}}">{{"Existing"}}</a>@else <a href="{{url('nurse.dependents',$dep->id)}}">{{"New"}}</a>@endif</td>
 
                                                   @endif
                                                           

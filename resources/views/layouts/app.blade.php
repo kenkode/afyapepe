@@ -229,54 +229,40 @@
                   $("#pet").hide();
                    $("#pollen").hide();
                     $("#insect").hide();
-                     $("input[name='drug']").change(function () {
-                  if($(this).val() == "drug")
-                       $("#drug").show();
-                  else
-                       $("#drug").hide();
-             });
-            $("input[name='food']").change(function () {
-                  if($(this).val() == "food")
-                       $("#food").show();
-                  else
-                       $("#food").hide();
-             });
-            $("input[name='latex']").change(function () {
-                  if($(this).val() == "latex")
-                       $("#latex").show();
-                  else
-                       $("#latex").hide();
-             });
-            $("input[name='molds']").change(function () {
-                  if($(this).val() == "mold")
-                       $("#mold").show();
-                  else
-                       $("#mold").hide();
-             });
-            $("input[name='pets']").change(function () {
-                  if($(this).val() == "pet")
-                       $("#pet").show();
-                  else
-                       $("#pet").hide();
-             });
-            $("input[name='pollens']").change(function () {
-                  if($(this).val() == "pollen")
-                       $("#pollen").show();
-                  else
-                       $("#pollen").hide();
-             });
-            $("input[name='insects']").change(function () {
-                  if($(this).val() == "insect")
-                       $("#insect").show();
-                  else
-                       $("#insect").hide();
-             });
-            $("input[name='skull']").change(function () {
-                  if($(this).val() == "skull")
-                       $("#skull").show();
-                  else
-                       $("#skull").hide();
-             });
+
+$("input[name='drug']").change(function () {
+   $("#drug").toggle(this.checked);
+});
+
+
+$("input[name='food']").change(function () {
+   $("#food").toggle(this.checked);
+});
+    
+$("input[name='latex']").change(function () {
+   $("#latex").toggle(this.checked);
+});
+
+$("input[name='molds']").change(function () {
+   $("#mold").toggle(this.checked);
+}); 
+
+$("input[name='pets']").change(function () {
+   $("#pet").toggle(this.checked);
+});             
+    
+$("input[name='pollens']").change(function () {
+   $("#pollen").toggle(this.checked);
+});        
+            
+$("input[name='insects']").change(function () {
+   $("#insect").toggle(this.checked);
+});
+
+$("input[name='skull']").change(function () {
+   $("#skull").toggle(this.checked);
+});
+           
 
                                  $('input[type="checkbox"]').on('change', function() {
     $('input[name="' + this.name + '"]').not(this).prop('checked', false);

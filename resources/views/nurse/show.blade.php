@@ -150,7 +150,8 @@
                     <div class="ibox-content">
 
 
-                                                                 <table class="table table-small-font table-bordered table-striped">
+                                                                <div class="table-responsive">
+      <table class="table table-striped table-bordered table-hover dataTables-example" >
                                                               <thead>
                                                                   <tr>
                                                                       <th>No</th>

@@ -148,7 +148,7 @@ Route::get('/docss/drugs', 'TestController@fdrugs');
 Route::get('/disis/find', 'DiseasesController@find');
 Route::get('/tags/fac', 'FacilityController@ffacility');
 
-
+Route::delete('testremove/{id}',['as'=>'test.deletes','uses'=>'PatientTestController@destroytest']);
 Route::Post('testpost', [ 'as' => 'testsave', 'uses' => 'TestsaveController@store']);
 Route::get('test/{id}', [ 'as' => 'testes', 'uses' => 'PatientTestController@testdata']);
 Route::get('diagnosis/{id}', [ 'as' => 'diagnoses', 'uses' => 'PatientTestController@diagnoses']);
@@ -158,6 +158,7 @@ Route::Post('diagconfirm', [ 'as' => 'Testconfirms', 'uses' => 'PatientTestContr
 Route::Post('diagnosis', [ 'as' => 'confdiag', 'uses' => 'PrescriptionController@diagnoses']);
 Route::get('prescriptions/{id}', [ 'as' => 'medicines', 'uses' => 'PrescriptionController@prescriptions']);
 Route::get('history/{id}', [ 'as' => 'patienthistory', 'uses' => 'PatientController@history']);
+Route::delete('prescremove/{id}',['as'=>'prescs.deletes','uses'=>'PrescriptionController@destroypresc']);
 
 Route::get('disdiagnosis/{id}', [ 'as' => 'disdiagnosis', 'uses' => 'PatientTestController@disdiagnosis']);
 Route::get('disprescription/{id}', [ 'as' => 'disprescription', 'uses' => 'PatientTestController@disprescription']);

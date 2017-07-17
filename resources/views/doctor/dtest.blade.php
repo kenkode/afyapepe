@@ -168,9 +168,10 @@ if ($dependantId =='Self') {
                           <th>Date </th>
                          <th>Test Name</th>
                          <th>Conditional Diagnosis</th>
-                         <!-- <th>Status</th> -->
                          <th>Result</th>
                          <th>Note</th>
+                         <th>Action</th>
+
                     </tr>
                       </thead>
 
@@ -198,8 +199,10 @@ if ($dependantId =='Self') {
                        <td>{{$tstdn->diagnoses}}</td>
                        <!-- <td>  {{$prescs}}</td> -->
                          <td>{{$tstdn->results}}</td>
+                         <td>{{$tstdn->note}}</td>
+           @if($tstdn->confirm =='N')
                          @if($tstdn->done =='1')
-                         <td>
+                        <td>
                            {{ Form::open(array('route' => array('diaconf'),'method'=>'POST')) }}
                              {{ Form::hidden('appointment_id',$app_id, array('class' => 'form-control')) }}
                              {{ Form::hidden('pat_details_id',$ptdid, array('class' => 'form-control')) }}
@@ -208,15 +211,15 @@ if ($dependantId =='Self') {
                         </td>
                          @else
                          <td>
-                           {{ Form::open(array('route' => array('diaconf'),'method'=>'POST')) }}
-                             {{ Form::hidden('appointment_id',$app_id, array('class' => 'form-control')) }}
-                             {{ Form::hidden('pat_details_id',$ptdid, array('class' => 'form-control')) }}
-                             <button class="btn btn-sm btn-primary  m-t-n-xs" type="submit"><strong>Delete Test</strong></button>
+                           {{ Form::open(['method' => 'DELETE','route' => ['test.deletes', $tstdn->ptdid],'style'=>'display:inline']) }}
+                            {{ Form::submit('Delete', ['class' => 'btn btn-danger']) }}
                             {{ Form::close() }}
                         </td>
                           @endif
-
-                      </tr>
+                    @else
+                    <td> Confirmed</td>
+                    @endif
+                  </tr>
                       <?php $i++; ?>
 
                       @endforeach

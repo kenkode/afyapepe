@@ -123,7 +123,7 @@ elseif ($stat == 6) {
                                         <select id="facility" name="facility_to" class="form-control facility1" style="width: 100%"></select>
                                     </div>
 
-                                   {{ Form::hidden('facility_from','facility id', array('class' => 'form-control')) }}
+                                   {{ Form::hidden ('facility_from',$fac_id, array('class' => 'form-control')) }}
                                    {{ Form::hidden('appointment_status',5, array('class' => 'form-control')) }}
                                    {{ Form::hidden('appointment_id',$app_id, array('class' => 'form-control')) }}
                                    {{ Form::hidden('doc_id',$doc_id, array('class' => 'form-control')) }}

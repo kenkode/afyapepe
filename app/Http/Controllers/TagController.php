@@ -171,17 +171,11 @@ public function transfers(Request $request)
       'appointment_id'  => $request->get('appointment_id'),
       'facility_from'  => $request->get('facility_from'),
       'facility_to'  => $request->get('facility_to'),
+      'doc_id'  => $request->get('doc_id'),
+      'note'  => $request->get('doc_note'),
 
   ]);
-  $doc_note=$request->doc_note;
-  if ($doc_note) {
-  DB::table('patientNotes')->insert([
-      'appointment_id'  => $request->get('appointment_id'),
-      'note'  => $request->get('doc_note'),
-      'written_by'   => 'Doctor',
-      'target'  => 'Admition',
-  ]);
-}
+
 $appid =$request['appointment_id'];
 $appstatus =$request['appointment_status'];
 
@@ -216,7 +210,7 @@ public function endvisits($id)
   ->first();
   if ($setUp->set_up == 'Partial') {
   return redirect()->action('privateController@privatepatient');
-   
+
   } else {
    return redirect()->action('DoctorController@index');
   }

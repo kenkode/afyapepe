@@ -37,7 +37,7 @@ public function store(Request $request)
 $PatientTest = Patienttest ::create([
   'doc_id' => $request->get('doc_id'),
   'appointment_id' => $request->get('appointment_id'),
-  'facility' => $request->get('facility'),
+  //'facility' => $request->get('facility'),
   'facility_from' => $request->get('facility_from'),
   'test_status' => 0,
 ]);

@@ -21,11 +21,11 @@ All patients at any given time
 4= Admitted
 5= referal
 6=Discharged Inn patient
-7 = Test
+
 0 =Discharged Death
 ##table appointment p_status
 11= test request done
-12= test recieved done
+12= test diagnosis
 13= prescription given
 
 ##table patient_test status

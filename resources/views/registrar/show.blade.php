@@ -110,11 +110,11 @@
                <div class="form-group">
                <label for="exampleInputPassword1">Phone</label>
                <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Next of Kin Phone" name="phone"
-               value="{{$patient->phone_of_kin}}"readonly="">
+               value="{{$patient->phone_of_kin}}" readonly="">
                </div>
 
                        </div>
-         <a href="{{ URL('update', $patient->id) }}" class="btn btn-primary btn-sm">Update Details</a>
+         <a href="{{ URL('register_edit_nextkin', $patient->id) }}" class="btn btn-primary btn-sm">Edit Details</a>
        {!! Form::close() !!}
                @endif
 
@@ -235,7 +235,7 @@
          <input type="text"  class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<?php $countys=DB::Table('constituency')->where('id',$user->constituency)->first();?>{{$countys->Constituency}}" readonly=""/>
 
       </div>
-       <button type="submit" class="btn btn-primary btn-sm">Update Details</button>
+        <a href="{{ URL('register_edit_patient', $user->id) }}" class="btn btn-primary btn-sm">Edit Details</a>
          {!! Form::close() !!}
 @endif
 

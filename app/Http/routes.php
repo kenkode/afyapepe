@@ -271,6 +271,12 @@ Route::group(['middleware' => ['auth','role:Admin|Registrar']], function() {
     Route::get('registrar.showdependants/{id}','privateController@selectDependant');
     Route::post('privateDependentconsultationfee','privateController@Dependentconsultationfee');
 
+    Route::get('register_edit_nextkin/{id}','RegistrarController@edit_nextkin');
+    Route::post('register_update_nextkin','RegistrarController@update_nextkin');
+    Route::get('register_edit_patient/{id}','RegistrarController@edit_patient');
+    Route::post('register_update_patient','RegistrarController@update_patient');
+
+
 });
 /**
 * Test Routes

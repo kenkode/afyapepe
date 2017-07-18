@@ -1251,7 +1251,7 @@ join('afya_users','afya_users.msisdn','=','dependant_parent.phone')->select('afy
 );
     DB::table('infant_details')->insert(
     ['dependant_id' => $id,
-     'admission_date'=>$admissiondate,
+     'admission_date'=>\Carbon\Carbon::now()->toDateTimeString(),
      'ipno'=>$ipno,
      'gestation'=>$gestation,
      'temperature'=>$temperature,

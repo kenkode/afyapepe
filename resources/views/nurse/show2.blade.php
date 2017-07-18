@@ -38,8 +38,8 @@
 
     @include('includes.nurse_inc.headbar')
            <?php 
-    $mothers=DB::table('triage_infants')->where('dependant_id',$id)->get();
-    $details=DB::table('infant_details')->where('dependant_id',$id)->get();?>
+    $mothers=DB::table('triage_infants')->where('dependant_id',$id)->first();
+    $details=DB::table('infant_details')->where('dependant_id',$id)->first();?>
     
 
      <div class="row">
@@ -236,6 +236,150 @@
                                 <fieldset>
                                     
                                     <div class="row">
+     @if(!empty($details))
+
+
+                                        <div class="col-sm-6">
+                                               
+     <div class="form-group">
+                 <label for="exampleInputPassword1">Date</label>
+            <input type="text" class="form-control" value="{{$details->admission_date}}" readonly="">
+    </div>           
+    <div class="form-group">
+                 <label for="exampleInputPassword1">IP No</label>
+            <input type="text" class="form-control" name="ipno" value="{{$details->ipno}}" readonly="">
+    </div>
+    <div class="form-group">
+                 <label for="exampleInputPassword1">Gestation</label>
+  <select name="gestation" class="form-control">
+  <option value="24">24 weeks</option>
+  <option value="25">25 weeks</option>  
+  <option value="26">26 weeks</option>
+   <option value="27">27 weeks</option> 
+    <option value="28">28 weeks</option> 
+     <option value="29">29 weeks</option> 
+      <option value="30">30 weeks</option> 
+       <option value="31">31 weeks</option> 
+        <option value="32">32 weeks</option> 
+         <option value="33">33 weeks</option> 
+          <option value="34">34 weeks</option> 
+           <option value="35">35 weeks</option> 
+            <option value="36">36 weeks</option> 
+             <option value="37">37 weeks</option> 
+              <option value="38">38 weeks</option> 
+               <option value="39">39 weeks</option> 
+                <option value="40">40 weeks</option>
+                <option value="41">41 weeks</option>
+                <option value="42">42 weeks</option>
+                <option value="43">43 weeks</option>
+                <option value="44">44 weeks</option>
+                <option value="45">45 weeks</option>
+                <option value="46">46 weeks</option>   
+</select>
+    </div>
+
+    <div class="form-group">
+                 <label for="exampleInputPassword1">Temperature</label>
+            <input type="number" class="form-control" name="temperature">
+    </div>
+
+    <div class="form-group">
+    <label for="exampleInputEmail1">APGar</label>
+   1m <input type="checkbox" value="1m"  name="apgar"/>
+   5m <input type="checkbox" value="5m"  name="apgar"/>
+   10m <input type="checkbox" value="10m"  name="apgar"/>
+   </div>
+    
+
+   <div class="form-group">
+                 <label for="exampleInputPassword1">Birth Weight</label>
+            <input type="number" class="form-control" name="birthweight">
+    </div>
+   
+    <div class="form-group">
+                 <label for="exampleInputPassword1">Weight Now</label>
+            <input type="number" class="form-control" name="weightnow">
+    </div>
+    </div>
+    <div class="col-sm-6">
+   
+  <div class="form-group">
+<label class="exampleInputPassword1" for="name">BBA</label><br>
+No<input type="checkbox" value="No"  name="bba"/>Yes<input type="checkbox" value="Yes"  name="bba"/>
+
+  <div id="embedcode">
+    <label>Born Where</label>
+  Home  <input type="checkbox" value="Home"  name="bba_where"/>
+  Clinic  <input type="checkbox" value="Clinic"  name="bba_where" />
+  Other Hospitals <input type="checkbox" value="Other"  name="bba_where" />
+    </div>
+  </div>
+
+    <!--<div class="form-group">
+   <label for="exampleInputEmail1">BBA</label>
+   No <input type="checkbox" value="No" id="type" name="bba" />
+   Yes <input type="checkbox" value="Yes" id="type"  name="bba"  />
+ <div id="embedcode">
+    <label>Born Where</label>
+  Home  <input type="checkbox" value="Home"  name="bba_where"/>
+  Clinic  <input type="checkbox" value="Clinic"  name="bba_where" />
+  Other Hospitals <input type="checkbox" value="Other"  name="bba_where" /> 
+</div>
+</div>-->
+<div class="form-group">
+    <label for="exampleInputEmail1">Delivery</label>
+   SDV <input type="checkbox" value="SDV"  name="delivery"/>
+   Vacuum <input type="checkbox" value="vaccum"  name="delivery"/>
+   Breech <input type="checkbox" value="breech"  name="delivery"/>
+   Cs <input type="checkbox" value="cs"  name="delivery"/>
+   
+   </div>
+
+
+   <div class="form-group">
+   <label>Resuscitation</label>
+   None <input type="checkbox" value="None"  name="resuscitation"/>
+   Oxygen <input type="checkbox" value="Oxygen"  name="resuscitation"/>
+   Bag/Mask <input type="checkbox" value="Bag/Mask"  name="resuscitation"/>
+   </div>
+
+   <div class="form-group">
+   <label>ROM</label>
+  12 h<input type="checkbox" value="-<12h" name="rom"/>
+  12-18>18<input type="checkbox" value="12-18>18h" name="rom"/>
+     
+   </div>
+   <div class="form-group">
+   <label>Given Vitamen: K</label>
+   Yes <input type="checkbox" name="vitamen" value="Yes">
+   No <input type="checkbox" name="vitamen" value="No">
+     
+   </div>
+   <div class="form-group">
+     <label>Given Eye Prophylaxis</label>
+      Yes <input type="checkbox" name="prophylaxis" value="Yes">
+   No <input type="checkbox" name="prophylaxis" value="No">
+   </div>
+   <br>
+<div class="form-group">
+<label>Babies Presenting Problems</label>
+<textarea name="babyproblem" class="form-control"></textarea>
+  </div>
+
+<!--<div class="form-group">
+    <label for="exampleInputPassword1">Revelant Drugs( Pre Admission)</label>
+    <select multiple="multiple" class="select2" name="brevelantdrugs[]"  >
+    <?php $chiefs = DB::table('druglists')->get();?>
+                  @foreach($chiefs as $chief)
+                   <option value="{{$chief->drugname}}">{{$chief->drugname}}</option>
+                 @endforeach
+                </select>
+    </div>-->
+    <div class="form-group">
+                     <label >Revelant Drugs:</label>
+                     <select multiple="multiple" id="presc1" name="brevelantdrugs[]" class="form-control presc1" style="width:50%" required></select>
+                 </div>
+ @else
                                         <div class="col-sm-6">
                                                
                 
@@ -283,14 +427,13 @@
    5m <input type="checkbox" value="5m"  name="apgar"/>
    10m <input type="checkbox" value="10m"  name="apgar"/>
    </div>
-     @if(!empty($details))
- @else
+    
 
    <div class="form-group">
                  <label for="exampleInputPassword1">Birth Weight</label>
             <input type="number" class="form-control" name="birthweight">
     </div>
-    @endif
+   
     <div class="form-group">
                  <label for="exampleInputPassword1">Weight Now</label>
             <input type="number" class="form-control" name="weightnow">
@@ -298,8 +441,6 @@
     </div>
     <div class="col-sm-6">
    
-    @if(!empty($details))
- @else
   <div class="form-group">
 <label class="exampleInputPassword1" for="name">BBA</label><br>
 No<input type="checkbox" value="No"  name="bba"/>Yes<input type="checkbox" value="Yes"  name="bba"/>
@@ -331,7 +472,7 @@ No<input type="checkbox" value="No"  name="bba"/>Yes<input type="checkbox" value
    Cs <input type="checkbox" value="cs"  name="delivery"/>
    
    </div>
-@endif
+
 
    <div class="form-group">
    <label>Resuscitation</label>
@@ -376,6 +517,8 @@ No<input type="checkbox" value="No"  name="bba"/>Yes<input type="checkbox" value
                      <label >Revelant Drugs:</label>
                      <select multiple="multiple" id="presc1" name="brevelantdrugs[]" class="form-control presc1" style="width:50%" required></select>
                  </div>
+
+                  @endif
 
                                            
                                        

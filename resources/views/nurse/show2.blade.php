@@ -251,69 +251,43 @@
     </div>
     <div class="form-group">
                  <label for="exampleInputPassword1">Gestation</label>
-  <select name="gestation" class="form-control">
-  <option value="24">24 weeks</option>
-  <option value="25">25 weeks</option>  
-  <option value="26">26 weeks</option>
-   <option value="27">27 weeks</option> 
-    <option value="28">28 weeks</option> 
-     <option value="29">29 weeks</option> 
-      <option value="30">30 weeks</option> 
-       <option value="31">31 weeks</option> 
-        <option value="32">32 weeks</option> 
-         <option value="33">33 weeks</option> 
-          <option value="34">34 weeks</option> 
-           <option value="35">35 weeks</option> 
-            <option value="36">36 weeks</option> 
-             <option value="37">37 weeks</option> 
-              <option value="38">38 weeks</option> 
-               <option value="39">39 weeks</option> 
-                <option value="40">40 weeks</option>
-                <option value="41">41 weeks</option>
-                <option value="42">42 weeks</option>
-                <option value="43">43 weeks</option>
-                <option value="44">44 weeks</option>
-                <option value="45">45 weeks</option>
-                <option value="46">46 weeks</option>   
-</select>
+  <input type="text" class="form-control" name="ipno" value="{{$details->gestation}} Gestation" readonly="">
     </div>
 
     <div class="form-group">
                  <label for="exampleInputPassword1">Temperature</label>
-            <input type="number" class="form-control" name="temperature">
+            <input type="number" class="form-control" name="temperature" value="{{$details->temperature}}" readonly="">
     </div>
 
     <div class="form-group">
     <label for="exampleInputEmail1">APGar</label>
-   1m <input type="checkbox" value="1m"  name="apgar"/>
-   5m <input type="checkbox" value="5m"  name="apgar"/>
-   10m <input type="checkbox" value="10m"  name="apgar"/>
+      <input type="text" class="form-control" name="apgar" value="{{$details->apgar}}" readonly="">
+
    </div>
     
 
    <div class="form-group">
-                 <label for="exampleInputPassword1">Birth Weight</label>
-            <input type="number" class="form-control" name="birthweight">
+                 <label for="exampleInputPassword1">Birth Weight(kgs)</label>
+            <input type="number" class="form-control" name="birthweight" value="{{$details->birthweight}}" readonly="">
     </div>
    
     <div class="form-group">
-                 <label for="exampleInputPassword1">Weight Now</label>
-            <input type="number" class="form-control" name="weightnow">
+                 <label for="exampleInputPassword1">Weight Now(kgs)</label>
+            <input type="number" class="form-control" name="weightnow" value="{{$details->weightnow}}" readonly="">
     </div>
     </div>
     <div class="col-sm-6">
    
   <div class="form-group">
-<label class="exampleInputPassword1" for="name">BBA</label><br>
-No<input type="checkbox" value="No"  name="bba"/>Yes<input type="checkbox" value="Yes"  name="bba"/>
+<label class="exampleInputPassword1" for="name">BBA</label> 
+<input type="text" class="form-control" name="weightnow" value="{{$details->bba}}" readonly="">
+</div>
 
-  <div id="embedcode">
+  <div class="form-group">
     <label>Born Where</label>
-  Home  <input type="checkbox" value="Home"  name="bba_where"/>
-  Clinic  <input type="checkbox" value="Clinic"  name="bba_where" />
-  Other Hospitals <input type="checkbox" value="Other"  name="bba_where" />
+ <input type="text" class="form-control" name="weightnow" value="{{$details->bba_where}}" readonly="">
     </div>
-  </div>
+
 
     <!--<div class="form-group">
    <label for="exampleInputEmail1">BBA</label>
@@ -328,42 +302,34 @@ No<input type="checkbox" value="No"  name="bba"/>Yes<input type="checkbox" value
 </div>-->
 <div class="form-group">
     <label for="exampleInputEmail1">Delivery</label>
-   SDV <input type="checkbox" value="SDV"  name="delivery"/>
-   Vacuum <input type="checkbox" value="vaccum"  name="delivery"/>
-   Breech <input type="checkbox" value="breech"  name="delivery"/>
-   Cs <input type="checkbox" value="cs"  name="delivery"/>
+  <input type="text" class="form-control" name="weightnow" value="{{$details->delivery}}" readonly="">
    
    </div>
 
 
    <div class="form-group">
    <label>Resuscitation</label>
-   None <input type="checkbox" value="None"  name="resuscitation"/>
-   Oxygen <input type="checkbox" value="Oxygen"  name="resuscitation"/>
-   Bag/Mask <input type="checkbox" value="Bag/Mask"  name="resuscitation"/>
+   <input type="text" class="form-control" name="weightnow" value="{{$details->resuscitation}}" readonly="">
    </div>
 
    <div class="form-group">
    <label>ROM</label>
-  12 h<input type="checkbox" value="-<12h" name="rom"/>
-  12-18>18<input type="checkbox" value="12-18>18h" name="rom"/>
+  <input type="text" class="form-control" name="weightnow" value="{{$details->rom}}" readonly="">
      
    </div>
    <div class="form-group">
    <label>Given Vitamen: K</label>
-   Yes <input type="checkbox" name="vitamen" value="Yes">
-   No <input type="checkbox" name="vitamen" value="No">
+ <input type="text" class="form-control" name="weightnow" value="{{$details->vitamen}}" readonly="">
      
    </div>
    <div class="form-group">
      <label>Given Eye Prophylaxis</label>
-      Yes <input type="checkbox" name="prophylaxis" value="Yes">
-   No <input type="checkbox" name="prophylaxis" value="No">
+     <input type="text" class="form-control" name="weightnow" value="{{$details->prophylaxis}}" readonly="">
    </div>
    <br>
 <div class="form-group">
 <label>Babies Presenting Problems</label>
-<textarea name="babyproblem" class="form-control"></textarea>
+<textarea name="babyproblem" class="form-control" readonly="">{{$details->babyproblem}}</textarea>
   </div>
 
 <!--<div class="form-group">
@@ -377,7 +343,8 @@ No<input type="checkbox" value="No"  name="bba"/>Yes<input type="checkbox" value
     </div>-->
     <div class="form-group">
                      <label >Revelant Drugs:</label>
-                     <select multiple="multiple" id="presc1" name="brevelantdrugs[]" class="form-control presc1" style="width:50%" required></select>
+                     <textarea name="babyproblem" class="form-control" readonly="">{{$details->revelantdrugs}}</textarea>
+
                  </div>
  @else
                                         <div class="col-sm-6">

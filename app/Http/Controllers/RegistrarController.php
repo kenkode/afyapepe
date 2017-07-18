@@ -74,7 +74,7 @@ class RegistrarController extends Controller
 $newDate = date("Y-m-d", strtotime($dob));
 
       $parent=DB::table('afya_users')->where('id',$id)->first();
-      $name=$parent->firstname.''.$parent->secondName;
+      $name=$parent->firstname." ".$parent->secondName;
       $parentgender=$parent->gender;
       $phone=$parent->msisdn;
 

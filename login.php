@@ -1,32 +1,26 @@
 <?php
-$con = mysqli_connect("localhost","root","afya2017","afyapepe") or die("connection error!");
-
-//$email = $_POST['username'];
-//$password = $_POST['password'];
-$email= "register@afyapepe.com";
-$password="register1";
-$result='';
-$response = array();
-
-$query = mysqli_query($con,"select * from users where email='$email'");
-if(mysqli_num_rows($query) > 0){
-$row = mysqli_fetch_assoc($query);
-if(password_verify($password,$row['password']) == true){
-	$response['user'] = $row;
-	$response['success'] = "Successfully logged in";
-	
-	echo json_encode($response);
-	 $result="true";
-}else{
-	$response['error'] = "Wrong Credentials";
-	echo json_encode($response);
-	 $result="false";
-}
-}else{
-	$response['error'] = "Wrong Credentials";
-	echo json_encode($response);
-	
-	 $result="true";
-	
-	}
+    $con = mysqli_connect("localhost", "root", "afyapepe2017", "afyapepe");
+    
+    $username = $_POST["username"];
+    $password = $_POST["password"];
+    
+    $statement = mysqli_prepare($con, "SELECT * FROM user WHERE username = ? AND password = ?");
+    mysqli_stmt_bind_param($statement, "ss", $username, $password);
+    mysqli_stmt_execute($statement);
+    
+    mysqli_stmt_store_result($statement);
+    mysqli_stmt_bind_result($statement, $userID, $name, $age, $username, $password);
+    
+    $response = array();
+    $response["success"] = false;  
+    
+    while(mysqli_stmt_fetch($statement)){
+        $response["success"] = true;  
+        $response["name"] = $name;
+        $response["age"] = $age;
+        $response["username"] = $username;
+        $response["password"] = $password;
+    }
+    
+    echo json_encode($response);
 ?>

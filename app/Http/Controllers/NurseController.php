@@ -1896,12 +1896,14 @@ foreach($latexs as $key) {
 
  $molds=$request->molds;
  if($molds){
+    foreach($molds as $key) {
    DB::table('afya_users_allergy')->insert([
     'afya_user_id'=>$id,
     
-    'allergies_type_id'=>$molds,
+    'allergies_type_id'=>$key,
     'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
     'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
+}
 }
 $pets=$request->pets;
 if($pets)
@@ -1917,15 +1919,15 @@ foreach($pets as $key) {
 }
 
 $pollens=$request->pollens;
-if($pollens) {   
+if($pollens) {  
+foreach($pollens as $key) { 
    DB::table('afya_users_allergy')->insert([
     'afya_user_id'=>$id,
-    'allergy_name'=>'Pollen Allergy',
-    'allergies_type_id'=>$pollens,
+    'allergies_type_id'=>$key,
     'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
     'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
 }
-
+}
 $insects=$request->insects;
 if($insects)
 {

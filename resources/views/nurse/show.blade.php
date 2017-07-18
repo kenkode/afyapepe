@@ -239,6 +239,8 @@
 
         </tbody>
       </table>
+
+      <a href="{{ url('add_allergy', $patient->id) }}" class="btn btn-primary btn-sm">Update Details</a>
       
 
    </div>

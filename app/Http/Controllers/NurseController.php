@@ -1555,84 +1555,7 @@ DB::table('appointments')->where('id',$appointment->id)->update([
 
 
 
-$drugs=$request->drugs;
-if($drugs){
-foreach($drugs as $key =>$drug) {
-     DB::table('afya_users_allergy')->insert([
-    'afya_user_id'=>$id,
-   
-    'allergies_type_id'=>$drug,
-    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
-    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
-}
-}
- $foods=$request->foods;
- if($foods){
-foreach($foods as $key) {
-    DB::table('afya_users_allergy')->insert([
-    'afya_user_id'=>$id,
-   
-    'allergies_type_id'=>$key,
-    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
-    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
-}
-}
- $latexs=$request->latexs;
- if($latexs){
-foreach($latexs as $key) {
-   DB::table('afya_users_allergy')->insert([
-    'afya_user_id'=>$id,
-   
-    'allergies_type_id'=>$key,
-    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
-    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
-}
-}
 
- $molds=$request->molds;
- if($molds){
-   DB::table('afya_users_allergy')->insert([
-    'afya_user_id'=>$id,
-    
-    'allergies_type_id'=>$molds,
-    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
-    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
-}
-$pets=$request->pets;
-if($pets)
-{
-foreach($pets as $key) {
-    DB::table('afya_users_allergy')->insert([
-    'afya_user_id'=>$id,
-    
-    'allergies_type_id'=>$key,
-    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
-    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
-}
-}
-
-$pollens=$request->pollens;
-if($pollens) {   
-   DB::table('afya_users_allergy')->insert([
-    'afya_user_id'=>$id,
-    'allergy_name'=>'Pollen Allergy',
-    'allergies_type_id'=>$pollens,
-    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
-    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
-}
-
-$insects=$request->insects;
-if($insects)
-{
-foreach($insects as $key) {
-    DB::table('afya_users_allergy')->insert([
-    'afya_user_id'=>$id,
-   
-    'allergies_type_id'=>$key,
-    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
-    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
-}
-}
 
 
 $chiefcompliant = implode(',', $chiefcompliant);
@@ -1927,4 +1850,97 @@ $appointment=DB::table('appointments')->where('persontreated', $id)->where('stat
          }
      return \Response::json($formatted_drugs);
      }
+
+
+   public  function add_allergy($id){
+
+        return view('nurse.add_allergy')->with('id',$id);
+     }
+
+  public function update_allergy(Request $request){
+     $id=$request->id;
+
+    $drugs=$request->drugs;
+if($drugs){
+foreach($drugs as $key =>$drug) {
+     DB::table('afya_users_allergy')->insert([
+    'afya_user_id'=>$id,
+   
+    'allergies_type_id'=>$drug,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
+}
+}
+ $foods=$request->foods;
+ if($foods){
+foreach($foods as $key) {
+    DB::table('afya_users_allergy')->insert([
+    'afya_user_id'=>$id,
+   
+    'allergies_type_id'=>$key,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
+}
+}
+ $latexs=$request->latexs;
+ if($latexs){
+foreach($latexs as $key) {
+   DB::table('afya_users_allergy')->insert([
+    'afya_user_id'=>$id,
+   
+    'allergies_type_id'=>$key,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
+}
+}
+
+ $molds=$request->molds;
+ if($molds){
+   DB::table('afya_users_allergy')->insert([
+    'afya_user_id'=>$id,
+    
+    'allergies_type_id'=>$molds,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
+}
+$pets=$request->pets;
+if($pets)
+{
+foreach($pets as $key) {
+    DB::table('afya_users_allergy')->insert([
+    'afya_user_id'=>$id,
+    
+    'allergies_type_id'=>$key,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
+}
+}
+
+$pollens=$request->pollens;
+if($pollens) {   
+   DB::table('afya_users_allergy')->insert([
+    'afya_user_id'=>$id,
+    'allergy_name'=>'Pollen Allergy',
+    'allergies_type_id'=>$pollens,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
+}
+
+$insects=$request->insects;
+if($insects)
+{
+foreach($insects as $key) {
+    DB::table('afya_users_allergy')->insert([
+    'afya_user_id'=>$id,
+   
+    'allergies_type_id'=>$key,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
+}
+}
+
+
+return redirect()->action('NurseController@show',['id'=> $id]);
+
+  }
 }

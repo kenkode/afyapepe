@@ -113,6 +113,8 @@ Route::post('createexistingdetail','NurseController@createexistingdetail');
 Route::get('nurse.deexistapp/{id}','NurseController@deexistapp');
 Route::post('existingdetail','NurseController@existingdetail');
 Route::get('/tag/constituencyr','NurseController@findConstituencyr');
+Route::get('add_allergy/{id}','NurseController@add_allergy');
+Route::post('update_allergy','NurseController@update_allergy');
 
 Route::get('/ajax-subcat',function(){
 	$cat_id= Input::get('cat_id');

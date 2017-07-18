@@ -1563,7 +1563,7 @@ $symptoms= implode(',', $symptoms);
 $observation= implode(',', $observation);
 $appointment=DB::table('appointments')->where('afya_user_id', $id)->where('status',1)->orderBy('created_at', 'desc')->first();
 
-    DB::table('triage_details')->insert(
+    $id=DB::table('triage_details')->insertGetId(
     ['appointment_id' => $appointment->id,
     'current_weight'=> $weight,
     'current_height'=>$heightS,
@@ -1587,7 +1587,7 @@ $appointment=DB::table('appointments')->where('afya_user_id', $id)->where('statu
 
 
 
-        return redirect()->action('NurseController@index');
+        return redirect()->action('NurseController@preview',['id'=> $id]);
     }
 
 
@@ -1945,4 +1945,54 @@ foreach($insects as $key) {
 return redirect()->action('NurseController@show',['id'=> $id]);
 
   }
+
+  public function preview($id){
+
+    return view('nurse.preview')->with('id',$id);
+  }
+
+  public function update_preview(Request $request){
+   $id=$request->id;
+        $weight=$request->weight;
+        $heightS=$request->current_height;
+        $temperature=$request->temperature;
+        $systolic=$request->systolic;
+        $diastolic=$request->diastolic;
+         $chiefcompliant=$request->chiefcompliant;
+        $observation=$request->observation;
+        $symptoms=$request->symptom;
+        $nurse=$request->nurse;
+        $doctor=$request->doctor;
+        $pregnant=$request->pregnant;
+        $lmp=$request->lmp;
+        $app_id=$request->app_id;      
+      
+$id=DB::table('triage_details')->where('id',$id)->update(
+    [
+    'current_weight'=> $weight,
+    'current_height'=>$heightS,
+    'temperature'=>$temperature,
+    'systolic_bp'=>$systolic,
+    'diastolic_bp'=>$diastolic,
+    'chief_compliant'=>$chiefcompliant,
+    'observation'=>$observation,
+    'symptoms'=>$symptoms,
+    'nurse_notes'=>$nurse,
+    'Doctor_note'=>'',
+    'prescription'=>'',
+    'pregnant'=>$pregnant,
+    'lmp'=>$lmp,
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
+
+);
+
+DB::table('appointments')->where('id',$app_id)->update([
+    'doc_id'=>$doctor]);
+ 
+
+
+
+        return redirect()->action('NurseController@index');
+    }
+  
 }

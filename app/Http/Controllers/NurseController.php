@@ -11,6 +11,7 @@ use App\Chief;
 use Redirect;
 use Auth;
 use Carbon\Carbon;
+use App\County;
 use App\Http\Requests;
 class NurseController extends Controller
 {
@@ -843,13 +844,14 @@ DB::table('role_user')->insert(
     }
     public function nurseUpdates(Request  $request){
      $id=$request->id;
+     $email=$request->email;
      
-     $constituency=$request->constituency;
+     $constituency=$request->constituencyr;
      $phone=$request->phone;
 
      DB::table('afya_users')->where('id', $id)
                  ->update([
-                                  
+                                  'email'=>$email,
                                   'constituency' => $constituency,
                                   'msisdn'=>$phone,
                                   'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
@@ -1545,6 +1547,8 @@ DB::table('appointments')->where('id',$appointment->id)->update([
         $symptoms=$request->symptoms;
         $nurse=$request->nurse;
         $doctor=$request->doctor;
+        $pregnant=$request->pregnant;
+        $lmp=$request->lmp;
             
       
        
@@ -1649,6 +1653,8 @@ $appointment=DB::table('appointments')->where('afya_user_id', $id)->where('statu
     'nurse_notes'=>$nurse,
     'Doctor_note'=>'',
     'prescription'=>'',
+    'pregnant'=>$pregnant,
+    'lmp'=>$lmp,
     'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
 
 );
@@ -1906,4 +1912,19 @@ $appointment=DB::table('appointments')->where('persontreated', $id)->where('stat
 
         return redirect()->action('NurseController@index');
     }
+
+
+    public function findConstituencyr(Request $request)
+     {
+         $term = trim($request->q);
+      if (empty($term)) {
+           return \Response::json([]);
+         }
+       $drugs = County::search($term)->limit(20)->get();
+         $formatted_drugs = [];
+          foreach ($drugs as $drug) {
+             $formatted_drugs[] = ['id' => $drug->id, 'text' => $drug->Constituency];
+         }
+     return \Response::json($formatted_drugs);
+     }
 }

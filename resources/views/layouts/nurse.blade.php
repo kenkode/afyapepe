@@ -160,6 +160,7 @@
 
 
     </script>
+     <script src="{{ asset('js/plugins/dataTables/datatables.min.js') }}" type="text/javascript"></script>
     <script>
         $(document).ready(function(){
             $('.dataTables-example').DataTable({

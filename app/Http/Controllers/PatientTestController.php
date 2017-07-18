@@ -36,6 +36,17 @@ class PatientTestController extends Controller
 
 
     }
+    public function destroytest($id)
+    {
+      $pttd=DB::table('patient_test_details')
+      ->where('id',$id)
+      ->first();
+      DB::table("patient_test_details")->where('id',$id)->delete();
+    
+
+  return redirect()->route('testes',$pttd->appointment_id);
+
+         }
 
 public function diagnoses($id)
 {
@@ -183,11 +194,12 @@ public function disprescription($id)
           DB::table('patient_test_details')->where('id', $ptdid)
           ->update(['confirm' =>'Y']);
 
-          $appid = DB::table('patient_test_details')->where('id', $ptdid)
-          ->first();
+          // $appid = DB::table('patient_test_details')->where('id', $ptdid)
+          // ->first();
 
           $tNY = DB::table('patient_test_details')
-          ->where([['appointment_id',$appid->appointment_id],['confirm','N'],])
+          ->where([['appointment_id','=', $appid],
+          ['confirm','=', 'N'],])
           ->first();
         if ($tNY){
         return redirect()->route('testes',$appid);

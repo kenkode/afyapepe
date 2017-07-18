@@ -418,4 +418,62 @@ public function dependantTriage($id){
     {
         //
     }
+
+    public function edit_nextkin($id){
+
+     
+
+      return view('registrar.edit_nextkin')->with('id',$id);
+    }
+
+    public function update_nextkin(Request $request){
+      $name=$request->name;
+      $phone=$request->phone;
+      $user=$request->id;
+      $id=$request->user;
+      $rel=$request->relationship;
+
+    
+
+     DB::table('kin_details')->where('id',$user)->update(
+      ['kin_name' => $name,
+      'relation'=>$rel,
+      'phone_of_kin' => $phone,
+      'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+      'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
+  );
+ 
+ 
+ return redirect()->action('RegistrarController@showUser',['id'=> $id]);
+      
+    }
+
+    public function edit_patient($id){
+
+      return view('registrar.edit_patient')->with('id',$id);
+    }
+
+    public function update_patient(Request $request){
+      $id=$request->id;
+      $phone=$request->phone;
+      $email=$request->email;
+
+      $constituency=$request->constituency;
+
+
+       DB::table('afya_users')->where('id',$id)->update(
+      ['msisdn' => $phone,
+      'email'=>$email,
+      'constituency' => $constituency,
+      'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+      'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
+  );
+ 
+ 
+ return redirect()->action('RegistrarController@showUser',['id'=> $id]);
+
+
+
+
+    }
 }

@@ -1,4 +1,6 @@
 @extends('layouts.app')
+@section('title', 'Nurse Dashboard')
+
 
 @section('content')
 <div class="row">
@@ -9,6 +11,8 @@
 
       </div>
       <div class="ibox-content">
+
+     
 
  {!! Form::open(array('route' => 'createdetail','method'=>'POST')) !!}
     <div class="form-group">
@@ -56,7 +60,7 @@
 
     <div class="form-group">
 
- Drug Allergy <input type="checkbox" value="drug"  name="drug" />
+ Drug Allergy <input type="checkbox"  name="drug" />
  <div id="drug">
     <label>Drug Name</label><br>
  <select multiple="multiple" class="form-control" name="drugs[]">
@@ -67,7 +71,7 @@
                 </select>
     </div>
 
- Food Allergy <input type="checkbox" value="food"  name="food" />
+ Food Allergy <input type="checkbox"   name="food" />
  <div id="food">
     <label>Allergy Name</label><br>
  <select multiple="multiple" class="form-control" name="foods[]"  >
@@ -160,6 +164,14 @@
     <label for="exampleInputPassword1">Pregnant?</label>
     <input type="radio" value="No"  name="pregnant"> No <input type="radio" value="Yes"  name="pregnant"> Yes
     </div>
+
+    <div class="form-group" id="data_1">
+                 <label for="exampleInputPassword1">LMP</label>
+                 <div class="input-group date">
+                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                     <input type="text" class="form-control" name="lmp" value="">
+                 </div>
+                 </div>
    @endif
 
 

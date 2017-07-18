@@ -28,6 +28,46 @@
     <link rel="stylesheet" href="{{asset('select/select2.min.css') }}" />
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
       <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+       <link href="{{ asset('css/plugins/bootstrap-tagsinput/bootstrap-tagsinput.css') }}" rel="stylesheet">
+    <link href="{{ asset('/plugins/datapicker/datepicker3.css') }}" rel="stylesheet">
+     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('font-awesome/css/font-awesome.css') }}" rel="stylesheet">
+
+    <link href="{{ asset('css/plugins/iCheck/custom.css') }}" rel="stylesheet">
+
+    <link href="{{ asset('css/plugins/chosen/bootstrap-chosen.css') }}" rel="stylesheet">
+
+    <link href="{{ asset('css/plugins/bootstrap-tagsinput/bootstrap-tagsinput.css') }}" rel="stylesheet">
+
+    <link href="{{ asset('css/plugins/colorpicker/bootstrap-colorpicker.min.css') }}" rel="stylesheet">
+
+    <link href="{{ asset('css/plugins/cropper/cropper.min.css') }}" rel="stylesheet">
+
+    <link href="{{ asset('css/plugins/switchery/switchery.css') }}" rel="stylesheet">
+
+    <link href="{{ asset('css/plugins/jasny/jasny-bootstrap.min.css') }}" rel="stylesheet">
+
+    <link href="{{ asset('css/plugins/nouslider/jquery.nouislider.css') }}" rel="stylesheet">
+
+    <link href="{{ asset('css/plugins/datapicker/datepicker3.css') }}" rel="stylesheet">
+
+    <link href="{{ asset('css/plugins/ionRangeSlider/ion.rangeSlider.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/plugins/ionRangeSlider/ion.rangeSlider.skinFlat.css') }}" rel="stylesheet">
+
+    <link href="{{ asset('css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css') }}" rel="stylesheet">
+
+    <link href="{{ asset('css/plugins/clockpicker/clockpicker.css') }}" rel="stylesheet">
+
+    <link href="{{ asset('css/plugins/daterangepicker/daterangepicker-bs3.css') }}" rel="stylesheet">
+
+    <link href="{{ asset('css/plugins/select2/select2.min.css" rel="stylesheet') }}">
+
+    <link href="{{ asset('css/plugins/touchspin/jquery.bootstrap-touchspin.min.css') }}" rel="stylesheet">
+
+    <link href="{{ asset('css/plugins/dualListbox/bootstrap-duallistbox.min.css') }}" rel="stylesheet">
+
+    <link href="{{ asset('css/animate.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 </head>
 
 <body>
@@ -189,54 +229,40 @@
                   $("#pet").hide();
                    $("#pollen").hide();
                     $("#insect").hide();
-                     $("input[name='drug']").change(function () {
-                  if($(this).val() == "drug")
-                       $("#drug").show();
-                  else
-                       $("#drug").hide();
-             });
-            $("input[name='food']").change(function () {
-                  if($(this).val() == "food")
-                       $("#food").show();
-                  else
-                       $("#food").hide();
-             });
-            $("input[name='latex']").change(function () {
-                  if($(this).val() == "latex")
-                       $("#latex").show();
-                  else
-                       $("#latex").hide();
-             });
-            $("input[name='molds']").change(function () {
-                  if($(this).val() == "mold")
-                       $("#mold").show();
-                  else
-                       $("#mold").hide();
-             });
-            $("input[name='pets']").change(function () {
-                  if($(this).val() == "pet")
-                       $("#pet").show();
-                  else
-                       $("#pet").hide();
-             });
-            $("input[name='pollens']").change(function () {
-                  if($(this).val() == "pollen")
-                       $("#pollen").show();
-                  else
-                       $("#pollen").hide();
-             });
-            $("input[name='insects']").change(function () {
-                  if($(this).val() == "insect")
-                       $("#insect").show();
-                  else
-                       $("#insect").hide();
-             });
-            $("input[name='skull']").change(function () {
-                  if($(this).val() == "skull")
-                       $("#skull").show();
-                  else
-                       $("#skull").hide();
-             });
+
+$("input[name='drug']").change(function () {
+   $("#drug").toggle(this.checked);
+});
+
+
+$("input[name='food']").change(function () {
+   $("#food").toggle(this.checked);
+});
+    
+$("input[name='latex']").change(function () {
+   $("#latex").toggle(this.checked);
+});
+
+$("input[name='molds']").change(function () {
+   $("#mold").toggle(this.checked);
+}); 
+
+$("input[name='pets']").change(function () {
+   $("#pet").toggle(this.checked);
+});             
+    
+$("input[name='pollens']").change(function () {
+   $("#pollen").toggle(this.checked);
+});        
+            
+$("input[name='insects']").change(function () {
+   $("#insect").toggle(this.checked);
+});
+
+$("input[name='skull']").change(function () {
+   $("#skull").toggle(this.checked);
+});
+           
 
                                  $('input[type="checkbox"]').on('change', function() {
     $('input[name="' + this.name + '"]').not(this).prop('checked', false);
@@ -246,7 +272,8 @@ $('#data_1 .input-group.date').datepicker({
                 keyboardNavigation: false,
                 forceParse: false,
                 calendarWeeks: true,
-                autoclose: true
+                autoclose: true,
+                format: "yyyy-mm-dd"
             });
 
             $(document).ready(function(){

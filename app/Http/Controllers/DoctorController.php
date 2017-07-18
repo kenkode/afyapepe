@@ -91,10 +91,12 @@ return view('doctor.newPatients')->with('patients',$patients);
 
     ->where([ ['appointments.created_at','<=',$today],
             ['appointments.p_status', '=', 11],
+            ['appointments.status', '=', 2],
             ['appointments.doc_id', '=',$doctor_id],
            ])
      ->orwhere([ ['appointments.created_at','>=',$today],
              ['appointments.p_status', '=', 11],
+             ['appointments.status', '=', 2],
              ['appointments.doc_id', '=',$doctor_id],
             ])
 

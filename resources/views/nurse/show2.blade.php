@@ -1266,91 +1266,65 @@ $doctors = DB::table('users')->
                   else
                        $("#tb").hide();
              });
-              $("input[name='drug']").change(function () {
-                  if($(this).val() == "drug")
-                       $("#drug").show();
-                  else
-                       $("#drug").hide();
-             });
-            $("input[name='food']").change(function () {
-                  if($(this).val() == "food")
-                       $("#food").show();
-                  else
-                       $("#food").hide();
-             });
-            $("input[name='latex']").change(function () {
-                  if($(this).val() == "latex")
-                       $("#latex").show();
-                  else
-                       $("#latex").hide();
-             });
-            $("input[name='molds']").change(function () {
-                  if($(this).val() == "mold")
-                       $("#mold").show();
-                  else
-                       $("#mold").hide();
-             });
-            $("input[name='pets']").change(function () {
-                  if($(this).val() == "pet")
-                       $("#pet").show();
-                  else
-                       $("#pet").hide();
-             });
-            $("input[name='pollens']").change(function () {
-                  if($(this).val() == "pollen")
-                       $("#pollen").show();
-                  else
-                       $("#pollen").hide();
-             });
-            $("input[name='insects']").change(function () {
-                  if($(this).val() == "insect")
-                       $("#insect").show();
-                  else
-                       $("#insect").hide();
-             });
-            $("input[name='skull']").change(function () {
-                  if($(this).val() == "skull")
-                       $("#skull").show();
-                  else
-                       $("#skull").hide();
-             });
+             $("input[name='drug']").change(function () {
+   $("#drug").toggle(this.checked);
+});
 
-             $("input[name='limbs']").change(function () {
-                  if($(this).val() == "limbs")
-                       $("#limbs").show();
-                  else
-                       $("#limbs").hide();
-             });
-              $("input[name='spine']").change(function () {
-                  if($(this).val() == "spine")
-                       $("#spine").show();
-                  else
-                       $("#spine").hide();
-             });
-               $("input[name='palate']").change(function () {
-                  if($(this).val() == "palate")
-                       $("#palate").show();
-                  else
-                       $("#palate").hide();
-             });
-                $("input[name='face']").change(function () {
-                  if($(this).val() == "face")
-                       $("#face").show();
-                  else
-                       $("#face").hide();
-             });
-                 $("input[name='anus']").change(function () {
-                  if($(this).val() == "anus")
-                       $("#anus").show();
-                  else
-                       $("#anus").hide();
-             });
-                  $("input[name='dysmorphic']").change(function () {
-                  if($(this).val() == "dysmorphic")
-                       $("#dysmorphic").show();
-                  else
-                       $("#dysmorphic").hide();
-             });
+
+$("input[name='food']").change(function () {
+   $("#food").toggle(this.checked);
+});
+    
+$("input[name='latex']").change(function () {
+   $("#latex").toggle(this.checked);
+});
+
+$("input[name='molds']").change(function () {
+   $("#mold").toggle(this.checked);
+}); 
+
+$("input[name='pets']").change(function () {
+   $("#pet").toggle(this.checked);
+});             
+    
+$("input[name='pollens']").change(function () {
+   $("#pollen").toggle(this.checked);
+});        
+            
+$("input[name='insects']").change(function () {
+   $("#insect").toggle(this.checked);
+});
+
+$("input[name='skull']").change(function () {
+   $("#skull").toggle(this.checked);
+});
+
+$("input[name='limbs']").change(function () {
+   $("#limbs").toggle(this.checked);
+});
+
+$("input[name='spine']").change(function () {
+   $("#spine").toggle(this.checked);
+});
+
+$("input[name='palate']").change(function () {
+   $("#palate").toggle(this.checked);
+});
+
+$("input[name='face']").change(function () {
+   $("#face").toggle(this.checked);
+});
+$("input[name='anus']").change(function () {
+   $("#anus").toggle(this.checked);
+});
+$("input[name='dysmorphic']").change(function () {
+   $("#dysmorphic").toggle(this.checked);
+});       
+             
+               
+               
+                
+                  
                    $("input[name='diarrhoea']").change(function () {
                   if($(this).val() == "Yes_diarrhoea")
                        $("#diarrhoea").show();

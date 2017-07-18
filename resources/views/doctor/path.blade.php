@@ -1,6 +1,6 @@
 <div class="row bs-wizard" style="border-bottom:0;">
   <?php
-  $tst = DB::table('patient_test')->where('appointment_id','=', $app_id2)
+  $tst = DB::table('patient_test')->where('appointment_id','=', $app_id)
   ->first();
   ?>
 
@@ -18,7 +18,7 @@
     </div>
   <?php }?>
   <?php
-  $diag = DB::table('patient_diagnosis')->where('appointment_id','=', $app_id2)
+  $diag = DB::table('patient_diagnosis')->where('appointment_id','=', $app_id)
 ->first();  ?>
   <?php if (is_null($diag)) {  ?>
     <div class="col-xs-3 bs-wizard-step disabled">
@@ -37,7 +37,7 @@
 
 
     <?php
-    $presc = DB::table('prescriptions')->where('appointment_id','=', $app_id2)
+    $presc = DB::table('prescriptions')->where('appointment_id','=', $app_id)
     ->first();?>
   <?php if (is_null($presc)) {  ?>
     <div class="col-xs-3 bs-wizard-step disabled">
@@ -55,7 +55,7 @@
 
       <?php
       $discharge = DB::table('appointments')
-      ->where('id','=', $app_id2)->first();
+      ->where('id','=', $app_id)->first();
 
       ?>
 <?php if ($discharge->status == 3) {  ?>

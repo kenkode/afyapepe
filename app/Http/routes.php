@@ -112,6 +112,8 @@ Route::get('nurse.existapp/{id}','NurseController@existingapp');
 Route::post('createexistingdetail','NurseController@createexistingdetail');
 Route::get('nurse.deexistapp/{id}','NurseController@deexistapp');
 Route::post('existingdetail','NurseController@existingdetail');
+Route::get('/tag/constituencyr','NurseController@findConstituencyr');
+
 Route::get('/ajax-subcat',function(){
 	$cat_id= Input::get('cat_id');
 	$symptoms= Symptom::where('observation_id','=',$cat_id)->get();
@@ -146,7 +148,7 @@ Route::get('/docss/drugs', 'TestController@fdrugs');
 Route::get('/disis/find', 'DiseasesController@find');
 Route::get('/tags/fac', 'FacilityController@ffacility');
 
-
+Route::delete('testremove/{id}',['as'=>'test.deletes','uses'=>'PatientTestController@destroytest']);
 Route::Post('testpost', [ 'as' => 'testsave', 'uses' => 'TestsaveController@store']);
 Route::get('test/{id}', [ 'as' => 'testes', 'uses' => 'PatientTestController@testdata']);
 Route::get('diagnosis/{id}', [ 'as' => 'diagnoses', 'uses' => 'PatientTestController@diagnoses']);
@@ -156,6 +158,7 @@ Route::Post('diagconfirm', [ 'as' => 'Testconfirms', 'uses' => 'PatientTestContr
 Route::Post('diagnosis', [ 'as' => 'confdiag', 'uses' => 'PrescriptionController@diagnoses']);
 Route::get('prescriptions/{id}', [ 'as' => 'medicines', 'uses' => 'PrescriptionController@prescriptions']);
 Route::get('history/{id}', [ 'as' => 'patienthistory', 'uses' => 'PatientController@history']);
+Route::delete('prescremove/{id}',['as'=>'prescs.deletes','uses'=>'PrescriptionController@destroypresc']);
 
 Route::get('disdiagnosis/{id}', [ 'as' => 'disdiagnosis', 'uses' => 'PatientTestController@disdiagnosis']);
 Route::get('disprescription/{id}', [ 'as' => 'disprescription', 'uses' => 'PatientTestController@disprescription']);
@@ -270,6 +273,12 @@ Route::group(['middleware' => ['auth','role:Admin|Registrar']], function() {
     Route::post('privateconsultationfee','privateController@consultationFees');
     Route::get('registrar.showdependants/{id}','privateController@selectDependant');
     Route::post('privateDependentconsultationfee','privateController@Dependentconsultationfee');
+
+    Route::get('register_edit_nextkin/{id}','RegistrarController@edit_nextkin');
+    Route::post('register_update_nextkin','RegistrarController@update_nextkin');
+    Route::get('register_edit_patient/{id}','RegistrarController@edit_patient');
+    Route::post('register_update_patient','RegistrarController@update_patient');
+
 
 });
 /**

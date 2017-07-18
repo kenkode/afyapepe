@@ -72,10 +72,10 @@
                              $age= $interval->format(" %Y Year, %M Months, %d Days Old");?> {{$age}}
 
                              </td>
-                               <td><?php $status=$patient->status;
-                               $app=DB::table('appointments')->orderby('created_at', 'desc')->where('afya_user_id',$status)->where('created_at','<=',$today)->first();
+                               <td><?php $status=$patient->p_status;
+                               
 
-                                   ?>@if($app->status==3)<a href="{{route('nurse.show',$parent->id)}}">{{"New"}}</a>@else<a href="{{url('nurse.existapp',$parent->id)}}">{{"Existing"}}</a>@endif</td>
+                                   ?>@if($status==11)<a href="{{url('nurse.existapp',$parent->id)}}">{{"Existing"}}</a>@else<a href="{{route('nurse.show',$parent->id)}}">{{"New"}}</a>@endif</td>
                                                 @else
                                     <?php $dep=DB::table('dependant')->join('appointments','appointments.persontreated','=','dependant.id')->select('dependant.*')->first(); ?>
                                                           <td><a href="{{url('nurse.dependents',$dep->id)}}">{{$i}}</a></td>
@@ -88,10 +88,10 @@
                              $dage= $intervals->format(" %Y Year, %M Months, %d Days Old");?>
 
                               {{$dage}}</td></td>
-                               <td><?php $st=$patient->status;
-                               $apps=DB::table('appointments')->orderby('created_at', 'desc')->where('persontreated',$dep->id)->where('status',3)->where('created_at','<=',$today)->first();
+                               <td><?php $st=$patient->p_status;
+                               
 
-                                   ?>@if(!empty($apps))<a href="{{route('nurse.dependents',$dep->id)}}">{{"New"}}</a>@else<a href="{{url('nurse.deexistapp',$dep->id)}}">{{"Existing"}}</a>@endif</td>
+                                   ?>@if($st==11)<a href="{{url('nurse.deexistapp',$dep->id)}}">{{"Existing"}}</a>@else <a href="{{url('nurse.dependents',$dep->id)}}">{{"New"}}</a>@endif</td>
 
                                                   @endif
                                                           

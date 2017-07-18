@@ -77,7 +77,7 @@
 
                                    ?>@if($status==11)<a href="{{url('nurse.existapp',$parent->id)}}">{{"Existing"}}</a>@else<a href="{{route('nurse.show',$parent->id)}}">{{"New"}}</a>@endif</td>
                                                 @else
-                                    <?php $dep=DB::table('dependant')->join('appointments','appointments.persontreated','=','dependant.id')->select('dependant.*')->first(); ?>
+                                    <?php $depid=$patient->persontreated; $dep=DB::table('dependant')->where('id',$depid)->first(); ?>
                                                           <td><a href="{{url('nurse.dependents',$dep->id)}}">{{$i}}</a></td>
                                                           <td><a href="{{url('nurse.dependents',$dep->id)}}">{{$dep->firstName}} {{$dep->secondName}}</a></td>
                                                           <td>{{$dep->gender}}

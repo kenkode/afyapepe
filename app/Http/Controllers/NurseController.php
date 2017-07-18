@@ -1111,9 +1111,9 @@ if(isset($vaccines)){
 
 if($drugs){
 foreach($drugs as $key =>$drug) {
-     DB::table('patient_allergy')->insert([
+     DB::table('afya_users_allergy')->insert([
     'dependant_id'=>$id,
-    'allergy_id'=>$drug,
+    'allergies_type_id'=>$drug,
     'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
     'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
 }
@@ -1121,9 +1121,9 @@ foreach($drugs as $key =>$drug) {
  $foods=$request->foods;
  if($foods){
 foreach($foods as $key) {
-    DB::table('patient_allergy')->insert([
+    DB::table('afya_users_allergy')->insert([
     'dependant_id'=>$id,
-    'allergy_id'=>$key,
+    'allergies_type_id'=>$key,
     'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
     'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
 }
@@ -1131,19 +1131,20 @@ foreach($foods as $key) {
  $latexs=$request->latexs;
  if($latexs){
 foreach($latexs as $key) {
-   DB::table('patient_allergy')->insert([
+   DB::table('afya_users_allergy')->insert([
     'dependant_id'=>$id,
-    'allergy_id'=>$key,
+    'allergies_type_id'=>$key,
     'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
     'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
 }}
 
 
  $molds=$request->molds;
- if($molds){{
-   DB::table('patient_allergy')->insert([
+ if($molds){
+    foreach($molds as $key) {
+   DB::table('afya_users_allergy')->insert([
     'dependant_id'=>$id,
-    'allergy_id'=>$molds,
+    'allergies_type_id'=>$key,
     'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
     'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
 }}
@@ -1151,33 +1152,34 @@ $pets=$request->pets;
 if($pets){
 
 foreach($pets as $key) {
-    DB::table('patient_allergy')->insert([
+    DB::table('afya_users_allergy')->insert([
    'dependant_id'=>$id,
-    'allergy_id'=>$key,
+    'allergies_type_id'=>$key,
     'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
     'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
 
 }}
 
 $pollens=$request->pollens;
-if($pollens) {   
-   DB::table('patient_allergy')->insert([
+if($pollens){
+foreach($pollens as $key) {   
+   DB::table('afya_users_allergy')->insert([
     'dependant_id'=>$id,
-    'allergy_id'=>$pollens,
+    'allergies_type_id'=>$key,
     'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
     'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
+}
 }
 
 $insects=$request->insects;
-if($insects)
-
+if($insects){
 foreach($insects as $key) {
-    DB::table('patient_allergy')->insert([
+    DB::table('afya_users_allergy')->insert([
    'dependant_id'=>$id,
-    'allergy_id'=>$key,
+    'allergies_type_id'=>$key,
     'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
     'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
-}
+}}
 
     if($breastfeed=="No"){
 

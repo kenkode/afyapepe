@@ -496,6 +496,120 @@ No<input type="checkbox" value="No"  name="bba"/>Yes<input type="checkbox" value
                                 <fieldset>
                                    
                                     <div class="row">
+                                     @if(!empty($mothers))
+<div class="col-sm-6">
+                                            
+                     <input type="hidden" class="form-control" name="dob" value="{{$db->dob or ''}}">
+                 
+  <?php $mother=DB::table('mother_details')->join('afya_users','afya_users.id','=','mother_details.afya_user_id')->where('mother_details.dependant_id',$id)->select('mother_details.*','afya_users.dob as dob')->first(); ?>
+  <div class="form-group">
+  <label>Date of Birth</label><br>
+  <input type="text" name="gravidity" id="gravidity"  autocomplete="off" placeholder="mother gravidity" class="form-control" readonly="" value="{{$mother->dob}}" />
+    
+  </div>
+  
+  <div class="form-group">
+  <label>Gravidity</label><br>
+  <input type="number" name="gravidity" id="gravidity" value="{{$mother->gravity}}"  autocomplete="off" placeholder="mother gravidity" class="form-control" readonly="" />
+    
+  </div>
+  <div class="form-group">
+  <label>Parity</label><br>
+  <input type="number" name="parity" readonly="" value="{{$mother->parity}}" class="form-control" placeholder="mother parity" />
+    
+  </div>
+ 
+  <div class="form-group">
+   <label for="exampleInputEmail1">Hiv status</label>
+   Negative <input type="checkbox" value="Negative"  name="hiv" />
+   Positive <input type="checkbox" value="Positive"  name="hiv"  />
+<div id="hiv">
+    <label>ARV's</label>
+  No  <input type="checkbox"  value="No"  name="arvs"/>
+  Yes  <input type="checkbox"   value="Yes"  name="arvs" />
+     
+</div>
+</div>
+<div class="form-group">
+<label>VDRL</label>
+ Negative <input type="checkbox" value="Negative"  name="vdrl" />
+   Positive <input type="checkbox" value="Positive"  name="vdrl"  />
+ 
+</div>
+
+<div class="form-group">
+<label>Fever</label>
+ No <input type="checkbox" value="No"  name="fever" />
+   Yes <input type="checkbox" value="Yes"  name="fever"  />
+ 
+</div>
+<div class="form-group">
+<label>Antibiotics</label>
+Yes <input type="checkbox" name="antibiotics" value="Yes" />
+No <input type="checkbox" name="antibiotics" value="No" />
+  
+</div>
+
+<div class="form-group">
+<label>Diabetes</label>
+Yes <input type="checkbox" name="diabetes" value="Yes" />
+No <input type="checkbox" name="diabetes" value="No" />
+  
+</div>
+<div class="form-group">
+<label>TB Positive</label>
+
+Yes <input type="checkbox" name="tb" value="Yes" />
+No <input type="checkbox" name="tb" value="No" />
+<div id="tb">
+    <label>TB Type </label>
+  Latent TB  <input type="checkbox" value="Latent TB"  name="tb_type"/>
+  TB Disease  <input type="checkbox"value="TB Disease"  name="tb_type" />
+  <br>
+  <label>TB Treatment</label>
+Yes <input type="checkbox" name="tb_treatment" value="Yes" />
+No <input type="checkbox" name="tb_treatment" value="No" />
+     
+</div>
+  
+</div>
+
+                                        </div>
+                                        <div class="col-lg-6">
+                                           
+<div class="form-group">
+<label>Labour</label><br>
+1 stage <input type="text" name="labour1" class="form-control" placeholder="Enter Hours" readonly=""  value="{{$mother->labour1}}" />
+2 stage <input type="text" name="labour2" class="form-control" placeholder="Enter Minutes" readonly="" value="{{$mother->labour2}}" />
+</div> 
+
+<div class="form-group">
+<label>Hypertention</label>
+Yes <input type="checkbox" name="hypertention" value="Yes" />
+No <input type="checkbox" name="hypertention" value="No" />
+  </div>
+
+<div class="form-group">
+<label>APH</label>
+<input type="text" name="labour2" class="form-control" value="{{$mother->aph}}" placeholder="Enter Minutes" readonly="" />
+  </div>
+
+
+<div class="form-group">
+<label>Mother Presenting Problems?</label>
+<textarea name="motherproblem" class="form-control" readonly="">{{$mother->motherproblem}}</textarea>
+  
+</div>
+
+  <div class="form-group">
+                     <label >Revelant Drugs:</label>
+                     <textarea name="motherproblem" class="form-control" readonly="">{{$mother->revelantdrugs}}</textarea>
+
+                 </div>
+
+
+                                        </div>
+                                            @else
                                         <div class="col-sm-6">
                                             
                      <input type="hidden" class="form-control" name="dob" value="{{$db->dob or ''}}">
@@ -570,14 +684,13 @@ No <input type="checkbox" name="tb_treatment" value="No" />
 
                                         </div>
                                         <div class="col-lg-6">
-                                            @if(!empty($mothers))
-                                            @else
+                                           
 <div class="form-group">
 <label>Labour</label><br>
 1 stage <input type="text" name="labour1" class="form-control" placeholder="Enter Hours"/>
 2 stage <input type="text" name="labour2" class="form-control" placeholder="Enter Minutes"/>
 </div>
-@endif
+
 <div class="form-group">
 <label>Hypertention</label>
 Yes <input type="checkbox" name="hypertention" value="Yes" />
@@ -604,6 +717,7 @@ No <input type="checkbox" name="aph" value="No" />
 
 
                                         </div>
+                                        @endif
                                     </div>
                                 </fieldset>
                             <h1>Allergies</h1>
@@ -687,6 +801,62 @@ No <input type="checkbox" name="aph" value="No" />
                                         </div>
                                         
                                     </div>
+        <?php $allergies=DB::table('afya_users_allergy')->where('dependant_id',$id)->get(); ?>
+                          @if(!empty($allergies))
+                                    <div class="col-sm-6">
+                                    <div class="ibox float-e-margins">
+                           
+
+
+        
+        <div class="table-responsive">
+      <table class="table table-striped table-bordered table-hover dataTables-example" >
+      <thead>
+       <tr>
+      <th>No</th>
+  <th>Allery Type</th>
+  <th>Allery Name</th>
+  <th>Date</th>
+  </tr>
+      </thead>
+
+      <?php $i =1;  $allergies=DB::table('afya_users_allergy')
+    ->Join('allergies_type','allergies_type.id','=','afya_users_allergy.allergies_type_id')
+    ->Join('allergies','allergies.id','=','allergies_type.allergies_id')
+    ->select('allergies_type.name','allergies.name as Allergy','afya_users_allergy.created_at as dates')
+    ->Where('afya_users_allergy.dependant_id','=',$id)
+    ->get(); ?>
+     <tbody>
+       @foreach($allergies as $allergy)
+   
+      <tr>
+      <td>{{$i}}</td>
+       <td>{{$allergy->Allergy}}</td>
+      <td>{{$allergy->name}}</td>
+      <td>{{$allergy->dates}}</td>         
+      </tr>
+  
+       <?php $i++; ?>
+
+      @endforeach
+
+        </tbody>
+      </table>
+
+     
+      
+
+
+</div>
+
+
+
+</div>
+                            @else
+                            @endif
+                                    </div>
+                                    </div>
+
                                 </fieldset>
                                 <h1>Disablility and Abnormalities</h1>
                                 <fieldset>

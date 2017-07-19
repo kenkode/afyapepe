@@ -862,6 +862,9 @@ No <input type="checkbox" name="aph" value="No" />
                                 <fieldset>
                                      <div class="row">
                                         <div class="col-sm-6">
+<?php $disabilities=DB::table('patient_disabilities')->where('id',$id)->get(); ?>
+
+
                                              <div class="form-group">
 <label>Can suck/breastfeed</label>
 Yes <input type="checkbox" name="breastfeed" value="Yes" />
@@ -894,6 +897,44 @@ No <input type="checkbox" name="irritable" value="No" />
 Yes <input type="checkbox" name="tone" value="Yes" />
 No <input type="checkbox" name="tone" value="No" />
   </div>
+  <br>
+  @if(!empty($disabilities))
+<h1>Disabilities</h1>
+<div class="table-responsive">
+      <table class="table table-striped table-bordered table-hover dataTables-example" >
+      <thead>
+       <tr>
+      <th>No</th>
+  <th>Disability</th>
+  <th>Description</th>
+  
+  </tr>
+      </thead>
+
+      <?php $i =1;  ?>
+     <tbody>
+       @foreach($disabilities as $dis)
+   
+      <tr>
+      <td>{{$i}}</td>
+       <td>{{$dis->name}}</td>
+      <td>{{$dis->notes}}</td>
+            
+      </tr>
+  
+       <?php $i++; ?>
+
+      @endforeach
+
+        </tbody>
+      </table>
+
+     
+      
+
+
+</div>
+@endif
                                         </div>
                                         <div class="col-lg-6">
                                             Skull <input type="checkbox" value="skull"  name="skull" />
@@ -932,6 +973,44 @@ No <input type="checkbox" name="tone" value="No" />
  <label>Describe</label>
     <textarea name="dysmorphic_descr" class="form-control"></textarea>
   </div>
+  <?php $abnormalities=DB::table('patient_abnormalities')->where('dependant_id',$id)->get();?>
+  @if(!empty($abnormalities))
+<h1>Abnormalities</h1>
+<div class="table-responsive">
+      <table class="table table-striped table-bordered table-hover dataTables-example" >
+      <thead>
+       <tr>
+      <th>No</th>
+  <th>Abnormalities</th>
+  <th>Description</th>
+  
+  </tr>
+      </thead>
+
+      <?php $i =1;  ?>
+     <tbody>
+       @foreach($abnormalities as $ab)
+   
+      <tr>
+      <td>{{$i}}</td>
+       <td>{{$ab->name}}</td>
+      <td>{{$ab->notes}}</td>
+            
+      </tr>
+  
+       <?php $i++; ?>
+
+      @endforeach
+
+        </tbody>
+      </table>
+
+     
+      
+
+
+</div>
+@endif
                                         </div>
                                     </div>
                                 </fieldset>

@@ -1017,7 +1017,49 @@ No <input type="checkbox" name="tone" value="No" />
                                 <h1>Growth</h1>
                                 <fieldset>
                                      <div class="row">
-                                        <div class="col-sm-6">
+                                        <div class="col-sm-12">
+
+      <?php $nutritions=DB::table('dependant_nutrition_test')->where('dependant_id',$id)->get();?>
+  @if(!empty($nutritions))
+<h1>Growth</h1>
+<div class="table-responsive">
+      <table class="table table-striped table-bordered table-hover dataTables-example" >
+      <thead>
+       <tr>
+      <th>No</th>
+  <th>Score</th>
+  <th>MUAC</th>
+  <th>Date</th>
+  
+  </tr>
+      </thead>
+
+      <?php $i =1;  ?>
+     <tbody>
+       @foreach($nutritions as $nut)
+   
+      <tr>
+      <td>{{$i}}</td>
+       <td>{{$nut->score}}</td>
+      <td><?php $score=$nut->score;?> @if($score<=110)<span class="btn-danger">{{"Severe Acute Malnutrition"}} </span> @elseif($score > 110 && $score <=125){{"Moderate Acute Malnutrition"}}@elseif($score > 125 && $score<=135){{"Growth Promotion and Monitoring"}}@else{{"Well Nourished"}}@endif</td>
+      <td>{{$nut->created_at}}</td>
+            
+      </tr>
+  
+       <?php $i++; ?>
+
+      @endforeach
+
+        </tbody>
+      </table>
+
+     
+      
+
+
+</div>
+@endif
+                                        <br>
                                              <div class="form-group">
     <label for="exampleInputEmail1">MUAC Reading</label>
     <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder=" in mm" name="muac"  required>

@@ -1080,12 +1080,40 @@ $cry=$request->cry;
         $symptoms=$request->symptoms;
         $nurse=$request->nurse;
         $doctor=$request->doctor;
-
+      if(!empty($chiefcompliant)){
         $chiefcompliant=implode(',', $chiefcompliant);
-        $observation=implode(',',$observation );
-        $symptoms=implode(',', $symptoms);
-        $mdrug=implode(',', $mrevelantdrugs);
-         $bdrug=implode(',', $brevelantdrugs);
+
+      }
+      else{
+        $chiefcompliant='';
+      }
+      if(!empty($observation)){
+         $observation=implode(',',$observation );
+      }
+      else{
+        $observation='';
+      }
+      if(!empty($symptoms)){
+         $symptoms=implode(',', $symptoms);
+      }
+      else{
+        $symptoms='';
+      }
+       if(!empty($mdrug)){
+         $mdrug=implode(',', $mrevelantdrugs);
+       }
+       else{
+           $mdrug='';
+       }
+       if(!empty($bdrug)){
+          $bdrug=implode(',', $brevelantdrugs);
+       }
+       else{
+        $bdrug='';
+       }
+
+       
+       
 
           $score=$request->muac;
          $id=$request->id;
@@ -1227,7 +1255,7 @@ foreach($insects as $key) {
     }
 
      DB::table('dependant_nutrition_test')->insert(
-    ['dependent_id' => $id,
+    ['dependant_id' => $id,
     'score' =>$score,
      'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
     'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]

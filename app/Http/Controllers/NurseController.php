@@ -896,7 +896,7 @@ return Redirect::route('nurse.show', [$id]);
         $now = Carbon::now();
         $length = $end->diffInDays($now);
 
-        return view('nurse.show2')->with('id',$id)->with('length',$length)->with('details',$details)->with('observations',$observations)->with('symptoms',$symptoms);
+        return view('nurse.show_dependent')->with('id',$id)->with('length',$length)->with('details',$details)->with('observations',$observations)->with('symptoms',$symptoms);
     }
 
 

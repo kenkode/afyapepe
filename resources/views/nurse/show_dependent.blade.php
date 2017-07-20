@@ -234,13 +234,10 @@
                             <input type="hidden" name="id" value="{{$dependant->id}}">
                                 <h1>Baby Details</h1>
                                 <fieldset>
-       @if(!empty($details))
-                                    
-                                    <div class="row">
-    
-
-
-                                        <div class="col-sm-6">
+  
+ <div class="row">
+ @if(!empty($details))
+  <div class="col-sm-6">
                                                
      <div class="form-group">
                  <label for="exampleInputPassword1">Date</label>
@@ -272,11 +269,72 @@
             <input type="number" class="form-control" name="birthweight" value="{{$details->birthweight}}" readonly="">
     </div>
    
+    
+    </div>
+
+ @else
+                                        <div class="col-sm-6">
+                                               
+                
     <div class="form-group">
-                 <label for="exampleInputPassword1">Weight Now(kgs)</label>
-            <input type="number" class="form-control" name="weightnow" value="{{$details->weightnow}}" readonly="">
+                 <label for="exampleInputPassword1">IP No</label>
+            <input type="text" class="form-control" name="ipno">
+    </div>
+    <div class="form-group">
+                 <label for="exampleInputPassword1">Gestation</label>
+  <select name="gestation" class="form-control">
+  <option value="24">24 weeks</option>
+  <option value="25">25 weeks</option>  
+  <option value="26">26 weeks</option>
+   <option value="27">27 weeks</option> 
+    <option value="28">28 weeks</option> 
+     <option value="29">29 weeks</option> 
+      <option value="30">30 weeks</option> 
+       <option value="31">31 weeks</option> 
+        <option value="32">32 weeks</option> 
+         <option value="33">33 weeks</option> 
+          <option value="34">34 weeks</option> 
+           <option value="35">35 weeks</option> 
+            <option value="36">36 weeks</option> 
+             <option value="37">37 weeks</option> 
+              <option value="38">38 weeks</option> 
+               <option value="39">39 weeks</option> 
+                <option value="40">40 weeks</option>
+                <option value="41">41 weeks</option>
+                <option value="42">42 weeks</option>
+                <option value="43">43 weeks</option>
+                <option value="44">44 weeks</option>
+                <option value="45">45 weeks</option>
+                <option value="46">46 weeks</option>   
+</select>
+    </div>
+
+    <div class="form-group">
+                 <label for="exampleInputPassword1">Temperature</label>
+            <input type="number" class="form-control" name="temperature">
+    </div>
+
+    <div class="form-group">
+    <label for="exampleInputEmail1">APGar</label>
+   1m <input type="checkbox" value="1m"  name="apgar"/>
+   5m <input type="checkbox" value="5m"  name="apgar"/>
+   10m <input type="checkbox" value="10m"  name="apgar"/>
+   </div>
+    
+
+   <div class="form-group">
+                 <label for="exampleInputPassword1">Birth Weight</label>
+            <input type="number" class="form-control" name="birthweight">
+    </div>
+   
+    <div class="form-group">
+                 <label for="exampleInputPassword1">Weight Now</label>
+            <input type="number" class="form-control" name="weightnow">
     </div>
     </div>
+    @endif
+
+    @if(!empty($details))
     <div class="col-sm-6">
    
   <div class="form-group">
@@ -348,68 +406,7 @@
 
                  </div>
                  </div>
-                 </div>
- @else
- <div class="row">
-                                        <div class="col-sm-6">
-                                               
-                
-    <div class="form-group">
-                 <label for="exampleInputPassword1">IP No</label>
-            <input type="text" class="form-control" name="ipno">
-    </div>
-    <div class="form-group">
-                 <label for="exampleInputPassword1">Gestation</label>
-  <select name="gestation" class="form-control">
-  <option value="24">24 weeks</option>
-  <option value="25">25 weeks</option>  
-  <option value="26">26 weeks</option>
-   <option value="27">27 weeks</option> 
-    <option value="28">28 weeks</option> 
-     <option value="29">29 weeks</option> 
-      <option value="30">30 weeks</option> 
-       <option value="31">31 weeks</option> 
-        <option value="32">32 weeks</option> 
-         <option value="33">33 weeks</option> 
-          <option value="34">34 weeks</option> 
-           <option value="35">35 weeks</option> 
-            <option value="36">36 weeks</option> 
-             <option value="37">37 weeks</option> 
-              <option value="38">38 weeks</option> 
-               <option value="39">39 weeks</option> 
-                <option value="40">40 weeks</option>
-                <option value="41">41 weeks</option>
-                <option value="42">42 weeks</option>
-                <option value="43">43 weeks</option>
-                <option value="44">44 weeks</option>
-                <option value="45">45 weeks</option>
-                <option value="46">46 weeks</option>   
-</select>
-    </div>
-
-    <div class="form-group">
-                 <label for="exampleInputPassword1">Temperature</label>
-            <input type="number" class="form-control" name="temperature">
-    </div>
-
-    <div class="form-group">
-    <label for="exampleInputEmail1">APGar</label>
-   1m <input type="checkbox" value="1m"  name="apgar"/>
-   5m <input type="checkbox" value="5m"  name="apgar"/>
-   10m <input type="checkbox" value="10m"  name="apgar"/>
-   </div>
-    
-
-   <div class="form-group">
-                 <label for="exampleInputPassword1">Birth Weight</label>
-            <input type="number" class="form-control" name="birthweight">
-    </div>
-   
-    <div class="form-group">
-                 <label for="exampleInputPassword1">Weight Now</label>
-            <input type="number" class="form-control" name="weightnow">
-    </div>
-    </div>
+    @else
     <div class="col-sm-6">
    
   <div class="form-group">
@@ -489,9 +486,10 @@ No<input type="checkbox" value="No"  name="bba"/>Yes<input type="checkbox" value
                      <select multiple="multiple" id="presc1" name="brevelantdrugs[]" class="form-control presc1" style="width:50%" required></select>
                  </div>
                   </div>
+                  @endif
                   </div>
 
-                  @endif
+               
 
                                            
                                        
@@ -500,14 +498,13 @@ No<input type="checkbox" value="No"  name="bba"/>Yes<input type="checkbox" value
                                 </fieldset>
                                 <h1>Mother Details</h1>
                                 <fieldset>
-                                   @if(!empty($mothers))
-                                    <div class="row">
-                                     
-<div class="col-sm-6">
+             
+                                            <div class="row">
+                                            @if(!empty($details))
+                                            <div class="col-lg-6">
                                             
-                     <input type="hidden" class="form-control" name="dob" value="{{$db->dob or ''}}">
-                 
-  <?php $mother=DB::table('mother_details')->join('afya_users','afya_users.id','=','mother_details.afya_user_id')->where('mother_details.dependant_id',$id)->select('mother_details.*','afya_users.dob as dob')->first(); ?>
+
+<?php $mother=DB::table('mother_details')->join('afya_users','afya_users.id','=','mother_details.afya_user_id')->where('mother_details.dependant_id',$id)->select('mother_details.*','afya_users.dob as dob')->first(); ?>
   <div class="form-group">
   <label>Date of Birth</label><br>
   <input type="text" name="gravidity" id="gravidity"  autocomplete="off" placeholder="mother gravidity" class="form-control" readonly="" value="{{$mother->dob}}" />
@@ -581,44 +578,9 @@ No <input type="checkbox" name="tb_treatment" value="No" />
 </div>
 
                                         </div>
+@else
+
                                         <div class="col-lg-6">
-                                           
-<div class="form-group">
-<label>Labour</label><br>
-1 stage <input type="text" name="labour1" class="form-control" placeholder="Enter Hours" readonly=""  value="{{$mother->labour1}}" />
-2 stage <input type="text" name="labour2" class="form-control" placeholder="Enter Minutes" readonly="" value="{{$mother->labour2}}" />
-</div> 
-
-<div class="form-group">
-<label>Hypertention</label>
-Yes <input type="checkbox" name="hypertention" value="Yes" />
-No <input type="checkbox" name="hypertention" value="No" />
-  </div>
-
-<div class="form-group">
-<label>APH</label>
-<input type="text" name="labour2" class="form-control" value="{{$mother->aph}}" placeholder="Enter Minutes" readonly="" />
-  </div>
-
-
-<div class="form-group">
-<label>Mother Presenting Problems?</label>
-<textarea name="motherproblem" class="form-control" readonly="">{{$mother->motherproblem}}</textarea>
-  
-</div>
-
-  <div class="form-group">
-                     <label >Revelant Drugs:</label>
-                     <textarea name="motherproblem" class="form-control" readonly="">{{$mother->revelantdrugs}}</textarea>
-
-                 </div>
-
-
-                                        </div>
-                                        </div>
-                                            @else
-                                            <div class="row">
-                                        <div class="col-sm-6">
                                             
                      <input type="hidden" class="form-control" name="dob" value="{{$db->dob or ''}}">
                  
@@ -691,6 +653,46 @@ No <input type="checkbox" name="tb_treatment" value="No" />
 </div>
 
                                         </div>
+                                        @endif
+
+ @if(!empty($details))
+ <div class="col-lg-6">
+                                           
+<div class="form-group">
+<label>Labour</label><br>
+1 stage <input type="text" name="labour1" class="form-control" placeholder="Enter Hours" readonly=""  value="{{$mother->labour1}}" />
+2 stage <input type="text" name="labour2" class="form-control" placeholder="Enter Minutes" readonly="" value="{{$mother->labour2}}" />
+</div> 
+
+<div class="form-group">
+<label>Hypertention</label>
+Yes <input type="checkbox" name="hypertention" value="Yes" />
+No <input type="checkbox" name="hypertention" value="No" />
+  </div>
+
+<div class="form-group">
+<label>APH</label>
+<input type="text" name="labour2" class="form-control" value="{{$mother->aph}}" placeholder="Enter Minutes" readonly="" />
+  </div>
+
+
+<div class="form-group">
+<label>Mother Presenting Problems?</label>
+<textarea name="motherproblem" class="form-control" readonly="">{{$mother->motherproblem}}</textarea>
+  
+</div>
+
+  <div class="form-group">
+                     <label >Revelant Drugs:</label>
+                     <textarea name="motherproblem" class="form-control" readonly="">{{$mother->revelantdrugs}}</textarea>
+
+                 </div>
+
+
+                                        </div>
+
+
+ @else
                                         <div class="col-lg-6">
                                            
 <div class="form-group">
@@ -725,8 +727,9 @@ No <input type="checkbox" name="aph" value="No" />
 
 
                                         </div>
-                                        </div>
                                         @endif
+                                        </div>
+                                        
                                    
                                 </fieldset>
                             <h1>Allergies</h1>
@@ -810,62 +813,8 @@ No <input type="checkbox" name="aph" value="No" />
                                         </div>
                                         
                                     </div>
-        <?php $allergies=DB::table('afya_users_allergy')->where('dependant_id',$id)->get(); ?>
-                          @if(!empty($allergies))
-                                    <div class="col-sm-6">
-                                    <div class="ibox float-e-margins">
-                           
-
-
-        
-        <div class="table-responsive">
-      <table class="table table-striped table-bordered table-hover dataTables-example" >
-      <thead>
-       <tr>
-      <th>No</th>
-  <th>Allery Type</th>
-  <th>Allery Name</th>
-  <th>Date</th>
-  </tr>
-      </thead>
-
-      <?php $i =1;  $allergies=DB::table('afya_users_allergy')
-    ->Join('allergies_type','allergies_type.id','=','afya_users_allergy.allergies_type_id')
-    ->Join('allergies','allergies.id','=','allergies_type.allergies_id')
-    ->select('allergies_type.name','allergies.name as Allergy','afya_users_allergy.created_at as dates')
-    ->Where('afya_users_allergy.dependant_id','=',$id)
-    ->get(); ?>
-     <tbody>
-       @foreach($allergies as $allergy)
-   
-      <tr>
-      <td>{{$i}}</td>
-       <td>{{$allergy->Allergy}}</td>
-      <td>{{$allergy->name}}</td>
-      <td>{{$allergy->dates}}</td>         
-      </tr>
-  
-       <?php $i++; ?>
-
-      @endforeach
-
-        </tbody>
-      </table>
-
-     
-      
-
-
-</div>
-
-
-
-</div>
-                            @else
-                             </div>
-                            @endif
-                                   
                                     </div>
+    
 
                                 </fieldset>
                                 <h1>Disablility and Abnormalities</h1>
@@ -943,7 +892,7 @@ No <input type="checkbox" name="tone" value="No" />
 </div>
 @endif
                                         </div>
-                                        <div class="col-sm-6">
+                                        <div class="col-lg-6">
                                             Skull <input type="checkbox" value="skull"  name="skull" />
  <div id="skull">
  <label>Describe</label>
@@ -980,7 +929,41 @@ No <input type="checkbox" name="tone" value="No" />
  <label>Describe</label>
     <textarea name="dysmorphic_descr" class="form-control"></textarea>
   </div>
-  if
+  <?php $abnormalities=DB::table('patient_abnormalities')->where('dependant_id',$id)->get();?>
+  @if(!empty($abnormalities))
+<h1>Abnormalities</h1>
+<div class="table-responsive">
+      <table class="table table-striped table-bordered table-hover dataTables-example" >
+      <thead>
+       <tr>
+      <th>No</th>
+  <th>Abnormalities</th>
+  <th>Description</th>
+  
+  </tr>
+      </thead>
+
+      <?php $i =1;  ?>
+     <tbody>
+       @foreach($abnormalities as $ab)
+   
+      <tr>
+      <td>{{$i}}</td>
+       <td>{{$ab->name}}</td>
+      <td>{{$ab->notes}}</td>
+            
+      </tr>
+  
+       <?php $i++; ?>
+
+      @endforeach
+
+        </tbody>
+      </table>     
+
+
+</div>
+@endif
                                         </div>
                                     </div>
                                 </fieldset>
@@ -1042,9 +1025,8 @@ No <input type="checkbox" name="tone" value="No" />
                                 <fieldset>
                                       <div class="row">
                                         <div class="col-sm-12">
-                                              <div class="table-responsive">
-      <table class="table table-striped table-bordered table-hover dataTables-example" >
-      <thead>
+                                              <table class="table table-small-font table-bordered table-striped">
+                                                              <thead>
                                                                   <tr>
                                                                      
                                                                       <th>Disease</th>
@@ -1056,21 +1038,19 @@ No <input type="checkbox" name="tone" value="No" />
 
                                                                       <th>Status</th>
                                                                       <th>Vaccination Date</th>
-                                                                     <th style="display:none;"></th>
+                                                                      <th></th>
                                                                      
 
                                                                 </tr>
                                                               </thead>
-
                                                               
                                                         <?php  $vaccines=DB::table('vaccine')->join('dependant_vaccination','dependant_vaccination.vaccine_id','=','vaccine.id')->distinct()->select('vaccine.*','dependant_vaccination.*','dependant_vaccination.id as id')
                                                          ->where('vaccine.age','=>',$length)
                                                          ->where('dependant_vaccination.dependent_id','=',$id)->get(); ?>
                                                           <?php $i=1; ?>
-                                                          <tbody>
                                                         @foreach($vaccines as $vaccine)
                                                           
-                                                            
+                                                              <tbody>
                                                       
                                                            <tr>
                                                          
@@ -1089,6 +1069,7 @@ No <input type="checkbox" name="tone" value="No" />
                                                          else if($age==730){echo("2 Years");}?></td>
                                                          <td>{{date('d -m- Y', strtotime($vaccine->date_guideline))}}</td>
                                                           <td>{{$vaccine->status or ''}}</td>
+
                                                           <td>{{$vaccine->status_date or ''}}</td>
                                                           <td><?php if(is_null($vaccine->status)){
                                                             echo "<select name='vaccines[]'>

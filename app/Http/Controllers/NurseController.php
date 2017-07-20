@@ -1442,7 +1442,8 @@ if($tb=="Yes"){
     'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
     'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
     $appointment=DB::table('appointments')->where('persontreated', $id)->where('status',1)->orderBy('created_at', 'desc')->first();
-DB::table('triage_infants')->insert(
+
+$ids=DB::table('triage_infants')->insertGetId(
     ['appointment_id' => $appointment->id,
     'dependant_id'=>$id,
       'skin'=>$skin,
@@ -1495,7 +1496,7 @@ DB::table('triage_infants')->insert(
     'doc_id'=>$doctor]);
 
 
-        return redirect()->action('NurseController@index');
+       return redirect()->action('NurseController@dep_preview',['id'=> $ids]);
     
 
    }
@@ -2124,6 +2125,11 @@ return redirect()->action('NurseController@show',['id'=> $id]);
 
     return view('nurse.preview')->with('id',$id);
   }
+  public function dep_preview($id){
+
+     return view('nurse.dep_preview')->with('id',$id);
+
+  }
 
   public function update_preview(Request $request){
    $id=$request->id;
@@ -2169,4 +2175,45 @@ DB::table('appointments')->where('id',$app_id)->update([
         return redirect()->action('NurseController@index');
     }
   
+   public function update_dep_preview(Request $request){
+   $id=$request->id;
+        $weight=$request->weight;
+        $height=$request->height;
+        $temperature=$request->temperature;
+        $systolic=$request->systolic;
+        $diastolic=$request->diastolic;
+         $chiefcompliant=$request->chiefcompliant;
+        $observation=$request->observation;
+        $symptoms=$request->symptom;
+        $nurse=$request->nurse;
+        $doctor=$request->doctor;
+       $cir=$request->cir;
+        $app_id=$request->app_id;      
+      
+$id=DB::table('triage_infants')->where('id',$id)->update(
+    [
+    'weight'=> $weight,
+    'height'=>$height,
+    'head_circum'=>$cir,
+    'temperature'=>$temperature,
+    'systolic_bp'=>$systolic,
+    'diastolic_bp'=>$diastolic,
+    'chief_compliant'=>$chiefcompliant,
+    'observation'=>$observation,
+    'symptoms'=>$symptoms,
+    'nurse_notes'=>$nurse,
+    
+    
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
+
+);
+
+DB::table('appointments')->where('id',$app_id)->update([
+    'doc_id'=>$doctor]);
+ 
+
+
+
+        return redirect()->action('NurseController@index');
+    }
 }

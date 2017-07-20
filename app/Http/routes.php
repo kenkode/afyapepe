@@ -117,6 +117,8 @@ Route::get('add_allergy/{id}','NurseController@add_allergy');
 Route::post('update_allergy','NurseController@update_allergy');
 Route::get('nurse.preview/{id}','NurseController@preview');
 Route::post('update_preview','NurseController@update_preview');
+Route::get('nurse.dep_preview/{id}','NurseController@dep_preview');
+Route::post('update_dep_preview','NurseController@update_dep_preview');
 
 Route::get('/ajax-subcat',function(){
 	$cat_id= Input::get('cat_id');

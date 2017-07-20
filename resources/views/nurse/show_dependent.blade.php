@@ -896,7 +896,7 @@ No <input type="checkbox" name="tone" value="No" />
        <tr>
       <th>No</th>
   <th>Disability</th>
-  <th>Description</th>
+  <th>Date</th>
   
   </tr>
       </thead>
@@ -908,7 +908,7 @@ No <input type="checkbox" name="tone" value="No" />
       <tr>
       <td>{{$i}}</td>
        <td>{{$dis->name}}</td>
-      <td>{{$dis->notes}}</td>
+      <td>{{$dis->created_at}}</td>
             
       </tr>
   
@@ -970,6 +970,7 @@ No <input type="checkbox" name="tone" value="No" />
       <th>No</th>
   <th>Abnormalities</th>
   <th>Description</th>
+  <th>Date</th>
   
   </tr>
       </thead>
@@ -982,6 +983,7 @@ No <input type="checkbox" name="tone" value="No" />
       <td>{{$i}}</td>
        <td>{{$ab->name}}</td>
       <td>{{$ab->notes}}</td>
+       <td>{{$ab->created_at}}</td>
             
       </tr>
   

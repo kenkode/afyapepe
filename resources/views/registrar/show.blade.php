@@ -75,8 +75,7 @@
                 <input type="hidden" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{$user->id}}" name="id"  required>
                  <div class="form-group">
                 <label for="exampleInputEmail1">Name</label>
-                <input type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Next Kin Name" name="kin_name"  value="
-                 "  >
+                <input type="name" class="form-control" id="exampleInputPassword1" aria-describedby="emailHelp" placeholder="Next Kin Name" name="kin_name">
                 </div>
 
                 <div class="form-group">

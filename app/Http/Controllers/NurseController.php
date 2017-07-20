@@ -896,7 +896,7 @@ return Redirect::route('nurse.show', [$id]);
         $now = Carbon::now();
         $length = $end->diffInDays($now);
 
-        return view('nurse.show2')->with('id',$id)->with('length',$length)->with('details',$details)->with('observations',$observations)->with('symptoms',$symptoms);
+        return view('nurse.show_dependent')->with('id',$id)->with('length',$length)->with('details',$details)->with('observations',$observations)->with('symptoms',$symptoms);
     }
 
 
@@ -1080,12 +1080,40 @@ $cry=$request->cry;
         $symptoms=$request->symptoms;
         $nurse=$request->nurse;
         $doctor=$request->doctor;
-
+      if(!empty($chiefcompliant)){
         $chiefcompliant=implode(',', $chiefcompliant);
-        $observation=implode(',',$observation );
-        $symptoms=implode(',', $symptoms);
-        $mdrug=implode(',', $mrevelantdrugs);
-         $bdrug=implode(',', $brevelantdrugs);
+
+      }
+      else{
+        $chiefcompliant='';
+      }
+      if(!empty($observation)){
+         $observation=implode(',',$observation );
+      }
+      else{
+        $observation='';
+      }
+      if(!empty($symptoms)){
+         $symptoms=implode(',', $symptoms);
+      }
+      else{
+        $symptoms='';
+      }
+       if(!empty($mdrug)){
+         $mdrug=implode(',', $mrevelantdrugs);
+       }
+       else{
+           $mdrug='';
+       }
+       if(!empty($bdrug)){
+          $bdrug=implode(',', $brevelantdrugs);
+       }
+       else{
+        $bdrug='';
+       }
+
+       
+       
 
           $score=$request->muac;
          $id=$request->id;
@@ -1111,9 +1139,9 @@ if(isset($vaccines)){
 
 if($drugs){
 foreach($drugs as $key =>$drug) {
-     DB::table('patient_allergy')->insert([
+     DB::table('afya_users_allergy')->insert([
     'dependant_id'=>$id,
-    'allergy_id'=>$drug,
+    'allergies_type_id'=>$drug,
     'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
     'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
 }
@@ -1121,9 +1149,9 @@ foreach($drugs as $key =>$drug) {
  $foods=$request->foods;
  if($foods){
 foreach($foods as $key) {
-    DB::table('patient_allergy')->insert([
+    DB::table('afya_users_allergy')->insert([
     'dependant_id'=>$id,
-    'allergy_id'=>$key,
+    'allergies_type_id'=>$key,
     'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
     'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
 }
@@ -1131,19 +1159,20 @@ foreach($foods as $key) {
  $latexs=$request->latexs;
  if($latexs){
 foreach($latexs as $key) {
-   DB::table('patient_allergy')->insert([
+   DB::table('afya_users_allergy')->insert([
     'dependant_id'=>$id,
-    'allergy_id'=>$key,
+    'allergies_type_id'=>$key,
     'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
     'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
 }}
 
 
  $molds=$request->molds;
- if($molds){{
-   DB::table('patient_allergy')->insert([
+ if($molds){
+    foreach($molds as $key) {
+   DB::table('afya_users_allergy')->insert([
     'dependant_id'=>$id,
-    'allergy_id'=>$molds,
+    'allergies_type_id'=>$key,
     'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
     'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
 }}
@@ -1151,33 +1180,34 @@ $pets=$request->pets;
 if($pets){
 
 foreach($pets as $key) {
-    DB::table('patient_allergy')->insert([
+    DB::table('afya_users_allergy')->insert([
    'dependant_id'=>$id,
-    'allergy_id'=>$key,
+    'allergies_type_id'=>$key,
     'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
     'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
 
 }}
 
 $pollens=$request->pollens;
-if($pollens) {   
-   DB::table('patient_allergy')->insert([
+if($pollens){
+foreach($pollens as $key) {   
+   DB::table('afya_users_allergy')->insert([
     'dependant_id'=>$id,
-    'allergy_id'=>$pollens,
+    'allergies_type_id'=>$key,
     'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
     'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
+}
 }
 
 $insects=$request->insects;
-if($insects)
-
+if($insects){
 foreach($insects as $key) {
-    DB::table('patient_allergy')->insert([
+    DB::table('afya_users_allergy')->insert([
    'dependant_id'=>$id,
-    'allergy_id'=>$key,
+    'allergies_type_id'=>$key,
     'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
     'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
-}
+}}
 
     if($breastfeed=="No"){
 
@@ -1225,7 +1255,7 @@ foreach($insects as $key) {
     }
 
      DB::table('dependant_nutrition_test')->insert(
-    ['dependent_id' => $id,
+    ['dependant_id' => $id,
     'score' =>$score,
      'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
     'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
@@ -1249,7 +1279,7 @@ join('afya_users','afya_users.msisdn','=','dependant_parent.phone')->select('afy
 );
     DB::table('infant_details')->insert(
     ['dependant_id' => $id,
-     'admission_date'=>$admissiondate,
+     'admission_date'=>\Carbon\Carbon::now()->toDateTimeString(),
      'ipno'=>$ipno,
      'gestation'=>$gestation,
      'temperature'=>$temperature,
@@ -1555,84 +1585,7 @@ DB::table('appointments')->where('id',$appointment->id)->update([
 
 
 
-$drugs=$request->drugs;
-if($drugs){
-foreach($drugs as $key =>$drug) {
-     DB::table('afya_users_allergy')->insert([
-    'afya_user_id'=>$id,
-   
-    'allergies_type_id'=>$drug,
-    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
-    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
-}
-}
- $foods=$request->foods;
- if($foods){
-foreach($foods as $key) {
-    DB::table('afya_users_allergy')->insert([
-    'afya_user_id'=>$id,
-   
-    'allergies_type_id'=>$key,
-    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
-    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
-}
-}
- $latexs=$request->latexs;
- if($latexs){
-foreach($latexs as $key) {
-   DB::table('afya_users_allergy')->insert([
-    'afya_user_id'=>$id,
-   
-    'allergies_type_id'=>$key,
-    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
-    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
-}
-}
 
- $molds=$request->molds;
- if($molds){
-   DB::table('afya_users_allergy')->insert([
-    'afya_user_id'=>$id,
-    
-    'allergies_type_id'=>$molds,
-    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
-    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
-}
-$pets=$request->pets;
-if($pets)
-{
-foreach($pets as $key) {
-    DB::table('afya_users_allergy')->insert([
-    'afya_user_id'=>$id,
-    
-    'allergies_type_id'=>$key,
-    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
-    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
-}
-}
-
-$pollens=$request->pollens;
-if($pollens) {   
-   DB::table('afya_users_allergy')->insert([
-    'afya_user_id'=>$id,
-    'allergy_name'=>'Pollen Allergy',
-    'allergies_type_id'=>$pollens,
-    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
-    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
-}
-
-$insects=$request->insects;
-if($insects)
-{
-foreach($insects as $key) {
-    DB::table('afya_users_allergy')->insert([
-    'afya_user_id'=>$id,
-   
-    'allergies_type_id'=>$key,
-    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
-    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
-}
-}
 
 
 $chiefcompliant = implode(',', $chiefcompliant);
@@ -1640,7 +1593,7 @@ $symptoms= implode(',', $symptoms);
 $observation= implode(',', $observation);
 $appointment=DB::table('appointments')->where('afya_user_id', $id)->where('status',1)->orderBy('created_at', 'desc')->first();
 
-    DB::table('triage_details')->insert(
+    $id=DB::table('triage_details')->insertGetId(
     ['appointment_id' => $appointment->id,
     'current_weight'=> $weight,
     'current_height'=>$heightS,
@@ -1664,7 +1617,7 @@ $appointment=DB::table('appointments')->where('afya_user_id', $id)->where('statu
 
 
 
-        return redirect()->action('NurseController@index');
+        return redirect()->action('NurseController@preview',['id'=> $id]);
     }
 
 
@@ -1927,4 +1880,149 @@ $appointment=DB::table('appointments')->where('persontreated', $id)->where('stat
          }
      return \Response::json($formatted_drugs);
      }
+
+
+   public  function add_allergy($id){
+
+        return view('nurse.add_allergy')->with('id',$id);
+     }
+
+  public function update_allergy(Request $request){
+     $id=$request->id;
+
+    $drugs=$request->drugs;
+if($drugs){
+foreach($drugs as $key =>$drug) {
+     DB::table('afya_users_allergy')->insert([
+    'afya_user_id'=>$id,
+   
+    'allergies_type_id'=>$drug,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
+}
+}
+ $foods=$request->foods;
+ if($foods){
+foreach($foods as $key) {
+    DB::table('afya_users_allergy')->insert([
+    'afya_user_id'=>$id,
+   
+    'allergies_type_id'=>$key,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
+}
+}
+ $latexs=$request->latexs;
+ if($latexs){
+foreach($latexs as $key) {
+   DB::table('afya_users_allergy')->insert([
+    'afya_user_id'=>$id,
+   
+    'allergies_type_id'=>$key,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
+}
+}
+
+ $molds=$request->molds;
+ if($molds){
+    foreach($molds as $key) {
+   DB::table('afya_users_allergy')->insert([
+    'afya_user_id'=>$id,
+    
+    'allergies_type_id'=>$key,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
+}
+}
+$pets=$request->pets;
+if($pets)
+{
+foreach($pets as $key) {
+    DB::table('afya_users_allergy')->insert([
+    'afya_user_id'=>$id,
+    
+    'allergies_type_id'=>$key,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
+}
+}
+
+$pollens=$request->pollens;
+if($pollens) {  
+foreach($pollens as $key) { 
+   DB::table('afya_users_allergy')->insert([
+    'afya_user_id'=>$id,
+    'allergies_type_id'=>$key,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
+}
+}
+$insects=$request->insects;
+if($insects)
+{
+foreach($insects as $key) {
+    DB::table('afya_users_allergy')->insert([
+    'afya_user_id'=>$id,
+   
+    'allergies_type_id'=>$key,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
+}
+}
+
+
+return redirect()->action('NurseController@show',['id'=> $id]);
+
+  }
+
+  public function preview($id){
+
+    return view('nurse.preview')->with('id',$id);
+  }
+
+  public function update_preview(Request $request){
+   $id=$request->id;
+        $weight=$request->weight;
+        $heightS=$request->current_height;
+        $temperature=$request->temperature;
+        $systolic=$request->systolic;
+        $diastolic=$request->diastolic;
+         $chiefcompliant=$request->chiefcompliant;
+        $observation=$request->observation;
+        $symptoms=$request->symptom;
+        $nurse=$request->nurse;
+        $doctor=$request->doctor;
+        $pregnant=$request->pregnant;
+        $lmp=$request->lmp;
+        $app_id=$request->app_id;      
+      
+$id=DB::table('triage_details')->where('id',$id)->update(
+    [
+    'current_weight'=> $weight,
+    'current_height'=>$heightS,
+    'temperature'=>$temperature,
+    'systolic_bp'=>$systolic,
+    'diastolic_bp'=>$diastolic,
+    'chief_compliant'=>$chiefcompliant,
+    'observation'=>$observation,
+    'symptoms'=>$symptoms,
+    'nurse_notes'=>$nurse,
+    'Doctor_note'=>'',
+    'prescription'=>'',
+    'pregnant'=>$pregnant,
+    'lmp'=>$lmp,
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
+
+);
+
+DB::table('appointments')->where('id',$app_id)->update([
+    'doc_id'=>$doctor]);
+ 
+
+
+
+        return redirect()->action('NurseController@index');
+    }
+  
 }

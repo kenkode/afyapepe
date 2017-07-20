@@ -12,34 +12,35 @@
 
       </div>
       <div class="ibox-content">
-
+<?php $detail=DB::table('triage_details')->where('id',$id)->first(); ?>
      
 
- {!! Form::open(array('route' => 'createdetail','method'=>'POST')) !!}
+ {!! Form::open(array('url' => 'update_preview','method'=>'POST')) !!}
     <div class="form-group">
     <input type="hidden" class="form-control" id="exampleInputEmail1S" aria-describedby="emailHelp" value="{{$id}}" name="id"  required>
+    <input type="hidden" name="app_id" value="{{$detail->appointment_id}}">
     <div class="form-group">
     <label for="exampleInputEmail1">Weight</label>
-    <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Weight" name="weight"  required>
+    <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Weight" name="weight" value="{{$detail->current_weight}}"  required>
     </div>
     
     <div class="form-group">
     <label for="exampleInputEmail1">Height</label>
-    <input type="text" class="form-control" placeholder="Height in Metres" name="current_height"
+    <input type="text" class="form-control"placeholder="Height in Metres" name="current_height" value="{{$detail->current_height}}" 
      required>
     </div>
    <div class="form-group">
     <label for="exampleInputPassword1">Temperature</label>
-    <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Temperature" name="temperature"  required>
+    <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Temperature" name="temperature"  value="{{$detail->temperature}}" required>
    </div>
 
     <div class="form-group">
     <label for="exampleInputPassword1">Systolic BP</label>
-    <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Systolic BP" name="systolic"  required>
+    <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Systolic BP" name="systolic"  value="{{$detail->systolic_bp}}" required>
     </div>
     <div class="form-group">
     <label for="exampleInputEmail1">Diastolic BP</label>
-    <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Diastolic BP" name="diastolic"  required>
+    <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Diastolic BP" name="diastolic"  value="{{$detail->diastolic_bp}}" required>
     </div>
 
     </div>
@@ -66,39 +67,45 @@
    
     <div class="form-group">
                      <label >Chief Complaint/Reason for visit:</label>
-                     <select multiple="multiple" id="chief" name="chiefcompliant[]" class="form-control chief" style="width:50%"></select>
+                      <textarea class="form-control" placeholer="" 
+                     name="chiefcompliant" required>{{$detail->chief_compliant}}
+    </textarea>
+
                  </div>
      <div class="form-group">
                      <label >Observation:</label>
-                     <select multiple="multiple" id="observation" name="observation[]" class="form-control observation" style="width:50%"></select>
+                      <textarea class="form-control" placeholer="" name="observation" required>{{$detail->observation}}
+    </textarea
+
                  </div>
     <div class="form-group">
                      <label >Symptom:</label>
-                     <select multiple="multiple" id="symptom" name="symptoms[]" class="form-control symptom" style="width:50%"></select>
+                     <textarea class="form-control" placeholer="" name="symptom" required>{{$detail->symptoms}}
+    </textarea>
+
                  </div>
     
     
 
     <div class="form-group">
     <label for="exampleInputPassword1">Nurse Notes</label>
-    <textarea class="form-control" placeholer="" name="nurse" required>
+    <textarea class="form-control" placeholer="" name="nurse" required>{{$detail->nurse_notes}}
     </textarea>
 
     </div>
-    <?php $db=DB::table('afya_users')->where('id',$id)->first(); $gender=$db->gender; ?>
-    @if($gender==1)
-
-    @else
+    <?php $pregnt=$detail->pregnant; ?>
+    @if(!empty($pregnt))
     <div class="form-group">
     <label for="exampleInputPassword1">Pregnant?</label>
-    <input type="radio" value="No"  name="pregnant"> No <input type="radio" value="Yes"  name="pregnant"> Yes
+    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Temperature" name="pregnant"  value="{{$detail->pregnant}}" required>
     </div>
+
 
     <div class="form-group" id="data_1">
                  <label for="exampleInputPassword1">LMP</label>
                  <div class="input-group date">
                      <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                     <input type="text" class="form-control" name="lmp" value="">
+                     <input type="text" class="form-control" name="lmp" value="{{$detail->lmp}}">
                  </div>
                  </div>
    @endif
@@ -106,7 +113,7 @@
 
     <div class="form-group">
     <label for="exampleInputEmail1">Consulting Physician</label>
-    <select class="form-control" name="doctor" >
+    <select class="form-control" name="doctor" value="" >
     <?php 
      $facilitycode=DB::table('facility_nurse')->where('user_id', Auth::id())->first();
 

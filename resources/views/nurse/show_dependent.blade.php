@@ -1027,7 +1027,7 @@ No <input type="checkbox" name="tone" value="No" />
       <tr>
       <td>{{$i}}</td>
        <td>{{$nut->score}}</td>
-      <td><?php $score=$nut->score;?> @if($score<=110)<span class="btn-danger">{{"Severe Acute Malnutrition"}} </span> @elseif($score > 110 && $score <=125){{"Moderate Acute Malnutrition"}}@elseif($score > 125 && $score<=135){{"Growth Promotion and Monitoring"}}@else{{"Well Nourished"}}@endif</td>
+      <td><?php $score=$nut->score;?> @if($score<=110)<span class="btn-danger">{{"Severe Acute Malnutrition"}} </span> @elseif($score > 110 && $score <=125)<span class="btn-warning">{{"Moderate Acute Malnutrition"}}</span>@elseif($score > 125 && $score<=135)<span class="btn-info">{{"Growth Promotion and Monitoring"}}</span>@else<span class="btn-success">{{"Well Nourished"}}</span>@endif</td>
       <td>{{$nut->created_at}}</td>
             
       </tr>

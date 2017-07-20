@@ -1099,29 +1099,108 @@ $cry=$request->cry;
       else{
         $symptoms='';
       }
-       if(!empty($mdrug)){
+       if(!empty($mrevelantdrugs)){
          $mdrug=implode(',', $mrevelantdrugs);
        }
        else{
            $mdrug='';
        }
-       if(!empty($bdrug)){
+       if(!empty($brevelantdrugs)){
           $bdrug=implode(',', $brevelantdrugs);
        }
        else{
         $bdrug='';
        }
 
-       
+    $skull=$request->skull;
+    $limbs=$request->limbs;
+    $spine=$request->spine;
+    $palate=$request->palate;
+    $face=$request->face;
+    $anus=$request->anus;
+    $dysmorphic=$request->dysmorphic;
+
+if($skull){
+    $skulldescr=$request->skull_descr;
+    DB::table('patient_abnormalities')->insert(
+    ['dependant_id' => $id,
+    'name' => $skull,
+    'notes'=>$skulldescr,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
+);
+}
+if($limbs){
+    $limbsdescr=$request->limbs_descr;
+    DB::table('patient_abnormalities')->insert(
+    ['dependant_id' => $id,
+    'name' => $limbs,
+    'notes'=>$limbsdescr,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
+);
+}
+if($spine){
+    $spinedescr=$request->spine_descr;
+    DB::table('patient_abnormalities')->insert(
+    ['dependant_id' => $id,
+    'name' => $spine,
+    'notes'=>$spinedescr,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
+);
+}
+if($palate){
+    $palatedescr=$request->palate_descr;
+    DB::table('patient_abnormalities')->insert(
+    ['dependant_id' => $id,
+    'name' => $palate,
+    'notes'=>$palatedescr,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
+);
+}
+if($face){
+    $facedescr=$request->face_descr;
+    DB::table('patient_abnormalities')->insert(
+    ['dependant_id' => $id,
+    'name' => $face,
+    'notes'=>$facedescr,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
+);
+}
+if($anus){
+    $anusdescr=$request->anus_descr;
+    DB::table('patient_abnormalities')->insert(
+    ['dependant_id' => $id,
+    'name' => $anus,
+    'notes'=>$anusdescr,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
+);
+}
+if($dysmorphic){
+    $dysmorphicdescr=$request->dysmorphic_descr;
+    DB::table('patient_abnormalities')->insert(
+    ['dependant_id' => $id,
+    'name' => $dysmorphic,
+    'notes'=>$dysmorphicdescr,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
+);
+}
+
        
 
-          $score=$request->muac;
-         $id=$request->id;
+     $score=$request->muac;
+    $id=$request->id;
     $breastfeed=$request->breastfeed;
     $neck=$request->neck;
     $fontanelle=$request->fontanelle;
     $irritable=$request->irritable;
     $tone=$request->tone;
+
      $drugs=$request->drugs;
      $vaccines=$request->vaccines;
 

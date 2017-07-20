@@ -811,6 +811,46 @@ No <input type="checkbox" name="aph" value="No" />
                 </select>
   </div>
                                         </div>
+<br>
+<div class="table-responsive">
+      <table class="table table-striped table-bordered table-hover dataTables-example" >
+      <thead>
+       <tr>
+      <th>No</th>
+  <th>Allery Type</th>
+  <th>Allery Name</th>
+  <th>Date</th>
+  </tr>
+      </thead>
+
+      <?php $i =1;  $allergies=DB::table('afya_users_allergy')
+    ->Join('allergies_type','allergies_type.id','=','afya_users_allergy.allergies_type_id')
+    ->Join('allergies','allergies.id','=','allergies_type.allergies_id')
+    ->select('allergies_type.name','allergies.name as Allergy','afya_users_allergy.created_at as dates')
+    ->Where('afya_users_allergy.dependant_id','=',$id)
+    ->get(); ?>
+     <tbody>
+       @foreach($allergies as $allergy)
+   
+      <tr>
+      <td>{{$i}}</td>
+       <td>{{$allergy->Allergy}}</td>
+      <td>{{$allergy->name}}</td>
+      <td>{{$allergy->dates}}</td>         
+      </tr>
+  
+       <?php $i++; ?>
+
+      @endforeach
+
+        </tbody>
+      </table>
+
+     
+      
+
+
+</div>
                                         
                                     </div>
                                     </div>

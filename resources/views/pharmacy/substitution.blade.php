@@ -227,7 +227,7 @@
 
                  <div class="form-group">
                    <label>Reason</label>
-                    <select class="form-control" name="reason" >
+                    <select class="form-control" name="reason" required="">
                      <?php $reasons = DB::table('substitution_reason')->distinct()->get(['reason','id']); ?>
                      @foreach($reasons as $reason)
                             <option value='{{$reason->id}}'>{{$reason->reason}}</option>
@@ -237,7 +237,7 @@
                  </div>
                  <div class="form-group">
                      <label >Prescription:</label>
-                     <select id="presc1" name="prescription" class="form-control presc1" style="width:50%"></select>
+                     <select id="presc1" name="prescription" class="form-control presc1" style="width:50%" required=""></select>
                  </div>
 
                  <p></p>
@@ -247,7 +247,7 @@
 
        <div class="form-group">
            <label>Dosage Form</label>
-            <select class="form-control" name="dosageform" id="example-getting-started" >
+            <select class="form-control" name="dosageform" id="example-getting-started" required="">
              <?php $druglists=DB::table('druglists')->distinct()->get(['DosageForm']); ?>
              @foreach($druglists as $druglist)
                     <option value='{{$druglist->DosageForm}}'>{{$druglist->DosageForm}}</option>
@@ -261,18 +261,18 @@
            <label>Strength Unit</label>
 
            <div class="radio radio-info radio-inline">
-               <input type="radio" id="inlineRadio1" value="ml" name="strength_unit" >
+               <input type="radio" id="inlineRadio1" value="ml" name="strength_unit" required="">
                <label for="inlineRadio1"> Ml</label>
            </div>
            <div class="radio radio-inline">
-               <input type="radio" id="inlineRadio2" value="mg" name="strength_unit">
+               <input type="radio" id="inlineRadio2" value="mg" name="strength_unit" required="">
                <label for="inlineRadio2"> Mg </label>
            </div>
            </div>
 
           <div class="form-group">
            <label>Route</label>
-            <select class="form-control" name="routes" >
+            <select class="form-control" name="routes" required="">
               <?php $routems=DB::table('route')->distinct()->get(['name','id','abbreviation']); ?>
                 @foreach($routems as $routemz)
                   <option value="{{$routemz->id }}">{{ $routemz->abbreviation }}----{{ $routemz->name  }} </option>
@@ -282,7 +282,7 @@
 
            <div class="form-group">
            <label>Frequency</label></td>
-            <select class="form-control"  name="frequency" >
+            <select class="form-control"  name="frequency" required="">
               <?php $frequent=DB::table('frequency')->distinct()->get(['name','id','abbreviation']); ?>
                 @foreach($frequent as $freq)
                   <option value="{{$freq->id }}">{{ $freq->abbreviation }}----{{ $freq->name  }} </option>
@@ -290,17 +290,17 @@
             </select>
          </div>
 
-         <div class="form-group"><label>Weight</label> <input type="number" id="weight2" name="weight2"  class="form-control" oninput="calc2()"></div>
+         <div class="form-group"><label>Weight</label> <input type="number" id="weight2" name="weight2"  class="form-control" required="" oninput="calc2()"></div>
 
-         <div class="form-group"><label>Quantity</label> <input type="number" name="quantity1" id="quantity1" class="form-control" oninput="calc2()"></div>
+         <div class="form-group"><label>Quantity</label> <input type="number" name="quantity1" id="quantity1" class="form-control" required="" oninput="calc2()"></div>
 
          <div class="form-group"><label>Dose Given</label> <input type="number" name="dose_given2" id="sus"  class="form-control" readonly></div>
 
-         <div class="form-group"><label>Price</label> <input type="number" name="price1" id="price1" class="form-control" ></div>
+         <div class="form-group"><label>Price</label> <input type="number" name="price1" id="price1" class="form-control" required=""></div>
 
          <div class="form-group">
            <label>Payment options</label>
-            <select class="form-control" name="payment_options" id="pay_option" >
+            <select class="form-control" name="payment_options" id="pay_option" required="">
               <option value="" selected disabled>Select payment option</option>
              <?php $options = DB::table('payment_options')->distinct()
                           ->join('pharmacy_payment', 'pharmacy_payment.option_id', '=', 'payment_options.id')
@@ -314,13 +314,13 @@
 
          <div class="form-group">
          <label for="from">From</label>
-         <input class="from"  type="text"  name="from2">
+         <input class="from"  type="text"  name="from2" required="">
          <label for="to">To</label>
-         <input class="to" type="text" name="to2">
+         <input class="to" type="text" name="to2" required="">
          </div>
 
          <div class="form-group"><label>Total</label> <input type="text" name="total1" id="total1" class="form-control" readonly ></div>
-        
+
 
           <!-- function for getting total during substitution -->
          <script type="text/javascript">

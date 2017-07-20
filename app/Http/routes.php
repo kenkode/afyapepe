@@ -202,6 +202,7 @@ Route::post('addcompany','ManufacturerController@addcompany');
 Route::group(['middleware' => ['auth','role:Admin|Pharmacyadmin|Pharmacymanager']], function() {
 Route::resource('pharmacy','PharmacyController');
 Route::get('pharmacy/{id}', 'PharmacyController@show');
+Route::get('home',[ 'as' => 'home', 'uses' => 'PharmacyController@index']);
 Route::post('post_presc', 'PharmacyController@postPresc');
 Route::get('fill_prescription/{id}', [ 'as' => 'fillpresc', 'uses' => 'PharmacyController@fillPresc']);
 Route::get('substitution/{id}', [ 'as' => 'substitution', 'uses' => 'PharmacyController@subPresc']);

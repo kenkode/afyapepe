@@ -13,8 +13,6 @@
                        <li class=""><a data-toggle="tab" href="#tab-3">This Month</a></li>
                        <li class=""><a data-toggle="tab" href="#tab-4">This Year</a></li>
                        <li class=""><a data-toggle="tab" href="#tab-5">All</a></li>
-
-
                    </ul>
                    <br>
              <div class="tab-content">

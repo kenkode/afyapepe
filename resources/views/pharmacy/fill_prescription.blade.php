@@ -161,7 +161,7 @@
                <tr>
                    <th>No</th>
                    <th>Drug</th>
-                   <th>Dosage Prescribed</th>
+                   <!-- <th>Dosage Prescribed</th> -->
                    <th>Dosage Given</th>
                    <th>Route</th>
                    <th>Frequency</th>
@@ -176,7 +176,7 @@
                <tr class="gradeX">
                <td>{{$i}}</td>
                <td>{{$drug->drugname}}</td>
-               <td>{{$drug->strength}}{{$drug->strength_unit}}</td>
+               <!-- <td>{{$drug->strength}}{{$drug->strength_unit}}</td> -->
                <td>{{$drug->dose_given}}{{$drug->strength_unit}}</td>
                <td>{{$drug->route_name}} </td>
                <td>{{$drug->freq_name}} </td>
@@ -313,12 +313,12 @@
 
                <div class="form-group">
                <label for="from">From</label>
-               <input class="from"  type="text"  name="from1">
+               <input class="from"  type="text" id="date1"  name="from1">
                <label for="to">to</label>
-               <input class="to" type="text" name="to1">
+               <input class="to" type="text" id="date2" name="to1">
                </div>
 
-               
+
                </div>
 
                <div class="Box1" style="display:none">
@@ -414,9 +414,9 @@
 
          <div class="form-group">
          <label for="from">From</label>
-         <input class="from"  type="text"  name="from2">
+         <input class="from"  type="text" id="date3" name="from2">
          <label for="to">to</label>
-         <input class="to" type="text" name="to2">
+         <input class="to" type="text" id="date4" name="to2">
          </div>
 
 
@@ -490,6 +490,39 @@
 
          $('#total1').val(Math.round(quantity*price*pay));
           });
+         </script>
+
+         <!-- function for making prescription start and end date required -->
+         <script>
+         $('#yeah').change(function ()
+         {
+           if($(this).is(':checked'))
+           {
+             $('#date1').attr('required');
+             $('#date2').attr('required');
+           }
+           else
+           {
+             $('#date1').removeAttr('required');
+             $('#date2').removeAttr('required');
+           }
+         });
+         </script>
+
+         <script>
+         $('#nah').change(function()
+         {
+           if($(this).is(':checked'))
+           {
+             $('#date3').attr('required');
+             $('#date4').attr('required');
+           }
+           else
+           {
+             $('#date3').removeAttr('required');
+             $('#date4').removeAttr('required');
+           }
+         });
          </script>
 
 

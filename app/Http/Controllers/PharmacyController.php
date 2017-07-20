@@ -59,7 +59,7 @@ class PharmacyController extends Controller
                 ->orWhere(function ($query) use ($facility,$today2){
                 $query->where('afyamessages.facilityCode', '=', $facility)
                       ->whereDate('afyamessages.created_at','=',$today2)
-                      ->whereNull('prescriptions.filled_status');
+                      ->where('prescriptions.filled_status', '=', 0);
                 })
                 ->groupBy('appointments.id')
                 ->get();
@@ -111,7 +111,7 @@ class PharmacyController extends Controller
         ->whereDate('afyamessages.created_at','=',$today2)
         ->orWhere(function ($query) use($id,$facility,$today2)
         {
-        $query->whereNull('prescription_details.is_filled')
+        $query->where('prescription_details.is_filled', '=', 0)
               ->where('prescriptions.id', '=', $id)
               ->where('afyamessages.facilityCode', '=', $facility)
               ->whereDate('afyamessages.created_at','=',$today2);
@@ -434,7 +434,7 @@ class PharmacyController extends Controller
           ->join('prescription_filled_status', 'prescription_filled_status.presc_details_id', '=', 'prescription_details.id')
           ->select('druglists.drugname','druglists.Manufacturer','prescription_filled_status.*','prescription_details.*',
           'prescription_filled_status.created_at AS date_filled','doctors.name AS doc',
-          DB::raw('prescription_filled_status.quantity * prescription_filled_status.price AS total'),
+          'prescription_filled_status.total AS total',
           'prescriptions.created_at AS prescription_date')
           ->where([
             ['afyamessages.facilityCode', '=', $facility],
@@ -455,7 +455,7 @@ class PharmacyController extends Controller
             ->join('prescription_filled_status', 'prescription_filled_status.presc_details_id', '=', 'prescription_details.id')
             ->select('druglists.drugname','druglists.Manufacturer','prescription_filled_status.*','prescription_details.*',
             'prescription_filled_status.created_at AS date_filled','doctors.name AS doc',
-            DB::raw('prescription_filled_status.quantity * prescription_filled_status.price AS total'),
+            'prescription_filled_status.total AS total',
             'prescriptions.created_at AS prescription_date')
             ->where([
               ['afyamessages.facilityCode', '=', $facility],
@@ -479,7 +479,7 @@ class PharmacyController extends Controller
               ->join('prescription_filled_status', 'prescription_filled_status.presc_details_id', '=', 'prescription_details.id')
               ->select('druglists.drugname','druglists.Manufacturer','prescription_filled_status.*','prescription_details.*',
               'prescription_filled_status.created_at AS date_filled','doctors.name AS doc',
-              DB::raw('prescription_filled_status.quantity * prescription_filled_status.price AS total'),
+              'prescription_filled_status.total AS total',
               'prescriptions.created_at AS prescription_date')
               ->where([
                 ['afyamessages.facilityCode', '=', $facility],
@@ -503,7 +503,7 @@ class PharmacyController extends Controller
                 ->join('prescription_filled_status', 'prescription_filled_status.presc_details_id', '=', 'prescription_details.id')
                 ->select('druglists.drugname','druglists.Manufacturer','prescription_filled_status.*','prescription_details.*',
                 'prescription_filled_status.created_at AS date_filled','doctors.name AS doc',
-                DB::raw('prescription_filled_status.quantity * prescription_filled_status.price AS total'),
+                'prescription_filled_status.total AS total',
                 'prescriptions.created_at AS prescription_date')
                 ->where([
                   ['afyamessages.facilityCode', '=', $facility],
@@ -551,6 +551,7 @@ class PharmacyController extends Controller
       $price = $request->price;
       $available = $request->availability;
       $total =$request->total;
+
       if($available == 'Yes')
       {
 
@@ -626,9 +627,106 @@ class PharmacyController extends Controller
      ]
       );
 
+      /* Get total amount of that specific drug that has been given  */
+      $query1 = DB::table('prescription_filled_status')
+              ->select(DB::raw('SUM(dose_given) AS total_given'))
+              ->where('presc_details_id','=',$id)
+              ->first();
+      $count1 = $query1->total_given;
+
+
+      /* Get the prescribed strength of the drug($id) */
+      $query2 = DB::table('prescription_details')
+              ->where('id', '=', $id)
+              ->first();
+      $count2 = $query2->strength;
+
+      if($count1 == $count2) //this means the dosage for this drug($id) has been given in full.
+      {
+        DB::table('prescription_details')
+                  ->where('id', $id)
+                  ->update(
+                    ['is_filled' => 1, 'updated_at'=> $now]
+                  );
+
+      $counter1 = DB::table('prescription_details')
+                  ->select(DB::raw('count(is_filled) as count1'))
+                  ->where([
+                    ['presc_id', '=', $the_id],
+                    ['is_filled', '=', 2],
+                  ])
+                  ->orWhere(function ($query) use($the_id) {
+                    $query->where('presc_id', '=', $the_id)
+                          ->where('is_filled', '=', 0);
+                })
+                  ->first();
+
+      $counter11 = $counter1->count1;
+
+        if($counter11 > 0)  // There are partially filled drugs in the general prescription
+        {
+          DB::table('prescriptions')
+                    ->where('id', $the_id)
+                    ->update(
+                      ['filled_status' => 2, 'updated_at'=> $now]
+                    );
+        }
+
+        else
+        {
+
+            DB::table('prescriptions')
+                      ->where('id', $the_id)
+                      ->update(
+                        ['filled_status' => 1, 'updated_at'=> $now]
+                      );
+          }
+
+      }
+      else
+      {
+        DB::table('prescription_details')
+                  ->where('id', $id)
+                  ->update(
+                    ['is_filled' => 2, 'updated_at'=> $now]
+                  );
+
+
+        $counter1 = DB::table('prescription_details')
+                    ->select(DB::raw('count(is_filled) as count1'))
+                    ->where('presc_id', '=', $the_id)
+                    ->whereIn('is_filled', [1,2])
+                    ->orWhere(function ($query) use($the_id) {
+                      $query->where('presc_id', '=', $the_id)
+                            ->whereIn('is_filled', [1,2])
+                            ->where('is_filled', '=', 0);
+                  })
+                    ->first();
+
+        $counter11 = $counter1->count1;
+
+          if($counter11 >= 0)  // There are both partially & fully filled drugs in the general prescription
+          {
+            DB::table('prescriptions')
+                      ->where('id', $the_id)
+                      ->update(
+                        ['filled_status' => 2, 'updated_at'=> $now]
+                      );
+          }
+          else
+          {
+
+              DB::table('prescriptions')
+                        ->where('id', $the_id)
+                        ->update(
+                          ['filled_status' => 1, 'updated_at'=> $now]
+                        );
+            }
+      }
+
     }
 
-    else
+    else //substitution takes place
     {
 
       if(isset($drug))
@@ -667,146 +765,46 @@ class PharmacyController extends Controller
  ]
   );
 
-  }
+  DB::table('prescription_details')
+            ->where('id', $id)
+            ->update(
+              ['is_filled' => 1, 'updated_at'=> $now]
+            );
 
-  /*$query1 = DB::table('prescription_filled_status')
-          ->select(DB::raw('count(presc_details_id) as presc_ids'))
-          ->where('presc_details_id','=',$id)
-          ->whereNotNull('substitute_presc_id')
-          ->orWhere('available', '=', 'Yes')
-          ->first();*/
+            $counter1 = DB::table('prescription_details')
+                        ->select(DB::raw('count(is_filled) as count1'))
+                        ->where([
+                          ['presc_id', '=', $the_id],
+                          ['is_filled', '=', 2],
+                        ])
+                        ->orWhere(function ($query) use($the_id) {
+                          $query->where('presc_id', '=', $the_id)
+                                ->where('is_filled', '=', 0);
+                      })
+                        ->first();
 
-  /* Get total amount of that specific drug that has been given  */
-  $query1 = DB::table('prescription_filled_status')
-          ->select(DB::raw('SUM(dose_given) AS total_given'))
-          ->where('presc_details_id','=',$id)
-          ->first();
-  $count1 = $query1->total_given;
+            $counter11 = $counter1->count1;
 
-  /*$query2 = DB::table('prescription_details')
-          ->select(DB::raw('count(id) as ids'))
-          ->where('presc_id', '=', $the_id)
-          ->first();*/
+              if($counter11 > 0)  // There are partially filled drugs in the general prescription
+              {
+                DB::table('prescriptions')
+                          ->where('id', $the_id)
+                          ->update(
+                            ['filled_status' => 2, 'updated_at'=> $now]
+                          );
+              }
 
-  /* Get the prescribed strength of the drug($id) */
-  $query2 = DB::table('prescription_details')
-          ->where('id', '=', $id)
-          ->first();
-  $count2 = $query2->strength;
-
-  if($count1 == $count2) //this means the dosage for this drug($id) has been given in full.
-  {
-    DB::table('prescription_details')
-              ->where('id', $id)
-              ->update(
-                ['is_filled' => 1, 'updated_at'=> $now]
-              );
-
-  $counter1 = DB::table('prescription_details')
-              ->select(DB::raw('count(is_filled) as count1'))
-              ->where([
-                ['presc_id', '=', $the_id],
-                ['is_filled', '=', 2],
-              ])
-              ->orWhere(function ($query) use($the_id) {
-                $query->where('presc_id', '=', $the_id)
-                      ->whereNull('is_filled');
-            })
-              ->first();
-
-  $counter11 = $counter1->count1;
-
-    if($counter11 > 0)  // There are partially filled drugs in the general prescription
-    {
-      DB::table('prescriptions')
-                ->where('id', $the_id)
-                ->update(
-                  ['filled_status' => 2, 'updated_at'=> $now]
-                );
-    }
-
-    else
-    {
-
-    // $counter2 = DB::table('prescription_details')
-    //             ->select(DB::raw('count(is_filled) as count2'))
-    //             ->where([
-    //               ['presc_id','=',$the_id],
-    //               ['is_filled','<>',2],
-    //             ])
-    //             ->whereNotNull('is_filled')
-    //             ->first();
-    //
-    // $counter22 = $counter2->count2;
-
-      // if($counter22 >= 0)  // column (is_filled) in prescription_details has not null or 2 for this prescription($the_id)
-      // {
-        DB::table('prescriptions')
-                  ->where('id', $the_id)
-                  ->update(
-                    ['filled_status' => 1, 'updated_at'=> $now]
-                  );
-      }
+          	  else //All prescription_details is_filled for this prescription are 1 hence prescription is fully filled
+              {
+          	  DB::table('prescriptions')
+                            ->where('id', $the_id)
+                            ->update(
+                              ['filled_status' => 1, 'updated_at'=> $now]
+                            );
+                }
 
   }
-  else
-  {
-    DB::table('prescription_details')
-              ->where('id', $id)
-              ->update(
-                ['is_filled' => 2, 'updated_at'=> $now]
-              );
 
-    // DB::table('prescriptions')
-    //           ->where('id', $the_id)
-    //           ->update(
-    //             ['filled_status' => 2, 'updated_at'=> $now]
-    //           );
-
-    $counter1 = DB::table('prescription_details')
-                ->select(DB::raw('count(is_filled) as count1'))
-                ->where('presc_id', '=', $the_id)
-                ->whereIn('is_filled', [1,2])
-                ->orWhere(function ($query) use($the_id) {
-                  $query->where('presc_id', '=', $the_id)
-                        ->whereIn('is_filled', [1,2])
-                        ->whereNull('is_filled');
-              })
-                ->first();
-
-    $counter11 = $counter1->count1;
-
-      if($counter11 >= 0)  // There are both partially & fully filled drugs in the general prescription
-      {
-        DB::table('prescriptions')
-                  ->where('id', $the_id)
-                  ->update(
-                    ['filled_status' => 2, 'updated_at'=> $now]
-                  );
-      }
-      else
-      {
-
-      // $counter2 = DB::table('prescription_details')
-      //             ->select(DB::raw('count(is_filled) as count2'))
-      //             ->where([
-      //               ['presc_id','=',$the_id],
-      //               ['is_filled','!=',2],
-      //             ])
-      //             ->whereNotNull('is_filled')
-      //             ->first();
-      //
-      // $counter22 = $counter2->count2;
-
-        // if($counter22 >= 0)  // column (is_filled) in prescription_details has not null or 2 for this prescription($the_id)
-        // {
-          DB::table('prescriptions')
-                    ->where('id', $the_id)
-                    ->update(
-                      ['filled_status' => 1, 'updated_at'=> $now]
-                    );
-        }
-  }
 
   return redirect()->action('PharmacyController@show',[$the_id]);
     }
@@ -832,7 +830,7 @@ class PharmacyController extends Controller
         {
            return \Response::json([]);
         }
-       $drugs = Druglist::search($term)->limit(20)->get();
+       $drugs = Inventory::search($term)->limit(20)->get();
 
          $formatted_drugs = [];
           foreach ($drugs as $drug)

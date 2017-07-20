@@ -13,5 +13,5 @@ class Inventory extends Model
     use Eloquence;
     protected $table = 'inventory';
 
-    protected $searchable = ['drugname','drug_id'];
+    protected $searchableColumns = ['drugname','drug_id'];
 }

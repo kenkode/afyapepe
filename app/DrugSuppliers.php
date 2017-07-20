@@ -11,5 +11,5 @@ class DrugSuppliers extends Model
 
     protected $table = 'drug_suppliers';
 
-    protected $searchable = ['name','id'];
+    protected $searchableColumns = ['name','id'];
 }

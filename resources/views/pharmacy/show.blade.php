@@ -52,7 +52,7 @@
                  ->first();
          $count2 = $query2->strength;
 
-         $new_strength = $count2 - $count1;
+         $new_strength = $count2 - $count1; //the remaining dosage
 
          $person_treated = $patient->persontreated;
 
@@ -84,6 +84,7 @@
                  ->select(DB::raw('SUM(substitute_presc_details.strength * prescription_filled_status.quantity) AS count2'))
                  ->where('substitute_presc_details.drug_id', '=', $drug_id)
                  ->first();
+                 
          $amount_sold = $counter1->count1 + $counter2->count2;
          $stock_level = $level - $amount_sold;
 
@@ -157,6 +158,7 @@
     </tr>
     </tfoot>
     </table>
+     <a href="{{route('home')}}"><button type="button" class="btn btn-w-m btn-primary">Back</button></a>
         </div>
 
     </div>

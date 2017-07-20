@@ -522,8 +522,10 @@ No<input type="checkbox" value="No"  name="bba"/>Yes<input type="checkbox" value
     
   </div>
  
+
   <div class="form-group">
    <label for="exampleInputEmail1">Hiv status</label>
+   
    Negative <input type="checkbox" value="Negative"  name="hiv" />
    Positive <input type="checkbox" value="Positive"  name="hiv"  />
 <div id="hiv">
@@ -559,6 +561,12 @@ Yes <input type="checkbox" name="diabetes" value="Yes" />
 No <input type="checkbox" name="diabetes" value="No" />
   
 </div>
+
+<div class="form-group">
+<label>Hypertention</label>
+Yes <input type="checkbox" name="hypertention" value="Yes" />
+No <input type="checkbox" name="hypertention" value="No" />
+  </div>
 <div class="form-group">
 <label>TB Positive</label>
 
@@ -567,7 +575,7 @@ No <input type="checkbox" name="tb" value="No" />
 <div id="tb">
     <label>TB Type </label>
   Latent TB  <input type="checkbox" value="Latent TB"  name="tb_type"/>
-  TB Disease  <input type="checkbox"value="TB Disease"  name="tb_type" />
+  TB Disease  <input type="checkbox" value="TB Disease"  name="tb_type" />
   <br>
   <label>TB Treatment</label>
 Yes <input type="checkbox" name="tb_treatment" value="Yes" />
@@ -629,6 +637,12 @@ No <input type="checkbox" name="antibiotics" value="No" />
 </div>
 
 <div class="form-group">
+<label>Hypertention</label>
+Yes <input type="checkbox" name="hypertention" value="Yes" />
+No <input type="checkbox" name="hypertention" value="No" />
+  </div>
+
+<div class="form-group">
 <label>Diabetes</label>
 Yes <input type="checkbox" name="diabetes" value="Yes" />
 No <input type="checkbox" name="diabetes" value="No" />
@@ -642,7 +656,7 @@ No <input type="checkbox" name="tb" value="No" />
 <div id="tb">
     <label>TB Type </label>
   Latent TB  <input type="checkbox" value="Latent TB"  name="tb_type"/>
-  TB Disease  <input type="checkbox"value="TB Disease"  name="tb_type" />
+  TB Disease  <input type="checkbox" value="TB Disease"  name="tb_type" />
   <br>
   <label>TB Treatment</label>
 Yes <input type="checkbox" name="tb_treatment" value="Yes" />
@@ -651,6 +665,7 @@ No <input type="checkbox" name="tb_treatment" value="No" />
 </div>
   
 </div>
+
 
                                         </div>
                                         @endif
@@ -664,11 +679,7 @@ No <input type="checkbox" name="tb_treatment" value="No" />
 2 stage <input type="text" name="labour2" class="form-control" placeholder="Enter Minutes" readonly="" value="{{$mother->labour2}}" />
 </div> 
 
-<div class="form-group">
-<label>Hypertention</label>
-Yes <input type="checkbox" name="hypertention" value="Yes" />
-No <input type="checkbox" name="hypertention" value="No" />
-  </div>
+
 
 <div class="form-group">
 <label>APH</label>

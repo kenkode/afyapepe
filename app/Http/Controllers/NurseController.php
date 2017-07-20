@@ -1021,18 +1021,8 @@ $gravidity=$request->gravidity;
 $parity=$request->parity;
 $blood_type=$request->blood_type;
 $sublocation=$request->sublocation;
-$hiv=$request->hiv;
-$arvs=$request->arvs;
-$vdrl=$request->vdrl;
-$fever=$request->fever;
-$antibiotics=$request->antibiotics;
-$diabetes=$request->diabetes;
-$tb=$request->tb;
-$tb_type=$request->tb_type;
-$tb_treatment=$request->tb_treatment;
 $labour1=$request->labour1;
 $labour2=$request->labour2;
-$hypertention=$request->hypertention;
 $aph=$request->aph;
 $motherproblem=$request->motherproblem;
 $cir=$request->cir;
@@ -1333,6 +1323,9 @@ foreach($insects as $key) {
 );
     }
 
+
+
+
      DB::table('dependant_nutrition_test')->insert(
     ['dependant_id' => $id,
     'score' =>$score,
@@ -1356,6 +1349,78 @@ join('afya_users','afya_users.msisdn','=','dependant_parent.phone')->select('afy
      'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
     'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
 );
+
+$hiv=$request->hiv;
+$arvs=$request->arvs;
+$vdrl=$request->vdrl;
+$fever=$request->fever;
+$antibiotics=$request->antibiotics;
+$diabetes=$request->diabetes;
+$tb=$request->tb;
+$tb_type=$request->tb_type;
+$tb_treatment=$request->tb_treatment;
+$hypertention=$request->hypertention;
+
+ if($hiv=="Positive"){
+        DB::table('patient_diagnosis')->insert(
+    ['afya_user_id' => $afyaid->afya_id,
+    'disease_id' =>13,
+    'treatment'=>$arvs,
+     'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
+);
+}
+if($vdrl=="Positive"){
+    DB::table('patient_diagnosis')->insert(
+    ['afya_user_id' => $afyaid->afya_id,
+    'disease_id' =>21,
+     'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
+);
+}
+if($fever=="Yes"){
+    DB::table('patient_diagnosis')->insert(
+    ['afya_user_id' => $afyaid->afya_id,
+    'disease_id' =>22,
+     'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
+);
+}
+if($antibiotics=="Yes"){
+    DB::table('patient_diagnosis')->insert(
+    ['afya_user_id' => $afyaid->afya_id,
+    'disease_id' =>23,
+     'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
+);
+}
+if($diabetes=="Yes"){
+    DB::table('patient_diagnosis')->insert(
+    ['afya_user_id' => $afyaid->afya_id,
+    'disease_id' =>24,
+     'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
+);
+}
+if($hypertention=="Yes"){
+    DB::table('patient_diagnosis')->insert(
+    ['afya_user_id' => $afyaid->afya_id,
+    'disease_id' =>20,
+     'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
+);
+}
+if($tb=="Yes"){
+    DB::table('patient_diagnosis')->insert(
+    ['afya_user_id' => $afyaid->afya_id,
+    'disease_id' =>19,
+    'state'=>$tb_type,
+    'treatment'=>$tb_treatment,
+     'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]
+);
+}
+
     DB::table('infant_details')->insert(
     ['dependant_id' => $id,
      'admission_date'=>\Carbon\Carbon::now()->toDateTimeString(),

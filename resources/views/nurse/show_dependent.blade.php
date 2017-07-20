@@ -521,69 +521,44 @@ No<input type="checkbox" value="No"  name="bba"/>Yes<input type="checkbox" value
   <input type="number" name="parity" readonly="" value="{{$mother->parity}}" class="form-control" placeholder="mother parity" />
     
   </div>
- 
+  <div class="table-responsive">
+      <table class="table table-striped table-bordered table-hover dataTables-example" >
+      <thead>
+       <tr>
+      <th>No</th>
+  <th>Disease Name</th>
+  <th>Disease Type</th>
+  <th>Treatment</th>
+  </tr>
+      </thead>
 
-  <div class="form-group">
-   <label for="exampleInputEmail1">Hiv status</label>
+      <?php $i =1; $diseases=DB::table('patient_diagnosis')->join('diagnoses','diagnoses.id','=','patient_diagnosis.disease_id')->select('diagnoses.name as name','patient_diagnosis.*')->where('patient_diagnosis.afya_user_id',$mother->afya_user_id)->get(); ?>
+     <tbody>
+       @foreach($diseases as $ds)
    
-   Negative <input type="checkbox" value="Negative"  name="hiv" />
-   Positive <input type="checkbox" value="Positive"  name="hiv"  />
-<div id="hiv">
-    <label>ARV's</label>
-  No  <input type="checkbox"  value="No"  name="arvs"/>
-  Yes  <input type="checkbox"   value="Yes"  name="arvs" />
+      <tr>
+      <td>{{$i}}</td>
+       <td>{{$ds->name}}</td>
+      <td><?php $state=$ds->state;?> @if(!empty($state)){{$ds->state}}@else{{$ds->name}}@endif</td>
+      <td><?php $tr=$ds->treatment;?> @if(!empty($tr)){{$ds->treatment}}@else{{"Yes"}}@endif</td>         
+      </tr>
+  
+       <?php $i++; ?>
+
+      @endforeach
+
+        </tbody>
+      </table>
+
      
+      
+
+
 </div>
-</div>
-<div class="form-group">
-<label>VDRL</label>
- Negative <input type="checkbox" value="Negative"  name="vdrl" />
-   Positive <input type="checkbox" value="Positive"  name="vdrl"  />
  
-</div>
 
-<div class="form-group">
-<label>Fever</label>
- No <input type="checkbox" value="No"  name="fever" />
-   Yes <input type="checkbox" value="Yes"  name="fever"  />
- 
-</div>
-<div class="form-group">
-<label>Antibiotics</label>
-Yes <input type="checkbox" name="antibiotics" value="Yes" />
-No <input type="checkbox" name="antibiotics" value="No" />
   
-</div>
 
-<div class="form-group">
-<label>Diabetes</label>
-Yes <input type="checkbox" name="diabetes" value="Yes" />
-No <input type="checkbox" name="diabetes" value="No" />
-  
-</div>
-
-<div class="form-group">
-<label>Hypertention</label>
-Yes <input type="checkbox" name="hypertention" value="Yes" />
-No <input type="checkbox" name="hypertention" value="No" />
-  </div>
-<div class="form-group">
-<label>TB Positive</label>
-
-Yes <input type="checkbox" name="tb" value="Yes" />
-No <input type="checkbox" name="tb" value="No" />
-<div id="tb">
-    <label>TB Type </label>
-  Latent TB  <input type="checkbox" value="Latent TB"  name="tb_type"/>
-  TB Disease  <input type="checkbox" value="TB Disease"  name="tb_type" />
-  <br>
-  <label>TB Treatment</label>
-Yes <input type="checkbox" name="tb_treatment" value="Yes" />
-No <input type="checkbox" name="tb_treatment" value="No" />
-     
-</div>
-  
-</div>
 
                                         </div>
 @else
@@ -665,6 +640,7 @@ No <input type="checkbox" name="tb_treatment" value="No" />
 </div>
   
 </div>
+
 
 
                                         </div>

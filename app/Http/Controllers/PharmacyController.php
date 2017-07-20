@@ -434,7 +434,7 @@ class PharmacyController extends Controller
           ->join('prescription_filled_status', 'prescription_filled_status.presc_details_id', '=', 'prescription_details.id')
           ->select('druglists.drugname','druglists.Manufacturer','prescription_filled_status.*','prescription_details.*',
           'prescription_filled_status.created_at AS date_filled','doctors.name AS doc',
-          'prescription_filled_status.total AS total',
+          'prescription_filled_status.total AS total','prescription_details.id AS pdd',
           'prescriptions.created_at AS prescription_date')
           ->where([
             ['afyamessages.facilityCode', '=', $facility],
@@ -835,7 +835,7 @@ class PharmacyController extends Controller
          $formatted_drugs = [];
           foreach ($drugs as $drug)
           {
-             $formatted_drugs[] = ['id' => $drug->id, 'text' => $drug->drugname];
+             $formatted_drugs[] = ['id' => $drug->drug_id, 'text' => $drug->drugname];
           }
      return \Response::json($formatted_drugs);
      }

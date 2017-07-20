@@ -811,7 +811,10 @@ No <input type="checkbox" name="aph" value="No" />
                 </select>
   </div>
                                         </div>
+                                        </div>
 <br>
+                                        <div class="col-sm-6">
+
 <div class="table-responsive">
       <table class="table table-striped table-bordered table-hover dataTables-example" >
       <thead>
@@ -851,8 +854,9 @@ No <input type="checkbox" name="aph" value="No" />
 
 
 </div>
+</div>
                                         
-                                    </div>
+                                   
                                     </div>
     
 

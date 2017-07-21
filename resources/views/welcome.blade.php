@@ -80,11 +80,18 @@
                     <li class="nav-item g-ml-15--lg g-mb-7 g-mb-0--lg">
                       <a href="#contact" class="nav-link p-0">Contact</a>
                     </li>
+                    @if (Auth::guest())
+                         <li class="nav-item g-ml-15--lg g-mb-7 g-mb-0--lg"><a href="{{ url('/login') }}">Login</a></li>
+                         <li class="nav-item g-ml-15--lg g-mb-7 g-mb-0--lg"><a href="{{ url('/register') }}">Register</a></li>
+                    @else
+                          <li class="nav-item g-ml-15--lg g-mb-7 g-mb-0--lg"><a href="#">{{ Auth::user()->name }}</a></li>
+                          <li class="nav-item g-ml-15--lg g-mb-7 g-mb-0--lg"><a href="{{ url('/logout') }}">Logout</a></li>
+                        </ul>
+                     @endif
                   </ul>
                 </div>
                 <!-- End Navigation -->
 
-                <a class="btn btn-lg text-uppercase u-btn-primary g-font-weight-700 g-font-size-11 g-rounded-10 g-px-13 g-py-10 mb-0 g-ml-25--lg" href="#">Try trail version</a>
               </div>
 
               <!-- Responsive Toggle Button -->

@@ -288,6 +288,7 @@ Route::group(['middleware' => ['auth','role:Admin|Registrar']], function() {
     Route::post('register_update_nextkin','RegistrarController@update_nextkin');
     Route::get('register_edit_patient/{id}','RegistrarController@edit_patient');
     Route::post('register_update_patient','RegistrarController@update_patient');
+    Route::get('receipts.consultationfees/{id}','RegistrarController@receiptsFees');
 
 
 });

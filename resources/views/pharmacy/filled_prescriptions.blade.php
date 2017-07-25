@@ -55,25 +55,16 @@
                             <?php
                             if($today->available == 'Yes')
                             {
-                              $tt = DB::table('inventory')
-                              ->join('druglists', 'drug.id', '=', 'inventory.drug_id')
-                              ->join('prescription_details', 'prescription_details.drug_id', '=', 'druglists.id')
-                              ->select('druglists.drugname')
-                              ->where('prescription_details', '=', $today->pdd)
-                              ->first();
+
                              ?>
-                            <td>{{$tt->drugname}}</td>
+                            <td>{{$today->drugname}}</td>
                             <?php
                             }
                             elseif($today->available == 'No')
                             {
-                              $tt = DB::table('substitute_presc_details')
-                              ->join('druglists', 'substitute_presc_details.drug_id', '=', 'druglists.id')
-                              ->join('inventory', 'inventory.drug_id', '=', 'substitute_presc_details.drug_id')
-                              ->select('inventory.drugname AS drugname1')
-                              ->first();
+
                               ?>
-                              <td>{{$tt->drugname1}}</td>
+                              <td>{{$today->inv_drug}}</td>
                             <?php
                             }
                              ?>
@@ -136,27 +127,18 @@
                               <td>{{$i}}</td>
                               <td>{{$week->Manufacturer}}</td>
                               <?php
-                              if($today->available == 'Yes')
+                              if($week->available == 'Yes')
                               {
-                                $tt = DB::table('inventory')
-                                ->join('druglists', 'drug.id', '=', 'inventory.drug_id')
-                                ->join('prescription_details', 'prescription_details.drug_id', '=', 'druglists.id')
-                                ->select('druglists.drugname')
-                                ->where('prescription_details', '=', $today->pdd)
-                                ->first();
+
                                ?>
-                              <td>{{$tt->drugname}}</td>
+                              <td>{{$week->drugname}}</td>
                               <?php
                               }
-                              elseif($today->available == 'No')
+                              elseif($week->available == 'No')
                               {
-                                $tt = DB::table('substitute_presc_details')
-                                ->join('druglists', 'substitute_presc_details.drug_id', '=', 'druglists.id')
-                                ->join('inventory', 'inventory.drug_id', '=', 'substitute_presc_details.drug_id')
-                                ->select('inventory.drugname AS drugname1')
-                                ->first();
+
                                 ?>
-                                <td>{{$tt->drugname1}}</td>
+                                <td>{{$week->inv_drug}}</td>
                               <?php
                               }
                                ?>
@@ -218,27 +200,18 @@
                               <td>{{$i}}</td>
                               <td>{{$month->Manufacturer}}</td>
                               <?php
-                              if($today->available == 'Yes')
+                              if($month->available == 'Yes')
                               {
-                                $tt = DB::table('inventory')
-                                ->join('druglists', 'drug.id', '=', 'inventory.drug_id')
-                                ->join('prescription_details', 'prescription_details.drug_id', '=', 'druglists.id')
-                                ->select('druglists.drugname')
-                                ->where('prescription_details', '=', $today->pdd)
-                                ->first();
+
                                ?>
-                              <td>{{$tt->drugname}}</td>
+                              <td>{{$month->drugname}}</td>
                               <?php
                               }
-                              elseif($today->available == 'No')
+                              elseif($month->available == 'No')
                               {
-                                $tt = DB::table('substitute_presc_details')
-                                ->join('druglists', 'substitute_presc_details.drug_id', '=', 'druglists.id')
-                                ->join('inventory', 'inventory.drug_id', '=', 'substitute_presc_details.drug_id')
-                                ->select('inventory.drugname AS drugname1')
-                                ->first();
+
                                 ?>
-                                <td>{{$tt->drugname1}}</td>
+                                <td>{{$month->inv_drug}}</td>
                               <?php
                               }
                                ?>
@@ -301,27 +274,18 @@
                               <td>{{$i}}</td>
                               <td>{{$year->Manufacturer}}</td>
                               <?php
-                              if($today->available == 'Yes')
+                              if($year->available == 'Yes')
                               {
-                                $tt = DB::table('inventory')
-                                ->join('druglists', 'drug.id', '=', 'inventory.drug_id')
-                                ->join('prescription_details', 'prescription_details.drug_id', '=', 'druglists.id')
-                                ->select('druglists.drugname')
-                                ->where('prescription_details', '=', $today->pdd)
-                                ->first();
+
                                ?>
-                              <td>{{$tt->drugname}}</td>
+                              <td>{{$year->drugname}}</td>
                               <?php
                               }
-                              elseif($today->available == 'No')
+                              elseif($year->available == 'No')
                               {
-                                $tt = DB::table('substitute_presc_details')
-                                ->join('druglists', 'substitute_presc_details.drug_id', '=', 'druglists.id')
-                                ->join('inventory', 'inventory.drug_id', '=', 'substitute_presc_details.drug_id')
-                                ->select('inventory.drugname AS drugname1')
-                                ->first();
+
                                 ?>
-                                <td>{{$tt->drugname1}}</td>
+                                <td>{{$year->inv_drug}}</td>
                               <?php
                               }
                                ?>
@@ -395,27 +359,18 @@
                                <td>{{$i}}</td>
                                <td>{{$manufacturer}}</td>
                                <?php
-                               if($today->available == 'Yes')
+                               if($presc->available == 'Yes')
                                {
-                                 $tt = DB::table('inventory')
-                                 ->join('druglists', 'drug.id', '=', 'inventory.drug_id')
-                                 ->join('prescription_details', 'prescription_details.drug_id', '=', 'druglists.id')
-                                 ->select('druglists.drugname')
-                                 ->where('prescription_details', '=', $today->pdd)
-                                 ->first();
+
                                 ?>
-                               <td>{{$tt->drugname}}</td>
+                               <td>{{$presc->drugname}}</td>
                                <?php
                                }
-                               elseif($today->available == 'No')
+                               elseif($presc->available == 'No')
                                {
-                                 $tt = DB::table('substitute_presc_details')
-                                 ->join('druglists', 'substitute_presc_details.drug_id', '=', 'druglists.id')
-                                 ->join('inventory', 'inventory.drug_id', '=', 'substitute_presc_details.drug_id')
-                                 ->select('inventory.drugname AS drugname1')
-                                 ->first();
+
                                  ?>
-                                 <td>{{$tt->drugname1}}</td>
+                                 <td>{{$presc->inv_drug}}</td>
                                <?php
                                }
                                 ?>

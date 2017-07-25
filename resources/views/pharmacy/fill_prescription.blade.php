@@ -229,13 +229,13 @@
                <label>Is the drug prescribed issued as written?</label>
 
            <div class="radio radio-info radio-inline">
-          <input type="radio" name="availability" value="Yes" id="yeah" >
+          <input type="radio" name="availability" value="Yes" id="yeah" required="">
           <label for="radio3">
               Yes
           </label>
                 </div>
           <div class="radio radio-info radio-inline">
-              <input type="radio" name="availability" value="No" id="nah" >
+              <input type="radio" name="availability" value="No" id="nah" required="">
               <label for="radio4">
                   No
               </label>
@@ -271,7 +271,7 @@
 
                <div class="form-group" id="subs" style="display:none">
                  <label>Reason</label>
-                  <select class="form-control" name="reason22" >
+                  <select class="form-control" name="reason22" id="first_reason">
                     <option value="" selected disabled>Select reason</option>
                    <?php $reasons = DB::table('substitution_reason')->distinct()->get(['reason','id']); ?>
                    @foreach($reasons as $reason)
@@ -290,7 +290,7 @@
                 $recommended_price = $prices->recommended_retail_price;
                 ?>
 
-               <div class="form-group"><label>Recommended Price</label> <input type="number" name="rec_price" value="{{$recommended_price}}"  class="form-control" disabled></div>
+               <div class="form-group"><label>Recommended Price</label> <input type="number" id="rrp1" name="rec_price" value="{{$recommended_price}}"  class="form-control" disabled></div>
 
                <div class="form-group"><label>Price</label> <input type="number" name="price" id="price" class="form-control" ></div>
 
@@ -318,14 +318,13 @@
                <input class="to" type="text" id="date2" name="to1">
                </div>
 
-
                </div>
 
                <div class="Box1" style="display:none">
                  <p>  </p>
                  <div class="form-group">
                    <label>Reason</label>
-                    <select class="form-control" name="reason" >
+                    <select class="form-control" name="reason" id="reason2">
                      <?php $reasons = DB::table('substitution_reason')->distinct()->get(['reason','id']); ?>
                      @foreach($reasons as $reason)
                             <option value='{{$reason->id}}'>{{$reason->reason}}</option>
@@ -344,7 +343,7 @@
 
        <div class="form-group">
            <label>Dosage Form</label>
-            <select class="form-control" name="dosageform" id="example-getting-started" >
+            <select class="form-control" name="dosageform" id="dosage_form2" >
              <?php $druglists=DB::table('druglists')->distinct()->get(['DosageForm']); ?>
              @foreach($druglists as $druglist)
                     <option value='{{$druglist->DosageForm}}'>{{$druglist->DosageForm}}</option>
@@ -357,18 +356,18 @@
            <label>Strength Unit</label>
 
            <div class="radio radio-info radio-inline">
-               <input type="radio" id="inlineRadio1" value="ml" name="strength_unit" >
+               <input type="radio" id="inlineRadio1" value="ml" name="strength_unit" class="req">
                <label for="inlineRadio1"> Ml</label>
            </div>
            <div class="radio radio-inline">
-               <input type="radio" id="inlineRadio2" value="mg" name="strength_unit">
+               <input type="radio" id="inlineRadio2" value="mg" name="strength_unit" class="req">
                <label for="inlineRadio2"> Mg </label>
            </div>
            </div>
 
           <div class="form-group">
            <label>Route</label>
-            <select class="form-control" name="routes" >
+            <select class="form-control" name="routes" id="route2">
               <?php $routems=DB::table('route')->distinct()->get(['name','id','abbreviation']); ?>
                 @foreach($routems as $routemz)
                   <option value="{{$routemz->id }}">{{ $routemz->abbreviation }}----{{ $routemz->name  }} </option>
@@ -378,7 +377,7 @@
 
            <div class="form-group">
            <label>Frequency</label></td>
-            <select class="form-control"  name="frequency" >
+            <select class="form-control"  name="frequency" id="frequency2">
               <?php $frequent=DB::table('frequency')->distinct()->get(['name','id','abbreviation']); ?>
                 @foreach($frequent as $freq)
                   <option value="{{$freq->id }}">{{ $freq->abbreviation }}----{{ $freq->name  }} </option>
@@ -492,33 +491,64 @@
           });
          </script>
 
-         <!-- function for making prescription start and end date required -->
+         <!-- function for making prescription start and end date required during normal filling -->
          <script>
          $('#yeah').change(function ()
          {
            if($(this).is(':checked'))
            {
-             $('#date1').attr('required');
-             $('#date2').attr('required');
+             $('#weight1').attr('required', true);
+             $('#quantity').attr('required', true);
+             $('#rrp1').attr('required', true);
+             $('#price').attr('required', true);
+             $('#pay_option1').attr('required', true);
+             $('#date1').attr('required', true);
+             $('#date2').attr('required', true);
            }
            else
            {
+             $('#weight1').removeAttr('required');
+             $('#quantity').removeAttr('required');
+             $('#rrp1').removeAttr('required');
+             $('#price').removeAttr('required');
+             $('#pay_option1').removeAttr('required');
              $('#date1').removeAttr('required');
              $('#date2').removeAttr('required');
            }
          });
          </script>
 
+         <!-- function for making prescription start and end date required during substitution -->
          <script>
          $('#nah').change(function()
          {
            if($(this).is(':checked'))
            {
-             $('#date3').attr('required');
-             $('#date4').attr('required');
+             $('#reason2').attr('required', true);
+             $('#presc2').attr('required', true);
+             $('#dosage_form2').attr('required', true);
+             $('#route2').attr('required', true);
+             $('#frequency2').attr('required', true);
+             $('#weight2').attr('required', true);
+             $('#quantity1').attr('required', true);
+             $('#price1').attr('required', true);
+             $('#pay_option').attr('required', true);
+             $('.req').attr('required', true);
+             $('#date3').attr('required', true);
+             $('#date4').attr('required', true);
            }
            else
            {
+             $('#reason2').removeAttr('required');
+             $('#presc2').removeAttr('required');
+             $('#dosage_form2').removeAttr('required');
+             $('#route2').removeAttr('required');
+             $('#frequency2').removeAttr('required');
+             $('#weight2').removeAttr('required');
+             $('#quantity1').removeAttr('required');
+             $('#price1').removeAttr('required');
+             $('#pay_option').removeAttr('required');
+             $('.req').removeAttr('required');
              $('#date3').removeAttr('required');
              $('#date4').removeAttr('required');
            }

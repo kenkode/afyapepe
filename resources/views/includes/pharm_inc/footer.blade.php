@@ -204,8 +204,10 @@ $('#diag_id').val(data_id);
  $('#weight,#quantity').keyup(function(){
  if((document.getElementById('weight1').value * document.getElementById('quantity').value) < document.getElementById('strength22').value)
  $('#subs').show();
+ $('#first_reason').attr('required', true);
  else
  $('#subs').hide();
+ $('#first_reason').removeAttr('required');
    });
  </script>
 

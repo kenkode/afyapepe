@@ -415,8 +415,11 @@ class PharmacyController extends Controller
         ->join('afya_users', 'afya_users.id', '=', 'appointments.afya_user_id')
         ->join('afyamessages', 'afyamessages.msisdn', '=', 'afya_users.msisdn')
         ->join('prescription_filled_status', 'prescription_filled_status.presc_details_id', '=', 'prescription_details.id')
-        ->select('druglists.drugname','druglists.Manufacturer','prescription_filled_status.*','prescription_details.*',
-        'prescription_filled_status.created_at AS date_filled','doctors.name AS doc','prescriptions.created_at AS prescription_date')
+        ->leftJoin('substitute_presc_details', 'substitute_presc_details.id', '=', 'prescription_filled_status.substitute_presc_id')
+        ->leftJoin('inventory', 'substitute_presc_details.drug_id', '=', 'inventory.drug_id')
+        ->select('druglists.drugname','druglists.Manufacturer','prescription_filled_status.*',
+        'prescription_details.*', 'prescription_filled_status.created_at AS date_filled',
+        'doctors.name AS doc','prescriptions.created_at AS prescription_date','inventory.drugname AS inv_drug')
         ->where([
           ['afyamessages.facilityCode', '=', $facility],
         ])
@@ -432,9 +435,11 @@ class PharmacyController extends Controller
           ->join('afya_users', 'afya_users.id', '=', 'appointments.afya_user_id')
           ->join('afyamessages', 'afyamessages.msisdn', '=', 'afya_users.msisdn')
           ->join('prescription_filled_status', 'prescription_filled_status.presc_details_id', '=', 'prescription_details.id')
+          ->leftJoin('substitute_presc_details', 'substitute_presc_details.id', '=', 'prescription_filled_status.substitute_presc_id')
+          ->leftJoin('inventory', 'substitute_presc_details.drug_id', '=', 'inventory.drug_id')
           ->select('druglists.drugname','druglists.Manufacturer','prescription_filled_status.*','prescription_details.*',
           'prescription_filled_status.created_at AS date_filled','doctors.name AS doc',
-          'prescription_filled_status.total AS total','prescription_details.id AS pdd',
+          'prescription_filled_status.total AS total','inventory.drugname AS inv_drug',
           'prescriptions.created_at AS prescription_date')
           ->where([
             ['afyamessages.facilityCode', '=', $facility],
@@ -453,9 +458,11 @@ class PharmacyController extends Controller
             ->join('afya_users', 'afya_users.id', '=', 'appointments.afya_user_id')
             ->join('afyamessages', 'afyamessages.msisdn', '=', 'afya_users.msisdn')
             ->join('prescription_filled_status', 'prescription_filled_status.presc_details_id', '=', 'prescription_details.id')
+            ->leftJoin('substitute_presc_details', 'substitute_presc_details.id', '=', 'prescription_filled_status.substitute_presc_id')
+            ->leftJoin('inventory', 'substitute_presc_details.drug_id', '=', 'inventory.drug_id')
             ->select('druglists.drugname','druglists.Manufacturer','prescription_filled_status.*','prescription_details.*',
             'prescription_filled_status.created_at AS date_filled','doctors.name AS doc',
-            'prescription_filled_status.total AS total',
+            'prescription_filled_status.total AS total','inventory.drugname AS inv_drug',
             'prescriptions.created_at AS prescription_date')
             ->where([
               ['afyamessages.facilityCode', '=', $facility],
@@ -477,9 +484,11 @@ class PharmacyController extends Controller
               ->join('afya_users', 'afya_users.id', '=', 'appointments.afya_user_id')
               ->join('afyamessages', 'afyamessages.msisdn', '=', 'afya_users.msisdn')
               ->join('prescription_filled_status', 'prescription_filled_status.presc_details_id', '=', 'prescription_details.id')
+              ->leftJoin('substitute_presc_details', 'substitute_presc_details.id', '=', 'prescription_filled_status.substitute_presc_id')
+              ->leftJoin('inventory', 'substitute_presc_details.drug_id', '=', 'inventory.drug_id')
               ->select('druglists.drugname','druglists.Manufacturer','prescription_filled_status.*','prescription_details.*',
               'prescription_filled_status.created_at AS date_filled','doctors.name AS doc',
-              'prescription_filled_status.total AS total',
+              'prescription_filled_status.total AS total','inventory.drugname AS inv_drug',
               'prescriptions.created_at AS prescription_date')
               ->where([
                 ['afyamessages.facilityCode', '=', $facility],
@@ -492,6 +501,7 @@ class PharmacyController extends Controller
               ->groupBy('prescription_filled_status.id')
               ->get();
 
+
               /* Get this year's sales*/
               $years = DB::table('prescriptions')
                 ->join('prescription_details', 'prescription_details.presc_id', '=', 'prescriptions.id')
@@ -501,17 +511,23 @@ class PharmacyController extends Controller
                 ->join('afya_users', 'afya_users.id', '=', 'appointments.afya_user_id')
                 ->join('afyamessages', 'afyamessages.msisdn', '=', 'afya_users.msisdn')
                 ->join('prescription_filled_status', 'prescription_filled_status.presc_details_id', '=', 'prescription_details.id')
+                ->leftJoin('substitute_presc_details', 'substitute_presc_details.id', '=', 'prescription_filled_status.substitute_presc_id')
+                ->leftJoin('inventory', 'substitute_presc_details.drug_id', '=', 'inventory.drug_id')
                 ->select('druglists.drugname','druglists.Manufacturer','prescription_filled_status.*','prescription_details.*',
                 'prescription_filled_status.created_at AS date_filled','doctors.name AS doc',
-                'prescription_filled_status.total AS total',
-                'prescriptions.created_at AS prescription_date')
+                'prescription_filled_status.total AS total','prescription_details.id AS pdd',
+                'prescriptions.created_at AS prescription_date','inventory.drugname AS inv_drug')
                 ->where([
                   ['afyamessages.facilityCode', '=', $facility],
                 ])
-                ->whereRaw('YEAR(prescription_filled_status.created_at) = YEAR(CURDATE())')
+                ->whereBetween('prescription_filled_status.created_at', [
+                Carbon::now()->startOfYear(),
+                Carbon::now()->endOfYear(),
+                ])
                 ->orderby('prescription_filled_status.created_at','desc')
                 ->groupBy('prescription_filled_status.id')
                 ->get();
+
 
         return view('pharmacy.filled_prescriptions')->with('prescs',$prescs)->with('todays',$todays)
                 ->with('weeks',$weeks)->with('months',$months)->with('years',$years);
@@ -1144,16 +1160,17 @@ return Response::json($results);
 
   }
 
+
   public function inventoryReport()
   {
-    $reports = DB::table('druglists')
-              ->join('inventory', 'druglists.id', '=', 'inventory.drug_id')
-              ->join('inventory_updates', 'inventory.id', '=', 'inventory_updates.inventory_id')
-              ->join('prescription_details', 'druglists.id', '=', 'prescription_details.drug_id')
-              ->join('prescription_filled_status', 'prescription_details.id', '=', 'prescription_filled_status.presc_details_id')
+    $reports = DB::table('inventory')
+              ->leftJoin('inventory_updates', 'inventory_updates.inventory_id', '=', 'inventory.id')
+              ->leftjoin('druglists', 'inventory.drug_id', '=', 'druglists.id')
+              ->leftJoin('prescription_details', 'prescription_details.drug_id', '=', 'druglists.id')
+              ->leftJoin('prescription_filled_status', 'prescription_details.id', '=', 'prescription_filled_status.presc_details_id')
               ->select('inventory.quantity AS inv_qty', 'inventory_updates.quantity AS inv_qty2',
-              'druglists.drugname', 'prescription_filled_status.quantity AS qty3')
-              ->groupBy('druglists.drugname')
+              'druglists.drugname','prescription_filled_status.available')
+              ->groupBy('inventory.id')
               ->get();
 
       return view('pharmacy.inventory_report')->with('reports',$reports);

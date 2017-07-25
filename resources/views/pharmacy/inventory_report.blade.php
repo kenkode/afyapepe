@@ -39,17 +39,39 @@
        {
          $inventory_qty = $report->inv_qty;
          $update_qty = $report->inv_qty2;
-         $sale_qty = $report->qty3;
-         $variance = $sale_qty - $update_qty;
+        //  $sale_qty = $report->qty3;
+        //  $variance = $sale_qty - $update_qty;
          $drug = $report->drugname;
+         //$id = $report->id;
+
+
         ?>
         <tr>
         <td>{{$i}}</td>
         <td>{{$drug}}</td>
         <td>{{$inventory_qty}}</td>
         <td>{{$update_qty}}</td>
-        <td>{{$sale_qty}}</td>
-        <td>{{$variance}}</td>
+        <?php
+        if($report->available == 'No')
+        {
+          $qq = DB::table('substitute_presc_details')
+               ->join('substitute_presc_details', 'substitute_presc_details.id', '=', 'prescription_filled_status.substitute_presc_id')
+               ->select('prescription_filled_status.quantity')
+               ->where('prescription_filled_status.id', '=', $id)
+               ->first();
+
+         ?>
+        <td>{{$qq->quantity}}</td>
+        <?php
+         }
+        // else
+        // {
+          ?>
+          <!-- <td></td> -->
+        <?php
+        //}
+         ?>
+        <!-- <td></td> -->
         </tr>
         <?php
         $i++;

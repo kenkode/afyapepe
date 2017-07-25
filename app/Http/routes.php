@@ -257,6 +257,7 @@ Route::group(['middleware' => ['auth','role:Admin|Patient']], function() {
 
 	Route::get('patientappointment','PatientController@patientAppointment');
 	Route::get('patientcalendar','PatientController@patientCalendar');
+	Route::get('receipts.patient/{id}','PatientController@receipts');
 });
 Route::group(['middleware' => ['auth','role:Admin|Registrar']], function() {
 	Route::resource('registrar','RegistrarController');

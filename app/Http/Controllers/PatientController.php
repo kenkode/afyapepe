@@ -10,6 +10,7 @@ use Auth;
 
 use App\Patient;
 use App\Facility;
+use PDF;
 class PatientController extends Controller
 {
     /**
@@ -115,6 +116,32 @@ public function facilitiesList(){
   $facilityList = Facility::lists('FacilityCode', 'FacilityName');
 
 return  compact('facilityList');
+}
+
+public function receipts($id){
+
+$expenditures=DB::table('consultation_fees')->join('facilities','facilities.FacilityCode','=','consultation_fees.facility')->where('consultation_fees.id',$id)->select('consultation_fees.*','facilities.*')->first();
+
+$user=$expenditures->person_treated;
+
+if($user=='Self'){
+  $patient=DB::table('afya_users')->join('consultation_fees','consultation_fees.afyauser_id','=','afya_users.id')->select('afya_users.firstname as fname','afya_users.secondName as sname','consultation_fees.*')->first();
+}
+else{
+ $patient=DB::table('dependant')->join('consultation_fees','consultation_fees.dependent_id','=','dependant.id')->select('dependant.firstName as fname','dependant.secondName as sname','consultation_fees.*')->first();
+}
+
+
+$dy=$patient->created_at; $dys=date("d-M-Y", strtotime( $dy));
+    $last = $id;
+$last ++;
+
+$number = sprintf('%07d', $last);
+
+$pdf=PDF::loadview('receipts.patient',['expenditures'=>$expenditures,'patient'=>$patient,'dys'=>$dys,'number'=>$number]);
+
+  return $pdf->stream('patient.pdf');
+
 }
 
 

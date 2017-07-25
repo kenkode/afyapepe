@@ -13,7 +13,8 @@
         "sofa/eloquence": "~5.2",
         "leyo/africastalkinglaravelgateway": "^1.0",
         "nesbot/carbon": "^1.22",
-        "nicolaslopezj/searchable": "1.*"
+        "nicolaslopezj/searchable": "1.*",
+        "barryvdh/laravel-dompdf": "0.6.*"
 
     },
     "require-dev": {

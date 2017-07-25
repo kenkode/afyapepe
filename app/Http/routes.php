@@ -108,6 +108,7 @@ Route::group(['middleware' => ['auth','role:Admin|Nurse']], function() {
  Route::get('/tag/observation','NurseController@fobservation');
 Route::get('/tag/symptom','NurseController@fsymptom');
 Route::get('/tag/chief','NurseController@fchief');
+Route::get('/tag/chronic','NurseController@fchronic');
 Route::get('nurse.existapp/{id}','NurseController@existingapp');
 Route::post('createexistingdetail','NurseController@createexistingdetail');
 Route::get('nurse.deexistapp/{id}','NurseController@deexistapp');
@@ -119,6 +120,8 @@ Route::get('nurse.preview/{id}','NurseController@preview');
 Route::post('update_preview','NurseController@update_preview');
 Route::get('nurse.dep_preview/{id}','NurseController@dep_preview');
 Route::post('update_dep_preview','NurseController@update_dep_preview');
+Route::get('add_chronic/{id}','NurseController@add_chronic');
+Route::post('update_chronic','NurseController@updatechronic');
 
 Route::get('/ajax-subcat',function(){
 	$cat_id= Input::get('cat_id');
@@ -254,6 +257,7 @@ Route::group(['middleware' => ['auth','role:Admin|Patient']], function() {
 
 	Route::get('patientappointment','PatientController@patientAppointment');
 	Route::get('patientcalendar','PatientController@patientCalendar');
+	Route::get('receipts.patient/{id}','PatientController@receipts');
 });
 Route::group(['middleware' => ['auth','role:Admin|Registrar']], function() {
 	Route::resource('registrar','RegistrarController');
@@ -285,6 +289,7 @@ Route::group(['middleware' => ['auth','role:Admin|Registrar']], function() {
     Route::post('register_update_nextkin','RegistrarController@update_nextkin');
     Route::get('register_edit_patient/{id}','RegistrarController@edit_patient');
     Route::post('register_update_patient','RegistrarController@update_patient');
+    Route::get('receipts.consultationfees/{id}','RegistrarController@receiptsFees');
 
 
 });

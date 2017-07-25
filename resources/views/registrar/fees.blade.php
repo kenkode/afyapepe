@@ -50,11 +50,11 @@
                       <?php $i=1;?>
             @foreach($fees as $fee)
             <tr>
-            <td>{{$i}}</td>
-            <td><?php $dt=$fee->created_at; echo date("d-m-Y ", strtotime( $dt));?> </td>
-           <td><?php $dy=$fee->created_at; echo date("g-i-a ", strtotime( $dy));?></td>
-            <td>{{$fee->firstname}} {{$fee->secondName}}</td>
-            <td>{{$fee->amount}}</td>
+            <td><a href="{{URL('receipts.consultationfees',$fee->id) }}" target="_blank">{{$i}}</a></td>
+            <td><a href="{{URL('receipts.consultationfees',$fee->id) }}" target="_blank"><?php $dt=$fee->created_at; echo date("d-m-Y ", strtotime( $dt));?></a> </td>
+           <td><a href="{{URL('receipts.consultationfees',$fee->id) }}" target="_blank"><?php $dy=$fee->created_at; echo date("g-i-a ", strtotime( $dy));?></a></td>
+            <td><a href="{{URL('receipts.consultationfees',$fee->id) }}" target="_blank">{{$fee->firstname}} {{$fee->secondName}}</a></td>
+            <td><a href="{{URL('receipts.consultationfees',$fee->id) }}" target="_blank">{{$fee->amount}}</a></td>
           </tr>
           <?php $i++ ?>
             @endforeach

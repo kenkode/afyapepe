@@ -134,7 +134,7 @@ if ($gender ==1){ $gender = 'Male';}else{ $gender = 'Female';}
               </ul>
               <?php $i=1; $fhDeta=DB::table('patient_test_details')
                  ->leftJoin('tests', 'patient_test_details.tests_reccommended', '=', 'tests.id')
-                 ->select('tests.name','appointment_id')
+                 ->select('tests.name','appointment_id','patient_test_details.tests_reccommended')
                  ->where('patient_test_details.id', '=',$patientT->ptdid)
                  ->first(); ?>
 
@@ -203,6 +203,46 @@ if ($gender ==1){ $gender = 'Male';}else{ $gender = 'Female';}
                       </tbody>
                       </table>
                       </div>
+                      <!--Interpretations------------------------------------------------------------------------->
+
+                      <?php $i=1; $fh2=DB::table('tests')
+                      ->Join('test_ranges', 'tests.id', '=', 'test_ranges.tests_id')
+                      ->Join('test_interpretations', 'test_ranges.id', '=', 'test_interpretations.test_ranges_id')
+                      ->where('tests.id', '=',$fhDeta->tests_reccommended)
+                      ->select('test_interpretations.*')
+                      ->get(); ?>
+                                    @if($fh2)
+                                <div class="col-lg-6">
+                                 <div class="ibox float-e-margins">
+                                   <div class="ibox-title">
+                                     <h5>Interpretations</h5>
+                                   </div>
+                                 <div class="ibox-content">
+                                 <table class="table table-bordered">
+                                 <thead>
+                                 <tr>
+                                 <th>#</th>
+                                 <th>Values</th>
+                                 <th>Interpretations</th>
+                                 </tr>
+                                 </thead>
+                                 <tbody>
+
+                                 @foreach($fh2 as $fhtest)
+                                 <tr>
+                                 <td>{{$i}}</td>
+                                 <td>{{$fhtest->value}}</td>
+                                 <td>{{$fhtest->description}}</td>
+                                 <?php $i ++ ?>
+                                 </tr>
+                                 @endforeach
+
+                                 </tbody>
+                                 </table>
+                                 </div>
+                                 </div>
+                                 </div>
+                                 @endif
                       </div>
 
 

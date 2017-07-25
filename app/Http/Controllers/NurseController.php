@@ -8,6 +8,7 @@ use App\Druglist;
 use App\Observation;
 use App\Symptom;
 use App\Chief;
+use App\Chronic;
 use Redirect;
 use Auth;
 use Carbon\Carbon;
@@ -2216,4 +2217,46 @@ DB::table('appointments')->where('id',$app_id)->update([
 
         return redirect()->action('NurseController@index');
     }
+
+
+    public function add_chronic($id){
+
+        return view('nurse.add_chronic')->with('id',$id);
+    }
+
+    public function fchronic(Request $request){
+         $term = trim($request->q);
+      if (empty($term)) {
+           return \Response::json([]);
+         }
+       $drugs = Chronic::search($term)->limit(20)->get();
+         $formatted_drugs = [];
+          foreach ($drugs as $drug) {
+             $formatted_drugs[] = ['id' => $drug->id, 'text' => $drug->name];
+         }
+     return \Response::json($formatted_drugs);
+     }
+
+
+     public function updatechronic(Request $request){
+
+        $id=$request->id;
+         $chronics=$request->chronic;
+
+         
+if($chronics){
+foreach($chronics as $key ) {
+
+   
+     DB::table('patient_diagnosis')->insert([
+    'afya_user_id'=>$id,
+    'disease_id'=>$key,
+    'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
+}
+}
+return redirect()->action('NurseController@show',['id'=> $id]);
+
+
+     }
 }

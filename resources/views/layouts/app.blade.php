@@ -218,6 +218,26 @@
               cache: true
           }
       });
+
+       $(".chronic").select2({
+          placeholder: "Select chronic diseases...",
+          minimumInputLength: 2,
+          ajax: {
+              url: '/tag/chronic',
+              dataType: 'json',
+              data: function (params) {
+                  return {
+                      q: $.trim(params.term)
+                  };
+              },
+              processResults: function (data) {
+                  return {
+                      results: data
+                  };
+              },
+              cache: true
+          }
+      });
        });
     </script>
     <script type="text/javascript">

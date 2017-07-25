@@ -130,9 +130,9 @@
                     ->orderby('created_at','desc')->get(); ?>
                     @foreach($expenditures as $exp)
                       <tr>
-                      <td>{{$i}}</td>
-                       <td>{{ date('d -m- Y', strtotime($exp->created_at)) }}</td>
-            <td>{{ date('H:i:s', strtotime($exp->created_at)) }}</td>
+                      <td><a href="{{URL('receipts.patient',$exp->id) }}" target="_blank">{{$i}}</a></td>
+                       <td><a href="{{URL('receipts.patient',$exp->id) }}" target="_blank">{{ date('d -m- Y', strtotime($exp->created_at)) }}</a></td>
+            <td><a href="{{URL('receipts.patient',$exp->id) }}" target="_blank">{{ date('H:i:s', strtotime($exp->created_at)) }}</a></td>
                       <td><?php $facility=$exp->facility; $name=DB::table('facilities')->where('FacilityCode',$facility)->first();?>{{$name->FacilityName}}</td>
                         <td><?php $person=$exp->person_treated; if($person=='Dependent'){
                           $user=DB::table('dependant')->where('id',$exp->dependent_id)->first();
@@ -218,9 +218,9 @@
 ])->orderby('created_at','desc')->get(); ?>
                     @foreach($expenditures as $mexp)
                       <tr>
-                      <td>{{$i}}</td>
-                       <td>{{ date('d -m- Y', strtotime($mexp->created_at)) }}</td>
-            <td>{{ date('H:i:s', strtotime($mexp->created_at)) }}</td>
+                      <td><a href="{{URL('receipts.patient',$mexp->id) }}" target="_blank">{{$i}}</a></td>
+                       <td><a href="{{URL('receipts.patient',$mexp->id) }}" target="_blank">{{ date('d -m- Y', strtotime($mexp->created_at)) }}</a></td>
+            <td><a href="{{URL('receipts.patient',$mexp->id) }}" target="_blank">{{ date('H:i:s', strtotime($mexp->created_at)) }}</a></td>
                       <td><?php $facility=$mexp->facility; $name=DB::table('facilities')->where('FacilityCode',$facility)->first();?>{{$name->FacilityName}}</td>
                       <td><?php $mperson=$mexp->person_treated; if($mperson=='Dependent'){
                           $userm=DB::table('dependant')->where('id',$mexp->dependent_id)->first();
@@ -301,9 +301,9 @@
                     ->where('fee_required','=','Yes')->orderby('created_at','desc')->get(); ?>
                     @foreach($expenditures as $yexp)
                       <tr>
-                      <td>{{$i}}</td>
-                       <td>{{ date('d -m- Y', strtotime($yexp->created_at)) }}</td>
-            <td>{{ date('H:i:s', strtotime($yexp->created_at)) }}</td>
+                      <td><a href="{{URL('receipts.patient',$yexp->id) }}" target="_blank">{{$i}}</a></td>
+                       <td><a href="{{URL('receipts.patient',$yexp->id) }}" target="_blank">{{ date('d -m- Y', strtotime($yexp->created_at)) }}</a></td>
+            <td><a href="{{URL('receipts.patient',$yexp->id) }}" target="_blank">{{ date('H:i:s', strtotime($yexp->created_at)) }}</a></td>
                      <td><?php $facility=$yexp->facility; $name=DB::table('facilities')->where('FacilityCode',$facility)->first();?>{{$name->FacilityName}}</td>
                        <td><?php $yperson=$yexp->person_treated; if($yperson=='Dependent'){
                           $usery=DB::table('dependant')->where('id',$yexp->dependent_id)->first();

@@ -253,6 +253,71 @@
 </div>
 
 </div>
+<div class="row">
+         <div class="col-lg-12">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                              <h5>Patient chronic diseases</h5>
+                                <div class="ibox-tools">
+                                    <a class="collapse-link">
+                                        <i class="fa fa-chevron-up"></i>
+                                    </a>
+
+                                    <a class="close-link">
+                                        <i class="fa fa-times"></i>
+                                    </a>
+                                </div>
+                            </div>
+
+
+        <div class="ibox-content">
+       <div class="table-responsive">
+      <table class="table table-striped table-bordered table-hover dataTables-example" >
+      <thead>
+       <tr>
+      <th>No</th>
+  <th>Disease Name</th>
+  <th>Date</th>
+  
+  </tr>
+      </thead>
+
+      <?php $i =1; $diseases=DB::table('patient_diagnosis')->join('diagnoses','diagnoses.id','=','patient_diagnosis.disease_id')->select('diagnoses.name as name','patient_diagnosis.*')->where('patient_diagnosis.afya_user_id',$patient->id)->get(); ?>
+     <tbody>
+       @foreach($diseases as $ds)
+   
+      <tr>
+      <td>{{$i}}</td>
+       <td>{{$ds->name}}</td>
+      <td>{{$ds->created_at}}</td>  
+      </tr>
+  
+       <?php $i++; ?>
+
+      @endforeach
+
+        </tbody>
+      </table>
+
+     
+      
+
+
+</div>
+
+      <a href="{{ url('add_chronic', $patient->id) }}" class="btn btn-primary btn-sm">Update Details</a>
+      
+
+   
+
+</div>
+
+
+
+</div>
+</div>
+
+</div>
 
       <div class="row">
          <div class="col-lg-12">

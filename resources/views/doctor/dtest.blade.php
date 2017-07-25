@@ -221,11 +221,11 @@ if ($dependantId =='Self') {
                     @endif
                   </tr>
                       <?php $i++; ?>
-
-                      @endforeach
+                  @endforeach
                       </tbody>
                     </table>
                          </div>
+
                     </div>
                 </div>
                 <div id="tab-2" class="tab-pane">
@@ -235,12 +235,14 @@ if ($dependantId =='Self') {
                       <div id="othertest" class="ibox float-e-margins">
 
                       <label class="col-md-2">Test Categories:</label>
-                      <input type="checkbox" name="colorCheckbox" value="MRI">MRI
+                      <input type="checkbox" name="colorCheckbox" value="MRI">Imaging
                       <input type="checkbox" name="colorCheckbox" value="Lab"> Laboratory
                       <input type="checkbox" name="colorCheckbox" value="Neurology"> Neurology
                       <input type="checkbox" name="colorCheckbox" value="Gestrointestinal"> Gestrointestinal
 
-                      <div class="MRI box"> MRI TESTS COMING SOON</div>
+                      <div class="MRI box">
+                        @include('doctor.imagingtest')
+                      </div>
                       <!-- Laboratory Tests starts}} -->
 
 <div class="Lab box">

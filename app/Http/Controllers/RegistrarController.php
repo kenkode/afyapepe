@@ -10,6 +10,8 @@ use DB;
 use Auth;
 use Carbon\Carbon;
 use App\County;
+use PDF;
+
 
 class RegistrarController extends Controller
 {
@@ -476,4 +478,28 @@ public function dependantTriage($id){
 
 
     }
+
+
+public function receiptsFees($id){
+
+  $facility=DB::table('facility_registrar')->join('facilities','facilities.FacilityCode','=','facility_registrar.facilitycode')->where('facility_registrar.user_id', Auth::id())->first(); 
+   $fee=DB::table('consultation_fees')->
+   join('afya_users','consultation_fees.afyauser_id','=','afya_users.id')->where('fee_required','=','Yes')
+   ->where('facility',$facility->facilitycode)->where('consultation_fees.id',$id)
+   ->select('consultation_fees.*','afya_users.*')->
+   orderby('consultation_fees.created_at','desc')->first();
+
+
+    $dy=$fee->created_at; $dys=date("d-M-Y", strtotime( $dy));
+    $last = $id;
+$last ++;
+
+$number = sprintf('%07d', $last);
+
+$pdf=PDF::loadview('receipts.consulationfees',['facility'=>$facility,'fee'=>$fee,'dys'=>$dys,'number'=>$number]);
+
+  return $pdf->stream('consulationfees.pdf');
+  
+
+}
 }

@@ -159,6 +159,8 @@ Route::get('/tags/fac', 'FacilityController@ffacility');
 
 Route::delete('testremove/{id}',['as'=>'test.deletes','uses'=>'PatientTestController@destroytest']);
 Route::Post('testpost', [ 'as' => 'testsave', 'uses' => 'TestsaveController@store']);
+Route::Post('Radiology', [ 'as' => 'Radtest', 'uses' => 'RadiologyController@store']);
+Route::delete('Radyremove/{id}',['as'=>'Rady.deletes','uses'=>'RadiologyController@destroytest']);
 Route::get('test/{id}', [ 'as' => 'testes', 'uses' => 'PatientTestController@testdata']);
 Route::get('diagnosis/{id}', [ 'as' => 'diagnoses', 'uses' => 'PatientTestController@diagnoses']);
 Route::Post('diagnosisconfirm', [ 'as' => 'diaconf', 'uses' => 'PatientTestController@diagnosesconf']);

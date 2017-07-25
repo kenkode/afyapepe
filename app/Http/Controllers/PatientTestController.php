@@ -20,13 +20,16 @@ class PatientTestController extends Controller
     {
 
       $patientD=DB::table('appointments')
-      ->leftjoin('afya_users','appointments.afya_user_id','=','afya_users.id')
-      ->leftjoin('dependant','appointments.persontreated','=','dependant.id')
+      ->leftjoin('triage_details','appointments.id','=','triage_details.appointment_id')
+      ->leftjoin('triage_infants','appointments.id','=','triage_infants.appointment_id')
+   ->leftjoin('afya_users','appointments.afya_user_id','=','afya_users.id')
+    ->leftjoin('dependant','appointments.persontreated','=','dependant.id')
     ->leftJoin('patient_admitted', 'appointments.id', '=', 'patient_admitted.appointment_id')
       ->leftjoin('facilities','appointments.facility_id','=','facilities.FacilityCode')
       ->select('appointments.*','afya_users.firstname','afya_users.dob','afya_users.secondName','afya_users.gender',
         'dependant.firstName as dep1name','dependant.secondName as dep2name','dependant.gender as depgender',
-        'dependant.dob as depdob','facilities.FacilityName','facilities.set_up','patient_admitted.condition')
+        'dependant.dob as depdob','facilities.FacilityName','facilities.set_up','patient_admitted.condition',
+        'triage_details.lmp as almp','triage_details.pregnant as apregnant','triage_infants.lmp as dlmp','triage_infants.pregnant as dpregnant')
       ->where('appointments.id',$id)
       ->get();
 
@@ -42,11 +45,9 @@ class PatientTestController extends Controller
       ->where('id',$id)
       ->first();
       DB::table("patient_test_details")->where('id',$id)->delete();
-    
 
-  return redirect()->route('testes',$pttd->appointment_id);
-
-         }
+return redirect()->route('testes',$pttd->appointment_id);
+}
 
 public function diagnoses($id)
 {

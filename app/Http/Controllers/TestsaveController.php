@@ -20,14 +20,12 @@ public function store(Request $request)
 {
 
     $this->validate($request, [
-    'doc_id' => 'required',
     'appointment_id' => 'required', ]);
-     $afya_user_id=$request->get('afya_user_id');
-     $dependant_id=$request->get('dependant_id');
+
      $appointment=$request->get('appointment_id');
-     $facility=$request->get('facility_from');
      $conditional_diag_id =$request->get('mainconditional');
      $doc_id =$request->get('doc_id');
+
 
 
  $pttids= Patienttest::where('appointment_id',$appointment)
@@ -35,10 +33,8 @@ public function store(Request $request)
 
      if (is_null($pttids)) {
 $PatientTest = Patienttest ::create([
-  'doc_id' => $request->get('doc_id'),
+
   'appointment_id' => $request->get('appointment_id'),
-  //'facility' => $request->get('facility'),
-  'facility_from' => $request->get('facility_from'),
   'test_status' => 0,
 ]);
     $ptid = $PatientTest->id;
@@ -56,10 +52,8 @@ $PatientTest = Patienttest ::create([
      if ($docnote) {
   $patientNotes = DB::table('patientNotes')->insert([
               'appointment_id' => $appointment,
-              'doc_id' => $doc_id,
               'note' => $docnote,
               'target' => 'Test',
-              'facility' => $facility,
                ]);
               }
 
@@ -68,8 +62,6 @@ $testmore=$request->testmore;
 if ($testmore) {
 $patienttd = DB::table('patient_test_details')->insert([
              'patient_test_id' => $ptid,
-             'afya_user_id'=> $afya_user_id,
-             'dependant_id' => $dependant_id,
              'appointment_id' => $appointment,
              'conditional_diag_id'=> $conditional_diag_id,
              'testmore' => $testmore,
@@ -83,8 +75,6 @@ $patienttd = DB::table('patient_test_details')->insert([
        foreach($renal as $key) {
      $patienttd = DB::table('patient_test_details')->insert([
                   'patient_test_id' => $ptid,
-                  'afya_user_id'=> $afya_user_id,
-                  'dependant_id' => $dependant_id,
                   'appointment_id' => $appointment,
                   'conditional_diag_id'=> $conditional_diag_id,
                   'tests_reccommended' => $key,
@@ -98,8 +88,6 @@ $patienttd = DB::table('patient_test_details')->insert([
        foreach($liverp as $key) {
      $patienttd = DB::table('patient_test_details')->insert([
                   'patient_test_id' => $ptid,
-                  'afya_user_id'=> $afya_user_id,
-                  'dependant_id' => $dependant_id,
                   'appointment_id' => $appointment,
                   'conditional_diag_id'=> $conditional_diag_id,
                   'tests_reccommended' => $key,
@@ -113,8 +101,6 @@ $patienttd = DB::table('patient_test_details')->insert([
        foreach($lipid as $key) {
      $patienttd = DB::table('patient_test_details')->insert([
                   'patient_test_id' => $ptid,
-                  'afya_user_id'=> $afya_user_id,
-                  'dependant_id' => $dependant_id,
                   'appointment_id' => $appointment,
                   'conditional_diag_id'=> $conditional_diag_id,
                   'tests_reccommended' => $key,
@@ -128,8 +114,6 @@ $patienttd = DB::table('patient_test_details')->insert([
        foreach($diabetic as $key) {
      $patienttd = DB::table('patient_test_details')->insert([
                   'patient_test_id' => $ptid,
-                  'afya_user_id'=> $afya_user_id,
-                  'dependant_id' => $dependant_id,
                   'appointment_id' => $appointment,
                   'conditional_diag_id'=> $conditional_diag_id,
                   'tests_reccommended' => $key,
@@ -143,8 +127,6 @@ $patienttd = DB::table('patient_test_details')->insert([
        foreach($card as $key) {
      $patienttd = DB::table('patient_test_details')->insert([
                   'patient_test_id' => $ptid,
-                  'afya_user_id'=> $afya_user_id,
-                  'dependant_id' => $dependant_id,
                   'appointment_id' => $appointment,
                   'conditional_diag_id'=> $conditional_diag_id,
                   'tests_reccommended' => $key,
@@ -158,8 +140,6 @@ $patienttd = DB::table('patient_test_details')->insert([
        foreach($others as $key) {
      $patienttd = DB::table('patient_test_details')->insert([
                   'patient_test_id' => $ptid,
-                  'afya_user_id'=> $afya_user_id,
-                  'dependant_id' => $dependant_id,
                   'appointment_id' => $appointment,
                   'conditional_diag_id'=> $conditional_diag_id,
                   'tests_reccommended' => $key,
@@ -173,8 +153,6 @@ $patienttd = DB::table('patient_test_details')->insert([
        foreach($bone as $key) {
      $patienttd = DB::table('patient_test_details')->insert([
                   'patient_test_id' => $ptid,
-                  'afya_user_id'=> $afya_user_id,
-                  'dependant_id' => $dependant_id,
                   'appointment_id' => $appointment,
                   'conditional_diag_id'=> $conditional_diag_id,
                   'tests_reccommended' => $key,
@@ -188,8 +166,6 @@ $patienttd = DB::table('patient_test_details')->insert([
        foreach($urine as $key) {
      $patienttd = DB::table('patient_test_details')->insert([
                   'patient_test_id' => $ptid,
-                  'afya_user_id'=> $afya_user_id,
-                  'dependant_id' => $dependant_id,
                   'appointment_id' => $appointment,
                   'conditional_diag_id'=> $conditional_diag_id,
                   'tests_reccommended' => $key,
@@ -203,8 +179,6 @@ $patienttd = DB::table('patient_test_details')->insert([
        foreach($endo as $key) {
      $patienttd = DB::table('patient_test_details')->insert([
                   'patient_test_id' => $ptid,
-                  'afya_user_id'=> $afya_user_id,
-                  'dependant_id' => $dependant_id,
                   'appointment_id' => $appointment,
                   'conditional_diag_id'=> $conditional_diag_id,
                   'tests_reccommended' => $key,
@@ -218,8 +192,6 @@ $patienttd = DB::table('patient_test_details')->insert([
        foreach($tumour as $key) {
      $patienttd = DB::table('patient_test_details')->insert([
                   'patient_test_id' => $ptid,
-                  'afya_user_id'=> $afya_user_id,
-                  'dependant_id' => $dependant_id,
                   'appointment_id' => $appointment,
                   'conditional_diag_id'=> $conditional_diag_id,
                   'tests_reccommended' => $key,
@@ -233,8 +205,6 @@ $patienttd = DB::table('patient_test_details')->insert([
        foreach($nutrition as $key) {
      $patienttd = DB::table('patient_test_details')->insert([
                   'patient_test_id' => $ptid,
-                  'afya_user_id'=> $afya_user_id,
-                  'dependant_id' => $dependant_id,
                   'appointment_id' => $appointment,
                   'conditional_diag_id'=> $conditional_diag_id,
                   'tests_reccommended' => $key,
@@ -248,8 +218,6 @@ $patienttd = DB::table('patient_test_details')->insert([
        foreach($drugs as $key) {
      $patienttd = DB::table('patient_test_details')->insert([
                   'patient_test_id' => $ptid,
-                  'afya_user_id'=> $afya_user_id,
-                  'dependant_id' => $dependant_id,
                   'appointment_id' => $appointment,
                   'conditional_diag_id'=> $conditional_diag_id,
                   'tests_reccommended' => $key,
@@ -263,8 +231,6 @@ $patienttd = DB::table('patient_test_details')->insert([
        foreach($stool as $key) {
      $patienttd = DB::table('patient_test_details')->insert([
                   'patient_test_id' => $ptid,
-                  'afya_user_id'=> $afya_user_id,
-                  'dependant_id' => $dependant_id,
                   'appointment_id' => $appointment,
                   'conditional_diag_id'=> $conditional_diag_id,
                   'tests_reccommended' => $key,
@@ -280,8 +246,6 @@ $patienttd = DB::table('patient_test_details')->insert([
        foreach($coagu as $key) {
      $patienttd = DB::table('patient_test_details')->insert([
                   'patient_test_id' => $ptid,
-                  'afya_user_id'=> $afya_user_id,
-                  'dependant_id' => $dependant_id,
                   'appointment_id' => $appointment,
                   'conditional_diag_id'=> $conditional_diag_id,
                   'tests_reccommended' => $key,
@@ -295,8 +259,6 @@ $patienttd = DB::table('patient_test_details')->insert([
        foreach($haema as $key) {
      $patienttd = DB::table('patient_test_details')->insert([
                   'patient_test_id' => $ptid,
-                  'afya_user_id'=> $afya_user_id,
-                  'dependant_id' => $dependant_id,
                   'appointment_id' => $appointment,
                   'conditional_diag_id'=> $conditional_diag_id,
                   'tests_reccommended' => $key,
@@ -310,8 +272,6 @@ $patienttd = DB::table('patient_test_details')->insert([
        foreach($serology as $key) {
      $patienttd = DB::table('patient_test_details')->insert([
                   'patient_test_id' => $ptid,
-                  'afya_user_id'=> $afya_user_id,
-                  'dependant_id' => $dependant_id,
                   'appointment_id' => $appointment,
                   'conditional_diag_id'=> $conditional_diag_id,
                   'tests_reccommended' => $key,
@@ -325,8 +285,6 @@ $patienttd = DB::table('patient_test_details')->insert([
        foreach($microbiology as $key) {
      $patienttd = DB::table('patient_test_details')->insert([
                   'patient_test_id' => $ptid,
-                  'afya_user_id'=> $afya_user_id,
-                  'dependant_id' => $dependant_id,
                   'appointment_id' => $appointment,
                   'conditional_diag_id'=> $conditional_diag_id,
                   'tests_reccommended' => $key,
@@ -340,8 +298,6 @@ $patienttd = DB::table('patient_test_details')->insert([
        foreach($tb as $key) {
      $patienttd = DB::table('patient_test_details')->insert([
                   'patient_test_id' => $ptid,
-                  'afya_user_id'=> $afya_user_id,
-                  'dependant_id' => $dependant_id,
                   'appointment_id' => $appointment,
                   'conditional_diag_id'=> $conditional_diag_id,
                   'tests_reccommended' => $key,
@@ -355,8 +311,6 @@ $patienttd = DB::table('patient_test_details')->insert([
        foreach($allergy as $key) {
      $patienttd = DB::table('patient_test_details')->insert([
                   'patient_test_id' => $ptid,
-                  'afya_user_id'=> $afya_user_id,
-                  'dependant_id' => $dependant_id,
                   'appointment_id' => $appointment,
                   'conditional_diag_id'=> $conditional_diag_id,
                   'tests_reccommended' => $key,
@@ -370,8 +324,6 @@ $patienttd = DB::table('patient_test_details')->insert([
        foreach($immuno as $key) {
      $patienttd = DB::table('patient_test_details')->insert([
                   'patient_test_id' => $ptid,
-                  'afya_user_id'=> $afya_user_id,
-                  'dependant_id' => $dependant_id,
                   'appointment_id' => $appointment,
                   'conditional_diag_id'=> $conditional_diag_id,
                   'tests_reccommended' => $key,
@@ -385,8 +337,6 @@ $patienttd = DB::table('patient_test_details')->insert([
        foreach($hiv as $key) {
      $patienttd = DB::table('patient_test_details')->insert([
                   'patient_test_id' => $ptid,
-                  'afya_user_id'=> $afya_user_id,
-                  'dependant_id' => $dependant_id,
                   'appointment_id' => $appointment,
                   'conditional_diag_id'=> $conditional_diag_id,
                   'tests_reccommended' => $key,
@@ -400,8 +350,6 @@ $patienttd = DB::table('patient_test_details')->insert([
        foreach($linus as $key) {
      $patienttd = DB::table('patient_test_details')->insert([
                   'patient_test_id' => $ptid,
-                  'afya_user_id'=> $afya_user_id,
-                  'dependant_id' => $dependant_id,
                   'appointment_id' => $appointment,
                   'conditional_diag_id'=> $conditional_diag_id,
                   'tests_reccommended' => $key,
@@ -415,8 +363,6 @@ $patienttd = DB::table('patient_test_details')->insert([
        foreach($olab as $key) {
      $patienttd = DB::table('patient_test_details')->insert([
                   'patient_test_id' => $ptid,
-                  'afya_user_id'=> $afya_user_id,
-                  'dependant_id' => $dependant_id,
                   'appointment_id' => $appointment,
                   'conditional_diag_id'=> $conditional_diag_id,
                   'tests_reccommended' => $key,
@@ -430,8 +376,6 @@ $patienttd = DB::table('patient_test_details')->insert([
        foreach($common as $key) {
      $patienttd = DB::table('patient_test_details')->insert([
                   'patient_test_id' => $ptid,
-                  'afya_user_id'=> $afya_user_id,
-                  'dependant_id' => $dependant_id,
                   'appointment_id' => $appointment,
                   'conditional_diag_id'=> $conditional_diag_id,
                   'tests_reccommended' => $key,

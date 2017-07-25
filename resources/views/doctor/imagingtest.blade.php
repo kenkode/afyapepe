@@ -10,58 +10,137 @@
 <div class="tab-content">
     <div id="tab-90" class="tab-pane active">
         <div class="panel-body">
-          {{ Form::open(array('route' => array('testsave'),'method'=>'POST')) }}
+          {{ Form::open(array('route' => array('Radtest'),'method'=>'POST')) }}
+          <!--.......................... X-RAY...................................-->
             <div class="col-sm-6 b-r">
-              XRAY  pokit
-            </div>
+              <div class="form-group ">
+              <label for="d_list2">Clinical Information:</label>
+              <textarea rows="4" name="cixray" cols="50" placeholder="reason for test" class="form-control"></textarea>
+              </div>
+       </div>
+            <div class="col-sm-6">
+             <div class="form-group">
+                <label for="tag_list" class="">X-RAY TESTS:</label>
+                <select class="test-multiple" name="xray[]" multiple="multiple" style="width: 100%">
+                <?php $xray=DB::table('x-ray')->get(); ?>
+                @foreach($xray as $xy)
+                <option value='{{$xy->id}}'>{{$xy->name}}</option>
+                @endforeach
+                </select>
+                </div>
+                <div class="form-group">
+                   <label for="tag_list" class="">X-Ray Target:</label>
+                   <select class="test-multiple" name="xraytarget"  style="width: 100%">
+                  <option value=''>Choose one ...</option>
+                <option value='Left'>LEFT</option>
+                <option value='Right'>Right</option>
+                <option value='Both'>Both</option>
+                   </select>
+                   </div>
+              </div>
 
-            <div class="col-sm-6 ">
-              XRAYBeeeeee
-            </div>
     </div>
 </div>
-
+<!--.......................... CT Scan...................................-->
   <div id="tab-91" class="tab-pane">
         <div class="panel-body">
           <div class="col-sm-6 b-r">
-              CT-SCAN Aaaaaaabb
-          </div>
-       <div class="col-sm-6 ">
-        CT-SCAN bbbbbbb
-       </div>
+            <div class="form-group ">
+            <label for="d_list2">Clinical Information:</label>
+            <textarea rows="4" name="cict" cols="50" placeholder="i.e Female 45yrs. History of Headach" class="form-control"></textarea>
+            </div>
+     </div>
+          <div class="col-sm-6">
+           <div class="form-group">
+              <label for="tag_list" class="">CT-SCAN TESTS:</label>
+              <select class="test-multiple" name="ctscan[]" multiple="multiple" style="width: 100%">
+              <?php $ctscan=DB::table('ct_scan') ->get(); ?>
+              @foreach($ctscan as $cts)
+              <option value='{{$cts->id}}'>{{$cts->name}}</option>
+              @endforeach
+              </select>
+              </div>
+              <div class="form-group">
+                 <label for="tag_list" class="">Ct-Scan Target:</label>
+                 <select class="test-multiple" name="cttarget"  style="width: 100%">
+                <option value=''>Choose one ...</option>
+              <option value='Left'>LEFT</option>
+              <option value='Right'>Right</option>
+              <option value='Both'>Both</option>
+                 </select>
+                 </div>
+            </div>
     </div>
 </div>
-
+<!--.......................... MRI...................................-->
     <div id="tab-92" class="tab-pane">
         <div class="panel-body">
-            <div class="col-sm-6 b-r">
-              MRI  aaaaaaaaaaaaaaaaaaa
+          <div class="col-sm-6 b-r">
+            <div class="form-group ">
+            <label for="d_list2">Clinical Information:</label>
+            <textarea rows="4" name="cimri" cols="50" placeholder="reason for test" class="form-control"></textarea>
             </div>
-        <div class="col-sm-6 ">
-            MRI BBBBBBBBBBBBBBBBB
-        </div>
+     </div>
+          <div class="col-sm-6">
+           <div class="form-group">
+              <label for="tag_list" class="">MRI TESTS:</label>
+              <select class="test-multiple" name="mri[]" multiple="multiple" style="width: 100%">
+              <?php $mri=DB::table('mri_tests') ->get(); ?>
+              @foreach($mri as $mriz)
+              <option value='{{$mriz->id}}'>{{$mriz->name}}</option>
+              @endforeach
+              </select>
+              </div>
+              <div class="form-group">
+                 <label for="tag_list" class="">MRI Target:</label>
+                 <select class="test-multiple" name="mritarget"  style="width: 100%">
+                <option value=''>Choose one ...</option>
+              <option value='Left'>LEFT</option>
+              <option value='Right'>Right</option>
+              <option value='Both'>Both</option>
+                 </select>
+                 </div>
+            </div>
       </div>
   </div>
-
+<!--.......................... Ultrasound...................................-->
   <div id="tab-93" class="tab-pane">
       <div class="panel-body">
-          <div class="col-sm-6 b-r">
-            uLTRASOUND  aaaaaaaaaaaaaaaaaaa
+        <div class="col-sm-6 b-r">
+          <div class="form-group ">
+          <label for="d_list2">Clinical Information:</label>
+          <textarea rows="4" name="ciultra" cols="50" placeholder="reason for test" class="form-control"></textarea>
           </div>
-      <div class="col-sm-6 ">
-          uLTRASOUND  BBBBBBBBBBBBBBBBB
-      </div>
+   </div>
+        <div class="col-sm-6">
+         <div class="form-group">
+            <label for="tag_list" class="">ULTRASOUND TESTS:</label>
+            <select class="test-multiple" name="ultra[]" multiple="multiple" style="width: 100%">
+            <?php $ultra=DB::table('ultrasound') ->get(); ?>
+            @foreach($ultra as $xyu)
+            <option value='{{$xyu->id}}'>{{$xyu->name}}</option>
+            @endforeach
+            </select>
+            </div>
+            <div class="form-group">
+               <label for="tag_list" class="">X-Ray Target:</label>
+               <select class="test-multiple" name="ultratarget"  style="width: 100%">
+              <option value=''>Choose one ...</option>
+            <option value='Left'>LEFT</option>
+            <option value='Right'>Right</option>
+            <option value='Both'>Both</option>
+               </select>
+               </div>
+          </div>
     </div>
 </div>
 
 
-    {{ Form::hidden('afya_user_id',$afyauserId, array('class' => 'form-control')) }}
-    {{ Form::hidden('dependant_id',$dependantId, array('class' => 'form-control')) }}
-
-    {{ Form::hidden('appointment_id',$app_id, array('class' => 'form-control')) }}
-    {{ Form::hidden('doc_id',$doc_id, array('class' => 'form-control')) }}
-    {{ Form::hidden('facility_from',$fac_id, array('class' => 'form-control')) }}
-
+{{ Form::hidden('appointment_id',$app_id, array('class' => 'form-control')) }}
+{{ Form::hidden('ct_catid',9, array('class' => 'form-control')) }}
+{{ Form::hidden('xray_catid',10, array('class' => 'form-control')) }}
+{{ Form::hidden('mri_catid',11, array('class' => 'form-control')) }}
+{{ Form::hidden('ultra_catid',12, array('class' => 'form-control')) }}
     <button class=" mtop btn btn-sm btn-primary pull-left m-t-n-xs" type="submit"><strong>Submit</strong></button>
 
     {{ Form::close() }}
@@ -70,4 +149,4 @@
 
       </div>
    </div>
-<!-- Imaging Tests Ends}} -->
+<!--.......................... Imaging Tests Ends...................................-->

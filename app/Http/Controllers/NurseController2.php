@@ -8,7 +8,7 @@ use Redirect;
 
 use Carbon\Carbon;
 use App\Http\Requests;
-class NurseController extends Controller
+class NurseControllers extends Controller
 {
     /**
      * Display a listing of the resource.

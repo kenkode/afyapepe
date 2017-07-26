@@ -90,7 +90,7 @@ Route::group(['middleware' => ['auth','role:Admin|Nurse']], function() {
   Route::get('growth/{id}','NurseController@childGrowth');
   Route::get('update.dependant/{id}','NurseController@updateDependant');
   Route::post('Dependantupdate','NurseController@Dependantupdate');
-  Route::get('showpatient/{id}','NurseController@shoWpatient');
+  Route::get('showpatient/{id}','NurseController@showpatient');
   Route::get('immunination/{id}','NurseController@immunination');
   Route::post('immunization','NurseController@storeImmunization');
   Route::post('updateinfant','NurseController@updateInfant');

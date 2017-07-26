@@ -32,7 +32,7 @@
                       <tr>
                         <td><a href="{{URL('registrar.dependantTriage',$dependant->id)}}">{{$i}}</a></td>
                         <td><a href="{{URL('registrar.dependantTriage',$dependant->id)}}">{{$dependant->firstName}} {{$dependant->secondName}}</a></td>
-                        <td>{{$dependant->gender}}</td>
+                        <td><?php $gender=$dependant->gender;?> @if($gender==1){{"Male"}}@else{{"Female"}}@endif</td>
                         
                         <td>{{$dependant->relationship or ''}}</td>
                         <td>{{$dependant->dob or ''}}</td>

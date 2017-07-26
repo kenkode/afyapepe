@@ -26,9 +26,9 @@
              </div>
              <div class="form-group">
               <label for="exampleInputPassword1">Gender</label>
-              <input type="radio" value="Male"  name="gender"  />
+              <input type="radio" value="1"  name="gender"  />
                 <label>Male</label>
-                      <input type="radio" value="Female"  name="gender" />
+                      <input type="radio" value="2"  name="gender" />
                     <label>Female</label>
 
               </div>

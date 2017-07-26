@@ -70,9 +70,10 @@
             <label for="exampleInputPassword1">Blood Group</label>
             <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Blood Group" name="phone" value="{{$dependant->blood_type or ''}}" readonly  >
             </div>
-             <div class="form-group">
+              <div class="form-group">
             <label for="exampleInputPassword1">Gender</label>
-             <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Next of Kin Phone" name="phone" value="{{$dependant->gender or ''}}" readonly  >
+            <?php $dgender=$dependant->gender;?>
+                                                                       <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Next of Kin Phone" name="phone" value="@if($dgender==1){{"Male"}}@else{{"Female"}}@endif" readonly  >
             </div>
 
             

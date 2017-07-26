@@ -80,7 +80,8 @@
                                     <?php $depid=$patient->persontreated; $dep=DB::table('dependant')->where('id',$depid)->first(); ?>
                                                           <td><a href="{{url('nurse.dependents',$dep->id)}}">{{$i}}</a></td>
                                                           <td><a href="{{url('nurse.dependents',$dep->id)}}">{{$dep->firstName}} {{$dep->secondName}}</a></td>
-                                                          <td>{{$dep->gender}}
+                                                          <td><?php $dgender=$dep->gender;?>
+                                                          @if($dgender==1){{"Male"}}@else{{"Female"}}@endif</a>
                                                           </td>
                                                          <td><?php
                                                          $ddob=$dep->dob;

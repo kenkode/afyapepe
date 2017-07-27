@@ -541,7 +541,7 @@ return redirect()->route('patientTests',$ptid);
          'ultrasound.name as tstname','ultrasound.technique','ultrasound.id as ultraid')
           ->where('radiology_test_details.id', '=',$id)
           ->first();
-       return view('test.ultrareport')->with('tsts1',$tsts1);
+       return view('test.ultrareport')->with('tsts1',$tsts1)->with('id',$id);
         }
 
 public function testupdate(Request $request){

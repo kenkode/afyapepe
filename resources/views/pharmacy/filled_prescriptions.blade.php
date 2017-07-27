@@ -50,8 +50,8 @@
                          $date  = date('Y-m-d',$date);
                        ?>
                           <tr>
-                            <td>{{$i}}</td>
-                            <td>{{$today->Manufacturer}}</td>
+                            <td><a href="{{URL('receipts.pharmacy',$today->id) }}" target="_blank">{{$i}}</a></td>
+                            <td><a href="{{URL('receipts.pharmacy',$today->id) }}" target="_blank">{{$today->Manufacturer}}</a></td>
                             <?php
                             if($today->available == 'Yes')
                             {
@@ -124,8 +124,8 @@
                            $date = date('Y-m-d',$date);
                          ?>
                             <tr>
-                              <td>{{$i}}</td>
-                              <td>{{$week->Manufacturer}}</td>
+                              <td><a href="{{URL('receipts.pharmacy',$week->id) }}" target="_blank">{{$i}}</a></td>
+                              <td><a href="{{URL('receipts.pharmacy',$week->id) }}" target="_blank">{{$week->Manufacturer}}</a></td>
                               <?php
                               if($week->available == 'Yes')
                               {
@@ -197,8 +197,8 @@
                            $date = date('Y-m-d',$date);
                          ?>
                             <tr>
-                              <td>{{$i}}</td>
-                              <td>{{$month->Manufacturer}}</td>
+                              <td><a href="{{URL('receipts.pharmacy',$month->id) }}" target="_blank">{{$i}}</a></td>
+                              <td><a href="{{URL('receipts.pharmacy',$month->id) }}" target="_blank">{{$month->Manufacturer}}</a></td>
                               <?php
                               if($month->available == 'Yes')
                               {
@@ -271,8 +271,8 @@
                            $date = date('Y-m-d',$date);
                          ?>
                             <tr>
-                              <td>{{$i}}</td>
-                              <td>{{$year->Manufacturer}}</td>
+                              <td><a href="{{URL('receipts.pharmacy',$year->id) }}" target="_blank">{{$i}}</a></td>
+                              <td><a href="{{URL('receipts.pharmacy',$year->id) }}" target="_blank">{{$year->Manufacturer}}</a></td>
                               <?php
                               if($year->available == 'Yes')
                               {
@@ -356,8 +356,8 @@
 
                        ?>
                            <tr>
-                               <td>{{$i}}</td>
-                               <td>{{$manufacturer}}</td>
+                               <td><a href="{{URL('receipts.pharmacy',$presc->id) }}" target="_blank">{{$i}}</a></td>
+                               <td><a href="{{URL('receipts.pharmacy',$presc->id) }}" target="_blank">{{$manufacturer}}</a></td>
                                <?php
                                if($presc->available == 'Yes')
                                {

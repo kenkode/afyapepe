@@ -12,7 +12,7 @@ use App\Druglist;
 use App\Inventory;
 use App\DrugSuppliers;
 use Response;
-
+use PDF;
 class PharmacyController extends Controller
 {
 
@@ -1220,5 +1220,28 @@ return Response::json($results);
     public function destroy($id)
     {
         //
+    }
+
+
+    public function receipts($id){
+
+     
+
+      $receipt=DB::table('prescription_details')->join('prescriptions','prescriptions.id','=','prescription_details.presc_id')->join('prescription_filled_status','prescription_filled_status.presc_details_id','=','prescription_details.id')->join('appointments','appointments.id','=','prescriptions.appointment_id')->join('afya_users','afya_users.id','=','appointments.afya_user_id')->join('pharmacy','pharmacy.id','=','prescription_filled_status.outlet_id')->select('afya_users.firstname as fname','afya_users.secondName as sname','afya_users.email as email','afya_users.msisdn as phone','prescription_details.drug_id','prescription_filled_status.quantity','prescription_filled_status.price','prescription_filled_status.total','prescription_filled_status.dose_given as dose','pharmacy.name as pname','pharmacy.county as pcounty','pharmacy.town as ptown','prescription_filled_status.created_at')->where('prescription_details.id',$id)->first();
+
+
+      $manufacturer=DB::table('druglists')->where('id',$receipt->drug_id)->first();
+
+         $dy=$receipt->created_at; $dys=date("d-M-Y", strtotime( $dy));
+    $last = $id;
+$last ++;
+
+$number = sprintf('%07d', $last);
+
+return view('receipts.pharmacy')->with('receipt',$receipt)->with('manufacturer',$manufacturer)->with('dys',$dys)->with('number',$number);
+
+ 
+
+       
     }
 }

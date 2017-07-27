@@ -245,6 +245,8 @@ Route::get('inventory', [ 'as' => 'inventory', 'uses' => 'PharmacyController@sho
 Route::post('inventory_update', ['as' => 'inventory_update', 'uses' => 'PharmacyController@updateInventory']);
 Route::get('update_inv/{id}', ['as' => 'update_inv', 'uses' => 'PharmacyController@getInventory2']);
 
+Route::get('receipts.pharmacy/{id}','PharmacyController@receipts');
+
 });
 
 

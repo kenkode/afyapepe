@@ -133,8 +133,8 @@ $i=1; $fh04=DB::table('patientNotes')
                @endforeach
                </select>
          </div>
-
   </div>
+
   <div class="col-lg-6">
     <div class="form-group"><label>Value</label>
     <input type="text" name="test_value" placeholder="Enter Value" class="form-control"></div>

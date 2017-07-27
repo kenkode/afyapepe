@@ -129,8 +129,7 @@ if ($gender == 1) { $gender = 'Male'; }else{ $gender = 'Female'; }
 																				</div>
 		                                </div>
 
-																		<div class="btn btn-primary"><a href="{{route('grapherxray',$tsts1->rtdid)}}">Radiologist</a></div>
-
+																		
 		                            </form>
 		                        </div>
 
@@ -148,23 +147,26 @@ if ($gender == 1) { $gender = 'Male'; }else{ $gender = 'Female'; }
                   </div>
 
 										@endif
+	 {!! Form::open(array('url' => 'fileUpload','files'=>true)) !!}
 
-	{!! Form::open(array('route' => 'fileUpload','enctype' => 'multipart/form-data')) !!}
+	
            <div class="row cancel white-bg">
 
 
 				
-            <div class="col-md-4">
-
-           {!! Form::file('image', array('class' => 'image')) !!}
-                    </div>
-						<input type="text" name="radiology_td_id" value="{{$tsts1->rtdid}}" class="form-control">
+            <div class="form-group">
+          <strong>Upload File:</strong>
+          <input type="file" name="image[]" multiple="multiple" class="form-control">
+          
+      </div>
+						<input type="hidden" name="radiology_td_id" value="{{$tsts1->rtdid}}" class="form-control">
+			</div>
 
               <div class="col-md-4">
            <button type="submit" class="btn btn-success">SUBMIT</button>
 				    </div>
-				</div>
-
+				
+<br><br>
 										{!! Form::close() !!}
 									</div>
 							</div>

@@ -493,7 +493,7 @@ return redirect()->route('patientTests',$ptid);
          'x-ray.name as tstname','x-ray.technique','x-ray.id as xrayid')
           ->where('radiology_test_details.id', '=',$id)
           ->first();
-       return view('test.xrayreport')->with('tsts1',$tsts1);
+       return view('test.xrayreport')->with('tsts1',$tsts1)->with('id',$id);
         }
         public function graphermri($id)
         {

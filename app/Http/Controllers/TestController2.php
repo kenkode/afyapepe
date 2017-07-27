@@ -9,6 +9,7 @@ use App\Patient;
 use App\Druglist;
 use App\Test;
 use App\TestDetails;
+use App\Document;
 use Carbon\Carbon;
 use Auth;
 class TestController2 extends Controller
@@ -22,8 +23,38 @@ class TestController2 extends Controller
     {
         $this->middleware('auth');
     }
+public function fileUpload(Request $request) {
+    $this->validate($request, [
+        'image' => 'required',
+        'radiology_td_id' => 'required',
+        
+    ]);
+    $id=$request->radiology_td_id;
 
-    public function fileUpload(Request $request)
+    $document = new Document($request->input()) ;
+
+     if($file = $request->hasFile('image')) {
+
+        $files = $request->file('image') ;
+        foreach ($files as $file) {           
+        
+
+        $fileName = $file->getClientOriginalName() ;
+        $destinationPath = public_path().'/images/' ;
+        $file->move($destinationPath,$fileName);
+
+        DB::table('radiology_images')->insert(['radiology_td_id'=>$id,
+            'image'=>$fileName,
+            'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
+        
+    }
+    }
+   
+return redirect()->action('TestController@grapherxray',['id'=> $id]);
+    
+  }
+    public function fileUploads(Request $request)
 {
 
         $this->validate($request, [
@@ -46,4 +77,3 @@ class TestController2 extends Controller
 
 
 
-}

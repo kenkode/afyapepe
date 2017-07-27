@@ -51,7 +51,7 @@ $age= $interval->format(" %Y Year, %M Months, %d Days Old");
 if ($gender == 1) { $gender = 'Male'; }else{ $gender = 'Female'; }
 
 ?>
-
+{{$id}}
 <div class="row wrapper border-bottom white-bg page-heading">
 <div class="content-page  equal-height">
 		<div class="content">
@@ -80,6 +80,9 @@ if ($gender == 1) { $gender = 'Male'; }else{ $gender = 'Female'; }
 			<div class="container">
 				<div class="col-lg-10">
 			<h3 class="text-center">{{$tsts1->category}} REPORT</h3>
+
+
+			
 
 				 </div>
        </div>
@@ -132,6 +135,20 @@ if ($gender == 1) { $gender = 'Male'; }else{ $gender = 'Female'; }
 																					 {{$tsts1->technique}}</textarea>
 																				</div>
 		                                </div>
+
+                      <div class="form-group">
+                      <label class="col-lg-3 control-label"><h2>Images</h2></label>
+
+		                                <?php $images=DB::table('radiology_images')->where('radiology_td_id',$id)->get(); ?>
+			<ol>
+			@foreach($images as $image)
+            
+            	<li><a href="{{ asset("images/$image->image") }} "target="_blank">View Image</a></li>
+            
+
+			@endforeach
+			</ol>
+			</div>
 																	<div class="form-group">
 																		<label class="col-lg-3 control-label"><h2>Findings</h2></label>
                                   </div>

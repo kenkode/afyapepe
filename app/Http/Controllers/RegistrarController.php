@@ -496,10 +496,9 @@ $last ++;
 
 $number = sprintf('%07d', $last);
 
-$pdf=PDF::loadview('receipts.consulationfees',['facility'=>$facility,'fee'=>$fee,'dys'=>$dys,'number'=>$number]);
+return view('receipts.consulationfees')->with('facility',$facility)->with('fee',$fee)->with('dys',$dys)->with('number',$number);
 
-  return $pdf->stream('consulationfees.pdf');
-  
+ 
 
 }
 }

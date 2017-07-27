@@ -141,7 +141,7 @@
  <label for="tag_list" class="">Department:</label>
  <select class="test-multiple" name="department"  style="width: 100%" required="">
  <option value=''>Choose one</option>
- <option value='Imaging'>Imaging</option>
+ <option value='Radiology'>Radiology</option>
  <option value='Laboratory'>Laboratory</option>
  <option value='Neurology'>Neurology</option>
  <option value='Gastrointestinal'>Gastrointestinal</option>

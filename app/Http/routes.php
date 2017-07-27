@@ -305,16 +305,29 @@ Route::group(['middleware' => ['auth','role:Admin|Test']], function() {
 	Route::get('testsales','TestController@testSales');
 	Route::get('testanalytics','TestController@testAnalytics');
 	Route::get('patientTests/{id}', [ 'as' => 'patientTests', 'uses' => 'TestController@testdetails']);
-
+	Route::get('radTests/{id}', [ 'as' => 'pradTests', 'uses' => 'TestController@radydetails']);
 	Route::get('action/{id}', [ 'as' => 'perftest', 'uses' => 'TestController@actions']);
+
+	Route::get('radiologyp/{id}', [ 'as' => 'perftestradio', 'uses' => 'TestController@actionxray']);
+	Route::get('radiomri/{id}', [ 'as' => 'perftestmri', 'uses' => 'TestController@actionmri']);
+	Route::get('radioultra/{id}', [ 'as' => 'perftestultra', 'uses' => 'TestController@actionultra']);
+	Route::get('radioct/{id}', [ 'as' => 'perftestct', 'uses' => 'TestController@actionct']);
+
 	Route::Post('pdetails', [ 'as' => 'testResult', 'uses' => 'TestController@testResult']);
 	Route::Post('pdetails3', [ 'as' => 'testResult3', 'uses' => 'TestController@testResult3']);
 	Route::Post('pdetails4', [ 'as' => 'testResult4', 'uses' => 'TestController@testResult4']);
 	Route::Post('pdetails5', [ 'as' => 'testResult5', 'uses' => 'TestController@testResult5']);
 	Route::Post('pdetailsctest', [ 'as' => 'ctest', 'uses' => 'TestController@ctest']);
 
- Route::Post('pdetails2', [ 'as' => 'testfilm', 'uses' => 'TestController@testreport']);
-	Route::Post('report', [ 'as' => 'testRupdt', 'uses' => 'TestController@testupdate']);
+Route::Post('pdetails2', [ 'as' => 'testfilm', 'uses' => 'TestController@testreport']);
+Route::Post('report', [ 'as' => 'testRupdt', 'uses' => 'TestController@testupdate']);
+Route::get('grapher/{id}', [ 'as' => 'grapherxray', 'uses' => 'TestController@grapherxray']);
+Route::get('graphermr/{id}', [ 'as' => 'graphermri', 'uses' => 'TestController@graphermri']);
+Route::get('grapherct/{id}', [ 'as' => 'grapherct', 'uses' => 'TestController@grapherct']);
+Route::get('grapherultra/{id}', [ 'as' => 'grapherultra', 'uses' => 'TestController@grapherultra']);
+Route::post('fileUpload', ['as'=>'fileUpload','uses'=>'TestController2@fileUpload']);
+
+
 
 
 

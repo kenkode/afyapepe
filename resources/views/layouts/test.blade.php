@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="{!! asset('css/plugins/dataTables/datatables.min.css') !!}" />
     <link rel="stylesheet" href="{!! asset('css/animate.css') !!}" />
     <link rel="stylesheet" href="{!! asset('css/style.css') !!}" />
-
+  
 </head>
 
 <body>
@@ -80,6 +80,8 @@
     <script src="{{ asset('js/plugins/toastr/toastr.min.js') }}" type="text/javascript"></script>
   <script src="{{ asset('js/custom.js') }}" type="text/javascript"></script>
     <!-- Page-Level Scripts -->
+
+
     <script>
     $(document).ready(function() {
   $('a[data-toggle=modal], button[data-toggle=modal]').click(function () {
@@ -122,6 +124,7 @@ if (typeof $(this).data('id') !== 'undefined') {
         });
 
     </script>
+
     <script>
     // show test updateResult
     $(document).ready(function(){

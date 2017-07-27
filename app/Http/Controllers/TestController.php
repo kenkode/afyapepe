@@ -31,35 +31,19 @@ class TestController extends Controller
     public function index()
     {
       $facid = DB::table('facility_test')->where('user_id', '=', Auth::user()->id)->first();
-
-      $tsts = DB::table('patient_test')
-      ->Join('appointments', 'patient_test.appointment_id', '=', 'appointments.id')
-      ->Join('afya_users', 'appointments.afya_user_id', '=', 'afya_users.id')
-      ->Join('afyamessages', 'afya_users.msisdn', '=', 'afyamessages.msisdn')
-      ->leftJoin('dependant', 'afya_users.id', '=', 'dependant.afya_user_id')
-      ->Join('facilities', 'patient_test.facility_from', '=', 'facilities.FacilityCode')
-      ->Join('doctors', 'patient_test.doc_id', '=', 'doctors.id')
-      ->select('afya_users.*','patient_test.id as tid','patient_test.created_at as date',
-      'patient_test.test_status','doctors.name as doc','facilities.FacilityName as fac',
-      'appointments.persontreated',
-      'dependant.firstName as depname','dependant.secondName as depname2',
-      'dependant.gender as depgender','dependant.dob as depdob')
-      ->where([  ['patient_test.test_status', '!=',1],
-                 ['afyamessages.test_center_code', '=',$facid->facilitycode],
-
-                           ])
-     ->whereNull('afyamessages.status')
-     ->get();
-    return view('test.home')->with('tsts',$tsts);
+      return view('test.home')->with('facid',$facid);
     }
+
+
 
 public function testdetails($id){
 
   $pdetails = DB::table('patient_test')
   ->leftJoin('appointments', 'patient_test.appointment_id', '=', 'appointments.id')
   ->leftJoin('patient_test_details', 'patient_test.id', '=', 'patient_test_details.patient_test_id')
-  ->leftJoin('doctors', 'patient_test.doc_id', '=', 'doctors.id')
-  ->select('appointments.*','doctors.name as docname','patient_test_details.appointment_id as appid',
+  ->Join('facilities', 'appointments.facility_id', '=', 'facilities.FacilityCode')
+ ->Join('doctors', 'appointments.doc_id', '=', 'doctors.id')
+ ->select('appointments.*','doctors.name as docname','patient_test_details.appointment_id as appid',
   'patient_test_details.id as ptd_id','patient_test.id as ptid')
   ->where('patient_test.id', '=',$id)
   ->first();
@@ -83,6 +67,32 @@ $tsts = DB::table('patient_test')
 return view('test.pdetails')->with('tsts',$tsts)->with('pdetails',$pdetails);
 }
 
+public function radydetails($id){
+$pdetails = DB::table('patient_test')
+  ->leftJoin('appointments', 'patient_test.appointment_id', '=', 'appointments.id')
+  ->Join('radiology_test_details', 'patient_test.appointment_id', '=', 'radiology_test_details.appointment_id')
+  ->Join('facilities', 'appointments.facility_id', '=', 'facilities.FacilityCode')
+ ->Join('doctors', 'appointments.doc_id', '=', 'doctors.id')
+ ->select('appointments.*','doctors.name as docname','radiology_test_details.appointment_id as appid',
+  'radiology_test_details.id as ptd_id','patient_test.id as ptid')
+  ->where('patient_test.id', '=',$id)
+  ->first();
+$tsts = DB::table('patient_test')
+    ->leftJoin('appointments', 'patient_test.appointment_id', '=', 'appointments.id')
+    ->Join('radiology_test_details', 'patient_test.appointment_id', '=', 'radiology_test_details.appointment_id')
+    ->leftJoin('test_categories', 'radiology_test_details.test_cat_id', '=', 'test_categories.id')
+    ->select('radiology_test_details.created_at as date','radiology_test_details.test',
+    'radiology_test_details.clinicalinfo','radiology_test_details.test_cat_id',
+    'radiology_test_details.id as patTdid','test_categories.name as tcname')
+
+    ->where([
+                  ['patient_test.id', '=',$id],
+                  ['radiology_test_details.done', '=',0],
+
+                 ])
+    ->get();
+return view('test.prdetails')->with('tsts',$tsts)->with('pdetails',$pdetails);
+}
     public function testSales(){
         return view('test.testsales');
 
@@ -402,6 +412,137 @@ return redirect()->route('patientTests',$ptid);
            return view('test.action')->with('tsts1',$tsts1);
         }
 
+        public function actionxray($id)
+        {
+
+          $tsts1 = DB::table('radiology_test_details')
+          ->Join('appointments', 'radiology_test_details.appointment_id', '=', 'appointments.id')
+         ->Join('patient_test', 'radiology_test_details.patient_test_id', '=', 'patient_test.id')
+         ->Join('doctors', 'appointments.doc_id', '=', 'doctors.id')
+          ->Join('facilities', 'appointments.facility_id', '=', 'facilities.FacilityCode')
+         ->Join('x-ray', 'radiology_test_details.test', '=', 'x-ray.id')
+         ->Join('test_categories', 'radiology_test_details.test_cat_id', '=', 'test_categories.id')
+         ->select('appointments.*','appointments.persontreated','test_categories.name as category',
+         'radiology_test_details.*','radiology_test_details.id as rtdid','doctors.name as docname',
+         'x-ray.name as tstname')
+          ->where('radiology_test_details.id', '=',$id)
+          ->first();
+       return view('test.actionxray')->with('tsts1',$tsts1);
+        }
+        public function actionmri($id)
+        {
+
+          $tsts1 = DB::table('radiology_test_details')
+          ->Join('appointments', 'radiology_test_details.appointment_id', '=', 'appointments.id')
+         ->Join('patient_test', 'radiology_test_details.patient_test_id', '=', 'patient_test.id')
+         ->Join('doctors', 'appointments.doc_id', '=', 'doctors.id')
+          ->Join('facilities', 'appointments.facility_id', '=', 'facilities.FacilityCode')
+         ->Join('mri_tests', 'radiology_test_details.test', '=', 'mri_tests.id')
+         ->Join('test_categories', 'radiology_test_details.test_cat_id', '=', 'test_categories.id')
+         ->select('appointments.*','appointments.persontreated','test_categories.name as category',
+         'radiology_test_details.*','radiology_test_details.id as rtdid','doctors.name as docname',
+         'mri_tests.name as tstname')
+          ->where('radiology_test_details.id', '=',$id)
+          ->first();
+       return view('test.actionmri')->with('tsts1',$tsts1);
+        }
+        public function actionultra($id)
+        {
+          $tsts1 = DB::table('radiology_test_details')
+          ->Join('appointments', 'radiology_test_details.appointment_id', '=', 'appointments.id')
+         ->Join('patient_test', 'radiology_test_details.patient_test_id', '=', 'patient_test.id')
+         ->Join('doctors', 'appointments.doc_id', '=', 'doctors.id')
+          ->Join('facilities', 'appointments.facility_id', '=', 'facilities.FacilityCode')
+         ->Join('ultrasound', 'radiology_test_details.test', '=', 'ultrasound.id')
+         ->Join('test_categories', 'radiology_test_details.test_cat_id', '=', 'test_categories.id')
+         ->select('appointments.*','appointments.persontreated','test_categories.name as category',
+         'radiology_test_details.*','radiology_test_details.id as rtdid','doctors.name as docname',
+         'ultrasound.name as tstname')
+          ->where('radiology_test_details.id', '=',$id)
+          ->first();
+       return view('test.actionultra')->with('tsts1',$tsts1);
+        }
+        public function actionct($id)
+        {
+
+          $tsts1 = DB::table('radiology_test_details')
+          ->Join('appointments', 'radiology_test_details.appointment_id', '=', 'appointments.id')
+         ->Join('patient_test', 'radiology_test_details.patient_test_id', '=', 'patient_test.id')
+         ->Join('doctors', 'appointments.doc_id', '=', 'doctors.id')
+          ->Join('facilities', 'appointments.facility_id', '=', 'facilities.FacilityCode')
+         ->Join('ct_scan', 'radiology_test_details.test', '=', 'ct_scan.id')
+         ->Join('test_categories', 'radiology_test_details.test_cat_id', '=', 'test_categories.id')
+         ->select('appointments.*','appointments.persontreated','test_categories.name as category',
+         'radiology_test_details.*','radiology_test_details.id as rtdid','doctors.name as docname',
+         'ct_scan.name as tstname')
+          ->where('radiology_test_details.id', '=',$id)
+          ->first();
+       return view('test.actionct')->with('tsts1',$tsts1);
+        }
+        public function grapherxray($id)
+        {
+ $tsts1 = DB::table('radiology_test_details')
+          ->Join('appointments', 'radiology_test_details.appointment_id', '=', 'appointments.id')
+         ->Join('patient_test', 'radiology_test_details.patient_test_id', '=', 'patient_test.id')
+         ->Join('doctors', 'appointments.doc_id', '=', 'doctors.id')
+          ->Join('facilities', 'appointments.facility_id', '=', 'facilities.FacilityCode')
+         ->Join('test_categories', 'radiology_test_details.test_cat_id', '=', 'test_categories.id')
+         ->Join('x-ray', 'radiology_test_details.test', '=', 'x-ray.id')
+      ->select('appointments.*','appointments.persontreated','test_categories.name as category',
+         'radiology_test_details.*','radiology_test_details.id as rtdid','doctors.name as docname',
+         'x-ray.name as tstname','x-ray.technique','x-ray.id as xrayid')
+          ->where('radiology_test_details.id', '=',$id)
+          ->first();
+       return view('test.xrayreport')->with('tsts1',$tsts1);
+        }
+        public function graphermri($id)
+        {
+ $tsts1 = DB::table('radiology_test_details')
+          ->Join('appointments', 'radiology_test_details.appointment_id', '=', 'appointments.id')
+         ->Join('patient_test', 'radiology_test_details.patient_test_id', '=', 'patient_test.id')
+         ->Join('doctors', 'appointments.doc_id', '=', 'doctors.id')
+          ->Join('facilities', 'appointments.facility_id', '=', 'facilities.FacilityCode')
+         ->Join('test_categories', 'radiology_test_details.test_cat_id', '=', 'test_categories.id')
+         ->Join('mri_tests', 'radiology_test_details.test', '=', 'mri_tests.id')
+      ->select('appointments.*','appointments.persontreated','test_categories.name as category',
+         'radiology_test_details.*','radiology_test_details.id as rtdid','doctors.name as docname',
+         'mri_tests.name as tstname','mri_tests.technique','mri_tests.id as mriid')
+          ->where('radiology_test_details.id', '=',$id)
+          ->first();
+       return view('test.mrireport')->with('tsts1',$tsts1);
+        }
+        public function grapherct($id)
+        {
+ $tsts1 = DB::table('radiology_test_details')
+          ->Join('appointments', 'radiology_test_details.appointment_id', '=', 'appointments.id')
+         ->Join('patient_test', 'radiology_test_details.patient_test_id', '=', 'patient_test.id')
+         ->Join('doctors', 'appointments.doc_id', '=', 'doctors.id')
+          ->Join('facilities', 'appointments.facility_id', '=', 'facilities.FacilityCode')
+         ->Join('test_categories', 'radiology_test_details.test_cat_id', '=', 'test_categories.id')
+         ->Join('ct_scan', 'radiology_test_details.test', '=', 'ct_scan.id')
+      ->select('appointments.*','appointments.persontreated','test_categories.name as category',
+         'radiology_test_details.*','radiology_test_details.id as rtdid','doctors.name as docname',
+         'ct_scan.name as tstname','ct_scan.technique','ct_scan.id as ctid')
+          ->where('radiology_test_details.id', '=',$id)
+          ->first();
+       return view('test.ctreport')->with('tsts1',$tsts1);
+        }
+        public function grapherultra($id)
+        {
+ $tsts1 = DB::table('radiology_test_details')
+          ->Join('appointments', 'radiology_test_details.appointment_id', '=', 'appointments.id')
+         ->Join('patient_test', 'radiology_test_details.patient_test_id', '=', 'patient_test.id')
+         ->Join('doctors', 'appointments.doc_id', '=', 'doctors.id')
+          ->Join('facilities', 'appointments.facility_id', '=', 'facilities.FacilityCode')
+         ->Join('test_categories', 'radiology_test_details.test_cat_id', '=', 'test_categories.id')
+         ->Join('ultrasound', 'radiology_test_details.test', '=', 'ultrasound.id')
+      ->select('appointments.*','appointments.persontreated','test_categories.name as category',
+         'radiology_test_details.*','radiology_test_details.id as rtdid','doctors.name as docname',
+         'ultrasound.name as tstname','ultrasound.technique','ultrasound.id as ultraid')
+          ->where('radiology_test_details.id', '=',$id)
+          ->first();
+       return view('test.ultrareport')->with('tsts1',$tsts1);
+        }
 
 public function testupdate(Request $request){
   $now = Carbon::now();

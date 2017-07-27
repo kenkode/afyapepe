@@ -29,7 +29,7 @@
           <li>
           <a href={{ URL::to('test')}}"><i class="glyphicon glyphicon-tasks"></i> <span class="nav-label">Today's Tests</span> <span class="fa arrow"></span></a>
           <ul class="nav nav-second-level">
-            <li><a href="{{ url('imaging') }}"><span>Imaging Tests</span></a></li>
+            <li><a href="{{ url('test') }}"><span>Radiology Tests</span></a></li>
             <li><a href="{{ url('test') }}"><span>Laboratory Tests</span></a></li>
             <li><a href="{{ url('neurology') }}"><span>Neurology Test</span></a></li>
             <li><a href="{{ url('gastrointestinal') }}"><span>Gastrointestinal Test</span></a></li>

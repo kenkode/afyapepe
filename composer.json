@@ -14,7 +14,8 @@
         "leyo/africastalkinglaravelgateway": "^1.0",
         "nesbot/carbon": "^1.22",
         "nicolaslopezj/searchable": "1.*",
-        "barryvdh/laravel-dompdf": "0.6.*"
+        "barryvdh/laravel-dompdf": "0.6.*",
+        "intervention/image": "^2.3"
 
     },
     "require-dev": {

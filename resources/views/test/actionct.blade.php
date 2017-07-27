@@ -129,12 +129,50 @@ if ($gender == 1) { $gender = 'Male'; }else{ $gender = 'Female'; }
 																				</div>
 		                                </div>
 
-																		<div class="btn btn-primary"><a href="{{route('grapherct',$tsts1->rtdid)}}">Radiologist</a></div>
-
-		                            </form>
+																		
+</form> </form>
 		                        </div>
-		                    </div>
-		                </div>
+
+<div class="row white-bg">
+							 <div class="col-md-6 col-md-offset-2">
+										@if (count($errors) > 0)
+<div class="alert alert-danger">
+     <strong>Whoops!</strong> There were some problems with your input.<br><br>
+<ul>
+
+													@foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                          @endforeach
+                      </ul>
+                  </div>
+
+										@endif
+	 {!! Form::open(array('url' => 'fileUploads','files'=>true)) !!}
+
+	
+           <div class="row cancel white-bg">
+
+
+				
+            <div class="form-group">
+          <strong>Upload File:</strong>
+          <input type="file" name="image[]" multiple="multiple" class="form-control">
+          
+      </div>
+						<input type="hidden" name="radiology_td_id" value="{{$tsts1->rtdid}}" class="form-control">
+			</div>
+
+              <div class="col-md-4">
+           <button type="submit" class="btn btn-success">SUBMIT</button>
+				    </div>
+				
+<br><br>
+										{!! Form::close() !!}
+									</div>
+							</div>
+				</div>
+		</div>
+
 
 
 

@@ -132,6 +132,20 @@ if ($gender == 1) { $gender = 'Male'; }else{ $gender = 'Female'; }
 																					 {{$tsts1->technique}}</textarea>
 																				</div>
 		                                </div>
+
+		                                 <div class="form-group">
+                      <label class="col-lg-3 control-label"><h2>Images</h2></label>
+
+		                                <?php $images=DB::table('radiology_images')->where('radiology_td_id',$id)->get(); ?>
+			<ol>
+			@foreach($images as $image)
+            
+            	<li><a href="{{ asset("images/$image->image") }} "target="_blank">View Image</a></li>
+            
+
+			@endforeach
+			</ol>
+			</div>
 																	<div class="form-group">
 																		<label class="col-lg-3 control-label"><h2>Findings</h2></label>
                                   </div>

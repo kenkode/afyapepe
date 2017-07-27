@@ -525,7 +525,7 @@ return redirect()->route('patientTests',$ptid);
          'ct_scan.name as tstname','ct_scan.technique','ct_scan.id as ctid')
           ->where('radiology_test_details.id', '=',$id)
           ->first();
-       return view('test.ctreport')->with('tsts1',$tsts1);
+       return view('test.ctreport')->with('tsts1',$tsts1)->with('id',$id);
         }
         public function grapherultra($id)
         {

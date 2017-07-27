@@ -86,6 +86,37 @@ return redirect()->action('TestController@grapherxray',['id'=> $id]);
 return redirect()->action('TestController@grapherct',['id'=> $id]);
     
   }
+  public function fileUploade(Request $request) {
+    $this->validate($request, [
+        'image' => 'required',
+        'radiology_td_id' => 'required',
+        
+    ]);
+    $id=$request->radiology_td_id;
+
+    $document = new Document($request->input()) ;
+
+     if($file = $request->hasFile('image')) {
+
+        $files = $request->file('image') ;
+        foreach ($files as $file) {           
+        
+
+        $fileName = $file->getClientOriginalName() ;
+        $destinationPath = public_path().'/images/' ;
+        $file->move($destinationPath,$fileName);
+
+        DB::table('radiology_images')->insert(['radiology_td_id'=>$id,
+            'image'=>$fileName,
+            'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
+        
+    }
+    }
+   
+return redirect()->action('TestController@graphermri',['id'=> $id]);
+    
+  }
     public function file_Uploads(Request $request)
 {
 

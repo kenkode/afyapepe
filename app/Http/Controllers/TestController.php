@@ -509,7 +509,7 @@ return redirect()->route('patientTests',$ptid);
          'mri_tests.name as tstname','mri_tests.technique','mri_tests.id as mriid')
           ->where('radiology_test_details.id', '=',$id)
           ->first();
-       return view('test.mrireport')->with('tsts1',$tsts1);
+       return view('test.mrireport')->with('tsts1',$tsts1)->with('id',$id);
         }
         public function grapherct($id)
         {

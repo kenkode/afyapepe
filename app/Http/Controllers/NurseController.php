@@ -1065,7 +1065,8 @@ $cry=$request->cry;
         $temperature=$request->temperature;
         $systolic=$request->systolic;
         $diastolic=$request->diastolic;
-        
+        $lmp=$request->lmp;
+        $pregnant=$request->pregnant;
         $chiefcompliant=$request->chiefcompliants;
         $observation=$request->observations;
         $symptoms=$request->symptoms;
@@ -1491,6 +1492,8 @@ $ids=DB::table('triage_infants')->insertGetId(
     'air_entry'=>$airentry,
     'crackles'=>$crackles,
     'cry'=>$cry,
+    'lmp'=>$lmp,
+    'pregnant'=>$pregnant,
     'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
    DB::table('appointments')->where('id',$appointment->id)->update([
     'status'=>2,

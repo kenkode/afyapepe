@@ -152,6 +152,40 @@ if ($gender == 1) { $gender = 'Male'; }else{ $gender = 'Female'; }
 																	<div class="form-group">
 																		<label class="col-lg-3 control-label"><h2>Findings</h2></label>
                                   </div>
+
+
+																	<?php     $rtdid = $tsts1->rtdid;
+																							$findings = DB::table('x-ray_findings')
+
+																								->whereNotExists(function($query)use($rtdid)
+																								{
+																										$query->select(DB::raw(1))
+																													->from('radiology_test_result')
+																													->where('radiology_td_id', '=',$rtdid);
+                                                       })
+																						->where('x-ray_findings.x-ray_id', '=',$tsts1->xrayid)
+																						->select('x-ray_findings.id','x-ray_findings.findings',
+																						 'x-ray_findings.results')
+																						->get();
+																							?>
+
+																								<div class="form-group">
+																										<label for="tag_list" class="">Test:</label>
+																												 <select class="test-multiple" name="testrangesId"  style="width: 100%">
+																								@foreach($findings as $fh1test)
+																			       <option value='{{$fh1test->id}}'>{{$fh1test->findings}}</option>
+																							 @endforeach
+																							 </select>
+																				 </div>
+																				 <div class="form-group">
+																							<label for="tag_list" class="">Test:</label>
+																									 <select class="test-multiple" name="testrangesId"  style="width: 100%">
+																					@foreach($findings as $fh1test)
+																			 <option value='{{$fh1test->id}}'>{{$fh1test->findings}}</option>
+																				 @endforeach
+																				 </select>
+																	 </div>
+
 																	<?php
 																	$findings = DB::table('x-ray_findings')
 																	->where('x-ray_id', '=',$tsts1->xrayid)

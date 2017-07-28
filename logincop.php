@@ -1,5 +1,5 @@
 <?php
-$con = mysqli_connect("localhost","root","afya2017","afyapepe") or die("connection error!");
+$con = mysqli_connect("localhost","root","","afyapepe") or die("connection error!");
 
 $email = $_POST["email"];
 $password = $_POST['password'];

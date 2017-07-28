@@ -326,6 +326,9 @@ Route::get('graphermr/{id}', [ 'as' => 'graphermri', 'uses' => 'TestController@g
 Route::get('grapherct/{id}', [ 'as' => 'grapherct', 'uses' => 'TestController@grapherct']);
 Route::get('grapherultra/{id}', [ 'as' => 'grapherultra', 'uses' => 'TestController@grapherultra']);
 Route::post('fileUpload', ['as'=>'fileUpload','uses'=>'TestController2@fileUpload']);
+Route::post('fileUploads','TestController2@fileUploads');
+Route::post('fileUploade','TestController2@fileUploade');
+Route::post('fileUploady','TestController2@fileUploady');
 
 
 

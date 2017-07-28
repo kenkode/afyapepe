@@ -82,9 +82,9 @@ $cat=DB::table('test_categories')->where('id', '=',$tstdn->test_cat_id) ->first(
                         <td>{{ +$i }}</td>
                        <td>{{$tstdn->created_at}}</td>
                        <td>{{$tstdn->clinicalinfo}} </td>
-                       <td>{{$test}}</td>
+                       <td>{{$test or ''}}</td>
                        <td>{{$tstdn->conclusion}}{{$tstdn->test}}</td>
-                       <td>{{$cat->name}}</td>
+                       <td>{{$cat->name or ''}}</td>
                  @if($tstdn->confirm =='N')
                          @if($tstdn->done =='1')
                         <td>

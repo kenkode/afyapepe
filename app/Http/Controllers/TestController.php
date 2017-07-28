@@ -493,7 +493,7 @@ return redirect()->route('patientTests',$ptid);
          'x-ray.name as tstname','x-ray.technique','x-ray.id as xrayid')
           ->where('radiology_test_details.id', '=',$id)
           ->first();
-       return view('test.xrayreport')->with('tsts1',$tsts1);
+       return view('test.xrayreport')->with('tsts1',$tsts1)->with('id',$id);
         }
         public function graphermri($id)
         {
@@ -509,7 +509,7 @@ return redirect()->route('patientTests',$ptid);
          'mri_tests.name as tstname','mri_tests.technique','mri_tests.id as mriid')
           ->where('radiology_test_details.id', '=',$id)
           ->first();
-       return view('test.mrireport')->with('tsts1',$tsts1);
+       return view('test.mrireport')->with('tsts1',$tsts1)->with('id',$id);
         }
         public function grapherct($id)
         {
@@ -525,7 +525,7 @@ return redirect()->route('patientTests',$ptid);
          'ct_scan.name as tstname','ct_scan.technique','ct_scan.id as ctid')
           ->where('radiology_test_details.id', '=',$id)
           ->first();
-       return view('test.ctreport')->with('tsts1',$tsts1);
+       return view('test.ctreport')->with('tsts1',$tsts1)->with('id',$id);
         }
         public function grapherultra($id)
         {
@@ -541,7 +541,7 @@ return redirect()->route('patientTests',$ptid);
          'ultrasound.name as tstname','ultrasound.technique','ultrasound.id as ultraid')
           ->where('radiology_test_details.id', '=',$id)
           ->first();
-       return view('test.ultrareport')->with('tsts1',$tsts1);
+       return view('test.ultrareport')->with('tsts1',$tsts1)->with('id',$id);
         }
 
 public function testupdate(Request $request){

@@ -25,6 +25,13 @@ Route::resource('users','UserController');
 });
 // Route::resource('test','TestController@index');
 
+//android routes
+
+Route::get('getallpatients', 'AndroidController@getAllPatients');
+Route::post('getpatients', 'AndroidController@getPatients');
+Route::get('getwaitinglist', 'AndroidController@getWaitingList');
+Route::post('showpatientdetails', 'AndroidController@showPatientDetails');
+Route::post('getcount', 'AndroidController@getCount');
 
 Route::group(['middleware' => ['auth','role:Admin']], function() {
 Route::get('roles',['as'=>'roles.index','uses'=>'RoleController@index']);

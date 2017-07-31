@@ -51,7 +51,7 @@ $age= $interval->format(" %Y Year, %M Months, %d Days Old");
 if ($gender == 1) { $gender = 'Male'; }else{ $gender = 'Female'; }
 
 ?>
-{{$id}}
+
 <div class="row wrapper border-bottom white-bg page-heading">
 <div class="content-page  equal-height">
 		<div class="content">
@@ -82,7 +82,7 @@ if ($gender == 1) { $gender = 'Male'; }else{ $gender = 'Female'; }
 			<h3 class="text-center">{{$tsts1->category}} REPORT</h3>
 
 
-			
+
 
 				 </div>
        </div>
@@ -129,219 +129,126 @@ if ($gender == 1) { $gender = 'Male'; }else{ $gender = 'Female'; }
 																					 {{$tsts1->clinicalinfo}}</textarea>
 																				</div>
 		                                </div>
-																		<div class="form-group"><label class="col-lg-2 control-label">Technique</label>
-                                         <div class="col-lg-8">
-																					  <textarea rows="4" name="comment" cols="50"  class="form-control">
-																					 {{$tsts1->technique}}</textarea>
-																				</div>
-		                                </div>
-
-                      <div class="form-group">
-                      <label class="col-lg-3 control-label"><h2>Images</h2></label>
-
-		                                <?php $images=DB::table('radiology_images')->where('radiology_td_id',$id)->get(); ?>
-			<ol>
-			@foreach($images as $image)
-            
-            	<li><a href="{{ asset("images/$image->image") }} "target="_blank">View Image</a></li>
-            
-
-			@endforeach
-			</ol>
-			</div>
-																	<div class="form-group">
-																		<label class="col-lg-3 control-label"><h2>Findings</h2></label>
-                                  </div>
-
-
-																	<?php     $rtdid = $tsts1->rtdid;
-																							$findings = DB::table('x-ray_findings')
-
-																								->whereNotExists(function($query)use($rtdid)
-																								{
-																										$query->select(DB::raw(1))
-																													->from('radiology_test_result')
-																													->where('radiology_td_id', '=',$rtdid);
-                                                       })
-																						->where('x-ray_findings.x-ray_id', '=',$tsts1->xrayid)
-																						->select('x-ray_findings.id','x-ray_findings.findings',
-																						 'x-ray_findings.results')
-																						->get();
-																							?>
-
-
-
-										             <div class="form-group">
- 																		<label class="col-lg-3 control-label"><h2>Impression</h2></label>
-                                  </div>
-																	 <div class="form-group"><label class="col-lg-2 control-label"></label>
-																	 		 <div class="col-lg-8"><input type="text" value=" Normal ({{$tsts1->target}}){{$tsts1->tstname}}" class="form-control" >
-																	 	 </div>
-																	 </div>
 
 		                            </form>
 		                        </div>
 		                    </div>
 		                </div>
+										<div class="col-lg-12">
+																			<div class="ibox float-e-margins">
+																					<div class="ibox-title">
+																							<h5>Images</h5>
+																					</div>
+																					<div class="ibox-content">
+																							<form role="form" class="form-inline">
+																								<?php $images=DB::table('radiology_images')->where('radiology_td_id',$id)->get(); ?>
+																				@foreach($images as $image)
+																				    <div class="form-group">
+																							<a href="{{ asset("images/$image->image") }} "target="_blank">View Image</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					                                  </div>
+																				@endforeach
+
+																							</form>
+																					</div>
+																			</div>
+																	</div>
 
 
+<?php     $rtdid = $tsts1->rtdid;
+
+	$findings = DB::table('xray_findings')
+->whereNotExists(function($query)use($rtdid)
+		{
+				$query->select(DB::raw(1))
+							->from('radiology_test_result')
+							->where('radiology_td_id', '=',$rtdid)
+							->whereRaw('xray_findings.id = radiology_test_result.findings_id');
+					 })
+->where('xray_findings.x-ray_id', '=',$tsts1->xrayid)
+->select('xray_findings.id','xray_findings.findings',
+ 'xray_findings.results')
+->get();
+	?>
 
 	<div class="col-lg-6">
 		<div class="ibox float-e-margins">
 				<div class="ibox-title">
 						<h5>FINDINGS</h5>
-						<div class="ibox-tools">
-								<a class="collapse-link">
-										<i class="fa fa-chevron-up"></i>
-								</a>
-								<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-										<i class="fa fa-wrench"></i>
-								</a>
-								<ul class="dropdown-menu dropdown-user">
-										<li><a href="#">Config option 1</a>
-										</li>
-										<li><a href="#">Config option 2</a>
-										</li>
-								</ul>
-								<a class="close-link">
-										<i class="fa fa-times"></i>
-								</a>
-						</div>
 				</div>
 				<div class="ibox-content">
 						<div class="row">
-								<div class="col-sm-6 b-r"><h3 class="m-t-none m-b">Sign in</h3>
-										<p>Sign in today for more expirience.</p>
-										<form role="form">
-												<div class="form-group"><label>Email</label> <input type="email" placeholder="Enter email" class="form-control"></div>
-												<div class="form-group"><label>Password</label> <input type="password" placeholder="Password" class="form-control"></div>
-												<div class="form-group"><label>Email</label> <input type="email" placeholder="Enter email" class="form-control"></div>
 
-												<div class="form-group">
-															<label class="col-lg-2 control-label">Test:</label>
-																<div class="col-lg-8"><select class="test-multiple" name="testrangesId"  style="width: 100%">
-																	@foreach($findings as $fh1test)
-															 <option value='{{$fh1test->id}}'>{{$fh1test->findings}}</option>
-																 @endforeach
-																 </select> </div>
-													 </div>
+										<!-- <p>Sign in today for more expirience.</p> -->
+								{{ Form::open(array('route' => array('xrayfindings'),'method'=>'POST')) }}
+												<div class="form-group"><label>Test</label><select class="test-multiple" name="findingsId"  style="width: 100%">
+													@foreach($findings as $fh1test)
+											 <option value='{{$fh1test->id}}'>{{$fh1test->findings}}</option>
+												 @endforeach
+												 </select>
+											 </div>
+												<div class="form-group"><label>Result</label><input type="text" name="result" class="form-control"></div>
+											<input type="hidden" name="radiology_td_id" value="{{$rtdid}}" class="form-control" ></div>
 
-												<div class="form-group"><label class="col-lg-2 control-label">Results</label>
-												<div class="col-lg-8"><input type="text" name="result" class="form-control" >
-												<div class="col-lg-8"><input type="text" name="radiology_td_id" value="{{$rtdid}}" class="form-control" >
+
+                           <div>
+														<button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>SUBMIT</strong></button>
 												</div>
-												</div>
-												</div>
+										{{ Form::close() }}
 
-
-
-												<div>
-														<button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>Log in</strong></button>
-														<label> <input type="checkbox" class="i-checks"> Remember me </label>
-												</div>
-										</form>
-								</div>
-								<div class="col-sm-6"><h4>Not a member?</h4>
-										<p>You can create an account:</p>
-										<p class="text-center">
-												<a href=""><i class="fa fa-sign-in big-icon"></i></a>
-										</p>
-								</div>
 						</div>
 				</div>
-		</div>
-</div>
+	</div>
+
 
 <div class="col-lg-6">
 		<div class="ibox float-e-margins">
 				<div class="ibox-title">
 						<h5>Findings Report</h5>
-						<div class="ibox-tools">
-								<a class="collapse-link">
-										<i class="fa fa-chevron-up"></i>
-								</a>
-								<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-										<i class="fa fa-wrench"></i>
-								</a>
-								<ul class="dropdown-menu dropdown-user">
-										<li><a href="#">Config option 1</a>
-										</li>
-										<li><a href="#">Config option 2</a>
-										</li>
-								</ul>
-								<a class="close-link">
-										<i class="fa fa-times"></i>
-								</a>
-						</div>
 				</div>
+				<?php
+			$freport = DB::table('xray_findings')
+			->leftJoin('radiology_test_result', 'xray_findings.id', '=', 'radiology_test_result.findings_id')
+        ->where('xray_findings.x-ray_id', '=',$tsts1->xrayid)
+				->select('radiology_test_result.results','xray_findings.findings')
+				->get();
+					?>
 				<div class="ibox-content">
 						<div class="row">
-								<div class="col-sm-6 b-r"><h3 class="m-t-none m-b">Sign in</h3>
-										<p>Sign in today for more expirience.</p>
+								<!-- <p>Sign in today for more expirience.</p> -->
 										<form role="form">
-												<div class="form-group"><label>Email</label> <input type="email" placeholder="Enter email" class="form-control"></div>
-												<div class="form-group"><label>Password</label> <input type="password" placeholder="Password" class="form-control"></div>
-												<div>
-														<button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>Log in</strong></button>
-														<label> <input type="checkbox" class="i-checks"> Remember me </label>
-												</div>
+											@foreach($freport as $frpt)
+
+												<div class="form-group"><label>{{$frpt->findings}} :</label>{{$frpt->results}}</div>
+                    @endforeach
 										</form>
 								</div>
-								<div class="col-sm-6"><h4>Not a member?</h4>
-										<p>You can create an account:</p>
-										<p class="text-center">
-												<a href=""><i class="fa fa-sign-in big-icon"></i></a>
-										</p>
-								</div>
-						</div>
 				</div>
 		</div>
 </div>
-<div class="col-lg-10">
+<div class="col-lg-8">
 		<div class="ibox float-e-margins">
 				<div class="ibox-title">
-						<h5>Basic form <small>Simple login form example</small></h5>
-						<div class="ibox-tools">
-								<a class="collapse-link">
-										<i class="fa fa-chevron-up"></i>
-								</a>
-								<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-										<i class="fa fa-wrench"></i>
-								</a>
-								<ul class="dropdown-menu dropdown-user">
-										<li><a href="#">Config option 1</a>
-										</li>
-										<li><a href="#">Config option 2</a>
-										</li>
-								</ul>
-								<a class="close-link">
-										<i class="fa fa-times"></i>
-								</a>
-						</div>
+						<h5>IMPRESSION</h5>
 				</div>
 				<div class="ibox-content">
 						<div class="row">
-								<div class="col-sm-6 b-r"><h3 class="m-t-none m-b">Sign in</h3>
-										<p>Sign in today for more expirience.</p>
-										<form role="form">
-												<div class="form-group"><label>Email</label> <input type="email" placeholder="Enter email" class="form-control"></div>
-												<div class="form-group"><label>Password</label> <input type="password" placeholder="Password" class="form-control"></div>
+
+										<!-- <p>Sign in today for more expirience.</p> -->
+											{{ Form::open(array('route' => array('xrayreports'),'method'=>'POST')) }}
+											<label>Technique</label><div class="form-group"><textarea rows="4" name="technique" cols="50" placeholder="How test was done">{{$tsts1->technique}}</textarea></div>
+											<label>Impression</label>	<div class="form-group"><textarea rows="4" name="impression" cols="50">Normal {{$tsts1->target}} {{$tsts1->tstname}}</textarea></div>
+											<input type="hidden" name="radiology_td_id" value="{{$rtdid}}" class="form-control" ></div>
+										<div class="form-group"><input type="hidden" name="user_id" value="{{Auth::user()->id}}"></div>
+
 												<div>
-														<button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>Log in</strong></button>
-														<label> <input type="checkbox" class="i-checks"> Remember me </label>
+														<button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>SUBMIT</strong></button>
 												</div>
-										</form>
-								</div>
-								<div class="col-sm-6"><h4>Not a member?</h4>
-										<p>You can create an account:</p>
-										<p class="text-center">
-												<a href=""><i class="fa fa-sign-in big-icon"></i></a>
-										</p>
-								</div>
+										{{ Form::close() }}
+
 						</div>
 				</div>
 		</div>
-</div>
+
 
 
 

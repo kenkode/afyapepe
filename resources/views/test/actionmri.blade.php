@@ -90,90 +90,61 @@ if ($gender == 1) { $gender = 'Male'; }else{ $gender = 'Female'; }
   <div class="content-page  equal-height">
 		<div class="content">
 
+			<div class="col-lg-7">
+		<div class="ibox float-e-margins">
+				<div class="ibox-title">
+						 <h5>{{$tsts1->category}} Test Request</h5>
+				</div>
+				<div class="ibox-content">
+						<div class="row">
+
+									<form role="form">
+												<div class="form-group"><label>Test</label> <input type="text" value="{{$tsts1->tstname}} -{{$tsts1->target}}" class="form-control" readonly=""></div>
+												<div class="form-group"><label>Clinical Information</label> <textarea rows="4" cols="60" readonly=""> {{$tsts1->clinicalinfo}}</textarea></div>
+
+                 </form>
 
 
-										<div class="col-lg-12">
-		                    <div class="ibox float-e-margins">
-		                        <div class="ibox-title">
-		                            <h5>{{$tsts1->category}} Test Request</h5>
-		                            <div class="ibox-tools">
-		                                <a class="collapse-link">
-		                                    <i class="fa fa-chevron-up"></i>
-		                                </a>
-		                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-		                                    <i class="fa fa-wrench"></i>
-		                                </a>
-		                                <ul class="dropdown-menu dropdown-user">
-		                                    <li><a href="#">Config option 1</a>
-		                                    </li>
-		                                    <li><a href="#">Config option 2</a>
-		                                    </li>
-		                                </ul>
-		                                <a class="close-link">
-		                                    <i class="fa fa-times"></i>
-		                                </a>
-		                            </div>
-		                        </div>
-
-		                        <div class="ibox-content">
-		                            <form class="form-horizontal">
-		                                <!-- <p>Sign in today for more expirience.</p> -->
-		                                <div class="form-group"><label class="col-lg-2 control-label">Test</label>
-                                         <div class="col-lg-8"><input type="text" value="{{$tsts1->tstname}} -{{$tsts1->target}}" class="form-control" readonly="">
-		                                    </div>
-		                                </div>
-																		<div class="form-group"><label class="col-lg-2 control-label">Clinical Information</label>
-                                         <div class="col-lg-8">
-																					  <textarea rows="4" name="comment" cols="50"  class="form-control" readonly="">
-																					 {{$tsts1->clinicalinfo}}</textarea>
-																				</div>
-		                                </div>
-
-																	
-</div>
-		                          </form>
-		                     
-
-<div class="row white-bg">
-							 <div class="col-md-6 col-md-offset-2">
-										@if (count($errors) > 0)
-<div class="alert alert-danger">
-     <strong>Whoops!</strong> There were some problems with your input.<br><br>
-<ul>
-
-													@foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                          @endforeach
-                      </ul>
-                  </div>
-
-										@endif
-	 {!! Form::open(array('url' => 'fileUploade','files'=>true)) !!}
-
-	
-           <div class="row cancel white-bg">
-
-
-				
-            <div class="form-group">
-          <strong>Upload File:</strong>
-          <input type="file" name="image[]" multiple="multiple" class="form-control">
-          
-      </div>
-						<input type="hidden" name="radiology_td_id" value="{{$tsts1->rtdid}}" class="form-control">
-			</div>
-
-              <div class="col-md-4">
-           <button type="submit" class="btn btn-success">SUBMIT</button>
-				    </div>
-				
-<br><br>
-										{!! Form::close() !!}
-									</div>
-							</div>
+						</div>
 				</div>
 		</div>
+</div>
 
+<div class="col-lg-5">
+		<div class="ibox float-e-margins">
+				<div class="ibox-title">
+						<h5>UPLOAD FILE:</h5>
+
+				</div>
+				<div class="ibox-content">
+						<div class="row">
+
+										<p>Please upload only images with relevant Information.</p>
+										@if (count($errors) > 0)
+										<div class="alert alert-danger">
+										     <strong>Whoops!</strong> There were some problems with your input.<br><br>
+										<ul>
+										@foreach ($errors->all() as $error)
+										        <li>{{ $error }}</li>
+										      @endforeach
+										  </ul>
+										</div>
+										@endif
+										{!! Form::open(array('url' => 'fileUploade','files'=>true)) !!}
+												<div class="form-group"><label>Choose file:</label><input type="file" name="image[]" multiple="multiple" class="form-control"></div>
+												<div class="form-group"><input type="hidden" name="radiology_td_id" value="{{$tsts1->rtdid}}"></div>
+                        <div class="form-group"><input type="hidden" name="patient_test_id" value="{{$tsts1->ptId}}"></div>
+												<div class="form-group"><input type="hidden" name="user_id" value="{{Auth::user()->id}}"></div>
+
+												<div>
+														<button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>SUBMIT</strong></button>
+
+												</div>
+										{!! Form::close() !!}
+						</div>
+				</div>
+		</div>
+</div>
 
 
 

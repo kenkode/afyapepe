@@ -22,7 +22,7 @@
              <div class="form-group">
                 <label for="tag_list" class="">X-RAY TESTS:</label>
                 <select class="test-multiple" name="xray[]" multiple="multiple" style="width: 100%">
-                <?php $xray=DB::table('x-ray')->get(); ?>
+                <?php $xray=DB::table('xray')->get(); ?>
                 @foreach($xray as $xy)
                 <option value='{{$xy->id}}'>{{$xy->name}}</option>
                 @endforeach

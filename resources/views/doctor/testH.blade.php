@@ -43,7 +43,8 @@ if ($dependantId =='Self') {
 }
 ?>
 <div class="table-responsive ibox-content">
-                       <table class="table table-striped table-bordered table-hover dataTables-conditional" >
+  <h5>RADIOLOGY TESTS</h5>
+<table class="table table-striped table-bordered table-hover dataTables-conditional" >
                          <thead>
                       <tr>
                        <th></th>
@@ -66,15 +67,19 @@ if ($dependantId =='Self') {
 if ($tstdn->test_cat_id== '9') {
   $ct=DB::table('ct_scan')->where('id', '=',$tstdn->test) ->first();
   $test = $ct->name;
+  $report  = 'ctreport';
 } elseif ($tstdn->test_cat_id== 10) {
-  $xray=DB::table('x-ray')->where('id', '=',$tstdn->test) ->first();
+  $xray=DB::table('xray')->where('id', '=',$tstdn->test) ->first();
   $test = $xray->name;
+    $report  = 'xrayreport';
 } elseif ($tstdn->test_cat_id== 11) {
   $mri=DB::table('mri_tests')->where('id', '=',$tstdn->test) ->first();
   $test = $mri->name;
+  $report  = 'mrireport';
 }elseif ($tstdn->test_cat_id== 12) {
   $ultra=DB::table('ultrasound')->where('id', '=',$tstdn->test) ->first();
   $test = $ultra->name;
+  $report  = 'ultrareport';
 }
 $cat=DB::table('test_categories')->where('id', '=',$tstdn->test_cat_id) ->first();
 ?>
@@ -83,23 +88,25 @@ $cat=DB::table('test_categories')->where('id', '=',$tstdn->test_cat_id) ->first(
                        <td>{{$tstdn->created_at}}</td>
                        <td>{{$tstdn->clinicalinfo}} </td>
                        <td>{{$test or ''}}</td>
-                       <td>{{$tstdn->conclusion}}{{$tstdn->test}}</td>
+                       <td>{{$tstdn->conclusion}}</td>
                        <td>{{$cat->name or ''}}</td>
                  @if($tstdn->confirm =='N')
-                         @if($tstdn->done =='1')
-                        <td>
-                           {{ Form::open(array('route' => array('diaconf'),'method'=>'POST')) }}
-                             {{ Form::hidden('appointment_id',$app_id, array('class' => 'form-control')) }}
-                             {{ Form::hidden('pat_details_id',$ptdid, array('class' => 'form-control')) }}
-                             <button class="btn btn-sm btn-primary  m-t-n-xs" type="submit"><strong>Confirm Diagnosis</strong></button>
-                            {{ Form::close() }}
-                        </td>
-                         @else
+                         @if($tstdn->done =='0')
                          <td>
                            {{ Form::open(['method' => 'DELETE','route' => ['Rady.deletes', $tstdn->id],'style'=>'display:inline']) }}
                             {{ Form::submit('Delete', ['class' => 'btn btn-danger']) }}
                             {{ Form::close() }}
                         </td>
+
+                         @else
+                         <td>
+
+                            {{ Form::open(array('route' => array($report),'method'=>'POST')) }}
+                              {{ Form::hidden('appointment_id',$app_id, array('class' => 'form-control')) }}
+                              {{ Form::hidden('rtd_id',$tstdn->id, array('class' => 'form-control')) }}
+                              <button class="btn btn-sm btn-primary  m-t-n-xs" type="submit"><strong>Confirm Diagnosis</strong></button>
+                             {{ Form::close() }}
+                         </td>
                           @endif
                     @else
                     <td> Confirmed</td>
@@ -112,12 +119,16 @@ $cat=DB::table('test_categories')->where('id', '=',$tstdn->test_cat_id) ->first(
           </div>
    </div>
 </div>
+
+
+
 <!--lab test-->
 <div id="tab-11" class="tab-pane active">
   <div class="panel-body">
 
   <?php $i =1; ?>
         <div class="table-responsive ibox-content">
+          <h5>LABORATORY TESTS</h5>
          <table class="table table-striped table-bordered table-hover dataTables-conditional" >
            <thead>
         <tr>

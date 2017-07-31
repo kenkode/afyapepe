@@ -173,6 +173,13 @@ Route::get('diagnosis/{id}', [ 'as' => 'diagnoses', 'uses' => 'PatientTestContro
 Route::Post('diagnosisconfirm', [ 'as' => 'diaconf', 'uses' => 'PatientTestController@diagnosesconf']);
 Route::Post('diagconfirm', [ 'as' => 'Testconfirms', 'uses' => 'PatientTestController@Testconfirm']);
 
+Route::Post('ctReport', [ 'as' => 'ctreport', 'uses' => 'PatientTestController2@ctreports']);
+Route::Post('mriReport', [ 'as' => 'mrireport', 'uses' => 'PatientTestController2@mrireports']);
+Route::Post('ultraReport', [ 'as' => 'ultrareport', 'uses' => 'PatientTestController2@ultrareports']);
+Route::Post('xrayReport', [ 'as' => 'xrayreport', 'uses' => 'PatientTestController2@xrayreports']);
+
+
+
 Route::Post('diagnosis', [ 'as' => 'confdiag', 'uses' => 'PrescriptionController@diagnoses']);
 Route::get('prescriptions/{id}', [ 'as' => 'medicines', 'uses' => 'PrescriptionController@prescriptions']);
 Route::get('history/{id}', [ 'as' => 'patienthistory', 'uses' => 'PatientController@history']);
@@ -326,8 +333,20 @@ Route::group(['middleware' => ['auth','role:Admin|Test']], function() {
 	Route::Post('pdetails5', [ 'as' => 'testResult5', 'uses' => 'TestController@testResult5']);
 	Route::Post('pdetailsctest', [ 'as' => 'ctest', 'uses' => 'TestController@ctest']);
 
+	Route::Post('xrayreport', [ 'as' => 'xrayfindings', 'uses' => 'TestController2@xrayfindings']);
+	Route::Post('ctreport', [ 'as' => 'ctfindings', 'uses' => 'TestController2@ctfindings']);
+	Route::Post('mrireport', [ 'as' => 'mrifindings', 'uses' => 'TestController2@mrifindings']);
+	Route::Post('ultrareport', [ 'as' => 'ultrafindings', 'uses' => 'TestController2@ultrafindings']);
+
+	Route::Post('xrayreport2', [ 'as' => 'xrayreports', 'uses' => 'TestController2@xrayreports']);
+	Route::Post('ctreport2', [ 'as' => 'ctreports', 'uses' => 'TestController2@ctreports']);
+	Route::Post('mrireport2', [ 'as' => 'mrireports', 'uses' => 'TestController2@mrireports']);
+	Route::Post('ultrareport2', [ 'as' => 'ultrareports', 'uses' => 'TestController2@ultrareports']);
+
+
 Route::Post('pdetails2', [ 'as' => 'testfilm', 'uses' => 'TestController@testreport']);
 Route::Post('report', [ 'as' => 'testRupdt', 'uses' => 'TestController@testupdate']);
+
 Route::get('grapher/{id}', [ 'as' => 'grapherxray', 'uses' => 'TestController@grapherxray']);
 Route::get('graphermr/{id}', [ 'as' => 'graphermri', 'uses' => 'TestController@graphermri']);
 Route::get('grapherct/{id}', [ 'as' => 'grapherct', 'uses' => 'TestController@grapherct']);

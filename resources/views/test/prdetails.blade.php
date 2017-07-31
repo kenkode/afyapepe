@@ -84,10 +84,7 @@ $age= $interval->format(" %Y Year, %M Months, %d Days Old");
 														<div class="ibox-title">
                             <h5>Tests Requested</h5>
 																<div class="ibox-tools">
-                                    <a class="collapse-link">
-																			<button type="button" id="tshow" class="btn btn-primary btn-sm">Add Test</button>
-                                     </a>
-																		<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                  <a class="dropdown-toggle" data-toggle="dropdown" href="#">
 																				<i class="fa fa-wrench"></i>
 																		</a>
 																		<ul class="dropdown-menu dropdown-user">
@@ -124,19 +121,23 @@ $age= $interval->format(" %Y Year, %M Months, %d Days Old");
 																								if ($tst->test_cat_id== '9') {
 																								  $ct=DB::table('ct_scan')->where('id', '=',$tst->test) ->first();
 																								  $test = $ct->name;
+																									$report ='grapherct';
 																									$type ='perftestct';
 
 																								} elseif ($tst->test_cat_id== 10) {
 																								  $xray=DB::table('x-ray')->where('id', '=',$tst->test) ->first();
 																								  $test = $xray->name;
+																									$report ='grapherxray';
 																									$type ='perftestradio';
 																								} elseif ($tst->test_cat_id== 11) {
 																								  $mri=DB::table('mri_tests')->where('id', '=',$tst->test) ->first();
 																								  $test = $mri->name;
+																									$report ='graphermri';
 																									$type ='perftestmri';
 																								}elseif ($tst->test_cat_id== 12) {
 																								  $ultra=DB::table('ultrasound')->where('id', '=',$tst->test) ->first();
 																								  $test = $ultra->name;
+																									$report ='grapherultra';
 																									$type ='perftestultra';
 																								}
 
@@ -147,9 +148,11 @@ $age= $interval->format(" %Y Year, %M Months, %d Days Old");
 																									<td>{{$tst->clinicalinfo}}</td>
 																									<td>{{$tst->tcname}}</td>
 																									<td>{{$tst->date}}</td>
-
+                                                  @if($tst->done ==0)
 																								<td class="btn btn-primary"><a href="{{route($type,$tst->patTdid)}}">Perform Test</a></td>
-
+                                                  @else
+																									<td class="btn btn-primary"><a href="{{route($report,$tst->patTdid)}}">Report</a></td>
+                                                   @endif
                                                  </tr>
 																								<?php $i++; ?>
 																									@endforeach

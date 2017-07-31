@@ -24,20 +24,23 @@ class TestController2 extends Controller
         $this->middleware('auth');
     }
 public function fileUpload(Request $request) {
+  $now = Carbon::now();
     $this->validate($request, [
         'image' => 'required',
         'radiology_td_id' => 'required',
-        
+
     ]);
+    $ptid=$request->patient_test_id;
     $id=$request->radiology_td_id;
+    $user_id=$request->user_id;
 
     $document = new Document($request->input()) ;
 
      if($file = $request->hasFile('image')) {
 
         $files = $request->file('image') ;
-        foreach ($files as $file) {           
-        
+        foreach ($files as $file) {
+
 
         $fileName = $file->getClientOriginalName() ;
         $destinationPath = public_path().'/images/' ;
@@ -45,31 +48,40 @@ public function fileUpload(Request $request) {
 
         DB::table('radiology_images')->insert(['radiology_td_id'=>$id,
             'image'=>$fileName,
+            'user_id'=>$user_id,
             'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
-    'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
-        
+             'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
+
     }
     }
-   
-return redirect()->action('TestController@grapherxray',['id'=> $id]);
-    
+    DB::table('radiology_test_details')
+                     ->where('id',$id)
+                     ->update(['done'  =>1,
+                      'updated_at'  => $now,
+                    ]);
+
+
+return redirect()->action('TestController@radydetails', ['id' => $ptid]);
   }
 
   public function fileUploads(Request $request) {
+    $now = Carbon::now();
     $this->validate($request, [
         'image' => 'required',
         'radiology_td_id' => 'required',
-        
+
     ]);
+    $ptid=$request->patient_test_id;
     $id=$request->radiology_td_id;
+    $user_id=$request->user_id;
 
     $document = new Document($request->input()) ;
 
      if($file = $request->hasFile('image')) {
 
         $files = $request->file('image') ;
-        foreach ($files as $file) {           
-        
+        foreach ($files as $file) {
+
 
         $fileName = $file->getClientOriginalName() ;
         $destinationPath = public_path().'/images/' ;
@@ -77,30 +89,39 @@ return redirect()->action('TestController@grapherxray',['id'=> $id]);
 
         DB::table('radiology_images')->insert(['radiology_td_id'=>$id,
             'image'=>$fileName,
+            'user_id'=>$user_id,
             'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
     'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
-        
+
     }
     }
-   
-return redirect()->action('TestController@grapherct',['id'=> $id]);
-    
+    DB::table('radiology_test_details')
+                     ->where('id',$id)
+                     ->update(['done'  =>1,
+                      'updated_at'  => $now,
+                    ]);
+
+return redirect()->action('TestController@radydetails', ['id' => $ptid]);
+
   }
   public function fileUploade(Request $request) {
+    $now = Carbon::now();
     $this->validate($request, [
         'image' => 'required',
         'radiology_td_id' => 'required',
-        
+
     ]);
+    $ptid=$request->patient_test_id;
     $id=$request->radiology_td_id;
+    $user_id=$request->user_id;
 
     $document = new Document($request->input()) ;
 
      if($file = $request->hasFile('image')) {
 
         $files = $request->file('image') ;
-        foreach ($files as $file) {           
-        
+        foreach ($files as $file) {
+
 
         $fileName = $file->getClientOriginalName() ;
         $destinationPath = public_path().'/images/' ;
@@ -108,31 +129,39 @@ return redirect()->action('TestController@grapherct',['id'=> $id]);
 
         DB::table('radiology_images')->insert(['radiology_td_id'=>$id,
             'image'=>$fileName,
+            'user_id'=>$user_id,
             'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
     'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
-        
+
     }
     }
-   
-return redirect()->action('TestController@graphermri',['id'=> $id]);
-    
+    DB::table('radiology_test_details')
+                     ->where('id',$id)
+                     ->update(['done'  =>1,
+                      'updated_at'  => $now,
+                    ]);
+return redirect()->action('TestController@radydetails', ['id' => $ptid]);
+
   }
 
    public function fileUploady(Request $request) {
+     $now = Carbon::now();
     $this->validate($request, [
         'image' => 'required',
         'radiology_td_id' => 'required',
-        
+
     ]);
+    $ptid=$request->patient_test_id;
     $id=$request->radiology_td_id;
+    $user_id=$request->user_id;
 
     $document = new Document($request->input()) ;
 
      if($file = $request->hasFile('image')) {
 
         $files = $request->file('image') ;
-        foreach ($files as $file) {           
-        
+        foreach ($files as $file) {
+
 
         $fileName = $file->getClientOriginalName() ;
         $destinationPath = public_path().'/images/' ;
@@ -140,35 +169,157 @@ return redirect()->action('TestController@graphermri',['id'=> $id]);
 
         DB::table('radiology_images')->insert(['radiology_td_id'=>$id,
             'image'=>$fileName,
+            'user_id'=>$user_id,
             'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
     'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
-        
+
     }
     }
-   
-return redirect()->action('TestController@grapherultra',['id'=> $id]);
-    
+    DB::table('radiology_test_details')
+                     ->where('id',$id)
+                     ->update(['done'  =>1,
+                      'updated_at'  => $now,
+                    ]);
+return redirect()->action('TestController@radydetails', ['id' => $ptid]);
+
   }
-    public function file_Uploads(Request $request)
+
+
+
+
+    public function xrayfindings(Request $request)
+    {
+    $now = Carbon::now();
+
+      $findingsId =$request->findingsId;
+      $r_td_id =$request->radiology_td_id;
+      $result =$request->result;
+$findingsRslt = DB::table('radiology_test_result')->insert([
+           'radiology_td_id' => $r_td_id,
+           'findings_id' => $findingsId,
+           'results' => $result,
+           'created_at' => $now,
+                   ]);
+return redirect()->action('TestController@grapherxray', ['id' => $r_td_id]);
+}
+public function mrifindings(Request $request)
 {
+$now = Carbon::now();
 
-        $this->validate($request, [
-   'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-     ]);
+  $findingsId =$request->findingsId;
+  $r_td_id =$request->radiology_td_id;
+  $result =$request->result;
+$findingsRslt = DB::table('radiology_test_result')->insert([
+       'radiology_td_id' => $r_td_id,
+       'findings_id' => $findingsId,
+       'results' => $result,
+       'created_at' => $now,
+               ]);
+return redirect()->action('TestController@graphermri', ['id' => $r_td_id]);
+}
+public function ultrafindings(Request $request)
+{
+$now = Carbon::now();
 
+  $findingsId =$request->findingsId;
+  $r_td_id =$request->radiology_td_id;
+  $result =$request->result;
+$findingsRslt = DB::table('radiology_test_result')->insert([
+       'radiology_td_id' => $r_td_id,
+       'findings_id' => $findingsId,
+       'results' => $result,
+       'created_at' => $now,
+               ]);
+return redirect()->action('TestController@grapherultra', ['id' => $r_td_id]);
+}
+public function ctfindings(Request $request)
+{
+$now = Carbon::now();
 
-        $image = $request->file('image');
-        $input['imagename'] = time().'.'.$image->getClientOriginalExtension();
-        $destinationPath = public_path('/images');
-        $image->move($destinationPath, $input['imagename']);
-        $this->postImage->add($input);
+  $findingsId =$request->findingsId;
+  $r_td_id =$request->radiology_td_id;
+  $result =$request->result;
+$findingsRslt = DB::table('radiology_test_result')->insert([
+       'radiology_td_id' => $r_td_id,
+       'findings_id' => $findingsId,
+       'results' => $result,
+       'created_at' => $now,
+               ]);
+return redirect()->action('TestController@grapherct', ['id' => $r_td_id]);
+}
 
+public function xrayreports(Request $request)
+{
+$now = Carbon::now();
+$user_id =$request->user_id;
+  $technique =$request->technique;
+  $r_td_id =$request->radiology_td_id;
+  $impression =$request->impression;
+DB::table('radiology_test_details')
+                 ->where('id',$r_td_id)
+                 ->update(['done'  =>2,
+                  'technique'  => $technique,
+                  'conclusion'  => $impression,
+                   'updated_at'  => $now,
+                ]);
+return redirect()->action('TestController@index');
+}
+public function mrireports(Request $request)
+{
+$now = Carbon::now();
 
-        return back()->with('success','Image Upload successful');
-    }
-
-
+$user_id =$request->user_id;
+  $technique =$request->technique;
+  $r_td_id =$request->radiology_td_id;
+  $impression =$request->impression;
+DB::table('radiology_test_details')
+                 ->where('id',$r_td_id)
+                 ->update(['done'  =>2,
+                  'technique'  => $technique,
+                  'conclusion'  => $impression,
+                   'updated_at'  => $now,
+                ]);
+return redirect()->action('TestController@index');
+}
+public function ctreports(Request $request)
+{
+$now = Carbon::now();
+$user_id =$request->user_id;
+  $technique =$request->technique;
+  $r_td_id =$request->radiology_td_id;
+  $impression =$request->impression;
+DB::table('radiology_test_details')
+                 ->where('id',$r_td_id)
+                 ->update(['done'  =>2,
+                  'technique'  => $technique,
+                  'conclusion'  => $impression,
+                   'updated_at'  => $now,
+                ]);
+return redirect()->action('TestController@index');
+}
+public function ultrareports(Request $request)
+{
+$now = Carbon::now();
+  $user_id =$request->user_id;
+  $technique =$request->technique;
+  $r_td_id =$request->radiology_td_id;
+  $impression =$request->impression;
+DB::table('radiology_test_details')
+                 ->where('id',$r_td_id)
+                 ->update(['done'  =>2,
+                  'technique'  => $technique,
+                  'conclusion'  => $impression,
+                   'updated_at'  => $now,
+                   'updated_at'  => $now,
+                   $user_id
+                ]);
+return redirect()->action('TestController@index');
 }
 
 
 
+
+
+
+
+}

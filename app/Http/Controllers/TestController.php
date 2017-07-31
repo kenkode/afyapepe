@@ -82,12 +82,12 @@ $tsts = DB::table('patient_test')
     ->Join('radiology_test_details', 'patient_test.appointment_id', '=', 'radiology_test_details.appointment_id')
     ->leftJoin('test_categories', 'radiology_test_details.test_cat_id', '=', 'test_categories.id')
     ->select('radiology_test_details.created_at as date','radiology_test_details.test',
-    'radiology_test_details.clinicalinfo','radiology_test_details.test_cat_id',
+    'radiology_test_details.clinicalinfo','radiology_test_details.test_cat_id','radiology_test_details.done',
     'radiology_test_details.id as patTdid','test_categories.name as tcname')
 
     ->where([
                   ['patient_test.id', '=',$id],
-                  ['radiology_test_details.done', '=',0],
+                  ['radiology_test_details.done', '!=',2],
 
                  ])
     ->get();
@@ -424,7 +424,7 @@ return redirect()->route('patientTests',$ptid);
          ->Join('test_categories', 'radiology_test_details.test_cat_id', '=', 'test_categories.id')
          ->select('appointments.*','appointments.persontreated','test_categories.name as category',
          'radiology_test_details.*','radiology_test_details.id as rtdid','doctors.name as docname',
-         'x-ray.name as tstname')
+         'x-ray.name as tstname','patient_test.id as ptId')
           ->where('radiology_test_details.id', '=',$id)
           ->first();
        return view('test.actionxray')->with('tsts1',$tsts1);
@@ -441,7 +441,7 @@ return redirect()->route('patientTests',$ptid);
          ->Join('test_categories', 'radiology_test_details.test_cat_id', '=', 'test_categories.id')
          ->select('appointments.*','appointments.persontreated','test_categories.name as category',
          'radiology_test_details.*','radiology_test_details.id as rtdid','doctors.name as docname',
-         'mri_tests.name as tstname')
+         'mri_tests.name as tstname','patient_test.id as ptId')
           ->where('radiology_test_details.id', '=',$id)
           ->first();
        return view('test.actionmri')->with('tsts1',$tsts1);
@@ -457,7 +457,7 @@ return redirect()->route('patientTests',$ptid);
          ->Join('test_categories', 'radiology_test_details.test_cat_id', '=', 'test_categories.id')
          ->select('appointments.*','appointments.persontreated','test_categories.name as category',
          'radiology_test_details.*','radiology_test_details.id as rtdid','doctors.name as docname',
-         'ultrasound.name as tstname')
+         'ultrasound.name as tstname','patient_test.id as ptId')
           ->where('radiology_test_details.id', '=',$id)
           ->first();
        return view('test.actionultra')->with('tsts1',$tsts1);
@@ -474,14 +474,14 @@ return redirect()->route('patientTests',$ptid);
          ->Join('test_categories', 'radiology_test_details.test_cat_id', '=', 'test_categories.id')
          ->select('appointments.*','appointments.persontreated','test_categories.name as category',
          'radiology_test_details.*','radiology_test_details.id as rtdid','doctors.name as docname',
-         'ct_scan.name as tstname')
+         'ct_scan.name as tstname','patient_test.id as ptId')
           ->where('radiology_test_details.id', '=',$id)
           ->first();
        return view('test.actionct')->with('tsts1',$tsts1);
         }
         public function grapherxray($id)
         {
- $tsts1 = DB::table('radiology_test_details')
+          $tsts1 = DB::table('radiology_test_details')
           ->Join('appointments', 'radiology_test_details.appointment_id', '=', 'appointments.id')
          ->Join('patient_test', 'radiology_test_details.patient_test_id', '=', 'patient_test.id')
          ->Join('doctors', 'appointments.doc_id', '=', 'doctors.id')

@@ -14,7 +14,7 @@ $tsts = DB::table('patient_test')
 'dependant.gender as depgender','dependant.dob as depdob')
 ->where([  ['patient_test.test_status', '!=',1],
 					 ['afyamessages.test_center_code', '=',$facid->facilitycode],
-					 ['radiology_test_details.done', '=',0],
+					 ['radiology_test_details.done', '!=',2],
 ])
 ->whereNull('afyamessages.status')
 ->groupBy('appointments.id')
